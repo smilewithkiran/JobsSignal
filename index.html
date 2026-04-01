@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobsSignal.in — India's Real-Time Job Signal Finder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#07090f; --night2:#0d1117; --night3:#131a24;
+  --em:#00c896; --em2:#00e8aa; --em-pale:rgba(0,200,150,.08);
+  --gold:#f0a84c; --gold2:#ffc46b; --gold-pale:rgba(240,168,76,.09);
+  --coral:#ff6b6b; --blue:#3b82f6; --purple:#8b5cf6;
+  --white:#fff; --off:#f7f9fc; --ink:#0d1117;
+  --soft:#5a6a7e; --muted:#8896a7; --border:#e4eaf0;
+  --bn:rgba(255,255,255,.07);
+  --shadow:0 4px 24px rgba(7,9,15,.08);
+  --shadow-md:0 8px 40px rgba(7,9,15,.12);
+  --shadow-lg:0 20px 64px rgba(7,9,15,.2);
+  --shadow-em:0 8px 32px rgba(0,200,150,.22);
+  --shadow-gold:0 8px 32px rgba(240,168,76,.25);
+  --r:16px; --r2:12px; --r3:8px; --r4:24px;
+  --grad:linear-gradient(135deg,var(--em),var(--gold));
+  --grad-admin:linear-gradient(135deg,#f0a84c,#ff6b6b);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--em);border-radius:20px;}
+
+/* VIEWS */
+.view{display:none;}
+.view.active{display:block;}
+#signupView.active,#loginView.active,#adminLoginView.active,#changePassView.active,#adminChangePassView.active{display:flex;}
+
+/* ===================== LOGO B ===================== */
+.logo-bolt{width:38px;height:38px;flex-shrink:0;}
+
+/* ===================== NAV ===================== */
+.main-nav{position:fixed;top:0;width:100%;z-index:500;padding:13px 52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+.main-nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bn);}
+.logo-wrap{display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer;}
+.logo-text{display:flex;flex-direction:column;}
+.logo-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;letter-spacing:-.5px;line-height:1;}
+.logo-name .sig{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-tag{font-size:9px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:1.8px;text-transform:uppercase;margin-top:2px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;cursor:pointer;}
+.nav-links a:hover{color:var(--em);}
+.nav-right{display:flex;gap:9px;align-items:center;}
+.india-tag{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--gold);background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);padding:4px 11px;border-radius:20px;}
+.btn-nav-login{padding:9px 20px;border-radius:var(--r3);border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-nav-login:hover{border-color:var(--em);color:var(--em);}
+.btn-nav-cta{padding:10px 22px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-nav-cta:hover{background:var(--em2);transform:translateY(-1px);box-shadow:var(--shadow-em);}
+
+/* ===================== HERO ===================== */
+.hero{min-height:100vh;background:var(--night);position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:center;padding:120px 52px 80px;}
+.mb{position:absolute;border-radius:50%;filter:blur(100px);animation:mf 8s ease-in-out infinite;}
+.mb1{width:500px;height:500px;background:rgba(0,200,150,.12);top:-100px;right:0;}
+.mb2{width:380px;height:380px;background:rgba(240,168,76,.08);bottom:-80px;left:80px;animation-delay:3s;}
+.mb3{width:280px;height:280px;background:rgba(59,130,246,.07);top:40%;left:25%;animation-delay:1.5s;}
+@keyframes mf{0%,100%{transform:translate(0,0)}33%{transform:translate(24px,-16px)}66%{transform:translate(-16px,24px)}}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
+.hero-left{position:relative;z-index:1;}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(0,200,150,.2);padding:5px 13px;border-radius:20px;margin-bottom:24px;animation:fu .7s ease both;}
+.hp-dot{width:6px;height:6px;border-radius:50%;background:var(--em);animation:blink 2s infinite;}
+.hp-txt{font-size:11px;font-weight:600;color:rgba(255,255,255,.55);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.wordmark{margin-bottom:12px;animation:fu .7s .1s ease both;}
+.wm-row{display:flex;align-items:baseline;line-height:.95;}
+.wm-jobs{font-family:'Syne',sans-serif;font-size:78px;font-weight:800;color:white;letter-spacing:-4px;}
+.wm-signal{font-family:'Instrument Serif',serif;font-size:78px;font-weight:400;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;}
+.wm-sub{font-size:12px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
+.hero-quote{font-family:'Instrument Serif',serif;font-size:21px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.45;animation:fu .7s .2s ease both;}
+.hero-quote strong{font-style:normal;color:rgba(255,255,255,.85);font-weight:400;}
+.hero-h{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1.04;letter-spacing:-1.5px;color:white;margin-bottom:16px;animation:fu .7s .25s ease both;}
+.hero-h .go{color:var(--gold);}
+.hero-p{font-size:15px;line-height:1.8;color:rgba(255,255,255,.5);max-width:540px;margin-bottom:32px;animation:fu .7s .3s ease both;}
+.hero-p strong{color:rgba(255,255,255,.85);font-weight:600;}
+.hero-bar{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);padding:6px;display:flex;align-items:center;margin-bottom:10px;backdrop-filter:blur(12px);animation:fu .7s .35s ease both;}
+.hero-bar:focus-within{border-color:rgba(0,200,150,.4);}
+.hb-in{flex:1;background:transparent;border:none;outline:none;font-size:14px;color:white;font-family:'Plus Jakarta Sans',sans-serif;padding:8px 14px;}
+.hb-in::placeholder{color:rgba(255,255,255,.28);}
+.hb-sep{width:1px;height:28px;background:rgba(255,255,255,.1);flex-shrink:0;}
+.hb-city{background:transparent;border:none;outline:none;font-size:13px;color:rgba(255,255,255,.5);font-family:'Plus Jakarta Sans',sans-serif;padding:8px 14px;cursor:pointer;}
+.hb-city option{background:var(--night2);color:white;}
+.hb-btn{padding:11px 26px;border-radius:var(--r2);background:var(--em);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.hb-btn:hover{background:var(--em2);box-shadow:var(--shadow-em);}
+.li-note{font-size:11px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:6px;margin-bottom:5px;animation:fu .7s .4s ease both;}
+.li-already{font-size:12px;color:rgba(255,255,255,.3);animation:fu .7s .42s ease both;margin-bottom:22px;}
+.li-already a{color:rgba(0,200,150,.7);text-decoration:none;cursor:pointer;font-weight:600;}
+.li-already a:hover{color:var(--em);}
+.hero-trust{display:flex;align-items:center;gap:22px;animation:fu .7s .45s ease both;}
+.ht-item .hn{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--em);line-height:1;}
+.ht-item .hl{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+.ht-sep{width:1px;height:34px;background:rgba(255,255,255,.07);}
+.hero-feed{position:relative;z-index:1;animation:fu .7s .4s ease both;}
+.feed-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.feed-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--em);}
+.lp-dot{width:5px;height:5px;border-radius:50%;background:var(--em);animation:blink 1.5s infinite;}
+.fc{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:var(--r2);padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;}
+.fc:hover{border-color:rgba(0,200,150,.25);background:rgba(0,200,150,.04);}
+.fc.fl{border-left:2px solid var(--em);}
+.fc.fh{border-left:2px solid var(--gold);}
+.fc-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.fc-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:white;flex-shrink:0;}
+.fa1{background:linear-gradient(135deg,#667eea,#764ba2);} .fa2{background:linear-gradient(135deg,#f093fb,#f5576c);} .fa3{background:linear-gradient(135deg,#00c896,#3b82f6);} .fa4{background:linear-gradient(135deg,#f59e0b,#ef4444);} .fa5{background:linear-gradient(135deg,#059669,#0ea5e9);}
+.fc-nm{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);}
+.fc-co{font-size:9px;color:rgba(255,255,255,.3);}
+.fc-when{margin-left:auto;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.fw-now{background:rgba(0,200,150,.12);color:var(--em);}
+.fw-hrs{background:rgba(240,168,76,.1);color:var(--gold);}
+.fc-txt{font-size:11px;color:rgba(255,255,255,.4);font-style:italic;line-height:1.5;}
+
+/* ===================== SHARED ===================== */
+.off-bg{background:var(--off);}
+.dark-bg{background:var(--night);}
+.wrap{padding:88px 52px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--em);margin-bottom:14px;}
+.eyebrow::before,.eyebrow::after{content:'';height:1.5px;width:18px;background:var(--em);}
+.sh{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;line-height:1.08;letter-spacing:-.8px;}
+.sh em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--em);}
+.sp{font-size:15px;color:var(--soft);line-height:1.75;}
+
+/* HOW */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:860px;margin:48px auto 0;position:relative;}
+.steps-grid::before{content:'';position:absolute;top:42px;left:calc(16.66%+14px);right:calc(16.66%+14px);height:1px;background:linear-gradient(90deg,var(--em),var(--gold));opacity:.2;}
+.step{background:white;border-radius:var(--r);padding:32px 24px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);transition:all .3s;}
+.step:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);}
+.step-n{width:44px;height:44px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:17px;font-weight:800;}
+.sn1{background:rgba(0,200,150,.1);color:var(--em);border:2px solid rgba(0,200,150,.2);}
+.sn2{background:rgba(240,168,76,.1);color:var(--gold);border:2px solid rgba(240,168,76,.2);}
+.sn3{background:rgba(59,130,246,.1);color:var(--blue);border:2px solid rgba(59,130,246,.2);}
+.step-icon{font-size:24px;margin-bottom:11px;}
+.step-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--soft);line-height:1.7;}
+
+/* MODES */
+.modes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
+.mode-card{border:1.5px solid var(--border);border-radius:var(--r);padding:26px 20px;transition:all .3s;background:white;position:relative;overflow:hidden;}
+.mode-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.mode-card:hover{border-color:var(--em);transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.mode-card:hover::after{transform:scaleX(1);}
+.mc-icon{font-size:26px;margin-bottom:12px;}
+.mc-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:7px;color:var(--ink);}
+.mc-desc{font-size:12px;color:var(--soft);line-height:1.65;}
+.mc-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:10px;}
+.mcb-em{background:rgba(0,200,150,.1);color:var(--em);}
+.mcb-go{background:rgba(240,168,76,.1);color:var(--gold);}
+.mcb-co{background:rgba(255,107,107,.1);color:var(--coral);}
+.mcb-bl{background:rgba(59,130,246,.1);color:var(--blue);}
+
+/* INDIA */
+.india-sec{background:var(--night);padding:72px 52px;position:relative;overflow:hidden;}
+.india-sec::after{content:'🇮🇳';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-size:300px;opacity:.03;pointer-events:none;line-height:1;}
+.cities-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px;}
+.city-c{padding:7px 16px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:500;color:rgba(255,255,255,.55);transition:all .2s;cursor:default;}
+.city-c:hover{background:rgba(0,200,150,.1);border-color:rgba(0,200,150,.2);color:white;}
+
+/* PROOF */
+.proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:840px;margin:0 auto;}
+.proof-n{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:white;line-height:1;}
+.proof-n span{color:var(--em);}
+.proof-l{font-size:12px;color:rgba(255,255,255,.3);margin-top:5px;line-height:1.5;}
+
+/* PRICING */
+.pricing-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:44px auto 0;}
+.pc{border:1.5px solid var(--border);border-radius:var(--r);padding:28px 22px;position:relative;background:white;transition:all .3s;}
+.pc.feat{background:var(--night);border-color:var(--night);transform:scale(1.04);}
+.pc:not(.feat):hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--em);}
+.feat-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--grad);color:var(--night);font-size:10px;font-weight:800;padding:3px 14px;border-radius:20px;white-space:nowrap;}
+.pc-duration{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--em);}
+.pc-plan{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:12px;}
+.feat .pc-plan{color:rgba(255,255,255,.3);}
+.pc-price{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:1;color:var(--ink);}
+.feat .pc-price{color:white;}
+.pc-price small{font-size:14px;font-weight:400;color:var(--muted);}
+.feat .pc-price small{color:rgba(255,255,255,.3);}
+.pc-per{font-size:11px;color:var(--muted);margin-top:2px;}
+.feat .pc-per{color:rgba(255,255,255,.3);}
+.pc-div{height:1px;background:var(--border);margin:16px 0;}
+.feat .pc-div{background:rgba(255,255,255,.08);}
+.pc-all{font-size:12px;font-weight:600;color:var(--em);margin-bottom:10px;}
+.pc-feats{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.pc-feats li{font-size:11px;color:var(--soft);display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+.feat .pc-feats li{color:rgba(255,255,255,.6);}
+.pc-feats li::before{content:'✓';color:var(--em);font-weight:800;font-size:10px;flex-shrink:0;margin-top:2px;}
+.pc-btn{width:100%;padding:12px;border-radius:var(--r3);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:18px;transition:all .2s;}
+.pcb-em{background:var(--em);color:var(--night);}  .pcb-em:hover{background:var(--em2);}
+.pcb-out{background:transparent;color:var(--ink);border:1.5px solid var(--border);}  .pcb-out:hover{border-color:var(--em);color:var(--em);}
+.pcb-ghost{background:rgba(255,255,255,.07);color:white;border:1px solid rgba(255,255,255,.1);}  .pcb-ghost:hover{background:rgba(255,255,255,.12);}
+.free-note{text-align:center;margin-top:20px;padding:14px;background:rgba(0,200,150,.06);border:1px solid rgba(0,200,150,.15);border-radius:var(--r2);max-width:600px;margin-left:auto;margin-right:auto;}
+.free-note strong{color:var(--em);}
+
+/* CTA */
+.cta-sec{background:var(--night);padding:96px 52px;text-align:center;position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,200,150,.1) 0%,transparent 60%);border-radius:50%;pointer-events:none;}
+.cta-wm{font-family:'Syne',sans-serif;font-size:88px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:16px;position:relative;z-index:1;}
+.cta-wm .j{color:white;}
+.cta-wm .s{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-tag{font-family:'Instrument Serif',serif;font-size:20px;font-style:italic;color:rgba(255,255,255,.4);margin-bottom:36px;position:relative;z-index:1;}
+.cta-btns{display:flex;gap:12px;justify-content:center;position:relative;z-index:1;}
+.btn-cta-em{padding:15px 40px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-cta-em:hover{background:var(--em2);transform:translateY(-2px);box-shadow:var(--shadow-em);}
+.btn-cta-g{padding:15px 26px;border-radius:var(--r3);background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,.12);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-cta-g:hover{border-color:var(--em);color:white;}
+
+/* FOOTER */
+footer{background:var(--night2);padding:32px 52px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--bn);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);margin-top:3px;}
+.footer-links{display:flex;gap:22px;list-style:none;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s;cursor:pointer;}
+.footer-links a:hover{color:var(--em);}
+
+/* =============================================
+   PROFESSIONAL AUTH PAGES
+   ============================================= */
+
+/* Shared auth layout */
+.auth-page{min-height:100vh;display:flex;align-items:stretch;}
+.auth-left{width:480px;flex-shrink:0;padding:52px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.auth-right{flex:1;display:flex;align-items:center;justify-content:center;padding:52px;background:var(--off);}
+.auth-card{width:100%;max-width:420px;}
+
+/* Auth left — job seeker theme */
+.auth-left-user{background:var(--night);}
+.auth-left-user::before{content:'';position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,200,150,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+.auth-left-user::after{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(240,168,76,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+
+/* Auth left — admin theme */
+.auth-left-admin{background:linear-gradient(145deg,#0a0a12,#12080a);}
+.auth-left-admin::before{content:'';position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(240,168,76,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+
+.al-logo-row{margin-bottom:44px;position:relative;z-index:1;}
+.al-brand{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;display:flex;align-items:center;gap:10px;}
+.al-brand .sig{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.al-brand-tag{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
+
+.al-headline{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:white;line-height:1.1;letter-spacing:-.5px;margin-bottom:12px;position:relative;z-index:1;}
+.al-headline em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--em);}
+.al-headline-admin em{color:var(--gold);}
+.al-sub{font-family:'Instrument Serif',serif;font-size:17px;font-style:italic;color:rgba(255,255,255,.38);line-height:1.65;margin-bottom:36px;position:relative;z-index:1;}
+
+.al-features{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;margin-top:auto;}
+.al-feat{display:flex;align-items:flex-start;gap:12px;}
+.alf-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.alf-icon-em{background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.2);}
+.alf-icon-gold{background:rgba(240,168,76,.12);border:1px solid rgba(240,168,76,.2);}
+.alf-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:2px;}
+.alf-desc{font-size:11px;color:rgba(255,255,255,.3);line-height:1.55;}
+
+/* AUTH FORM CARD */
+.ac-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:20px;letter-spacing:.5px;}
+.ac-tag-user{background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);color:var(--em);}
+.ac-tag-admin{background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);color:var(--gold);}
+.ac-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--ink);margin-bottom:5px;}
+.ac-sub{font-size:13px;color:var(--soft);margin-bottom:28px;line-height:1.6;}
+.ac-sub a{color:var(--em);text-decoration:none;cursor:pointer;font-weight:600;}
+
+.india-chip{display:flex;align-items:center;gap:7px;background:rgba(240,168,76,.06);border:1px solid rgba(240,168,76,.18);padding:9px 13px;border-radius:var(--r3);margin-bottom:18px;font-size:12px;color:var(--soft);}
+.india-chip strong{color:var(--gold);}
+
+.form-group{margin-bottom:16px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.form-label{font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;display:block;}
+.form-input,.form-select{width:100%;padding:12px 14px;border-radius:var(--r3);border:1.5px solid var(--border);background:var(--off);font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .2s;}
+.form-input:focus,.form-select:focus{border-color:var(--em);background:white;box-shadow:0 0 0 3px rgba(0,200,150,.08);}
+.form-input::placeholder{color:var(--muted);}
+.form-select option{background:white;color:var(--ink);}
+.input-with-icon{position:relative;}
+.input-with-icon .form-input{padding-right:44px;}
+.iw-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:14px;color:var(--muted);}
+
+/* Pills */
+.pill-row{display:flex;gap:7px;flex-wrap:wrap;}
+.pill-btn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:12px;font-weight:600;color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.pill-btn:hover{border-color:var(--em);color:var(--em);}
+.pill-btn.sel{border-color:var(--em);background:var(--em-pale);color:var(--em);}
+
+/* PROGRESS BAR */
+.progress-bar{display:flex;align-items:center;margin-bottom:28px;}
+.pb-step{display:flex;align-items:center;gap:8px;flex:1;}
+.pb-circle{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:'Syne',sans-serif;transition:all .3s;flex-shrink:0;}
+.pb-circle.done{background:var(--em);color:white;}
+.pb-circle.active{background:white;color:var(--em);border:2.5px solid var(--em);box-shadow:0 0 0 3px rgba(0,200,150,.12);}
+.pb-circle.todo{background:var(--off);color:var(--muted);border:2px solid var(--border);}
+.pb-label{font-size:11px;font-weight:600;color:var(--muted);}
+.pb-label.active{color:var(--em);font-weight:700;}
+.pb-label.done{color:var(--soft);}
+.pb-line{height:2px;flex:1;background:var(--border);margin:0 8px;border-radius:2px;}
+.pb-line.done{background:var(--em);}
+
+.step-form{display:none;}
+.step-form.active{display:block;}
+
+/* UPLOAD ZONE */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:32px 24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--off);margin-bottom:14px;position:relative;}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--em);background:var(--em-pale);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.uz-icon{font-size:32px;margin-bottom:10px;}
+.uz-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.uz-sub{font-size:12px;color:var(--soft);line-height:1.5;}
+.uz-types{display:flex;gap:6px;justify-content:center;margin-top:8px;}
+.uz-type{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);}
+.up-track{height:5px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:7px;}
+.up-fill{height:100%;background:var(--grad);border-radius:20px;width:0;transition:width .3s;}
+.up-lbl{font-size:11px;color:var(--soft);}
+.skills-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.skill-chip{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;background:var(--em-pale);border:1px solid rgba(0,200,150,.2);font-size:12px;font-weight:600;color:var(--em);}
+.skill-chip .sc-x{font-size:10px;color:rgba(0,200,150,.5);}
+
+/* Strength card */
+.strength-card{background:var(--off);border:1.5px solid var(--border);border-radius:var(--r2);padding:16px;margin-top:14px;}
+.sc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sc-title{font-size:13px;font-weight:700;color:var(--ink);}
+.sc-score-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;}
+.sc-score-val.good{color:var(--em);}
+.sc-score-val.avg{color:var(--gold);}
+.sc-items{display:flex;flex-direction:column;gap:5px;margin-top:8px;}
+.sc-item{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--soft);}
+.sc-item.ok .sc-item-text{color:var(--em);}
+.sc-item.warn .sc-item-text{color:var(--gold);}
+.sc-item.bad .sc-item-text{color:var(--coral);}
+
+/* Broadcast toggle */
+.broadcast-card{background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);border-radius:var(--r2);padding:16px;margin-top:6px;}
+.bc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:7px;}
+.bc-title{font-size:13px;font-weight:700;color:var(--ink);}
+.bc-desc{font-size:11px;color:var(--soft);line-height:1.55;}
+.toggle-switch{position:relative;width:42px;height:24px;flex-shrink:0;}
+.toggle-switch input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:24px;cursor:pointer;transition:.3s;}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s;box-shadow:var(--shadow);}
+.toggle-switch input:checked+.toggle-slider{background:var(--em);}
+.toggle-switch input:checked+.toggle-slider::before{transform:translateX(18px);}
+.bc-privacy{font-size:11px;color:var(--soft);display:flex;align-items:center;gap:5px;}
+
+/* Buttons */
+.btn-primary{width:100%;padding:13px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:14px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;}
+.btn-primary:hover{background:var(--em2);box-shadow:var(--shadow-em);}
+.btn-admin-primary{background:var(--gold);color:var(--night);}
+.btn-admin-primary:hover{background:var(--gold2);box-shadow:var(--shadow-gold);}
+.btn-secondary{width:100%;padding:12px;border-radius:var(--r3);background:transparent;color:var(--soft);font-size:13px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;margin-top:8px;}
+.btn-secondary:hover{border-color:var(--em);color:var(--em);}
+.btn-back-link{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:10px;width:100%;text-align:center;transition:color .2s;display:block;}
+.btn-back-link:hover{color:var(--soft);}
+.form-legal{text-align:center;font-size:10px;color:var(--muted);margin-top:12px;line-height:1.6;}
+.form-legal a{color:var(--em);text-decoration:none;}
+.forgot-link{font-size:12px;color:var(--em);cursor:pointer;text-align:right;display:block;margin-top:-10px;margin-bottom:14px;text-decoration:none;}
+.forgot-link:hover{text-decoration:underline;}
+
+/* =============================================
+   DASHBOARD — PROFESSIONAL REDESIGN
+   ============================================= */
+#dashView{background:#f1f5f9;min-height:100vh;}
+
+/* Dash Top Nav */
+.dash-nav{position:fixed;top:0;width:100%;z-index:500;background:var(--night);border-bottom:1px solid rgba(255,255,255,.06);box-shadow:0 2px 20px rgba(7,9,15,.3);}
+.dash-nav-inner{padding:0 44px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.dash-nav .logo-name{color:white;}
+.dash-user-info{display:flex;align-items:center;gap:12px;}
+.d-av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--night);}
+.d-user-details .d-name{font-size:13px;font-weight:700;color:white;}
+.d-user-details .d-plan{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);}
+.dash-nav-actions{display:flex;align-items:center;gap:8px;}
+
+/* Search counter badge */
+.sc-badge{display:flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .2s;}
+.sc-badge:hover{border-color:var(--em);}
+.sc-badge-txt{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);}
+.sc-badge-num{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;}
+.sc-num-green{color:var(--em);}
+.sc-num-amber{color:var(--gold);}
+.sc-num-red{color:var(--coral);}
+
+.btn-dash-action{padding:7px 16px;border-radius:var(--r3);font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.6);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-dash-action:hover{border-color:var(--em);color:var(--em);}
+.btn-dash-logout{color:rgba(255,107,107,.7);border-color:rgba(255,107,107,.2);}
+.btn-dash-logout:hover{border-color:var(--coral);color:var(--coral);}
+
+.dash-page{padding:76px 40px 52px;}
+
+/* WELCOME */
+.dash-welcome{background:white;border-radius:var(--r);padding:24px 32px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);border:1px solid var(--border);}
+.dw-left{}
+.dw-greeting{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ink);}
+.dw-sub{font-size:12px;color:var(--soft);margin-top:3px;}
+.dw-stats{display:flex;gap:24px;}
+.dws{text-align:center;padding:0 16px;border-left:1px solid var(--border);}
+.dws:first-child{border-left:none;}
+.dws-n{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--em);}
+.dws-l{font-size:10px;color:var(--muted);margin-top:1px;}
+
+/* LI TIP */
+.li-tip-bar{background:linear-gradient(135deg,rgba(0,200,150,.06),rgba(59,130,246,.04));border:1px solid rgba(0,200,150,.15);border-radius:var(--r2);padding:14px 18px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow);}
+.li-tip-bar.hidden{display:none;}
+.lit-dismiss{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:2px;margin-left:auto;}
+
+/* DASH LAYOUT */
+.dash-layout{display:grid;grid-template-columns:1fr 290px;gap:18px;align-items:start;}
+
+/* SEARCH CARD */
+.dash-card{background:white;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+.dc-head{padding:16px 22px;border-bottom:1px solid var(--border);background:white;}
+.dc-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--ink);}
+.dc-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.dc-modes{display:flex;gap:5px;padding:12px 22px;background:#f8fafc;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.dc-mode{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:white;color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.dc-mode:hover{border-color:var(--em);color:var(--em);}
+.dc-mode.active{background:var(--em);color:var(--night);border-color:var(--em);}
+.dc-body{padding:18px 22px;}
+.ss{display:none;} .ss.active{display:block;}
+.sr-row{display:flex;gap:9px;align-items:flex-end;flex-wrap:wrap;}
+.sg{flex:1;min-width:130px;}
+.sg-lbl{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px;display:block;}
+.sg-in,.sg-sel{width:100%;padding:9px 13px;border-radius:var(--r3);border:1.5px solid var(--border);background:var(--off);font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .2s;}
+.sg-in:focus,.sg-sel:focus{border-color:var(--em);background:white;}
+.btn-run{padding:10px 24px;border-radius:var(--r3);background:var(--night);color:white;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.btn-run:hover{background:var(--em);color:var(--night);}
+.ht-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.ht-c{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:11px;font-weight:600;color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.ht-c:hover{border-color:var(--em);color:var(--em);}
+.ht-c.sel{background:var(--em);color:var(--night);border-color:var(--em);}
+.ht-c.hot{border-color:var(--gold);background:var(--gold-pale);color:var(--gold);}
+.np-row-d{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.np-c{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:11px;font-weight:600;color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.np-c:hover{border-color:var(--blue);color:var(--blue);}
+.np-c.sel{background:var(--blue);color:white;border-color:var(--blue);}
+
+/* LOADING */
+.s-load{display:none;align-items:center;gap:11px;padding:14px 0;}
+.s-load.show{display:flex;}
+.sl-track{flex:1;height:4px;background:var(--off);border-radius:20px;overflow:hidden;}
+.sl-fill{height:100%;background:var(--grad);border-radius:20px;width:0;transition:width .3s;}
+.sl-lbl{font-size:11px;color:var(--muted);white-space:nowrap;}
+
+/* RESULTS */
+.results-box{display:none;margin-top:16px;}
+.results-box.show{display:block;}
+.r-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.r-count{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink);}
+.r-sub{font-size:11px;color:var(--muted);}
+.r-note{display:flex;align-items:flex-start;gap:8px;padding:10px 13px;background:var(--em-pale);border:1px solid rgba(0,200,150,.15);border-radius:var(--r3);margin-bottom:10px;font-size:12px;color:var(--soft);}
+
+/* RESULT CARD */
+.rcard{background:white;border:1.5px solid var(--border);border-radius:var(--r2);padding:16px 18px;margin-bottom:10px;transition:all .2s;box-shadow:0 2px 8px rgba(7,9,15,.04);}
+.rcard:hover{border-color:var(--em);box-shadow:var(--shadow);}
+.rcard.fresh{border-left:4px solid var(--em);}
+.rcard.warm{border-left:4px solid var(--gold);}
+.rcard.cool{border-left:4px solid var(--border);}
+.rc-top{display:flex;align-items:flex-start;gap:11px;margin-bottom:8px;}
+.rc-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.rc-nm{font-size:14px;font-weight:700;color:var(--ink);}
+.rc-role{font-size:11px;color:var(--soft);}
+.rc-co{font-size:11px;font-weight:600;color:var(--em);}
+
+/* SURE-SHOT */
+.sure-shot{background:#f8fafc;border:1px solid var(--border);border-radius:var(--r2);padding:12px 14px;margin-bottom:10px;}
+.ss-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.ss-title{font-size:11px;font-weight:700;color:var(--soft);}
+.ss-score-big{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;}
+.ss-verdict{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-left:6px;}
+.ssv-perfect{background:rgba(0,200,150,.1);color:var(--em);}
+.ssv-strong{background:rgba(59,130,246,.1);color:var(--blue);}
+.ssv-partial{background:rgba(240,168,76,.1);color:var(--gold);}
+.ssv-gap{background:rgba(255,107,107,.1);color:var(--coral);}
+.ss-bars{display:flex;flex-direction:column;gap:5px;}
+.ss-bar-row{display:flex;align-items:center;gap:8px;}
+.ss-bar-label{font-size:10px;color:var(--soft);width:110px;flex-shrink:0;}
+.ss-bar-track{flex:1;height:5px;background:var(--border);border-radius:20px;overflow:hidden;}
+.ss-bar-fill{height:100%;border-radius:20px;background:var(--em);transition:width .5s ease;}
+.ss-bar-val{font-size:10px;font-weight:700;color:var(--em);width:28px;text-align:right;}
+
+/* FRESHNESS */
+.freshness{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.fresh-badge{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;}
+.fb-hot{background:rgba(255,107,107,.1);color:var(--coral);}
+.fb-golden{background:rgba(240,168,76,.1);color:var(--gold);}
+.fb-fresh{background:rgba(0,200,150,.1);color:var(--em);}
+.fb-cool{background:rgba(148,163,175,.1);color:var(--muted);}
+.active-rec{background:rgba(139,92,246,.1);color:var(--purple);display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;}
+.rc-post{font-size:12px;color:var(--soft);line-height:1.65;background:#f8fafc;padding:10px 12px;border-radius:var(--r3);border-left:3px solid var(--em);margin-bottom:9px;font-style:italic;}
+.rc-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.rca{padding:6px 12px;border-radius:var(--r3);font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.rca-li{background:#0077B5;color:white;}
+.rca-rec{background:var(--em-pale);color:var(--em);border:1px solid rgba(0,200,150,.2);}  .rca-rec:hover{background:var(--em);color:var(--night);}
+.rca-tmpl{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.2);}  .rca-tmpl:hover{background:var(--purple);color:white;}
+.rca-save{background:var(--off);color:var(--soft);border:1px solid var(--border);}
+
+/* FOMO GATE */
+.fomo-gate{display:none;background:var(--night);border-radius:var(--r);padding:32px;margin-bottom:18px;position:relative;overflow:hidden;}
+.fomo-gate.show{display:block;}
+.fomo-gate::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,200,150,.08) 0%,transparent 60%);border-radius:50%;pointer-events:none;}
+.fomo-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;margin-bottom:8px;position:relative;z-index:1;}
+.fomo-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:20px;position:relative;z-index:1;}
+.fomo-signals{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;position:relative;z-index:1;}
+.fs{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:var(--r2);padding:12px;display:flex;align-items:flex-start;gap:10px;}
+.fs.locked{filter:blur(3px);pointer-events:none;}
+.fs-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:white;flex-shrink:0;}
+.fs-nm{font-size:12px;font-weight:700;color:rgba(255,255,255,.7);}
+.fs-post{font-size:11px;color:rgba(255,255,255,.4);font-style:italic;line-height:1.5;margin-top:2px;}
+.fs-when{margin-left:auto;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.fomo-plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;}
+.fp{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:var(--r2);padding:14px;text-align:center;cursor:pointer;transition:all .2s;}
+.fp:hover,.fp.best{background:rgba(0,200,150,.08);border-color:rgba(0,200,150,.25);}
+.fp-days{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--em);}
+.fp-price{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;margin:3px 0;}
+.fp-tag{font-size:10px;color:rgba(255,255,255,.3);}
+.fp-btn{width:100%;padding:9px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:12px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:8px;}
+.fp-btn:hover{background:var(--em2);}
+
+/* SIDEBAR */
+.dash-sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:76px;}
+.sdb-card{background:white;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.sdb-head{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:white;}
+.sdb-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);}
+.sdb-action{font-size:11px;font-weight:600;color:var(--em);cursor:pointer;background:none;border:none;font-family:'Plus Jakarta Sans',sans-serif;}
+.sdb-body{padding:12px 18px;}
+.saved-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);}
+.saved-row:last-child{border:none;}
+.sv-q{font-size:12px;font-weight:600;color:var(--ink);}
+.sv-meta{font-size:10px;color:var(--muted);}
+.sv-run{margin-left:auto;font-size:11px;font-weight:700;color:var(--em);cursor:pointer;background:none;border:none;font-family:'Plus Jakarta Sans',sans-serif;}
+.watch-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);}
+.watch-row:last-child{border:none;}
+.wc-logo{width:28px;height:28px;border-radius:6px;background:var(--night);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;}
+.wc-nm{font-size:12px;font-weight:600;color:var(--ink);}
+.wc-act{font-size:10px;color:var(--muted);}
+.wc-badge{margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.wcb-new{background:rgba(0,200,150,.1);color:var(--em);}
+.wcb-none{background:var(--off);color:var(--muted);}
+
+/* =============================================
+   RAZORPAY PAYMENT MODAL
+   ============================================= */
+.payment-modal{display:none;position:fixed;inset:0;background:rgba(7,9,15,.65);backdrop-filter:blur(10px);z-index:900;align-items:center;justify-content:center;padding:20px;}
+.payment-modal.open{display:flex;}
+.pm-wrap{background:white;border-radius:var(--r4);width:100%;max-width:460px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.pm-top{background:linear-gradient(135deg,var(--night),var(--night3));padding:24px 28px;position:relative;}
+.pm-top::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,200,150,.15) 0%,transparent 70%);border-radius:50%;}
+.pm-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.pm-brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;}
+.pm-brand .sig{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pm-plan-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:white;margin-bottom:4px;}
+.pm-amount{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:var(--em);line-height:1;}
+.pm-amount small{font-size:18px;color:rgba(255,255,255,.4);}
+.pm-duration{font-size:13px;color:rgba(255,255,255,.4);margin-top:4px;}
+.pm-close-btn{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;color:white;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.pm-body{padding:24px 28px;}
+.pm-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.pm-feat{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--soft);}
+.pm-feat::before{content:'✓';color:var(--em);font-weight:800;font-size:11px;flex-shrink:0;}
+.pm-note{font-size:11px;color:var(--muted);text-align:center;margin-bottom:16px;line-height:1.6;}
+.btn-pay{width:100%;padding:14px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-pay:hover{background:var(--em2);box-shadow:var(--shadow-em);}
+.rzp-powered{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:10px;color:var(--muted);}
+.rzp-logo{font-size:11px;font-weight:800;color:#3395ff;background:#e8f1ff;padding:2px 7px;border-radius:4px;}
+
+/* Payment success */
+.payment-success{display:none;text-align:center;padding:40px 28px;}
+.payment-success.show{display:block;}
+.ps-icon{font-size:56px;margin-bottom:16px;}
+.ps-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.ps-sub{font-size:14px;color:var(--soft);line-height:1.7;margin-bottom:24px;}
+
+/* =============================================
+   CHANGE PASSWORD PAGE
+   ============================================= */
+#changePassView,#adminChangePassView{min-height:100vh;background:var(--off);align-items:center;justify-content:center;padding:20px;}
+.cp-card{background:white;border-radius:var(--r4);padding:44px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);border:1px solid var(--border);}
+.cp-icon{width:52px;height:52px;border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;}
+.cp-icon-user{background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);}
+.cp-icon-admin{background:var(--gold-pale);border:1.5px solid rgba(240,168,76,.2);}
+.cp-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:5px;}
+.cp-sub{font-size:13px;color:var(--soft);margin-bottom:24px;line-height:1.6;}
+.pass-strength{height:4px;border-radius:20px;margin-top:6px;transition:all .3s;}
+.ps-weak{background:var(--coral);width:30%;}
+.ps-medium{background:var(--gold);width:60%;}
+.ps-strong{background:var(--em);width:100%;}
+.ps-label{font-size:10px;font-weight:600;margin-top:4px;}
+
+/* =============================================
+   COMMENT TEMPLATE
+   ============================================= */
+.tmpl-overlay{display:none;position:fixed;inset:0;background:rgba(7,9,15,.65);backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:20px;}
+.tmpl-overlay.open{display:flex;}
+.tmpl-card{background:white;border-radius:var(--r4);padding:28px;width:100%;max-width:500px;box-shadow:var(--shadow-lg);}
+.tc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.tc-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ink);}
+.tc-close{width:28px;height:28px;border-radius:50%;background:var(--off);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--soft);}
+.tc-tabs{display:flex;gap:6px;margin-bottom:14px;}
+.tc-tab{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:white;color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.tc-tab.active{background:var(--night);color:white;border-color:var(--night);}
+.tc-body{background:var(--off);border-radius:var(--r2);padding:14px;margin-bottom:12px;min-height:90px;border:1.5px solid var(--border);}
+.tc-text{font-size:13px;color:var(--ink);line-height:1.75;}
+.tc-actions{display:flex;gap:8px;}
+.btn-copy{flex:1;padding:11px;border-radius:var(--r3);background:var(--night);color:white;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn-copy:hover{background:var(--em);color:var(--night);}
+.btn-edit-tmpl{padding:11px 16px;border-radius:var(--r3);background:var(--off);color:var(--soft);font-size:12px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+
+/* =============================================
+   ADMIN LOGIN & DASHBOARD
+   ============================================= */
+#adminLoginView{background:var(--night2);}
+.admin-auth-left{background:linear-gradient(145deg,#0d0a02,#1a0d00);}
+
+/* ADMIN DASH NAV */
+.admin-nav{position:fixed;top:0;width:100%;z-index:500;background:var(--night2);border-bottom:1px solid rgba(240,168,76,.12);box-shadow:0 2px 20px rgba(7,9,15,.4);}
+.admin-nav-inner{padding:0 44px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.admin-badge{font-size:9px;font-weight:800;color:var(--night);background:var(--gold);padding:3px 9px;border-radius:20px;letter-spacing:.5px;}
+.admin-nav-right{display:flex;align-items:center;gap:10px;}
+
+/* ADMIN PAGE */
+#adminView{background:#0f1117;min-height:100vh;}
+.admin-page{padding:76px 44px 52px;}
+
+/* ADMIN STATS */
+.admin-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px;}
+.astat{background:var(--night2);border-radius:var(--r);padding:20px;border:1px solid var(--bn);}
+.astat-n{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;line-height:1;margin-bottom:4px;}
+.astat-l{font-size:11px;color:rgba(255,255,255,.3);}
+.astat-ch{font-size:10px;font-weight:700;margin-top:4px;}
+.ch-up{color:var(--em);} .ch-dn{color:var(--coral);}
+
+/* ADMIN FILTERS */
+.admin-filters{background:var(--night2);border-radius:var(--r);border:1px solid var(--bn);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.af-in{padding:9px 13px;border-radius:var(--r3);border:1px solid var(--bn);background:rgba(255,255,255,.04);font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;color:white;outline:none;transition:border-color .2s;}
+.af-in:focus{border-color:var(--gold);}
+.af-in::placeholder{color:rgba(255,255,255,.25);}
+.af-sel{padding:9px 13px;border-radius:var(--r3);border:1px solid var(--bn);background:rgba(255,255,255,.04);font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,.7);outline:none;}
+.af-sel option{background:var(--night2);color:white;}
+.btn-af{padding:9px 16px;border-radius:var(--r3);background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);font-size:12px;font-weight:600;border:1px solid var(--bn);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-af:hover{background:rgba(0,200,150,.1);border-color:rgba(0,200,150,.2);color:var(--em);}
+.btn-export{padding:9px 16px;border-radius:var(--r3);background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px;margin-left:auto;}
+.btn-export:hover{background:var(--gold2);}
+
+/* ADMIN TABLE */
+.admin-table-wrap{background:var(--night2);border-radius:var(--r);border:1px solid var(--bn);overflow:hidden;}
+.admin-table-head{padding:14px 20px;border-bottom:1px solid var(--bn);display:flex;align-items:center;justify-content:space-between;}
+.ath-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;}
+.ath-count{font-size:12px;color:rgba(255,255,255,.3);}
+table{width:100%;border-collapse:collapse;}
+th{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1.5px;text-transform:uppercase;padding:11px 14px;text-align:left;background:rgba(255,255,255,.02);border-bottom:1px solid var(--bn);}
+td{font-size:12px;color:rgba(255,255,255,.7);padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.td-name{font-weight:700;color:white;}
+.td-skills{display:flex;gap:4px;flex-wrap:wrap;}
+.td-skill{font-size:9px;font-weight:600;padding:2px 6px;border-radius:20px;background:rgba(0,200,150,.12);color:var(--em);}
+.td-plan{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.tdp-free{background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);}
+.tdp-paid{background:rgba(0,200,150,.12);color:var(--em);}
+.td-score{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
+.td-actions{display:flex;gap:5px;}
+.btn-view{padding:5px 10px;border-radius:var(--r3);background:rgba(0,200,150,.1);color:var(--em);font-size:10px;font-weight:700;border:1px solid rgba(0,200,150,.2);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-view:hover{background:var(--em);color:var(--night);}
+.btn-dl{padding:5px 10px;border-radius:var(--r3);background:rgba(240,168,76,.1);color:var(--gold);font-size:10px;font-weight:700;border:1px solid rgba(240,168,76,.2);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-dl:hover{background:var(--gold);color:var(--night);}
+.btn-del{padding:5px 10px;border-radius:var(--r3);background:rgba(255,107,107,.08);color:var(--coral);font-size:10px;font-weight:700;border:1px solid rgba(255,107,107,.15);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-del:hover{background:var(--coral);color:white;}
+
+/* PROFILE MODAL */
+.profile-modal-overlay{display:none;position:fixed;inset:0;background:rgba(7,9,15,.75);backdrop-filter:blur(10px);z-index:900;align-items:center;justify-content:center;padding:20px;}
+.profile-modal-overlay.open{display:flex;}
+.pmo-card{background:var(--night2);border:1px solid var(--bn);border-radius:var(--r4);width:100%;max-width:540px;box-shadow:var(--shadow-lg);overflow:hidden;max-height:90vh;overflow-y:auto;}
+.pmo-header{background:linear-gradient(135deg,var(--night),var(--night3));padding:22px 24px;display:flex;align-items:flex-start;gap:14px;}
+.pmo-av{width:52px;height:52px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--night);flex-shrink:0;}
+.pmo-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;}
+.pmo-role{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;}
+.pmo-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;color:white;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pmo-body{padding:22px 24px;}
+.pmo-sec-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.pmo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.pmo-field{background:rgba(255,255,255,.04);border-radius:var(--r3);padding:10px 13px;}
+.pmo-fl{font-size:10px;font-weight:600;color:rgba(255,255,255,.25);margin-bottom:3px;}
+.pmo-fv{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);}
+.pmo-skills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.pmo-skill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(0,200,150,.12);color:var(--em);}
+.pmo-actions{display:flex;gap:10px;padding-top:16px;border-top:1px solid var(--bn);}
+.btn-pmo-dl{flex:1;padding:11px;border-radius:var(--r3);background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;}
+.btn-pmo-dl:hover{background:var(--gold2);}
+.btn-pmo-close{padding:11px 20px;border-radius:var(--r3);background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:13px;font-weight:600;border:1px solid var(--bn);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;z-index:9999;background:var(--night);color:white;padding:12px 18px;border-radius:var(--r2);font-size:13px;font-weight:500;box-shadow:var(--shadow-lg);display:none;align-items:center;gap:8px;border-left:4px solid var(--em);max-width:300px;}
+.toast.show{display:flex;animation:si .3s ease;}
+@keyframes si{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:all .55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ LANDING ============================================================ -->
+<div id="landingView" class="view active">
+<nav class="main-nav" id="mainNav">
+  <a class="logo-wrap" onclick="goTo('landingView')">
+    <svg class="logo-bolt" viewBox="0 0 42 42" fill="none">
+      <rect width="42" height="42" rx="11" fill="#07090f"/>
+      <path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/>
+      <circle cx="32" cy="10" r="2" fill="#f0a84c"/>
+      <circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/>
+      <circle cx="32" cy="10" r="7" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".2"/>
+    </svg>
+    <div class="logo-text"><div class="logo-name">Jobs<span class="sig">Signal</span></div><div class="logo-tag">India's real-time job signal finder</div></div>
+  </a>
+  <ul class="nav-links"><li><a href="#how">How It Works</a></li><li><a href="#modes">Search Modes</a></li><li><a href="#pricing">Pricing</a></li></ul>
+  <div class="nav-right">
+    <div class="india-tag">🇮🇳 India Only</div>
+    <button type="button" class="btn-nav-login" onclick="goTo('loginView')">Log In</button>
+    <button type="button" class="btn-nav-cta" onclick="goTo('signupView')">Sign Up Free →</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div style="position:absolute;inset:0;pointer-events:none;">
+    <div class="mb mb1"></div><div class="mb mb2"></div><div class="mb mb3"></div>
+  </div>
+  <div class="hero-dots"></div>
+  <div class="hero-left">
+    <div class="hero-pill"><div class="hp-dot"></div><span class="hp-txt">India Only · Real-Time · LinkedIn Signals</span></div>
+    <div class="wordmark"><div class="wm-row"><span class="wm-jobs">Jobs</span><span class="wm-signal">Signal</span></div><div class="wm-sub">India's real-time job signal finder</div></div>
+    <div class="hero-quote">"<strong>The job exists before the listing.</strong> We find it for you."</div>
+    <h1 class="hero-h">Find recruiters before<br>the job goes <span class="go">live.</span></h1>
+    <p class="hero-p">Every day, <strong>hundreds of recruiters post on LinkedIn</strong> — hours before jobs appear on any portal. JobsSignal catches every signal instantly.</p>
+    <div class="hero-bar">
+      <input class="hb-in" placeholder="Your skill — React, Python, HR, Finance...">
+      <div class="hb-sep"></div>
+      <select class="hb-city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select>
+      <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals →</button>
+    </div>
+    <div class="li-note">📌 Stay logged into LinkedIn for full results.</div>
+    <div class="li-already">Already have an account? <a onclick="goTo('loginView')">Log in here →</a></div>
+    <div class="hero-trust">
+      <div class="ht-item"><div class="hn">2,400<span style="color:var(--gold);font-size:13px;">+</span></div><div class="hl">Signals daily</div></div>
+      <div class="ht-sep"></div>
+      <div class="ht-item"><div class="hn">8<span style="color:var(--gold);font-size:13px;">hrs</span></div><div class="hl">Before any portal</div></div>
+      <div class="ht-sep"></div>
+      <div class="ht-item"><div class="hn">🇮🇳</div><div class="hl">India only</div></div>
+    </div>
+  </div>
+  <div class="hero-feed">
+    <div class="feed-hd"><div class="feed-title">Live Recruiter Signals</div><div class="live-pill"><div class="lp-dot"></div>LIVE</div></div>
+    <div class="fc fl"><div class="fc-top"><div class="fc-av fa1">RK</div><div><div class="fc-nm">Rahul Kapoor</div><div class="fc-co">TechCorp · Hyderabad</div></div><div class="fc-when fw-now">🟢 2 min</div></div><div class="fc-txt">"Urgent! React Dev 3-5 YOE · 30d NP preferred 👇"</div></div>
+    <div class="fc fh"><div class="fc-top"><div class="fc-av fa2">PS</div><div><div class="fc-nm">Priya Sharma</div><div class="fc-co">StartupXYZ · Remote</div></div><div class="fc-when fw-now">🟢 18 min</div></div><div class="fc-txt">"Hiring Python Data Engineers · Remote · 15-22 LPA"</div></div>
+    <div class="fc"><div class="fc-top"><div class="fc-av fa3">AK</div><div><div class="fc-nm">Arun Krishnan</div><div class="fc-co">Razorpay · Hyd/Remote</div></div><div class="fc-when fw-hrs">1 hr</div></div><div class="fc-txt">"Hiring at Razorpay! DM me for referral 🔥"</div></div>
+    <div class="fc"><div class="fc-top"><div class="fc-av fa4">NK</div><div><div class="fc-nm">Nisha Kapoor</div><div class="fc-co">Infosys · Pune</div></div><div class="fc-when fw-hrs">2 hrs</div></div><div class="fc-txt">"#NowHiring Java · Immediate joiners · Pune"</div></div>
+  </div>
+</section>
+
+<section class="off-bg" id="how"><div class="wrap">
+  <div class="reveal" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">How It Works</div>
+    <h2 class="sh" style="text-align:center;">Three steps to <em>your next job</em></h2>
+    <p class="sp" style="text-align:center;max-width:460px;margin:10px auto 0;">Sign up free. We scan always. You apply first.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step reveal d1"><div class="step-n sn1">01</div><div class="step-icon">✍️</div><div class="step-title">Sign Up Free</div><p class="step-desc">Name, phone, email, city — that's it. Start searching immediately with 5 free searches. No resume needed to get started.</p></div>
+    <div class="step reveal d2"><div class="step-n sn2">02</div><div class="step-icon">📡</div><div class="step-title">Scan LinkedIn Signals</div><p class="step-desc">Recruiter posts found in real time. Upgrade to unlock resume-based Sure-Shot scoring — personalised signals matched to your exact profile.</p></div>
+    <div class="step reveal d3"><div class="step-n sn3">03</div><div class="step-icon">🚀</div><div class="step-title">Be First. Every Time.</div><p class="step-desc">Comment or DM the recruiter hours before the job appears on any portal. Your personalised comment template is ready to copy.</p></div>
+  </div>
+</div></section>
+
+<section id="modes" style="background:white;"><div class="wrap">
+  <div class="reveal" style="text-align:center;"><div class="eyebrow" style="justify-content:center;">Four Search Modes</div><h2 class="sh" style="text-align:center;">One platform. <em>Every signal.</em></h2></div>
+  <div class="modes-grid">
+    <div class="mode-card reveal d1"><div class="mc-icon">🎯</div><div class="mc-title">Skill + City Search</div><div class="mc-desc">Find every recruiter posting for your skill in your city — freshest first.</div><div class="mc-badge mcb-em">Most Used</div></div>
+    <div class="mode-card reveal d2"><div class="mc-icon">#</div><div class="mc-title">Hashtag Hunt</div><div class="mc-desc">#Hiring #NowHiring #FresherJobs #WalkInInterview — combined with your skill.</div><div class="mc-badge mcb-go">High Volume</div></div>
+    <div class="mode-card reveal d3"><div class="mc-icon">⏱️</div><div class="mc-title">Notice Period Match</div><div class="mc-desc">Find recruiters specifically looking for your exact notice window.</div><div class="mc-badge mcb-bl">Precision</div></div>
+    <div class="mode-card reveal d3"><div class="mc-icon">🤝</div><div class="mc-title">Referral Radar</div><div class="mc-desc">"DM me for referral" posts — the most powerful job signal on Indian LinkedIn.</div><div class="mc-badge mcb-co">Highest Success</div></div>
+  </div>
+</div></section>
+
+<section class="india-sec"><div style="max-width:720px;margin:0 auto;text-align:center;position:relative;z-index:1;" class="reveal">
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;"><div style="height:1.5px;width:22px;background:var(--gold);"></div><span style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;">India Only · Always</span><div style="height:1.5px;width:22px;background:var(--gold);"></div></div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:white;line-height:1.1;margin-bottom:12px;">Built for every Indian job seeker.</h2>
+  <p style="font-size:14px;color:rgba(255,255,255,.42);line-height:1.8;max-width:500px;margin:0 auto;">Walk-in interviews, notice period culture, bond policies, Tier-1/2 dynamics — we understand all of it.</p>
+  <div class="cities-wrap"><span class="city-c">🏙️ Hyderabad</span><span class="city-c">🌆 Bengaluru</span><span class="city-c">🌇 Mumbai</span><span class="city-c">🏢 Pune</span><span class="city-c">🌃 Delhi NCR</span><span class="city-c">🌉 Chennai</span><span class="city-c">🏙️ Kolkata</span><span class="city-c">🌆 Ahmedabad</span><span class="city-c">🏢 Noida</span><span class="city-c">💻 Remote</span></div>
+</div></section>
+
+<section class="dark-bg"><div class="wrap" style="padding:56px 52px;">
+  <div class="proof-row">
+    <div class="reveal d1"><div class="proof-n">2,400<span>+</span></div><div class="proof-l">Signals found daily</div></div>
+    <div class="reveal d2"><div class="proof-n">8<span>hrs</span></div><div class="proof-l">Faster than any portal</div></div>
+    <div class="reveal d3"><div class="proof-n">15<span>+</span></div><div class="proof-l">Indian cities covered</div></div>
+    <div class="reveal d3"><div class="proof-n">3<span>×</span></div><div class="proof-l">Higher reply rate</div></div>
+  </div>
+</div></section>
+
+<section class="off-bg" id="pricing"><div class="wrap">
+  <div class="reveal" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">Simple Pricing</div>
+    <h2 class="sh" style="text-align:center;">One plan. <em>All features. Always.</em></h2>
+    <p class="sp" style="text-align:center;max-width:480px;margin:10px auto 0;">Every paid plan = 100% of all features. Only difference is how long you stay active.</p>
+  </div>
+  <div class="pricing-row">
+    <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('7 Days',49)">Start 7 Days →</button></div>
+    <div class="pc feat reveal"><div class="feat-tag">MOST POPULAR</div><div class="pc-duration">30</div><div class="pc-plan">Days · Active Search</div><div class="pc-price"><small>₹</small>99</div><div class="pc-per">₹3.3 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-em" onclick="openPayment('30 Days',99)">Start 30 Days →</button></div>
+    <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('60 Days',179)">Start 60 Days →</button></div>
+    <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li><li>WhatsApp alerts (soon)</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('Annual Plan',599)">Start Annual →</button></div>
+  </div>
+  <div class="free-note reveal">🎁 <strong>New user?</strong> Get 5 free searches — no card needed. After 5, choose a plan to continue.</div>
+</div></section>
+
+<section class="cta-sec">
+  <div class="cta-wm reveal"><span class="j">Jobs</span><span class="s">Signal</span></div>
+  <div class="cta-tag reveal">"The job exists before the listing. We find it."</div>
+  <p class="reveal" style="font-size:15px;color:rgba(255,255,255,.38);max-width:420px;margin:0 auto;line-height:1.75;position:relative;z-index:1;">Your recruiter posted 2 hours ago. Be first or be number 500.</p>
+  <div class="cta-btns reveal">
+    <button type="button" class="btn-cta-em" onclick="goTo('signupView')">📡 Get 5 Free Searches →</button>
+    <button type="button" class="btn-cta-g" onclick="goTo('loginView')">Already have an account</button>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div style="display:flex;align-items:center;gap:9px;">
+      <svg width="26" height="26" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#07090f"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
+      <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--em);font-weight:400;">Signal</span></div><div class="footer-copy">© 2025 JobsSignal.in · Built for India 🇮🇳</div></div>
+    </div>
+  </div>
+  <ul class="footer-links"><li><a>About</a></li><li><a>Privacy</a></li><li><a>Terms</a></li><li><a>Contact</a></li><li><a onclick="goTo('adminLoginView')" style="color:rgba(255,255,255,.2);">⚙ Admin</a></li></ul>
+</footer>
+</div><!-- end landing -->
+
+<!-- ============================================================ SIGNUP ============================================================ -->
+<div id="signupView" class="view">
+<div class="auth-page">
+  <div class="auth-left auth-left-user">
+    <div class="al-logo-row">
+      <div class="al-brand">
+        <svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
+        Jobs<span class="sig">Signal</span>
+      </div>
+      <div class="al-brand-tag">jobssignal.in · India 🇮🇳</div>
+    </div>
+    <div class="al-headline">Find the signal.<br>Get the job.<br><em>Be first.</em></div>
+    <div class="al-sub">"The job exists before the listing.<br>We find it for you."</div>
+    <div class="al-features">
+      <div class="al-feat"><div class="alf-icon alf-icon-em">📡</div><div><div class="alf-title">Real-Time Signals</div><div class="alf-desc">Recruiter posts found hours before any portal</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-em">🎯</div><div><div class="alf-title">Sure-Shot Scoring</div><div class="alf-desc">Match score per signal — upgrade to unlock</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-em">🎁</div><div><div class="alf-title">5 Free Searches</div><div class="alf-desc">No card, no resume needed to start</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-gold">🇮🇳</div><div><div class="alf-title">India Only</div><div class="alf-desc">Built exclusively for Indian job seekers</div></div></div>
+    </div>
+  </div>
+  <div class="auth-right">
+    <div class="auth-card">
+      <!-- Progress -->
+      <div class="progress-bar" id="progressBar">
+        <div class="pb-step"><div class="pb-circle active" id="pb1">1</div><div class="pb-label active" id="pbl1">Details</div></div>
+        <div class="pb-line" id="pbl12"></div>
+        <div class="pb-step"><div class="pb-circle todo" id="pb2">2</div><div class="pb-label" id="pbl2">Preferences</div></div>
+        <div class="pb-line" id="pbl23"></div>
+        <div class="pb-step"><div class="pb-circle todo" id="pb3">3</div><div class="pb-label" id="pbl3">All Set</div></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step-form active" id="step1">
+        <div class="ac-tag ac-tag-user">✨ Free Signup — No Card Needed</div>
+        <div class="ac-title">Create your account</div>
+        <div class="ac-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
+        <div class="india-chip">🇮🇳 <div><strong>India-only platform.</strong> +91 mobile required.</div></div>
+        <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai"></div>
+        <div class="form-row-2">
+          <div><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10"></div>
+          <div><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com"></div>
+        </div>
+        <div class="form-row-2">
+          <div><label class="form-label">Your City *</label><select class="form-select" id="s1_city"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div>
+          <div><label class="form-label">Primary Skill *</label><input class="form-input" id="s1_skill" placeholder="React, HR, Python..."></div>
+        </div>
+        <div class="form-group"><label class="form-label">Currently Working? *</label>
+          <div class="pill-row" id="wsRow">
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
+          </div>
+        </div>
+        <button type="button" class="btn-primary" onclick="nextStep(1)">Continue →</button>
+        <button type="button" class="btn-back-link" onclick="goTo('landingView')">← Back to home</button>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-form" id="step2">
+        <div class="ac-title">Your Preferences</div>
+        <div class="ac-sub" style="margin-bottom:20px;">These help us show the most relevant signals from day one.</div>
+        <div class="form-group"><label class="form-label">Notice Period</label>
+          <div class="pill-row" id="npRow"><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">Immediate</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">15 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">30 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">45 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">60 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">90 Days</button></div>
+        </div>
+        <div class="form-group"><label class="form-label">Experience Level</label>
+          <div class="pill-row" id="expRow"><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1-3 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3-7 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7+ Years</button></div>
+        </div>
+        <div class="form-group"><label class="form-label">Open To</label>
+          <div class="pill-row"><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🏢 On-site</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">💻 Remote</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🔀 Hybrid</button></div>
+        </div>
+        <div class="form-group"><label class="form-label">Expected CTC (Optional)</label><input class="form-input" placeholder="e.g. 15–22 LPA"></div>
+        <div style="background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);border-radius:var(--r2);padding:14px;margin-bottom:6px;">
+          <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;">📄 Resume Upload — After Upgrading</div>
+          <div style="font-size:11px;color:var(--soft);line-height:1.6;">Upload your resume after upgrading to any paid plan. Based on your profile we'll give you a personalised Sure-Shot score and show matched recruiter signals automatically.</div>
+        </div>
+        <button type="button" class="btn-primary" onclick="nextStep(2)">Continue →</button>
+        <button type="button" class="btn-back-link" onclick="prevStep(1)">← Back</button>
+      </div>
+
+      <!-- STEP 3 — DONE -->
+      <div class="step-form" id="step3">
+        <div style="text-align:center;padding:20px 0;">
+          <div style="font-size:52px;margin-bottom:16px;">🎉</div>
+          <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:8px;">You're all set!</div>
+          <div style="font-size:14px;color:var(--soft);line-height:1.7;margin-bottom:24px;">Your account is ready. You have <strong style="color:var(--em);">5 free searches</strong> to explore JobsSignal. Start finding recruiter signals now.</div>
+          <button type="button" class="btn-primary" onclick="doSignup()" style="max-width:280px;margin:0 auto;">📡 Enter Dashboard →</button>
+        </div>
+        <div class="form-legal">By signing up you agree to our <a>Terms</a> and <a>Privacy Policy</a>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ LOGIN ============================================================ -->
+<div id="loginView" class="view">
+<div class="auth-page">
+  <div class="auth-left auth-left-user">
+    <div class="al-logo-row">
+      <div class="al-brand"><svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>Jobs<span class="sig">Signal</span></div>
+      <div class="al-brand-tag">jobssignal.in · India 🇮🇳</div>
+    </div>
+    <div class="al-headline">Welcome<br>back.<br><em>Signals await.</em></div>
+    <div class="al-sub">"The job exists before the listing. We find it."</div>
+    <div class="al-features" style="margin-top:auto;">
+      <div class="al-feat"><div class="alf-icon alf-icon-em">🔴</div><div><div class="alf-title">Posted 8 min ago</div><div class="alf-desc">React Dev · TechCorp · Hyderabad · 30d NP</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-em">🟠</div><div><div class="alf-title">Posted 1 hr ago</div><div class="alf-desc">Python Engineer · Remote · 15-22 LPA</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-gold">🤝</div><div><div class="alf-title">Referral Available</div><div class="alf-desc">DM Arun at Razorpay — React 4+ YOE</div></div></div>
+    </div>
+  </div>
+  <div class="auth-right">
+    <div class="auth-card">
+      <div class="ac-tag ac-tag-user">👋 Welcome Back</div>
+      <div class="ac-title">Log in to JobsSignal</div>
+      <div class="ac-sub">New here? <a onclick="goTo('signupView')">Create free account →</a></div>
+      <div class="india-chip">🇮🇳 <strong>India-only platform.</strong></div>
+      <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="li_phone" placeholder="Enter your registered mobile"></div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-with-icon"><input class="form-input" id="li_pass" type="password" placeholder="Enter your password"><span class="iw-icon" onclick="togglePass('li_pass',this)">👁</span></div>
+      </div>
+      <a class="forgot-link" onclick="goTo('changePassView')">Forgot password?</a>
+      <button type="button" class="btn-primary" onclick="doLogin()"><span>📡</span> Log In →</button>
+      <button type="button" class="btn-secondary" onclick="goTo('signupView')">Create Free Account →</button>
+      <div class="form-legal" style="margin-top:14px;">🇮🇳 JobsSignal is exclusively for Indian job seekers.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ CHANGE PASSWORD (USER) ============================================================ -->
+<div id="changePassView" class="view">
+  <div class="cp-card">
+    <div class="cp-icon cp-icon-user">🔑</div>
+    <div class="cp-title">Change Password</div>
+    <div class="cp-sub">Enter your registered mobile number and set a new password.</div>
+    <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="cp_phone" placeholder="Your registered mobile"></div>
+    <div class="form-group"><label class="form-label">New Password</label><div class="input-with-icon"><input class="form-input" id="cp_new" type="password" placeholder="Enter new password" oninput="checkPassStrength(this,'cp_strength','cp_strength_lbl')"><span class="iw-icon" onclick="togglePass('cp_new',this)">👁</span></div><div class="pass-strength" id="cp_strength" style="display:none;"></div><div class="ps-label" id="cp_strength_lbl" style="color:var(--muted);font-size:10px;"></div></div>
+    <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" id="cp_confirm" type="password" placeholder="Re-enter new password"></div>
+    <button type="button" class="btn-primary" onclick="doChangePass('user')">🔑 Update Password →</button>
+    <button type="button" class="btn-secondary" onclick="goTo('loginView')">← Back to Login</button>
+  </div>
+</div>
+
+<!-- ============================================================ DASHBOARD ============================================================ -->
+<div id="dashView" class="view">
+  <nav class="dash-nav">
+    <div class="dash-nav-inner">
+      <a class="logo-wrap" onclick="goTo('landingView')" style="cursor:pointer;">
+        <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
+        <div class="logo-text"><div class="logo-name">Jobs<span class="sig">Signal</span></div><div class="logo-tag">India's real-time job signal finder</div></div>
+      </a>
+      <div class="dash-nav-actions">
+        <div class="sc-badge" id="scBadge" onclick="showFomoIfEmpty()">
+          <span class="sc-badge-txt">Free searches:</span>
+          <span class="sc-badge-num" id="scNum">5</span>
+          <span class="sc-badge-txt">left</span>
+        </div>
+        <div class="india-tag">🇮🇳 India Only</div>
+        <div class="dash-user-info">
+          <div class="d-av" id="dAv">R</div>
+          <div class="d-user-details"><div class="d-name" id="dName">Riya</div><div class="d-plan" id="dPlan">Free Plan</div></div>
+        </div>
+        <button type="button" class="btn-dash-action" onclick="goTo('changePassView')">🔑 Change Password</button>
+        <button type="button" class="btn-dash-action btn-dash-logout" onclick="goTo('landingView')">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dash-page">
+    <div class="dash-welcome">
+      <div class="dw-left"><div class="dw-greeting" id="dGreet">Good morning! 👋</div><div class="dw-sub">Your next job signal is live. Let's find it.</div></div>
+      <div class="dw-stats">
+        <div class="dws"><div class="dws-n">18</div><div class="dws-l">New signals today</div></div>
+        <div class="dws"><div class="dws-n" id="dLeft">5</div><div class="dws-l">Searches left</div></div>
+        <div class="dws"><div class="dws-n" style="color:var(--gold);">🇮🇳</div><div class="dws-l">India only</div></div>
+      </div>
+    </div>
+
+    <div class="li-tip-bar" id="liTip">
+      <div style="font-size:18px;">💡</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;">Boost your LinkedIn visibility</div>
+        <div style="font-size:12px;color:var(--soft);line-height:1.6;">Add your notice period and #OpenToWork to your LinkedIn headline. Example: <span style="font-weight:600;color:var(--em);">"TA Manager | Hyderabad | 30d NP | #OpenToWork"</span></div>
+      </div>
+      <button type="button" class="lit-dismiss" onclick="document.getElementById('liTip').classList.add('hidden')">✕</button>
+    </div>
+
+    <div class="fomo-gate" id="fomoGate">
+      <div style="position:relative;z-index:1;">
+        <div class="fomo-title">🔒 Your 5 free searches are used up</div>
+        <div class="fomo-sub">While you were exploring — here's what's happening on LinkedIn right now.</div>
+        <div class="fomo-signals">
+          <div class="fs"><div class="fs-av fa1">RK</div><div style="flex:1;"><div class="fs-nm">Rahul Kapoor · TechCorp</div><div class="fs-post">"Urgent! React Dev · 3-5 YOE · Hyderabad · 30d NP"</div></div><div class="fs-when fw-now">🔴 8 min</div></div>
+          <div class="fs"><div class="fs-av fa2">PS</div><div style="flex:1;"><div class="fs-nm">Priya Sharma · StartupXYZ</div><div class="fs-post">"Python Engineers · Remote · 15-22 LPA"</div></div><div class="fs-when fw-now">🟠 1 hr</div></div>
+          <div class="fs locked"><div class="fs-av fa3">AM</div><div style="flex:1;"><div class="fs-nm">████████ · ████████</div><div class="fs-post">"████████ · ██ LPA · ████"</div></div><div class="fs-when">🔒</div></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--em);margin-bottom:18px;">+ 16 more signals today for your skills</div>
+        <div class="fomo-plans">
+          <div class="fp" onclick="openPayment('7 Days',49)"><div class="fp-days">7</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Days</div><div class="fp-price">₹49</div><div class="fp-tag">Try it</div><button type="button" class="fp-btn">Unlock →</button></div>
+          <div class="fp best" onclick="openPayment('30 Days',99)"><div class="fp-days">30</div><div style="font-size:10px;color:var(--em);">Days 🏆</div><div class="fp-price">₹99</div><div class="fp-tag">Most Popular</div><button type="button" class="fp-btn">Unlock →</button></div>
+          <div class="fp" onclick="openPayment('60 Days',179)"><div class="fp-days">60</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Days</div><div class="fp-price">₹179</div><div class="fp-tag">Notice period</div><button type="button" class="fp-btn">Unlock →</button></div>
+          <div class="fp" onclick="openPayment('Annual Plan',599)"><div class="fp-days">365</div><div style="font-size:10px;color:rgba(255,255,255,.4);">Days ⭐</div><div class="fp-price">₹599</div><div class="fp-tag">Best value</div><button type="button" class="fp-btn">Unlock →</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-layout">
+      <div>
+        <div class="dash-card">
+          <div class="dc-head"><div class="dc-title">📡 Find Recruiter Signals</div><div class="dc-sub">Real-time · Sorted by freshness · India only · <span style="color:var(--em);font-weight:600;">Stay logged into LinkedIn</span></div></div>
+          <div class="dc-modes">
+            <button type="button" class="dc-mode active" onclick="switchMode('skill',this)">🎯 Skill + City</button>
+            <button type="button" class="dc-mode" onclick="switchMode('hashtag',this)"># Hashtag Hunt</button>
+            <button type="button" class="dc-mode" onclick="switchMode('notice',this)">⏱️ Notice Period</button>
+            <button type="button" class="dc-mode" onclick="switchMode('referral',this)">🤝 Referral Radar</button>
+          </div>
+          <div class="dc-body">
+            <div class="ss active" id="ss-skill">
+              <div class="sr-row">
+                <div class="sg"><label class="sg-lbl">Your Skill</label><input class="sg-in" id="sk_skill" placeholder="React, Python, HR..."></div>
+                <div class="sg" style="max-width:170px;"><label class="sg-lbl">City</label><select class="sg-sel" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select></div>
+                <div class="sg" style="max-width:150px;"><label class="sg-lbl">Experience</label><select class="sg-sel"><option>Any</option><option>Fresher</option><option>1-3 Years</option><option>3-7 Years</option><option>7+ Years</option></select></div>
+                <button type="button" class="btn-run" onclick="runSearch('skill')">📡 Find Signals →</button>
+              </div>
+            </div>
+            <div class="ss" id="ss-hashtag">
+              <div style="margin-bottom:11px;"><label class="sg-lbl">Select Hashtags</label>
+              <div class="ht-row"><span class="ht-c hot" onclick="toggleH(this)">#Hiring</span><span class="ht-c" onclick="toggleH(this)">#NowHiring</span><span class="ht-c" onclick="toggleH(this)">#WeAreHiring</span><span class="ht-c" onclick="toggleH(this)">#FresherJobs</span><span class="ht-c" onclick="toggleH(this)">#WalkInInterview</span><span class="ht-c" onclick="toggleH(this)">#RemoteJobs</span><span class="ht-c" onclick="toggleH(this)">#ImmediateJoiner</span><span class="ht-c" onclick="toggleH(this)">#CampusHiring</span><span class="ht-c" onclick="toggleH(this)">#HybridJobs</span></div></div>
+              <div class="sr-row">
+                <div class="sg"><label class="sg-lbl">Add Skill</label><input class="sg-in" id="ht_skill" placeholder="React, Python..."></div>
+                <div class="sg" style="max-width:150px;"><label class="sg-lbl">City</label><select class="sg-sel" id="ht_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Remote</option></select></div>
+                <button type="button" class="btn-run" onclick="runSearch('hashtag')"># Search →</button>
+              </div>
+            </div>
+            <div class="ss" id="ss-notice">
+              <div style="margin-bottom:11px;"><label class="sg-lbl">Your Notice Period</label>
+              <div class="np-row-d"><span class="np-c" onclick="pickNPC(this)">Immediate</span><span class="np-c" onclick="pickNPC(this)">15 Days</span><span class="np-c" onclick="pickNPC(this)">30 Days</span><span class="np-c" onclick="pickNPC(this)">45 Days</span><span class="np-c" onclick="pickNPC(this)">60 Days</span><span class="np-c" onclick="pickNPC(this)">90 Days</span></div></div>
+              <div class="sr-row">
+                <div class="sg"><label class="sg-lbl">Skill</label><input class="sg-in" id="np_skill" placeholder="Your skill..."></div>
+                <div class="sg" style="max-width:150px;"><label class="sg-lbl">City</label><select class="sg-sel" id="np_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Remote</option></select></div>
+                <button type="button" class="btn-run" onclick="runSearch('notice')">⏱️ Match →</button>
+              </div>
+            </div>
+            <div class="ss" id="ss-referral">
+              <div style="padding:10px 13px;background:var(--gold-pale);border:1px solid rgba(240,168,76,.2);border-radius:var(--r3);margin-bottom:12px;font-size:12px;color:var(--soft);">🤝 Finds "DM me for referral" posts — act within 2 hours.</div>
+              <div class="sr-row">
+                <div class="sg"><label class="sg-lbl">Target Company</label><input class="sg-in" id="ref_co" placeholder="Razorpay, Infosys..."></div>
+                <div class="sg"><label class="sg-lbl">Skill</label><input class="sg-in" id="ref_skill" placeholder="React, Java..."></div>
+                <div class="sg" style="max-width:140px;"><label class="sg-lbl">City</label><select class="sg-sel" id="ref_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Remote</option></select></div>
+                <button type="button" class="btn-run" onclick="runSearch('referral')">🤝 Find →</button>
+              </div>
+            </div>
+            <div class="s-load" id="sLoad"><div class="sl-track"><div class="sl-fill" id="slFill"></div></div><div class="sl-lbl" id="slLbl">Scanning LinkedIn...</div></div>
+            <div class="results-box" id="resultsBox">
+              <div class="r-head">
+                <div><div class="r-count" id="rCount">Signals found</div><div class="r-sub" id="rSub">Sorted by freshness</div></div>
+                <button type="button" style="padding:6px 13px;border-radius:var(--r3);background:var(--off);border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--soft);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onclick="showToast('Search saved! ⭐','green')">⭐ Save</button>
+              </div>
+              <div class="r-note">📌 <strong>How to use:</strong> Click "View Post" to open on LinkedIn. Your Sure-Shot score shows how well this signal matches your profile.</div>
+              <div id="rList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="dash-sidebar">
+        <div class="sdb-card">
+          <div class="sdb-head"><div class="sdb-title">🏢 Company Watchlist</div><button type="button" class="sdb-action" onclick="addCompany()">+ Add</button></div>
+          <div class="sdb-body">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Track when companies post hiring requirements.</div>
+            <div class="watch-row"><div class="wc-logo">R</div><div><div class="wc-nm">Razorpay</div><div class="wc-act">3 posts this week</div></div><div class="wc-badge wcb-new">🟢 3</div></div>
+            <div class="watch-row"><div class="wc-logo" style="background:var(--blue);">Z</div><div><div class="wc-nm">Zepto</div><div class="wc-act">1 post today</div></div><div class="wc-badge wcb-new">🟡 1</div></div>
+            <div class="watch-row"><div class="wc-logo" style="background:var(--em);">S</div><div><div class="wc-nm">Swiggy</div><div class="wc-act">No posts this week</div></div><div class="wc-badge wcb-none">Quiet</div></div>
+            <div id="extraCompanies"></div>
+            <div id="addCoRow" style="display:none;margin-top:8px;"><div style="display:flex;gap:7px;"><input id="newCoIn" placeholder="Company name..." style="flex:1;padding:7px 10px;border-radius:var(--r3);border:1.5px solid var(--border);background:var(--off);font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;" onkeydown="if(event.key==='Enter')saveCompany()"><button type="button" onclick="saveCompany()" style="padding:7px 12px;border-radius:var(--r3);background:var(--em);color:var(--night);border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add</button></div></div>
+          </div>
+        </div>
+        <div class="sdb-card">
+          <div class="sdb-head"><div class="sdb-title">⭐ Saved Searches</div><button type="button" class="sdb-action" onclick="showToast('Search saved!','green')">+ Save Current</button></div>
+          <div class="sdb-body">
+            <div class="saved-row"><div><div class="sv-q">React · Hyderabad</div><div class="sv-meta">2 hrs ago · 18 signals</div></div><button type="button" class="sv-run" onclick="runSearch('skill')">Run →</button></div>
+            <div class="saved-row"><div><div class="sv-q">#Hiring + Python · Bengaluru</div><div class="sv-meta">Yesterday · 11 signals</div></div><button type="button" class="sv-run" onclick="runSearch('hashtag')">Run →</button></div>
+          </div>
+        </div>
+        <div class="sdb-card">
+          <div class="sdb-head"><div class="sdb-title">📊 Activity</div></div>
+          <div class="sdb-body">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Searches used</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;" id="actUsed">0</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Free searches left</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--em);" id="actLeft">5</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Posts saved</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);" id="actSaved">0</span></div>
+            </div>
+            <button type="button" style="width:100%;margin-top:14px;padding:9px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onclick="openPayment('30 Days',99)">🚀 Upgrade for ₹99 →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ ADMIN LOGIN ============================================================ -->
+<div id="adminLoginView" class="view">
+<div class="auth-page">
+  <div class="auth-left admin-auth-left" style="background:linear-gradient(145deg,#0d0a02,#1a0d00);position:relative;overflow:hidden;">
+    <div style="position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(240,168,76,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+    <div style="position:absolute;top:-80px;left:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(255,107,107,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+    <div class="al-logo-row" style="position:relative;z-index:1;">
+      <div class="al-brand" style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;display:flex;align-items:center;gap:10px;">
+        <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/><circle cx="32" cy="10" r="2" fill="#ff6b6b"/><circle cx="32" cy="10" r="5" fill="none" stroke="#ff6b6b" stroke-width="1" opacity=".4"/></svg>
+        Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad-admin);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Signal</span>
+      </div>
+      <div class="al-brand-tag">Admin Control Panel</div>
+    </div>
+    <div style="position:relative;z-index:1;">
+      <div class="al-headline" style="font-size:38px;">Command<br>centre for<br><span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">JobsSignal.</span></div>
+      <div class="al-sub" style="color:rgba(255,255,255,.35);">Authorised personnel only.<br>All access is monitored and logged.</div>
+    </div>
+    <div class="al-features" style="margin-top:auto;position:relative;z-index:1;">
+      <div class="al-feat"><div class="alf-icon alf-icon-gold">👥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">User Management</div><div class="alf-desc">View, download and manage all profiles</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-gold">📊</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Revenue Dashboard</div><div class="alf-desc">Track payments, plans and conversions</div></div></div>
+      <div class="al-feat"><div class="alf-icon alf-icon-gold">📥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Profile Downloads</div><div class="alf-desc">Export individual or bulk profiles as CSV</div></div></div>
+    </div>
+  </div>
+  <div class="auth-right" style="background:#0f1117;">
+    <div class="auth-card">
+      <div class="ac-tag" style="background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);color:var(--gold);">🔐 Restricted Access</div>
+      <div class="ac-title" style="color:white;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;">Admin Login</div>
+      <div class="ac-sub" style="color:rgba(255,255,255,.4);">Enter your credentials to access the admin panel.</div>
+      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Admin Username</label><input class="form-input" id="admin_user" placeholder="Enter admin username" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"></div>
+      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Password</label><div class="input-with-icon"><input class="form-input" id="admin_pass" type="password" placeholder="Enter password" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"><span class="iw-icon" onclick="togglePass('admin_pass',this)" style="color:rgba(255,255,255,.3);">👁</span></div></div>
+      <button type="button" class="btn-primary btn-admin-primary" onclick="doAdminLogin()">🔐 Login to Admin Panel →</button>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('adminChangePassView')">🔑 Change Password</button>
+        <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('landingView')">← Back to Site</button>
+      </div>
+      <div style="text-align:center;font-size:11px;color:rgba(255,255,255,.18);margin-top:14px;line-height:1.6;">🔒 All admin activity is logged and monitored.<br>Unauthorised access is prohibited.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ ADMIN CHANGE PASSWORD ============================================================ -->
+<div id="adminChangePassView" class="view">
+  <div style="background:var(--night2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+    <div class="cp-card" style="background:var(--night);border:1px solid var(--bn);">
+      <div class="cp-icon cp-icon-admin">🔐</div>
+      <div class="cp-title" style="color:white;">Change Admin Password</div>
+      <div class="cp-sub" style="color:rgba(255,255,255,.4);">Enter current password and set a new one.</div>
+      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Current Password</label><input class="form-input" id="acp_current" type="password" placeholder="Enter current password" style="background:rgba(255,255,255,.04);border-color:var(--bn);color:white;"></div>
+      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">New Password</label><div class="input-with-icon"><input class="form-input" id="acp_new" type="password" placeholder="Enter new password" style="background:rgba(255,255,255,.04);border-color:var(--bn);color:white;" oninput="checkPassStrength(this,'acp_strength','acp_strength_lbl')"><span class="iw-icon" onclick="togglePass('acp_new',this)" style="color:rgba(255,255,255,.3);">👁</span></div><div class="pass-strength" id="acp_strength" style="display:none;"></div><div class="ps-label" id="acp_strength_lbl" style="color:rgba(255,255,255,.3);font-size:10px;"></div></div>
+      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Confirm New Password</label><input class="form-input" id="acp_confirm" type="password" placeholder="Re-enter new password" style="background:rgba(255,255,255,.04);border-color:var(--bn);color:white;"></div>
+      <button type="button" class="btn-primary btn-admin-primary" onclick="doChangePass('admin')">🔐 Update Admin Password →</button>
+      <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('adminLoginView')">← Back to Admin Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ ADMIN DASHBOARD ============================================================ -->
+<div id="adminView" class="view">
+  <nav class="admin-nav">
+    <div class="admin-nav-inner">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/></svg>
+          <div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);font-weight:400;">Signal</span></div><div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;">Admin Panel</div></div>
+        </div>
+        <div class="admin-badge">ADMIN</div>
+      </div>
+      <div class="admin-nav-right">
+        <div style="font-size:12px;color:rgba(255,255,255,.35);">Logged in as <strong style="color:var(--gold);">admin</strong></div>
+        <button type="button" class="btn-dash-action" onclick="goTo('adminChangePassView')" style="border-color:rgba(240,168,76,.2);color:var(--gold);">🔑 Change Password</button>
+        <button type="button" class="btn-dash-action btn-dash-logout" onclick="goTo('landingView')">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-page">
+    <div class="admin-stats">
+      <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--blue);">89</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Paid Users</div><div class="astat-ch ch-up">↑ +7 this week</div></div>
+      <div class="astat"><div class="astat-n" style="color:rgba(255,255,255,.4);">158</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Free Users</div><div class="astat-ch ch-up">↑ +11 this week</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--gold);">₹7,821</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Revenue (MTD)</div><div class="astat-ch ch-up">↑ +₹693 this week</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--coral);">12</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Duplicate Flags</div><div class="astat-ch ch-dn">↓ -3 from last week</div></div>
+    </div>
+    <!-- ADMIN TABS -->
+    <div style="display:flex;gap:0;margin-bottom:18px;background:var(--night2);border-radius:var(--r);overflow:hidden;border:1px solid var(--bn);">
+      <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;">👥 All Profiles</button>
+      <button type="button" id="tabPayments" onclick="switchAdminTab('payments')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;">💳 Payments</button>
+    </div>
+
+    <!-- PROFILES SECTION -->
+    <div id="adminProfiles">
+    <div class="admin-filters">
+      <input class="af-in" id="searchFilter" placeholder="🔍 Search name, email, skill..." style="flex:1;min-width:200px;" oninput="filterTable()">
+      <select class="af-sel" id="planFilter" onchange="filterTable()"><option value="">All Plans</option><option value="free">Free</option><option value="paid">Paid</option></select>
+      <select class="af-sel" id="cityFilter" onchange="filterTable()"><option value="">All Cities</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Remote</option></select>
+      <select class="af-sel" id="roleFilter" onchange="filterTable()"><option value="">All Roles</option><option>Talent Acquisition</option><option>Software Developer</option><option>Product Manager</option><option>Data Scientist</option></select>
+      <button type="button" class="btn-af" onclick="filterTable()">Filter</button>
+      <button type="button" class="btn-export" onclick="exportAllCSV()">📥 Export All CSV</button>
+    </div>
+    <div class="admin-table-wrap">
+      <div class="admin-table-head"><div class="ath-title">All Registered Profiles</div><div class="ath-count" id="tableCount">Showing 8 profiles</div></div>
+      <table><thead><tr><th>#</th><th>Name</th><th>Contact</th><th>City</th><th>Role</th><th>Skills</th><th>Experience</th><th>Sure-Shot</th><th>Plan</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="adminTableBody"></tbody></table>
+    </div>
+    </div><!-- end adminProfiles -->
+
+    <!-- PAYMENTS SECTION -->
+    <div id="adminPayments" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Payment Transactions</div>
+        <button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:6px;">📥 Export Payments CSV</button>
+      </div>
+      <!-- Summary cards -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
+      <!-- Payments table -->
+      <div class="admin-table-wrap">
+        <div class="admin-table-head"><div class="ath-title">All Payment Transactions</div><div class="ath-count" id="payTableCount">0 transactions</div></div>
+        <table>
+          <thead><tr><th>#</th><th>User</th><th>Contact</th><th>Plan</th><th>Amount</th><th>Payment ID</th><th>Status</th><th>Paid At</th></tr></thead>
+          <tbody id="paymentsTableBody"></tbody>
+        </table>
+        <div id="noPayments" style="padding:48px;text-align:center;color:rgba(255,255,255,.25);font-size:14px;">No payments recorded yet.<br><span style="font-size:12px;">Payments will appear here after users complete checkout.</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROFILE DETAIL MODAL -->
+<div class="profile-modal-overlay" id="profileModal">
+  <div class="pmo-card">
+    <div class="pmo-header">
+      <div class="pmo-av" id="pmAv">KM</div>
+      <div style="flex:1;"><div class="pmo-name" id="pmName">Kiran Manepalli</div><div class="pmo-role" id="pmRole">Talent Acquisition · Hyderabad</div></div>
+      <button type="button" class="pmo-close" onclick="closeModal('profileModal')">✕</button>
+    </div>
+    <div class="pmo-body">
+      <div class="pmo-sec-title">Contact Details</div>
+      <div class="pmo-grid" id="pmContact"></div>
+      <div class="pmo-sec-title">Skills from Resume</div>
+      <div class="pmo-skills" id="pmSkills"></div>
+      <div class="pmo-actions">
+        <button type="button" class="btn-pmo-dl" onclick="downloadProfile()">📥 Download Profile CSV</button>
+        <button type="button" class="btn-pmo-close" onclick="closeModal('profileModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL (Razorpay) -->
+<div class="payment-modal" id="paymentModal">
+  <div class="pm-wrap">
+    <div class="pm-top">
+      <div class="pm-logo-row">
+        <svg width="22" height="22" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="8" fill="rgba(0,200,150,.2)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/></svg>
+        <div class="pm-brand">Jobs<span class="sig">Signal</span></div>
+      </div>
+      <div class="pm-plan-name" id="pmPlanName">30 Days Plan</div>
+      <div class="pm-amount"><small>₹</small><span id="pmAmount">99</span></div>
+      <div class="pm-duration" id="pmDuration">Full access · 30 days · All features included</div>
+      <button type="button" class="pm-close-btn" onclick="closeModal('paymentModal')">✕</button>
+    </div>
+    <div class="pm-body" id="pmPayBody">
+      <div class="pm-features">
+        <div class="pm-feat">All 4 search modes</div>
+        <div class="pm-feat">Sure-Shot scoring</div>
+        <div class="pm-feat">Resume-based matching</div>
+        <div class="pm-feat">Comment templates</div>
+        <div class="pm-feat">Company watchlist</div>
+        <div class="pm-feat">Unlimited searches</div>
+      </div>
+      <div class="pm-note">🔒 Secure payment powered by Razorpay. Your card details are never stored on our servers.</div>
+      <button type="button" class="btn-pay" onclick="processPayment()">
+        <span>🔒</span> Pay ₹<span id="payBtnAmt">99</span> Securely →
+      </button>
+      <div class="rzp-powered"><span>Secured by</span><span class="rzp-logo">Razorpay</span><span>· UPI · Cards · NetBanking</span></div>
+    </div>
+    <div class="payment-success" id="paymentSuccess">
+      <div class="ps-icon">🎉</div>
+      <div class="ps-title">Payment Successful!</div>
+      <div class="ps-sub">Your <strong id="psplan">30 Days</strong> plan is now active. Upload your resume to unlock personalised Sure-Shot scoring and matched recruiter signals.</div>
+      <button type="button" class="btn-primary" onclick="afterPayment()">📄 Upload Resume & Start →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME UPLOAD MODAL (post-payment) -->
+<div class="tmpl-overlay" id="resumeUploadModal">
+  <div class="tmpl-card" style="max-width:480px;">
+    <div class="tc-header">
+      <div class="tc-title">📄 Upload Your Resume</div>
+      <button type="button" class="tc-close" onclick="closeModal('resumeUploadModal')">✕</button>
+    </div>
+    <div style="font-size:13px;color:var(--soft);margin-bottom:16px;line-height:1.6;">Upload your resume to unlock personalised Sure-Shot scoring and matched recruiter signals based on your actual skills.</div>
+    <div class="upload-zone" id="postPayUploadZone" style="border-color:var(--em);background:var(--em-pale);">
+      <input type="file" accept=".pdf,.doc,.docx" onchange="handlePostPayUpload(this)">
+      <div style="font-size:28px;margin-bottom:10px;">📤</div>
+      <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;">Drop resume here or click to browse</div>
+      <div style="font-size:11px;color:var(--soft);">PDF or Word · Max 5MB · Your resume stays private</div>
+      <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;"><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">PDF</span><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">DOC</span><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">DOCX</span></div>
+    </div>
+    <div id="postPayProgress" style="display:none;padding:12px 0;">
+      <div style="height:5px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:7px;"><div id="ppFill" style="height:100%;background:linear-gradient(90deg,var(--em),var(--gold));border-radius:20px;width:0;transition:width .3s;"></div></div>
+      <div id="ppLabel" style="font-size:11px;color:var(--soft);">Reading resume...</div>
+    </div>
+    <div id="postPaySkills" style="display:none;margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Skills Detected</div>
+      <div id="ppSkillChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:6px;">
+      <button type="button" id="ppSkipBtn" onclick="closeModal('resumeUploadModal');showToast('You can upload resume later from your dashboard','amber');" style="flex:1;padding:11px;border-radius:8px;background:var(--off);color:var(--soft);font-size:13px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Skip for Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMMENT TEMPLATE -->
+<div class="tmpl-overlay" id="tmplOverlay">
+  <div class="tmpl-card">
+    <div class="tc-header"><div class="tc-title">💬 Comment Template</div><button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button></div>
+    <div style="font-size:12px;color:var(--soft);margin-bottom:13px;">Pick a tone — copy and paste directly on LinkedIn.</div>
+    <div class="tc-tabs">
+      <button type="button" class="tc-tab active" onclick="switchTmpl(this,'professional')">Professional</button>
+      <button type="button" class="tc-tab" onclick="switchTmpl(this,'friendly')">Friendly</button>
+      <button type="button" class="tc-tab" onclick="switchTmpl(this,'short')">Short & Sharp</button>
+    </div>
+    <div class="tc-body"><div class="tc-text" id="tmplText"></div></div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:11px;">✏️ Click Edit to customise before copying.</div>
+    <div class="tc-actions">
+      <button type="button" class="btn-copy" onclick="copyTemplate()" id="copyBtn">📋 Copy to Clipboard</button>
+      <button type="button" class="btn-edit-tmpl" onclick="makeEditable()">✏️ Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toastEl"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
+
+<script>
+// ============================================================
+// CONFIG — Replace with your actual Razorpay Key
+// ============================================================
+const RAZORPAY_KEY = 'rzp_live_STQSX6OgVKJ1cm';
+const BUSINESS_NAME = 'JobsSignal.in';
+const BUSINESS_LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCA0MiA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDIiIGhlaWdodD0iNDIiIHJ4PSIxMSIgZmlsbD0iIzA3MDkwZiIvPjxwYXRoIGQ9Ik0yNCA2IEwxNCAyMiBMMjAgMjIgTDE4IDM2IEwyOCAyMCBMMjIgMjAgWiIgZmlsbD0iIzAwYzg5NiIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMTAiIHI9IjIiIGZpbGw9IiNmMGE4NGMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjEwIiByPSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmMGE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iLjUiLz48L3N2Zz4=';
+
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+let searchesLeft = 5;
+let searchesUsed = 0;
+let savedCount = 0;
+let currentUser = {};
+let currentRecruiter = {};
+let activeTmplData = {};
+let currentProfileData = null;
+let selectedPlan = {name:'',amount:0};
+
+// ============================================================
+// MOCK DB
+// ============================================================
+const DB = [
+  {id:1,name:'Kiran Manepalli',phone:'98765 43210',email:'kiran@gmail.com',city:'Hyderabad',role:'Talent Acquisition',skills:['LinkedIn Sourcing','Talent Acquisition','LinkedIn Recruiter','People Management','Campus Hiring','Leadership Hiring','Vendor Management'],exp:'16+ Years',score:88,plan:'free',joined:'01 Apr 2025',linkedin:'linkedin.com/in/mkk0315/'},
+  {id:2,name:'Riya Desai',phone:'91234 56789',email:'riya@gmail.com',city:'Bengaluru',role:'Software Developer',skills:['React','TypeScript','Node.js','AWS'],exp:'4 Years',score:76,plan:'paid',joined:'28 Mar 2025',linkedin:'linkedin.com/in/riyadesai'},
+  {id:3,name:'Arjun Mehta',phone:'97654 32109',email:'arjun@gmail.com',city:'Mumbai',role:'Product Manager',skills:['Product Strategy','Agile','User Research','Data Analysis'],exp:'6 Years',score:81,plan:'paid',joined:'25 Mar 2025',linkedin:'linkedin.com/in/arjunmehta'},
+  {id:4,name:'Priya Krishnan',phone:'99887 76655',email:'priya@gmail.com',city:'Pune',role:'Data Scientist',skills:['Python','ML','TensorFlow','SQL'],exp:'3 Years',score:72,plan:'free',joined:'22 Mar 2025',linkedin:''},
+  {id:5,name:'Siddharth Rao',phone:'90001 23456',email:'sid@gmail.com',city:'Delhi NCR',role:'Software Developer',skills:['Java','Spring Boot','Microservices','Docker'],exp:'7 Years',score:85,plan:'paid',joined:'20 Mar 2025',linkedin:'linkedin.com/in/sidrao'},
+  {id:6,name:'Neha Sharma',phone:'88991 23456',email:'neha@gmail.com',city:'Hyderabad',role:'Talent Acquisition',skills:['Recruitment','LinkedIn','Campus Hiring','Vendor Management'],exp:'5 Years',score:68,plan:'free',joined:'18 Mar 2025',linkedin:''},
+  {id:7,name:'Vikram Nair',phone:'77665 54321',email:'vikram@gmail.com',city:'Chennai',role:'Software Developer',skills:['Python','Django','PostgreSQL','Redis'],exp:'5 Years',score:79,plan:'paid',joined:'15 Mar 2025',linkedin:'linkedin.com/in/viknair'},
+  {id:8,name:'Ananya Roy',phone:'66554 43210',email:'ananya@gmail.com',city:'Kolkata',role:'Product Manager',skills:['Product Design','Figma','User Research','OKRs'],exp:'4 Years',score:74,plan:'free',joined:'12 Mar 2025',linkedin:''},
+];
+
+// ============================================================
+// VIEW MANAGEMENT
+// ============================================================
+function goTo(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ============================================================
+// UTILS
+// ============================================================
+function togglePass(id,icon){
+  const el=document.getElementById(id);
+  el.type=el.type==='password'?'text':'password';
+  icon.textContent=el.type==='password'?'👁':'🙈';
+}
+function checkPassStrength(input,barId,lblId){
+  const val=input.value;
+  const bar=document.getElementById(barId);
+  const lbl=document.getElementById(lblId);
+  bar.style.display='block';
+  if(!val){bar.style.display='none';lbl.textContent='';return;}
+  if(val.length<6){bar.className='pass-strength ps-weak';lbl.textContent='Weak — use 8+ characters';}
+  else if(val.length<10||!/[0-9]/.test(val)){bar.className='pass-strength ps-medium';lbl.textContent='Medium — add numbers and symbols';}
+  else{bar.className='pass-strength ps-strong';lbl.textContent='Strong ✅';}
+}
+function doChangePass(type){
+  const prefix=type==='admin'?'acp':'cp';
+  const newPass=document.getElementById(prefix+'_new').value;
+  const confirm=document.getElementById(prefix+'_confirm').value;
+  if(!newPass){showToast('Please enter a new password','amber');return;}
+  if(newPass!==confirm){showToast('Passwords do not match','red');return;}
+  if(newPass.length<6){showToast('Password must be at least 6 characters','amber');return;}
+  showToast('Password updated successfully! ✅','green');
+  setTimeout(()=>goTo(type==='admin'?'adminLoginView':'loginView'),1500);
+}
+
+// ============================================================
+// NAV SCROLL
+// ============================================================
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav')?.classList.toggle('solid',window.scrollY>10);
+});
+
+// ============================================================
+// SIGNUP
+// ============================================================
+function pickPill(btn,groupId){
+  document.querySelectorAll('#'+groupId+' .pill-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function nextStep(from){
+  if(from===1){
+    const n=document.getElementById('s1_name').value.trim();
+    const p=document.getElementById('s1_phone').value.trim();
+    const e=document.getElementById('s1_email').value.trim();
+    const c=document.getElementById('s1_city').value;
+    if(!n){showToast('Please enter your full name','amber');return;}
+    if(p.length<10){showToast('Please enter valid 10-digit mobile','amber');return;}
+    if(!e){showToast('Please enter your email','amber');return;}
+    if(!c){showToast('Please select your city','amber');return;}
+    setProgress(2);
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+  }else if(from===2){
+    setProgress(3);
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step3').classList.add('active');
+  }
+}
+function prevStep(to){
+  setProgress(to);
+  document.querySelectorAll('.step-form').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+to).classList.add('active');
+}
+function setProgress(step){
+  for(let i=1;i<=3;i++){
+    const c=document.getElementById('pb'+i);
+    const l=document.getElementById('pbl'+i);
+    if(i<step){c.className='pb-circle done';c.textContent='✓';l.className='pb-label done';}
+    else if(i===step){c.className='pb-circle active';c.textContent=i;l.className='pb-label active';}
+    else{c.className='pb-circle todo';c.textContent=i;l.className='pb-label';}
+    if(i<3){const ln=document.getElementById('pbl'+i+(i+1));if(ln)ln.className='pb-line'+(i<step?' done':'');}
+  }
+}
+function doSignup(){
+  const name=document.getElementById('s1_name').value.trim()||'Job Seeker';
+  const city=document.getElementById('s1_city').value||'Hyderabad';
+  const skill=document.getElementById('s1_skill').value.trim()||'React';
+  enterDash(name,skill,city);
+}
+
+// ============================================================
+// LOGIN
+// ============================================================
+function doLogin(){
+  const phone=document.getElementById('li_phone').value.trim();
+  if(!phone){showToast('Please enter your mobile number','amber');return;}
+  enterDash('Kiran Kumar','Talent Acquisition','Hyderabad');
+}
+function enterDash(name,skill,city){
+  const first=name.split(' ')[0];
+  const init=name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+  const h=new Date().getHours();
+  const gr=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  currentUser={name,first,init,skill,city};
+  document.getElementById('dName').textContent=first;
+  document.getElementById('dAv').textContent=init;
+  document.getElementById('dGreet').textContent=gr+', '+first+'! 👋';
+  if(skill)document.getElementById('sk_skill').value=skill;
+  const citySel=document.getElementById('sk_city');
+  if(citySel&&city){for(let i=0;i<citySel.options.length;i++){if(citySel.options[i].text===city){citySel.selectedIndex=i;break;}}}
+  searchesLeft=5;searchesUsed=0;savedCount=0;
+  updateCounter();
+  goTo('dashView');
+  showToast('Welcome to JobsSignal, '+first+'! 🎉','green');
+}
+
+// ============================================================
+// COUNTER
+// ============================================================
+function updateCounter(){
+  const num=document.getElementById('scNum');
+  const left=document.getElementById('dLeft');
+  const aLeft=document.getElementById('actLeft');
+  const aUsed=document.getElementById('actUsed');
+  const aSaved=document.getElementById('actSaved');
+  if(num){
+    num.textContent=searchesLeft;
+    num.className='sc-badge-num '+(searchesLeft>3?'sc-num-green':searchesLeft>1?'sc-num-amber':'sc-num-red');
+  }
+  if(left)left.textContent=searchesLeft;
+  if(aLeft)aLeft.textContent=searchesLeft;
+  if(aUsed)aUsed.textContent=searchesUsed;
+  if(aSaved)aSaved.textContent=savedCount;
+  document.getElementById('dPlan').textContent='Free · '+searchesLeft+' searches left';
+}
+function showFomoIfEmpty(){
+  if(searchesLeft<=0){document.getElementById('fomoGate').classList.add('show');document.getElementById('fomoGate').scrollIntoView({behavior:'smooth',block:'center'});}
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function switchMode(mode,btn){
+  document.querySelectorAll('.dc-mode').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.ss').forEach(s=>s.classList.remove('active'));
+  document.getElementById('ss-'+mode).classList.add('active');
+  document.getElementById('resultsBox').classList.remove('show');
+}
+function toggleH(el){el.classList.toggle('sel');}
+function pickNPC(el){document.querySelectorAll('.np-c').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+const RDATA={
+  skill:[
+    {av:'fa1',init:'RK',name:'Rahul Kapoor',role:'Senior Recruiter',co:'TechCorp India · Hyderabad',post:'"Urgent! React Developer · 3-5 YOE · Hyderabad · Immediate to 30 days NP. Drop CV 👇"',mins:8,active:true,url:'https://www.linkedin.com/search/results/content/?keywords=hiring+react+developer+hyderabad&sortBy=date_posted'},
+    {av:'fa2',init:'PS',name:'Priya Sharma',role:'HR Manager',co:'StartupXYZ · Hyderabad',post:'"Hiring React + Node devs · Hyderabad WFO · 8-15 LPA · 2+ YOE"',mins:240,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=hiring+react+node+hyderabad&sortBy=date_posted'},
+    {av:'fa3',init:'AM',name:'Anita Mehta',role:'Talent Lead',co:'GlobalSoft · Remote',post:'"Senior React + TypeScript · Full remote · 15-25 LPA · 4+ YOE"',mins:360,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=senior+react+remote+hiring&sortBy=date_posted'},
+    {av:'fa4',init:'VR',name:'Vijay Rao',role:'Recruitment Specialist',co:'FinTechCo · Hyderabad',post:'"React openings · 5-8 LPA · 2-3 YOE · Bond: None"',mins:1440,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=react+developer+opening+hyderabad&sortBy=date_posted'},
+  ],
+  hashtag:[
+    {av:'fa5',init:'NK',name:'Nisha Kapoor',role:'HR Business Partner',co:'Infosys · Pune',post:'"#NowHiring Python Data Engineers · Pune · 3+ YOE · CTC 18 LPA · Hybrid"',mins:60,active:true,url:'https://www.linkedin.com/search/results/content/?keywords=%23nowhiring+python+pune&sortBy=date_posted'},
+    {av:'fa1',init:'SR',name:'Sanjay Reddy',role:'Technical Recruiter',co:'WiprosoftTech · Bengaluru',post:'"#WeAreHiring Java + Microservices · Bengaluru · 4-8 YOE · WFO"',mins:180,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=%23wearehiring+java+bangalore&sortBy=date_posted'},
+  ],
+  notice:[
+    {av:'fa2',init:'DM',name:'Deepika Menon',role:'Talent Manager',co:'QuickHire · Hyderabad',post:'"Urgent! React Dev 30 days NP or less · Hyderabad · 10-16 LPA"',mins:22,active:true,url:'https://www.linkedin.com/search/results/content/?keywords=%2230+days+notice%22+react+hyderabad&sortBy=date_posted'},
+    {av:'fa3',init:'RB',name:'Rohit Bansal',role:'Senior Recruiter',co:'PaymentsTech · Mumbai',post:'"React Native · 30d NP or immediate · Mumbai/Remote · 18-28 LPA"',mins:130,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=%22notice+period%22+%2230+days%22+react&sortBy=date_posted'},
+  ],
+  referral:[
+    {av:'fa4',init:'AK',name:'Arun Krishnan',role:'Senior SWE',co:'Razorpay · Hyderabad',post:'"Hiring React devs at Razorpay! DM for referral · 20-35 LPA · 4+ YOE 🔥"',mins:45,active:true,url:'https://www.linkedin.com/search/results/content/?keywords=%22referral%22+%22DM%22+react+razorpay&sortBy=date_posted'},
+    {av:'fa5',init:'MN',name:'Meera Nair',role:'Product Manager',co:'Zepto · Bengaluru',post:'"Zepto hiring PMs! DM for referral · 3+ YOE · Bengaluru"',mins:190,active:false,url:'https://www.linkedin.com/search/results/content/?keywords=%22DM+me%22+%22referral%22+product+manager+bangalore&sortBy=date_posted'},
+  ]
+};
+
+// ============================================================
+// DYNAMIC RESULT GENERATION — based on actual searched skill
+// ============================================================
+function generateDynamicResults(skill, city, mode){
+  const s = skill.toLowerCase();
+  const c = city;
+  const now = new Date();
+
+  // Detect role category from skill
+  const isTA    = /talent|recruit|hr |human resource|hiring manager|ta |sourcing|staffing|acquisition/i.test(s);
+  const isData  = /data|analyst|python|sql|tableau|power bi|ml|machine learning|ai |analytics/i.test(s);
+  const isPM    = /product manager|pm |product owner|roadmap|agile|scrum master/i.test(s);
+  const isDev   = /react|angular|vue|node|java|python dev|developer|engineer|frontend|backend|fullstack|.net|php|swift|kotlin/i.test(s);
+  const isDesign= /ui|ux|designer|figma|design/i.test(s);
+  const isSales = /sales|business development|bd |account manager|pre-sales/i.test(s);
+  const isFinance = /finance|accounts|ca |chartered|audit|tax|banking/i.test(s);
+
+  const skillDisplay = skill;
+  const mins = [6, 35, 180, 420, 1440];
+  const avs = ['fa1','fa2','fa3','fa4','fa5'];
+  const inits = ['RK','PS','AM','NK','VR'];
+  const names = ['Rahul Kapoor','Priya Sharma','Anita Mehta','Nisha Kapoor','Vijay Rao'];
+
+  let templates = [];
+
+  if(isTA){
+    templates = [
+      {role:'Head of Talent Acquisition',co:'TechCorp India',post:`"Urgent! ${skillDisplay} role open at our Hyderabad office. 8-15 YOE preferred. Leadership hiring background a plus. Immediate to 30d NP. DM me! #${skillDisplay.replace(/ /g,'')} #Hiring"`},
+      {role:'TA Manager',co:'StartupXYZ',post:`"We are hiring an experienced ${skillDisplay} professional for our ${c} team. APAC hiring experience preferred. 5-10 YOE. CTC: 15-25 LPA. Drop CV below 👇"`},
+      {role:'Senior Recruiter',co:'GlobalConsult',post:`"#NowHiring ${skillDisplay} Manager! ${c} WFO · Leadership hiring experience · LinkedIn Recruiter must · 10+ YOE preferred"`},
+      {role:'HR Business Partner',co:'FinTechCo',post:`"${skillDisplay} opening for our growing ${c} team. Campus + Lateral hiring exp needed. Notice period 30-60 days fine. 8-12 LPA"`},
+    ];
+  } else if(isData){
+    templates = [
+      {role:'Senior Recruiter',co:'DataTech India',post:`"Urgently hiring ${skillDisplay} professional · ${c} · 3-6 YOE · CTC 15-25 LPA · Hybrid 3 days. Must have hands-on experience. DM now! 🔥"`},
+      {role:'Talent Lead',co:'Analytics Corp',post:`"${skillDisplay} role open · ${c}/Remote · Strong SQL + visualization skills needed · 4+ YOE · Immediate preferred. Drop CV 👇"`},
+      {role:'HR Manager',co:'InsightsCo',post:`"#Hiring ${skillDisplay} · ${c} · 18-28 LPA · 5+ years · Product analytics background preferred · Apply below"`},
+    ];
+  } else if(isPM){
+    templates = [
+      {role:'Talent Acquisition Lead',co:'ProductFirst',post:`"Looking for an experienced ${skillDisplay} for our ${c} office. B2C product exp preferred. 4-8 YOE. CTC: 20-40 LPA. Message me directly!"`},
+      {role:'Senior Recruiter',co:'SaaSCo India',post:`"#NowHiring ${skillDisplay} · ${c} · Strong data-driven approach needed · 3-7 YOE · Excellent comp + ESOPs offered"`},
+    ];
+  } else if(isDev){
+    templates = [
+      {role:'Senior Recruiter',co:'TechCorp India',post:`"Urgent requirement! ${skillDisplay} Developer · 3-5 YOE · ${c} · Immediate to 30 days NP preferred. Drop your CV 👇 #Hiring"`},
+      {role:'HR Manager',co:'StartupXYZ',post:`"Hiring ${skillDisplay} developers · ${c} WFO · 8-15 LPA · 2+ YOE. Comment below or DM directly!"`},
+      {role:'Talent Lead',co:'GlobalSoft',post:`"Senior ${skillDisplay} + related stack · Full remote/Hybrid · 15-25 LPA · 4+ YOE. Immediate joiners preferred!"`},
+      {role:'Recruitment Specialist',co:'FinTechCo',post:`"Multiple ${skillDisplay} openings · ${c} · 5-8 LPA · 2-3 YOE. Bond: None. WFO 5 days"`},
+    ];
+  } else if(isDesign){
+    templates = [
+      {role:'HR Manager',co:'DesignStudio',post:`"Hiring ${skillDisplay} for our ${c} product team. Portfolio must. 3-6 YOE. 12-20 LPA. WFH/Hybrid. DM me!"`},
+      {role:'Talent Lead',co:'StartupXYZ',post:`"${skillDisplay} wanted for our growing ${c} team · Strong Figma skills + user research background · 4+ YOE"`},
+    ];
+  } else if(isSales){
+    templates = [
+      {role:'HR Business Partner',co:'SalesCorp India',post:`"Hiring ${skillDisplay} for ${c} region · B2B SaaS exp preferred · 3-8 YOE · CTC: 8-18 LPA + incentives. Apply now!"`},
+      {role:'Senior Recruiter',co:'TechSales Co',post:`"${skillDisplay} opening · ${c} · Immediate to 30d NP · Strong communication + targets-driven background needed"`},
+    ];
+  } else if(isFinance){
+    templates = [
+      {role:'HR Manager',co:'FinanceCorp',post:`"Urgently hiring ${skillDisplay} professional · ${c} · CA/CMA preferred · 5+ YOE · CTC 15-30 LPA · WFO"`},
+      {role:'Talent Lead',co:'BankingGroup',post:`"${skillDisplay} role · ${c} · Big4 background preferred · 4-8 YOE · Immediate joiners preferred. DM!"`},
+    ];
+  } else {
+    // Generic — works for any other skill
+    templates = [
+      {role:'Senior Recruiter',co:'HireCo India',post:`"Urgently looking for ${skillDisplay} professionals in ${c} · Strong domain knowledge needed · Immediate to 30d NP · DM me!"`},
+      {role:'HR Manager',co:'TechStartup',post:`"#Hiring ${skillDisplay} · ${c}/Remote · Good compensation + growth · 3+ YOE preferred. Drop CV below 👇"`},
+      {role:'Talent Lead',co:'GrowthCo',post:`"${skillDisplay} opening · ${c} · 5-15 LPA depending on experience · Immediate joiners preferred. Message me directly!"`},
+    ];
+  }
+
+  // Add referral/notice-specific posts if in those modes
+  if(mode==='referral'){
+    templates = [
+      {role:'Employee — Razorpay',co:'Razorpay · '+c,post:`"My company is hiring ${skillDisplay} professionals! DM me for a referral. Great comp + culture 🔥 #Referral #${skillDisplay.replace(/ /g,'')}"`},
+      {role:'Employee — Zepto',co:'Zepto · '+c,post:`"Zepto is hiring ${skillDisplay} talent in ${c}! DM me for referral. 3+ YOE. Exciting growth stage company!"`},
+      {role:'Employee — Infosys',co:'Infosys · '+c,post:`"We are expanding our ${skillDisplay} team at Infosys ${c}. DM me if you want a direct referral. Immediate + serving notice welcome."`},
+    ];
+  }
+  if(mode==='notice'){
+    const np = document.querySelector('.np-c.sel')?.textContent||'30 Days';
+    templates = templates.map(t=>({...t, post:t.post.replace('DM me!',`DM me! ${np} NP or less preferred.`).replace('Apply now!',`${np} NP candidates preferred. Apply now!`)}));
+  }
+
+  // Build result objects
+  return templates.slice(0,4).map((t,i)=>({
+    av: avs[i%avs.length],
+    init: inits[i%inits.length],
+    name: names[i%names.length],
+    role: t.role,
+    co: t.co+' · '+c,
+    post: t.post,
+    mins: mins[i%mins.length],
+    active: i===0,
+    url: `https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent('hiring '+skill+' '+c)}&sortBy=date_posted`
+  }));
+}
+
+function getFreshness(mins){
+  if(mins<=30)  return{badge:'fb-hot',  icon:'🔴',text:'Posted '+mins+' min ago — Recruiter likely online!',cc:'fresh'};
+  if(mins<=120) return{badge:'fb-golden',icon:'🟠',text:'Posted '+Math.floor(mins/60)+' hr ago — Golden window',cc:'warm'};
+  if(mins<=360) return{badge:'fb-fresh', icon:'🟡',text:'Posted '+Math.floor(mins/60)+' hrs ago — Still fresh',cc:'warm'};
+  return           {badge:'fb-cool',  icon:'⚪',text:'Posted '+(mins>=1440?'yesterday':'several hrs ago'),cc:'cool'};
+}
+
+function calcSureShot(post,userSkills,userCity){
+  const p=post.toLowerCase();
+  const skills=(userSkills||[]).map(s=>s.toLowerCase());
+  const city=(userCity||'hyderabad').toLowerCase();
+  const skillMatches=skills.filter(s=>p.includes(s)).length;
+  const skillScore=Math.min(35,Math.round((skillMatches/Math.max(skills.length,1))*35));
+  const expScore=18+Math.floor(Math.random()*7);
+  const locScore=p.includes(city)||p.includes('remote')?20:8;
+  const npScore=6+Math.floor(Math.random()*4);
+  const profScore=7;
+  return{total:Math.min(100,skillScore+expScore+locScore+npScore+profScore),skillScore,expScore,locScore,npScore,profScore};
+}
+function getVerdict(s){
+  if(s>=85)return{cls:'ssv-perfect',lbl:'🔥 Perfect Match'};
+  if(s>=70)return{cls:'ssv-strong',lbl:'⭐ Strong Match'};
+  if(s>=50)return{cls:'ssv-partial',lbl:'💛 Partial Match'};
+  return{cls:'ssv-gap',lbl:'💡 Skill Gap'};
+}
+
+function runSearch(mode){
+  if(searchesLeft<=0){document.getElementById('fomoGate').classList.add('show');document.getElementById('fomoGate').scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const load=document.getElementById('sLoad');
+  const fill=document.getElementById('slFill');
+  const lbl=document.getElementById('slLbl');
+  const results=document.getElementById('resultsBox');
+  results.classList.remove('show');
+  load.classList.add('show');
+  fill.style.width='0%';
+  let url='';
+  if(mode==='skill'){const sk=document.getElementById('sk_skill').value.trim()||'developer';const ci=document.getElementById('sk_city').value;url=`https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent('hiring '+sk+' '+ci)}&sortBy=date_posted`;}
+  else if(mode==='hashtag'){const tags=[...document.querySelectorAll('.ht-c.sel')].map(t=>'%23'+t.textContent.replace('#',''));const sk=document.getElementById('ht_skill').value.trim();const ci=document.getElementById('ht_city').value;url=`https://www.linkedin.com/search/results/content/?keywords=${[...tags,encodeURIComponent(sk),encodeURIComponent(ci)].filter(Boolean).join('+')}&sortBy=date_posted`;}
+  else if(mode==='notice'){const np=document.querySelector('.np-c.sel')?.textContent||'30 Days';const sk=document.getElementById('np_skill').value.trim()||'developer';const ci=document.getElementById('np_city').value;url=`https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent('"'+np+'" '+sk+' '+ci)}&sortBy=date_posted`;}
+  else if(mode==='referral'){const co=document.getElementById('ref_co').value.trim();const sk=document.getElementById('ref_skill').value.trim()||'developer';const ci=document.getElementById('ref_city').value;url=`https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent('"DM me" referral '+co+' '+sk+' '+ci)}&sortBy=date_posted`;}
+  window.open(url,'_blank');
+  searchesLeft--;searchesUsed++;
+  updateCounter();
+  if(searchesLeft===1)showToast('⚠️ Only 1 free search remaining!','amber');
+  if(searchesLeft===0)showToast('Free searches used — consider upgrading!','red');
+  const steps=[[20,'Opening LinkedIn...'],[45,'Finding recruiter posts...'],[68,'Applying Sure-Shot scoring...'],[85,'Sorting India results...'],[100,'Done! ✅']];
+  let i=0;
+  const intv=setInterval(()=>{
+    if(i<steps.length){fill.style.width=steps[i][0]+'%';lbl.textContent=steps[i][1];i++;}
+    else{clearInterval(intv);setTimeout(()=>{load.classList.remove('show');buildResults(mode);results.classList.add('show');results.scrollIntoView({behavior:'smooth',block:'nearest'});},400);}
+  },320);
+}
+
+function buildResults(mode){
+  // Get the ACTUAL searched skill and city from the input fields
+  let searchedSkill = '';
+  let searchedCity = '';
+  if(mode==='skill'){
+    searchedSkill = document.getElementById('sk_skill').value.trim();
+    searchedCity  = document.getElementById('sk_city').value;
+  } else if(mode==='hashtag'){
+    searchedSkill = document.getElementById('ht_skill').value.trim();
+    searchedCity  = document.getElementById('ht_city').value;
+  } else if(mode==='notice'){
+    searchedSkill = document.getElementById('np_skill').value.trim();
+    searchedCity  = document.getElementById('np_city').value;
+  } else if(mode==='referral'){
+    searchedSkill = document.getElementById('ref_skill').value.trim()||document.getElementById('ref_co').value.trim();
+    searchedCity  = document.getElementById('ref_city').value;
+  }
+  if(!searchedSkill) searchedSkill = currentUser.skill||'Talent Acquisition';
+  if(!searchedCity)  searchedCity  = currentUser.city||'Hyderabad';
+
+  // Build dynamic result cards based on searched skill
+  const skillLower = searchedSkill.toLowerCase();
+  const cityDisplay = searchedCity;
+
+  // Generate role-appropriate sample results based on skill searched
+  const dynamicResults = generateDynamicResults(searchedSkill, searchedCity, mode);
+
+  document.getElementById('rCount').textContent = dynamicResults.length+' recruiter signals found for "'+searchedSkill+'" in '+searchedCity;
+  document.getElementById('rSub').textContent = 'Sorted by freshness · Sure-Shot scored · India only · LinkedIn opened';
+  const list=document.getElementById('rList');
+  list.innerHTML='';
+  const userSkills = searchedSkill ? [searchedSkill] : (currentUser.skill?[currentUser.skill]:['Talent Acquisition']);
+  const userCity   = searchedCity || currentUser.city || 'Hyderabad';
+
+  dynamicResults.forEach((r,idx)=>{
+    const fr=getFreshness(r.mins);
+    const ss=calcSureShot(r.post, userSkills, userCity);
+    const vd=getVerdict(ss.total);
+    currentRecruiter[idx+'_'+mode]=r;
+    const card=document.createElement('div');
+    card.className='rcard '+fr.cc;
+    card.innerHTML=`
+      <div class="rc-top">
+        <div class="rc-av ${r.av}">${r.init}</div>
+        <div style="flex:1;"><div class="rc-nm">${r.name}</div><div class="rc-role">${r.role}</div><div class="rc-co">${r.co}</div></div>
+      </div>
+      <div class="freshness">
+        <div class="fresh-badge ${fr.badge}">${fr.icon} ${fr.text}</div>
+        ${r.active?'<div class="active-rec">🔥 Active Recruiter</div>':''}
+      </div>
+      <div class="sure-shot">
+        <div class="ss-header">
+          <div class="ss-title">🎯 Sure-Shot Score <span class="ss-verdict ${vd.cls}">${vd.lbl}</span></div>
+          <div style="display:flex;align-items:baseline;gap:2px;"><div class="ss-score-big" style="color:${ss.total>=85?'var(--em)':ss.total>=70?'var(--blue)':ss.total>=50?'var(--gold)':'var(--coral)'}">${ss.total}</div><div style="font-size:11px;color:var(--muted);">/100</div></div>
+        </div>
+        <div class="ss-bars">
+          <div class="ss-bar-row"><div class="ss-bar-label">Skills Match</div><div class="ss-bar-track"><div class="ss-bar-fill" style="width:${(ss.skillScore/35)*100}%"></div></div><div class="ss-bar-val">${ss.skillScore}/35</div></div>
+          <div class="ss-bar-row"><div class="ss-bar-label">Experience</div><div class="ss-bar-track"><div class="ss-bar-fill" style="width:${(ss.expScore/25)*100}%;background:var(--blue)"></div></div><div class="ss-bar-val" style="color:var(--blue)">${ss.expScore}/25</div></div>
+          <div class="ss-bar-row"><div class="ss-bar-label">Location</div><div class="ss-bar-track"><div class="ss-bar-fill" style="width:${(ss.locScore/20)*100}%;background:var(--gold)"></div></div><div class="ss-bar-val" style="color:var(--gold)">${ss.locScore}/20</div></div>
+          <div class="ss-bar-row"><div class="ss-bar-label">Notice Period</div><div class="ss-bar-track"><div class="ss-bar-fill" style="width:${(ss.npScore/10)*100}%;background:var(--purple)"></div></div><div class="ss-bar-val" style="color:var(--purple)">${ss.npScore}/10</div></div>
+        </div>
+      </div>
+      <div class="rc-post">${r.post}</div>
+      <div class="rc-actions">
+        <button type="button" class="rca rca-li" onclick="window.open('${r.url}','_blank')">🔗 View Post</button>
+        <button type="button" class="rca rca-rec" onclick="window.open('https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(r.name)}','_blank')">👤 Find Recruiter</button>
+        <button type="button" class="rca rca-tmpl" onclick="openTmpl(${idx},'${mode}')">💬 Comment Template</button>
+        <button type="button" class="rca rca-save" onclick="savedCount++;updateCounter();showToast('Post saved ⭐','green')">⭐ Save</button>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+// ============================================================
+// COMPANY WATCHLIST
+// ============================================================
+function addCompany(){const r=document.getElementById('addCoRow');r.style.display=r.style.display==='none'?'block':'none';if(r.style.display==='block')document.getElementById('newCoIn').focus();}
+function saveCompany(){
+  const input=document.getElementById('newCoIn');
+  const val=input.value.trim();
+  if(!val){showToast('Enter a company name','amber');return;}
+  const colors=['var(--night)','var(--blue)','var(--em)','var(--gold)','var(--purple)','var(--coral)'];
+  const col=colors[Math.floor(Math.random()*colors.length)];
+  const div=document.createElement('div');
+  div.className='watch-row';
+  div.innerHTML=`<div class="wc-logo" style="background:${col};">${val[0].toUpperCase()}</div><div><div class="wc-nm">${val}</div><div class="wc-act">Just added</div></div><div class="wc-badge wcb-none">Watching</div>`;
+  document.getElementById('extraCompanies').appendChild(div);
+  input.value='';
+  document.getElementById('addCoRow').style.display='none';
+  showToast(val+' added to watchlist 🏢','green');
+}
+
+// ============================================================
+// RAZORPAY PAYMENT
+// ============================================================
+function openPayment(planName, amount){
+  selectedPlan={name:planName,amount};
+  document.getElementById('pmPlanName').textContent=planName;
+  document.getElementById('pmAmount').textContent=amount;
+  document.getElementById('payBtnAmt').textContent=amount;
+  document.getElementById('pmDuration').textContent='Full access · '+planName+' · All features included';
+  document.getElementById('pmPayBody').style.display='block';
+  document.getElementById('paymentSuccess').classList.remove('show');
+  document.getElementById('paymentModal').classList.add('open');
+}
+
+function processPayment(){
+  const btn=document.querySelector('.btn-pay');
+  btn.innerHTML='<span style="display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" stroke-linecap="round"/></svg>Opening Razorpay...</span>';
+  btn.disabled=true;
+
+  // Generate unique order ID for tracking
+  const orderId='JS_'+Date.now()+'_'+Math.random().toString(36).substr(2,9).toUpperCase();
+
+  const options={
+    key: RAZORPAY_KEY,
+    amount: selectedPlan.amount * 100,
+    currency: 'INR',
+    name: BUSINESS_NAME,
+    description: selectedPlan.name+' Plan — Full Access',
+    image: BUSINESS_LOGO,
+    order_id: '', // For production: generate server-side order ID via Razorpay API
+    notes:{
+      plan: selectedPlan.name,
+      duration_days: selectedPlan.name.includes('7')?'7':selectedPlan.name.includes('30')?'30':selectedPlan.name.includes('60')?'60':'365',
+      user_name: currentUser.name||'',
+      platform: 'JobsSignal.in',
+      internal_ref: orderId
+    },
+    handler: function(response){
+      // ✅ Payment verified by Razorpay
+      const paymentId = response.razorpay_payment_id;
+      onPaymentSuccess(paymentId);
+    },
+    prefill:{
+      name: currentUser.name||'',
+      email: currentUser.email||'',
+      contact: currentUser.phone||''
+    },
+    theme:{color:'#00c896'},
+    modal:{
+      backdropclose: false,
+      escape: false,
+      handleback: true,
+      ondismiss:function(){
+        btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';
+        btn.disabled=false;
+        showToast('Payment cancelled — your plan is not active yet','amber');
+      }
+    }
+  };
+
+  if(typeof Razorpay !== 'undefined'){
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed',function(resp){
+      showToast('Payment failed: '+resp.error.description,'red');
+      btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';
+      btn.disabled=false;
+    });
+    rzp.open();
+  } else {
+    // Razorpay SDK not loaded — retry or show error
+    showToast('Payment gateway loading... please try again in a moment','amber');
+    btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';
+    btn.disabled=false;
+  }
+}
+
+function onPaymentSuccess(paymentId){
+  // 1. Unlock unlimited searches immediately
+  searchesLeft = 999999;
+  updateCounter();
+
+  // 2. Update nav plan badge
+  const planEl = document.getElementById('dPlan');
+  if(planEl) planEl.textContent = selectedPlan.name+' Plan · Active ✅';
+
+  // 3. Hide FOMO gate if visible
+  const fomoEl = document.getElementById('fomoGate');
+  if(fomoEl) fomoEl.classList.remove('show');
+
+  // 4. Update search counter badge colour to green
+  const scNum = document.getElementById('scNum');
+  if(scNum){ scNum.textContent = '∞'; scNum.className = 'sc-badge-num sc-num-green'; }
+
+  // 5. Show payment success panel inside modal
+  document.getElementById('pmPayBody').style.display = 'none';
+  document.getElementById('paymentSuccess').classList.add('show');
+  document.getElementById('psplan').textContent = selectedPlan.name;
+
+  // 6. Save payment to localStorage (plan + payment log)
+  const now = new Date().toISOString();
+  const activation = {
+    plan: selectedPlan.name,
+    amount: selectedPlan.amount,
+    paymentId: paymentId,
+    activatedAt: now,
+    expiresAt: getPlanExpiry(selectedPlan.name)
+  };
+  try{ localStorage.setItem('js_plan', JSON.stringify(activation)); }catch(e){}
+
+  // 7. Save to payment log for admin
+  try{
+    const log = JSON.parse(localStorage.getItem('js_payments')||'[]');
+    log.unshift({
+      id: log.length+1,
+      user: currentUser.name||'Unknown',
+      phone: currentUser.phone||'',
+      email: currentUser.email||'',
+      plan: selectedPlan.name,
+      amount: selectedPlan.amount,
+      paymentId: paymentId,
+      paidAt: now,
+      status: 'Success'
+    });
+    localStorage.setItem('js_payments', JSON.stringify(log));
+  }catch(e){}
+
+  showToast('✅ Payment of ₹'+selectedPlan.amount+' successful! Plan activated.','green');
+}
+
+function getPlanExpiry(planName){
+  const days = planName.includes('7')?7:planName.includes('30')?30:planName.includes('60')?60:365;
+  const exp = new Date();
+  exp.setDate(exp.getDate()+days);
+  return exp.toISOString();
+}
+
+function afterPayment(){
+  closeModal('paymentModal');
+  // Show upload resume prompt in dashboard
+  showResumeUploadPrompt();
+}
+
+function showResumeUploadPrompt(){
+  // Create inline upload prompt at top of dashboard
+  const existing = document.getElementById('uploadPromptBanner');
+  if(existing) existing.remove();
+  const banner = document.createElement('div');
+  banner.id = 'uploadPromptBanner';
+  banner.style.cssText = 'background:linear-gradient(135deg,#00c896,#00e8aa);border-radius:var(--r);padding:20px 28px;margin-bottom:18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 32px rgba(0,200,150,.25);';
+  banner.innerHTML = `
+    <div style="font-size:32px;">📄</div>
+    <div style="flex:1;">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#07090f;margin-bottom:4px;">Plan activated! Now upload your resume</div>
+      <div style="font-size:13px;color:rgba(7,9,15,.7);line-height:1.6;">Based on your profile we will show personalised recruiter signals and your Sure-Shot score for every result.</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <button type="button" onclick="openUploadModal()" style="padding:10px 20px;border-radius:8px;background:#07090f;color:white;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📤 Upload Resume →</button>
+      <button type="button" onclick="this.parentElement.parentElement.remove()" style="padding:10px 14px;border-radius:8px;background:rgba(7,9,15,.15);color:#07090f;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Later</button>
+    </div>`;
+  const dashPage = document.querySelector('.dash-page');
+  if(dashPage) dashPage.insertBefore(banner, dashPage.firstChild.nextSibling.nextSibling);
+  showToast('Plan activated! Upload your resume for personalised signals 📄','green');
+}
+
+function openUploadModal(){
+  document.getElementById('uploadPromptBanner')?.remove();
+  // Show upload modal
+  document.getElementById('resumeUploadModal').classList.add('open');
+}
+
+// ============================================================
+// COMMENT TEMPLATES
+// ============================================================
+const TMPLS={
+  professional:(r,skill,np)=>`Hi ${r.name}, I am a ${skill} professional currently based in ${r.co.split('·')[1]?.trim()||'Hyderabad'} with relevant experience in this domain. I came across your recent post and would love to explore this opportunity. I am currently serving a ${np} notice period. I have shared my CV via DM — looking forward to connecting.`,
+  friendly:(r,skill,np)=>`Hey ${r.name}! Saw your post and I'm genuinely excited! I'm a ${skill} professional with ${np} NP — think I'd be a great fit. Sending my CV on DM right now 😊`,
+  short:(r,skill,np)=>`Hi ${r.name}, ${skill} here · ${np} NP · CV in DM. Happy to connect! 🙌`
+};
+let activeTmplMode='professional';
+
+function openTmpl(idx,mode){
+  const r=currentRecruiter[idx+'_'+mode]||{name:'Recruiter',co:'Company · Hyderabad'};
+  const skill=currentUser.skill||'Professional';
+  const np=document.querySelector('.np-c.sel')?.textContent||'30 Days';
+  activeTmplData={r,skill,np};
+  activeTmplMode='professional';
+  document.querySelectorAll('.tc-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tc-tab').classList.add('active');
+  document.getElementById('tmplText').textContent=TMPLS.professional(r,skill,np);
+  document.getElementById('tmplText').contentEditable='false';
+  document.getElementById('tmplOverlay').classList.add('open');
+}
+function switchTmpl(btn,type){
+  document.querySelectorAll('.tc-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  activeTmplMode=type;
+  document.getElementById('tmplText').textContent=TMPLS[type](activeTmplData.r,activeTmplData.skill,activeTmplData.np);
+}
+function copyTemplate(){
+  const text=document.getElementById('tmplText').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    document.getElementById('copyBtn').innerHTML='✅ Copied!';
+    setTimeout(()=>{document.getElementById('copyBtn').innerHTML='📋 Copy to Clipboard';},2000);
+    showToast('Copied! Paste it on LinkedIn 🚀','green');
+  }).catch(()=>showToast('Select and copy manually','amber'));
+}
+function makeEditable(){
+  const el=document.getElementById('tmplText');
+  const e=el.contentEditable!=='true';
+  el.contentEditable=e?'true':'false';
+  el.style.outline=e?'2px solid var(--em)':'none';
+  el.style.borderRadius=e?'6px':'0';
+  if(e){el.focus();showToast('Now editable','amber');}
+}
+document.getElementById('tmplOverlay').addEventListener('click',function(e){if(e.target===this)closeModal('tmplOverlay');});
+document.getElementById('profileModal').addEventListener('click',function(e){if(e.target===this)closeModal('profileModal');});
+document.getElementById('paymentModal').addEventListener('click',function(e){if(e.target===this)closeModal('paymentModal');});
+
+// ============================================================
+// ADMIN LOGIN
+// ============================================================
+// ============================================================
+// ADMIN TAB SWITCHING
+// ============================================================
+function switchAdminTab(tab){
+  const tabProfiles = document.getElementById('tabProfiles');
+  const tabPayments = document.getElementById('tabPayments');
+  const secProfiles = document.getElementById('adminProfiles');
+  const secPayments = document.getElementById('adminPayments');
+  if(tab==='profiles'){
+    tabProfiles.style.background=tabProfiles.style.color='' ; tabProfiles.style.background='var(--gold)'; tabProfiles.style.color='var(--night)';
+    tabPayments.style.background='transparent'; tabPayments.style.color='rgba(255,255,255,.4)';
+    secProfiles.style.display='block'; secPayments.style.display='none';
+  } else {
+    tabPayments.style.background='var(--gold)'; tabPayments.style.color='var(--night)';
+    tabProfiles.style.background='transparent'; tabProfiles.style.color='rgba(255,255,255,.4)';
+    secProfiles.style.display='none'; secPayments.style.display='block';
+    renderPaymentsTable();
+  }
+}
+
+function renderPaymentsTable(){
+  let payments = [];
+  try{ payments = JSON.parse(localStorage.getItem('js_payments')||'[]'); }catch(e){}
+  const tbody = document.getElementById('paymentsTableBody');
+  const noMsg = document.getElementById('noPayments');
+  const countEl = document.getElementById('payTableCount');
+  countEl.textContent = payments.length+' transactions';
+  // Summary cards
+  const total = payments.reduce((s,p)=>s+p.amount,0);
+  const plans = {'7 Days':0,'30 Days':0,'60 Days':0,'Annual Plan':0};
+  payments.forEach(p=>{ if(plans[p.plan]!==undefined) plans[p.plan]++; });
+  document.getElementById('paymentSummary').innerHTML = `
+    <div style="background:var(--night2);border-radius:12px;padding:18px;border:1px solid var(--bn);"><div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);">₹${total}</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">Total Revenue</div></div>
+    <div style="background:var(--night2);border-radius:12px;padding:18px;border:1px solid var(--bn);"><div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--em);">${payments.length}</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">Total Transactions</div></div>
+    <div style="background:var(--night2);border-radius:12px;padding:18px;border:1px solid var(--bn);"><div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--blue);">${payments.filter(p=>p.plan==='30 Days').length}</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">30-Day Plans</div></div>
+    <div style="background:var(--night2);border-radius:12px;padding:18px;border:1px solid var(--bn);"><div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--purple);">${payments.filter(p=>p.plan==='Annual Plan').length}</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">Annual Plans</div></div>`;
+  if(payments.length===0){tbody.innerHTML='';noMsg.style.display='block';return;}
+  noMsg.style.display='none';
+  tbody.innerHTML='';
+  payments.forEach((p,i)=>{
+    const d = new Date(p.paidAt);
+    const dateStr = d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:rgba(255,255,255,.25);font-size:11px;">${i+1}</td>
+      <td><div style="font-weight:700;color:white;">${p.user||'Unknown'}</div></td>
+      <td><div style="font-size:11px;">${p.phone||'—'}</div><div style="font-size:10px;color:rgba(255,255,255,.3);">${p.email||'—'}</div></td>
+      <td><span style="background:rgba(0,200,150,.12);color:var(--em);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;">${p.plan}</span></td>
+      <td style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);">₹${p.amount}</td>
+      <td style="font-size:10px;color:rgba(255,255,255,.4);">${p.paymentId||'—'}</td>
+      <td><span style="background:rgba(0,200,150,.1);color:var(--em);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">✅ ${p.status||'Success'}</span></td>
+      <td style="font-size:11px;color:rgba(255,255,255,.35);">${dateStr}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function exportPaymentsCSV(){
+  let payments = [];
+  try{ payments = JSON.parse(localStorage.getItem('js_payments')||'[]'); }catch(e){}
+  if(!payments.length){showToast('No payments to export yet','amber');return;}
+  const header = 'No,User,Phone,Email,Plan,Amount,Payment ID,Status,Paid At
+';
+  const rows = payments.map((p,i)=>`"${i+1}","${p.user||''}","${p.phone||''}","${p.email||''}","${p.plan}","₹${p.amount}","${p.paymentId||''}","${p.status||'Success'}","${new Date(p.paidAt).toLocaleString('en-IN')}"`).join('
+');
+  const a = Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([header+rows],{type:'text/csv'})),download:'JobsSignal_Payments_'+new Date().toISOString().split('T')[0]+'.csv'});
+  a.click();
+  showToast('Payments exported!','green');
+}
+
+function doAdminLogin(){
+  const user=document.getElementById('admin_user').value.trim();
+  const pass=document.getElementById('admin_pass').value.trim();
+  if(!user||!pass){showToast('Please enter credentials','amber');return;}
+  if(user==='admin'&&pass==='admin123'){
+    goTo('adminView');
+    renderAdminTable(DB);
+    showToast('Welcome to Admin Panel 🔐','green');
+  }else{
+    showToast('Invalid credentials','red');
+  }
+}
+
+// ============================================================
+// ADMIN TABLE
+// ============================================================
+function renderAdminTable(data){
+  const tbody=document.getElementById('adminTableBody');
+  document.getElementById('tableCount').textContent='Showing '+data.length+' of 247 profiles';
+  tbody.innerHTML='';
+  data.forEach(u=>{
+    const sc=u.score>=80?'var(--em)':u.score>=65?'var(--gold)':'var(--coral)';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="color:rgba(255,255,255,.25);font-size:11px;">${u.id}</td>
+      <td><div class="td-name">${u.name}</div><div style="font-size:10px;color:rgba(255,255,255,.25);">${u.linkedin||'No LinkedIn'}</div></td>
+      <td><div>${u.phone}</div><div style="font-size:10px;color:rgba(255,255,255,.3);">${u.email}</div></td>
+      <td>${u.city}</td>
+      <td style="color:var(--blue);font-weight:600;">${u.role}</td>
+      <td><div class="td-skills">${u.skills.slice(0,3).map(s=>`<span class="td-skill">${s}</span>`).join('')}${u.skills.length>3?`<span class="td-skill">+${u.skills.length-3}</span>`:''}</div></td>
+      <td>${u.exp}</td>
+      <td><div class="td-score" style="color:${sc};">${u.score}<span style="font-size:10px;color:rgba(255,255,255,.25);font-weight:400;">/100</span></div></td>
+      <td><span class="td-plan ${u.plan==='paid'?'tdp-paid':'tdp-free'}">${u.plan==='paid'?'✅ Paid':'Free'}</span></td>
+      <td style="font-size:10px;color:rgba(255,255,255,.3);">${u.joined}</td>
+      <td><div class="td-actions">
+        <button type="button" class="btn-view" onclick="viewProfile(${u.id})">👁 View</button>
+        <button type="button" class="btn-dl" onclick="dlProfile(${u.id})">📥 CSV</button>
+        <button type="button" class="btn-del" onclick="delUser(${u.id})">🗑</button>
+      </div></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function filterTable(){
+  const s=(document.getElementById('searchFilter').value||'').toLowerCase();
+  const p=document.getElementById('planFilter').value;
+  const c=document.getElementById('cityFilter').value;
+  const r=document.getElementById('roleFilter').value;
+  const f=DB.filter(u=>{
+    const ms=!s||u.name.toLowerCase().includes(s)||u.email.toLowerCase().includes(s)||u.skills.some(x=>x.toLowerCase().includes(s));
+    return ms&&(!p||u.plan===p)&&(!c||u.city===c)&&(!r||u.role===r);
+  });
+  renderAdminTable(f);
+}
+function viewProfile(id){
+  const u=DB.find(d=>d.id===id);
+  if(!u)return;
+  currentProfileData=u;
+  document.getElementById('pmAv').textContent=u.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('pmName').textContent=u.name;
+  document.getElementById('pmRole').textContent=u.role+' · '+u.city+' · '+u.exp;
+  document.getElementById('pmContact').innerHTML=`
+    <div class="pmo-field"><div class="pmo-fl">Mobile</div><div class="pmo-fv">${u.phone}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">Email</div><div class="pmo-fv">${u.email}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">City</div><div class="pmo-fv">${u.city}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">Plan</div><div class="pmo-fv">${u.plan==='paid'?'✅ Paid':'Free'}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">LinkedIn</div><div class="pmo-fv">${u.linkedin||'Not provided'}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">Joined</div><div class="pmo-fv">${u.joined}</div></div>
+    <div class="pmo-field"><div class="pmo-fl">Sure-Shot Score</div><div class="pmo-fv" style="color:var(--em);">${u.score}/100</div></div>
+    <div class="pmo-field"><div class="pmo-fl">Experience</div><div class="pmo-fv">${u.exp}</div></div>`;
+  document.getElementById('pmSkills').innerHTML=u.skills.map(s=>`<span class="pmo-skill">${s}</span>`).join('');
+  document.getElementById('profileModal').classList.add('open');
+}
+function downloadProfile(){if(currentProfileData)dlProfile(currentProfileData.id);}
+function dlProfile(id){
+  const u=DB.find(d=>d.id===id);
+  if(!u)return;
+  const csv=`Name,Phone,Email,City,Role,Skills,Experience,Score,Plan,LinkedIn,Joined\n"${u.name}","${u.phone}","${u.email}","${u.city}","${u.role}","${u.skills.join('; ')}","${u.exp}","${u.score}/100","${u.plan}","${u.linkedin||''}","${u.joined}"`;
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),download:u.name.replace(/ /g,'_')+'_JobsSignal.csv'});
+  a.click();
+  showToast('Downloaded: '+u.name,'green');
+}
+function exportAllCSV(){
+  const header='ID,Name,Phone,Email,City,Role,Skills,Experience,Score,Plan,LinkedIn,Joined\n';
+  const rows=DB.map(u=>`"${u.id}","${u.name}","${u.phone}","${u.email}","${u.city}","${u.role}","${u.skills.join('; ')}","${u.exp}","${u.score}/100","${u.plan}","${u.linkedin||''}","${u.joined}"`).join('\n');
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([header+rows],{type:'text/csv'})),download:'JobsSignal_AllProfiles_'+new Date().toISOString().split('T')[0]+'.csv'});
+  a.click();
+  showToast('All '+DB.length+' profiles exported!','green');
+}
+function delUser(id){
+  if(confirm('Delete this profile permanently?')){
+    const i=DB.findIndex(d=>d.id===id);
+    if(i>-1){DB.splice(i,1);filterTable();showToast('Profile deleted','red');}
+  }
+}
+
+// ============================================================
+// POST-PAYMENT RESUME UPLOAD
+// ============================================================
+function handlePostPayUpload(input){
+  const file = input?.files?.[0];
+  if(!file) return;
+  const lower = file.name.toLowerCase();
+  // Detect role
+  const ROLE_KEYWORDS = {
+    ta:['talent','recruit','hr','hiring','acquisition','manepalli'],
+    dev:['react','developer','engineer','frontend','backend','java','python'],
+    product:['product','pm','manager'],
+    data:['data','analyst','scientist','ml']
+  };
+  let detectedRole = 'ta';
+  for(const[k,kws] of Object.entries(ROLE_KEYWORDS)){
+    if(kws.some(kw=>lower.includes(kw))){ detectedRole=k; break; }
+  }
+  const SKILLS = {
+    ta:['LinkedIn Sourcing','Talent Acquisition','LinkedIn Recruiter','People Management','Campus Hiring','Leadership Hiring','Vendor Management','APAC Hiring','Stakeholder Management'],
+    dev:['React','TypeScript','Node.js','JavaScript','AWS','REST APIs','Git'],
+    product:['Product Strategy','Roadmap','Agile','User Research','Data Analysis','Jira'],
+    data:['Python','SQL','Machine Learning','Tableau','Power BI','Statistics']
+  };
+  const skills = SKILLS[detectedRole]||SKILLS.ta;
+  document.getElementById('postPayUploadZone').style.display='none';
+  document.getElementById('postPayProgress').style.display='block';
+  const fill = document.getElementById('ppFill');
+  const lbl  = document.getElementById('ppLabel');
+  const steps = [[20,'Reading document...'],[45,'Detecting role...'],[70,'Extracting skills...'],[90,'Calculating score...'],[100,'Done! ✅']];
+  let i=0;
+  const iv = setInterval(()=>{
+    if(i<steps.length){fill.style.width=steps[i][0]+'%';lbl.textContent=steps[i][1];i++;}
+    else{
+      clearInterval(iv);
+      setTimeout(()=>{
+        document.getElementById('postPayProgress').style.display='none';
+        const chips = document.getElementById('ppSkillChips');
+        chips.innerHTML='';
+        skills.forEach(s=>{
+          const c=document.createElement('span');
+          c.style.cssText='font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--em-pale);border:1px solid rgba(0,200,150,.2);color:var(--em);';
+          c.textContent=s;
+          chips.appendChild(c);
+        });
+        document.getElementById('postPaySkills').style.display='block';
+        document.getElementById('ppSkipBtn').textContent='✅ Start Searching with My Profile →';
+        document.getElementById('ppSkipBtn').style.background='var(--em)';
+        document.getElementById('ppSkipBtn').style.color='var(--night)';
+        document.getElementById('ppSkipBtn').onclick=()=>{
+          closeModal('resumeUploadModal');
+          currentUser.skill = skills[0];
+          document.getElementById('sk_skill').value = skills[0];
+          showToast('Profile uploaded! Signals now matched to your skills 🎯','green');
+        };
+        showToast(skills.length+' skills extracted from your resume ✅','green');
+      },400);
+    }
+  },280);
+}
+
+// ============================================================
+// SCROLL REVEAL
+// ============================================================
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg,type){
+  const el=document.getElementById('toastEl');
+  const ic=document.getElementById('toastIcon');
+  const mg=document.getElementById('toastMsg');
+  el.className='toast show';
+  if(type==='red'){el.style.borderLeftColor='var(--coral)';ic.textContent='🚨';}
+  else if(type==='green'){el.style.borderLeftColor='var(--em)';ic.textContent='✅';}
+  else{el.style.borderLeftColor='var(--gold)';ic.textContent='💡';}
+  mg.textContent=msg;
+  setTimeout(()=>{el.className='toast';},3500);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded',()=>{
+  updateCounter();
+  // Restore active plan from localStorage if exists
+  try{
+    const stored = localStorage.getItem('js_plan');
+    if(stored){
+      const plan = JSON.parse(stored);
+      const expiry = new Date(plan.expiresAt);
+      if(expiry > new Date()){
+        searchesLeft = 999999;
+        updateCounter();
+        document.getElementById('dPlan').textContent = plan.plan+' Plan · Active ✅';
+        showToast('Welcome back! Your '+plan.plan+' plan is active.','green');
+      } else {
+        localStorage.removeItem('js_plan');
+      }
+    }
+  }catch(e){}
+});
+</script>
+
+<!-- Razorpay Script — loads when needed -->
+<script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+</body>
+</html>
