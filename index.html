@@ -2108,10 +2108,8 @@ function exportPaymentsCSV(){
   let payments = [];
   try{ payments = JSON.parse(localStorage.getItem('js_payments')||'[]'); }catch(e){}
   if(!payments.length){showToast('No payments to export yet','amber');return;}
-  const header = 'No,User,Phone,Email,Plan,Amount,Payment ID,Status,Paid At
-';
-  const rows = payments.map((p,i)=>`"${i+1}","${p.user||''}","${p.phone||''}","${p.email||''}","${p.plan}","₹${p.amount}","${p.paymentId||''}","${p.status||'Success'}","${new Date(p.paidAt).toLocaleString('en-IN')}"`).join('
-');
+  const header = 'No,User,Phone,Email,Plan,Amount,Payment ID,Status,Paid At\n';
+  const rows = payments.map((p,i)=>`"${i+1}","${p.user||''}","${p.phone||''}","${p.email||''}","${p.plan}","₹${p.amount}","${p.paymentId||''}","${p.status||'Success'}","${new Date(p.paidAt).toLocaleString('en-IN')}"`).join('\n');
   const a = Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([header+rows],{type:'text/csv'})),download:'JobsSignal_Payments_'+new Date().toISOString().split('T')[0]+'.csv'});
   a.click();
   showToast('Payments exported!','green');
