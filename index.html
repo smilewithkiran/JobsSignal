@@ -32,7 +32,229 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 /* VIEWS */
 .view{display:none;}
 .view.active{display:block;}
-#signupView.active,#loginView.active,#adminLoginView.active,#changePassView.active,#adminChangePassView.active{display:flex;}
+/* Login and admin pages use internal flex wrappers — just need display:block */
+#loginView.active,#signupView.active,#adminLoginView.active,
+#changePassView.active,#adminChangePassView.active{display:block;}
+
+/* ===================== MOBILE RESPONSIVE ===================== */
+
+/* -- TABLET 768px -- */
+@media (max-width: 768px) {
+
+  /* NAV */
+  .main-nav { padding: 11px 16px; }
+  .nav-links { display: none; }
+  .india-tag { display: none; }
+  .btn-nav-login { padding: 7px 12px; font-size: 12px; }
+  .btn-nav-cta  { padding: 8px 14px;  font-size: 12px; }
+
+  /* HERO — single column, no overflow */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 80px 18px 50px;
+    gap: 28px;
+    min-height: auto;
+  }
+  .hero-feed { display: none; }
+  .wm-jobs, .wm-signal { font-size: 44px; letter-spacing: -2px; }
+  .wm-sub { font-size: 10px; }
+  .hero-quote { font-size: 16px; margin-bottom: 14px; }
+  .hero-h { font-size: 30px; letter-spacing: -1px; line-height: 1.1; margin-bottom: 12px; }
+  .hero-p { font-size: 13px; margin-bottom: 20px; }
+
+  /* HERO SEARCH BAR */
+  .hero-bar {
+    flex-direction: column;
+    gap: 0;
+    padding: 4px;
+    border-radius: 12px;
+  }
+  .hb-in {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hb-sep { display: none; }
+  .hb-city {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hb-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 4px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .hero-trust { gap: 12px; flex-wrap: wrap; }
+  .ht-item .hn { font-size: 20px; }
+  .ht-item .hl { font-size: 10px; }
+
+  /* SECTIONS */
+  .wrap { padding: 48px 18px; }
+  .sh { font-size: 30px; letter-spacing: -0.5px; }
+  .sp { font-size: 14px; }
+
+  /* HOW IT WORKS */
+  .steps-grid { grid-template-columns: 1fr; gap: 14px; }
+  .steps-grid::before { display: none; }
+
+  /* MODES */
+  .modes-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mc-title { font-size: 13px; }
+  .mc-desc { font-size: 11px; }
+
+  /* INDIA SECTION */
+  .india-sec { padding: 48px 18px; }
+  .india-sec h2 { font-size: 26px !important; }
+  .cities-wrap { gap: 6px; }
+  .city-c { font-size: 11px; padding: 5px 12px; }
+
+  /* PROOF */
+  .proof-row { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .proof-n { font-size: 34px; }
+
+  /* PRICING */
+  .pricing-row { grid-template-columns: 1fr; gap: 14px; max-width: 100%; }
+  .pc.feat { transform: scale(1); }
+  .feat-tag { font-size: 9px; }
+
+  /* CTA */
+  .cta-sec { padding: 64px 18px; }
+  .cta-wm { font-size: 48px; letter-spacing: -2px; }
+  .cta-tag { font-size: 16px; }
+  .cta-btns { flex-direction: column; align-items: center; gap: 10px; }
+  .btn-cta-em, .btn-cta-g { width: 100%; max-width: 320px; text-align: center; padding: 13px 20px; }
+
+  /* FOOTER */
+  footer { flex-direction: column; gap: 16px; padding: 24px 18px; text-align: center; }
+  .footer-links { justify-content: center; flex-wrap: wrap; gap: 12px; }
+
+  /* AUTH PAGES — stack vertically */
+  .auth-page { flex-direction: column !important; }
+  .auth-left {
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 28px 20px 24px !important;
+  }
+  .auth-left::before, .auth-left::after { display: none; }
+  .al-headline { font-size: 26px !important; margin-bottom: 8px; }
+  .al-sub { font-size: 14px !important; margin-bottom: 16px; }
+  .al-features { display: none; }
+  .auth-right { padding: 24px 18px 36px !important; flex: none !important; }
+  .auth-card { max-width: 100% !important; }
+  .form-row-2 { grid-template-columns: 1fr !important; }
+  .pill-row { gap: 6px; }
+  .pill-btn { padding: 7px 11px; font-size: 11px; }
+  .progress-bar { margin-bottom: 18px; }
+  .pb-label { font-size: 10px; }
+
+  /* DASHBOARD NAV */
+  .dash-nav-inner { padding: 0 14px; height: 54px; }
+  .logo-tag { display: none; }
+  .india-tag { display: none !important; }
+  .sc-badge-txt { display: none; }
+  .btn-dash-action { padding: 6px 10px; font-size: 11px; }
+
+  /* DASHBOARD PAGE */
+  .dash-page { padding: 62px 14px 40px; }
+  .dash-welcome { flex-direction: column; gap: 12px; padding: 16px 18px; }
+  .dw-greeting { font-size: 16px; }
+  .dw-stats { gap: 12px; }
+  .dws-n { font-size: 20px; }
+  .dws-l { font-size: 9px; }
+  .li-tip-bar { flex-wrap: wrap; gap: 8px; }
+
+  /* SEARCH CARD */
+  .dc-modes { gap: 4px; padding: 10px 14px; overflow-x: auto; flex-wrap: nowrap; }
+  .dc-mode { padding: 6px 11px; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .dc-body { padding: 14px 16px; }
+  .sr-row { flex-direction: column; gap: 8px; }
+  .sg { min-width: unset; width: 100%; }
+  .btn-run { width: 100%; justify-content: center; padding: 11px; }
+  .ht-row { gap: 5px; }
+  .ht-c { font-size: 10px; padding: 4px 10px; }
+
+  /* RESULTS */
+  .rcard { padding: 13px 14px; }
+  .rc-nm { font-size: 13px; }
+  .rc-actions { flex-wrap: wrap; gap: 5px; }
+  .rca { font-size: 11px; padding: 5px 10px; }
+  .ss-bar-label { width: 85px; font-size: 9px; }
+
+  /* FOMO GATE */
+  .fomo-plans { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fp-days { font-size: 16px; }
+  .fp-price { font-size: 18px; }
+
+  /* SIDEBAR — below on mobile */
+  .dash-layout { grid-template-columns: 1fr; }
+  .dash-sidebar { position: static; }
+
+  /* ADMIN */
+  .admin-page { padding: 62px 14px 40px; }
+  .admin-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .astat-n { font-size: 22px; }
+  .admin-filters { gap: 8px; }
+  .af-in { min-width: 0; width: 100%; }
+  .admin-table-wrap { overflow-x: auto; }
+  table { min-width: 700px; }
+  th, td { padding: 9px 10px; font-size: 11px; }
+  .td-actions { flex-direction: column; gap: 4px; }
+
+  /* PAYMENT MODAL */
+  .pm-wrap { margin: 10px; }
+  .pm-top { padding: 18px 20px; }
+  .pm-amount { font-size: 36px; }
+  .pm-body { padding: 18px 20px; }
+  .pm-features { grid-template-columns: 1fr; gap: 6px; }
+
+  /* COMMENT TEMPLATE */
+  .tmpl-card { padding: 20px; }
+  .tc-tabs { flex-wrap: wrap; gap: 5px; }
+
+  /* CHANGE PASSWORD */
+  .cp-card { padding: 28px 20px; margin: 0 8px; }
+}
+
+/* -- PHONE 480px -- */
+@media (max-width: 480px) {
+  /* Hero */
+  .wm-jobs, .wm-signal { font-size: 36px; letter-spacing: -1.5px; }
+  .hero-h { font-size: 26px; }
+  .hero-quote { font-size: 14px; }
+
+  /* Sections */
+  .sh { font-size: 26px; }
+  .modes-grid { grid-template-columns: 1fr; }
+  .proof-row { grid-template-columns: 1fr 1fr; }
+  .cta-wm { font-size: 38px; }
+
+  /* Admin stats 1 col */
+  .admin-stats { grid-template-columns: 1fr; }
+
+  /* Fomo plans 2 col still ok */
+  .fomo-plans { grid-template-columns: 1fr 1fr; }
+
+  /* Dash welcome */
+  .dw-stats { gap: 8px; }
+  .dws { padding: 0 8px; }
+
+  /* Nav smaller */
+  .main-nav { padding: 10px 14px; }
+  .logo-name { font-size: 16px; }
+}
+  .admin-stats{grid-template-columns:1fr;}
+  .fomo-plans{grid-template-columns:1fr 1fr;}
+  .wm-jobs,.wm-signal{font-size:42px;}
+  .hero-h{font-size:28px;}
+}
 
 /* ===================== LOGO B ===================== */
 .logo-bolt{width:38px;height:38px;flex-shrink:0;}
@@ -56,7 +278,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 .btn-nav-cta:hover{background:var(--em2);transform:translateY(-1px);box-shadow:var(--shadow-em);}
 
 /* ===================== HERO ===================== */
-.hero{min-height:100vh;background:var(--night);position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:center;padding:120px 52px 80px;}
+.hero{min-height:100vh;background:var(--night);position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:center;padding:120px 52px 80px;max-width:100%;}
 .mb{position:absolute;border-radius:50%;filter:blur(100px);animation:mf 8s ease-in-out infinite;}
 .mb1{width:500px;height:500px;background:rgba(0,200,150,.12);top:-100px;right:0;}
 .mb2{width:380px;height:380px;background:rgba(240,168,76,.08);bottom:-80px;left:80px;animation-delay:3s;}
@@ -71,12 +293,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .wordmark{margin-bottom:12px;animation:fu .7s .1s ease both;}
 .wm-row{display:flex;align-items:baseline;line-height:.95;}
-.wm-jobs{font-family:'Syne',sans-serif;font-size:78px;font-weight:800;color:white;letter-spacing:-4px;}
-.wm-signal{font-family:'Instrument Serif',serif;font-size:78px;font-weight:400;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;}
+.wm-jobs{font-family:'Syne',sans-serif;font-size:clamp(36px,8vw,78px);font-weight:800;color:white;letter-spacing:-4px;}
+.wm-signal{font-family:'Instrument Serif',serif;font-size:clamp(36px,8vw,78px);font-weight:400;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;}
 .wm-sub{font-size:12px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
 .hero-quote{font-family:'Instrument Serif',serif;font-size:21px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.45;animation:fu .7s .2s ease both;}
 .hero-quote strong{font-style:normal;color:rgba(255,255,255,.85);font-weight:400;}
-.hero-h{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1.04;letter-spacing:-1.5px;color:white;margin-bottom:16px;animation:fu .7s .25s ease both;}
+.hero-h{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,46px);font-weight:800;line-height:1.04;letter-spacing:-1.5px;color:white;margin-bottom:16px;animation:fu .7s .25s ease both;}
 .hero-h .go{color:var(--gold);}
 .hero-p{font-size:15px;line-height:1.8;color:rgba(255,255,255,.5);max-width:540px;margin-bottom:32px;animation:fu .7s .3s ease both;}
 .hero-p strong{color:rgba(255,255,255,.85);font-weight:600;}
@@ -122,7 +344,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 .wrap{padding:88px 52px;}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--em);margin-bottom:14px;}
 .eyebrow::before,.eyebrow::after{content:'';height:1.5px;width:18px;background:var(--em);}
-.sh{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;line-height:1.08;letter-spacing:-.8px;}
+.sh{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,44px);font-weight:800;line-height:1.08;letter-spacing:-.8px;}
 .sh em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--em);}
 .sp{font-size:15px;color:var(--soft);line-height:1.75;}
 
@@ -199,7 +421,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 /* CTA */
 .cta-sec{background:var(--night);padding:96px 52px;text-align:center;position:relative;overflow:hidden;}
 .cta-sec::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,200,150,.1) 0%,transparent 60%);border-radius:50%;pointer-events:none;}
-.cta-wm{font-family:'Syne',sans-serif;font-size:88px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:16px;position:relative;z-index:1;}
+.cta-wm{font-family:'Syne',sans-serif;font-size:clamp(38px,9vw,88px);font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:16px;position:relative;z-index:1;}
 .cta-wm .j{color:white;}
 .cta-wm .s{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cta-tag{font-family:'Instrument Serif',serif;font-size:20px;font-style:italic;color:rgba(255,255,255,.4);margin-bottom:36px;position:relative;z-index:1;}
@@ -570,7 +792,7 @@ footer{background:var(--night2);padding:32px 52px;display:flex;align-items:cente
 /* =============================================
    CHANGE PASSWORD PAGE
    ============================================= */
-#changePassView,#adminChangePassView{min-height:100vh;background:var(--off);align-items:center;justify-content:center;padding:20px;}
+#changePassView,#adminChangePassView{min-height:100vh;background:var(--off);}
 .cp-card{background:white;border-radius:var(--r4);padding:44px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);border:1px solid var(--border);}
 .cp-icon{width:52px;height:52px;border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;}
 .cp-icon-user{background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);}
@@ -702,16 +924,17 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <div id="landingView" class="view active">
 <nav class="main-nav" id="mainNav">
   <a class="logo-wrap" onclick="goTo('landingView')">
-    <svg class="logo-bolt" viewBox="0 0 42 42" fill="none">
-      <rect width="42" height="42" rx="11" fill="#07090f"/>
-      <path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/>
-      <circle cx="32" cy="10" r="2" fill="#f0a84c"/>
-      <circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/>
-      <circle cx="32" cy="10" r="7" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".2"/>
-    </svg>
-    <div class="logo-text"><div class="logo-name">Jobs<span class="sig">Signal</span></div><div class="logo-tag">India's real-time job signal finder</div></div>
+    <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#07090f"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/><circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/><circle cx="32" cy="10" r="7" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".2"/></svg>
+    <div class="logo-text">
+      <div class="logo-name">Jobs<span class="sig">Signal</span></div>
+      <div class="logo-tag">India's real-time job signal finder</div>
+    </div>
   </a>
-  <ul class="nav-links"><li><a href="#how">How It Works</a></li><li><a href="#modes">Search Modes</a></li><li><a href="#pricing">Pricing</a></li></ul>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#modes">Search Modes</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
   <div class="nav-right">
     <div class="india-tag">🇮🇳 India Only</div>
     <button type="button" class="btn-nav-login" onclick="goTo('loginView')">Log In</button>
@@ -762,9 +985,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <p class="sp" style="text-align:center;max-width:460px;margin:10px auto 0;">Sign up free. We scan always. You apply first.</p>
   </div>
   <div class="steps-grid">
-    <div class="step reveal d1"><div class="step-n sn1">01</div><div class="step-icon">✍️</div><div class="step-title">Sign Up Free</div><p class="step-desc">Name, phone, email, city — that's it. Start searching immediately with 5 free searches. No resume needed to get started.</p></div>
-    <div class="step reveal d2"><div class="step-n sn2">02</div><div class="step-icon">📡</div><div class="step-title">Scan LinkedIn Signals</div><p class="step-desc">Recruiter posts found in real time. Upgrade to unlock resume-based Sure-Shot scoring — personalised signals matched to your exact profile.</p></div>
-    <div class="step reveal d3"><div class="step-n sn3">03</div><div class="step-icon">🚀</div><div class="step-title">Be First. Every Time.</div><p class="step-desc">Comment or DM the recruiter hours before the job appears on any portal. Your personalised comment template is ready to copy.</p></div>
+    <div class="step reveal d1"><div class="step-n sn1">01</div><div class="step-icon">✍️</div><div class="step-title">Sign Up Free</div><p class="step-desc">Name, phone, email, city — that's it. Start with 5 free searches. No resume needed.</p></div>
+    <div class="step reveal d2"><div class="step-n sn2">02</div><div class="step-icon">📡</div><div class="step-title">Scan LinkedIn Signals</div><p class="step-desc">Recruiter posts found in real time. Upgrade to unlock resume-based Sure-Shot scoring.</p></div>
+    <div class="step reveal d3"><div class="step-n sn3">03</div><div class="step-icon">🚀</div><div class="step-title">Be First. Every Time.</div><p class="step-desc">Comment or DM the recruiter hours before the job appears on any portal.</p></div>
   </div>
 </div></section>
 
@@ -772,16 +995,16 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="reveal" style="text-align:center;"><div class="eyebrow" style="justify-content:center;">Four Search Modes</div><h2 class="sh" style="text-align:center;">One platform. <em>Every signal.</em></h2></div>
   <div class="modes-grid">
     <div class="mode-card reveal d1"><div class="mc-icon">🎯</div><div class="mc-title">Skill + City Search</div><div class="mc-desc">Find every recruiter posting for your skill in your city — freshest first.</div><div class="mc-badge mcb-em">Most Used</div></div>
-    <div class="mode-card reveal d2"><div class="mc-icon">#</div><div class="mc-title">Hashtag Hunt</div><div class="mc-desc">#Hiring #NowHiring #FresherJobs #WalkInInterview — combined with your skill.</div><div class="mc-badge mcb-go">High Volume</div></div>
-    <div class="mode-card reveal d3"><div class="mc-icon">⏱️</div><div class="mc-title">Notice Period Match</div><div class="mc-desc">Find recruiters specifically looking for your exact notice window.</div><div class="mc-badge mcb-bl">Precision</div></div>
-    <div class="mode-card reveal d3"><div class="mc-icon">🤝</div><div class="mc-title">Referral Radar</div><div class="mc-desc">"DM me for referral" posts — the most powerful job signal on Indian LinkedIn.</div><div class="mc-badge mcb-co">Highest Success</div></div>
+    <div class="mode-card reveal d2"><div class="mc-icon">#</div><div class="mc-title">Hashtag Hunt</div><div class="mc-desc">#Hiring #NowHiring #FresherJobs #WalkInInterview combined with your skill.</div><div class="mc-badge mcb-go">High Volume</div></div>
+    <div class="mode-card reveal d3"><div class="mc-icon">⏱️</div><div class="mc-title">Notice Period Match</div><div class="mc-desc">Find recruiters looking for your exact notice window.</div><div class="mc-badge mcb-bl">Precision</div></div>
+    <div class="mode-card reveal d3"><div class="mc-icon">🤝</div><div class="mc-title">Referral Radar</div><div class="mc-desc">"DM me for referral" posts — the most powerful signal on Indian LinkedIn.</div><div class="mc-badge mcb-co">Highest Success</div></div>
   </div>
 </div></section>
 
 <section class="india-sec"><div style="max-width:720px;margin:0 auto;text-align:center;position:relative;z-index:1;" class="reveal">
   <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;"><div style="height:1.5px;width:22px;background:var(--gold);"></div><span style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;">India Only · Always</span><div style="height:1.5px;width:22px;background:var(--gold);"></div></div>
-  <h2 style="font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:white;line-height:1.1;margin-bottom:12px;">Built for every Indian job seeker.</h2>
-  <p style="font-size:14px;color:rgba(255,255,255,.42);line-height:1.8;max-width:500px;margin:0 auto;">Walk-in interviews, notice period culture, bond policies, Tier-1/2 dynamics — we understand all of it.</p>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(24px,5vw,38px);font-weight:800;color:white;line-height:1.1;margin-bottom:12px;">Built for every Indian job seeker.</h2>
+  <p style="font-size:14px;color:rgba(255,255,255,.42);line-height:1.8;max-width:500px;margin:0 auto;">Walk-in interviews, notice period culture, bond policies — we understand all of it.</p>
   <div class="cities-wrap"><span class="city-c">🏙️ Hyderabad</span><span class="city-c">🌆 Bengaluru</span><span class="city-c">🌇 Mumbai</span><span class="city-c">🏢 Pune</span><span class="city-c">🌃 Delhi NCR</span><span class="city-c">🌉 Chennai</span><span class="city-c">🏙️ Kolkata</span><span class="city-c">🌆 Ahmedabad</span><span class="city-c">🏢 Noida</span><span class="city-c">💻 Remote</span></div>
 </div></section>
 
@@ -798,7 +1021,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;">Simple Pricing</div>
     <h2 class="sh" style="text-align:center;">One plan. <em>All features. Always.</em></h2>
-    <p class="sp" style="text-align:center;max-width:480px;margin:10px auto 0;">Every paid plan = 100% of all features. Only difference is how long you stay active.</p>
+    <p class="sp" style="text-align:center;max-width:480px;margin:10px auto 0;">Every paid plan = 100% of all features. Only difference is duration.</p>
   </div>
   <div class="pricing-row">
     <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('7 Days',49)">Start 7 Days →</button></div>
@@ -806,7 +1029,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('60 Days',179)">Start 60 Days →</button></div>
     <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Sure-Shot scoring</li><li>Resume matching</li><li>Comment templates</li><li>WhatsApp alerts (soon)</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('Annual Plan',599)">Start Annual →</button></div>
   </div>
-  <div class="free-note reveal">🎁 <strong>New user?</strong> Get 5 free searches — no card needed. After 5, choose a plan to continue.</div>
+  <div class="free-note reveal">🎁 <strong>New user?</strong> Get 5 free searches — no card needed.</div>
 </div></section>
 
 <section class="cta-sec">
@@ -822,103 +1045,113 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <footer>
   <div>
     <div style="display:flex;align-items:center;gap:9px;">
-      <svg width="26" height="26" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#07090f"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
+      <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#07090f"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/><circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/><circle cx="32" cy="10" r="7" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".2"/></svg>
       <div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--em);font-weight:400;">Signal</span></div><div class="footer-copy">© 2025 JobsSignal.in · Built for India 🇮🇳</div></div>
     </div>
   </div>
-  <ul class="footer-links"><li><a>About</a></li><li><a>Privacy</a></li><li><a>Terms</a></li><li><a>Contact</a></li><li><a onclick="goTo('adminLoginView')" style="color:rgba(255,255,255,.2);">⚙ Admin</a></li></ul>
+  <ul class="footer-links"><li><a>About</a></li><li><a>Privacy</a></li><li><a>Terms</a></li><li><a>Contact</a></li><li><a onclick="goTo('adminLoginView')" style="color:rgba(255,255,255,.15);">⚙ Admin</a></li></ul>
 </footer>
-</div><!-- end landing -->
+</div>
 
 <!-- ============================================================ SIGNUP ============================================================ -->
 <div id="signupView" class="view">
-<div class="auth-page">
-  <div class="auth-left auth-left-user">
-    <div class="al-logo-row">
-      <div class="al-brand">
-        <svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
-        Jobs<span class="sig">Signal</span>
-      </div>
-      <div class="al-brand-tag">jobssignal.in · India 🇮🇳</div>
+<div style="min-height:100vh;background:var(--night2);display:flex;flex-direction:column;">
+  <div style="width:100%;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,15,.98);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;">
+  <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
+    <svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/><circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/></svg>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:white;line-height:1;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:linear-gradient(135deg,#00c896,#f0a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Signal</span></div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);letter-spacing:1.5px;text-transform:uppercase;">India's real-time job signal finder</div>
     </div>
-    <div class="al-headline">Find the signal.<br>Get the job.<br><em>Be first.</em></div>
-    <div class="al-sub">"The job exists before the listing.<br>We find it for you."</div>
-    <div class="al-features">
-      <div class="al-feat"><div class="alf-icon alf-icon-em">📡</div><div><div class="alf-title">Real-Time Signals</div><div class="alf-desc">Recruiter posts found hours before any portal</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-em">🎯</div><div><div class="alf-title">Sure-Shot Scoring</div><div class="alf-desc">Match score per signal — upgrade to unlock</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-em">🎁</div><div><div class="alf-title">5 Free Searches</div><div class="alf-desc">No card, no resume needed to start</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-gold">🇮🇳</div><div><div class="alf-title">India Only</div><div class="alf-desc">Built exclusively for Indian job seekers</div></div></div>
-    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button type="button" onclick="goTo('landingView')" style="padding:8px 16px;border-radius:8px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Home</button>
+    <button type="button" onclick="goTo('loginView')" style="padding:9px 18px;border-radius:8px;background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.15);font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Log In</button>
   </div>
-  <div class="auth-right">
-    <div class="auth-card">
-      <!-- Progress -->
-      <div class="progress-bar" id="progressBar">
-        <div class="pb-step"><div class="pb-circle active" id="pb1">1</div><div class="pb-label active" id="pbl1">Details</div></div>
-        <div class="pb-line" id="pbl12"></div>
-        <div class="pb-step"><div class="pb-circle todo" id="pb2">2</div><div class="pb-label" id="pbl2">Preferences</div></div>
-        <div class="pb-line" id="pbl23"></div>
-        <div class="pb-step"><div class="pb-circle todo" id="pb3">3</div><div class="pb-label" id="pbl3">All Set</div></div>
+</div>
+  <div class="auth-page" style="flex:1;">
+    <div class="auth-left auth-left-user">
+      <div class="al-logo-row">
+        <a onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;display:inline-block;">
+          <div class="al-brand" style="color:white;">Jobs<span class="sig">Signal</span></div>
+          <div class="al-brand-tag">India's real-time job signal finder</div>
+        </a>
       </div>
-
-      <!-- STEP 1 -->
-      <div class="step-form active" id="step1">
-        <div class="ac-tag ac-tag-user">✨ Free Signup — No Card Needed</div>
-        <div class="ac-title">Create your account</div>
-        <div class="ac-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
-        <div class="india-chip">🇮🇳 <div><strong>India-only platform.</strong> +91 mobile required.</div></div>
-        <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai"></div>
-        <div class="form-row-2">
-          <div><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10"></div>
-          <div><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com"></div>
+      <div class="al-headline">Find the signal.<br>Get the job.<br><em>Be first.</em></div>
+      <div class="al-sub">"The job exists before the listing. We find it."</div>
+      <div class="al-features">
+        <div class="al-feat"><div class="alf-icon alf-icon-em">📡</div><div><div class="alf-title">Real-Time Signals</div><div class="alf-desc">Recruiter posts found hours before any portal</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-em">🎯</div><div><div class="alf-title">Sure-Shot Scoring</div><div class="alf-desc">Match score per signal — upgrade to unlock</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-em">🎁</div><div><div class="alf-title">5 Free Searches</div><div class="alf-desc">No card, no resume needed to start</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-gold">🇮🇳</div><div><div class="alf-title">India Only</div><div class="alf-desc">Built exclusively for Indian job seekers</div></div></div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-card">
+        <div class="progress-bar" id="progressBar">
+          <div class="pb-step"><div class="pb-circle active" id="pb1">1</div><div class="pb-label active" id="pbl1">Details</div></div>
+          <div class="pb-line" id="pbl12"></div>
+          <div class="pb-step"><div class="pb-circle todo" id="pb2">2</div><div class="pb-label" id="pbl2">Preferences</div></div>
+          <div class="pb-line" id="pbl23"></div>
+          <div class="pb-step"><div class="pb-circle todo" id="pb3">3</div><div class="pb-label" id="pbl3">All Set</div></div>
         </div>
-        <div class="form-row-2">
-          <div><label class="form-label">Your City *</label><select class="form-select" id="s1_city"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div>
-          <div><label class="form-label">Primary Skill *</label><input class="form-input" id="s1_skill" placeholder="React, HR, Python..."></div>
-        </div>
-        <div class="form-group"><label class="form-label">Currently Working? *</label>
-          <div class="pill-row" id="wsRow">
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
+        <!-- STEP 1 -->
+        <div class="step-form active" id="step1">
+          <div class="ac-tag ac-tag-user">✨ Free Signup — No Card Needed</div>
+          <div class="ac-title">Create your account</div>
+          <div class="ac-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
+          <div class="india-chip">🇮🇳 <div><strong>India-only platform.</strong> +91 mobile required.</div></div>
+          <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai"></div>
+          <div class="form-row-2">
+            <div><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10"></div>
+            <div><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com"></div>
           </div>
+          <div class="form-row-2">
+            <div><label class="form-label">Your City *</label><select class="form-select" id="s1_city"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div>
+            <div><label class="form-label">Primary Skill *</label><input class="form-input" id="s1_skill" placeholder="React, HR, Python..."></div>
+          </div>
+          <div class="form-group"><label class="form-label">Currently Working?</label>
+            <div class="pill-row" id="wsRow">
+              <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
+              <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
+              <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
+              <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
+            </div>
+          </div>
+          <button type="button" class="btn-primary" onclick="nextStep(1)">Continue →</button>
+          <button type="button" class="btn-back-link" onclick="goTo('landingView')" style="color:var(--em);font-weight:600;margin-top:8px;">← Back to Home</button>
         </div>
-        <button type="button" class="btn-primary" onclick="nextStep(1)">Continue →</button>
-        <button type="button" class="btn-back-link" onclick="goTo('landingView')">← Back to home</button>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="step-form" id="step2">
-        <div class="ac-title">Your Preferences</div>
-        <div class="ac-sub" style="margin-bottom:20px;">These help us show the most relevant signals from day one.</div>
-        <div class="form-group"><label class="form-label">Notice Period</label>
-          <div class="pill-row" id="npRow"><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">Immediate</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">15 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">30 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">45 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">60 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">90 Days</button></div>
+        <!-- STEP 2 -->
+        <div class="step-form" id="step2">
+          <div class="ac-title">Your Preferences</div>
+          <div class="ac-sub" style="margin-bottom:20px;">Helps us show the most relevant signals from day one.</div>
+          <div class="form-group"><label class="form-label">Notice Period</label>
+            <div class="pill-row" id="npRow"><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">Immediate</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">15 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">30 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">45 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">60 Days</button><button type="button" class="pill-btn" onclick="pickPill(this,'npRow')">90 Days</button></div>
+          </div>
+          <div class="form-group"><label class="form-label">Experience Level</label>
+            <div class="pill-row" id="expRow"><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1-3 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3-7 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7+ Years</button></div>
+          </div>
+          <div class="form-group"><label class="form-label">Open To</label>
+            <div class="pill-row"><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🏢 On-site</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">💻 Remote</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🔀 Hybrid</button></div>
+          </div>
+          <div class="form-group"><label class="form-label">Expected CTC (Optional)</label><input class="form-input" placeholder="e.g. 15–22 LPA"></div>
+          <div style="background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);border-radius:var(--r2);padding:14px;margin-bottom:6px;">
+            <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;">📄 Resume Upload — After Upgrading</div>
+            <div style="font-size:11px;color:var(--soft);line-height:1.6;">Upload your resume after upgrading to any paid plan to unlock personalised Sure-Shot scoring.</div>
+          </div>
+          <button type="button" class="btn-primary" onclick="nextStep(2)">Continue →</button>
+          <button type="button" class="btn-back-link" onclick="prevStep(1)">← Back</button>
         </div>
-        <div class="form-group"><label class="form-label">Experience Level</label>
-          <div class="pill-row" id="expRow"><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1-3 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3-7 Years</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7+ Years</button></div>
+        <!-- STEP 3 -->
+        <div class="step-form" id="step3">
+          <div style="text-align:center;padding:20px 0;">
+            <div style="font-size:52px;margin-bottom:16px;">🎉</div>
+            <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:8px;">You're all set!</div>
+            <div style="font-size:14px;color:var(--soft);line-height:1.7;margin-bottom:24px;">Your account is ready. You have <strong style="color:var(--em);">5 free searches</strong> to explore JobsSignal.</div>
+            <button type="button" class="btn-primary" onclick="doSignup()" style="max-width:280px;margin:0 auto;">📡 Enter Dashboard →</button>
+          </div>
+          <div class="form-legal">By signing up you agree to our <a>Terms</a> and <a>Privacy Policy</a>.</div>
         </div>
-        <div class="form-group"><label class="form-label">Open To</label>
-          <div class="pill-row"><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🏢 On-site</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">💻 Remote</button><button type="button" class="pill-btn" onclick="this.classList.toggle('sel')">🔀 Hybrid</button></div>
-        </div>
-        <div class="form-group"><label class="form-label">Expected CTC (Optional)</label><input class="form-input" placeholder="e.g. 15–22 LPA"></div>
-        <div style="background:var(--em-pale);border:1.5px solid rgba(0,200,150,.2);border-radius:var(--r2);padding:14px;margin-bottom:6px;">
-          <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;">📄 Resume Upload — After Upgrading</div>
-          <div style="font-size:11px;color:var(--soft);line-height:1.6;">Upload your resume after upgrading to any paid plan. Based on your profile we'll give you a personalised Sure-Shot score and show matched recruiter signals automatically.</div>
-        </div>
-        <button type="button" class="btn-primary" onclick="nextStep(2)">Continue →</button>
-        <button type="button" class="btn-back-link" onclick="prevStep(1)">← Back</button>
-      </div>
-
-      <!-- STEP 3 — DONE -->
-      <div class="step-form" id="step3">
-        <div style="text-align:center;padding:20px 0;">
-          <div style="font-size:52px;margin-bottom:16px;">🎉</div>
-          <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:8px;">You're all set!</div>
-          <div style="font-size:14px;color:var(--soft);line-height:1.7;margin-bottom:24px;">Your account is ready. You have <strong style="color:var(--em);">5 free searches</strong> to explore JobsSignal. Start finding recruiter signals now.</div>
-          <button type="button" class="btn-primary" onclick="doSignup()" style="max-width:280px;margin:0 auto;">📡 Enter Dashboard →</button>
-        </div>
-        <div class="form-legal">By signing up you agree to our <a>Terms</a> and <a>Privacy Policy</a>.</div>
       </div>
     </div>
   </div>
@@ -927,66 +1160,99 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- ============================================================ LOGIN ============================================================ -->
 <div id="loginView" class="view">
-<div class="auth-page">
-  <div class="auth-left auth-left-user">
-    <div class="al-logo-row">
-      <div class="al-brand"><svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>Jobs<span class="sig">Signal</span></div>
-      <div class="al-brand-tag">jobssignal.in · India 🇮🇳</div>
+<div style="min-height:100vh;background:var(--night);display:flex;flex-direction:column;">
+  <div style="width:100%;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,15,.98);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;">
+  <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
+    <svg width="30" height="30" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/><circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/></svg>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:white;line-height:1;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:linear-gradient(135deg,#00c896,#f0a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Signal</span></div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);letter-spacing:1.5px;text-transform:uppercase;">India's real-time job signal finder</div>
     </div>
-    <div class="al-headline">Welcome<br>back.<br><em>Signals await.</em></div>
-    <div class="al-sub">"The job exists before the listing. We find it."</div>
-    <div class="al-features" style="margin-top:auto;">
-      <div class="al-feat"><div class="alf-icon alf-icon-em">🔴</div><div><div class="alf-title">Posted 8 min ago</div><div class="alf-desc">React Dev · TechCorp · Hyderabad · 30d NP</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-em">🟠</div><div><div class="alf-title">Posted 1 hr ago</div><div class="alf-desc">Python Engineer · Remote · 15-22 LPA</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-gold">🤝</div><div><div class="alf-title">Referral Available</div><div class="alf-desc">DM Arun at Razorpay — React 4+ YOE</div></div></div>
-    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button type="button" onclick="goTo('landingView')" style="padding:8px 16px;border-radius:8px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Home</button>
+    <button type="button" onclick="goTo('signupView')" style="padding:9px 18px;border-radius:8px;background:#00c896;color:#07090f;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Sign Up Free →</button>
   </div>
-  <div class="auth-right">
-    <div class="auth-card">
-      <div class="ac-tag ac-tag-user">👋 Welcome Back</div>
-      <div class="ac-title">Log in to JobsSignal</div>
-      <div class="ac-sub">New here? <a onclick="goTo('signupView')">Create free account →</a></div>
-      <div class="india-chip">🇮🇳 <strong>India-only platform.</strong></div>
-      <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="li_phone" placeholder="Enter your registered mobile"></div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <div class="input-with-icon"><input class="form-input" id="li_pass" type="password" placeholder="Enter your password"><span class="iw-icon" onclick="togglePass('li_pass',this)">👁</span></div>
+</div>
+  <div class="auth-page" style="flex:1;">
+    <div class="auth-left auth-left-user">
+      <div class="al-logo-row">
+        <a onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;display:inline-block;">
+          <div class="al-brand" style="color:white;">Jobs<span class="sig">Signal</span></div>
+          <div class="al-brand-tag">India's real-time job signal finder</div>
+        </a>
       </div>
-      <a class="forgot-link" onclick="goTo('changePassView')">Forgot password?</a>
-      <button type="button" class="btn-primary" onclick="doLogin()"><span>📡</span> Log In →</button>
-      <button type="button" class="btn-secondary" onclick="goTo('signupView')">Create Free Account →</button>
-      <div class="form-legal" style="margin-top:14px;">🇮🇳 JobsSignal is exclusively for Indian job seekers.</div>
+      <div class="al-headline">Welcome<br>back.<br><em>Signals await.</em></div>
+      <div class="al-sub">"The job exists before the listing. We find it."</div>
+      <div class="al-features" style="margin-top:auto;">
+        <div class="al-feat"><div class="alf-icon alf-icon-em">🔴</div><div><div class="alf-title">Posted 8 min ago</div><div class="alf-desc">React Dev · TechCorp · Hyderabad · 30d NP</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-em">🟠</div><div><div class="alf-title">Posted 1 hr ago</div><div class="alf-desc">Python Engineer · Remote · 15-22 LPA</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-gold">🤝</div><div><div class="alf-title">Referral Available</div><div class="alf-desc">DM Arun at Razorpay — React 4+ YOE</div></div></div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-card">
+        <div class="ac-tag ac-tag-user">👋 Welcome Back</div>
+        <div class="ac-title">Log in to JobsSignal</div>
+        <div class="ac-sub">New here? <a onclick="goTo('signupView')">Create free account →</a></div>
+        <div class="india-chip">🇮🇳 <strong>India-only platform.</strong></div>
+        <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="li_phone" placeholder="Enter your registered mobile"></div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-with-icon"><input class="form-input" id="li_pass" type="password" placeholder="Enter your password"><span class="iw-icon" onclick="togglePass('li_pass',this)">👁</span></div>
+        </div>
+        <a class="forgot-link" onclick="goTo('changePassView')">Forgot password?</a>
+        <button type="button" class="btn-primary" onclick="doLogin()"><span>📡</span> Log In →</button>
+        <button type="button" class="btn-secondary" onclick="goTo('signupView')">Create Free Account →</button>
+        <button type="button" onclick="goTo('landingView')" style="width:100%;padding:10px;border-radius:8px;background:transparent;color:var(--muted);font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:4px;">← Back to Home</button>
+        <div class="form-legal" style="margin-top:12px;">🇮🇳 JobsSignal is exclusively for Indian job seekers.</div>
+      </div>
     </div>
   </div>
 </div>
 </div>
 
-<!-- ============================================================ CHANGE PASSWORD (USER) ============================================================ -->
+<!-- ============================================================ CHANGE PASSWORD ============================================================ -->
 <div id="changePassView" class="view">
-  <div class="cp-card">
-    <div class="cp-icon cp-icon-user">🔑</div>
-    <div class="cp-title">Change Password</div>
-    <div class="cp-sub">Enter your registered mobile number and set a new password.</div>
-    <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="cp_phone" placeholder="Your registered mobile"></div>
-    <div class="form-group"><label class="form-label">New Password</label><div class="input-with-icon"><input class="form-input" id="cp_new" type="password" placeholder="Enter new password" oninput="checkPassStrength(this,'cp_strength','cp_strength_lbl')"><span class="iw-icon" onclick="togglePass('cp_new',this)">👁</span></div><div class="pass-strength" id="cp_strength" style="display:none;"></div><div class="ps-label" id="cp_strength_lbl" style="color:var(--muted);font-size:10px;"></div></div>
-    <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" id="cp_confirm" type="password" placeholder="Re-enter new password"></div>
-    <button type="button" class="btn-primary" onclick="doChangePass('user')">🔑 Update Password →</button>
-    <button type="button" class="btn-secondary" onclick="goTo('loginView')">← Back to Login</button>
+<div style="min-height:100vh;background:var(--off);display:flex;flex-direction:column;">
+  <div style="width:100%;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;background:white;border-bottom:1px solid var(--border);box-shadow:var(--shadow);flex-shrink:0;">
+    <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
+      <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#07090f"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/><circle cx="32" cy="10" r="4" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".5"/><circle cx="32" cy="10" r="7" fill="none" stroke="#f0a84c" stroke-width="1" opacity=".2"/></svg>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--ink);">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--em);">Signal</span></div>
+    </a>
+    <div style="display:flex;gap:8px;">
+      <button type="button" onclick="goTo('landingView')" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Home</button>
+      <button type="button" onclick="goTo('loginView')" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Login</button>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 20px;">
+    <div class="cp-card">
+      <div class="cp-icon cp-icon-user">🔑</div>
+      <div class="cp-title">Change Password</div>
+      <div class="cp-sub">Enter your registered mobile and set a new password.</div>
+      <div class="form-group"><label class="form-label">Mobile Number (+91)</label><input class="form-input" id="cp_phone" placeholder="Your registered mobile"></div>
+      <div class="form-group"><label class="form-label">New Password</label><div class="input-with-icon"><input class="form-input" id="cp_new" type="password" placeholder="Enter new password" oninput="checkPassStrength(this,'cp_strength','cp_strength_lbl')"><span class="iw-icon" onclick="togglePass('cp_new',this)">👁</span></div><div class="pass-strength" id="cp_strength" style="display:none;"></div><div class="ps-label" id="cp_strength_lbl" style="color:var(--muted);font-size:10px;"></div></div>
+      <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" id="cp_confirm" type="password" placeholder="Re-enter new password"></div>
+      <button type="button" class="btn-primary" onclick="doChangePass('user')">🔑 Update Password →</button>
+      <button type="button" class="btn-secondary" onclick="goTo('loginView')">← Back to Login</button>
+    </div>
   </div>
 </div>
+</div>
+
 
 <!-- ============================================================ DASHBOARD ============================================================ -->
 <div id="dashView" class="view">
   <nav class="dash-nav">
     <div class="dash-nav-inner">
-      <a class="logo-wrap" onclick="goTo('landingView')" style="cursor:pointer;">
+      <a class="logo-wrap" onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;">
         <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg>
         <div class="logo-text"><div class="logo-name">Jobs<span class="sig">Signal</span></div><div class="logo-tag">India's real-time job signal finder</div></div>
       </a>
       <div class="dash-nav-actions">
         <div class="sc-badge" id="scBadge" onclick="showFomoIfEmpty()">
           <span class="sc-badge-txt">Free searches:</span>
-          <span class="sc-badge-num" id="scNum">5</span>
+          <span class="sc-badge-num sc-num-green" id="scNum">5</span>
           <span class="sc-badge-txt">left</span>
         </div>
         <div class="india-tag">🇮🇳 India Only</div>
@@ -994,12 +1260,11 @@ tr:hover td{background:rgba(255,255,255,.02);}
           <div class="d-av" id="dAv">R</div>
           <div class="d-user-details"><div class="d-name" id="dName">Riya</div><div class="d-plan" id="dPlan">Free Plan</div></div>
         </div>
-        <button type="button" class="btn-dash-action" onclick="goTo('changePassView')">🔑 Change Password</button>
+        <button type="button" class="btn-dash-action" onclick="goTo('changePassView')">🔑 Password</button>
         <button type="button" class="btn-dash-action btn-dash-logout" onclick="goTo('landingView')">Log Out</button>
       </div>
     </div>
   </nav>
-
   <div class="dash-page">
     <div class="dash-welcome">
       <div class="dw-left"><div class="dw-greeting" id="dGreet">Good morning! 👋</div><div class="dw-sub">Your next job signal is live. Let's find it.</div></div>
@@ -1009,7 +1274,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
         <div class="dws"><div class="dws-n" style="color:var(--gold);">🇮🇳</div><div class="dws-l">India only</div></div>
       </div>
     </div>
-
     <div class="li-tip-bar" id="liTip">
       <div style="font-size:18px;">💡</div>
       <div style="flex:1;">
@@ -1018,7 +1282,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
       </div>
       <button type="button" class="lit-dismiss" onclick="document.getElementById('liTip').classList.add('hidden')">✕</button>
     </div>
-
     <div class="fomo-gate" id="fomoGate">
       <div style="position:relative;z-index:1;">
         <div class="fomo-title">🔒 Your 5 free searches are used up</div>
@@ -1037,7 +1300,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
         </div>
       </div>
     </div>
-
     <div class="dash-layout">
       <div>
         <div class="dash-card">
@@ -1088,16 +1350,14 @@ tr:hover td{background:rgba(255,255,255,.02);}
             <div class="results-box" id="resultsBox">
               <div class="r-head">
                 <div><div class="r-count" id="rCount">Signals found</div><div class="r-sub" id="rSub">Sorted by freshness</div></div>
-                <button type="button" style="padding:6px 13px;border-radius:var(--r3);background:var(--off);border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--soft);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onclick="showToast('Search saved! ⭐','green')">⭐ Save</button>
+                <button type="button" style="padding:6px 13px;border-radius:var(--r3);background:var(--off);border:1.5px solid var(--border);font-size:11px;font-weight:600;color:var(--soft);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onclick="savedCount++;updateCounter();showToast('Search saved! ⭐','green')">⭐ Save</button>
               </div>
-              <div class="r-note">📌 <strong>How to use:</strong> Click "View Post" to open on LinkedIn. Your Sure-Shot score shows how well this signal matches your profile.</div>
+              <div class="r-note">📌 <strong>How to use:</strong> Click "View Post" to open on LinkedIn. Sure-Shot score shows how well this signal matches your profile.</div>
               <div id="rList"></div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- SIDEBAR -->
       <div class="dash-sidebar">
         <div class="sdb-card">
           <div class="sdb-head"><div class="sdb-title">🏢 Company Watchlist</div><button type="button" class="sdb-action" onclick="addCompany()">+ Add</button></div>
@@ -1111,7 +1371,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
           </div>
         </div>
         <div class="sdb-card">
-          <div class="sdb-head"><div class="sdb-title">⭐ Saved Searches</div><button type="button" class="sdb-action" onclick="showToast('Search saved!','green')">+ Save Current</button></div>
+          <div class="sdb-head"><div class="sdb-title">⭐ Saved Searches</div><button type="button" class="sdb-action" onclick="showToast('Search saved!','green')">+ Save</button></div>
           <div class="sdb-body">
             <div class="saved-row"><div><div class="sv-q">React · Hyderabad</div><div class="sv-meta">2 hrs ago · 18 signals</div></div><button type="button" class="sv-run" onclick="runSearch('skill')">Run →</button></div>
             <div class="saved-row"><div><div class="sv-q">#Hiring + Python · Bengaluru</div><div class="sv-meta">Yesterday · 11 signals</div></div><button type="button" class="sv-run" onclick="runSearch('hashtag')">Run →</button></div>
@@ -1123,7 +1383,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
             <div style="display:flex;flex-direction:column;gap:10px;">
               <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Searches used</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;" id="actUsed">0</span></div>
               <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Free searches left</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--em);" id="actLeft">5</span></div>
-              <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:var(--soft);">Posts saved</span><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);" id="actSaved">0</span></div>
             </div>
             <button type="button" style="width:100%;margin-top:14px;padding:9px;border-radius:var(--r3);background:var(--em);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onclick="openPayment('30 Days',99)">🚀 Upgrade for ₹99 →</button>
           </div>
@@ -1135,40 +1394,50 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- ============================================================ ADMIN LOGIN ============================================================ -->
 <div id="adminLoginView" class="view">
-<div class="auth-page">
-  <div class="auth-left admin-auth-left" style="background:linear-gradient(145deg,#0d0a02,#1a0d00);position:relative;overflow:hidden;">
-    <div style="position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(240,168,76,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-    <div style="position:absolute;top:-80px;left:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(255,107,107,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-    <div class="al-logo-row" style="position:relative;z-index:1;">
-      <div class="al-brand" style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;display:flex;align-items:center;gap:10px;">
-        <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/><circle cx="32" cy="10" r="2" fill="#ff6b6b"/><circle cx="32" cy="10" r="5" fill="none" stroke="#ff6b6b" stroke-width="1" opacity=".4"/></svg>
-        Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--grad-admin);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Signal</span>
+<div style="min-height:100vh;background:var(--night2);display:flex;flex-direction:column;">
+  <div style="width:100%;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,15,.98);border-bottom:1px solid rgba(240,168,76,.15);flex-shrink:0;">
+    <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
+      <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/></svg>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:white;line-height:1;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">Signal</span></div>
+        <div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;">Admin Panel</div>
       </div>
-      <div class="al-brand-tag">Admin Control Panel</div>
-    </div>
-    <div style="position:relative;z-index:1;">
-      <div class="al-headline" style="font-size:38px;">Command<br>centre for<br><span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">JobsSignal.</span></div>
-      <div class="al-sub" style="color:rgba(255,255,255,.35);">Authorised personnel only.<br>All access is monitored and logged.</div>
-    </div>
-    <div class="al-features" style="margin-top:auto;position:relative;z-index:1;">
-      <div class="al-feat"><div class="alf-icon alf-icon-gold">👥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">User Management</div><div class="alf-desc">View, download and manage all profiles</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-gold">📊</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Revenue Dashboard</div><div class="alf-desc">Track payments, plans and conversions</div></div></div>
-      <div class="al-feat"><div class="alf-icon alf-icon-gold">📥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Profile Downloads</div><div class="alf-desc">Export individual or bulk profiles as CSV</div></div></div>
-    </div>
+    </a>
+    <button type="button" onclick="goTo('landingView')" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Back to Site</button>
   </div>
-  <div class="auth-right" style="background:#0f1117;">
-    <div class="auth-card">
-      <div class="ac-tag" style="background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);color:var(--gold);">🔐 Restricted Access</div>
-      <div class="ac-title" style="color:white;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;">Admin Login</div>
-      <div class="ac-sub" style="color:rgba(255,255,255,.4);">Enter your credentials to access the admin panel.</div>
-      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Admin Username</label><input class="form-input" id="admin_user" placeholder="Enter admin username" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"></div>
-      <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Password</label><div class="input-with-icon"><input class="form-input" id="admin_pass" type="password" placeholder="Enter password" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"><span class="iw-icon" onclick="togglePass('admin_pass',this)" style="color:rgba(255,255,255,.3);">👁</span></div></div>
-      <button type="button" class="btn-primary btn-admin-primary" onclick="doAdminLogin()">🔐 Login to Admin Panel →</button>
-      <div style="display:flex;gap:10px;margin-top:8px;">
-        <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('adminChangePassView')">🔑 Change Password</button>
-        <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('landingView')">← Back to Site</button>
+  <div class="auth-page" style="flex:1;">
+    <div class="auth-left" style="background:linear-gradient(145deg,#0d0a02,#1a0d00);position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(240,168,76,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+      <div class="al-logo-row" style="position:relative;z-index:1;">
+        <a onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;display:inline-block;">
+          <div class="al-brand" style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">Signal</span></div>
+          <div class="al-brand-tag">Admin Control Panel</div>
+        </a>
       </div>
-      <div style="text-align:center;font-size:11px;color:rgba(255,255,255,.18);margin-top:14px;line-height:1.6;">🔒 All admin activity is logged and monitored.<br>Unauthorised access is prohibited.</div>
+      <div style="position:relative;z-index:1;">
+        <div class="al-headline" style="font-size:clamp(26px,4vw,38px);">Command<br>centre for<br><span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">JobsSignal.</span></div>
+        <div class="al-sub" style="color:rgba(255,255,255,.35);">Authorised personnel only.<br>All access is monitored.</div>
+      </div>
+      <div class="al-features" style="margin-top:auto;position:relative;z-index:1;">
+        <div class="al-feat"><div class="alf-icon alf-icon-gold">👥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">User Management</div><div class="alf-desc">View, download and manage all profiles</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-gold">💳</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Payment Tracking</div><div class="alf-desc">All transactions with export to CSV</div></div></div>
+        <div class="al-feat"><div class="alf-icon alf-icon-gold">📥</div><div><div class="alf-title" style="color:rgba(255,255,255,.8);">Profile Downloads</div><div class="alf-desc">Export individual or bulk profiles</div></div></div>
+      </div>
+    </div>
+    <div class="auth-right" style="background:#0f1117;">
+      <div class="auth-card">
+        <div class="ac-tag" style="background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);color:var(--gold);">🔐 Restricted Access</div>
+        <div class="ac-title" style="color:white;">Admin Login</div>
+        <div class="ac-sub" style="color:rgba(255,255,255,.4);">Enter your credentials to access the admin panel.</div>
+        <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Admin Username</label><input class="form-input" id="admin_user" placeholder="Enter admin username" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"></div>
+        <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Password</label><div class="input-with-icon"><input class="form-input" id="admin_pass" type="password" placeholder="Enter password" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"><span class="iw-icon" onclick="togglePass('admin_pass',this)" style="color:rgba(255,255,255,.3);">👁</span></div></div>
+        <button type="button" class="btn-primary btn-admin-primary" onclick="doAdminLogin()">🔐 Login to Admin Panel →</button>
+        <div style="display:flex;gap:10px;margin-top:8px;">
+          <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('adminChangePassView')">🔑 Change Password</button>
+          <button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('landingView')">← Back to Site</button>
+        </div>
+        <div style="text-align:center;font-size:11px;color:rgba(255,255,255,.18);margin-top:14px;line-height:1.6;">🔒 All admin activity is logged and monitored.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1176,7 +1445,15 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- ============================================================ ADMIN CHANGE PASSWORD ============================================================ -->
 <div id="adminChangePassView" class="view">
-  <div style="background:var(--night2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+<div style="min-height:100vh;background:var(--night2);display:flex;flex-direction:column;">
+  <div style="width:100%;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,15,.98);border-bottom:1px solid rgba(240,168,76,.1);flex-shrink:0;">
+    <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
+      <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/></svg>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--gold);">Signal</span> <span style="font-size:9px;font-weight:800;background:var(--gold);color:var(--night);padding:2px 7px;border-radius:20px;margin-left:4px;">ADMIN</span></div>
+    </a>
+    <button type="button" onclick="goTo('adminLoginView')" style="padding:7px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">← Admin Login</button>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 20px;">
     <div class="cp-card" style="background:var(--night);border:1px solid var(--bn);">
       <div class="cp-icon cp-icon-admin">🔐</div>
       <div class="cp-title" style="color:white;">Change Admin Password</div>
@@ -1189,16 +1466,17 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </div>
 </div>
+</div>
 
 <!-- ============================================================ ADMIN DASHBOARD ============================================================ -->
 <div id="adminView" class="view">
   <nav class="admin-nav">
     <div class="admin-nav-inner">
       <div style="display:flex;align-items:center;gap:12px;">
-        <div style="display:flex;align-items:center;gap:9px;">
+        <a onclick="goTo('landingView')" style="display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;">
           <svg width="28" height="28" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(240,168,76,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#f0a84c"/></svg>
           <div><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Jobs<span style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);font-weight:400;">Signal</span></div><div style="font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;">Admin Panel</div></div>
-        </div>
+        </a>
         <div class="admin-badge">ADMIN</div>
       </div>
       <div class="admin-nav-right">
@@ -1208,7 +1486,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
       </div>
     </div>
   </nav>
-
   <div class="admin-page">
     <div class="admin-stats">
       <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
@@ -1217,62 +1494,51 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <div class="astat"><div class="astat-n" style="color:var(--gold);">₹7,821</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Revenue (MTD)</div><div class="astat-ch ch-up">↑ +₹693 this week</div></div>
       <div class="astat"><div class="astat-n" style="color:var(--coral);">12</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Duplicate Flags</div><div class="astat-ch ch-dn">↓ -3 from last week</div></div>
     </div>
-    <!-- ADMIN TABS -->
     <div style="display:flex;gap:0;margin-bottom:18px;background:var(--night2);border-radius:var(--r);overflow:hidden;border:1px solid var(--bn);">
-      <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;">👥 All Profiles</button>
-      <button type="button" id="tabPayments" onclick="switchAdminTab('payments')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;">💳 Payments</button>
+      <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">👥 All Profiles</button>
+      <button type="button" id="tabPayments" onclick="switchAdminTab('payments')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">💳 Payments</button>
     </div>
-
-    <!-- PROFILES SECTION -->
     <div id="adminProfiles">
-    <div class="admin-filters">
-      <input class="af-in" id="searchFilter" placeholder="🔍 Search name, email, skill..." style="flex:1;min-width:200px;" oninput="filterTable()">
-      <select class="af-sel" id="planFilter" onchange="filterTable()"><option value="">All Plans</option><option value="free">Free</option><option value="paid">Paid</option></select>
-      <select class="af-sel" id="cityFilter" onchange="filterTable()"><option value="">All Cities</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Remote</option></select>
-      <select class="af-sel" id="roleFilter" onchange="filterTable()"><option value="">All Roles</option><option>Talent Acquisition</option><option>Software Developer</option><option>Product Manager</option><option>Data Scientist</option></select>
-      <button type="button" class="btn-af" onclick="filterTable()">Filter</button>
-      <button type="button" class="btn-export" onclick="exportAllCSV()">📥 Export All CSV</button>
+      <div class="admin-filters">
+        <input class="af-in" id="searchFilter" placeholder="🔍 Search name, email, skill..." style="flex:1;min-width:200px;" oninput="filterTable()">
+        <select class="af-sel" id="planFilter" onchange="filterTable()"><option value="">All Plans</option><option value="free">Free</option><option value="paid">Paid</option></select>
+        <select class="af-sel" id="cityFilter" onchange="filterTable()"><option value="">All Cities</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Remote</option></select>
+        <select class="af-sel" id="roleFilter" onchange="filterTable()"><option value="">All Roles</option><option>Talent Acquisition</option><option>Software Developer</option><option>Product Manager</option><option>Data Scientist</option></select>
+        <button type="button" class="btn-af" onclick="filterTable()">Filter</button>
+        <button type="button" class="btn-export" onclick="exportAllCSV()">📥 Export All CSV</button>
+      </div>
+      <div class="admin-table-wrap">
+        <div class="admin-table-head"><div class="ath-title">All Registered Profiles</div><div class="ath-count" id="tableCount">Showing profiles</div></div>
+        <table><thead><tr><th>#</th><th>Name</th><th>Contact</th><th>City</th><th>Role</th><th>Skills</th><th>Exp</th><th>Score</th><th>Plan</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="adminTableBody"></tbody></table>
+      </div>
     </div>
-    <div class="admin-table-wrap">
-      <div class="admin-table-head"><div class="ath-title">All Registered Profiles</div><div class="ath-count" id="tableCount">Showing 8 profiles</div></div>
-      <table><thead><tr><th>#</th><th>Name</th><th>Contact</th><th>City</th><th>Role</th><th>Skills</th><th>Experience</th><th>Sure-Shot</th><th>Plan</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="adminTableBody"></tbody></table>
-    </div>
-    </div><!-- end adminProfiles -->
-
-    <!-- PAYMENTS SECTION -->
     <div id="adminPayments" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
         <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Payment Transactions</div>
-        <button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:6px;">📥 Export Payments CSV</button>
+        <button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📥 Export CSV</button>
       </div>
-      <!-- Summary cards -->
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
-      <!-- Payments table -->
       <div class="admin-table-wrap">
         <div class="admin-table-head"><div class="ath-title">All Payment Transactions</div><div class="ath-count" id="payTableCount">0 transactions</div></div>
-        <table>
-          <thead><tr><th>#</th><th>User</th><th>Contact</th><th>Plan</th><th>Amount</th><th>Payment ID</th><th>Status</th><th>Paid At</th></tr></thead>
-          <tbody id="paymentsTableBody"></tbody>
-        </table>
-        <div id="noPayments" style="padding:48px;text-align:center;color:rgba(255,255,255,.25);font-size:14px;">No payments recorded yet.<br><span style="font-size:12px;">Payments will appear here after users complete checkout.</span></div>
+        <table><thead><tr><th>#</th><th>User</th><th>Contact</th><th>Plan</th><th>Amount</th><th>Payment ID</th><th>Status</th><th>Paid At</th></tr></thead><tbody id="paymentsTableBody"></tbody></table>
+        <div id="noPayments" style="padding:48px;text-align:center;color:rgba(255,255,255,.25);font-size:14px;">No payments recorded yet.</div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- PROFILE DETAIL MODAL -->
+<!-- PROFILE MODAL -->
 <div class="profile-modal-overlay" id="profileModal">
   <div class="pmo-card">
     <div class="pmo-header">
       <div class="pmo-av" id="pmAv">KM</div>
-      <div style="flex:1;"><div class="pmo-name" id="pmName">Kiran Manepalli</div><div class="pmo-role" id="pmRole">Talent Acquisition · Hyderabad</div></div>
+      <div style="flex:1;"><div class="pmo-name" id="pmName">Profile</div><div class="pmo-role" id="pmRole">Role · City</div></div>
       <button type="button" class="pmo-close" onclick="closeModal('profileModal')">✕</button>
     </div>
     <div class="pmo-body">
       <div class="pmo-sec-title">Contact Details</div>
       <div class="pmo-grid" id="pmContact"></div>
-      <div class="pmo-sec-title">Skills from Resume</div>
+      <div class="pmo-sec-title" style="margin-top:14px;">Skills from Resume</div>
       <div class="pmo-skills" id="pmSkills"></div>
       <div class="pmo-actions">
         <button type="button" class="btn-pmo-dl" onclick="downloadProfile()">📥 Download Profile CSV</button>
@@ -1282,7 +1548,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </div>
 </div>
 
-<!-- PAYMENT MODAL (Razorpay) -->
+<!-- PAYMENT MODAL -->
 <div class="payment-modal" id="paymentModal">
   <div class="pm-wrap">
     <div class="pm-top">
@@ -1292,58 +1558,43 @@ tr:hover td{background:rgba(255,255,255,.02);}
       </div>
       <div class="pm-plan-name" id="pmPlanName">30 Days Plan</div>
       <div class="pm-amount"><small>₹</small><span id="pmAmount">99</span></div>
-      <div class="pm-duration" id="pmDuration">Full access · 30 days · All features included</div>
+      <div class="pm-duration" id="pmDuration">Full access · 30 days · All features</div>
       <button type="button" class="pm-close-btn" onclick="closeModal('paymentModal')">✕</button>
     </div>
     <div class="pm-body" id="pmPayBody">
       <div class="pm-features">
-        <div class="pm-feat">All 4 search modes</div>
-        <div class="pm-feat">Sure-Shot scoring</div>
-        <div class="pm-feat">Resume-based matching</div>
-        <div class="pm-feat">Comment templates</div>
-        <div class="pm-feat">Company watchlist</div>
-        <div class="pm-feat">Unlimited searches</div>
+        <div class="pm-feat">All 4 search modes</div><div class="pm-feat">Sure-Shot scoring</div>
+        <div class="pm-feat">Resume-based matching</div><div class="pm-feat">Comment templates</div>
+        <div class="pm-feat">Company watchlist</div><div class="pm-feat">Unlimited searches</div>
       </div>
-      <div class="pm-note">🔒 Secure payment powered by Razorpay. Your card details are never stored on our servers.</div>
-      <button type="button" class="btn-pay" onclick="processPayment()">
-        <span>🔒</span> Pay ₹<span id="payBtnAmt">99</span> Securely →
-      </button>
+      <div class="pm-note">🔒 Secure payment powered by Razorpay. Your card details are never stored.</div>
+      <button type="button" class="btn-pay" onclick="processPayment()"><span>🔒</span> Pay ₹<span id="payBtnAmt">99</span> Securely →</button>
       <div class="rzp-powered"><span>Secured by</span><span class="rzp-logo">Razorpay</span><span>· UPI · Cards · NetBanking</span></div>
     </div>
     <div class="payment-success" id="paymentSuccess">
       <div class="ps-icon">🎉</div>
       <div class="ps-title">Payment Successful!</div>
-      <div class="ps-sub">Your <strong id="psplan">30 Days</strong> plan is now active. Upload your resume to unlock personalised Sure-Shot scoring and matched recruiter signals.</div>
+      <div class="ps-sub">Your <strong id="psplan">30 Days</strong> plan is now active. Upload your resume to unlock personalised signals.</div>
       <button type="button" class="btn-primary" onclick="afterPayment()">📄 Upload Resume & Start →</button>
     </div>
   </div>
 </div>
 
-<!-- RESUME UPLOAD MODAL (post-payment) -->
+<!-- RESUME UPLOAD MODAL -->
 <div class="tmpl-overlay" id="resumeUploadModal">
   <div class="tmpl-card" style="max-width:480px;">
-    <div class="tc-header">
-      <div class="tc-title">📄 Upload Your Resume</div>
-      <button type="button" class="tc-close" onclick="closeModal('resumeUploadModal')">✕</button>
-    </div>
-    <div style="font-size:13px;color:var(--soft);margin-bottom:16px;line-height:1.6;">Upload your resume to unlock personalised Sure-Shot scoring and matched recruiter signals based on your actual skills.</div>
+    <div class="tc-header"><div class="tc-title">📄 Upload Your Resume</div><button type="button" class="tc-close" onclick="closeModal('resumeUploadModal')">✕</button></div>
+    <div style="font-size:13px;color:var(--soft);margin-bottom:16px;line-height:1.6;">Upload your resume to unlock personalised Sure-Shot scoring and matched recruiter signals.</div>
     <div class="upload-zone" id="postPayUploadZone" style="border-color:var(--em);background:var(--em-pale);">
       <input type="file" accept=".pdf,.doc,.docx" onchange="handlePostPayUpload(this)">
       <div style="font-size:28px;margin-bottom:10px;">📤</div>
       <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;">Drop resume here or click to browse</div>
       <div style="font-size:11px;color:var(--soft);">PDF or Word · Max 5MB · Your resume stays private</div>
-      <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;"><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">PDF</span><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">DOC</span><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--border);color:var(--soft);">DOCX</span></div>
     </div>
-    <div id="postPayProgress" style="display:none;padding:12px 0;">
-      <div style="height:5px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:7px;"><div id="ppFill" style="height:100%;background:linear-gradient(90deg,var(--em),var(--gold));border-radius:20px;width:0;transition:width .3s;"></div></div>
-      <div id="ppLabel" style="font-size:11px;color:var(--soft);">Reading resume...</div>
-    </div>
-    <div id="postPaySkills" style="display:none;margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Skills Detected</div>
-      <div id="ppSkillChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-    </div>
+    <div id="postPayProgress" style="display:none;padding:12px 0;"><div style="height:5px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:7px;"><div id="ppFill" style="height:100%;background:linear-gradient(90deg,var(--em),var(--gold));border-radius:20px;width:0;transition:width .3s;"></div></div><div id="ppLabel" style="font-size:11px;color:var(--soft);">Reading resume...</div></div>
+    <div id="postPaySkills" style="display:none;margin-bottom:14px;"><div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Skills Detected</div><div id="ppSkillChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div></div>
     <div style="display:flex;gap:8px;margin-top:6px;">
-      <button type="button" id="ppSkipBtn" onclick="closeModal('resumeUploadModal');showToast('You can upload resume later from your dashboard','amber');" style="flex:1;padding:11px;border-radius:8px;background:var(--off);color:var(--soft);font-size:13px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Skip for Now</button>
+      <button type="button" id="ppSkipBtn" onclick="closeModal('resumeUploadModal');showToast('You can upload resume later','amber');" style="flex:1;padding:11px;border-radius:8px;background:var(--off);color:var(--soft);font-size:13px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Skip for Now</button>
     </div>
   </div>
 </div>
@@ -1371,6 +1622,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
 
 <script>
+
 // ============================================================
 // CONFIG — Replace with your actual Razorpay Key
 // ============================================================
@@ -2312,9 +2564,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }catch(e){}
 });
-</script>
 
-<!-- Razorpay Script — loads when needed -->
+</script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 </body>
 </html>
