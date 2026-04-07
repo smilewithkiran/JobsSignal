@@ -1954,8 +1954,15 @@ function doSignup(){
 }
 function doLogin(){
   const phone = document.getElementById('li_phone')?.value.trim();
+  const pass  = document.getElementById('li_pass')?.value.trim();
   if(!phone){showToast('Enter your mobile number','amber');return;}
-  enterDash({name:'Kiran Manepalli', phone, email:'kiran@gmail.com', city:'Hyderabad', skill:'Talent Acquisition'});
+  if(!pass){showToast('Enter your password','amber');return;}
+  try{
+    enterDash({name:'Kiran Manepalli', phone, email:'kiran@gmail.com', city:'Hyderabad', skill:'Talent Acquisition'});
+  }catch(err){
+    console.error('Login error:',err);
+    showToast('Something went wrong. Please try again.','red');
+  }
 }
 
 // ============================================================
@@ -1995,12 +2002,14 @@ function enterDash(user){
     }
   }
 
-  autoSelectHashtags(user.skill||'');
-  buildSignalScore(user.skill||'', user.city||'');
+  try{ autoSelectHashtags(user.skill||''); }catch(e){ console.warn('hashtag',e); }
+  try{ buildSignalScore(user.skill||'', user.city||''); }catch(e){ console.warn('score',e); }
 
-  if(isPaidUser)       showPaidDashboard();
-  else if(previewUsed) showLockedDashboard();
-  else                 showFreeDashboard();
+  try{
+    if(isPaidUser)       showPaidDashboard();
+    else if(previewUsed) showLockedDashboard();
+    else                 showFreeDashboard();
+  }catch(e){ console.error('dashboard state:',e); }
 
   goTo('dashView');
   showToast('Welcome, '+first+'! 🎉','green');
@@ -2528,81 +2537,73 @@ function showTab(tab,btn){
 
 function postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,company){
   const terms = getSearchTerms(skill);
+  // Safe template for onclick — no nested calls or special chars
+  const safeTmpl = (tmplText||'Hi, I am a '+skill+' professional in '+city+'. Sharing my CV via DM.').substring(0,200);
 
-  // MODE-SPECIFIC query preview text
-  let queryLabel='', queryDesc='', secondCard='', thirdCard='';
+  // Pre-compute referral URL (no nested calls inside template literal)
+  const refURLs = buildSearchURL('referral',skill,city,'30 Days',[],company||'');
+  const refPrimary  = refURLs.primary  || urls.primary;
+  const refFallback = refURLs.fallback || urls.fallback || refPrimary;
+  const refMsg = 'Hi! Saw your referral post. I am a '+skill+' professional in '+city+' — would love to connect!';
 
-  if(mode==='skill'){
+  let queryLabel = '';
+  let queryDesc  = '';
+  let extraCards = '';
+
+  if(mode === 'skill'){
     queryLabel = '"'+terms.jobTitle+'" "'+city+'" hiring';
     queryDesc  = 'Pure skill search · No hashtag mixing · Last 24 hours · Sorted newest';
-    secondCard = `
+    extraCards = `
       <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📅 Same Skill — Past Week</div><div style="font-size:11px;color:var(--soft);">If 24h results are limited — expand to last 7 days</div></div>
-          <div class="fresh-badge fb-golden">🟠 Week</div>
-        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Same Skill — Past Week</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe if 24h results are limited</div>
         <div class="rc-actions">
-          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 View Past Week Posts →</button>
-          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
+          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Posts →</button>
         </div>
-      </div>`;
-    thirdCard = `
+      </div>
       <div class="sig-card" style="border-left:4px solid var(--purple);margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">🤝 Referral Posts for "${skill}"</div><div style="font-size:11px;color:var(--soft);">"DM me for referral" · Act within 2 hours</div></div>
-          <div class="fresh-badge fb-hot">🔴 Hot</div>
-        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;">🤝 Referral Posts for "${skill}"</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">"DM me for referral" · Act within 2 hours</div>
         <div class="rc-actions">
-          <button type="button" class="rca rca-li" onclick="window.open('${buildSearchURL('referral',skill,city,'30 Days',[],company).primary}','_blank')">🔗 Find Referral Posts →</button>
-          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${buildSearchURL('referral',skill,city,'30 Days',[],company).primary}','Hi! I saw your referral post. I am a ${skill} professional in ${city} — would love to connect!')">⚡ Open + Copy Comment</button>
+          <button type="button" class="rca rca-li" data-url="${refPrimary}" onclick="window.open(this.dataset.url,'_blank')">🔗 Find Referral Posts →</button>
+          <button type="button" class="rca rca-tmpl" data-url="${refPrimary}" data-tmpl="${refMsg}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
         </div>
       </div>`;
-  } else if(mode==='hashtag'){
-    const tags = selectedHashtags.length>0 ? selectedHashtags : getHashtagsForSkill(skill);
-    queryLabel = tags.join(' ')+' '+skill+' '+city;
+  } else if(mode === 'hashtag'){
+    const tags = (selectedHashtags&&selectedHashtags.length>0) ? selectedHashtags : getHashtagsForSkill(skill);
+    queryLabel = tags.join(' ')+' '+city;
     queryDesc  = 'Hashtag-only search · '+tags.slice(0,3).join(', ')+' · Last 24 hours';
-    secondCard = `
+    extraCards = `
       <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">📅 Hashtag — Past Week</div><div style="font-size:11px;color:var(--soft);">Expand timeframe if 24h results are limited</div></div>
-          <div class="fresh-badge fb-golden">🟠 Week</div>
-        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Hashtag — Past Week</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe if 24h results limited</div>
         <div class="rc-actions">
-          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Past Week Hashtag Posts →</button>
+          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Hashtag Posts →</button>
         </div>
       </div>`;
-    thirdCard = '';
-  } else if(mode==='notice'){
+  } else if(mode === 'notice'){
     queryLabel = '"'+np+'" '+skill+' '+city+' hiring';
-    queryDesc  = 'Notice period specific · "'+np+'" filter · '+city+' only';
-    secondCard = `
+    queryDesc  = 'Notice period specific · "'+np+'" filter · '+city;
+    extraCards = `
       <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">⏱️ "Immediate Joiner" Posts</div><div style="font-size:11px;color:var(--soft);">Recruiters asking for immediate joiners or short NP</div></div>
-          <div class="fresh-badge fb-hot">🔴 Urgent</div>
-        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">⏱️ "Immediate Joiner" Posts</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Recruiters asking for immediate or short NP</div>
         <div class="rc-actions">
-          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Find Immediate Joiner Posts →</button>
-          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
+          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Immediate Joiner Posts →</button>
         </div>
       </div>`;
-    thirdCard = '';
-  } else if(mode==='referral'){
-    const co = company||skill;
-    queryLabel = '"DM me" OR "referral" '+co+' '+city+' hiring';
+  } else if(mode === 'referral'){
+    queryLabel = '"DM me" OR "referral" '+(company||skill)+' '+city+' hiring';
     queryDesc  = 'Referral posts only · '+city+' · Last 24 hours';
-    secondCard = `
+    extraCards = `
       <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">📅 Referral Posts — Past Week</div><div style="font-size:11px;color:var(--soft);">Expand timeframe for more referral opportunities</div></div>
-          <div class="fresh-badge fb-golden">🟠 Week</div>
-        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Referral — Past Week</div>
+        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe for more referral opportunities</div>
         <div class="rc-actions">
-          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Past Week Referral Posts →</button>
-          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','Hi! Saw your referral post. I am a ${skill} professional in ${city} looking for opportunities. Would love to connect!')">⚡ Open + Copy Comment</button>
+          <button type="button" class="rca rca-li" data-url="${refFallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Referral Posts →</button>
+          <button type="button" class="rca rca-tmpl" data-url="${refFallback}" data-tmpl="${refMsg}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
         </div>
       </div>`;
-    thirdCard = '';
   }
 
   return `
@@ -2616,18 +2617,19 @@ function postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,compan
         <div style="font-size:12px;color:var(--ink);font-family:monospace;line-height:1.6;word-break:break-all;">${queryLabel}</div>
       </div>
       <div class="rc-actions">
-        <button type="button" class="rca rca-open" onclick="window.open('${urls.primary}','_blank')">🔗 View Posts on LinkedIn →</button>
-        <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.primary}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
-        <button type="button" class="rca rca-wa" onclick="window.open('${waURL}','_blank')">📱 Share on WhatsApp</button>
+        <button type="button" class="rca rca-open" data-url="${urls.primary}" onclick="window.open(this.dataset.url,'_blank')">🔗 View Posts on LinkedIn →</button>
+        <button type="button" class="rca rca-tmpl" data-url="${urls.primary}" data-tmpl="${safeTmpl}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
+        <button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 WhatsApp Share</button>
       </div>
     </div>
-    ${secondCard}
-    ${thirdCard}
+    ${extraCards}
     <div style="padding:11px 13px;background:var(--em-pale);border:1px solid rgba(0,200,150,.15);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      📌 <strong>How to use:</strong> LinkedIn opens with a targeted search for your exact query. Posts are sorted newest first. Comment within <strong>1 hour</strong> of posting for the best response rate. Use <strong>Open + Copy Comment</strong> to get a ready-made comment copied to clipboard while LinkedIn opens.
+      📌 <strong>How to use:</strong> Each button opens LinkedIn with a targeted search. Posts sorted newest first. Comment within <strong>1 hour</strong> for best reply rate. <strong>Open + Copy Comment</strong> opens LinkedIn AND copies your comment to clipboard in one click.
     </div>`;
 }
+
 function jobsTab(skill,city,mode,urls,waURL,np){
+  const terms = getSearchTerms(skill);
   return `
     <div class="job-card" style="margin-bottom:10px;">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
@@ -2636,35 +2638,35 @@ function jobsTab(skill,city,mode,urls,waURL,np){
       </div>
       <div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--blue);">
         <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY</div>
-        <div style="font-size:12px;color:var(--ink);font-family:monospace;">${(DOMAINS[detectDomain(skill)]||DOMAINS.generic).jobs||skill} · ${city} · Last 24h</div>
+        <div style="font-size:12px;color:var(--ink);font-family:monospace;">${terms.jobTitle} · ${city} · Last 24h</div>
       </div>
       <div class="rc-actions">
-        <button type="button" class="rca" style="background:var(--blue);color:white;" onclick="window.open('${urls.jobs}','_blank')">💼 View Jobs (24h) →</button>
-        <button type="button" class="rca" style="background:#1a3a6b;color:white;" onclick="window.open('${urls.jobsWeek}','_blank')">📅 View Jobs (This Week)</button>
-        <button type="button" class="rca" style="background:#0a5c36;color:white;" onclick="window.open('${urls.easyApply}','_blank')">⚡ Easy Apply Jobs Only</button>
-        <button type="button" class="rca rca-wa" onclick="window.open('${waURL}','_blank')">📱 Share</button>
+        <button type="button" class="rca" style="background:var(--blue);color:white;" data-url="${urls.jobs}" onclick="window.open(this.dataset.url,'_blank')">💼 View Jobs (24h) →</button>
+        <button type="button" class="rca" style="background:#1a3a6b;color:white;" data-url="${urls.jobsWeek}" onclick="window.open(this.dataset.url,'_blank')">📅 View Jobs (This Week)</button>
+        <button type="button" class="rca" style="background:#0a5c36;color:white;" data-url="${urls.easyApply}" onclick="window.open(this.dataset.url,'_blank')">⚡ Easy Apply Only</button>
+        <button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 Share</button>
       </div>
     </div>
     <div style="padding:11px 13px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      💡 <strong>Pro tip:</strong> Job listings appear 6-8 hours <em>after</em> recruiters post on LinkedIn. Check <strong>Recruiter Posts tab first</strong> — those signals are hours ahead of any job listing!
+      💡 <strong>Pro tip:</strong> Job listings appear 6–8 hours <em>after</em> recruiters post on LinkedIn. Check <strong>Recruiter Posts</strong> tab first — those signals are hours earlier than any listing!
     </div>`;
 }
 
-function peopleTab(skill,city,urls){
-  const pKw = encodeURIComponent('hiring '+skill+' recruiter '+city);
-  const companyURL = `https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(skill+' company '+city)}`;
+function peopleTab(skill,city,mode,urls){
+  const terms = getSearchTerms(skill);
+  const companyURL = 'https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(skill+' '+city);
   return `
     <div class="sig-card" style="margin-bottom:10px;">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">👤 Find ${skill} Recruiters in ${city}</div><div style="font-size:11px;color:var(--soft);">Connect with active recruiters before they post a role</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">👤 Find ${terms.role} Recruiters in ${city}</div><div style="font-size:11px;color:var(--soft);">Connect with active recruiters before they post a role</div></div>
       </div>
       <div class="rc-actions">
-        <button type="button" class="rca" style="background:var(--purple);color:white;" onclick="window.open('${urls.people}','_blank')">👤 Find Recruiters →</button>
-        <button type="button" class="rca" style="background:#2d1b69;color:white;" onclick="window.open('${companyURL}','_blank')">🏢 Find Companies Hiring</button>
+        <button type="button" class="rca" style="background:var(--purple);color:white;" data-url="${urls.people}" onclick="window.open(this.dataset.url,'_blank')">👤 Find Recruiters →</button>
+        <button type="button" class="rca" style="background:#2d1b69;color:white;" data-url="${companyURL}" onclick="window.open(this.dataset.url,'_blank')">🏢 Find Companies Hiring</button>
       </div>
     </div>
     <div style="padding:11px 13px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      💡 <strong>Strategy:</strong> Connect with recruiters <em>before</em> they post a role. Message: <em>"Hi, I'm a ${skill} professional in ${city}. Would love to connect for future opportunities."</em> This gets you referrals before jobs even go public.
+      💡 <strong>Strategy:</strong> Connect with recruiters <em>before</em> they post a role. Message: <em>"Hi, I am a ${skill} professional in ${city}. Would love to connect for future opportunities."</em>
     </div>`;
 }
 
@@ -3005,6 +3007,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(current && current!=='landingView') goTo('landingView');
   }
 });
+
 
 
 </script>
