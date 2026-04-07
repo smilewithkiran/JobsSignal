@@ -1757,6 +1757,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
 
 <script>
+
 // ============================================================
 // CONFIG
 // ============================================================
@@ -2161,124 +2162,209 @@ function showConversionTriggers(){
 }
 
 // ============================================================
-// SKILL DOMAIN DETECTION
+// SKILL → ROLE TITLE MAPPING
+// Maps what user types → exact LinkedIn job title / search phrase
 // ============================================================
-function detectDomain(s){
-  s = (s||'').toLowerCase();
-  if(/talent|recruit|hr |human resource|ta |acquisition|sourcing|staffing|naukri|hrbp/i.test(s)) return 'ta';
-  if(/react|angular|vue|node|java|python|developer|engineer|frontend|backend|fullstack|\.net|php|swift|kotlin|sde|golang|devops|cloud|aws|azure|gcp/i.test(s)) return 'dev';
-  if(/data|analyst|scientist|ml |machine learning|ai |analytics|tableau|power bi|qlik|etl/i.test(s)) return 'data';
-  if(/product manager|pm |product owner|roadmap|product strategy|scrum master/i.test(s)) return 'pm';
-  if(/designer|ui |ux |figma|design|graphic|motion|visual/i.test(s)) return 'design';
-  if(/sales|business development|bd |account manager|pre-sales|revenue/i.test(s)) return 'sales';
-  if(/finance|accounts|ca |chartered|audit|tax|banking|credit|treasury/i.test(s)) return 'finance';
-  if(/marketing|seo|sem|content|social media|brand|performance|growth/i.test(s)) return 'marketing';
-  if(/operations|supply chain|logistics|warehouse|procurement/i.test(s)) return 'ops';
-  return 'generic';
+function getSearchTerms(skill){
+  const s = skill.trim().toLowerCase();
+
+  // Talent Acquisition / HR / Recruitment
+  if(/^ta$|talent acqui|recrui|^hr$|human resourc|staffing|sourcing|hrbp|campus hir|bulk hir|volume hir|naukri|linkedin recrui/i.test(s))
+    return { role:'Talent Acquisition', jobTitle:'Talent Acquisition Manager', postPhrase:skill+' recruiter hiring', noticePhrase:'talent acquisition '+skill, refPhrase:'talent acquisition '+skill };
+
+  // React
+  if(/^react$|react\.js|reactjs/i.test(s))
+    return { role:'React Developer', jobTitle:'React Developer', postPhrase:'React Developer hiring', noticePhrase:'React Developer', refPhrase:'React' };
+
+  // Angular
+  if(/angular/i.test(s))
+    return { role:'Angular Developer', jobTitle:'Angular Developer', postPhrase:'Angular Developer hiring', noticePhrase:'Angular Developer', refPhrase:'Angular' };
+
+  // Node.js
+  if(/node\.?js|nodejs/i.test(s))
+    return { role:'Node.js Developer', jobTitle:'Node.js Developer', postPhrase:'Node.js Developer hiring', noticePhrase:'Node Developer', refPhrase:'Node.js' };
+
+  // Full Stack
+  if(/full.?stack|fullstack/i.test(s))
+    return { role:'Full Stack Developer', jobTitle:'Full Stack Developer', postPhrase:'Full Stack Developer hiring', noticePhrase:'Full Stack Developer', refPhrase:'Full Stack' };
+
+  // Java
+  if(/^java$|java developer|java engineer/i.test(s))
+    return { role:'Java Developer', jobTitle:'Java Developer', postPhrase:'Java Developer hiring', noticePhrase:'Java Developer', refPhrase:'Java' };
+
+  // Python
+  if(/^python$|python developer|django|flask/i.test(s))
+    return { role:'Python Developer', jobTitle:'Python Developer', postPhrase:'Python Developer hiring', noticePhrase:'Python Developer', refPhrase:'Python' };
+
+  // DevOps / Cloud
+  if(/devops|cloud|aws|azure|gcp|kubernetes|docker|ci.?cd/i.test(s))
+    return { role:'DevOps Engineer', jobTitle:'DevOps Engineer', postPhrase:'DevOps Engineer hiring', noticePhrase:'DevOps', refPhrase:'DevOps' };
+
+  // Data Science / ML / AI
+  if(/data scien|machine learn|^ml$|^ai$|deep learn|nlp|tensorflow|pytorch/i.test(s))
+    return { role:'Data Scientist', jobTitle:'Data Scientist', postPhrase:'Data Scientist hiring', noticePhrase:'Data Scientist', refPhrase:'Data Science' };
+
+  // Data Analyst
+  if(/data anal|business intel|tableau|power bi|looker|qlik|sql analyst/i.test(s))
+    return { role:'Data Analyst', jobTitle:'Data Analyst', postPhrase:'Data Analyst hiring', noticePhrase:'Data Analyst', refPhrase:'Data Analyst' };
+
+  // Data Engineer
+  if(/data engineer|etl|spark|hadoop|databricks|snowflake/i.test(s))
+    return { role:'Data Engineer', jobTitle:'Data Engineer', postPhrase:'Data Engineer hiring', noticePhrase:'Data Engineer', refPhrase:'Data Engineer' };
+
+  // Product Manager
+  if(/product manager|^pm$|product owner|product management/i.test(s))
+    return { role:'Product Manager', jobTitle:'Product Manager', postPhrase:'Product Manager hiring', noticePhrase:'Product Manager', refPhrase:'Product Manager' };
+
+  // UX/UI Designer
+  if(/ux|ui design|figma|user experience|product design|visual design/i.test(s))
+    return { role:'UI UX Designer', jobTitle:'UI UX Designer', postPhrase:'UI UX Designer hiring', noticePhrase:'UX Designer', refPhrase:'UX UI Design' };
+
+  // Sales / BD
+  if(/sales|business develop|^bd$|account manag|pre.?sales/i.test(s))
+    return { role:'Sales', jobTitle:'Sales Manager', postPhrase:'Sales hiring', noticePhrase:'Sales', refPhrase:'Sales Business Development' };
+
+  // Finance / CA
+  if(/finance|^ca$|chartered account|audit|accounts|tax|treasury|banking/i.test(s))
+    return { role:'Finance', jobTitle:'Finance Manager', postPhrase:'Finance hiring', noticePhrase:'Finance', refPhrase:'Finance Accounting' };
+
+  // Marketing
+  if(/marketing|seo|sem|digital market|content market|performance market|growth market/i.test(s))
+    return { role:'Marketing', jobTitle:'Marketing Manager', postPhrase:'Marketing hiring', noticePhrase:'Marketing', refPhrase:'Marketing' };
+
+  // Project / Program Manager
+  if(/project manager|program manager|^pmp$|scrum master|agile coach/i.test(s))
+    return { role:'Project Manager', jobTitle:'Project Manager', postPhrase:'Project Manager hiring', noticePhrase:'Project Manager', refPhrase:'Project Manager' };
+
+  // Operations
+  if(/operations|supply chain|logistics|procurement|warehouse/i.test(s))
+    return { role:'Operations', jobTitle:'Operations Manager', postPhrase:'Operations hiring', noticePhrase:'Operations', refPhrase:'Operations' };
+
+  // Default — use skill as typed
+  return { role:skill, jobTitle:skill, postPhrase:skill+' hiring', noticePhrase:skill, refPhrase:skill };
 }
 
-// Domain → LinkedIn search keywords (refined for best results)
-const DOMAINS = {
-  ta:{
-    posts:  ['"talent acquisition"','"TA manager"','"recruiting"','"#TalentAcquisition"','"hiring manager"','"HR opening"'],
-    jobs:   'talent acquisition manager recruiter HR',
-    people: 'talent acquisition recruiter HR manager',
-    tags:   ['#TalentAcquisition','#Hiring','#HRJobs','#Recruiting','#NowHiring','#RecruitmentLife']
-  },
-  dev:{
-    posts:  ['"developer"','"engineer"','"SDE"','"#Hiring"','"tech hiring"','"software engineer"'],
-    jobs:   'software developer engineer SDE',
-    people: 'tech recruiter engineering hiring',
-    tags:   ['#Hiring','#TechJobs','#SoftwareDeveloper','#Engineering','#NowHiring']
-  },
-  data:{
-    posts:  ['"data scientist"','"data analyst"','"data engineer"','"#DataScience"','"analytics"'],
-    jobs:   'data scientist analyst engineer',
-    people: 'data science recruiter analytics hiring',
-    tags:   ['#DataScience','#Analytics','#DataEngineer','#Python','#Hiring']
-  },
-  pm:{
-    posts:  ['"product manager"','"#ProductManagement"','"product hiring"','"PM opening"'],
-    jobs:   'product manager product owner',
-    people: 'product manager recruiter hiring',
-    tags:   ['#ProductManagement','#ProductManager','#Hiring','#PMJobs']
-  },
-  design:{
-    posts:  ['"designer"','"UI UX"','"#DesignJobs"','"Figma"','"creative hiring"'],
-    jobs:   'UI UX designer graphic designer',
-    people: 'design recruiter UX hiring',
-    tags:   ['#DesignJobs','#UIUXDesign','#Figma','#Hiring']
-  },
-  sales:{
-    posts:  ['"sales"','"business development"','"#SalesJobs"','"BD hiring"','"account manager"'],
-    jobs:   'sales manager business development',
-    people: 'sales recruiter BD hiring',
-    tags:   ['#SalesJobs','#BusinessDevelopment','#Hiring','#Sales']
-  },
-  finance:{
-    posts:  ['"finance"','"CA"','"accounts"','"#FinanceJobs"','"finance hiring"','"chartered accountant"'],
-    jobs:   'finance manager CA chartered accountant',
-    people: 'finance recruiter CA hiring',
-    tags:   ['#FinanceJobs','#CA','#Accounting','#Hiring']
-  },
-  marketing:{
-    posts:  ['"marketing"','"digital marketing"','"#MarketingJobs"','"growth"','"SEO"'],
-    jobs:   'marketing manager digital marketing growth',
-    people: 'marketing recruiter digital hiring',
-    tags:   ['#MarketingJobs','#DigitalMarketing','#GrowthMarketing','#Hiring']
-  },
-  ops:{
-    posts:  ['"operations"','"supply chain"','"logistics"','"#Operations"','"ops hiring"'],
-    jobs:   'operations manager supply chain logistics',
-    people: 'operations recruiter logistics hiring',
-    tags:   ['#Operations','#SupplyChain','#Logistics','#Hiring']
-  },
-  generic:{
-    posts:  ['"hiring"','"looking for"','"job opening"','"#NowHiring"'],
-    jobs:   '',
-    people: 'recruiter hiring',
-    tags:   ['#Hiring','#NowHiring','#JobOpening','#ImmediateJoiner']
-  }
-};
+// ============================================================
+// HASHTAG MAPPING — skill → most relevant India hiring hashtags
+// ============================================================
+function getHashtagsForSkill(skill){
+  const s = skill.toLowerCase();
+  if(/talent|recruit|hr |^ta$|acqui|staffing|sourcing/i.test(s))
+    return ['#TalentAcquisition','#Hiring','#HRJobs','#RecruitmentLife','#TalentHunt'];
+  if(/react/i.test(s))
+    return ['#ReactJS','#ReactDeveloper','#Hiring','#Frontend','#WebDevelopment'];
+  if(/angular/i.test(s))
+    return ['#Angular','#AngularDeveloper','#Hiring','#Frontend'];
+  if(/node/i.test(s))
+    return ['#NodeJS','#Backend','#Hiring','#NodeDeveloper'];
+  if(/full.?stack/i.test(s))
+    return ['#FullStack','#FullStackDeveloper','#Hiring','#MERN','#MEAN'];
+  if(/java/i.test(s))
+    return ['#Java','#JavaDeveloper','#SpringBoot','#Hiring'];
+  if(/python/i.test(s))
+    return ['#Python','#PythonDeveloper','#Hiring','#Django'];
+  if(/devops|aws|cloud|azure/i.test(s))
+    return ['#DevOps','#CloudComputing','#AWS','#Hiring'];
+  if(/data scien|ml|machine|ai |tensorflow/i.test(s))
+    return ['#DataScience','#MachineLearning','#AI','#Hiring'];
+  if(/data anal|tableau|power bi/i.test(s))
+    return ['#DataAnalytics','#DataAnalyst','#Tableau','#Hiring'];
+  if(/product manager|^pm$/i.test(s))
+    return ['#ProductManagement','#ProductManager','#PMJobs','#Hiring'];
+  if(/ux|ui design|figma/i.test(s))
+    return ['#UIDesign','#UXDesign','#Figma','#DesignJobs','#Hiring'];
+  if(/sales|business develop/i.test(s))
+    return ['#Sales','#BusinessDevelopment','#SalesJobs','#Hiring'];
+  if(/finance|^ca$|chartered/i.test(s))
+    return ['#Finance','#Accounting','#CA','#FinanceJobs','#Hiring'];
+  if(/marketing|seo|digital/i.test(s))
+    return ['#DigitalMarketing','#Marketing','#SEO','#MarketingJobs','#Hiring'];
+  return ['#Hiring','#NowHiring','#JobOpening','#WeAreHiring'];
+}
 
 // ============================================================
-// SMART LINKEDIN URL BUILDER
+// MODE-SPECIFIC URL BUILDER — clean, no mixing of modes
 // ============================================================
-function buildURLs(skill, city, noticePeriod){
-  const domain = detectDomain(skill);
-  const d = DOMAINS[domain] || DOMAINS.generic;
-  const np = noticePeriod||'30 Days';
-
-  // Build rich keyword query for posts
-  const postKeywords = d.posts.slice(0,4).join(' OR ') + ' ' + city;
-  const jobsKeywords = (d.jobs||skill) + ' ' + city;
-  const peopleKw    = d.people + ' ' + city;
-  const refKw       = '"DM me" OR "referral" OR "refer" ' + skill + ' ' + city + ' "hiring"';
-  const noticeKw    = '"' + np + '" OR "immediate joiner" OR "notice period" ' + skill + ' ' + city;
-  const hashKw      = d.tags.slice(0,3).join(' ') + ' ' + skill + ' ' + city;
-
+function buildSearchURL(mode, skill, city, noticePeriod, selectedHashtags, company){
   const enc = s => encodeURIComponent(s);
+  const terms = getSearchTerms(skill);
+  const np = noticePeriod || '30 Days';
+  const co = company || '';
 
-  return {
-    // Recruiter content posts — sorted by date, last 24h
-    posts:   `https://www.linkedin.com/search/results/content/?keywords=${enc(postKeywords)}&datePosted=%22past-24h%22&sortBy=%22date_posted%22`,
-    // All posts (past week if 24h is too narrow)
-    postsWeek: `https://www.linkedin.com/search/results/content/?keywords=${enc(postKeywords)}&datePosted=%22past-week%22&sortBy=%22date_posted%22`,
-    // LinkedIn Jobs — last 24h, sorted newest
-    jobs:    `https://www.linkedin.com/jobs/search/?keywords=${enc(jobsKeywords)}&location=${enc(city)}&f_TPR=r86400&sortBy=DD&f_WT=2,1,3`,
-    // Jobs last week
-    jobsWeek:`https://www.linkedin.com/jobs/search/?keywords=${enc(jobsKeywords)}&location=${enc(city)}&f_TPR=r604800&sortBy=DD`,
-    // Easy Apply jobs only
-    easyApply:`https://www.linkedin.com/jobs/search/?keywords=${enc(jobsKeywords)}&location=${enc(city)}&f_TPR=r604800&f_AL=true&sortBy=DD`,
-    // People / Recruiters
-    people:  `https://www.linkedin.com/search/results/people/?keywords=${enc(peopleKw)}&network=%5B%22S%22%2C%22O%22%5D`,
-    // Referral posts
-    referral:`https://www.linkedin.com/search/results/content/?keywords=${enc(refKw)}&datePosted=%22past-24h%22&sortBy=%22date_posted%22`,
-    // Notice period specific
-    notice:  `https://www.linkedin.com/search/results/content/?keywords=${enc(noticeKw)}&datePosted=%22past-week%22&sortBy=%22date_posted%22`,
-    // Hashtag search
-    hashtag: `https://www.linkedin.com/search/results/content/?keywords=${enc(hashKw)}&datePosted=%22past-24h%22&sortBy=%22date_posted%22`,
-  };
+  // LinkedIn base URLs
+  const contentBase = 'https://www.linkedin.com/search/results/content/';
+  const jobsBase    = 'https://www.linkedin.com/jobs/search/';
+  const peopleBase  = 'https://www.linkedin.com/search/results/people/';
+
+  // Date filters
+  const last24h  = '&datePosted=%22past-24h%22';
+  const lastWeek = '&datePosted=%22past-week%22';
+  const sortDate = '&sortBy=%22date_posted%22';
+  const jobsTime24h  = '&f_TPR=r86400&sortBy=DD';
+  const jobsTimeWeek = '&f_TPR=r604800&sortBy=DD';
+
+  if(mode === 'skill'){
+    // PURE SKILL SEARCH — recruiter posts about hiring for this skill
+    // Clean single phrase — no hashtag mixing
+    const kw = `"${terms.jobTitle}" "${city}" hiring`;
+    const kwAlt = `${terms.jobTitle} ${city} hiring recruiter`;
+    return {
+      primary:  contentBase + '?keywords=' + enc(kw) + last24h + sortDate,
+      fallback:  contentBase + '?keywords=' + enc(kwAlt) + lastWeek + sortDate,
+      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
+      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
+      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
+      people:   peopleBase + '?keywords=' + enc('recruiter hiring ' + terms.jobTitle + ' ' + city),
+    };
+  }
+
+  if(mode === 'hashtag'){
+    // PURE HASHTAG SEARCH — only selected hashtags, no skill mixing
+    const tags = selectedHashtags.length > 0 ? selectedHashtags : getHashtagsForSkill(skill);
+    const hashQuery = tags.join(' ') + (skill ? ' ' + skill : '') + ' ' + city;
+    const hashQueryAlt = tags.slice(0,2).join(' ') + ' ' + city + ' hiring';
+    return {
+      primary:  contentBase + '?keywords=' + enc(hashQuery) + last24h + sortDate,
+      fallback:  contentBase + '?keywords=' + enc(hashQueryAlt) + lastWeek + sortDate,
+      jobs:     jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
+      jobsWeek: jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
+      easyApply:jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
+      people:   peopleBase + '?keywords=' + enc('recruiter ' + (skill||terms.jobTitle) + ' ' + city),
+    };
+  }
+
+  if(mode === 'notice'){
+    // PURE NOTICE PERIOD SEARCH — posts asking for specific NP
+    const npClean = np.replace(' Days','').replace(' Day','').trim();
+    const npQuery = '"' + np + '" ' + terms.noticePhrase + ' ' + city + ' hiring';
+    const npQueryAlt = '"immediate joiner" OR "notice period" ' + terms.noticePhrase + ' ' + city;
+    return {
+      primary:  contentBase + '?keywords=' + enc(npQuery) + lastWeek + sortDate,
+      fallback:  contentBase + '?keywords=' + enc(npQueryAlt) + lastWeek + sortDate,
+      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
+      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle + ' notice period ' + npClean + ' days') + '&location=' + enc(city) + jobsTimeWeek,
+      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
+      people:   peopleBase + '?keywords=' + enc('recruiter ' + terms.noticePhrase + ' ' + city),
+    };
+  }
+
+  if(mode === 'referral'){
+    // PURE REFERRAL SEARCH — "DM me" "referral" posts only
+    const refTarget = co ? co + ' ' + terms.refPhrase : terms.refPhrase;
+    const refQuery    = '"DM me" OR "refer" referral ' + refTarget + ' ' + city + ' hiring';
+    const refQueryAlt = 'referral ' + refTarget + ' ' + city + ' "DM"';
+    return {
+      primary:  contentBase + '?keywords=' + enc(refQuery) + last24h + sortDate,
+      fallback:  contentBase + '?keywords=' + enc(refQueryAlt) + lastWeek + sortDate,
+      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
+      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
+      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
+      people:   peopleBase + '?keywords=' + enc((co||terms.refPhrase) + ' employee ' + city),
+    };
+  }
+
+  // Fallback
+  return { primary: contentBase + '?keywords=' + enc(skill + ' ' + city + ' hiring') + last24h + sortDate };
 }
 
 // ============================================================
@@ -2317,26 +2403,25 @@ function pickNPC(el){ document.querySelectorAll('.np-c').forEach(c=>c.classList.
 // RUN SEARCH
 // ============================================================
 function runSearch(mode){
-  // Gate check
-  if(!isPaidUser && previewUsed){
-    showLockedDashboard();
-    return;
-  }
+  if(!isPaidUser && previewUsed){ showLockedDashboard(); return; }
 
-  let skill='', city='', np='30 Days';
+  let skill='', city='', np='30 Days', company='', selectedHashtags=[];
+
   if(mode==='skill'){
-    skill = document.getElementById('sk_skill')?.value.trim()||lastSkill||'';
-    city  = document.getElementById('sk_city')?.value||lastCity||'Hyderabad';
+    skill   = document.getElementById('sk_skill')?.value.trim()||lastSkill||'';
+    city    = document.getElementById('sk_city')?.value||lastCity||'Hyderabad';
   } else if(mode==='hashtag'){
-    skill = document.getElementById('ht_skill')?.value.trim()||lastSkill||'';
-    city  = document.getElementById('ht_city')?.value||lastCity||'Hyderabad';
+    skill   = document.getElementById('ht_skill')?.value.trim()||lastSkill||'';
+    city    = document.getElementById('ht_city')?.value||lastCity||'Hyderabad';
+    selectedHashtags = [...document.querySelectorAll('.ht-c.sel')].map(el=>el.textContent.trim());
   } else if(mode==='notice'){
-    skill = document.getElementById('np_skill')?.value.trim()||lastSkill||'';
-    city  = document.getElementById('np_city')?.value||lastCity||'Hyderabad';
-    np    = document.querySelector('.np-c.sel')?.textContent||'30 Days';
+    skill   = document.getElementById('np_skill')?.value.trim()||lastSkill||'';
+    city    = document.getElementById('np_city')?.value||lastCity||'Hyderabad';
+    np      = document.querySelector('.np-c.sel')?.textContent||'30 Days';
   } else if(mode==='referral'){
-    skill = document.getElementById('ref_skill')?.value.trim()||document.getElementById('ref_co')?.value.trim()||lastSkill||'';
-    city  = document.getElementById('ref_city')?.value||lastCity||'Hyderabad';
+    skill   = document.getElementById('ref_skill')?.value.trim()||lastSkill||'';
+    city    = document.getElementById('ref_city')?.value||lastCity||'Hyderabad';
+    company = document.getElementById('ref_co')?.value.trim()||'';
   }
 
   if(!skill){ showToast('Please enter your skill','amber'); return; }
@@ -2344,48 +2429,41 @@ function runSearch(mode){
   lastSkill = skill;
   lastCity  = city;
 
-  // Update stored user skill/city
+  // Persist updated skill/city
   try{
-    const u = gjson(S_USER,{});
-    u.skill = skill; u.city = city;
-    sto(S_USER, u);
-    currentUser.skill = skill;
-    currentUser.city  = city;
+    const u=gjson(S_USER,{});
+    u.skill=skill; u.city=city;
+    sto(S_USER,u);
+    currentUser.skill=skill; currentUser.city=city;
   }catch(e){}
 
-  const urls = buildURLs(skill, city, np);
+  // Build mode-specific URL (no mixing)
+  const urls = buildSearchURL(mode, skill, city, np, selectedHashtags, company);
 
-  // Open appropriate LinkedIn URL immediately
-  const primaryURL = mode==='referral' ? urls.referral
-                   : mode==='notice'   ? urls.notice
-                   : mode==='hashtag'  ? urls.hashtag
-                   : urls.posts;
-  window.open(primaryURL, '_blank');
+  // Open primary LinkedIn URL immediately
+  window.open(urls.primary, '_blank');
 
   // Mark preview used
-  if(!isPaidUser){
-    previewUsed = true;
-    sto(S_PREVIEW, '1');
-  }
+  if(!isPaidUser){ previewUsed=true; sto(S_PREVIEW,'1'); }
   searchesUsed++;
 
-  // Animate progress bar
+  // Progress animation
   const load=document.getElementById('sLoad');
   const fill=document.getElementById('slFill');
   const lbl =document.getElementById('slLbl');
   const rbox=document.getElementById('resultsBox');
-  if(!load||!fill||!lbl) return;
+  if(!load||!fill||!lbl)return;
   rbox?.classList.remove('show');
   load.classList.add('show');
   fill.style.width='0%';
 
+  const modeLabel = mode==='skill'?'skill':mode==='hashtag'?'hashtag':mode==='notice'?'notice period':'referral';
   const steps=[
-    [15,'Opening LinkedIn...'],
-    [35,'Building smart search query for '+skill+'...'],
-    [55,'Filtering '+city+' results...'],
-    [75,'Sorting by newest posts...'],
-    [95,'Almost done...'],
-    [100,'Results ready! ✅']
+    [20,'Opening LinkedIn '+modeLabel+' search...'],
+    [45,'Filtering posts for "'+skill+'" in '+city+'...'],
+    [70,'Sorting by newest posts...'],
+    [90,'Preparing result links...'],
+    [100,'Done! ✅']
   ];
   let i=0;
   const iv=setInterval(()=>{
@@ -2394,22 +2472,19 @@ function runSearch(mode){
       clearInterval(iv);
       setTimeout(()=>{
         load.classList.remove('show');
-        buildResults(mode, skill, city, urls, np);
+        buildResults(mode, skill, city, urls, np, selectedHashtags, company);
         rbox?.classList.add('show');
         rbox?.scrollIntoView({behavior:'smooth',block:'nearest'});
-        // After free preview — switch to locked state after 10s
-        if(!isPaidUser){
-          setTimeout(()=>{ showLockedDashboard(); },10000);
-        }
+        if(!isPaidUser) setTimeout(()=>showLockedDashboard(), 12000);
       },400);
     }
-  },280);
+  },250);
 }
 
 // ============================================================
 // BUILD RESULT CARDS
 // ============================================================
-function buildResults(mode, skill, city, urls, np){
+function buildResults(mode, skill, city, urls, np, selectedHashtags, company){
   const domain = detectDomain(skill);
   const d = DOMAINS[domain]||DOMAINS.generic;
   const h = new Date().getHours();
@@ -2437,8 +2512,8 @@ function buildResults(mode, skill, city, urls, np){
       <button type="button" class="rt-tab" onclick="showTab('jobs',this)">💼 LinkedIn Jobs</button>
       <button type="button" class="rt-tab" onclick="showTab('people',this)">👤 Find Recruiters</button>
     </div>
-    <div id="tab-posts">${postsTab(skill,city,urls,waURL,tmplText,d)}</div>
-    <div id="tab-jobs" style="display:none;">${jobsTab(skill,city,urls,waURL)}</div>
+    <div id="tab-posts">${postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,company)}</div>
+    <div id="tab-jobs" style="display:none;">${jobsTab(skill,city,mode,urls,waURL,np)}</div>
     <div id="tab-people" style="display:none;">${peopleTab(skill,city,urls)}</div>`;
 }
 
@@ -2451,52 +2526,108 @@ function showTab(tab,btn){
   btn.classList.add('active');
 }
 
-function postsTab(skill,city,urls,waURL,tmplText,d){
-  const qPreview = d.posts.slice(0,3).join(' OR ')+' · '+city+' · Last 24h';
+function postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,company){
+  const terms = getSearchTerms(skill);
+
+  // MODE-SPECIFIC query preview text
+  let queryLabel='', queryDesc='', secondCard='', thirdCard='';
+
+  if(mode==='skill'){
+    queryLabel = '"'+terms.jobTitle+'" "'+city+'" hiring';
+    queryDesc  = 'Pure skill search · No hashtag mixing · Last 24 hours · Sorted newest';
+    secondCard = `
+      <div class="sig-card warm-border" style="margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📅 Same Skill — Past Week</div><div style="font-size:11px;color:var(--soft);">If 24h results are limited — expand to last 7 days</div></div>
+          <div class="fresh-badge fb-golden">🟠 Week</div>
+        </div>
+        <div class="rc-actions">
+          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 View Past Week Posts →</button>
+          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
+        </div>
+      </div>`;
+    thirdCard = `
+      <div class="sig-card" style="border-left:4px solid var(--purple);margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">🤝 Referral Posts for "${skill}"</div><div style="font-size:11px;color:var(--soft);">"DM me for referral" · Act within 2 hours</div></div>
+          <div class="fresh-badge fb-hot">🔴 Hot</div>
+        </div>
+        <div class="rc-actions">
+          <button type="button" class="rca rca-li" onclick="window.open('${buildSearchURL('referral',skill,city,'30 Days',[],company).primary}','_blank')">🔗 Find Referral Posts →</button>
+          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${buildSearchURL('referral',skill,city,'30 Days',[],company).primary}','Hi! I saw your referral post. I am a ${skill} professional in ${city} — would love to connect!')">⚡ Open + Copy Comment</button>
+        </div>
+      </div>`;
+  } else if(mode==='hashtag'){
+    const tags = selectedHashtags.length>0 ? selectedHashtags : getHashtagsForSkill(skill);
+    queryLabel = tags.join(' ')+' '+skill+' '+city;
+    queryDesc  = 'Hashtag-only search · '+tags.slice(0,3).join(', ')+' · Last 24 hours';
+    secondCard = `
+      <div class="sig-card warm-border" style="margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">📅 Hashtag — Past Week</div><div style="font-size:11px;color:var(--soft);">Expand timeframe if 24h results are limited</div></div>
+          <div class="fresh-badge fb-golden">🟠 Week</div>
+        </div>
+        <div class="rc-actions">
+          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Past Week Hashtag Posts →</button>
+        </div>
+      </div>`;
+    thirdCard = '';
+  } else if(mode==='notice'){
+    queryLabel = '"'+np+'" '+skill+' '+city+' hiring';
+    queryDesc  = 'Notice period specific · "'+np+'" filter · '+city+' only';
+    secondCard = `
+      <div class="sig-card warm-border" style="margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">⏱️ "Immediate Joiner" Posts</div><div style="font-size:11px;color:var(--soft);">Recruiters asking for immediate joiners or short NP</div></div>
+          <div class="fresh-badge fb-hot">🔴 Urgent</div>
+        </div>
+        <div class="rc-actions">
+          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Find Immediate Joiner Posts →</button>
+          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
+        </div>
+      </div>`;
+    thirdCard = '';
+  } else if(mode==='referral'){
+    const co = company||skill;
+    queryLabel = '"DM me" OR "referral" '+co+' '+city+' hiring';
+    queryDesc  = 'Referral posts only · '+city+' · Last 24 hours';
+    secondCard = `
+      <div class="sig-card warm-border" style="margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);">📅 Referral Posts — Past Week</div><div style="font-size:11px;color:var(--soft);">Expand timeframe for more referral opportunities</div></div>
+          <div class="fresh-badge fb-golden">🟠 Week</div>
+        </div>
+        <div class="rc-actions">
+          <button type="button" class="rca rca-li" onclick="window.open('${urls.fallback}','_blank')">🔗 Past Week Referral Posts →</button>
+          <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.fallback}','Hi! Saw your referral post. I am a ${skill} professional in ${city} looking for opportunities. Would love to connect!')">⚡ Open + Copy Comment</button>
+        </div>
+      </div>`;
+    thirdCard = '';
+  }
+
   return `
     <div class="sig-card fresh-border" style="margin-bottom:10px;">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📡 Live Recruiter Posts — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">Sorted by newest · India only · Real LinkedIn posts</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📡 LinkedIn Posts — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">${queryDesc}</div></div>
         <div class="fresh-badge fb-hot">🔴 Live</div>
       </div>
       <div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--em);">
-        <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SMART QUERY BUILT FOR YOU</div>
-        <div style="font-size:12px;color:var(--ink);font-family:monospace;line-height:1.6;">${qPreview}</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY USED</div>
+        <div style="font-size:12px;color:var(--ink);font-family:monospace;line-height:1.6;word-break:break-all;">${queryLabel}</div>
       </div>
       <div class="rc-actions">
-        <button type="button" class="rca rca-open" onclick="window.open('${urls.posts}','_blank')">🔗 View Recruiter Posts (24h) →</button>
-        <button type="button" class="rca rca-open" onclick="window.open('${urls.postsWeek}','_blank')" style="background:#1a2535;">📅 Past Week Posts</button>
-        <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.posts}','${tmplText.replace(/'/g,"\\'")}')">⚡ Open + Copy Comment</button>
-        <button type="button" class="rca rca-wa" onclick="window.open('${waURL}','_blank')">📱 WhatsApp Share</button>
+        <button type="button" class="rca rca-open" onclick="window.open('${urls.primary}','_blank')">🔗 View Posts on LinkedIn →</button>
+        <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.primary}','${tmplText.replace(/'/g,"\'")}')">⚡ Open + Copy Comment</button>
+        <button type="button" class="rca rca-wa" onclick="window.open('${waURL}','_blank')">📱 Share on WhatsApp</button>
       </div>
     </div>
-    <div class="sig-card warm-border" style="margin-bottom:10px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">🤝 Referral Posts — "DM me for referral"</div><div style="font-size:11px;color:var(--soft);">Highest success rate on Indian LinkedIn · Act within 2 hours</div></div>
-        <div class="fresh-badge fb-golden">🟠 Hot</div>
-      </div>
-      <div class="rc-actions">
-        <button type="button" class="rca rca-li" onclick="window.open('${urls.referral}','_blank')">🔗 Find Referral Posts →</button>
-        <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.referral}','Hi! I saw your referral post. I am a ${skill} professional in ${city} — would love to connect for this opportunity!')">⚡ Open + Copy Comment</button>
-        <button type="button" class="rca rca-wa" onclick="window.open('${waURL}','_blank')">📱 Share</button>
-      </div>
-    </div>
-    <div class="sig-card" style="border-left:4px solid var(--blue);margin-bottom:10px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;"># Hashtag Search — Auto-Selected for Your Skill</div><div style="font-size:11px;color:var(--soft);">${(DOMAINS[detectDomain(skill)]||DOMAINS.generic).tags.slice(0,4).join(' ')} + ${city}</div></div>
-        <div class="fresh-badge fb-fresh">🟡 Filtered</div>
-      </div>
-      <div class="rc-actions">
-        <button type="button" class="rca rca-li" onclick="window.open('${urls.hashtag}','_blank')">🔗 Search Hashtag Posts →</button>
-        <button type="button" class="rca rca-tmpl" onclick="openAndCopy('${urls.hashtag}','${tmplText.replace(/'/g,"\\'")}')">⚡ Open + Copy Comment</button>
-      </div>
-    </div>
+    ${secondCard}
+    ${thirdCard}
     <div style="padding:11px 13px;background:var(--em-pale);border:1px solid rgba(0,200,150,.15);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      📌 <strong>How to get best results:</strong> LinkedIn opens with a smart search query built for your skill and city. Posts are sorted newest first. Comment within <strong>1 hour</strong> of posting for the best response rate. Use <strong>Open + Copy Comment</strong> — it opens LinkedIn AND copies your comment in one click.
+      📌 <strong>How to use:</strong> LinkedIn opens with a targeted search for your exact query. Posts are sorted newest first. Comment within <strong>1 hour</strong> of posting for the best response rate. Use <strong>Open + Copy Comment</strong> to get a ready-made comment copied to clipboard while LinkedIn opens.
     </div>`;
 }
-
-function jobsTab(skill,city,urls,waURL){
+function jobsTab(skill,city,mode,urls,waURL,np){
   return `
     <div class="job-card" style="margin-bottom:10px;">
       <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
@@ -2874,6 +3005,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(current && current!=='landingView') goTo('landingView');
   }
 });
+
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
