@@ -1318,10 +1318,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <section class="off-bg" id="pricing"><div class="wrap">
   <div class="reveal" style="text-align:center;"><div class="eyebrow" style="justify-content:center;">Simple Pricing</div><h2 class="sh" style="text-align:center;">One plan. <em>All features. Always.</em></h2><p class="sp" style="text-align:center;max-width:480px;margin:10px auto 0;">Every paid plan = 100% of all features. Only difference is duration.</p></div>
   <div class="pricing-row">
-    <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('7 Days',49)">Start 7 Days →</button></div>
-    <div class="pc feat reveal"><div class="feat-tag">MOST POPULAR</div><div class="pc-duration">30</div><div class="pc-plan">Days · Active Search</div><div class="pc-price"><small>₹</small>99</div><div class="pc-per">₹3.3 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-em" onclick="openPayment('30 Days',99)">Start 30 Days →</button></div>
-    <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('60 Days',179)">Start 60 Days →</button></div>
-    <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access + Priority</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>WhatsApp alerts (soon)</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPayment('Annual Plan',599)">Start Annual →</button></div>
+    <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('7 Days',49)">Start 7 Days →</button></div>
+    <div class="pc feat reveal"><div class="feat-tag">MOST POPULAR</div><div class="pc-duration">30</div><div class="pc-plan">Days · Active Search</div><div class="pc-price"><small>₹</small>99</div><div class="pc-per">₹3.3 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-em" onclick="openPay('30 Days',99)">Start 30 Days →</button></div>
+    <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>Company watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('60 Days',179)">Start 60 Days →</button></div>
+    <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access + Priority</div><ul class="pc-feats"><li>All 4 search modes</li><li>Unlimited searches</li><li>Smart LinkedIn URLs</li><li>Comment templates</li><li>WhatsApp alerts (soon)</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('Annual Plan',599)">Start Annual →</button></div>
   </div>
   <div class="free-note reveal">🎁 <strong>New user?</strong> Get 1 free signal preview — no card needed. See live recruiter posts instantly before deciding.</div>
 </div></section>
@@ -1360,8 +1360,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 </div>
   <div class="auth-page" style="flex:1;">
     <div class="auth-left auth-left-user">
-      <div class="al-logo-row"><a onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;display:inline-block;"><div class="al-brand" style="color:white;">Jobs<span class="sig">Signal</span></div><div class="al-brand-tag">India's real-time job signal finder</div></a></div>
-      <div class="al-headline">Find the signal.<br>Get the job.<br><em>Be first.</em></div>
+      <div class="al-headline" style="padding-top:12px;">Find the signal.<br>Get the job.<br><em>Be first.</em></div>
       <div class="al-sub">"The job exists before the listing. We find it."</div>
       <div class="al-features">
         <div class="al-feat"><div class="alf-icon alf-icon-em">🎁</div><div><div class="alf-title">1 Free Signal Preview</div><div class="alf-desc">See live recruiter posts instantly — no card needed</div></div></div>
@@ -1435,8 +1434,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 </div>
   <div class="auth-page" style="flex:1;">
     <div class="auth-left auth-left-user">
-      <div class="al-logo-row"><a onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;display:inline-block;"><div class="al-brand" style="color:white;">Jobs<span class="sig">Signal</span></div><div class="al-brand-tag">India's real-time job signal finder</div></a></div>
-      <div class="al-headline">Welcome<br>back.<br><em>Signals await.</em></div>
+      <div class="al-headline" style="padding-top:12px;">Welcome<br>back.<br><em>Signals await.</em></div>
       <div class="al-sub">"The job exists before the listing. We find it."</div>
       <div class="al-features" style="margin-top:auto;">
         <div class="al-feat"><div class="alf-icon alf-icon-em">🔴</div><div><div class="alf-title">Posted 8 min ago</div><div class="alf-desc">TA Manager role · Hyderabad · 30d NP</div></div></div>
@@ -1507,8 +1505,8 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
     <!-- LINKEDIN TIP -->
     <div class="li-tip-bar" id="liTip">
-      <div style="font-size:18px;">💡</div>
-      <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;">Boost your LinkedIn visibility — recruiters search this first</div><div style="font-size:12px;color:var(--soft);line-height:1.6;">Add your notice period and #OpenToWork to your headline: <span style="font-weight:600;color:var(--em);">"TA Manager | Hyderabad | 30d NP | #OpenToWork"</span></div></div>
+      <div style="font-size:18px;" id="tipIcon">💡</div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;"" id="tipTitle">Daily tip loading...</div><div style="font-size:12px;color:var(--soft);line-height:1.6;" id="tipText">Add your notice period and #OpenToWork to your headline: <span style="font-weight:600;color:var(--em);">"TA Manager | Hyderabad | 30d NP | #OpenToWork"</span></div></div>
       <button type="button" class="lit-dismiss" onclick="document.getElementById('liTip').classList.add('hidden')">✕</button>
     </div>
 
@@ -1535,9 +1533,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
           <div class="dc-head"><div class="dc-title">📡 Find Recruiter Signals</div><div class="dc-sub">Smart LinkedIn search · Real posts · India only · <span style="color:var(--em);font-weight:600;">Stay logged into LinkedIn</span></div></div>
           <div class="dc-modes">
             <button type="button" class="dc-mode active" onclick="switchMode('skill',this)">🎯 Skill + City</button>
-            <button type="button" class="dc-mode" onclick="switchMode('hashtag',this)"># Hashtag Hunt</button>
-            <button type="button" class="dc-mode" onclick="switchMode('notice',this)">⏱️ Notice Period</button>
-            <button type="button" class="dc-mode" onclick="switchMode('referral',this)">🤝 Referral Radar</button>
+            <button type="button" class="dc-mode" data-mode="hashtag" onclick="switchMode('hashtag',this)"># Hashtag Hunt</button>
+            <button type="button" class="dc-mode" data-mode="notice" onclick="switchMode('notice',this)">⏱️ Notice Period</button>
+            <button type="button" class="dc-mode" data-mode="referral" onclick="switchMode('referral',this)">🤝 Referral Radar</button>
           </div>
           <div class="dc-body">
             <!-- SKILL + CITY -->
@@ -1565,13 +1563,21 @@ tr:hover td{background:rgba(255,255,255,.02);}
               <div style="padding:10px 13px;background:var(--gold-pale);border:1px solid rgba(240,168,76,.2);border-radius:var(--r3);margin-bottom:12px;font-size:12px;color:var(--soft);">🤝 Finds "DM me for referral" posts — act within 2 hours for best results.</div>
               <div class="sr-row"><div class="sg"><label class="sg-lbl">Target Company</label><input class="sg-in" id="ref_co" placeholder="Razorpay, Infosys..."></div><div class="sg"><label class="sg-lbl">Skill</label><input class="sg-in" id="ref_skill" placeholder="React, Java, TA..."></div><div class="sg" style="max-width:140px;"><label class="sg-lbl">City</label><select class="sg-sel" id="ref_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Remote</option></select></div><button type="button" class="btn-run" onclick="runSearch('referral')">🤝 Find →</button></div>
             </div>
+            <div class="ss" id="ss-walkin">
+              <div style="padding:10px 13px;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:var(--r3);margin-bottom:12px;font-size:12px;color:var(--soft);">🚶 Finds walk-in interview drives in your city. Best for immediate joiners and freshers looking for same-week opportunities.</div>
+              <div class="sr-row">
+                <div class="sg"><label class="sg-lbl">Skill / Role</label><input class="sg-in" id="wi_skill" placeholder="React, Java, TA, Any..."></div>
+                <div class="sg" style="max-width:160px;"><label class="sg-lbl">City</label><select class="sg-sel" id="wi_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Noida</option></select></div>
+                <button type="button" class="btn-run" onclick="runSearch('walkin')">🚶 Find Walk-ins →</button>
+              </div>
+            </div>
 
             <!-- LOADING -->
             <div class="s-load" id="sLoad"><div class="sl-track"><div class="sl-fill" id="slFill"></div></div><div class="sl-lbl" id="slLbl">Building smart search...</div></div>
 
             <!-- RESULTS -->
             <div class="results-box" id="resultsBox">
-              <div class="r-head"><div><div class="r-count" id="rCount">Signals found</div><div class="r-sub" id="rSub">Real LinkedIn search · India only</div></div><button type="button" onclick="openTmplGeneral()" style="padding:6px 13px;border-radius:var(--r3);background:var(--em);border:none;font-size:11px;font-weight:700;color:var(--night);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">💬 Comment Template</button></div>
+              <div class="r-head"><div><div class="r-count" id="rCount">Signals found</div><div class="r-sub" id="rSub">Real LinkedIn search · India only</div></div><button type="button" onclick="openTmpl()" style="padding:6px 13px;border-radius:var(--r3);background:var(--em);border:none;font-size:11px;font-weight:700;color:var(--night);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">💬 Comment Template</button></div>
               <div id="rList"></div>
             </div>
           </div>
@@ -1586,10 +1592,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
             <div class="ucc-title">🚀 Unlock All Signals</div>
             <div class="ucc-sub">Upgrade for unlimited searches, all 4 search modes, comment templates and company watchlist.</div>
             <div class="ucc-plans">
-              <div class="ucc-plan" onclick="openPayment('7 Days',49)"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div></div>
-              <div class="ucc-plan pop" onclick="openPayment('30 Days',99)"><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-tag">Popular</div></div>
-              <div class="ucc-plan" onclick="openPayment('60 Days',179)"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div></div>
-              <div class="ucc-plan" onclick="openPayment('Annual Plan',599)"><div class="ucc-plan-days">Annual ⭐</div><div class="ucc-plan-price">₹599</div></div>
+              <div class="ucc-plan" onclick="openPay('7 Days',49)"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div></div>
+              <div class="ucc-plan pop" onclick="openPay('30 Days',99)"><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-tag">Popular</div></div>
+              <div class="ucc-plan" onclick="openPay('60 Days',179)"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div></div>
+              <div class="ucc-plan" onclick="openPay('Annual Plan',599)"><div class="ucc-plan-days">Annual ⭐</div><div class="ucc-plan-price">₹599</div></div>
             </div>
           </div>
         </div>
@@ -1757,99 +1763,64 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
 
 <script>
+// ============================================================
+// CONFIG & KEYS
+// ============================================================
+const RZP_KEY    = 'rzp_live_STQSX6OgVKJ1cm';
+const BIZ_NAME   = 'JobsSignal.in';
+const S_USER     = 'js_user';
+const S_PLAN     = 'js_plan';
+const S_PREVIEW  = 'js_preview_used';
+const S_PAY      = 'js_payments';
+const S_WATCH    = 'js_watchlist';
+const S_SAVED    = 'js_saved';
 
 // ============================================================
-// CONFIG
+// GLOBAL STATE
 // ============================================================
-const RAZORPAY_KEY = 'rzp_live_STQSX6OgVKJ1cm';
-const BUSINESS_NAME = 'JobsSignal.in';
-const BUSINESS_LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCA0MiA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDIiIGhlaWdodD0iNDIiIHJ4PSIxMSIgZmlsbD0iIzA3MDkwZiIvPjxwYXRoIGQ9Ik0yNCA2IEwxNCAyMiBMMjAgMjIgTDE4IDM2IEwyOCAyMCBMMjIgMjAgWiIgZmlsbD0iIzAwYzg5NiIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMTAiIHI9IjIiIGZpbGw9IiNmMGE4NGMiLz48L3N2Zz4=';
-
-// ============================================================
-// STORAGE KEYS
-// ============================================================
-const S_USER    = 'js_user';
-const S_PLAN    = 'js_plan';
-const S_PREVIEW = 'js_preview_used';
-const S_PAY     = 'js_payments';
-
-// ============================================================
-// STATE — rebuilt from localStorage on every page load
-// ============================================================
-let isPaidUser   = false;
-let previewUsed  = false;
-let searchesUsed = 0;
-let savedCount   = 0;
+let isPaid       = false;
+let prevUsed     = false;
 let currentUser  = {};
-let selectedPlan = {name:'',amount:0};
-let currentProfileData = null;
+let selPlan      = {name:'',amount:0};
+let profData     = null;
 let lastSkill    = '';
 let lastCity     = '';
-let activeTmplData = {};
+let tmplData     = {};
 
 // ============================================================
 // STORAGE HELPERS
 // ============================================================
-function sto(k,v){ try{ localStorage.setItem(k, typeof v==='string'?v:JSON.stringify(v)); }catch(e){} }
-function gst(k,def=null){ try{ const v=localStorage.getItem(k); return v===null?def:v; }catch(e){ return def; } }
-function gjson(k,def={}){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):def; }catch(e){ return def; } }
+function sto(k,v){try{localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));}catch(e){}}
+function gst(k,d=null){try{const v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;}}
+function gjson(k,d={}){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
 
 // ============================================================
-// RESTORE SESSION ON PAGE LOAD
+// SESSION — save & restore across page refresh
 // ============================================================
+function saveSession(){
+  sto(S_USER,currentUser);
+}
+
 function restoreSession(){
-  // Restore plan
-  const plan = gjson(S_PLAN,{});
-  if(plan.plan && new Date(plan.expiresAt) > new Date()){
-    isPaidUser  = true;
-    previewUsed = true;
-  }
-  // Restore preview used
-  if(gst(S_PREVIEW)==='1') previewUsed = true;
-
-  // Restore user
-  const user = gjson(S_USER,{});
-  if(user.name){
-    currentUser  = user;
-    lastSkill    = user.skill||'';
-    lastCity     = user.city||'';
-    restoreDashboard(user, plan);
-    return true; // session restored — stay on dash
-  }
-  return false; // no session — stay on landing
-}
-
-function restoreDashboard(user, plan){
-  const first = user.name.split(' ')[0];
-  const init  = user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-  const h     = new Date().getHours();
-  const gr    = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-
-  setEl('dName', first);
-  setEl('dAv', init);
-  setEl('dGreet', gr+', '+first+'! 👋');
-  setEl('dPlan', isPaidUser ? (plan.plan||'Paid')+' Plan · Active ✅' : 'Free Plan');
-
-  const skEl = document.getElementById('sk_skill');
-  if(skEl && user.skill) skEl.value = user.skill;
-  const citySel = document.getElementById('sk_city');
-  if(citySel && user.city){
-    for(let i=0;i<citySel.options.length;i++){
-      if(citySel.options[i].text===user.city){ citySel.selectedIndex=i; break; }
+  try{
+    // restore plan
+    const pl=gjson(S_PLAN,{});
+    if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
+    // restore preview flag
+    if(gst(S_PREVIEW)==='1') prevUsed=true;
+    // restore user
+    const u=gjson(S_USER,{});
+    if(u&&u.name&&u.name.trim()){
+      currentUser=u; lastSkill=u.skill||''; lastCity=u.city||'';
+      buildDash(u,pl);
+      return true;
     }
-  }
-  autoSelectHashtags(user.skill||'');
-  buildSignalScore(user.skill||'', user.city||'');
-
-  if(isPaidUser)       showPaidDashboard();
-  else if(previewUsed) showLockedDashboard();
-  else                 showFreeDashboard();
-
-  goTo('dashView');
+  }catch(e){console.warn('restore:',e);}
+  return false;
 }
 
 // ============================================================
-// VIEW MANAGEMENT
+// VIEW ROUTER
 // ============================================================
 function goTo(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -1857,33 +1828,27 @@ function goTo(id){
   if(el) el.classList.add('active');
   window.scrollTo(0,0);
 }
-function closeModal(id){
-  const el=document.getElementById(id);
-  if(el) el.classList.remove('open');
-}
-function setEl(id,val){
-  const el=document.getElementById(id);
-  if(el) el.textContent=val;
-}
+function closeModal(id){const el=document.getElementById(id);if(el)el.classList.remove('open');}
+function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+function show(id,d='block'){const el=document.getElementById(id);if(el)el.style.display=d;}
+function hide(id){const el=document.getElementById(id);if(el)el.style.display='none';}
 
 // ============================================================
 // UTILS
 // ============================================================
-function togglePass(id,icon){
+function togglePass(id,ic){
   const el=document.getElementById(id);
   if(!el)return;
   el.type=el.type==='password'?'text':'password';
-  icon.textContent=el.type==='password'?'👁':'🙈';
+  ic.textContent=el.type==='password'?'👁':'🙈';
 }
-function checkPassStrength(input,barId,lblId){
-  const val=input.value;
-  const bar=document.getElementById(barId);
-  const lbl=document.getElementById(lblId);
+function checkPassStrength(inp,bid,lid){
+  const v=inp.value,bar=document.getElementById(bid),lbl=document.getElementById(lid);
   if(!bar||!lbl)return;
   bar.style.display='block';
-  if(!val){bar.style.display='none';lbl.textContent='';return;}
-  if(val.length<6){bar.className='pass-strength ps-weak';lbl.textContent='Weak — use 8+ characters';}
-  else if(val.length<10||!/[0-9]/.test(val)){bar.className='pass-strength ps-medium';lbl.textContent='Medium — add numbers';}
+  if(!v){bar.style.display='none';lbl.textContent='';return;}
+  if(v.length<6){bar.className='pass-strength ps-weak';lbl.textContent='Weak';}
+  else if(v.length<10||!/[0-9]/.test(v)){bar.className='pass-strength ps-medium';lbl.textContent='Medium';}
   else{bar.className='pass-strength ps-strong';lbl.textContent='Strong ✅';}
 }
 function doChangePass(type){
@@ -1892,18 +1857,16 @@ function doChangePass(type){
   const cf=document.getElementById(p+'_confirm')?.value;
   if(!np){showToast('Enter new password','amber');return;}
   if(np!==cf){showToast('Passwords do not match','red');return;}
-  if(np.length<6){showToast('Minimum 6 characters','amber');return;}
-  showToast('Password updated! ✅','green');
+  if(np.length<6){showToast('Min 6 characters','amber');return;}
+  showToast('Password updated ✅','green');
   setTimeout(()=>goTo(type==='admin'?'adminLoginView':'loginView'),1500);
 }
-
-// NAV SCROLL
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav')?.classList.toggle('solid',window.scrollY>10);
 });
 
 // ============================================================
-// SIGNUP
+// SIGNUP STEPS
 // ============================================================
 function pickPill(btn,gid){
   document.querySelectorAll('#'+gid+' .pill-btn').forEach(b=>b.classList.remove('sel'));
@@ -1915,14 +1878,14 @@ function nextStep(from){
     const p=document.getElementById('s1_phone')?.value.trim();
     const e=document.getElementById('s1_email')?.value.trim();
     const c=document.getElementById('s1_city')?.value;
-    if(!n){showToast('Enter your full name','amber');return;}
+    if(!n){showToast('Enter your name','amber');return;}
     if(!p||p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
     if(!e){showToast('Enter your email','amber');return;}
     if(!c){showToast('Select your city','amber');return;}
     setProgress(2);
     document.getElementById('step1')?.classList.remove('active');
     document.getElementById('step2')?.classList.add('active');
-  } else {
+  }else{
     setProgress(3);
     document.getElementById('step2')?.classList.remove('active');
     document.getElementById('step3')?.classList.add('active');
@@ -1935,8 +1898,7 @@ function prevStep(to){
 }
 function setProgress(step){
   for(let i=1;i<=3;i++){
-    const c=document.getElementById('pb'+i);
-    const l=document.getElementById('pbl'+i);
+    const c=document.getElementById('pb'+i),l=document.getElementById('pbl'+i);
     if(!c||!l)continue;
     if(i<step){c.className='pb-circle done';c.textContent='✓';l.className='pb-label done';}
     else if(i===step){c.className='pb-circle active';c.textContent=i;l.className='pb-label active';}
@@ -1950,128 +1912,131 @@ function doSignup(){
   const email = document.getElementById('s1_email')?.value.trim()||'';
   const city  = document.getElementById('s1_city')?.value||'Hyderabad';
   const skill = document.getElementById('s1_skill')?.value.trim()||'Talent Acquisition';
-  enterDash({name, phone, email, city, skill});
-}
-function doLogin(){
-  const phone = document.getElementById('li_phone')?.value.trim();
-  const pass  = document.getElementById('li_pass')?.value.trim();
-  if(!phone){showToast('Enter your mobile number','amber');return;}
-  if(!pass){showToast('Enter your password','amber');return;}
-  try{
-    enterDash({name:'Kiran Manepalli', phone, email:'kiran@gmail.com', city:'Hyderabad', skill:'Talent Acquisition'});
-  }catch(err){
-    console.error('Login error:',err);
-    showToast('Something went wrong. Please try again.','red');
-  }
+  // Collect preferred locations
+  const prefLocs = [...document.querySelectorAll('#prefLocRow .pill-btn.sel')].map(b=>b.textContent.trim());
+  enterDash({name,phone,email,city,skill,prefLocs});
 }
 
 // ============================================================
-// ENTER DASHBOARD — saves session to localStorage
+// LOGIN
+// ============================================================
+function doLogin(){
+  const phone=document.getElementById('li_phone')?.value.trim();
+  const pass =document.getElementById('li_pass')?.value.trim();
+  if(!phone){showToast('Enter mobile number','amber');return;}
+  if(!pass){showToast('Enter password','amber');return;}
+  try{
+    enterDash({name:'Kiran Manepalli',phone,email:'kiran@gmail.com',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad','Bengaluru']});
+  }catch(err){console.error(err);showToast('Login error. Try again.','red');}
+}
+
+// ============================================================
+// ENTER DASHBOARD — also saves session to localStorage
 // ============================================================
 function enterDash(user){
-  // Save user to localStorage so page refresh restores session
-  sto(S_USER, user);
-  currentUser = user;
-  lastSkill   = user.skill||'';
-  lastCity    = user.city||'';
-
-  // Re-check plan (in case already paid before)
-  const plan = gjson(S_PLAN,{});
-  if(plan.plan && new Date(plan.expiresAt) > new Date()){
-    isPaidUser  = true;
-    previewUsed = true;
-  }
-  if(gst(S_PREVIEW)==='1') previewUsed = true;
-
-  const first = user.name.split(' ')[0];
-  const init  = user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-  const h     = new Date().getHours();
-  const gr    = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-
-  setEl('dName', first);
-  setEl('dAv',   init);
-  setEl('dGreet', gr+', '+first+'! 👋');
-  setEl('dPlan', isPaidUser ? (plan.plan||'Paid')+' Plan · Active ✅' : 'Free Plan · 1 preview available');
-
-  const skEl = document.getElementById('sk_skill');
-  if(skEl && user.skill) skEl.value = user.skill;
-  const citySel = document.getElementById('sk_city');
-  if(citySel && user.city){
-    for(let i=0;i<citySel.options.length;i++){
-      if(citySel.options[i].text===user.city){ citySel.selectedIndex=i; break; }
-    }
-  }
-
-  try{ autoSelectHashtags(user.skill||''); }catch(e){ console.warn('hashtag',e); }
-  try{ buildSignalScore(user.skill||'', user.city||''); }catch(e){ console.warn('score',e); }
-
-  try{
-    if(isPaidUser)       showPaidDashboard();
-    else if(previewUsed) showLockedDashboard();
-    else                 showFreeDashboard();
-  }catch(e){ console.error('dashboard state:',e); }
-
+  currentUser=user;
+  lastSkill=user.skill||'';
+  lastCity=user.city||'';
+  // Re-check existing plan
+  const pl=gjson(S_PLAN,{});
+  if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
+  if(gst(S_PREVIEW)==='1') prevUsed=true;
+  // Save to localStorage immediately
+  saveSession();
+  buildDash(user,pl);
   goTo('dashView');
-  showToast('Welcome, '+first+'! 🎉','green');
+  showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
+}
+
+// ============================================================
+// BUILD DASHBOARD — shared by login and refresh restore
+// ============================================================
+function buildDash(user,pl){
+  const first=user.name.split(' ')[0];
+  const init =user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+  const h=new Date().getHours();
+  const gr=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  setEl('dName',first);
+  setEl('dAv',init);
+  setEl('dGreet',gr+', '+first+'! 👋');
+  setEl('dPlan',isPaid?(pl.plan||'Paid')+' · Active ✅':'Free Plan · 1 preview');
+  // Pre-fill search fields
+  const skEl=document.getElementById('sk_skill');
+  if(skEl&&user.skill) skEl.value=user.skill;
+  const citySel=document.getElementById('sk_city');
+  if(citySel&&user.city){for(let i=0;i<citySel.options.length;i++){if(citySel.options[i].text===user.city){citySel.selectedIndex=i;break;}}}
+  // Auto hashtags
+  try{autoTags(user.skill||'');}catch(e){}
+  // Signal score widget
+  try{buildScore(user.skill||'',user.city||'');}catch(e){}
+  // Daily tip
+  try{setTip(user.skill||'');}catch(e){}
+  // Set dashboard state
+  try{
+    if(isPaid) showPaidDash();
+    else if(prevUsed) showLockedDash();
+    else showFreeDash();
+  }catch(e){console.error('dash state:',e);}
 }
 
 // ============================================================
 // LOGOUT
 // ============================================================
 function doLogout(){
-  try{ localStorage.removeItem(S_USER); }catch(e){}
-  isPaidUser   = false;
-  previewUsed  = false;
-  searchesUsed = 0;
-  currentUser  = {};
+  try{localStorage.removeItem(S_USER);}catch(e){}
+  isPaid=false;prevUsed=false;currentUser={};lastSkill='';lastCity='';
   goTo('landingView');
 }
 
 // ============================================================
 // DASHBOARD STATES
 // ============================================================
-function show(id,display='block'){ const el=document.getElementById(id); if(el) el.style.display=display; }
-function hide(id){ const el=document.getElementById(id); if(el) el.style.display='none'; }
-
-function showFreeDashboard(){
+function showFreeDash(){
   show('previewBanner','flex');
   hide('awayWidget');
   hide('convTriggers');
   show('searchCard');
+  show('sidebarUpgrade');
   hide('sidebarWatchlist');
   hide('sidebarSaved');
-  show('sidebarUpgrade');
-  lockSearchModes();
+  lockModes();
 }
-function showLockedDashboard(){
+function showLockedDash(){
   hide('previewBanner');
-  buildAwayWidget();
+  buildAway();
   show('awayWidget');
-  showConversionTriggers();
+  showTriggers();
+  show('convTriggers');
   hide('searchCard');
+  show('sidebarUpgrade');
   hide('sidebarWatchlist');
   hide('sidebarSaved');
-  show('sidebarUpgrade');
 }
-function showPaidDashboard(){
+function showPaidDash(){
   hide('previewBanner');
   hide('awayWidget');
   hide('convTriggers');
   show('searchCard');
-  show('sidebarWatchlist');
-  show('sidebarSaved');
   hide('sidebarUpgrade');
-  unlockSearchModes();
+  unlockModes();
+  // Only show watchlist/saved if user has actual data
+  const w=gjson(S_WATCH,[]);
+  const s=gjson(S_SAVED,[]);
+  if(Array.isArray(w)&&w.length>0) show('sidebarWatchlist');
+  else hide('sidebarWatchlist');
+  if(Array.isArray(s)&&s.length>0) show('sidebarSaved');
+  else hide('sidebarSaved');
 }
-function lockSearchModes(){
-  ['hashtag','notice','referral'].forEach(m=>{
-    const btn=document.querySelector(`[onclick="switchMode('${m}',this)"]`);
+
+function lockModes(){
+  ['hashtag','notice','referral','walkin'].forEach(m=>{
+    const btn=document.querySelector('[data-mode="'+m+'"]');
     if(btn) btn.classList.add('locked');
   });
 }
-function unlockSearchModes(){
-  ['hashtag','notice','referral'].forEach(m=>{
-    const btn=document.querySelector(`[onclick="switchMode('${m}',this)"]`);
+function unlockModes(){
+  ['hashtag','notice','referral','walkin'].forEach(m=>{
+    const btn=document.querySelector('[data-mode="'+m+'"]');
     if(btn) btn.classList.remove('locked');
   });
 }
@@ -2080,323 +2045,276 @@ function unlockSearchModes(){
 // FREE PREVIEW
 // ============================================================
 function usePreview(){
-  if(previewUsed && !isPaidUser){
-    showLockedDashboard();
-    return;
-  }
-  const skill = document.getElementById('sk_skill')?.value.trim() || lastSkill || 'Talent Acquisition';
-  const city  = document.getElementById('sk_city')?.value || lastCity || 'Hyderabad';
-  if(!skill){ showToast('Enter your skill first','amber'); return; }
+  if(prevUsed&&!isPaid){showLockedDash();return;}
+  const skill=document.getElementById('sk_skill')?.value.trim()||lastSkill||'';
+  const city =document.getElementById('sk_city')?.value||lastCity||'Hyderabad';
+  if(!skill){showToast('Enter your skill first','amber');return;}
   runSearch('skill');
 }
 
 // ============================================================
 // SIGNAL SCORE WIDGET
 // ============================================================
-function buildSignalScore(skill, city){
-  const el = document.getElementById('signalScoreWidget');
-  if(!el) return;
-  const h    = new Date().getHours();
-  const high = (h>=9&&h<=11)||(h>=18&&h<=20);
-  const med  = (h>=7&&h<9)||(h>11&&h<=14)||(h>16&&h<18);
-  const actLabel = high ? '🔥 HIGH ACTIVITY' : med ? '📊 MODERATE' : '🌙 LOW ACTIVITY';
-  const actCls   = high ? 'ssw-high' : med ? 'ssw-med' : 'ssw-low';
-  const base = high?22:med?14:8;
-  const posts = base + Math.floor(Math.random()*6);
-  const jobs  = Math.floor(posts*0.6);
-  const refs  = Math.floor(Math.random()*4)+1;
-  const best  = high ? 'Right now — peak recruiter hours' : '9–11 AM or 6–8 PM IST';
-  el.innerHTML = `
-    <div class="ssw-top">
-      <div><div class="ssw-greeting">📡 Signal Intelligence</div><div class="ssw-sub">${skill||'Your skill'} · ${city||'Your city'} · Today</div></div>
-      <div class="ssw-activity ${actCls}">${actLabel}</div>
-    </div>
-    <div class="ssw-stats">
-      <div class="ssw-stat"><div class="ssw-stat-n">${posts}</div><div class="ssw-stat-l">Recruiter Posts</div></div>
-      <div class="ssw-stat"><div class="ssw-stat-n" style="color:var(--blue);">${jobs}</div><div class="ssw-stat-l">LinkedIn Jobs</div></div>
-      <div class="ssw-stat"><div class="ssw-stat-n" style="color:var(--gold);">${refs}</div><div class="ssw-stat-l">Referrals</div></div>
-    </div>
-    <div class="ssw-best"><div class="ssw-best-icon">⏰</div><div class="ssw-best-text">Best search window: <strong>${best}</strong><br>Recruiters post most actively during these hours.</div></div>`;
+function buildScore(skill,city){
+  const el=document.getElementById('signalScoreWidget');
+  if(!el)return;
+  const h=new Date().getHours();
+  const high=(h>=9&&h<=11)||(h>=18&&h<=20);
+  const med=(h>=7&&h<9)||(h>11&&h<=14)||(h>16&&h<18);
+  const actLabel=high?'🔥 HIGH ACTIVITY':med?'📊 MODERATE':'🌙 LOW ACTIVITY';
+  const actCls=high?'ssw-high':med?'ssw-med':'ssw-low';
+  const base=high?22:med?14:8;
+  const posts=base+Math.floor(Math.random()*6);
+  const jobs=Math.floor(posts*0.6);
+  const refs=Math.floor(Math.random()*4)+1;
+  const best=high?'Right now — peak recruiter hours':'9–11 AM or 6–8 PM IST';
+  el.innerHTML=`<div class="ssw-top"><div><div class="ssw-greeting">📡 Signal Intelligence</div><div class="ssw-sub">${skill||'Your skill'} · ${city||'Your city'} · Today</div></div><div class="ssw-activity ${actCls}">${actLabel}</div></div><div class="ssw-stats"><div class="ssw-stat"><div class="ssw-stat-n">${posts}</div><div class="ssw-stat-l">Recruiter Posts</div></div><div class="ssw-stat"><div class="ssw-stat-n" style="color:var(--blue);">${jobs}</div><div class="ssw-stat-l">LinkedIn Jobs</div></div><div class="ssw-stat"><div class="ssw-stat-n" style="color:var(--gold);">${refs}</div><div class="ssw-stat-l">Referrals</div></div></div><div class="ssw-best"><div class="ssw-best-icon">⏰</div><div class="ssw-best-text">Best search window: <strong>${best}</strong><br>Recruiters are most active during these hours.</div></div>`;
+}
+
+// ============================================================
+// DAILY TIPS — changes every day, based on skill
+// ============================================================
+const TIPS={
+  ta:[
+    {i:'💡',t:'Headline Formula',m:'Recruiters filter by headline keywords. Try: <em style="color:var(--em)">"TA Manager | Leadership Hiring | Hyderabad | 30d NP | #OpenToWork"</em>'},
+    {i:'🎯',t:'Boolean Sourcing',m:'Find passive candidates: <em style="color:var(--em)">site:linkedin.com/in "TA manager" "Hyderabad" "open to work"</em> — works directly in Google.'},
+    {i:'📊',t:'Quantify Your Impact',m:'Numbers get attention: <em style="color:var(--em)">"Placed 200+ candidates · Reduced time-to-hire 40% · 95% offer acceptance rate"</em>'},
+    {i:'🤝',t:'Referral Pipeline',m:'Ask every placed candidate for 2 referrals in 30 days. Referral hires cost 3x less and stay 2x longer.'},
+    {i:'🔥',t:'Active Sourcing',m:'Connect with 10 candidates daily with personalised notes. Recruiters who engage daily see 3x more InMail replies.'},
+    {i:'🌐',t:'Build Your Brand',m:'Post one insight about the hiring market every week. TA leaders with active profiles get 5x more inbound candidate requests.'},
+  ],
+  dev:[
+    {i:'💡',t:'GitHub + LinkedIn',m:'Pin your best project on GitHub. Add to your headline: <em style="color:var(--em)">"React | 4 YOE | Hyderabad | 30d NP | github.com/yourhandle"</em>'},
+    {i:'🎯',t:'Quantify Projects',m:'Instead of "built a dashboard" say <em style="color:var(--em)">"built React dashboard cutting report generation time by 70% for 500+ daily users"</em>'},
+    {i:'📊',t:'Top 6 Searched Skills',m:'Make sure LinkedIn Skills has: <em style="color:var(--em)">React, TypeScript, Node.js, REST API, Git, AWS</em> — most filtered by Indian tech recruiters.'},
+    {i:'🔥',t:'Visibility Hack',m:'Comment on 3 tech posts daily. Recruiters check your activity feed before messaging. Activity = discoverability.'},
+    {i:'🤝',t:'Smart Referral',m:'Find employees at target company → Connect → Engage their posts 2 weeks → Ask referral. 8x higher success than cold applying.'},
+    {i:'🌐',t:'Open Source',m:'Even 1 merged PR to a popular open-source project on your LinkedIn/GitHub gets 3x more recruiter messages in the first month.'},
+  ],
+  data:[
+    {i:'💡',t:'Show Numbers',m:'Hiring managers want impact: <em style="color:var(--em)">"ML model 94% accuracy · Processed 10M+ records/day · Reduced churn by 23%"</em>'},
+    {i:'🎯',t:'Public Portfolio',m:'3 end-to-end projects on Kaggle or GitHub. Recruiters verify your skills here before scheduling interviews.'},
+    {i:'📊',t:'Headline',m:'Try: <em style="color:var(--em)">"Data Scientist | Python · SQL · ML | Hyderabad | 3 YOE | Open to Remote | #DataScience"</em>'},
+    {i:'🔥',t:'Cert Boost',m:'AWS Data Analytics or GCP cert added to LinkedIn gets 40% more profile visits from data recruiters.'},
+    {i:'🤝',t:'Network Smart',m:'Join 3 data science LinkedIn groups. The most active members in a group get seen by recruiters hiring from that group.'},
+  ],
+  generic:[
+    {i:'💡',t:'Headline Formula',m:'Use: <em style="color:var(--em)">"[Role] | [City] | [X YOE] | [Notice Period] | #OpenToWork"</em> — recruiters filter by exactly these terms.'},
+    {i:'🎯',t:'First 60 Minutes',m:'Recruiter posts get 80% of replies in the first hour. Be first to comment with a tailored message for best results.'},
+    {i:'📊',t:'Profile Photo',m:'Profiles with a photo get <em style="color:var(--em)">21x more recruiter views</em>. A custom banner with your role + city = 14x more visits.'},
+    {i:'🔥',t:'Walk-in Strategy',m:'For walk-in drives: arrive <em style="color:var(--em)">30 minutes early</em>, carry 5 CV copies, connect with the recruiter on LinkedIn the night before.'},
+    {i:'🤝',t:'Referral > Apply',m:'A referral gets your CV seen <em style="color:var(--em)">14x faster</em>. Find someone at your target company and send a personalised message.'},
+    {i:'⏰',t:'Peak Hours',m:'Indian recruiters post most between <em style="color:var(--em)">9–11 AM and 6–8 PM IST</em>. Schedule your JobsSignal searches in these windows.'},
+    {i:'📝',t:'Resume Tip',m:'Keep your resume to 1 page if under 5 years experience. Add a LinkedIn QR code to the bottom. Recruiters scan resumes in <em style="color:var(--em)">6 seconds</em>.'},
+  ]
+};
+
+function setTip(skill){
+  const tipEl=document.getElementById('liTip');
+  if(!tipEl||tipEl.classList.contains('hidden'))return;
+  const iconEl=document.getElementById('tipIcon');
+  const titleEl=document.getElementById('tipTitle');
+  const textEl=document.getElementById('tipText');
+  if(!titleEl||!textEl)return;
+  const s=(skill||'').toLowerCase();
+  let pool;
+  if(/talent|recruit|hr |^ta$|acqui|staffing/i.test(s))      pool=TIPS.ta;
+  else if(/react|node|java|python|develop|engineer|sde/i.test(s)) pool=TIPS.dev;
+  else if(/data|ml|machine|analyst|scientist|etl/i.test(s))   pool=TIPS.data;
+  else                                                          pool=TIPS.generic;
+  const tip=pool[new Date().getDate()%pool.length];
+  if(iconEl) iconEl.textContent=tip.i;
+  titleEl.textContent=tip.t;
+  textEl.innerHTML=tip.m;
 }
 
 // ============================================================
 // AWAY WIDGET
 // ============================================================
-function buildAwayWidget(){
-  const el = document.getElementById('awayWidget');
-  if(!el) return;
-  const skill   = lastSkill||'your skill';
-  const city    = lastCity||'your city';
-  const missed  = Math.floor(Math.random()*25)+15;
-  const refs    = Math.floor(Math.random()*4)+2;
-  const blurs = [
-    {av:'fa1',init:'RK',nm:'Talent Head · TechCorp',post:`"${skill} role · ${city} · 8+ YOE · Immediate preferred"`,w:'🔴 9 min'},
+function buildAway(){
+  const el=document.getElementById('awayWidget');
+  if(!el)return;
+  const skill=lastSkill||'your skill', city=lastCity||'your city';
+  const missed=Math.floor(Math.random()*25)+15, refs=Math.floor(Math.random()*4)+2;
+  const blurs=[
+    {av:'fa1',init:'RK',nm:'TA Head · TechCorp',post:`"${skill} role · ${city} · 8+ YOE · Immediate preferred"`,w:'🔴 9 min'},
     {av:'fa2',init:'PS',nm:'HR Manager · StartupXYZ',post:`"${skill} opening · ${city}/Remote · 15-22 LPA"`,w:'🟠 1 hr'},
-    {av:'fa3',init:'AM',nm:'Recruiter · GlobalCo',post:`"Referral available for ${skill} in ${city} — DM me!"`,w:'🟡 2 hrs'},
+    {av:'fa3',init:'AM',nm:'Recruiter · GlobalCo',post:`"Referral for ${skill} in ${city} — DM me!"`,w:'🟡 2 hrs'},
   ];
-  el.innerHTML=`
-    <div class="aw-header" style="position:relative;z-index:1;">
-      <div class="aw-title">🔒 While you were away...</div>
-      <div class="aw-sub">Here's what happened for <strong style="color:var(--em);">${skill}</strong> in <strong style="color:white;">${city}</strong>:</div>
-    </div>
-    <div class="aw-missed" style="position:relative;z-index:1;">
-      <div class="aw-stat"><div class="aw-stat-n">${missed}</div><div class="aw-stat-l">Signals Missed</div></div>
-      <div class="aw-stat"><div class="aw-stat-n" style="color:var(--gold);">${refs}</div><div class="aw-stat-l">Referrals Gone</div></div>
-      <div class="aw-stat"><div class="aw-stat-n" style="color:var(--purple);">∞</div><div class="aw-stat-l">Roles Filled</div></div>
-    </div>
-    <div class="aw-blurred" style="position:relative;z-index:1;">
-      ${blurs.map(c=>`<div class="blurred-card"><div class="bc-top"><div class="bc-av ${c.av}">${c.init}</div><div><div class="bc-nm">${c.nm}</div></div><div class="bc-when">${c.w}</div></div><div class="bc-post">${c.post}</div></div>`).join('')}
-      <div class="aw-overlay"><div style="text-align:center;"><div style="font-size:24px;margin-bottom:8px;">🔒</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;">Unlock these signals</div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;">Upgrade to see live recruiter posts</div></div></div>
-    </div>
-    <div class="aw-more" style="position:relative;z-index:1;">+ ${missed-3} more signals you're missing right now</div>
-    <div class="upgrade-plans" style="position:relative;z-index:1;">
-      <div class="up" onclick="openPayment('7 Days',49)"><div class="up-days">7</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹49</div><button type="button" class="up-btn">Unlock →</button></div>
-      <div class="up best" onclick="openPayment('30 Days',99)"><div class="up-days">30</div><div style="font-size:9px;color:var(--em);">Days 🏆</div><div class="up-price">₹99</div><button type="button" class="up-btn">Unlock →</button></div>
-      <div class="up" onclick="openPayment('60 Days',179)"><div class="up-days">60</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹179</div><button type="button" class="up-btn">Unlock →</button></div>
-      <div class="up" onclick="openPayment('Annual Plan',599)"><div class="up-days">365</div><div style="font-size:9px;color:rgba(255,255,255,.4);">⭐</div><div class="up-price">₹599</div><button type="button" class="up-btn">Unlock →</button></div>
-    </div>
-    <div class="aw-convert">🔒 Instant access · No commitment · Cancel anytime</div>`;
+  el.innerHTML=`<div style="position:relative;z-index:1;"><div class="aw-title">🔒 While you were away...</div><div class="aw-sub">Here's what happened for <strong style="color:var(--em);">${skill}</strong> in <strong style="color:white;">${city}</strong>:</div></div><div class="aw-missed" style="position:relative;z-index:1;"><div class="aw-stat"><div class="aw-stat-n">${missed}</div><div class="aw-stat-l">Signals Missed</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--gold);">${refs}</div><div class="aw-stat-l">Referrals Gone</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--purple);">∞</div><div class="aw-stat-l">Roles Filled</div></div></div><div class="aw-blurred" style="position:relative;z-index:1;">${blurs.map(c=>`<div class="blurred-card"><div class="bc-top"><div class="bc-av ${c.av}">${c.init}</div><div><div class="bc-nm">${c.nm}</div></div><div class="bc-when">${c.w}</div></div><div class="bc-post">${c.post}</div></div>`).join('')}<div class="aw-overlay"><div style="text-align:center;"><div style="font-size:24px;margin-bottom:8px;">🔒</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;">Unlock these signals</div></div></div></div><div class="aw-more" style="position:relative;z-index:1;">+ ${missed-3} more signals you're missing right now</div><div class="upgrade-plans" style="position:relative;z-index:1;"><div class="up" onclick="openPay('7 Days',49)"><div class="up-days">7</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹49</div><button type="button" class="up-btn">Unlock →</button></div><div class="up best" onclick="openPay('30 Days',99)"><div class="up-days">30</div><div style="font-size:9px;color:var(--em);">Days 🏆</div><div class="up-price">₹99</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('60 Days',179)"><div class="up-days">60</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹179</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('Annual Plan',599)"><div class="up-days">365</div><div style="font-size:9px;color:rgba(255,255,255,.4);">⭐</div><div class="up-price">₹599</div><button type="button" class="up-btn">Unlock →</button></div></div><div class="aw-convert">🔒 Instant access · No commitment</div>`;
 }
 
-function showConversionTriggers(){
+function showTriggers(){
   const el=document.getElementById('convTriggers');
   if(!el)return;
-  const skill=lastSkill||'your skill';
-  const city=lastCity||'your city';
+  const skill=lastSkill||'your skill', city=lastCity||'your city';
   const missed=Math.floor(Math.random()*25)+15;
   el.style.display='block';
-  el.innerHTML=`
-    <div class="conv-trigger ct-fomo">⚡ <span><strong>${missed} signals</strong> for ${skill} in ${city} posted since your preview. At ₹99 — that's ₹${Math.max(3,Math.floor(99/missed))} per signal. Less than a chai.</span></div>
-    <div class="conv-trigger ct-social">👥 <span><strong>89 job seekers</strong> in your city upgraded this week. Most found recruiter contact within <strong>24 hours</strong>.</span></div>`;
+  el.innerHTML=`<div class="conv-trigger ct-fomo">⚡ <span><strong>${missed} signals</strong> for ${skill} in ${city} posted since your preview. At ₹99 — ₹${Math.max(3,Math.floor(99/missed))} per signal. Less than a chai.</span></div><div class="conv-trigger ct-social">👥 <span><strong>89 job seekers</strong> in your city upgraded this week. Most found recruiter contact within <strong>24 hours</strong>.</span></div>`;
 }
 
 // ============================================================
-// SKILL → ROLE TITLE MAPPING
-// Maps what user types → exact LinkedIn job title / search phrase
+// SKILL → SEARCH TERMS
 // ============================================================
-function getSearchTerms(skill){
-  const s = skill.trim().toLowerCase();
-
-  // Talent Acquisition / HR / Recruitment
-  if(/^ta$|talent acqui|recrui|^hr$|human resourc|staffing|sourcing|hrbp|campus hir|bulk hir|volume hir|naukri|linkedin recrui/i.test(s))
-    return { role:'Talent Acquisition', jobTitle:'Talent Acquisition Manager', postPhrase:skill+' recruiter hiring', noticePhrase:'talent acquisition '+skill, refPhrase:'talent acquisition '+skill };
-
-  // React
+function getTerms(skill){
+  const s=(skill||'').trim().toLowerCase();
+  if(/^ta$|talent acqui|recrui|^hr$|human resourc|staffing|sourcing|hrbp|campus/i.test(s))
+    return{role:'Talent Acquisition',jobTitle:'Talent Acquisition Manager',postPhrase:skill+' recruiter hiring',noticePhrase:'talent acquisition '+skill,refPhrase:'talent acquisition '+skill};
   if(/^react$|react\.js|reactjs/i.test(s))
-    return { role:'React Developer', jobTitle:'React Developer', postPhrase:'React Developer hiring', noticePhrase:'React Developer', refPhrase:'React' };
-
-  // Angular
+    return{role:'React Developer',jobTitle:'React Developer',postPhrase:'React Developer hiring',noticePhrase:'React Developer',refPhrase:'React'};
   if(/angular/i.test(s))
-    return { role:'Angular Developer', jobTitle:'Angular Developer', postPhrase:'Angular Developer hiring', noticePhrase:'Angular Developer', refPhrase:'Angular' };
-
-  // Node.js
+    return{role:'Angular Developer',jobTitle:'Angular Developer',postPhrase:'Angular Developer hiring',noticePhrase:'Angular Developer',refPhrase:'Angular'};
   if(/node\.?js|nodejs/i.test(s))
-    return { role:'Node.js Developer', jobTitle:'Node.js Developer', postPhrase:'Node.js Developer hiring', noticePhrase:'Node Developer', refPhrase:'Node.js' };
-
-  // Full Stack
-  if(/full.?stack|fullstack/i.test(s))
-    return { role:'Full Stack Developer', jobTitle:'Full Stack Developer', postPhrase:'Full Stack Developer hiring', noticePhrase:'Full Stack Developer', refPhrase:'Full Stack' };
-
-  // Java
-  if(/^java$|java developer|java engineer/i.test(s))
-    return { role:'Java Developer', jobTitle:'Java Developer', postPhrase:'Java Developer hiring', noticePhrase:'Java Developer', refPhrase:'Java' };
-
-  // Python
-  if(/^python$|python developer|django|flask/i.test(s))
-    return { role:'Python Developer', jobTitle:'Python Developer', postPhrase:'Python Developer hiring', noticePhrase:'Python Developer', refPhrase:'Python' };
-
-  // DevOps / Cloud
-  if(/devops|cloud|aws|azure|gcp|kubernetes|docker|ci.?cd/i.test(s))
-    return { role:'DevOps Engineer', jobTitle:'DevOps Engineer', postPhrase:'DevOps Engineer hiring', noticePhrase:'DevOps', refPhrase:'DevOps' };
-
-  // Data Science / ML / AI
-  if(/data scien|machine learn|^ml$|^ai$|deep learn|nlp|tensorflow|pytorch/i.test(s))
-    return { role:'Data Scientist', jobTitle:'Data Scientist', postPhrase:'Data Scientist hiring', noticePhrase:'Data Scientist', refPhrase:'Data Science' };
-
-  // Data Analyst
-  if(/data anal|business intel|tableau|power bi|looker|qlik|sql analyst/i.test(s))
-    return { role:'Data Analyst', jobTitle:'Data Analyst', postPhrase:'Data Analyst hiring', noticePhrase:'Data Analyst', refPhrase:'Data Analyst' };
-
-  // Data Engineer
-  if(/data engineer|etl|spark|hadoop|databricks|snowflake/i.test(s))
-    return { role:'Data Engineer', jobTitle:'Data Engineer', postPhrase:'Data Engineer hiring', noticePhrase:'Data Engineer', refPhrase:'Data Engineer' };
-
-  // Product Manager
-  if(/product manager|^pm$|product owner|product management/i.test(s))
-    return { role:'Product Manager', jobTitle:'Product Manager', postPhrase:'Product Manager hiring', noticePhrase:'Product Manager', refPhrase:'Product Manager' };
-
-  // UX/UI Designer
-  if(/ux|ui design|figma|user experience|product design|visual design/i.test(s))
-    return { role:'UI UX Designer', jobTitle:'UI UX Designer', postPhrase:'UI UX Designer hiring', noticePhrase:'UX Designer', refPhrase:'UX UI Design' };
-
-  // Sales / BD
-  if(/sales|business develop|^bd$|account manag|pre.?sales/i.test(s))
-    return { role:'Sales', jobTitle:'Sales Manager', postPhrase:'Sales hiring', noticePhrase:'Sales', refPhrase:'Sales Business Development' };
-
-  // Finance / CA
-  if(/finance|^ca$|chartered account|audit|accounts|tax|treasury|banking/i.test(s))
-    return { role:'Finance', jobTitle:'Finance Manager', postPhrase:'Finance hiring', noticePhrase:'Finance', refPhrase:'Finance Accounting' };
-
-  // Marketing
-  if(/marketing|seo|sem|digital market|content market|performance market|growth market/i.test(s))
-    return { role:'Marketing', jobTitle:'Marketing Manager', postPhrase:'Marketing hiring', noticePhrase:'Marketing', refPhrase:'Marketing' };
-
-  // Project / Program Manager
-  if(/project manager|program manager|^pmp$|scrum master|agile coach/i.test(s))
-    return { role:'Project Manager', jobTitle:'Project Manager', postPhrase:'Project Manager hiring', noticePhrase:'Project Manager', refPhrase:'Project Manager' };
-
-  // Operations
-  if(/operations|supply chain|logistics|procurement|warehouse/i.test(s))
-    return { role:'Operations', jobTitle:'Operations Manager', postPhrase:'Operations hiring', noticePhrase:'Operations', refPhrase:'Operations' };
-
-  // Default — use skill as typed
-  return { role:skill, jobTitle:skill, postPhrase:skill+' hiring', noticePhrase:skill, refPhrase:skill };
-}
-
-// ============================================================
-// HASHTAG MAPPING — skill → most relevant India hiring hashtags
-// ============================================================
-function getHashtagsForSkill(skill){
-  const s = skill.toLowerCase();
-  if(/talent|recruit|hr |^ta$|acqui|staffing|sourcing/i.test(s))
-    return ['#TalentAcquisition','#Hiring','#HRJobs','#RecruitmentLife','#TalentHunt'];
-  if(/react/i.test(s))
-    return ['#ReactJS','#ReactDeveloper','#Hiring','#Frontend','#WebDevelopment'];
-  if(/angular/i.test(s))
-    return ['#Angular','#AngularDeveloper','#Hiring','#Frontend'];
-  if(/node/i.test(s))
-    return ['#NodeJS','#Backend','#Hiring','#NodeDeveloper'];
+    return{role:'Node.js Developer',jobTitle:'Node.js Developer',postPhrase:'Node.js Developer hiring',noticePhrase:'Node Developer',refPhrase:'Node.js'};
   if(/full.?stack/i.test(s))
-    return ['#FullStack','#FullStackDeveloper','#Hiring','#MERN','#MEAN'];
-  if(/java/i.test(s))
-    return ['#Java','#JavaDeveloper','#SpringBoot','#Hiring'];
-  if(/python/i.test(s))
-    return ['#Python','#PythonDeveloper','#Hiring','#Django'];
-  if(/devops|aws|cloud|azure/i.test(s))
-    return ['#DevOps','#CloudComputing','#AWS','#Hiring'];
-  if(/data scien|ml|machine|ai |tensorflow/i.test(s))
-    return ['#DataScience','#MachineLearning','#AI','#Hiring'];
-  if(/data anal|tableau|power bi/i.test(s))
-    return ['#DataAnalytics','#DataAnalyst','#Tableau','#Hiring'];
-  if(/product manager|^pm$/i.test(s))
-    return ['#ProductManagement','#ProductManager','#PMJobs','#Hiring'];
-  if(/ux|ui design|figma/i.test(s))
-    return ['#UIDesign','#UXDesign','#Figma','#DesignJobs','#Hiring'];
-  if(/sales|business develop/i.test(s))
-    return ['#Sales','#BusinessDevelopment','#SalesJobs','#Hiring'];
-  if(/finance|^ca$|chartered/i.test(s))
-    return ['#Finance','#Accounting','#CA','#FinanceJobs','#Hiring'];
-  if(/marketing|seo|digital/i.test(s))
-    return ['#DigitalMarketing','#Marketing','#SEO','#MarketingJobs','#Hiring'];
-  return ['#Hiring','#NowHiring','#JobOpening','#WeAreHiring'];
+    return{role:'Full Stack Developer',jobTitle:'Full Stack Developer',postPhrase:'Full Stack Developer hiring',noticePhrase:'Full Stack Developer',refPhrase:'Full Stack'};
+  if(/^java$|java dev|java eng/i.test(s))
+    return{role:'Java Developer',jobTitle:'Java Developer',postPhrase:'Java Developer hiring',noticePhrase:'Java Developer',refPhrase:'Java'};
+  if(/^python$|django|flask/i.test(s))
+    return{role:'Python Developer',jobTitle:'Python Developer',postPhrase:'Python Developer hiring',noticePhrase:'Python Developer',refPhrase:'Python'};
+  if(/devops|^aws$|^azure$|^gcp$|kubernetes|docker/i.test(s))
+    return{role:'DevOps Engineer',jobTitle:'DevOps Engineer',postPhrase:'DevOps Engineer hiring',noticePhrase:'DevOps',refPhrase:'DevOps'};
+  if(/data scien|machine learn|^ml$|^ai$|deep learn|nlp/i.test(s))
+    return{role:'Data Scientist',jobTitle:'Data Scientist',postPhrase:'Data Scientist hiring',noticePhrase:'Data Scientist',refPhrase:'Data Science'};
+  if(/data anal|business intel|tableau|power bi/i.test(s))
+    return{role:'Data Analyst',jobTitle:'Data Analyst',postPhrase:'Data Analyst hiring',noticePhrase:'Data Analyst',refPhrase:'Data Analyst'};
+  if(/data eng|etl|spark|snowflake/i.test(s))
+    return{role:'Data Engineer',jobTitle:'Data Engineer',postPhrase:'Data Engineer hiring',noticePhrase:'Data Engineer',refPhrase:'Data Engineer'};
+  if(/product manager|^pm$|product owner/i.test(s))
+    return{role:'Product Manager',jobTitle:'Product Manager',postPhrase:'Product Manager hiring',noticePhrase:'Product Manager',refPhrase:'Product Manager'};
+  if(/ux|ui design|figma|user experience/i.test(s))
+    return{role:'UI UX Designer',jobTitle:'UI UX Designer',postPhrase:'UI UX Designer hiring',noticePhrase:'UX Designer',refPhrase:'UX UI Design'};
+  if(/sales|business develop|^bd$|pre.?sales/i.test(s))
+    return{role:'Sales',jobTitle:'Sales Manager',postPhrase:'Sales hiring',noticePhrase:'Sales',refPhrase:'Sales Business Development'};
+  if(/finance|^ca$|chartered|audit|accounts/i.test(s))
+    return{role:'Finance',jobTitle:'Finance Manager',postPhrase:'Finance hiring',noticePhrase:'Finance',refPhrase:'Finance Accounting'};
+  if(/marketing|seo|sem|digital market|content market/i.test(s))
+    return{role:'Marketing',jobTitle:'Marketing Manager',postPhrase:'Marketing hiring',noticePhrase:'Marketing',refPhrase:'Marketing'};
+  if(/walk.in|walkin/i.test(s))
+    return{role:'Walk-in',jobTitle:'walk in interview',postPhrase:'walk-in interview hiring',noticePhrase:'walk-in '+skill,refPhrase:'walk-in'};
+  return{role:skill,jobTitle:skill,postPhrase:skill+' hiring',noticePhrase:skill,refPhrase:skill};
 }
 
 // ============================================================
-// MODE-SPECIFIC URL BUILDER — clean, no mixing of modes
+// HASHTAG MAPPING
 // ============================================================
-function buildSearchURL(mode, skill, city, noticePeriod, selectedHashtags, company){
-  const enc = s => encodeURIComponent(s);
-  const terms = getSearchTerms(skill);
-  const np = noticePeriod || '30 Days';
-  const co = company || '';
-
-  // LinkedIn base URLs
-  const contentBase = 'https://www.linkedin.com/search/results/content/';
-  const jobsBase    = 'https://www.linkedin.com/jobs/search/';
-  const peopleBase  = 'https://www.linkedin.com/search/results/people/';
-
-  // Date filters
-  const last24h  = '&datePosted=%22past-24h%22';
-  const lastWeek = '&datePosted=%22past-week%22';
-  const sortDate = '&sortBy=%22date_posted%22';
-  const jobsTime24h  = '&f_TPR=r86400&sortBy=DD';
-  const jobsTimeWeek = '&f_TPR=r604800&sortBy=DD';
-
-  if(mode === 'skill'){
-    // PURE SKILL SEARCH — recruiter posts about hiring for this skill
-    // Clean single phrase — no hashtag mixing
-    const kw = `"${terms.jobTitle}" "${city}" hiring`;
-    const kwAlt = `${terms.jobTitle} ${city} hiring recruiter`;
-    return {
-      primary:  contentBase + '?keywords=' + enc(kw) + last24h + sortDate,
-      fallback:  contentBase + '?keywords=' + enc(kwAlt) + lastWeek + sortDate,
-      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
-      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
-      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
-      people:   peopleBase + '?keywords=' + enc('recruiter hiring ' + terms.jobTitle + ' ' + city),
-    };
-  }
-
-  if(mode === 'hashtag'){
-    // PURE HASHTAG SEARCH — only selected hashtags, no skill mixing
-    const tags = selectedHashtags.length > 0 ? selectedHashtags : getHashtagsForSkill(skill);
-    const hashQuery = tags.join(' ') + (skill ? ' ' + skill : '') + ' ' + city;
-    const hashQueryAlt = tags.slice(0,2).join(' ') + ' ' + city + ' hiring';
-    return {
-      primary:  contentBase + '?keywords=' + enc(hashQuery) + last24h + sortDate,
-      fallback:  contentBase + '?keywords=' + enc(hashQueryAlt) + lastWeek + sortDate,
-      jobs:     jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
-      jobsWeek: jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
-      easyApply:jobsBase + '?keywords=' + enc(skill||terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
-      people:   peopleBase + '?keywords=' + enc('recruiter ' + (skill||terms.jobTitle) + ' ' + city),
-    };
-  }
-
-  if(mode === 'notice'){
-    // PURE NOTICE PERIOD SEARCH — posts asking for specific NP
-    const npClean = np.replace(' Days','').replace(' Day','').trim();
-    const npQuery = '"' + np + '" ' + terms.noticePhrase + ' ' + city + ' hiring';
-    const npQueryAlt = '"immediate joiner" OR "notice period" ' + terms.noticePhrase + ' ' + city;
-    return {
-      primary:  contentBase + '?keywords=' + enc(npQuery) + lastWeek + sortDate,
-      fallback:  contentBase + '?keywords=' + enc(npQueryAlt) + lastWeek + sortDate,
-      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
-      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle + ' notice period ' + npClean + ' days') + '&location=' + enc(city) + jobsTimeWeek,
-      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
-      people:   peopleBase + '?keywords=' + enc('recruiter ' + terms.noticePhrase + ' ' + city),
-    };
-  }
-
-  if(mode === 'referral'){
-    // PURE REFERRAL SEARCH — "DM me" "referral" posts only
-    const refTarget = co ? co + ' ' + terms.refPhrase : terms.refPhrase;
-    const refQuery    = '"DM me" OR "refer" referral ' + refTarget + ' ' + city + ' hiring';
-    const refQueryAlt = 'referral ' + refTarget + ' ' + city + ' "DM"';
-    return {
-      primary:  contentBase + '?keywords=' + enc(refQuery) + last24h + sortDate,
-      fallback:  contentBase + '?keywords=' + enc(refQueryAlt) + lastWeek + sortDate,
-      jobs:     jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTime24h,
-      jobsWeek: jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek,
-      easyApply:jobsBase + '?keywords=' + enc(terms.jobTitle) + '&location=' + enc(city) + jobsTimeWeek + '&f_AL=true',
-      people:   peopleBase + '?keywords=' + enc((co||terms.refPhrase) + ' employee ' + city),
-    };
-  }
-
-  // Fallback
-  return { primary: contentBase + '?keywords=' + enc(skill + ' ' + city + ' hiring') + last24h + sortDate };
-}
-
-// ============================================================
-// AUTO HASHTAG SELECTION
-// ============================================================
-function autoSelectHashtags(skill){
-  if(!skill) return;
-  const domain = detectDomain(skill);
-  const tags = (DOMAINS[domain]||DOMAINS.generic).tags||[];
+function autoTags(skill){
+  const s=(skill||'').toLowerCase();
+  let tags=[];
+  if(/talent|recruit|hr |^ta$|acqui/i.test(s))     tags=['#TalentAcquisition','#Hiring','#HRJobs','#Recruiting','#NowHiring'];
+  else if(/^react/i.test(s))                         tags=['#ReactJS','#ReactDeveloper','#Hiring','#Frontend'];
+  else if(/angular/i.test(s))                        tags=['#Angular','#AngularDeveloper','#Hiring','#Frontend'];
+  else if(/node/i.test(s))                           tags=['#NodeJS','#Backend','#Hiring'];
+  else if(/full.?stack/i.test(s))                    tags=['#FullStack','#MERN','#Hiring'];
+  else if(/java/i.test(s))                           tags=['#Java','#SpringBoot','#Hiring'];
+  else if(/python/i.test(s))                         tags=['#Python','#Hiring','#Django'];
+  else if(/devops|aws|cloud/i.test(s))               tags=['#DevOps','#AWS','#CloudComputing','#Hiring'];
+  else if(/data scien|ml|machine/i.test(s))          tags=['#DataScience','#MachineLearning','#AI','#Hiring'];
+  else if(/data anal|tableau/i.test(s))              tags=['#DataAnalytics','#DataAnalyst','#Hiring'];
+  else if(/product manager|^pm$/i.test(s))           tags=['#ProductManagement','#PMJobs','#Hiring'];
+  else if(/ux|ui design|figma/i.test(s))             tags=['#UIDesign','#UXDesign','#DesignJobs','#Hiring'];
+  else if(/sales|bd /i.test(s))                      tags=['#Sales','#BusinessDevelopment','#Hiring'];
+  else if(/finance|^ca$/i.test(s))                   tags=['#Finance','#CA','#FinanceJobs','#Hiring'];
+  else if(/market|seo/i.test(s))                     tags=['#DigitalMarketing','#MarketingJobs','#Hiring'];
+  else if(/walk.in|walkin/i.test(s))                 tags=['#WalkInInterview','#WalkIn','#ImmediateJoiner','#Hiring'];
+  else                                               tags=['#Hiring','#NowHiring','#JobOpening'];
   document.querySelectorAll('.ht-c').forEach(el=>{
     el.classList.remove('sel');
-    const tag = el.textContent.trim().replace('#','').toLowerCase();
+    const tag=el.textContent.trim().replace('#','').toLowerCase();
     if(tags.some(t=>t.replace('#','').toLowerCase()===tag)) el.classList.add('sel');
   });
 }
 
 // ============================================================
-// SEARCH MODE SWITCHING
+// URL BUILDER — mode-specific, no mixing
+// ============================================================
+function buildURL(mode,skill,city,np,htags,company){
+  const enc=s=>encodeURIComponent(s);
+  const t=getTerms(skill);
+  const C=city||'Hyderabad';
+  const NP=np||'30 Days';
+  const base='https://www.linkedin.com/search/results/content/';
+  const jbase='https://www.linkedin.com/jobs/search/';
+  const pbase='https://www.linkedin.com/search/results/people/';
+  const d24='&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
+  const dwk='&datePosted=%22past-week%22&sortBy=%22date_posted%22';
+  const j24='&f_TPR=r86400&sortBy=DD';
+  const jwk='&f_TPR=r604800&sortBy=DD';
+
+  if(mode==='skill'){
+    const kw=`"${t.jobTitle}" "${C}" hiring`;
+    const kwB=`${t.jobTitle} ${C} hiring recruiter`;
+    return{
+      primary:base+'?keywords='+enc(kw)+d24,
+      fallback:base+'?keywords='+enc(kwB)+dwk,
+      jobs:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+j24,
+      jobsWk:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk,
+      easyApply:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk+'&f_AL=true',
+      people:pbase+'?keywords='+enc('recruiter hiring '+t.jobTitle+' '+C),
+    };
+  }
+  if(mode==='hashtag'){
+    const selectedTags=htags&&htags.length>0?htags:['#Hiring','#NowHiring'];
+    const hkw=selectedTags.join(' ')+' '+(skill?skill+' ':'')+C;
+    const hkwB=selectedTags.slice(0,2).join(' ')+' '+C+' hiring';
+    return{
+      primary:base+'?keywords='+enc(hkw)+d24,
+      fallback:base+'?keywords='+enc(hkwB)+dwk,
+      jobs:jbase+'?keywords='+enc(skill||t.jobTitle)+'&location='+enc(C)+j24,
+      jobsWk:jbase+'?keywords='+enc(skill||t.jobTitle)+'&location='+enc(C)+jwk,
+      easyApply:jbase+'?keywords='+enc(skill||t.jobTitle)+'&location='+enc(C)+jwk+'&f_AL=true',
+      people:pbase+'?keywords='+enc('recruiter '+(skill||t.jobTitle)+' '+C),
+    };
+  }
+  if(mode==='notice'){
+    const npC=NP.replace(' Days','').trim();
+    const nkw=`"${NP}" ${t.noticePhrase} ${C} hiring`;
+    const nkwB=`"immediate joiner" OR "notice period" ${t.noticePhrase} ${C}`;
+    return{
+      primary:base+'?keywords='+enc(nkw)+dwk,
+      fallback:base+'?keywords='+enc(nkwB)+dwk,
+      jobs:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+j24,
+      jobsWk:jbase+'?keywords='+enc(t.jobTitle+' '+npC+' days notice')+'&location='+enc(C)+jwk,
+      easyApply:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk+'&f_AL=true',
+      people:pbase+'?keywords='+enc('recruiter '+t.noticePhrase+' '+C),
+    };
+  }
+  if(mode==='referral'){
+    const co=company||t.refPhrase;
+    const rkw=`"DM me" OR "referral" ${co} ${C} hiring`;
+    const rkwB=`referral ${co} ${C} "DM"`;
+    return{
+      primary:base+'?keywords='+enc(rkw)+d24,
+      fallback:base+'?keywords='+enc(rkwB)+dwk,
+      jobs:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+j24,
+      jobsWk:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk,
+      easyApply:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk+'&f_AL=true',
+      people:pbase+'?keywords='+enc((company||t.role)+' employee '+C),
+    };
+  }
+  if(mode==='walkin'){
+    const wkw=`"walk-in" OR "walkin" OR "walk in interview" ${t.jobTitle} ${C}`;
+    const wkwB=`"walk in" OR "walkin" ${C} hiring ${t.jobTitle}`;
+    return{
+      primary:base+'?keywords='+enc(wkw)+d24,
+      fallback:base+'?keywords='+enc(wkwB)+dwk,
+      jobs:jbase+'?keywords='+enc('walk in interview '+t.jobTitle)+'&location='+enc(C)+jwk,
+      jobsWk:jbase+'?keywords='+enc(t.jobTitle+' walk in')+'&location='+enc(C)+jwk,
+      easyApply:jbase+'?keywords='+enc(t.jobTitle)+'&location='+enc(C)+jwk+'&f_AL=true',
+      people:pbase+'?keywords='+enc('recruiter walk-in '+t.role+' '+C),
+    };
+  }
+  // fallback
+  return{primary:base+'?keywords='+enc(skill+' '+C+' hiring')+d24};
+}
+
+// ============================================================
+// MODE SWITCHING
 // ============================================================
 function switchMode(mode,btn){
-  if(!isPaidUser && ['hashtag','notice','referral'].includes(mode)){
+  if(!isPaid&&['hashtag','notice','referral','walkin'].includes(mode)){
     showToast('Upgrade to unlock '+mode+' search 🔒','amber');
-    openPayment('30 Days',99);
+    openPay('30 Days',99);
     return;
   }
   document.querySelectorAll('.dc-mode').forEach(b=>b.classList.remove('active'));
@@ -2405,281 +2323,140 @@ function switchMode(mode,btn){
   document.getElementById('ss-'+mode)?.classList.add('active');
   document.getElementById('resultsBox')?.classList.remove('show');
 }
-function toggleH(el){ el.classList.toggle('sel'); }
-function pickNPC(el){ document.querySelectorAll('.np-c').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
+function toggleH(el){el.classList.toggle('sel');}
+function pickNPC(el){document.querySelectorAll('.np-c').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
 
 // ============================================================
 // RUN SEARCH
 // ============================================================
 function runSearch(mode){
-  if(!isPaidUser && previewUsed){ showLockedDashboard(); return; }
-
-  let skill='', city='', np='30 Days', company='', selectedHashtags=[];
-
+  if(!isPaid&&prevUsed){showLockedDash();return;}
+  let skill='',city='',np='30 Days',company='',htags=[];
   if(mode==='skill'){
-    skill   = document.getElementById('sk_skill')?.value.trim()||lastSkill||'';
-    city    = document.getElementById('sk_city')?.value||lastCity||'Hyderabad';
-  } else if(mode==='hashtag'){
-    skill   = document.getElementById('ht_skill')?.value.trim()||lastSkill||'';
-    city    = document.getElementById('ht_city')?.value||lastCity||'Hyderabad';
-    selectedHashtags = [...document.querySelectorAll('.ht-c.sel')].map(el=>el.textContent.trim());
-  } else if(mode==='notice'){
-    skill   = document.getElementById('np_skill')?.value.trim()||lastSkill||'';
-    city    = document.getElementById('np_city')?.value||lastCity||'Hyderabad';
-    np      = document.querySelector('.np-c.sel')?.textContent||'30 Days';
-  } else if(mode==='referral'){
-    skill   = document.getElementById('ref_skill')?.value.trim()||lastSkill||'';
-    city    = document.getElementById('ref_city')?.value||lastCity||'Hyderabad';
-    company = document.getElementById('ref_co')?.value.trim()||'';
+    skill=document.getElementById('sk_skill')?.value.trim()||lastSkill||'';
+    city=document.getElementById('sk_city')?.value||lastCity||'Hyderabad';
+  }else if(mode==='hashtag'){
+    skill=document.getElementById('ht_skill')?.value.trim()||lastSkill||'';
+    city=document.getElementById('ht_city')?.value||lastCity||'Hyderabad';
+    htags=[...document.querySelectorAll('.ht-c.sel')].map(e=>e.textContent.trim());
+  }else if(mode==='notice'){
+    skill=document.getElementById('np_skill')?.value.trim()||lastSkill||'';
+    city=document.getElementById('np_city')?.value||lastCity||'Hyderabad';
+    np=document.querySelector('.np-c.sel')?.textContent||'30 Days';
+  }else if(mode==='referral'){
+    skill=document.getElementById('ref_skill')?.value.trim()||lastSkill||'';
+    city=document.getElementById('ref_city')?.value||lastCity||'Hyderabad';
+    company=document.getElementById('ref_co')?.value.trim()||'';
+  }else if(mode==='walkin'){
+    skill=document.getElementById('wi_skill')?.value.trim()||lastSkill||'';
+    city=document.getElementById('wi_city')?.value||lastCity||'Hyderabad';
   }
-
-  if(!skill){ showToast('Please enter your skill','amber'); return; }
-
-  lastSkill = skill;
-  lastCity  = city;
-
-  // Persist updated skill/city
-  try{
-    const u=gjson(S_USER,{});
-    u.skill=skill; u.city=city;
-    sto(S_USER,u);
-    currentUser.skill=skill; currentUser.city=city;
-  }catch(e){}
-
-  // Build mode-specific URL (no mixing)
-  const urls = buildSearchURL(mode, skill, city, np, selectedHashtags, company);
-
-  // Open primary LinkedIn URL immediately
-  window.open(urls.primary, '_blank');
-
-  // Mark preview used
-  if(!isPaidUser){ previewUsed=true; sto(S_PREVIEW,'1'); }
-  searchesUsed++;
-
-  // Progress animation
-  const load=document.getElementById('sLoad');
-  const fill=document.getElementById('slFill');
-  const lbl =document.getElementById('slLbl');
-  const rbox=document.getElementById('resultsBox');
+  if(!skill){showToast('Enter your skill','amber');return;}
+  lastSkill=skill; lastCity=city;
+  // Update stored user
+  try{const u=gjson(S_USER,{});u.skill=skill;u.city=city;sto(S_USER,u);currentUser.skill=skill;currentUser.city=city;}catch(e){}
+  const urls=buildURL(mode,skill,city,np,htags,company);
+  window.open(urls.primary,'_blank');
+  if(!isPaid){prevUsed=true;sto(S_PREVIEW,'1');}
+  // Progress bar animation
+  const load=document.getElementById('sLoad'),fill=document.getElementById('slFill'),lbl=document.getElementById('slLbl'),rbox=document.getElementById('resultsBox');
   if(!load||!fill||!lbl)return;
   rbox?.classList.remove('show');
   load.classList.add('show');
   fill.style.width='0%';
-
-  const modeLabel = mode==='skill'?'skill':mode==='hashtag'?'hashtag':mode==='notice'?'notice period':'referral';
-  const steps=[
-    [20,'Opening LinkedIn '+modeLabel+' search...'],
-    [45,'Filtering posts for "'+skill+'" in '+city+'...'],
-    [70,'Sorting by newest posts...'],
-    [90,'Preparing result links...'],
-    [100,'Done! ✅']
-  ];
+  const steps=[[20,'Building smart query for "'+skill+'"...'],[45,'Filtering '+city+' results...'],[70,'Sorting by newest...'],[95,'Almost done...'],[100,'Done! ✅']];
   let i=0;
   const iv=setInterval(()=>{
-    if(i<steps.length){ fill.style.width=steps[i][0]+'%'; lbl.textContent=steps[i][1]; i++; }
+    if(i<steps.length){fill.style.width=steps[i][0]+'%';lbl.textContent=steps[i][1];i++;}
     else{
       clearInterval(iv);
       setTimeout(()=>{
         load.classList.remove('show');
-        buildResults(mode, skill, city, urls, np, selectedHashtags, company);
+        buildResults(mode,skill,city,urls,np,htags,company);
         rbox?.classList.add('show');
         rbox?.scrollIntoView({behavior:'smooth',block:'nearest'});
-        if(!isPaidUser) setTimeout(()=>showLockedDashboard(), 12000);
+        if(!isPaid) setTimeout(()=>showLockedDash(),12000);
       },400);
     }
   },250);
 }
 
 // ============================================================
-// BUILD RESULT CARDS
+// BUILD RESULTS
 // ============================================================
-function buildResults(mode, skill, city, urls, np, selectedHashtags, company){
-  const domain = detectDomain(skill);
-  const d = DOMAINS[domain]||DOMAINS.generic;
-  const h = new Date().getHours();
-  const peak = (h>=9&&h<=11)||(h>=18&&h<=20);
-  const btCls = peak ? 'bt-now' : 'bt-good';
-  const btLbl = peak ? '✅ Best time to comment — recruiters likely online now' : '⏰ Good time — comment within 2 hours for best reply rate';
-
-  const rCount = document.getElementById('rCount');
-  const rSub   = document.getElementById('rSub');
-  const list   = document.getElementById('rList');
-  if(!rCount||!rSub||!list) return;
-
-  rCount.textContent = `Smart LinkedIn search built for "${skill}" in ${city}`;
-  rSub.textContent   = 'Real LinkedIn results · Last 24h · Sorted by newest · India only';
-
-  const waText = encodeURIComponent(`📡 Found job signals on JobsSignal.in!\n\nSearching: ${skill} in ${city}\n\nFind your signals free: jobssignal.in`);
-  const waURL  = `https://wa.me/?text=${waText}`;
-
-  const tmplText = `Hi, I am a ${skill} professional in ${city}. I came across your post and would love to explore this opportunity. Currently serving a ${np} notice period. Sharing my CV via DM — looking forward to connecting.`;
-
-  list.innerHTML = `
-    <div class="best-time ${btCls}">${btLbl}</div>
-    <div class="result-tabs">
-      <button type="button" class="rt-tab active" onclick="showTab('posts',this)">📡 Recruiter Posts</button>
-      <button type="button" class="rt-tab" onclick="showTab('jobs',this)">💼 LinkedIn Jobs</button>
-      <button type="button" class="rt-tab" onclick="showTab('people',this)">👤 Find Recruiters</button>
-    </div>
-    <div id="tab-posts">${postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,company)}</div>
-    <div id="tab-jobs" style="display:none;">${jobsTab(skill,city,mode,urls,waURL,np)}</div>
-    <div id="tab-people" style="display:none;">${peopleTab(skill,city,urls)}</div>`;
+function buildResults(mode,skill,city,urls,np,htags,company){
+  const t=getTerms(skill);
+  const h=new Date().getHours();
+  const peak=(h>=9&&h<=11)||(h>=18&&h<=20);
+  const btCls=peak?'bt-now':'bt-good';
+  const btLbl=peak?'✅ Best time — recruiters likely online now':'⏰ Good time — comment within 2 hours for best reply rate';
+  const waText=encodeURIComponent(`📡 Found job signals on JobsSignal.in!\n\nSearching: ${skill} in ${city}\n\nFind signals free: jobssignal.in`);
+  const waURL='https://wa.me/?text='+waText;
+  const safeTmpl=`Hi, I am a ${skill} professional in ${city}. I came across your post and would love to explore this opportunity. Currently on ${np||'30 days'} notice period. Sharing my CV via DM.`.substring(0,200);
+  const rCount=document.getElementById('rCount'),rSub=document.getElementById('rSub'),list=document.getElementById('rList');
+  if(!rCount||!rSub||!list)return;
+  rCount.textContent=`Smart LinkedIn search: "${skill}" in ${city}`;
+  rSub.textContent='Real LinkedIn results · Last 24h · Sorted newest · India only';
+  list.innerHTML=`<div class="best-time ${btCls}">${btLbl}</div><div class="result-tabs"><button type="button" class="rt-tab active" onclick="showTab('posts',this)">📡 Recruiter Posts</button><button type="button" class="rt-tab" onclick="showTab('jobs',this)">💼 LinkedIn Jobs</button><button type="button" class="rt-tab" onclick="showTab('people',this)">👤 Find Recruiters</button></div><div id="tab-posts">${postsTab(mode,skill,city,urls,waURL,safeTmpl,htags,np,company)}</div><div id="tab-jobs" style="display:none;">${jobsTab(skill,city,urls,waURL,t)}</div><div id="tab-people" style="display:none;">${peopleTab(skill,city,urls,t)}</div>`;
 }
-
 function showTab(tab,btn){
-  ['posts','jobs','people'].forEach(t=>{
-    const el=document.getElementById('tab-'+t);
-    if(el) el.style.display=t===tab?'block':'none';
-  });
+  ['posts','jobs','people'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===tab?'block':'none';});
   document.querySelectorAll('.rt-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
 
-function postsTab(skill,city,mode,urls,waURL,tmplText,selectedHashtags,np,company){
-  const terms = getSearchTerms(skill);
-  // Safe template for onclick — no nested calls or special chars
-  const safeTmpl = (tmplText||'Hi, I am a '+skill+' professional in '+city+'. Sharing my CV via DM.').substring(0,200);
-
-  // Pre-compute referral URL (no nested calls inside template literal)
-  const refURLs = buildSearchURL('referral',skill,city,'30 Days',[],company||'');
-  const refPrimary  = refURLs.primary  || urls.primary;
-  const refFallback = refURLs.fallback || urls.fallback || refPrimary;
-  const refMsg = 'Hi! Saw your referral post. I am a '+skill+' professional in '+city+' — would love to connect!';
-
-  let queryLabel = '';
-  let queryDesc  = '';
-  let extraCards = '';
-
-  if(mode === 'skill'){
-    queryLabel = '"'+terms.jobTitle+'" "'+city+'" hiring';
-    queryDesc  = 'Pure skill search · No hashtag mixing · Last 24 hours · Sorted newest';
-    extraCards = `
-      <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Same Skill — Past Week</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe if 24h results are limited</div>
-        <div class="rc-actions">
-          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Posts →</button>
-        </div>
-      </div>
-      <div class="sig-card" style="border-left:4px solid var(--purple);margin-bottom:10px;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;">🤝 Referral Posts for "${skill}"</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">"DM me for referral" · Act within 2 hours</div>
-        <div class="rc-actions">
-          <button type="button" class="rca rca-li" data-url="${refPrimary}" onclick="window.open(this.dataset.url,'_blank')">🔗 Find Referral Posts →</button>
-          <button type="button" class="rca rca-tmpl" data-url="${refPrimary}" data-tmpl="${refMsg}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
-        </div>
-      </div>`;
-  } else if(mode === 'hashtag'){
-    const tags = (selectedHashtags&&selectedHashtags.length>0) ? selectedHashtags : getHashtagsForSkill(skill);
-    queryLabel = tags.join(' ')+' '+city;
-    queryDesc  = 'Hashtag-only search · '+tags.slice(0,3).join(', ')+' · Last 24 hours';
-    extraCards = `
-      <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Hashtag — Past Week</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe if 24h results limited</div>
-        <div class="rc-actions">
-          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Hashtag Posts →</button>
-        </div>
-      </div>`;
-  } else if(mode === 'notice'){
-    queryLabel = '"'+np+'" '+skill+' '+city+' hiring';
-    queryDesc  = 'Notice period specific · "'+np+'" filter · '+city;
-    extraCards = `
-      <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">⏱️ "Immediate Joiner" Posts</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Recruiters asking for immediate or short NP</div>
-        <div class="rc-actions">
-          <button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Immediate Joiner Posts →</button>
-        </div>
-      </div>`;
-  } else if(mode === 'referral'){
-    queryLabel = '"DM me" OR "referral" '+(company||skill)+' '+city+' hiring';
-    queryDesc  = 'Referral posts only · '+city+' · Last 24 hours';
-    extraCards = `
-      <div class="sig-card warm-border" style="margin-bottom:10px;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Referral — Past Week</div>
-        <div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand timeframe for more referral opportunities</div>
-        <div class="rc-actions">
-          <button type="button" class="rca rca-li" data-url="${refFallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Referral Posts →</button>
-          <button type="button" class="rca rca-tmpl" data-url="${refFallback}" data-tmpl="${refMsg}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
-        </div>
-      </div>`;
+// ── Posts tab
+function postsTab(mode,skill,city,urls,waURL,safeTmpl,htags,np,company){
+  const t=getTerms(skill);
+  // Pre-compute referral URLs (no nested calls in onclick)
+  const refU=buildURL('referral',skill,city,'30 Days',[],company||'');
+  const refPrimary=refU.primary;
+  const refMsg=`Hi! I saw your referral post. I am a ${skill} professional in ${city} — would love to connect!`;
+  let ql='',qd='',extra='';
+  if(mode==='skill'){
+    ql=`"${t.jobTitle}" "${city}" hiring`;
+    qd='Pure skill search · No hashtag mixing · Last 24 hours · Sorted newest';
+    extra=`<div class="sig-card warm-border" style="margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Same Skill — Past Week</div><div style="font-size:11px;color:var(--soft);margin-bottom:10px;">Expand if 24h results are limited</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Posts →</button></div></div><div class="sig-card" style="border-left:4px solid var(--purple);margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;">🤝 Referral Posts for "${skill}"</div><div style="font-size:11px;color:var(--soft);margin-bottom:10px;">"DM me for referral" · Act within 2 hours</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${refPrimary}" onclick="window.open(this.dataset.url,'_blank')">🔗 Find Referral Posts →</button><button type="button" class="rca rca-tmpl" data-url="${refPrimary}" data-tmpl="${refMsg}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button></div></div>`;
+  }else if(mode==='hashtag'){
+    const tags=htags&&htags.length>0?htags:['#Hiring'];
+    ql=tags.join(' ')+' '+city;
+    qd='Hashtag-only search · '+tags.slice(0,3).join(', ')+' · Last 24 hours';
+    extra=`<div class="sig-card warm-border" style="margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Hashtag — Past Week</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Posts →</button></div></div>`;
+  }else if(mode==='notice'){
+    ql=`"${np}" ${skill} ${city} hiring`;
+    qd=`Notice period filter · "${np}" only · ${city}`;
+    extra=`<div class="sig-card warm-border" style="margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">⏱️ Immediate Joiner Posts</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Immediate Joiner Posts →</button></div></div>`;
+  }else if(mode==='referral'){
+    ql=`"DM me" OR "referral" ${company||skill} ${city} hiring`;
+    qd='Referral posts only · Last 24 hours · '+city;
+    extra=`<div class="sig-card warm-border" style="margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Referral — Past Week</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Referral Posts →</button></div></div>`;
+  }else if(mode==='walkin'){
+    ql=`"walk-in" OR "walkin" ${skill} ${city}`;
+    qd='Walk-in interview drives · Last 24 hours · '+city;
+    extra=`<div class="sig-card warm-border" style="margin-bottom:10px;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;">📅 Walk-in — Past Week</div><div class="rc-actions"><button type="button" class="rca rca-li" data-url="${urls.fallback}" onclick="window.open(this.dataset.url,'_blank')">🔗 Past Week Walk-in Posts →</button></div></div>`;
   }
-
-  return `
-    <div class="sig-card fresh-border" style="margin-bottom:10px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📡 LinkedIn Posts — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">${queryDesc}</div></div>
-        <div class="fresh-badge fb-hot">🔴 Live</div>
-      </div>
-      <div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--em);">
-        <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY USED</div>
-        <div style="font-size:12px;color:var(--ink);font-family:monospace;line-height:1.6;word-break:break-all;">${queryLabel}</div>
-      </div>
-      <div class="rc-actions">
-        <button type="button" class="rca rca-open" data-url="${urls.primary}" onclick="window.open(this.dataset.url,'_blank')">🔗 View Posts on LinkedIn →</button>
-        <button type="button" class="rca rca-tmpl" data-url="${urls.primary}" data-tmpl="${safeTmpl}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button>
-        <button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 WhatsApp Share</button>
-      </div>
-    </div>
-    ${extraCards}
-    <div style="padding:11px 13px;background:var(--em-pale);border:1px solid rgba(0,200,150,.15);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      📌 <strong>How to use:</strong> Each button opens LinkedIn with a targeted search. Posts sorted newest first. Comment within <strong>1 hour</strong> for best reply rate. <strong>Open + Copy Comment</strong> opens LinkedIn AND copies your comment to clipboard in one click.
-    </div>`;
+  return`<div class="sig-card fresh-border" style="margin-bottom:10px;"><div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">📡 LinkedIn Posts — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">${qd}</div></div><div class="fresh-badge fb-hot">🔴 Live</div></div><div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--em);"><div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY USED</div><div style="font-size:12px;color:var(--ink);font-family:monospace;line-height:1.6;word-break:break-all;">${ql}</div></div><div class="rc-actions"><button type="button" class="rca rca-open" data-url="${urls.primary}" onclick="window.open(this.dataset.url,'_blank')">🔗 View Posts on LinkedIn →</button><button type="button" class="rca rca-tmpl" data-url="${urls.primary}" data-tmpl="${safeTmpl}" onclick="openAndCopy(this.dataset.url,this.dataset.tmpl)">⚡ Open + Copy Comment</button><button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 WhatsApp Share</button></div></div>${extra}<div style="padding:11px 13px;background:var(--em-pale);border:1px solid rgba(0,200,150,.15);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">📌 <strong>How to use:</strong> Click any button to open LinkedIn with your targeted search. Posts sorted newest first. Comment within <strong>1 hour</strong> for the best reply rate. <strong>Open + Copy Comment</strong> opens LinkedIn AND copies your comment to clipboard in one click.</div>`;
 }
 
-function jobsTab(skill,city,mode,urls,waURL,np){
-  const terms = getSearchTerms(skill);
-  return `
-    <div class="job-card" style="margin-bottom:10px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">💼 LinkedIn Job Listings — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">Official job postings · Newest first · ${city}</div></div>
-        <div class="fresh-badge fb-fresh">🟡 24h</div>
-      </div>
-      <div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--blue);">
-        <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY</div>
-        <div style="font-size:12px;color:var(--ink);font-family:monospace;">${terms.jobTitle} · ${city} · Last 24h</div>
-      </div>
-      <div class="rc-actions">
-        <button type="button" class="rca" style="background:var(--blue);color:white;" data-url="${urls.jobs}" onclick="window.open(this.dataset.url,'_blank')">💼 View Jobs (24h) →</button>
-        <button type="button" class="rca" style="background:#1a3a6b;color:white;" data-url="${urls.jobsWeek}" onclick="window.open(this.dataset.url,'_blank')">📅 View Jobs (This Week)</button>
-        <button type="button" class="rca" style="background:#0a5c36;color:white;" data-url="${urls.easyApply}" onclick="window.open(this.dataset.url,'_blank')">⚡ Easy Apply Only</button>
-        <button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 Share</button>
-      </div>
-    </div>
-    <div style="padding:11px 13px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      💡 <strong>Pro tip:</strong> Job listings appear 6–8 hours <em>after</em> recruiters post on LinkedIn. Check <strong>Recruiter Posts</strong> tab first — those signals are hours earlier than any listing!
-    </div>`;
+// ── Jobs tab
+function jobsTab(skill,city,urls,waURL,t){
+  return`<div class="job-card" style="margin-bottom:10px;"><div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">💼 LinkedIn Job Listings — Last 24 Hours</div><div style="font-size:11px;color:var(--soft);">Official job postings · Newest first · ${city}</div></div><div class="fresh-badge fb-fresh">🟡 24h</div></div><div style="background:var(--off);border-radius:var(--r3);padding:10px 12px;margin-bottom:10px;border-left:3px solid var(--blue);"><div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;">SEARCH QUERY</div><div style="font-size:12px;color:var(--ink);font-family:monospace;">${t.jobTitle} · ${city} · Last 24h</div></div><div class="rc-actions"><button type="button" class="rca" style="background:var(--blue);color:white;" data-url="${urls.jobs}" onclick="window.open(this.dataset.url,'_blank')">💼 View Jobs (24h) →</button><button type="button" class="rca" style="background:#1a3a6b;color:white;" data-url="${urls.jobsWk}" onclick="window.open(this.dataset.url,'_blank')">📅 This Week</button><button type="button" class="rca" style="background:#0a5c36;color:white;" data-url="${urls.easyApply}" onclick="window.open(this.dataset.url,'_blank')">⚡ Easy Apply Only</button><button type="button" class="rca rca-wa" data-url="${waURL}" onclick="window.open(this.dataset.url,'_blank')">📱 Share</button></div></div><div style="padding:11px 13px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">💡 <strong>Pro tip:</strong> Job listings appear 6–8 hours <em>after</em> recruiters post. Check <strong>Recruiter Posts</strong> tab first — those signals are hours earlier!</div>`;
 }
 
-function peopleTab(skill,city,mode,urls){
-  const terms = getSearchTerms(skill);
-  const companyURL = 'https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(skill+' '+city);
-  return `
-    <div class="sig-card" style="margin-bottom:10px;">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-        <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">👤 Find ${terms.role} Recruiters in ${city}</div><div style="font-size:11px;color:var(--soft);">Connect with active recruiters before they post a role</div></div>
-      </div>
-      <div class="rc-actions">
-        <button type="button" class="rca" style="background:var(--purple);color:white;" data-url="${urls.people}" onclick="window.open(this.dataset.url,'_blank')">👤 Find Recruiters →</button>
-        <button type="button" class="rca" style="background:#2d1b69;color:white;" data-url="${companyURL}" onclick="window.open(this.dataset.url,'_blank')">🏢 Find Companies Hiring</button>
-      </div>
-    </div>
-    <div style="padding:11px 13px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">
-      💡 <strong>Strategy:</strong> Connect with recruiters <em>before</em> they post a role. Message: <em>"Hi, I am a ${skill} professional in ${city}. Would love to connect for future opportunities."</em>
-    </div>`;
+// ── People tab
+function peopleTab(skill,city,urls,t){
+  const coURL='https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(skill+' '+city);
+  return`<div class="sig-card" style="margin-bottom:10px;"><div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">👤 Find ${t.role} Recruiters in ${city}</div><div style="font-size:11px;color:var(--soft);">Connect before they post a role — highest success rate strategy</div></div></div><div class="rc-actions"><button type="button" class="rca" style="background:var(--purple);color:white;" data-url="${urls.people}" onclick="window.open(this.dataset.url,'_blank')">👤 Find Recruiters →</button><button type="button" class="rca" style="background:#2d1b69;color:white;" data-url="${coURL}" onclick="window.open(this.dataset.url,'_blank')">🏢 Find Companies Hiring</button></div></div><div style="padding:11px 13px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);border-radius:var(--r3);font-size:12px;color:var(--soft);line-height:1.7;">💡 <strong>Strategy:</strong> Connect with recruiters <em>before</em> they post. Message: <em>"Hi, I am a ${skill} professional in ${city}. Would love to connect for future opportunities."</em></div>`;
 }
 
 // ============================================================
 // OPEN + COPY
 // ============================================================
-function openAndCopy(url, template){
-  window.open(url, '_blank');
-  navigator.clipboard.writeText(template).then(()=>{
+function openAndCopy(url,tmpl){
+  window.open(url,'_blank');
+  navigator.clipboard.writeText(tmpl).then(()=>{
     showToast('✅ LinkedIn opened + Comment copied! Just paste on the post 🚀','green');
-  }).catch(()=>{
-    showToast('LinkedIn opened! Use Comment Template button to copy','amber');
-  });
+  }).catch(()=>showToast('LinkedIn opened! Use Comment Template to copy','amber'));
 }
 
 // ============================================================
@@ -2687,7 +2464,7 @@ function openAndCopy(url, template){
 // ============================================================
 function addCompany(){
   const r=document.getElementById('addCoRow');
-  if(!r) return;
+  if(!r)return;
   r.style.display=r.style.display==='none'?'block':'none';
   if(r.style.display==='block') document.getElementById('newCoIn')?.focus();
 }
@@ -2695,6 +2472,10 @@ function saveCompany(){
   const input=document.getElementById('newCoIn');
   const val=input?.value.trim();
   if(!val){showToast('Enter a company name','amber');return;}
+  // Save to localStorage
+  const watches=gjson(S_WATCH,[]);
+  watches.push({name:val,added:new Date().toISOString()});
+  sto(S_WATCH,watches);
   const cols=['var(--night)','var(--blue)','var(--em)','var(--gold)','var(--purple)'];
   const col=cols[Math.floor(Math.random()*cols.length)];
   const div=document.createElement('div');
@@ -2707,118 +2488,33 @@ function saveCompany(){
 }
 
 // ============================================================
-// PAYMENT
-// ============================================================
-function openPayment(planName, amount){
-  selectedPlan={name:planName,amount};
-  setEl('pmPlanName', planName);
-  setEl('pmAmount', amount);
-  setEl('payBtnAmt', amount);
-  setEl('pmDuration', 'Full access · '+planName+' · All features');
-  const pmPayBody=document.getElementById('pmPayBody');
-  const paySuccess=document.getElementById('paymentSuccess');
-  if(pmPayBody) pmPayBody.style.display='block';
-  if(paySuccess) paySuccess.classList.remove('show');
-  document.getElementById('paymentModal')?.classList.add('open');
-}
-
-function processPayment(){
-  const btn=document.querySelector('.btn-pay');
-  if(btn){btn.innerHTML='⏳ Opening Razorpay...';btn.disabled=true;}
-  const options={
-    key: RAZORPAY_KEY,
-    amount: selectedPlan.amount*100,
-    currency: 'INR',
-    name: BUSINESS_NAME,
-    description: selectedPlan.name+' Plan',
-    image: BUSINESS_LOGO,
-    notes:{plan:selectedPlan.name, user:currentUser.name||'', city:lastCity, skill:lastSkill},
-    handler: function(r){ onPaymentSuccess(r.razorpay_payment_id); },
-    prefill:{name:currentUser.name||'',email:currentUser.email||'',contact:currentUser.phone||''},
-    theme:{color:'#00c896'},
-    modal:{
-      backdropclose:false, escape:false,
-      ondismiss:function(){
-        if(btn){btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';btn.disabled=false;}
-        showToast('Payment cancelled','amber');
-      }
-    }
-  };
-  if(typeof Razorpay!=='undefined'){
-    const rzp=new Razorpay(options);
-    rzp.on('payment.failed',function(resp){
-      showToast('Payment failed: '+resp.error.description,'red');
-      if(btn){btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';btn.disabled=false;}
-    });
-    rzp.open();
-  } else {
-    // Demo simulation
-    setTimeout(()=>{
-      onPaymentSuccess('demo_'+Date.now());
-      if(btn){btn.innerHTML='🔒 Pay ₹'+selectedPlan.amount+' Securely →';btn.disabled=false;}
-    },1500);
-  }
-}
-
-function onPaymentSuccess(paymentId){
-  isPaidUser  = true;
-  previewUsed = true;
-  const now = new Date().toISOString();
-  const days= selectedPlan.name.includes('7')?7:selectedPlan.name.includes('30')?30:selectedPlan.name.includes('60')?60:365;
-  const exp = new Date(); exp.setDate(exp.getDate()+days);
-  const activation={plan:selectedPlan.name,amount:selectedPlan.amount,paymentId,activatedAt:now,expiresAt:exp.toISOString()};
-  sto(S_PLAN, activation);
-  // Log payment
-  try{
-    const log=gjson(S_PAY,[]);
-    log.unshift({id:log.length+1,user:currentUser.name||'Unknown',phone:currentUser.phone||'',email:currentUser.email||'',plan:selectedPlan.name,amount:selectedPlan.amount,paymentId,paidAt:now,status:'Success'});
-    sto(S_PAY, log);
-  }catch(e){}
-  // Update UI
-  const pmPayBody=document.getElementById('pmPayBody');
-  const paySuccess=document.getElementById('paymentSuccess');
-  if(pmPayBody) pmPayBody.style.display='none';
-  if(paySuccess) paySuccess.classList.add('show');
-  setEl('psplan', selectedPlan.name);
-  setEl('dPlan', selectedPlan.name+' Plan · Active ✅');
-  showPaidDashboard();
-  showToast('✅ Payment successful! All features unlocked.','green');
-}
-
-function afterPayment(){
-  closeModal('paymentModal');
-  showToast('Plan activated! Start searching unlimited signals 🎉','green');
-}
-
-// ============================================================
 // COMMENT TEMPLATES
 // ============================================================
 const TMPLS={
-  professional:(skill,np,city)=>`Hi, I am a ${skill} professional based in ${city} with relevant experience. I am currently serving a ${np} notice period. I came across your recent post and would love to explore this opportunity further. I have shared my CV via DM — looking forward to connecting.`,
-  friendly:(skill,np,city)=>`Hey! I saw your post and I'm really excited about this. I'm a ${skill} professional in ${city} with ${np} NP — would love to connect! Sending my CV on DM 😊`,
-  short:(skill,np,city)=>`Hi, ${skill} · ${city} · ${np} NP · CV in DM. Let's connect! 🙌`
+  professional:(sk,np,ci)=>`Hi, I am a ${sk} professional based in ${ci} with relevant experience. I am currently on a ${np} notice period. I came across your post and would love to explore this opportunity. Sharing my CV via DM.`,
+  friendly:(sk,np,ci)=>`Hey! Saw your post and I'm really excited. I'm a ${sk} professional in ${ci} with ${np} NP — would love to connect! Sending CV on DM 😊`,
+  short:(sk,np,ci)=>`Hi, ${sk} · ${ci} · ${np} NP · CV in DM. Let's connect! 🙌`
 };
-let activeTmplMode='professional';
+let tmplMode='professional';
 
-function openTmplGeneral(){
-  const skill = lastSkill||currentUser.skill||'Professional';
-  const np    = document.querySelector('.np-c.sel')?.textContent||'30 Days';
-  const city  = lastCity||currentUser.city||'Hyderabad';
-  activeTmplData={skill,np,city};
-  activeTmplMode='professional';
+function openTmpl(){
+  const sk=lastSkill||currentUser.skill||'Professional';
+  const np=document.querySelector('.np-c.sel')?.textContent||'30 Days';
+  const ci=lastCity||currentUser.city||'Hyderabad';
+  tmplData={sk,np,ci};
+  tmplMode='professional';
   document.querySelectorAll('.tc-tab').forEach(t=>t.classList.remove('active'));
   document.querySelector('.tc-tab')?.classList.add('active');
-  const tmplText=document.getElementById('tmplText');
-  if(tmplText) tmplText.textContent=TMPLS.professional(skill,np,city);
+  const te=document.getElementById('tmplText');
+  if(te) te.textContent=TMPLS.professional(sk,np,ci);
   document.getElementById('tmplOverlay')?.classList.add('open');
 }
 function switchTmpl(btn,type){
   document.querySelectorAll('.tc-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  activeTmplMode=type;
-  const t=activeTmplData;
-  const tmplText=document.getElementById('tmplText');
-  if(tmplText) tmplText.textContent=TMPLS[type](t.skill,t.np,t.city);
+  tmplMode=type;
+  const te=document.getElementById('tmplText');
+  if(te) te.textContent=TMPLS[type](tmplData.sk,tmplData.np,tmplData.ci);
 }
 function copyTemplate(){
   const text=document.getElementById('tmplText')?.textContent;
@@ -2835,21 +2531,76 @@ function makeEditable(){
   const e=el.contentEditable!=='true';
   el.contentEditable=e?'true':'false';
   el.style.outline=e?'2px solid var(--em)':'none';
-  if(e){el.focus();showToast('Now editable — customise then copy','amber');}
+  if(e){el.focus();showToast('Now editable','amber');}
 }
+
+// ============================================================
+// PAYMENT
+// ============================================================
+function openPay(name,amount){
+  selPlan={name,amount};
+  setEl('pmPlanName',name);
+  setEl('pmAmount',amount);
+  setEl('payBtnAmt',amount);
+  setEl('pmDuration','Full access · '+name+' · All features');
+  const pb=document.getElementById('pmPayBody'),ps=document.getElementById('paymentSuccess');
+  if(pb) pb.style.display='block';
+  if(ps) ps.classList.remove('show');
+  document.getElementById('paymentModal')?.classList.add('open');
+}
+
+function processPayment(){
+  const btn=document.querySelector('.btn-pay');
+  if(btn){btn.innerHTML='⏳ Opening Razorpay...';btn.disabled=true;}
+  const opts={
+    key:RZP_KEY,amount:selPlan.amount*100,currency:'INR',
+    name:BIZ_NAME,description:selPlan.name+' Plan',
+    notes:{plan:selPlan.name,user:currentUser.name||'',city:lastCity,skill:lastSkill},
+    handler:(r)=>onPayOk(r.razorpay_payment_id),
+    prefill:{name:currentUser.name||'',email:currentUser.email||'',contact:currentUser.phone||''},
+    theme:{color:'#00c896'},
+    modal:{backdropclose:false,escape:false,ondismiss:()=>{
+      if(btn){btn.innerHTML='🔒 Pay ₹'+selPlan.amount+' Securely →';btn.disabled=false;}
+      showToast('Payment cancelled','amber');
+    }}
+  };
+  if(typeof Razorpay!=='undefined'){
+    const rzp=new Razorpay(opts);
+    rzp.on('payment.failed',(r)=>{showToast('Payment failed: '+r.error.description,'red');if(btn){btn.innerHTML='🔒 Pay ₹'+selPlan.amount+' Securely →';btn.disabled=false;}});
+    rzp.open();
+  }else{
+    setTimeout(()=>{onPayOk('demo_'+Date.now());if(btn){btn.innerHTML='🔒 Pay ₹'+selPlan.amount+' Securely →';btn.disabled=false;}},1500);
+  }
+}
+
+function onPayOk(pid){
+  isPaid=true;prevUsed=true;
+  const now=new Date().toISOString();
+  const days=selPlan.name.includes('7')?7:selPlan.name.includes('30')?30:selPlan.name.includes('60')?60:365;
+  const exp=new Date();exp.setDate(exp.getDate()+days);
+  const act={plan:selPlan.name,amount:selPlan.amount,paymentId:pid,activatedAt:now,expiresAt:exp.toISOString()};
+  sto(S_PLAN,act);
+  try{const log=gjson(S_PAY,[]);log.unshift({id:log.length+1,user:currentUser.name||'',phone:currentUser.phone||'',email:currentUser.email||'',plan:selPlan.name,amount:selPlan.amount,paymentId:pid,paidAt:now,status:'Success'});sto(S_PAY,log);}catch(e){}
+  const pb=document.getElementById('pmPayBody'),ps=document.getElementById('paymentSuccess');
+  if(pb) pb.style.display='none';
+  if(ps) ps.classList.add('show');
+  setEl('psplan',selPlan.name);
+  setEl('dPlan',selPlan.name+' Plan · Active ✅');
+  showPaidDash();
+  showToast('✅ Payment successful! All features unlocked.','green');
+}
+function afterPayment(){closeModal('paymentModal');showToast('Plan activated! Start searching now 🎉','green');}
 
 // ============================================================
 // ADMIN
 // ============================================================
 const DB=[
-  {id:1,name:'Kiran Manepalli',phone:'98765 43210',email:'kiran@gmail.com',city:'Hyderabad',role:'Talent Acquisition',skills:['LinkedIn Sourcing','Talent Acquisition','LinkedIn Recruiter','People Management','Campus Hiring','Leadership Hiring'],exp:'16+ Years',score:88,plan:'free',joined:'01 Apr 2025',linkedin:'linkedin.com/in/mkk0315/'},
+  {id:1,name:'Kiran Manepalli',phone:'98765 43210',email:'kiran@gmail.com',city:'Hyderabad',role:'Talent Acquisition',skills:['LinkedIn Sourcing','Talent Acquisition','Campus Hiring','Leadership Hiring','LinkedIn Recruiter','HRBP'],exp:'16+ Years',score:88,plan:'free',joined:'01 Apr 2025',linkedin:'linkedin.com/in/mkk0315/'},
   {id:2,name:'Riya Desai',phone:'91234 56789',email:'riya@gmail.com',city:'Bengaluru',role:'Software Developer',skills:['React','TypeScript','Node.js','AWS'],exp:'4 Years',score:76,plan:'paid',joined:'28 Mar 2025',linkedin:''},
   {id:3,name:'Arjun Mehta',phone:'97654 32109',email:'arjun@gmail.com',city:'Mumbai',role:'Product Manager',skills:['Product Strategy','Agile','User Research'],exp:'6 Years',score:81,plan:'paid',joined:'25 Mar 2025',linkedin:''},
   {id:4,name:'Priya Krishnan',phone:'99887 76655',email:'priya@gmail.com',city:'Pune',role:'Data Scientist',skills:['Python','ML','TensorFlow','SQL'],exp:'3 Years',score:72,plan:'free',joined:'22 Mar 2025',linkedin:''},
   {id:5,name:'Siddharth Rao',phone:'90001 23456',email:'sid@gmail.com',city:'Delhi NCR',role:'Software Developer',skills:['Java','Spring Boot','Docker'],exp:'7 Years',score:85,plan:'paid',joined:'20 Mar 2025',linkedin:''},
   {id:6,name:'Neha Sharma',phone:'88991 23456',email:'neha@gmail.com',city:'Hyderabad',role:'Talent Acquisition',skills:['Recruitment','LinkedIn','Campus Hiring'],exp:'5 Years',score:68,plan:'free',joined:'18 Mar 2025',linkedin:''},
-  {id:7,name:'Vikram Nair',phone:'77665 54321',email:'vikram@gmail.com',city:'Chennai',role:'Software Developer',skills:['Python','Django','PostgreSQL'],exp:'5 Years',score:79,plan:'paid',joined:'15 Mar 2025',linkedin:''},
-  {id:8,name:'Ananya Roy',phone:'66554 43210',email:'ananya@gmail.com',city:'Kolkata',role:'Product Manager',skills:['Product Design','Figma','User Research'],exp:'4 Years',score:74,plan:'free',joined:'12 Mar 2025',linkedin:''},
 ];
 
 function doAdminLogin(){
@@ -2860,31 +2611,20 @@ function doAdminLogin(){
   else showToast('Invalid credentials','red');
 }
 function switchAdminTab(tab){
-  const tp=document.getElementById('tabProfiles');
-  const tm=document.getElementById('tabPayments');
-  const sp=document.getElementById('adminProfiles');
-  const sm=document.getElementById('adminPayments');
-  if(tab==='profiles'){
-    if(tp){tp.style.background='var(--gold)';tp.style.color='var(--night)';}
-    if(tm){tm.style.background='transparent';tm.style.color='rgba(255,255,255,.4)';}
-    if(sp) sp.style.display='block'; if(sm) sm.style.display='none';
-  } else {
-    if(tm){tm.style.background='var(--gold)';tm.style.color='var(--night)';}
-    if(tp){tp.style.background='transparent';tp.style.color='rgba(255,255,255,.4)';}
-    if(sp) sp.style.display='none'; if(sm) sm.style.display='block';
-    renderPaymentsTable();
-  }
+  const tp=document.getElementById('tabProfiles'),tm=document.getElementById('tabPayments');
+  const sp=document.getElementById('adminProfiles'),sm=document.getElementById('adminPayments');
+  if(tab==='profiles'){if(tp){tp.style.background='var(--gold)';tp.style.color='var(--night)';}if(tm){tm.style.background='transparent';tm.style.color='rgba(255,255,255,.4)';}if(sp)sp.style.display='block';if(sm)sm.style.display='none';}
+  else{if(tm){tm.style.background='var(--gold)';tm.style.color='var(--night)';}if(tp){tp.style.background='transparent';tp.style.color='rgba(255,255,255,.4)';}if(sp)sp.style.display='none';if(sm)sm.style.display='block';renderPaymentsTable();}
 }
 function renderAdminTable(data){
-  const tbody=document.getElementById('adminTableBody');
-  const cnt=document.getElementById('tableCount');
+  const tbody=document.getElementById('adminTableBody'),cnt=document.getElementById('tableCount');
   if(!tbody)return;
   if(cnt) cnt.textContent='Showing '+data.length+' profiles';
   tbody.innerHTML='';
   data.forEach(u=>{
     const sc=u.score>=80?'var(--em)':u.score>=65?'var(--gold)':'var(--coral)';
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="color:rgba(255,255,255,.25);font-size:11px;">${u.id}</td><td><div class="td-name">${u.name}</div><div style="font-size:10px;color:rgba(255,255,255,.25);">${u.linkedin||'—'}</div></td><td><div>${u.phone}</div><div style="font-size:10px;color:rgba(255,255,255,.3);">${u.email}</div></td><td>${u.city}</td><td style="color:var(--blue);font-weight:600;">${u.role}</td><td><div class="td-skills">${u.skills.slice(0,3).map(s=>`<span class="td-skill">${s}</span>`).join('')}${u.skills.length>3?`<span class="td-skill">+${u.skills.length-3}</span>`:''}</div></td><td>${u.exp}</td><td><div class="td-score" style="color:${sc};">${u.score}<span style="font-size:10px;color:rgba(255,255,255,.25);font-weight:400;">/100</span></div></td><td><span class="td-plan ${u.plan==='paid'?'tdp-paid':'tdp-free'}">${u.plan==='paid'?'✅ Paid':'Free'}</span></td><td style="font-size:10px;color:rgba(255,255,255,.3);">${u.joined}</td><td><div class="td-actions"><button type="button" class="btn-view" onclick="viewProfile(${u.id})">👁 View</button><button type="button" class="btn-dl" onclick="dlProfile(${u.id})">📥 CSV</button><button type="button" class="btn-del" onclick="delUser(${u.id})">🗑</button></div></td>`;
+    tr.innerHTML=`<td style="color:rgba(255,255,255,.25);font-size:11px;">${u.id}</td><td><div class="td-name">${u.name}</div><div style="font-size:10px;color:rgba(255,255,255,.25);">${u.linkedin||'—'}</div></td><td><div>${u.phone}</div><div style="font-size:10px;color:rgba(255,255,255,.3);">${u.email}</div></td><td>${u.city}</td><td style="color:var(--blue);font-weight:600;">${u.role}</td><td><div class="td-skills">${u.skills.slice(0,3).map(s=>`<span class="td-skill">${s}</span>`).join('')}${u.skills.length>3?`<span class="td-skill">+${u.skills.length-3}</span>`:''}</div></td><td>${u.exp}</td><td><div class="td-score" style="color:${sc};">${u.score}<span style="font-size:10px;color:rgba(255,255,255,.25);">/100</span></div></td><td><span class="td-plan ${u.plan==='paid'?'tdp-paid':'tdp-free'}">${u.plan==='paid'?'✅ Paid':'Free'}</span></td><td style="font-size:10px;color:rgba(255,255,255,.3);">${u.joined}</td><td><div class="td-actions"><button type="button" class="btn-view" onclick="viewProfile(${u.id})">👁 View</button><button type="button" class="btn-dl" onclick="dlProfile(${u.id})">📥</button><button type="button" class="btn-del" onclick="delUser(${u.id})">🗑</button></div></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -2898,48 +2638,36 @@ function filterTable(){
     return ms&&(!p||u.plan===p)&&(!c||u.city===c)&&(!r||u.role===r);
   }));
 }
-// currentProfileData declared at top
 function viewProfile(id){
-  const u=DB.find(d=>d.id===id);
-  if(!u)return;
-  currentProfileData=u;
+  const u=DB.find(d=>d.id===id);if(!u)return;
+  profData=u;
   setEl('pmAv',u.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase());
-  setEl('pmName',u.name);
-  setEl('pmRole',u.role+' · '+u.city+' · '+u.exp);
+  setEl('pmName',u.name);setEl('pmRole',u.role+' · '+u.city+' · '+u.exp);
   const pc=document.getElementById('pmContact');
   if(pc) pc.innerHTML=`<div class="pmo-field"><div class="pmo-fl">Mobile</div><div class="pmo-fv">${u.phone}</div></div><div class="pmo-field"><div class="pmo-fl">Email</div><div class="pmo-fv">${u.email}</div></div><div class="pmo-field"><div class="pmo-fl">City</div><div class="pmo-fv">${u.city}</div></div><div class="pmo-field"><div class="pmo-fl">Plan</div><div class="pmo-fv">${u.plan==='paid'?'✅ Paid':'Free'}</div></div><div class="pmo-field"><div class="pmo-fl">Score</div><div class="pmo-fv" style="color:var(--em);">${u.score}/100</div></div><div class="pmo-field"><div class="pmo-fl">Joined</div><div class="pmo-fv">${u.joined}</div></div>`;
   const ps=document.getElementById('pmSkills');
   if(ps) ps.innerHTML=u.skills.map(s=>`<span class="pmo-skill">${s}</span>`).join('');
   document.getElementById('profileModal')?.classList.add('open');
 }
-function downloadProfile(){ if(currentProfileData) dlProfile(currentProfileData.id); }
+function downloadProfile(){if(profData)dlProfile(profData.id);}
 function dlProfile(id){
-  const u=DB.find(d=>d.id===id);
-  if(!u)return;
+  const u=DB.find(d=>d.id===id);if(!u)return;
   const csv=`Name,Phone,Email,City,Role,Skills,Experience,Score,Plan,LinkedIn,Joined\n"${u.name}","${u.phone}","${u.email}","${u.city}","${u.role}","${u.skills.join('; ')}","${u.exp}","${u.score}/100","${u.plan}","${u.linkedin||''}","${u.joined}"`;
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),download:u.name.replace(/ /g,'_')+'_JS.csv'});
-  a.click();
-  showToast('Downloaded: '+u.name,'green');
+  a.click();showToast('Downloaded: '+u.name,'green');
 }
 function exportAllCSV(){
   const h='ID,Name,Phone,Email,City,Role,Skills,Experience,Score,Plan,LinkedIn,Joined\n';
   const r=DB.map(u=>`"${u.id}","${u.name}","${u.phone}","${u.email}","${u.city}","${u.role}","${u.skills.join('; ')}","${u.exp}","${u.score}/100","${u.plan}","${u.linkedin||''}","${u.joined}"`).join('\n');
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([h+r],{type:'text/csv'})),download:'JobsSignal_Profiles_'+new Date().toISOString().split('T')[0]+'.csv'});
-  a.click();
-  showToast('All '+DB.length+' profiles exported!','green');
+  a.click();showToast('All '+DB.length+' profiles exported!','green');
 }
 function delUser(id){
-  if(confirm('Delete this profile permanently?')){
-    const i=DB.findIndex(d=>d.id===id);
-    if(i>-1){DB.splice(i,1);filterTable();showToast('Profile deleted','red');}
-  }
+  if(confirm('Delete this profile permanently?')){const i=DB.findIndex(d=>d.id===id);if(i>-1){DB.splice(i,1);filterTable();showToast('Profile deleted','red');}}
 }
 function renderPaymentsTable(){
-  let payments=[];
-  try{payments=gjson(S_PAY,[]);}catch(e){}
-  const tbody=document.getElementById('paymentsTableBody');
-  const noMsg=document.getElementById('noPayments');
-  const cnt=document.getElementById('payTableCount');
+  let payments=[];try{payments=gjson(S_PAY,[]);}catch(e){}
+  const tbody=document.getElementById('paymentsTableBody'),noMsg=document.getElementById('noPayments'),cnt=document.getElementById('payTableCount');
   if(cnt) cnt.textContent=payments.length+' transactions';
   const total=payments.reduce((s,p)=>s+p.amount,0);
   const sm=document.getElementById('paymentSummary');
@@ -2949,22 +2677,19 @@ function renderPaymentsTable(){
   if(noMsg) noMsg.style.display='none';
   tbody.innerHTML='';
   payments.forEach((p,i)=>{
-    const d=new Date(p.paidAt);
-    const ds=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    const d=new Date(p.paidAt),ds=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
     const tr=document.createElement('tr');
     tr.innerHTML=`<td style="color:rgba(255,255,255,.25);font-size:11px;">${i+1}</td><td><div style="font-weight:700;color:white;">${p.user||'?'}</div></td><td><div style="font-size:11px;">${p.phone||'—'}</div><div style="font-size:10px;color:rgba(255,255,255,.3);">${p.email||'—'}</div></td><td><span style="background:rgba(0,200,150,.12);color:var(--em);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;">${p.plan}</span></td><td style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);">₹${p.amount}</td><td style="font-size:10px;color:rgba(255,255,255,.4);">${p.paymentId||'—'}</td><td><span style="background:rgba(0,200,150,.1);color:var(--em);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">✅ ${p.status||'Success'}</span></td><td style="font-size:11px;color:rgba(255,255,255,.35);">${ds}</td>`;
     tbody.appendChild(tr);
   });
 }
 function exportPaymentsCSV(){
-  let payments=[];
-  try{payments=gjson(S_PAY,[]);}catch(e){}
+  let payments=[];try{payments=gjson(S_PAY,[]);}catch(e){}
   if(!payments.length){showToast('No payments yet','amber');return;}
   const h='No,User,Phone,Email,Plan,Amount,Payment ID,Status,Paid At\n';
   const r=payments.map((p,i)=>`"${i+1}","${p.user||''}","${p.phone||''}","${p.email||''}","${p.plan}","₹${p.amount}","${p.paymentId||''}","${p.status||'Success'}","${new Date(p.paidAt).toLocaleString('en-IN')}"`).join('\n');
-  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([h+r],{type:'text/csv'})),download:'JobsSignal_Payments_'+new Date().toISOString().split('T')[0]+'.csv'});
-  a.click();
-  showToast('Payments exported!','green');
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([h+r],{type:'text/csv'})),download:'Payments_'+new Date().toISOString().split('T')[0]+'.csv'});
+  a.click();showToast('Payments exported!','green');
 }
 
 // ============================================================
@@ -2977,9 +2702,7 @@ document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
 // TOAST
 // ============================================================
 function showToast(msg,type){
-  const el=document.getElementById('toastEl');
-  const ic=document.getElementById('toastIcon');
-  const mg=document.getElementById('toastMsg');
+  const el=document.getElementById('toastEl'),ic=document.getElementById('toastIcon'),mg=document.getElementById('toastMsg');
   if(!el||!ic||!mg)return;
   el.className='toast show';
   if(type==='red'){el.style.borderLeftColor='var(--coral)';ic.textContent='🚨';}
@@ -2992,23 +2715,22 @@ function showToast(msg,type){
 // ============================================================
 // MODAL BACKDROPS
 // ============================================================
-['tmplOverlay','resumeUploadModal','paymentModal','profileModal'].forEach(id=>{
+['tmplOverlay','paymentModal','profileModal'].forEach(id=>{
   document.getElementById(id)?.addEventListener('click',function(e){if(e.target===this)closeModal(id);});
 });
 
 // ============================================================
-// INIT — runs on every page load
+// INIT — runs on every page load including refresh
 // ============================================================
 document.addEventListener('DOMContentLoaded',()=>{
-  const restored = restoreSession();
-  // If no session found, make sure we are on landing
+  const restored=restoreSession();
   if(!restored){
-    const current = document.querySelector('.view.active')?.id;
-    if(current && current!=='landingView') goTo('landingView');
+    // No session — ensure landing page is shown
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    const lv=document.getElementById('landingView');
+    if(lv) lv.classList.add('active');
   }
 });
-
-
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
