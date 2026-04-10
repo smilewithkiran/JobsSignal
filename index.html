@@ -1146,6 +1146,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
   .logo-tag{display:none !important;}
   .sc-badge-txt{display:none;}
   .india-tag{display:none !important;}
+  .dash-plan-badge{display:none !important;}
+  .dash-btn-pass{display:none !important;}
+  .du-name-wrap .du-plan{font-size:9px;}
 
   /* DASHBOARD */
   .dash-page{padding:60px 12px 40px;}
@@ -1220,7 +1223,19 @@ tr:hover td{background:rgba(255,255,255,.02);}
   .ssw-stat-n{font-size:18px;}
   .aw-missed{flex-wrap:wrap;}
   .proof-row{grid-template-columns:1fr 1fr;}
+  .sticky-search-fab{display:flex !important;}
 }
+
+/* ── STICKY SEARCH FAB ─────────────────────── */
+.sticky-search-fab{position:fixed;bottom:20px;right:16px;z-index:400;display:none;align-items:center;gap:8px;background:var(--em);color:var(--night);padding:11px 18px;border-radius:30px;font-size:13px;font-weight:800;border:none;box-shadow:0 4px 20px rgba(0,200,150,.35);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+.sticky-search-fab:hover{background:var(--em2);transform:scale(1.04);}
+
+/* ── HOME CTA ROW ──────────────────────────── */
+.home-cta-row{display:flex;gap:10px;margin-top:16px;}
+
+/* ── ADMIN SEARCHES TAB ────────────────────── */
+.admin-mode-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:6px;}
+
 </style>
 </head>
 <body>
@@ -1252,12 +1267,11 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <select class="hb-city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select>
       <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals →</button>
     </div>
-    <div class="home-free-note">
-      <div class="hfn-icon">🎁</div>
-      <div class="hfn-text"><strong>New here?</strong> Try JobsSignal free — 1 signal preview, no card needed. See live recruiter posts instantly.</div>
-      <button type="button" class="hfn-btn" onclick="goTo('signupView')">Sign Up Free →</button>
+    <div class="home-cta-row">
+      <button type="button" class="hb-btn" style="flex:1;padding:13px 16px;" onclick="goTo('signupView')">🎁 Sign Up Free — 1 Preview →</button>
+      <button type="button" class="btn-nav-login" style="padding:13px 16px;border-radius:var(--r3);border:1px solid var(--bn);color:rgba(255,255,255,.6);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;" onclick="goTo('loginView')">Log In</button>
     </div>
-    <div class="li-already" style="margin-top:10px;">Already have an account? <a onclick="goTo('loginView')">Log in here →</a></div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:8px;text-align:center;">No card needed · Instant access · India only 🇮🇳</div>
     <div class="hero-trust" style="margin-top:18px;">
       <div class="ht-item"><div class="hn">2,400<span style="color:var(--gold);font-size:13px;">+</span></div><div class="hl">Signals daily</div></div>
       <div class="ht-sep"></div>
@@ -1313,10 +1327,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
 <section class="off-bg" id="pricing"><div class="wrap">
   <div class="reveal" style="text-align:center;"><div class="eyebrow" style="justify-content:center;">Simple Pricing</div><h2 class="sh" style="text-align:center;">One plan. <em>All features. Always.</em></h2><p class="sp" style="text-align:center;max-width:480px;margin:10px auto 0;">Every paid plan = 100% of all features. Only difference is duration.</p></div>
   <div class="pricing-row">
-    <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('7 Days',49)">Start 7 Days →</button></div>
-    <div class="pc feat reveal"><div class="feat-tag">MOST POPULAR</div><div class="pc-duration">30</div><div class="pc-plan">Days · Active Search</div><div class="pc-price"><small>₹</small>99</div><div class="pc-per">₹3.3 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li></ul><button type="button" class="pc-btn pcb-em" onclick="openPay('30 Days',99)">Start 30 Days →</button></div>
-    <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>⭐ Saved Searches</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('60 Days',179)">Start 60 Days →</button></div>
-    <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access + Priority</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>⭐ Saved Searches</li><li>📱 WhatsApp Alerts (soon)</li><li>🔔 Priority Support</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>📱 WhatsApp Alerts (soon)</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('Annual Plan',599)">Start Annual →</button></div>
+    <div class="pc reveal d1"><div class="pc-duration">7</div><div class="pc-plan">Days · Try It</div><div class="pc-price"><small>₹</small>49</div><div class="pc-per">risk-free trial</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('7 Days',49)">Start 7 Days →</button></div>
+    <div class="pc feat reveal"><div class="feat-tag">MOST POPULAR</div><div class="pc-duration">30</div><div class="pc-plan">Days · Active Search</div><div class="pc-price"><small>₹</small>99</div><div class="pc-per">₹3.3 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li></ul><button type="button" class="pc-btn pcb-em" onclick="openPay('30 Days',99)">Start 30 Days →</button></div>
+    <div class="pc reveal d2"><div class="pc-duration">60</div><div class="pc-plan">Days · Notice Period</div><div class="pc-price"><small>₹</small>179</div><div class="pc-per">₹3 per day · save ₹19</div><div class="pc-div"></div><div class="pc-all">✦ Full access — all features</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>⭐ Saved Searches</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('60 Days',179)">Start 60 Days →</button></div>
+    <div class="pc reveal d3"><div class="pc-duration">365</div><div class="pc-plan">Days · Best Value ⭐</div><div class="pc-price"><small>₹</small>599</div><div class="pc-per">₹1.6 per day</div><div class="pc-div"></div><div class="pc-all">✦ Full access + Priority</div><ul class="pc-feats"><li>📡 Recruiter Posts (24h)</li><li>💼 LinkedIn Jobs (24h)</li><li>👤 Find Recruiters</li><li>🚶 Walk-in Drive Search</li><li>⚡ Smart Boolean Queries</li><li>💬 Comment Templates</li><li>🏢 Company Watchlist</li><li>⭐ Saved Searches</li><li>📱 WhatsApp Alerts (soon)</li><li>🔔 Priority Support</li></ul><button type="button" class="pc-btn pcb-out" onclick="openPay('Annual Plan',599)">Start Annual →</button></div>
   </div>
   <div class="free-note reveal">🎁 <strong>New user?</strong> Get 1 free signal preview — no card needed. See live recruiter posts instantly before deciding.</div>
 </div></section>
@@ -1497,7 +1511,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <a class="logo-wrap" onclick="goTo('landingView')" style="cursor:pointer;text-decoration:none;max-width:180px;"><svg width="22" height="22" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="rgba(0,200,150,.15)"/><path d="M24 6 L14 22 L20 22 L18 36 L28 20 L22 20 Z" fill="#00c896"/><circle cx="32" cy="10" r="2" fill="#f0a84c"/></svg><div class="logo-text"><div class="logo-name" style="font-size:16px;">Jobs<span class="sig">Signal</span></div><div class="logo-tag" style="font-size:8px;letter-spacing:1.2px;white-space:nowrap;">India's Real-Time Job Signal Finder</div></div></a>
       <div class="dash-nav-actions">
         <div class="india-tag">🇮🇳 India Only</div>
-        <div class="dash-user-info"><div class="d-av" id="dAv">R</div><div class="d-user-details"><div class="d-name" id="dName">Riya</div><div class="d-plan" id="dPlan">Free Plan</div></div></div>
+        <div class="dash-user-info"><div class="d-av" id="dAv">R</div><div class="d-user-details"><div class="d-name" id="dName">Riya</div><div class="d-plan" id="dPlan" class="du-plan dash-plan-badge">Free Plan</div></div></div>
         <button type="button" class="btn-dash-action" onclick="goTo('changePassView')">🔑 Password</button>
         <button type="button" class="btn-dash-action btn-dash-logout" onclick="doLogout()">Log Out</button>
       </div>
@@ -1506,7 +1520,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
   <div class="dash-page">
     <!-- SIGNAL SCORE WIDGET -->
-    <div class="signal-score-widget" id="signalScoreWidget"></div>
+    <div class="signal-score-widget" id="signalScoreWidget" onclick="onSSWClick()" style="cursor:pointer;" title="Click to search now"></div>
 
     <!-- LINKEDIN TIP -->
     <div class="li-tip-bar" id="liTip">
@@ -1655,8 +1669,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
         <div class="ac-tag" style="background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);color:var(--gold);">🔐 Restricted Access</div>
         <div class="ac-title" style="color:white;">Admin Login</div>
         <div class="ac-sub" style="color:rgba(255,255,255,.4);">Enter credentials to access the admin panel.</div>
+        <div id="adminLoginErr" style="display:none;background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.3);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--coral);margin:12px 0 4px;line-height:1.6;"></div>
         <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Username</label><input class="form-input" id="admin_user" placeholder="admin" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"></div>
         <div class="form-group"><label class="form-label" style="color:rgba(255,255,255,.3);">Password</label><div class="input-with-icon"><input class="form-input" id="admin_pass" type="password" placeholder="Enter password" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:white;"><span class="iw-icon" onclick="togglePass('admin_pass',this)" style="color:rgba(255,255,255,.3);">👁</span></div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.2);margin-bottom:4px;padding:0 2px;">Default credentials: <span style="color:rgba(255,255,255,.4);">admin / admin@123</span></div>
         <button type="button" class="btn-primary btn-admin-primary" onclick="doAdminLogin()">🔐 Login to Admin Panel →</button>
         <div style="display:flex;gap:8px;margin-top:8px;"><button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('adminChangePassView')">🔑 Change Password</button><button type="button" class="btn-secondary" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);" onclick="goTo('landingView')">← Back to Site</button></div>
         <div style="text-align:center;font-size:11px;color:rgba(255,255,255,.18);margin-top:14px;">🔒 All admin activity is logged and monitored.</div>
@@ -1698,21 +1714,62 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </nav>
   <div class="admin-page">
     <div class="admin-stats">
-      <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
-      <div class="astat"><div class="astat-n" style="color:var(--blue);">89</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Paid Users</div><div class="astat-ch ch-up">↑ +7 this week</div></div>
-      <div class="astat"><div class="astat-n" style="color:rgba(255,255,255,.4);">158</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Free Users</div><div class="astat-ch ch-up">↑ +11 this week</div></div>
-      <div class="astat"><div class="astat-n" style="color:var(--gold);">₹7,821</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Revenue (MTD)</div><div class="astat-ch ch-up">↑ +₹693 this week</div></div>
-      <div class="astat"><div class="astat-n" style="color:var(--coral);">12</div><div class="astat-l" style="color:rgba(255,255,255,.3);">Duplicate Flags</div><div class="astat-ch ch-dn">↓ -3 from last week</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--blue);" id="adminStatPaid">0</div><div class="astat-l">Paid Users</div><div class="astat-ch ch-up">From Razorpay</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--gold);" id="adminStatRevenue">₹0</div><div class="astat-l">Total Revenue</div><div class="astat-ch ch-up">All time</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--em);" id="adminStat30">0</div><div class="astat-l">30-Day Plans</div></div>
+      <div class="astat"><div class="astat-n" style="color:var(--purple);" id="adminStatAnn">0</div><div class="astat-l">Annual Plans</div></div>
+    </div>
+    <!-- Plan breakdown bar -->
+    <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:14px 18px;margin-bottom:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.4);">PLAN BREAKDOWN:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--em);">7 Days: <strong id="adminStat7">0</strong></div>
+        <div style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--blue);">30 Days: <strong id="adminStat30b"></strong></div>
+        <div style="background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--gold);">60 Days: <strong id="adminStat60">0</strong></div>
+        <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--purple);">Annual: <strong id="adminStatAnnb"></strong></div>
+      </div>
     </div>
     <div style="display:flex;gap:0;margin-bottom:18px;background:var(--night2);border-radius:var(--r);overflow:hidden;border:1px solid var(--bn);">
-      <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">👥 All Profiles</button>
+      <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">👥 Profiles</button>
       <button type="button" id="tabPayments" onclick="switchAdminTab('payments')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">💳 Payments</button>
+      <button type="button" id="tabSearches" onclick="switchAdminTab('searches')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📡 Searches</button>
     </div>
     <div id="adminProfiles">
       <div class="admin-filters"><input class="af-in" id="searchFilter" placeholder="🔍 Search name, email, skill..." style="flex:1;min-width:180px;" oninput="filterTable()"><select class="af-sel" id="planFilter" onchange="filterTable()"><option value="">All Plans</option><option value="free">Free</option><option value="paid">Paid</option></select><select class="af-sel" id="cityFilter" onchange="filterTable()"><option value="">All Cities</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Remote</option></select><select class="af-sel" id="roleFilter" onchange="filterTable()"><option value="">All Roles</option><option>Talent Acquisition</option><option>Software Developer</option><option>Product Manager</option><option>Data Scientist</option></select><button type="button" class="btn-af" onclick="filterTable()">Filter</button><button type="button" class="btn-export" onclick="exportAllCSV()">📥 Export All CSV</button></div>
       <div class="admin-table-wrap"><div class="admin-table-head"><div class="ath-title">All Registered Profiles</div><div class="ath-count" id="tableCount">Showing profiles</div></div><table><thead><tr><th>#</th><th>Name</th><th>Contact</th><th>City</th><th>Role</th><th>Skills</th><th>Exp</th><th>Score</th><th>Plan</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
     </div>
-    <div id="adminPayments" style="display:none;">
+    <div id="adminSearches" style="display:none;">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;">
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--em);">5</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Search Modes</div></div>
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--blue);">2,400+</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Signals/Day</div></div>
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">15+</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Cities</div></div>
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--purple);">8hrs</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Before Portals</div></div>
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--em);">100%</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Real-Time</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;">
+        <div style="font-size:13px;font-weight:700;color:white;margin-bottom:14px;">🔍 5 Search Modes</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(0,200,150,.07);border-radius:8px;"><div style="font-size:13px;color:white;">🎯 Skill + City</div><div style="font-size:10px;background:var(--em-pale);color:var(--em);padding:2px 9px;border-radius:20px;font-weight:700;">FREE PREVIEW</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(59,130,246,.07);border-radius:8px;"><div style="font-size:13px;color:white;"># Hashtag Hunt</div><div style="font-size:10px;background:rgba(59,130,246,.15);color:var(--blue);padding:2px 9px;border-radius:20px;font-weight:700;">PAID</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(240,168,76,.07);border-radius:8px;"><div style="font-size:13px;color:white;">⏱️ Notice Period</div><div style="font-size:10px;background:rgba(240,168,76,.15);color:var(--gold);padding:2px 9px;border-radius:20px;font-weight:700;">PAID</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(139,92,246,.07);border-radius:8px;"><div style="font-size:13px;color:white;">🤝 Referral Radar</div><div style="font-size:10px;background:rgba(139,92,246,.15);color:var(--purple);padding:2px 9px;border-radius:20px;font-weight:700;">PAID</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,107,107,.07);border-radius:8px;"><div style="font-size:13px;color:white;">🚶 Walk-in Drives</div><div style="font-size:10px;background:rgba(255,107,107,.15);color:var(--coral);padding:2px 9px;border-radius:20px;font-weight:700;">PAID</div></div>
+        </div>
+      </div>
+      <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;">
+        <div style="font-size:13px;font-weight:700;color:white;margin-bottom:14px;">💰 Pricing Plans</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--night3);border-radius:8px;"><div><div style="font-size:13px;color:white;">7 Days</div><div style="font-size:10px;color:rgba(255,255,255,.3);">All 5 modes</div></div><div style="font-size:18px;font-weight:800;color:var(--em);">₹49</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.2);border-radius:8px;"><div><div style="font-size:13px;color:white;">30 Days <span style="font-size:10px;background:var(--em);color:var(--night);padding:1px 7px;border-radius:20px;margin-left:4px;">POPULAR</span></div><div style="font-size:10px;color:rgba(255,255,255,.3);">+ Watchlist</div></div><div style="font-size:18px;font-weight:800;color:var(--em);">₹99</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--night3);border-radius:8px;"><div><div style="font-size:13px;color:white;">60 Days</div><div style="font-size:10px;color:rgba(255,255,255,.3);">+ Saved Searches</div></div><div style="font-size:18px;font-weight:800;color:var(--gold);">₹179</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(240,168,76,.07);border:1px solid rgba(240,168,76,.2);border-radius:8px;"><div><div style="font-size:13px;color:white;">Annual ⭐</div><div style="font-size:10px;color:rgba(255,255,255,.3);">+ WhatsApp + Priority</div></div><div style="font-size:18px;font-weight:800;color:var(--gold);">₹599</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="adminPayments" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Payment Transactions</div><button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📥 Export CSV</button></div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
       <div class="admin-table-wrap"><div class="admin-table-head"><div class="ath-title">All Payment Transactions</div><div class="ath-count" id="payTableCount">0 transactions</div></div><table><thead><tr><th>#</th><th>User</th><th>Contact</th><th>Plan</th><th>Amount</th><th>Payment ID</th><th>Status</th><th>Paid At</th></tr></thead><tbody id="paymentsTableBody"></tbody></table><div id="noPayments" style="padding:48px;text-align:center;color:rgba(255,255,255,.25);font-size:14px;">No payments recorded yet.</div></div>
@@ -1739,7 +1796,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <button type="button" class="pm-close-btn" onclick="closeModal('paymentModal')">✕</button>
     </div>
     <div class="pm-body" id="pmPayBody">
-      <div class="pm-features"><div class="pm-feat">All 4 search modes</div><div class="pm-feat">Unlimited searches</div><div class="pm-feat">Smart LinkedIn URLs</div><div class="pm-feat">Comment templates</div><div class="pm-feat">Company watchlist</div><div class="pm-feat">Saved searches</div></div>
+      <div class="pm-features"><div class="pm-feat">All 5 search modes</div><div class="pm-feat">Unlimited searches</div><div class="pm-feat">Smart LinkedIn URLs</div><div class="pm-feat">Comment templates</div><div class="pm-feat">Company watchlist</div><div class="pm-feat">Saved searches</div></div>
       <div class="pm-note">🔒 Secure payment powered by Razorpay. Card details never stored.</div>
       <button type="button" class="btn-pay" onclick="processPayment()"><span>🔒</span> Pay ₹<span id="payBtnAmt">99</span> Securely →</button>
       <div class="rzp-powered"><span>Secured by</span><span class="rzp-logo">Razorpay</span><span>· UPI · Cards · NetBanking</span></div>
@@ -1758,18 +1815,27 @@ tr:hover td{background:rgba(255,255,255,.02);}
   <div class="tmpl-card">
     <div class="tc-header"><div class="tc-title">💬 Comment Template</div><button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button></div>
     <div style="font-size:12px;color:var(--soft);margin-bottom:13px;">Pick a tone — copy and paste directly on LinkedIn.</div>
-    <div class="tc-tabs"><button type="button" class="tc-tab active" onclick="switchTmpl(this,'professional')">Professional</button><button type="button" class="tc-tab" onclick="switchTmpl(this,'friendly')">Friendly</button><button type="button" class="tc-tab" onclick="switchTmpl(this,'short')">Short & Sharp</button></div>
-    <div class="tc-body"><div class="tc-text" id="tmplText"></div></div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:11px;">✏️ Click Edit to customise before copying.</div>
-    <div class="tc-actions"><button type="button" class="btn-copy" onclick="copyTemplate()" id="copyBtn">📋 Copy to Clipboard</button><button class="btn-edit btn-tmpl-edit" onclick="makeEditable()">✏️ Edit</button></div>
+        <div class="tc-tabs">
+      <button type="button" class="tc-tab active" onclick="switchTmpl(this,'professional')">Professional</button>
+      <button type="button" class="tc-tab" onclick="switchTmpl(this,'friendly')">Friendly</button>
+      <button type="button" class="tc-tab" onclick="switchTmpl(this,'short')">Short &amp; Sharp</button>
+    </div>
+    <div class="tmpl-text" id="tmplText"></div>
+    <div style="font-size:11px;color:var(--soft);margin-top:8px;">✏️ Click Edit to customise before copying.</div>
+    <div class="tc-actions">
+      <button type="button" class="btn-copy" onclick="copyTemplate()" id="copyBtn">📋 Copy to Clipboard</button>
+      <button type="button" class="btn-tmpl-edit" onclick="makeEditable()">✏️ Edit</button>
+    </div>
   </div>
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span> <span id="toastMsg"></span></div>
 
-<script>
+<!-- STICKY FAB — mobile search button -->
+<button type="button" class="sticky-search-fab" id="stickyFab" onclick="document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'});show('searchCard');">📡 Search Now</button>
 
+<script>
 // ============================================================
 // CONFIG
 // ============================================================
@@ -2038,6 +2104,21 @@ function usePreview(){
 // ============================================================
 // SIGNAL SCORE WIDGET
 // ============================================================
+function onSSWClick(){
+  if(!isPaid && prevUsed){ showLockedDash(); return; }
+  const skill = lastSkill || currentUser.skill || '';
+  const city  = lastCity  || currentUser.city  || 'Hyderabad';
+  if(!skill){ showToast('Enter your skill first to search','amber'); return; }
+  // Switch to skill mode and run
+  const skillBtn = document.querySelector('[data-mode="skill"]');
+  if(skillBtn){ switchMode('skill', skillBtn); }
+  const skEl = document.getElementById('sk_skill');
+  if(skEl && skill) skEl.value = skill;
+  show('searchCard');
+  setTimeout(()=>{ runSearch('skill'); }, 100);
+  document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'});
+}
+
 function buildScore(skill,city){
   const el=document.getElementById('signalScoreWidget');if(!el)return;
   const h=new Date().getHours();
@@ -2287,7 +2368,10 @@ function runSearch(mode){
   else if(mode==='walkin'){skill=document.getElementById('wi_skill')?.value.trim()||lastSkill||'any';city=document.getElementById('wi_city')?.value||lastCity||'Hyderabad';}
   if(!skill){showToast('Enter your skill','amber');return;}
   lastSkill=skill; lastCity=city;
-  try{const u=gjson(S_USER,{});u.skill=skill;u.city=city;sto(S_USER,JSON.stringify(u));currentUser.skill=skill;currentUser.city=city;}catch(e){}
+  try{const u=gjson(S_USER,{});u.skill=skill;u.city=city;sto(S_USER,JSON.stringify(u));currentUser.skill=skill;currentUser.city=city;
+    // search history
+    try{const h=gjson('js_history',[]);h.unshift({skill,city,mode,t:new Date().toISOString()});sto('js_history',h.slice(0,10));}catch(x){}
+  }catch(e){}
   const urls=buildURL(mode,skill,city,np,htags,company);
   window.open(urls.primary,'_blank');
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
@@ -2493,15 +2577,44 @@ const DB=[
 function doAdminLogin(){
   const u=document.getElementById('admin_user')?.value.trim();
   const p=document.getElementById('admin_pass')?.value.trim();
-  if(!u||!p){showToast('Enter credentials','amber');return;}
-  if(u==='admin'&&p==='admin123'){goTo('adminView');renderAdminTable(DB);showToast('Welcome Admin 🔐','green');}
-  else showToast('Invalid credentials','red');
+  const errEl=document.getElementById('adminLoginErr');
+  if(errEl) errEl.style.display='none';
+  if(!u||!p){
+    if(errEl){errEl.textContent='Enter username and password.';errEl.style.display='block';}
+    showToast('Enter credentials','amber');return;
+  }
+  // Credentials: admin / admin@123
+  if(u==='admin' && p==='admin@123'){
+    goTo('adminView');
+    renderAdminTable(DB);
+    renderPaymentSummary();
+    showToast('Welcome Admin 🔐','green');
+  } else {
+    if(errEl){
+      errEl.innerHTML='❌ Wrong credentials. Use <strong>admin</strong> / <strong>admin@123</strong>';
+      errEl.style.display='block';
+    }
+    showToast('Wrong credentials','red');
+    document.getElementById('admin_pass')?.select();
+  }
 }
 function switchAdminTab(tab){
-  const tp=document.getElementById('tabProfiles'),tm=document.getElementById('tabPayments');
-  const sp=document.getElementById('adminProfiles'),sm=document.getElementById('adminPayments');
-  if(tab==='profiles'){if(tp){tp.style.background='var(--gold)';tp.style.color='var(--night)';}if(tm){tm.style.background='transparent';tm.style.color='rgba(255,255,255,.4)';}if(sp)sp.style.display='block';if(sm)sm.style.display='none';}
-  else{if(tm){tm.style.background='var(--gold)';tm.style.color='var(--night)';}if(tp){tp.style.background='transparent';tp.style.color='rgba(255,255,255,.4)';}if(sp)sp.style.display='none';if(sm)sm.style.display='block';renderPaymentsTable();}
+  // Reset all tabs
+  ['tabProfiles','tabPayments','tabSearches'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.style.background='transparent';el.style.color='rgba(255,255,255,.4)';}
+  });
+  ['adminProfiles','adminPayments','adminSearches'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  // Activate selected tab
+  const activeTab=document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1));
+  if(activeTab){activeTab.style.background='var(--gold)';activeTab.style.color='var(--night)';}
+  const activePanel=document.getElementById('admin'+tab.charAt(0).toUpperCase()+tab.slice(1));
+  if(activePanel) activePanel.style.display='block';
+  if(tab==='payments'){renderPaymentsTable();renderPaymentSummary();}
+  if(tab==='profiles'){renderAdminTable(DB);}
 }
 function renderAdminTable(data){
   const tbody=document.getElementById('adminTableBody'),cnt=document.getElementById('tableCount');
@@ -2543,6 +2656,23 @@ function exportAllCSV(){
   showToast('All '+DB.length+' profiles exported!','green');
 }
 function delUser(id){if(confirm('Delete this profile permanently?')){const i=DB.findIndex(d=>d.id===id);if(i>-1){DB.splice(i,1);filterTable();showToast('Deleted','red');}}}
+function renderPaymentSummary(){
+  // Update admin stats from localStorage payments
+  const pays = gjson(S_PAY, []);
+  const total = pays.reduce((s,p)=>s+(p.amount||0), 0);
+  const paid = pays.length;
+  const el7  = pays.filter(p=>p.plan==='7 Days').length;
+  const el30 = pays.filter(p=>p.plan==='30 Days').length;
+  const el60 = pays.filter(p=>p.plan==='60 Days').length;
+  const elAn = pays.filter(p=>p.plan==='Annual Plan').length;
+  setEl('adminStatRevenue', '₹'+total.toLocaleString('en-IN'));
+  setEl('adminStatPaid', paid);
+  setEl('adminStat7', el7);
+  setEl('adminStat30', el30); setEl('adminStat30b', el30);
+  setEl('adminStat60', el60);
+  setEl('adminStatAnn', elAn); setEl('adminStatAnnb', elAn);
+}
+
 function renderPaymentsTable(){
   let payments=[];try{payments=gjson(S_PAY,[]);}catch(e){}
   const tbody=document.getElementById('paymentsTableBody'),noMsg=document.getElementById('noPayments'),cnt=document.getElementById('payTableCount');
@@ -2603,6 +2733,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   // Restore session — if user exists in localStorage, show dashboard
   // goTo('dashView') is called INSIDE restoreSession before any error-prone code
+  window.addEventListener('scroll',()=>{
+    const fab=document.getElementById('stickyFab');
+    if(!fab) return;
+    const isDash=document.getElementById('dashView')?.classList.contains('active');
+    if(isDash && window.scrollY>180) fab.style.display='flex';
+    else fab.style.display='none';
+  });
   const restored = restoreSession();
   if(!restored){
     // No saved session — show landing page
@@ -2614,6 +2751,26 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 
+
+
+// ============================================================
+document.addEventListener('DOMContentLoaded',()=>{
+  // Scroll reveal
+  try{
+    const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+  }catch(e){}
+
+  // Restore session — if user exists in localStorage, show dashboard
+  // goTo('dashView') is called INSIDE restoreSession before any error-prone code
+  const restored = restoreSession();
+  if(!restored){
+    // No saved session — show landing page
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    const lv=document.getElementById('landingView');
+    if(lv) lv.classList.add('active');
+  }
+});
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
