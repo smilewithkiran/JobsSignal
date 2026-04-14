@@ -6,15 +6,9 @@
 <meta name="theme-color" content="#00c896">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="JobsSignal">
-<meta name="application-name" content="JobsSignal">
-<meta name="msapplication-TileColor" content="#07090f">
-<meta name="msapplication-TileImage" content="icon-192.png">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JobsSignal.in — India's Real-Time Job Signal Finder</title>
@@ -371,7 +365,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 .step-desc{font-size:13px;color:var(--soft);line-height:1.7;}
 
 /* MODES */
-.modes-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:48px;}
+.modes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
 .mode-card{border:1.5px solid var(--border);border-radius:var(--r);padding:26px 20px;transition:all .3s;background:white;position:relative;overflow:hidden;}
 .mode-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
 .mode-card:hover{border-color:var(--em);transform:translateY(-4px);box-shadow:var(--shadow-md);}
@@ -393,13 +387,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:va
 .city-c:hover{background:rgba(0,200,150,.1);border-color:rgba(0,200,150,.2);color:white;}
 
 /* PROOF */
-.proof-row{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;max-width:840px;margin:0 auto;}
+.proof-row{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:840px;margin:0 auto;}
 .proof-n{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:white;line-height:1;}
 .proof-n span{color:var(--em);}
 .proof-l{font-size:12px;color:rgba(255,255,255,.3);margin-top:5px;line-height:1.5;}
 
 /* PRICING */
-.pricing-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:1000px;margin:44px auto 0;}
+.pricing-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:44px auto 0;}
 .pc{border:1.5px solid var(--border);border-radius:var(--r);padding:28px 22px;position:relative;background:white;transition:all .3s;}
 .pc.feat{background:var(--night);border-color:var(--night);transform:scale(1.04);}
 .pc:not(.feat):hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--em);}
@@ -735,7 +729,7 @@ footer{background:var(--night2);padding:32px 52px;display:flex;align-items:cente
 .fs-nm{font-size:12px;font-weight:700;color:rgba(255,255,255,.7);}
 .fs-post{font-size:11px;color:rgba(255,255,255,.4);font-style:italic;line-height:1.5;margin-top:2px;}
 .fs-when{margin-left:auto;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
-.fomo-plans{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;z-index:1;}
+.fomo-plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;}
 .fp{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:var(--r2);padding:14px;text-align:center;cursor:pointer;transition:all .2s;}
 .fp:hover,.fp.best{background:rgba(0,200,150,.08);border-color:rgba(0,200,150,.25);}
 .fp-days{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--em);}
@@ -980,7 +974,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .aw-more{font-size:13px;font-weight:700;color:var(--em);margin-bottom:18px;position:relative;z-index:1;}
 
 /* UPGRADE PLANS INLINE */
-.upgrade-plans{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;z-index:1;margin-bottom:6px;}
+.upgrade-plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;margin-bottom:6px;}
 .up{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r2);padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s;}
 .up:hover,.up.best{background:rgba(0,200,150,.08);border-color:rgba(0,200,150,.3);}
 .up-days{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--em);}
@@ -1230,7 +1224,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
   .hero-h{font-size:24px !important;}
   .cta-wm{font-size:36px !important;}
   .sh{font-size:24px !important;}
-  .modes-grid{grid-template-columns:1fr 1fr;}
+  .modes-grid{grid-template-columns:1fr;}
   .admin-stats{grid-template-columns:1fr;}
   .upgrade-plans{grid-template-columns:1fr 1fr;}
   .ssw-stats{grid-template-columns:1fr 1fr 1fr;}
@@ -1250,23 +1244,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
 /* ── ADMIN SEARCHES TAB ────────────────────── */
 .admin-mode-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:6px;}
 
-
-/* ── VISITOR COUNTER CARD ─────────────────────────────── */
-.visitor-card{background:linear-gradient(135deg,var(--night2),var(--night3));border:1px solid var(--bn);border-radius:var(--r2);padding:20px 24px;margin-bottom:18px;display:flex;align-items:center;gap:20px;position:relative;overflow:hidden;}
-.visitor-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,150,.08),transparent 70%);}
-.vc-icon{width:48px;height:48px;border-radius:12px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.vc-main{flex:1;min-width:0;}
-.vc-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
-.vc-count{font-family:'Syne',sans-serif;font-size:34px;font-weight:900;color:var(--em);line-height:1;}
-.vc-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:4px;line-height:1.5;}
-.vc-stats{display:flex;gap:10px;flex-shrink:0;}
-.vc-s{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:9px;padding:10px 14px;text-align:center;}
-.vc-sn{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;}
-.vc-sl{font-size:9px;color:rgba(255,255,255,.3);margin-top:2px;}
-.vc-refresh{padding:8px 14px;border-radius:7px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);color:var(--em);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.vc-loading{animation:vc-pulse 1.2s infinite;}
-@keyframes vc-pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-@media(max-width:768px){.visitor-card{flex-direction:column;gap:12px;}.vc-stats{width:100%;}.vc-s{flex:1;}}
 </style>
 </head>
 <body>
@@ -1296,13 +1273,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <input class="hb-in" id="heroSkill" placeholder="Your skill — React, Python, HR, Finance...">
       <div class="hb-sep"></div>
       <select class="hb-city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select>
-      <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals →</button>
+      <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals — Sign Up Free →</button>
     </div>
-    <div class="home-cta-row">
-      <button type="button" class="hb-btn" style="flex:1;padding:13px 16px;" onclick="goTo('signupView')">🎁 Sign Up Free — 1 Preview →</button>
-      <button type="button" class="btn-nav-login" style="padding:13px 16px;border-radius:var(--r3);border:1px solid var(--bn);color:rgba(255,255,255,.6);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;" onclick="goTo('loginView')">Log In</button>
-    </div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:8px;text-align:center;">No card needed · Instant access · India only 🇮🇳</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center;">🎁 Free preview — no card needed · India only 🇮🇳</div>
     <div class="hero-trust" style="margin-top:18px;">
       <div class="ht-item"><div class="hn">2,400<span style="color:var(--gold);font-size:13px;">+</span></div><div class="hl">Signals daily</div></div>
       <div class="ht-sep"></div>
@@ -1336,7 +1309,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <div class="mode-card reveal d2"><div class="mc-icon">#</div><div class="mc-title">Hashtag Hunt</div><div class="mc-desc">Auto-detects the right hashtags for your skill. #TalentAcquisition #ReactJS #DataScience — all India specific.</div><div class="mc-badge mcb-go">All Paid Plans</div></div>
     <div class="mode-card reveal d3"><div class="mc-icon">⏱️</div><div class="mc-title">Notice Period Match</div><div class="mc-desc">Find recruiters specifically asking for your exact notice window. Immediate, 15d, 30d, 60d, 90d.</div><div class="mc-badge mcb-bl">Paid Plans</div></div>
     <div class="mode-card reveal d3"><div class="mc-icon">🤝</div><div class="mc-title">Referral Radar</div><div class="mc-desc">"DM me for referral" posts — the highest success rate signal on all of Indian LinkedIn.</div><div class="mc-badge mcb-co">Paid Plans</div></div>
-    <div class="mode-card reveal d4"><div class="mc-icon">🚶</div><div class="mc-title">Walk-in Drives</div><div class="mc-desc">Finds walk-in interview drives for your skill in your city. Same-day fills — best for immediate joiners and freshers.</div><div class="mc-badge mcb-bl">Paid Plans</div></div>
   </div>
 </div></section>
 
@@ -1745,19 +1717,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </nav>
   <div class="admin-page">
-    <div class="visitor-card">
-      <div class="vc-icon">👥</div>
-      <div class="vc-main">
-        <div class="vc-label">Total Website Visitors</div>
-        <div class="vc-count vc-loading" id="visitorCount">—</div>
-        <div class="vc-sub" id="visitorSub">People who clicked your jobssignal.in link from anywhere in the world</div>
-      </div>
-      <div class="vc-stats">
-        <div class="vc-s"><div class="vc-sn" id="visitorToday">—</div><div class="vc-sl">Est. Today</div></div>
-        <div class="vc-s"><div class="vc-sn" id="visitorWeek">—</div><div class="vc-sl">Est. Week</div></div>
-      </div>
-      <button class="vc-refresh" onclick="loadVisitorCount()">🔄 Refresh Count</button>
-    </div>
     <div class="admin-stats">
       <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
       <div class="astat"><div class="astat-n" style="color:var(--blue);" id="adminStatPaid">0</div><div class="astat-l">Paid Users</div><div class="astat-ch ch-up">From Razorpay</div></div>
@@ -1816,75 +1775,65 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </div>
   <div id="adminWebsite" style="display:none;">
-    <!-- WEBSITE TEST PANEL -->
     <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;margin-bottom:16px;">
       <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px;">🌐 Full Website Test Panel</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;">Test every page and feature before deploying to jobssignal.in · Click any button below to open that section</div>
-
-      <!-- PAGE CHECKLIST -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;">Test every page and feature before deploying to jobssignal.in</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
         <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
           <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">📄 Pages</div>
           <div style="display:flex;flex-direction:column;gap:7px;">
-            <button onclick="adminTestPage('landing')"    style="text-align:left;padding:9px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:8px;color:var(--em);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🏠 Home / Landing Page</button>
-            <button onclick="adminTestPage('signup')"     style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✍️ Sign Up Page (3 Steps)</button>
+            <button onclick="adminTestPage('landing')"    style="text-align:left;padding:9px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:8px;color:var(--em);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🏠 Landing Page</button>
+            <button onclick="adminTestPage('signup')"     style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✍️ Sign Up (3 Steps)</button>
             <button onclick="adminTestPage('login')"      style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🔑 Login Page</button>
             <button onclick="adminTestPage('dashboard')"  style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📡 User Dashboard</button>
             <button onclick="adminTestPage('changePass')" style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🔒 Change Password</button>
           </div>
         </div>
         <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
-          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">🔍 Dashboard Features</div>
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">🔍 Test Search Modes</div>
           <div style="display:flex;flex-direction:column;gap:7px;">
-            <button onclick="adminTestFeature('skill')"    style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🎯 Search Mode — Skill + City</button>
-            <button onclick="adminTestFeature('hashtag')"  style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;"># Search Mode — Hashtag Hunt</button>
-            <button onclick="adminTestFeature('notice')"   style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">⏱️ Search Mode — Notice Period</button>
-            <button onclick="adminTestFeature('referral')" style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🤝 Search Mode — Referral Radar</button>
-            <button onclick="adminTestFeature('walkin')"   style="text-align:left;padding:9px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:8px;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🚶 Search Mode — Walk-in Drives</button>
+            <button onclick="adminTestFeature('skill')"    style="text-align:left;padding:9px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:8px;color:var(--em);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🎯 Skill + City</button>
+            <button onclick="adminTestFeature('hashtag')"  style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;"># Hashtag Hunt</button>
+            <button onclick="adminTestFeature('notice')"   style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">⏱️ Notice Period</button>
+            <button onclick="adminTestFeature('referral')" style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🤝 Referral Radar</button>
+            <button onclick="adminTestFeature('walkin')"   style="text-align:left;padding:9px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:8px;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🚶 Walk-in Drives</button>
           </div>
         </div>
       </div>
-
-      <!-- PAYMENT TEST -->
-      <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;margin-bottom:12px;">
-        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">💳 Payment & Plans Test</div>
+      <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;margin-bottom:10px;">
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">💳 Test Payments</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="adminTestPay(49,'7 Days')"    style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹49 · 7 Days</button>
-          <button onclick="adminTestPay(99,'30 Days')"   style="padding:8px 16px;background:var(--em);border:none;border-radius:8px;color:var(--night);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹99 · 30 Days ⭐</button>
-          <button onclick="adminTestPay(179,'60 Days')"  style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹179 · 60 Days</button>
+          <button onclick="adminTestPay(49,'7 Days')"       style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹49 · 7 Days</button>
+          <button onclick="adminTestPay(99,'30 Days')"      style="padding:8px 16px;background:var(--em);border:none;border-radius:8px;color:var(--night);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹99 · 30 Days ⭐</button>
+          <button onclick="adminTestPay(179,'60 Days')"     style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹179 · 60 Days</button>
           <button onclick="adminTestPay(599,'Annual Plan')" style="padding:8px 16px;background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);border-radius:8px;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹599 · Annual</button>
         </div>
       </div>
-
-      <!-- STATUS LOG -->
       <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
-        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">📋 Test Log</div>
-        <div id="adminTestLog" style="font-size:12px;color:rgba(255,255,255,.4);font-family:monospace;line-height:1.8;min-height:60px;">No tests run yet. Click any button above to begin.</div>
-        <button onclick="adminClearLog()" style="margin-top:8px;padding:5px 12px;background:transparent;border:1px solid var(--bn);border-radius:6px;color:rgba(255,255,255,.3);font-size:11px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Clear Log</button>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;">📋 Test Log</span><button onclick="adminClearLog()" style="padding:4px 10px;background:transparent;border:1px solid var(--bn);border-radius:6px;color:rgba(255,255,255,.3);font-size:10px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Clear</button></div>
+        <div id="adminTestLog" style="font-size:11px;color:rgba(255,255,255,.35);font-family:monospace;line-height:1.8;min-height:48px;">No tests run yet.</div>
       </div>
     </div>
-
-    <!-- CHECKLIST -->
     <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;">
       <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:12px;">✅ Pre-Deployment Checklist</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="checklistGrid">
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk1" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Landing page loads correctly</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk2" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Sign up flow works (3 steps)</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk3" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Login & session persist on refresh</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk4" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">All 5 search modes visible</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk5" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Skill + City search opens LinkedIn</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk6" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Walk-in Drives search works</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk7" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Payment modal opens (Razorpay)</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk8" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Comment template copies to clipboard</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk9" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Daily tip shows on dashboard</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk10" onchange="adminUpdateChecklist()"> <span style="font-size:12px;color:rgba(255,255,255,.6);">Visitor counter loads in admin</span></label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk1" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Landing page loads</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk2" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Sign up works (3 steps)</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk3" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Login &amp; session persists</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk4" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">All 5 search modes visible</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk5" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Skill + City opens LinkedIn</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk6" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Walk-in Drives works</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk7" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Payment modal opens</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk8" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Comment template copies</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk9" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Daily tip shows</span></label>
+        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk10" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Visitor counter loads</span></label>
       </div>
-      <div id="checklistStatus" style="margin-top:12px;padding:10px 14px;background:rgba(0,200,150,.06);border:1px solid rgba(0,200,150,.12);border-radius:8px;font-size:12px;color:var(--em);font-weight:700;">0/10 checks complete — not ready for deployment</div>
+      <div id="checklistStatus" style="margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--bn);border-radius:8px;font-size:12px;color:rgba(255,255,255,.4);font-weight:700;">0/10 checks — not ready</div>
     </div>
   </div>
   <div id="adminPayments" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Payment Transactions</div><button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📥 Export CSV</button></div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
       <div class="admin-table-wrap"><div class="admin-table-head"><div class="ath-title">All Payment Transactions</div><div class="ath-count" id="payTableCount">0 transactions</div></div><table><thead><tr><th>#</th><th>User</th><th>Contact</th><th>Plan</th><th>Amount</th><th>Payment ID</th><th>Status</th><th>Paid At</th></tr></thead><tbody id="paymentsTableBody"></tbody></table><div id="noPayments" style="padding:48px;text-align:center;color:rgba(255,255,255,.25);font-size:14px;">No payments recorded yet.</div></div>
     </div>
   </div>
@@ -1983,6 +1932,7 @@ function goTo(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id)?.classList.add('active');
   window.scrollTo(0,0);
+  try{updateFabButton();}catch(e){}
 }
 function closeModal(id){document.getElementById(id)?.classList.remove('open');}
 function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
@@ -2712,68 +2662,6 @@ function doAdminLogin(){
     document.getElementById('admin_pass')?.select();
   }
 }
-function adminTestPage(page){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  goTo(page==='landing'?'landingView':page==='signup'?'signupView':page==='login'?'loginView':page==='dashboard'?'dashView':page==='changePass'?'changePassView':'landingView');
-  const names={landing:'🏠 Landing Page',signup:'✍️ Sign Up Page',login:'🔑 Login Page',dashboard:'📡 User Dashboard',changePass:'🔒 Change Password'};
-  if(log) log.innerHTML='['+ts+'] Navigated to: <span style="color:var(--em);">'+names[page]+'</span><br>'+log.innerHTML;
-  showToast('Testing: '+names[page],'green');
-}
-
-function adminTestFeature(mode){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  // Go to dashboard first
-  goTo('dashView');
-  setTimeout(()=>{
-    // Switch to the mode
-    const btn=document.querySelector('[data-mode="'+mode+'"]');
-    if(btn){
-      // Temporarily unlock for admin testing
-      const wasLocked=btn.classList.contains('locked');
-      btn.classList.remove('locked');
-      switchMode(mode,btn);
-      show('searchCard');
-      if(log) log.innerHTML='['+ts+'] Testing mode: <span style="color:var(--em);">'+mode+'</span> '+(wasLocked?'(was locked — temporarily unlocked for test)':'')+'<br>'+log.innerHTML;
-      showToast('Testing: '+mode+' mode — unlocked for admin test','green');
-    }
-  },200);
-}
-
-function adminTestPay(amount,plan){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  openPay(plan,amount);
-  if(log) log.innerHTML='['+ts+'] Payment test: <span style="color:var(--gold);">₹'+amount+' · '+plan+'</span> — Razorpay modal opened<br>'+log.innerHTML;
-}
-
-function adminClearLog(){
-  const log=document.getElementById('adminTestLog');
-  if(log) log.innerHTML='Log cleared. Ready for new tests.';
-}
-
-function adminUpdateChecklist(){
-  const total=10;
-  let done=0;
-  for(let i=1;i<=total;i++){
-    if(document.getElementById('chk'+i)?.checked) done++;
-  }
-  const el=document.getElementById('checklistStatus');
-  if(!el) return;
-  if(done===total){
-    el.innerHTML='✅ '+done+'/'+total+' checks complete — <strong>READY FOR DEPLOYMENT!</strong>';
-    el.style.background='rgba(0,200,150,.15)';
-    el.style.borderColor='rgba(0,200,150,.3)';
-    el.style.color='var(--em)';
-  } else {
-    el.innerHTML=done+'/'+total+' checks complete — not ready yet';
-    el.style.background='rgba(255,255,255,.03)';
-    el.style.borderColor='var(--bn)';
-    el.style.color='rgba(255,255,255,.4)';
-  }
-}
-
 function switchAdminTab(tab){
   // Reset all tabs
   ['tabProfiles','tabPayments','tabSearches'].forEach(id=>{
@@ -2791,7 +2679,6 @@ function switchAdminTab(tab){
   if(activePanel) activePanel.style.display='block';
   if(tab==='payments'){renderPaymentsTable();renderPaymentSummary();}
   if(tab==='profiles'){renderAdminTable(DB);}
-  if(tab==='website'){try{loadVisitorCount();}catch(e){}}
 }
 function renderAdminTable(data){
   const tbody=document.getElementById('adminTableBody'),cnt=document.getElementById('tableCount');
@@ -2904,95 +2791,19 @@ function dlProfile(id){
 
 <!-- PWA INSTALL BANNER -->
 <div id="pwaInstallBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--night2);border-top:1px solid rgba(0,200,150,.2);padding:14px 18px;flex-direction:row;align-items:center;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,.4);">
-  <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-    <svg width="18" height="18" viewBox="0 0 42 42" fill="none"><path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/></svg>
-  </div>
-  <div style="flex:1;min-width:0;">
-    <div style="font-size:13px;font-weight:700;color:white;">Add JobsSignal to Home Screen</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;">Tap once. Opens like a real app. Free.</div>
-  </div>
-  <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:var(--em);color:var(--night);font-size:12px;font-weight:800;border:none;cursor:pointer;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
-  <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
+  <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 42 42" fill="none"><path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/></svg></div>
+  <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:700;color:white;">Add JobsSignal to Home Screen</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;">Opens like a real app. Free. One tap.</div></div>
+  <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:var(--em);color:var(--night);font-size:12px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
+  <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
 </div>
-
 <script>
-// ── PWA Service Worker Registration ─────────────────────────
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('[PWA] Service worker registered ✅', reg.scope);
-        // Check for updates every time app opens
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
-              // New version available — silently update
-              newWorker.postMessage({type:'SKIP_WAITING'});
-            }
-          });
-        });
-      })
-      .catch(err => console.log('[PWA] SW registration failed:', err));
-  });
-}
-
-// ── Handle PWA shortcuts (?action=search / ?action=admin) ───
-window.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const action = params.get('action');
-  if(action === 'search'){
-    // Auto-navigate to dashboard search if logged in
-    const user = localStorage.getItem('js_user');
-    if(user){ setTimeout(()=>{ goTo('dashView'); show('searchCard'); }, 500); }
-    else { setTimeout(()=>{ goTo('signupView'); }, 500); }
-  }
-  if(action === 'admin'){
-    setTimeout(()=>{ goTo('adminLoginView'); }, 500);
-  }
-});
-
-// ── Install prompt — show custom "Add to Home Screen" ───────
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(r=>console.log('[PWA] ✅',r.scope)).catch(e=>console.log('[PWA] failed:',e));});}
 let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  // Show install banner after 8 seconds if not installed
-  setTimeout(() => {
-    if(deferredPrompt) showInstallBanner();
-  }, 8000);
-});
-
-function showInstallBanner(){
-  // Check if already installed
-  if(window.matchMedia('(display-mode: standalone)').matches) return;
-  // Check if user dismissed before
-  if(localStorage.getItem('pwa_dismissed')) return;
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'flex';
-}
-
-function installPWA(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if(choice.outcome === 'accepted'){
-        showToast('✅ JobsSignal added to your home screen!','green');
-      }
-      deferredPrompt = null;
-    });
-  }
-}
-
-function dismissInstallBanner(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  localStorage.setItem('pwa_dismissed', '1');
-}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(deferredPrompt)showInstallBanner();},8000);});
+function showInstallBanner(){if(window.matchMedia('(display-mode:standalone)').matches)return;if(localStorage.getItem('pwa_dismissed'))return;const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='flex';}
+function installPWA(){const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(c=>{if(c.outcome==='accepted')showToast('✅ Added to home screen!','green');deferredPrompt=null;});}}
+function dismissInstallBanner(){const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';localStorage.setItem('pwa_dismissed','1');}
 <\/script>
-
 </body>
 </html>`;
 
@@ -3068,84 +2879,6 @@ function exportAllCSV(){
   <div class="footer">JobsSignal.in &mdash; India's Real-Time Job Signal Finder &mdash; Confidential Admin Report</div>
 </div>
 <script>window.onload=()=>{window.print();}<\/script>
-<script>
-// ── PWA Service Worker Registration ─────────────────────────
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('[PWA] Service worker registered ✅', reg.scope);
-        // Check for updates every time app opens
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
-              // New version available — silently update
-              newWorker.postMessage({type:'SKIP_WAITING'});
-            }
-          });
-        });
-      })
-      .catch(err => console.log('[PWA] SW registration failed:', err));
-  });
-}
-
-// ── Handle PWA shortcuts (?action=search / ?action=admin) ───
-window.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const action = params.get('action');
-  if(action === 'search'){
-    // Auto-navigate to dashboard search if logged in
-    const user = localStorage.getItem('js_user');
-    if(user){ setTimeout(()=>{ goTo('dashView'); show('searchCard'); }, 500); }
-    else { setTimeout(()=>{ goTo('signupView'); }, 500); }
-  }
-  if(action === 'admin'){
-    setTimeout(()=>{ goTo('adminLoginView'); }, 500);
-  }
-});
-
-// ── Install prompt — show custom "Add to Home Screen" ───────
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  // Show install banner after 8 seconds if not installed
-  setTimeout(() => {
-    if(deferredPrompt) showInstallBanner();
-  }, 8000);
-});
-
-function showInstallBanner(){
-  // Check if already installed
-  if(window.matchMedia('(display-mode: standalone)').matches) return;
-  // Check if user dismissed before
-  if(localStorage.getItem('pwa_dismissed')) return;
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'flex';
-}
-
-function installPWA(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if(choice.outcome === 'accepted'){
-        showToast('✅ JobsSignal added to your home screen!','green');
-      }
-      deferredPrompt = null;
-    });
-  }
-}
-
-function dismissInstallBanner(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  localStorage.setItem('pwa_dismissed', '1');
-}
-<\/script>
-
 </body>
 </html>`;
 
@@ -3227,65 +2960,7 @@ function showToast(msg,type){
 // ============================================================
 // INIT — runs on every page load including refresh
 // ============================================================
-
-// ── VISITOR COUNTER ──────────────────────────────────────
-const VISIT_KEY = 'js_visit_counted';
-const VISIT_NS  = 'jobssignal-in-kiran-2025';
-
-function trackVisit(){
-  if(sessionStorage.getItem(VISIT_KEY)) return;
-  sessionStorage.setItem(VISIT_KEY,'1');
-  fetch('https://api.countapi.xyz/hit/'+VISIT_NS+'/visits')
-    .then(r=>r.json())
-    .then(d=>{
-      try{
-        const cur=parseInt(localStorage.getItem('js_total_visits')||'0');
-        if(d.value && d.value>cur) localStorage.setItem('js_total_visits', String(d.value));
-      }catch(e){}
-    }).catch(()=>{
-      try{
-        const cur=parseInt(localStorage.getItem('js_local_visits')||'0');
-        localStorage.setItem('js_local_visits', String(cur+1));
-      }catch(e){}
-    });
-  try{
-    const lv=parseInt(localStorage.getItem('js_local_visits')||'0');
-    localStorage.setItem('js_local_visits', String(lv+1));
-  }catch(e){}
-}
-
-function loadVisitorCount(){
-  const countEl=document.getElementById('visitorCount');
-  const subEl  =document.getElementById('visitorSub');
-  const todayEl=document.getElementById('visitorToday');
-  const weekEl =document.getElementById('visitorWeek');
-  if(!countEl) return;
-  countEl.textContent='Loading...';
-  countEl.classList.add('vc-loading');
-  fetch('https://api.countapi.xyz/get/'+VISIT_NS+'/visits')
-    .then(r=>r.json())
-    .then(d=>{
-      const total=d.value||parseInt(localStorage.getItem('js_local_visits')||'0');
-      countEl.classList.remove('vc-loading');
-      countEl.textContent=total.toLocaleString('en-IN');
-      if(subEl) subEl.textContent='Total sessions tracked · Last refreshed: '+new Date().toLocaleTimeString('en-IN');
-      if(todayEl) todayEl.textContent=Math.max(1,Math.round(total*0.04)).toLocaleString('en-IN');
-      if(weekEl)  weekEl.textContent=Math.max(1,Math.round(total*0.18)).toLocaleString('en-IN');
-    })
-    .catch(()=>{
-      const local=parseInt(localStorage.getItem('js_local_visits')||'0');
-      countEl.classList.remove('vc-loading');
-      countEl.textContent=local.toLocaleString('en-IN')+'*';
-      if(subEl) subEl.textContent='* Local count only (CountAPI unavailable). Open on live connection for full count.';
-      if(todayEl) todayEl.textContent=Math.max(1,Math.round(local*0.1)).toString();
-      if(weekEl)  weekEl.textContent=local.toString();
-    });
-}
-
 document.addEventListener('DOMContentLoaded',()=>{
-  // Track this visit
-  try{ trackVisit(); }catch(e){}
-
   // Scroll reveal
   try{
     const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.1});
@@ -3299,6 +2974,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(!fab) return;
     const isDash=document.getElementById('dashView')?.classList.contains('active');
     if(isDash && window.scrollY>180) fab.style.display='flex';
+    else fab.style.display='none';
+  });
+  // Track visitor
+  try{ trackVisit(); }catch(e){}
+  // Smart FAB scroll handler
+  window.addEventListener('scroll',()=>{
+    const fab=document.getElementById('stickyFab');
+    if(!fab) return;
+    const onDash=document.getElementById('dashView')?.classList.contains('active');
+    const onLand=document.getElementById('landingView')?.classList.contains('active');
+    if((onDash||onLand)&&window.scrollY>180){fab.style.display='flex';updateFabButton();}
     else fab.style.display='none';
   });
   const restored = restoreSession();
@@ -3315,6 +3001,120 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 // ============================================================
+
+// ── VISITOR COUNTER ──────────────────────────────────────────
+const VISIT_KEY = 'js_visit_counted';
+const VISIT_NS  = 'jobssignal-in-kiran-2025';
+function trackVisit(){
+  if(sessionStorage.getItem(VISIT_KEY)) return;
+  sessionStorage.setItem(VISIT_KEY,'1');
+  fetch('https://api.countapi.xyz/hit/'+VISIT_NS+'/visits')
+    .then(r=>r.json()).then(d=>{
+      try{const c=parseInt(localStorage.getItem('js_total_visits')||'0');
+        if(d.value&&d.value>c) localStorage.setItem('js_total_visits',String(d.value));}catch(e){}
+    }).catch(()=>{
+      try{const l=parseInt(localStorage.getItem('js_local_visits')||'0');
+        localStorage.setItem('js_local_visits',String(l+1));}catch(e){}});
+  try{const l=parseInt(localStorage.getItem('js_local_visits')||'0');
+    localStorage.setItem('js_local_visits',String(l+1));}catch(e){}
+}
+function loadVisitorCount(){
+  const ce=document.getElementById('visitorCount');
+  const se=document.getElementById('visitorSub');
+  const te=document.getElementById('visitorToday');
+  const we=document.getElementById('visitorWeek');
+  if(!ce) return;
+  ce.textContent='Loading...'; ce.classList.add('vc-loading');
+  fetch('https://api.countapi.xyz/get/'+VISIT_NS+'/visits')
+    .then(r=>r.json()).then(d=>{
+      const t=d.value||parseInt(localStorage.getItem('js_local_visits')||'0');
+      ce.classList.remove('vc-loading'); ce.textContent=t.toLocaleString('en-IN');
+      if(se) se.textContent='Total sessions tracked · Refreshed: '+new Date().toLocaleTimeString('en-IN');
+      if(te) te.textContent=Math.max(1,Math.round(t*0.04)).toLocaleString('en-IN');
+      if(we) we.textContent=Math.max(1,Math.round(t*0.18)).toLocaleString('en-IN');
+    }).catch(()=>{
+      const l=parseInt(localStorage.getItem('js_local_visits')||'0');
+      ce.classList.remove('vc-loading'); ce.textContent=l.toLocaleString('en-IN')+'*';
+      if(se) se.textContent='* Local count only — deploy to jobssignal.in for real count';
+      if(te) te.textContent=Math.max(1,Math.round(l*0.1)).toString();
+      if(we) we.textContent=l.toString();
+    });
+}
+
+// ── SMART FAB BUTTON ─────────────────────────────────────────
+function onFabClick(){
+  const loggedIn=!!localStorage.getItem('js_user');
+  const onDash=document.getElementById('dashView')?.classList.contains('active');
+  if(loggedIn){
+    if(!onDash) goTo('dashView');
+    setTimeout(()=>{show('searchCard');document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'});},100);
+  } else {
+    goTo('signupView');
+  }
+  updateFabButton();
+}
+function updateFabButton(){
+  const fab=document.getElementById('stickyFab');
+  if(!fab) return;
+  const loggedIn=!!localStorage.getItem('js_user');
+  const onDash=document.getElementById('dashView')?.classList.contains('active');
+  if(!loggedIn){
+    fab.innerHTML='📡 Try Free — See Live Signals';
+    fab.style.cssText+='background:var(--em);color:var(--night);font-weight:800;';
+  } else if(onDash){
+    fab.innerHTML='📡 Search Now';
+    fab.style.background='var(--em)'; fab.style.color='var(--night)';
+  } else {
+    fab.innerHTML='📡 Go to Dashboard';
+    fab.style.background='var(--em)'; fab.style.color='var(--night)';
+  }
+}
+
+// ── ADMIN TEST FUNCTIONS ──────────────────────────────────────
+function adminTestPage(page){
+  const log=document.getElementById('adminTestLog');
+  const ts=new Date().toLocaleTimeString('en-IN');
+  const map={landing:'landingView',signup:'signupView',login:'loginView',dashboard:'dashView',changePass:'changePassView'};
+  const names={landing:'🏠 Landing',signup:'✍️ Sign Up',login:'🔑 Login',dashboard:'📡 Dashboard',changePass:'🔒 Change Password'};
+  goTo(map[page]||'landingView');
+  if(log) log.innerHTML='['+ts+'] Navigated: <span style="color:var(--em);">'+names[page]+'</span><br>'+log.innerHTML;
+  showToast('Testing: '+names[page],'green');
+}
+function adminTestFeature(mode){
+  const log=document.getElementById('adminTestLog');
+  const ts=new Date().toLocaleTimeString('en-IN');
+  goTo('dashView');
+  setTimeout(()=>{
+    const btn=document.querySelector('[data-mode="'+mode+'"]');
+    if(btn){btn.classList.remove('locked');switchMode(mode,btn);show('searchCard');}
+    if(log) log.innerHTML='['+ts+'] Mode test: <span style="color:var(--em);">'+mode+'</span><br>'+log.innerHTML;
+    showToast('Testing mode: '+mode,'green');
+  },200);
+}
+function adminTestPay(amount,plan){
+  const log=document.getElementById('adminTestLog');
+  const ts=new Date().toLocaleTimeString('en-IN');
+  openPay(plan,amount);
+  if(log) log.innerHTML='['+ts+'] Payment test: <span style="color:var(--gold);">₹'+amount+' · '+plan+'</span><br>'+log.innerHTML;
+}
+function adminClearLog(){
+  const log=document.getElementById('adminTestLog');
+  if(log) log.innerHTML='Log cleared.';
+}
+function adminUpdateChecklist(){
+  let done=0;
+  for(let i=1;i<=10;i++) if(document.getElementById('chk'+i)?.checked) done++;
+  const el=document.getElementById('checklistStatus');
+  if(!el) return;
+  if(done===10){
+    el.innerHTML='✅ 10/10 — <strong>READY FOR DEPLOYMENT!</strong>';
+    el.style.cssText='background:rgba(0,200,150,.15);border-color:rgba(0,200,150,.3);color:var(--em);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid;margin-top:12px;';
+  } else {
+    el.innerHTML=done+'/10 checks complete — not ready yet';
+    el.style.cssText='background:rgba(255,255,255,.03);border-color:var(--bn);color:rgba(255,255,255,.4);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid;margin-top:12px;';
+  }
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3335,83 +3135,5 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
-<script>
-// ── PWA Service Worker Registration ─────────────────────────
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('[PWA] Service worker registered ✅', reg.scope);
-        // Check for updates every time app opens
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
-              // New version available — silently update
-              newWorker.postMessage({type:'SKIP_WAITING'});
-            }
-          });
-        });
-      })
-      .catch(err => console.log('[PWA] SW registration failed:', err));
-  });
-}
-
-// ── Handle PWA shortcuts (?action=search / ?action=admin) ───
-window.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const action = params.get('action');
-  if(action === 'search'){
-    // Auto-navigate to dashboard search if logged in
-    const user = localStorage.getItem('js_user');
-    if(user){ setTimeout(()=>{ goTo('dashView'); show('searchCard'); }, 500); }
-    else { setTimeout(()=>{ goTo('signupView'); }, 500); }
-  }
-  if(action === 'admin'){
-    setTimeout(()=>{ goTo('adminLoginView'); }, 500);
-  }
-});
-
-// ── Install prompt — show custom "Add to Home Screen" ───────
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  // Show install banner after 8 seconds if not installed
-  setTimeout(() => {
-    if(deferredPrompt) showInstallBanner();
-  }, 8000);
-});
-
-function showInstallBanner(){
-  // Check if already installed
-  if(window.matchMedia('(display-mode: standalone)').matches) return;
-  // Check if user dismissed before
-  if(localStorage.getItem('pwa_dismissed')) return;
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'flex';
-}
-
-function installPWA(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if(choice.outcome === 'accepted'){
-        showToast('✅ JobsSignal added to your home screen!','green');
-      }
-      deferredPrompt = null;
-    });
-  }
-}
-
-function dismissInstallBanner(){
-  const banner = document.getElementById('pwaInstallBanner');
-  if(banner) banner.style.display = 'none';
-  localStorage.setItem('pwa_dismissed', '1');
-}
-</script>
-
 </body>
 </html>
