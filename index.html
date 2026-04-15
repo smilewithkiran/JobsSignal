@@ -1150,16 +1150,32 @@ tr:hover td{background:rgba(255,255,255,.02);}
   .pill-btn{padding:7px 10px;font-size:11px;}
 
   /* DASHBOARD NAV */
-  .dash-nav-inner{padding:0 12px;height:52px;}
+  .dash-nav-inner{padding:0 10px;height:54px;}
   .logo-tag{display:none !important;}
   .sc-badge-txt{display:none;}
   .india-tag{display:none !important;}
+  .logo-name{font-size:13px !important;}
+  .logo-wrap{max-width:110px !important;}
+  .dash-nav-actions{gap:5px !important;}
+  .btn-dash-logout{font-size:10px !important;padding:5px 9px !important;}
+  .btn-dash-action{font-size:10px !important;padding:5px 9px !important;}
+  .du-name-wrap{max-width:70px;overflow:hidden;}
+  .du-name{font-size:11px !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .du-plan{font-size:9px !important;}
   .dash-plan-badge{display:none !important;}
   .dash-btn-pass{display:none !important;}
   .du-name-wrap .du-plan{font-size:9px;}
 
   /* DASHBOARD */
   .dash-page{padding:60px 12px 40px;}
+  .preview-banner{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px;}
+  .preview-banner .btn-preview{width:100%;text-align:center;justify-content:center;}
+  .pb-title{font-size:14px !important;}
+  .pb-icon{font-size:22px;}
+  .ucc-plans{grid-template-columns:1fr 1fr !important;}
+  .ucc-plan{padding:7px 10px;}
+  .ucc-plan-price{font-size:16px;}
+  .ucc-plan-days{font-size:11px;}
   .dash-welcome{flex-direction:column;gap:12px;padding:14px 16px;}
   .dw-greeting{font-size:16px;}
   .dw-stats{gap:10px;}
@@ -1244,6 +1260,30 @@ tr:hover td{background:rgba(255,255,255,.02);}
 /* ── ADMIN SEARCHES TAB ────────────────────── */
 .admin-mode-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:6px;}
 
+
+/* ── VISITOR COUNTER ─────────────────────────────────────── */
+.visitor-card{background:linear-gradient(135deg,var(--night2),var(--night3));border:1px solid var(--bn);border-radius:var(--r2);padding:20px 24px;margin-bottom:18px;display:flex;align-items:center;gap:20px;position:relative;overflow:hidden;}
+.visitor-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,150,.08),transparent 70%);}
+.vc-icon{width:48px;height:48px;border-radius:12px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.vc-main{flex:1;min-width:0;}
+.vc-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.vc-count{font-family:'Syne',sans-serif;font-size:34px;font-weight:900;color:var(--em);line-height:1;}
+.vc-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:4px;}
+.vc-stats{display:flex;gap:10px;flex-shrink:0;}
+.vc-s{background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:9px;padding:10px 14px;text-align:center;}
+.vc-sn{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;}
+.vc-sl{font-size:9px;color:rgba(255,255,255,.3);margin-top:2px;}
+.vc-refresh{padding:8px 14px;border-radius:7px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);color:var(--em);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif;}
+.vc-loading{animation:vc-pulse 1.2s infinite;}
+@keyframes vc-pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+/* ── SMART FAB (dashboard only) ─────────────────────────── */
+.sticky-search-fab{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:400;display:none;align-items:center;justify-content:center;gap:8px;background:var(--em);color:var(--night);padding:12px 24px;border-radius:30px;font-size:13px;font-weight:800;border:none;box-shadow:0 6px 24px rgba(0,200,150,.4);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;}
+@media(max-width:768px){
+  .visitor-card{flex-direction:column;gap:12px;padding:16px;}
+  .vc-stats{width:100%;}
+  .vc-s{flex:1;}
+  .sticky-search-fab{left:12px;right:12px;transform:none;}
+}
 </style>
 </head>
 <body>
@@ -1273,9 +1313,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <input class="hb-in" id="heroSkill" placeholder="Your skill — React, Python, HR, Finance...">
       <div class="hb-sep"></div>
       <select class="hb-city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select>
-      <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals — Sign Up Free →</button>
+      <button type="button" class="hb-btn" onclick="goTo('signupView')">📡 Find Signals →</button>
     </div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center;">🎁 Free preview — no card needed · India only 🇮🇳</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center;">🎁 Free preview · No card needed · India only 🇮🇳</div>
     <div class="hero-trust" style="margin-top:18px;">
       <div class="ht-item"><div class="hn">2,400<span style="color:var(--gold);font-size:13px;">+</span></div><div class="hl">Signals daily</div></div>
       <div class="ht-sep"></div>
@@ -1396,8 +1436,8 @@ tr:hover td{background:rgba(255,255,255,.02);}
           <div class="ac-title">Create your account</div>
           <div class="ac-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
           <div class="india-chip">🇮🇳 <div><strong>India-only platform.</strong> +91 mobile required.</div></div>
-          <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai"></div>
-          <div class="form-row-2"><div><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10"></div><div><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com"></div></div>
+          <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai" oninput="checkDuplicate('name')" autocomplete="off"><div id="s1_name_msg" style="font-size:11px;margin-top:4px;min-height:16px;"></div></div>
+          <div class="form-row-2"><div><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10" oninput="checkDuplicate('phone')" autocomplete="off"><div id="s1_phone_msg" style="font-size:11px;margin-top:4px;min-height:16px;"></div></div><div><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com" oninput="checkDuplicate('email')" autocomplete="off"><div id="s1_email_msg" style="font-size:11px;margin-top:4px;min-height:16px;"></div></div></div>
           <div class="form-row-2"><div><label class="form-label">Your City *</label><select class="form-select" id="s1_city"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div><div><label class="form-label">Primary Skill *</label><input class="form-input" id="s1_skill" placeholder="React, HR, Python..."></div></div>
           <div class="form-group"><label class="form-label">Currently Working?</label><div class="pill-row" id="wsRow"><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button></div></div>
           <button type="button" class="btn-primary" onclick="nextStep(1)">Continue →</button>
@@ -1717,6 +1757,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </nav>
   <div class="admin-page">
+    <div class="visitor-card"><div class="vc-icon">👥</div><div class="vc-main"><div class="vc-label">Total Visitors</div><div class="vc-count vc-loading" id="visitorCount">—</div><div class="vc-sub" id="visitorSub">jobssignal.in visitors</div></div><div class="vc-stats"><div class="vc-s"><div class="vc-sn" id="visitorToday">—</div><div class="vc-sl">Est. Today</div></div><div class="vc-s"><div class="vc-sn" id="visitorWeek">—</div><div class="vc-sl">Est. Week</div></div></div><button class="vc-refresh" onclick="loadVisitorCount()">🔄</button></div>
     <div class="admin-stats">
       <div class="astat"><div class="astat-n" style="color:var(--em);">247</div><div class="astat-l">Total Users</div><div class="astat-ch ch-up">↑ +18 this week</div></div>
       <div class="astat"><div class="astat-n" style="color:var(--blue);" id="adminStatPaid">0</div><div class="astat-l">Paid Users</div><div class="astat-ch ch-up">From Razorpay</div></div>
@@ -1738,7 +1779,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
       <button type="button" id="tabProfiles" onclick="switchAdminTab('profiles')" style="flex:1;padding:12px;background:var(--gold);color:var(--night);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">👥 Profiles</button>
       <button type="button" id="tabPayments" onclick="switchAdminTab('payments')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">💳 Payments</button>
       <button type="button" id="tabSearches" onclick="switchAdminTab('searches')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📡 Searches</button>
-      <button type="button" id="tabWebsite" onclick="switchAdminTab('website')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,.4);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🌐 Test Website</button>
     </div>
     <div id="adminProfiles">
       <div class="admin-filters"><input class="af-in" id="searchFilter" placeholder="🔍 Search name, email, skill..." style="flex:1;min-width:180px;" oninput="filterTable()"><select class="af-sel" id="planFilter" onchange="filterTable()"><option value="">All Plans</option><option value="free">Free</option><option value="paid">Paid</option></select><select class="af-sel" id="cityFilter" onchange="filterTable()"><option value="">All Cities</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Remote</option></select><select class="af-sel" id="roleFilter" onchange="filterTable()"><option value="">All Roles</option><option>Talent Acquisition</option><option>Software Developer</option><option>Product Manager</option><option>Data Scientist</option></select><button type="button" class="btn-af" onclick="filterTable()">Filter</button><button type="button" class="btn-export" onclick="exportAllCSV()">📥 Export All CSV</button></div>
@@ -1774,63 +1814,8 @@ tr:hover td{background:rgba(255,255,255,.02);}
       </div>
     </div>
   </div>
-  <div id="adminWebsite" style="display:none;">
-    <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;margin-bottom:16px;">
-      <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px;">🌐 Full Website Test Panel</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;">Test every page and feature before deploying to jobssignal.in</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-        <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
-          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">📄 Pages</div>
-          <div style="display:flex;flex-direction:column;gap:7px;">
-            <button onclick="adminTestPage('landing')"    style="text-align:left;padding:9px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:8px;color:var(--em);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🏠 Landing Page</button>
-            <button onclick="adminTestPage('signup')"     style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✍️ Sign Up (3 Steps)</button>
-            <button onclick="adminTestPage('login')"      style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🔑 Login Page</button>
-            <button onclick="adminTestPage('dashboard')"  style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📡 User Dashboard</button>
-            <button onclick="adminTestPage('changePass')" style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🔒 Change Password</button>
-          </div>
-        </div>
-        <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
-          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">🔍 Test Search Modes</div>
-          <div style="display:flex;flex-direction:column;gap:7px;">
-            <button onclick="adminTestFeature('skill')"    style="text-align:left;padding:9px 12px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:8px;color:var(--em);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🎯 Skill + City</button>
-            <button onclick="adminTestFeature('hashtag')"  style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;"># Hashtag Hunt</button>
-            <button onclick="adminTestFeature('notice')"   style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">⏱️ Notice Period</button>
-            <button onclick="adminTestFeature('referral')" style="text-align:left;padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:8px;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🤝 Referral Radar</button>
-            <button onclick="adminTestFeature('walkin')"   style="text-align:left;padding:9px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:8px;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🚶 Walk-in Drives</button>
-          </div>
-        </div>
-      </div>
-      <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;margin-bottom:10px;">
-        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">💳 Test Payments</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="adminTestPay(49,'7 Days')"       style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹49 · 7 Days</button>
-          <button onclick="adminTestPay(99,'30 Days')"      style="padding:8px 16px;background:var(--em);border:none;border-radius:8px;color:var(--night);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹99 · 30 Days ⭐</button>
-          <button onclick="adminTestPay(179,'60 Days')"     style="padding:8px 16px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:8px;color:var(--em);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹179 · 60 Days</button>
-          <button onclick="adminTestPay(599,'Annual Plan')" style="padding:8px 16px;background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);border-radius:8px;color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">₹599 · Annual</button>
-        </div>
-      </div>
-      <div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:14px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;">📋 Test Log</span><button onclick="adminClearLog()" style="padding:4px 10px;background:transparent;border:1px solid var(--bn);border-radius:6px;color:rgba(255,255,255,.3);font-size:10px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Clear</button></div>
-        <div id="adminTestLog" style="font-size:11px;color:rgba(255,255,255,.35);font-family:monospace;line-height:1.8;min-height:48px;">No tests run yet.</div>
-      </div>
-    </div>
-    <div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;">
-      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:12px;">✅ Pre-Deployment Checklist</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk1" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Landing page loads</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk2" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Sign up works (3 steps)</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk3" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Login &amp; session persists</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk4" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">All 5 search modes visible</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk5" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Skill + City opens LinkedIn</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk6" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Walk-in Drives works</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk7" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Payment modal opens</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk8" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Comment template copies</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk9" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Daily tip shows</span></label>
-        <label style="display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--night3);border-radius:8px;cursor:pointer;"><input type="checkbox" id="chk10" onchange="adminUpdateChecklist()"><span style="font-size:12px;color:rgba(255,255,255,.6);">Visitor counter loads</span></label>
-      </div>
-      <div id="checklistStatus" style="margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--bn);border-radius:8px;font-size:12px;color:rgba(255,255,255,.4);font-weight:700;">0/10 checks — not ready</div>
-    </div>
-  </div>
+  <div id="adminSearches" style="display:none;"><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;"><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--em);">5</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Modes</div></div><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--blue);">2400+</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Signals/Day</div></div><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--gold);">15+</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Cities</div></div><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--purple);">8hr</div><div style="font-size:11px;color:rgba(255,255,255,.3);">Before Portals</div></div><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--em);">₹49</div><div style="font-size:11px;color:rgba(255,255,255,.3);">From</div></div></div></div>
+  <div id="adminWebsite" style="display:none;"><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:20px;margin-bottom:16px;"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:6px;">🌐 Test Website</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:12px;"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Pages</div><div style="display:flex;flex-direction:column;gap:5px;"><button onclick="adminTestPage('landing')" style="text-align:left;padding:8px 10px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:7px;color:var(--em);font-size:11px;font-weight:600;cursor:pointer;">🏠 Landing</button><button onclick="adminTestPage('signup')" style="text-align:left;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:7px;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;">✍️ Sign Up</button><button onclick="adminTestPage('login')" style="text-align:left;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:7px;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;">🔑 Login</button><button onclick="adminTestPage('dashboard')" style="text-align:left;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:7px;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;">📡 Dashboard</button></div></div><div style="background:var(--night3);border:1px solid var(--bn);border-radius:var(--r3);padding:12px;"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Search Modes</div><div style="display:flex;flex-direction:column;gap:5px;"><button onclick="adminTestFeature('skill')" style="text-align:left;padding:8px 10px;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.15);border-radius:7px;color:var(--em);font-size:11px;font-weight:600;cursor:pointer;">🎯 Skill+City</button><button onclick="adminTestFeature('hashtag')" style="text-align:left;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:7px;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;">#Hashtag</button><button onclick="adminTestFeature('notice')" style="text-align:left;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid var(--bn);border-radius:7px;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;">⏱️ Notice</button><button onclick="adminTestFeature('walkin')" style="text-align:left;padding:8px 10px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:7px;color:var(--blue);font-size:11px;font-weight:600;cursor:pointer;">🚶 Walk-in</button></div></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;"><button onclick="adminTestPay(49,'7 Days')" style="padding:7px 14px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:7px;color:var(--em);font-size:11px;font-weight:700;cursor:pointer;">₹49</button><button onclick="adminTestPay(99,'30 Days')" style="padding:7px 14px;background:var(--em);border:none;border-radius:7px;color:var(--night);font-size:11px;font-weight:700;cursor:pointer;">₹99 ⭐</button><button onclick="adminTestPay(179,'60 Days')" style="padding:7px 14px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.2);border-radius:7px;color:var(--em);font-size:11px;font-weight:700;cursor:pointer;">₹179</button><button onclick="adminTestPay(599,'Annual Plan')" style="padding:7px 14px;background:rgba(240,168,76,.1);border:1px solid rgba(240,168,76,.2);border-radius:7px;color:var(--gold);font-size:11px;font-weight:700;cursor:pointer;">₹599</button></div><div id="adminTestLog" style="font-size:11px;color:rgba(255,255,255,.35);font-family:monospace;line-height:1.8;min-height:36px;background:var(--night3);border:1px solid var(--bn);border-radius:8px;padding:10px;">No tests run yet.</div></div><div style="background:var(--night2);border:1px solid var(--bn);border-radius:var(--r2);padding:16px;margin-top:12px;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk1" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Landing loads</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk2" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Sign up works</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk3" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Login works</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk4" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">5 modes visible</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk5" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Search works</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk6" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Walk-in works</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk7" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Payment opens</span></label><label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--night3);border-radius:7px;cursor:pointer;"><input type="checkbox" id="chk8" onchange="adminUpdateChecklist()"><span style="font-size:11px;color:rgba(255,255,255,.6);">Visitor counter</span></label></div><div id="checklistStatus" style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--bn);border-radius:7px;font-size:11px;color:rgba(255,255,255,.4);font-weight:700;">0/8 — not ready</div></div></div>
   <div id="adminPayments" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:white;">Payment Transactions</div><button type="button" onclick="exportPaymentsCSV()" style="padding:9px 16px;border-radius:8px;background:var(--gold);color:var(--night);font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📥 Export CSV</button></div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" id="paymentSummary"></div>
@@ -1892,12 +1877,24 @@ tr:hover td{background:rgba(255,255,255,.02);}
 </div>
 
 <!-- TOAST -->
+<button type="button" class="sticky-search-fab" id="stickyFab" onclick="show('searchCard');document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'})">📡 Search Now</button>
+
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span> <span id="toastMsg"></span></div>
 
 <!-- STICKY FAB — mobile search button -->
 <button type="button" class="sticky-search-fab" id="stickyFab" onclick="document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'});show('searchCard');">📡 Search Now</button>
 
+
+<!-- PWA INSTALL BANNER -->
+<div id="pwaInstallBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--night2);border-top:1px solid rgba(0,200,150,.2);padding:14px 18px;flex-direction:row;align-items:center;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,.4);">
+  <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 42 42" fill="none"><path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/></svg></div>
+  <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:700;color:white;">Add JobsSignal to Home Screen</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;">Opens like a real app. Free.</div></div>
+  <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:var(--em);color:var(--night);font-size:12px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
+  <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
+</div>
+
 <script>
+
 // ============================================================
 // CONFIG
 // ============================================================
@@ -1932,7 +1929,7 @@ function goTo(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id)?.classList.add('active');
   window.scrollTo(0,0);
-  try{updateFabButton();}catch(e){}
+  const fabG=document.getElementById('stickyFab');if(fabG)fabG.style.display='none';
 }
 function closeModal(id){document.getElementById(id)?.classList.remove('open');}
 function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
@@ -2024,6 +2021,12 @@ function nextStep(from){
     if(!p||p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
     if(!e){showToast('Enter your email','amber');return;}
     if(!c){showToast('Select your city','amber');return;}
+    // Phone is the unique ID — block if phone already registered
+    if(isDuplicate('phone',p)){
+      checkDuplicate('phone');
+      showToast('\u274c Mobile already registered — please Log In','amber');
+      return;
+    }
     setProgress(2);
     document.getElementById('step1')?.classList.remove('active');
     document.getElementById('step2')?.classList.add('active');
@@ -2055,6 +2058,33 @@ function doSignup(){
   const city=document.getElementById('s1_city')?.value||'Hyderabad';
   const skill=document.getElementById('s1_skill')?.value.trim()||'Talent Acquisition';
   const prefLocs=[...document.querySelectorAll('#prefLocRow .pill-btn.sel')].map(b=>b.textContent.trim());
+  // FINAL GATE: block duplicate phone or email before completing signup
+  if(phone&&isDuplicate('phone',phone)){
+    goTo('signupView');
+    document.getElementById('step1')?.classList.add('active');
+    document.getElementById('step2')?.classList.remove('active');
+    document.getElementById('step3')?.classList.remove('active');
+    showToast('\u274c This mobile is already registered. Please Log In.','amber');
+    setTimeout(()=>{checkDuplicate('phone');},300);
+    return;
+  }
+  if(email&&isDuplicate('email',email)){
+    goTo('signupView');
+    document.getElementById('step1')?.classList.add('active');
+    document.getElementById('step2')?.classList.remove('active');
+    document.getElementById('step3')?.classList.remove('active');
+    showToast('\u274c This email is already registered. Please Log In.','amber');
+    return;
+  }
+  // Save to permanent registry (survives logout)
+  try{
+    var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
+    if(phone&&!reg.includes(phone))reg.push(phone);
+    localStorage.setItem('js_reg_phones',JSON.stringify(reg));
+    var regE=JSON.parse(localStorage.getItem('js_reg_emails')||'[]');
+    if(email&&!regE.includes(email.toLowerCase()))regE.push(email.toLowerCase());
+    localStorage.setItem('js_reg_emails',JSON.stringify(regE));
+  }catch(e){}
   enterDash({name,phone,email,city,skill,prefLocs});
 }
 
@@ -2265,7 +2295,7 @@ function buildAway(){
     {av:'fa2',in:'PS',nm:'HR Manager · StartupXYZ',post:`"${skill} opening · ${city}/Remote · 15-22 LPA"`,w:'🟠 1 hr'},
     {av:'fa3',in:'AM',nm:'Recruiter · GlobalCo',post:`"Referral for ${skill} in ${city} — DM me!"`,w:'🟡 2 hrs'},
   ];
-  el.innerHTML=`<div style="position:relative;z-index:1;"><div class="aw-title">🔒 While you were away...</div><div class="aw-sub">What happened for <strong style="color:var(--em);">${skill}</strong> in <strong style="color:white;">${city}</strong>:</div></div><div class="aw-missed" style="position:relative;z-index:1;"><div class="aw-stat"><div class="aw-stat-n">${missed}</div><div class="aw-stat-l">Signals Missed</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--gold);">${refs}</div><div class="aw-stat-l">Referrals Gone</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--purple);">∞</div><div class="aw-stat-l">Roles Filled</div></div></div><div class="aw-blurred" style="position:relative;z-index:1;">${blurs.map(c=>`<div class="blurred-card"><div class="bc-top"><div class="bc-av ${c.av}">${c.in}</div><div><div class="bc-nm">${c.nm}</div></div><div class="bc-when">${c.w}</div></div><div class="bc-post">${c.post}</div></div>`).join('')}<div class="aw-overlay"><div style="text-align:center;"><div style="font-size:24px;margin-bottom:8px;">🔒</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;">Upgrade to unlock</div></div></div></div><div class="aw-more" style="position:relative;z-index:1;">+ ${missed-3} more signals right now</div><div class="upgrade-plans" style="position:relative;z-index:1;"><div class="up" onclick="openPay('7 Days',49)"><div class="up-days">7</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹49</div><button type="button" class="up-btn">Unlock →</button></div><div class="up best" onclick="openPay('30 Days',99)"><div class="up-days">30</div><div style="font-size:9px;color:var(--em);">Days 🏆</div><div class="up-price">₹99</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('60 Days',179)"><div class="up-days">60</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹179</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('Annual Plan',599)"><div class="up-days">365</div><div style="font-size:9px;color:rgba(255,255,255,.4);">⭐</div><div class="up-price">₹599</div><button type="button" class="up-btn">Unlock →</button></div></div><div class="aw-convert">🔒 Instant access · Cancel anytime</div>`;
+  el.innerHTML=`<div style="position:relative;z-index:1;"><div class="aw-title">🔒 While you were away...</div><div class="aw-sub">What happened for <strong style="color:var(--em);">${skill}</strong> in <strong style="color:white;">${city}</strong>:</div></div><div class="aw-missed" style="position:relative;z-index:1;"><div class="aw-stat"><div class="aw-stat-n">${missed}</div><div class="aw-stat-l">Signals Missed</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--gold);">${refs}</div><div class="aw-stat-l">Referrals Gone</div></div><div class="aw-stat"><div class="aw-stat-n" style="color:var(--purple);">∞</div><div class="aw-stat-l">Roles Filled</div></div></div><div class="aw-blurred" style="position:relative;z-index:1;">${blurs.map(c=>`<div class="blurred-card"><div class="bc-top"><div class="bc-av ${c.av}">${c.in}</div><div><div class="bc-nm">${c.nm}</div></div><div class="bc-when">${c.w}</div></div><div class="bc-post">${c.post}</div></div>`).join('')}<div class="aw-overlay"><div style="text-align:center;"><div style="font-size:24px;margin-bottom:8px;">🔒</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:white;">Upgrade to unlock</div></div></div></div><div class="aw-more" style="position:relative;z-index:1;">+ ${missed-3} more signals right now</div><div class="upgrade-plans" style="position:relative;z-index:1;"><div class="up" onclick="openPay('7 Days',49)"><div class="up-days">7</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹49</div><button type="button" class="up-btn">Unlock →</button></div><div class="up best" onclick="openPay('30 Days',99)"><div class="up-days">30</div><div style="font-size:9px;color:var(--em);">Days 🏆</div><div class="up-price">₹99</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('60 Days',179)"><div class="up-days">60</div><div style="font-size:9px;color:rgba(255,255,255,.4);">Days</div><div class="up-price">₹179</div><button type="button" class="up-btn">Unlock →</button></div><div class="up" onclick="openPay('Annual Plan',599)"><div class="up-days">365</div><div style="font-size:9px;color:rgba(255,255,255,.4);">⭐</div><div class="up-price">₹599</div><button type="button" class="up-btn">Unlock →</button></div></div><div class="aw-convert">🔒 Instant access</div>`;
 }
 function showTriggers(){
   const el=document.getElementById('convTriggers');if(!el)return;
@@ -2332,72 +2362,17 @@ function autoTags(skill){
 // URL BUILDER — strict mode separation
 // ============================================================
 function buildURL(mode,skill,city,np,htags,company){
-  const enc=s=>encodeURIComponent(s);
-  const t=getTerms(skill);
-  const C=city||'Hyderabad'; const NP=np||'30 Days';
-  const cb='https://www.linkedin.com/search/results/content/';
-  const jb='https://www.linkedin.com/jobs/search/';
-  const pb='https://www.linkedin.com/search/results/people/';
-  const d24='&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
-  const dwk='&datePosted=%22past-week%22&sortBy=%22date_posted%22';
-  const j24='&f_TPR=r86400&sortBy=DD'; const jwk='&f_TPR=r604800&sortBy=DD';
-
-  if(mode==='skill'){
-    // Pure skill — exact job title + city in quotes
-    const kw=`"${t.j}" "${C}" hiring`;
-    const kw2=`${t.j} ${C} hiring recruiter`;
-    return{
-      primary:cb+'?keywords='+enc(kw)+d24,
-      fallback:cb+'?keywords='+enc(kw2)+dwk,
-      jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,
-      jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,
-      ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',
-      people:pb+'?keywords='+enc('recruiter hiring '+t.j+' '+C),
-    };
-  }
-  if(mode==='hashtag'){
-    const tags=htags&&htags.length>0?htags:['#Hiring','#NowHiring'];
-    return{
-      primary:cb+'?keywords='+enc(tags.join(' ')+' '+(skill?skill+' ':'')+C)+d24,
-      fallback:cb+'?keywords='+enc(tags.slice(0,2).join(' ')+' '+C+' hiring')+dwk,
-      jobs:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+j24,
-      jobsWk:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+jwk,
-      ea:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+jwk+'&f_AL=true',
-      people:pb+'?keywords='+enc('recruiter '+(skill||t.j)+' '+C),
-    };
-  }
-  if(mode==='notice'){
-    return{
-      primary:cb+'?keywords='+enc(`"${NP}" ${t.j} ${C} hiring`)+dwk,
-      fallback:cb+'?keywords='+enc(`"immediate joiner" OR "notice period" ${t.j} ${C}`)+dwk,
-      jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,
-      jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,
-      ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',
-      people:pb+'?keywords='+enc('recruiter '+t.j+' '+C),
-    };
-  }
-  if(mode==='referral'){
-    const co=company||t.r;
-    return{
-      primary:cb+'?keywords='+enc(`"DM me" OR "referral" ${co} ${C} hiring`)+d24,
-      fallback:cb+'?keywords='+enc(`referral ${co} ${C} "DM"`)+dwk,
-      jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,
-      jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,
-      ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',
-      people:pb+'?keywords='+enc((company||t.r)+' employee '+C),
-    };
-  }
-  if(mode==='walkin'){
-    const wq=`"walk-in" OR "walkin" OR "walk in interview" ${t.j} ${C}`;
-    return{
-      primary:cb+'?keywords='+enc(wq)+d24,
-      fallback:cb+'?keywords='+enc(`"walk in" OR "walkin" ${C} hiring ${t.j}`)+dwk,
-      jobs:jb+'?keywords='+enc('walk in interview '+t.j)+'&location='+enc(C)+jwk,
-      jobsWk:jb+'?keywords='+enc(t.j+' walk in')+'&location='+enc(C)+jwk,
-      ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',
-      people:pb+'?keywords='+enc('recruiter walk-in '+t.r+' '+C),
-    };
-  }
+  const enc=s=>encodeURIComponent(s),t=getTerms(skill),C=city||'Hyderabad',NP=np||'30 Days';
+  const cb='https://www.linkedin.com/search/results/content/',jb='https://www.linkedin.com/jobs/search/',pb='https://www.linkedin.com/search/results/people/';
+  const d24='&datePosted=%22past-24h%22&sortBy=%22date_posted%22',dwk='&datePosted=%22past-week%22&sortBy=%22date_posted%22';
+  const j24='&f_TPR=r86400&sortBy=DD',jwk='&f_TPR=r604800&sortBy=DD';
+  const NO='-"open to work" -"opentowork" -"seeking a role" -"available for"';
+  const HIRE='("hiring" OR "we are hiring" OR "urgent requirement" OR "immediate requirement" OR "DM me" OR "apply now" OR "join our team")';
+  if(mode==='skill')return{primary:cb+'?keywords='+enc(HIRE+' "'+t.j+'" "'+C+'" '+NO)+d24,fallback:cb+'?keywords='+enc('"hiring" "'+t.j+'" "'+C+'" recruiter '+NO)+dwk,jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',people:pb+'?keywords='+enc('recruiter hiring '+t.j+' '+C)};
+  if(mode==='hashtag'){const tags=htags&&htags.length>0?htags:['#Hiring','#NowHiring','#JobOpening'],st='#'+(skill||'').replace(/\s+/g,'');return{primary:cb+'?keywords='+enc(tags.join(' ')+' '+(skill?st+' ':'')+'"'+C+'" '+NO)+d24,fallback:cb+'?keywords='+enc('#Hiring "'+t.j+'" "'+C+'" '+NO)+dwk,jobs:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+j24,jobsWk:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+jwk,ea:jb+'?keywords='+enc(skill||t.j)+'&location='+enc(C)+jwk+'&f_AL=true',people:pb+'?keywords='+enc('recruiter '+t.j+' '+C)};}
+  if(mode==='notice'){const npMap={'Immediate':'("immediate joiner" OR "can join immediately")','15 Days':'("15 days notice")','30 Days':'("30 days notice" OR "upto 30 days")','60 Days':'("60 days notice" OR "2 months notice")','90 Days':'("90 days notice" OR "3 months notice")'},npQ=npMap[NP]||'"'+NP+'"';return{primary:cb+'?keywords='+enc(npQ+' "'+t.j+'" "'+C+'" hiring '+NO)+dwk,fallback:cb+'?keywords='+enc('"notice period" "'+t.j+'" "'+C+'" recruiter '+NO)+dwk,jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',people:pb+'?keywords='+enc('recruiter '+t.j+' '+C)};}
+  if(mode==='referral'){const co=company||t.r;return{primary:cb+'?keywords='+enc('("DM me for referral" OR "DM for referral" OR "comment for referral") "'+co+'" "'+C+'" '+NO)+d24,fallback:cb+'?keywords='+enc('"referral" "'+co+'" hiring "'+C+'" '+NO)+dwk,jobs:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+j24,jobsWk:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk,ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',people:pb+'?keywords='+enc((company||t.r)+' employee '+C)};}
+  if(mode==='walkin')return{primary:cb+'?keywords='+enc('("walk-in" OR "walk in interview" OR "walkin drive") "'+t.j+'" "'+C+'" '+NO)+d24,fallback:cb+'?keywords='+enc('"walk in" "'+C+'" hiring "'+t.j+'" '+NO)+dwk,jobs:jb+'?keywords='+enc('walk in interview '+t.j)+'&location='+enc(C)+jwk,jobsWk:jb+'?keywords='+enc(t.j+' walk in')+'&location='+enc(C)+jwk,ea:jb+'?keywords='+enc(t.j)+'&location='+enc(C)+jwk+'&f_AL=true',people:pb+'?keywords='+enc('recruiter walk-in '+t.r+' '+C)};
   return{primary:cb+'?keywords='+enc(skill+' '+C+' hiring')+d24};
 }
 
@@ -2651,8 +2626,8 @@ function doAdminLogin(){
     goTo('adminView');
     renderAdminTable(DB);
     renderPaymentSummary();
-    try{ loadVisitorCount(); }catch(e){}
-    showToast('Welcome Admin 🔐 — Welcome Kiran! 👋','green');
+    try{loadVisitorCount();}catch(e){}
+    showToast('Welcome Kiran! 🔐','green');
   } else {
     if(errEl){
       errEl.innerHTML='❌ Wrong credentials. Use <strong>admin</strong> / <strong>admin@123</strong>';
@@ -2788,22 +2763,6 @@ function dlProfile(id){
   </div>
 </div>
 <script>window.onload=()=>{window.print();}<\/script>
-
-<!-- PWA INSTALL BANNER -->
-<div id="pwaInstallBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--night2);border-top:1px solid rgba(0,200,150,.2);padding:14px 18px;flex-direction:row;align-items:center;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,.4);">
-  <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 42 42" fill="none"><path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/></svg></div>
-  <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:700;color:white;">Add JobsSignal to Home Screen</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;">Opens like a real app. Free. One tap.</div></div>
-  <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:var(--em);color:var(--night);font-size:12px;font-weight:800;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
-  <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
-</div>
-<script>
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(r=>console.log('[PWA] ✅',r.scope)).catch(e=>console.log('[PWA] failed:',e));});}
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(deferredPrompt)showInstallBanner();},8000);});
-function showInstallBanner(){if(window.matchMedia('(display-mode:standalone)').matches)return;if(localStorage.getItem('pwa_dismissed'))return;const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='flex';}
-function installPWA(){const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(c=>{if(c.outcome==='accepted')showToast('✅ Added to home screen!','green');deferredPrompt=null;});}}
-function dismissInstallBanner(){const b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';localStorage.setItem('pwa_dismissed','1');}
-<\/script>
 </body>
 </html>`;
 
@@ -2976,17 +2935,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(isDash && window.scrollY>180) fab.style.display='flex';
     else fab.style.display='none';
   });
-  // Track visitor
-  try{ trackVisit(); }catch(e){}
-  // Smart FAB scroll handler
-  window.addEventListener('scroll',()=>{
-    const fab=document.getElementById('stickyFab');
-    if(!fab) return;
-    const onDash=document.getElementById('dashView')?.classList.contains('active');
-    const onLand=document.getElementById('landingView')?.classList.contains('active');
-    if((onDash||onLand)&&window.scrollY>180){fab.style.display='flex';updateFabButton();}
-    else fab.style.display='none';
-  });
+  try{trackVisit();}catch(e){}
+  window.addEventListener('scroll',()=>{document.getElementById('mainNav')?.classList.toggle('solid',window.scrollY>10);const fab=document.getElementById('stickyFab');if(!fab)return;const od=document.getElementById('dashView')?.classList.contains('active');if(od&&window.scrollY>200)fab.style.display='flex';else fab.style.display='none';});
+  if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').then(()=>console.log('[PWA] ✅')).catch(()=>{});
+  let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(deferredPrompt)showInstallBanner();},10000);});
+  try{trackVisit();}catch(e){}
+  window.addEventListener('scroll',()=>{document.getElementById('mainNav')?.classList.toggle('solid',window.scrollY>10);const fab=document.getElementById('stickyFab');if(!fab)return;const od=document.getElementById('dashView')?.classList.contains('active');if(od&&window.scrollY>200)fab.style.display='flex';else fab.style.display='none';});
+  if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').then(()=>console.log('[PWA] ✅')).catch(()=>{});
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(deferredPrompt)showInstallBanner();},10000);});
   const restored = restoreSession();
   if(!restored){
     // No saved session — show landing page
@@ -3002,118 +2958,98 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 // ============================================================
 
-// ── VISITOR COUNTER ──────────────────────────────────────────
-const VISIT_KEY = 'js_visit_counted';
-const VISIT_NS  = 'jobssignal-in-kiran-2025';
-function trackVisit(){
-  if(sessionStorage.getItem(VISIT_KEY)) return;
-  sessionStorage.setItem(VISIT_KEY,'1');
-  fetch('https://api.countapi.xyz/hit/'+VISIT_NS+'/visits')
-    .then(r=>r.json()).then(d=>{
-      try{const c=parseInt(localStorage.getItem('js_total_visits')||'0');
-        if(d.value&&d.value>c) localStorage.setItem('js_total_visits',String(d.value));}catch(e){}
-    }).catch(()=>{
-      try{const l=parseInt(localStorage.getItem('js_local_visits')||'0');
-        localStorage.setItem('js_local_visits',String(l+1));}catch(e){}});
-  try{const l=parseInt(localStorage.getItem('js_local_visits')||'0');
-    localStorage.setItem('js_local_visits',String(l+1));}catch(e){}
-}
-function loadVisitorCount(){
-  const ce=document.getElementById('visitorCount');
-  const se=document.getElementById('visitorSub');
-  const te=document.getElementById('visitorToday');
-  const we=document.getElementById('visitorWeek');
-  if(!ce) return;
-  ce.textContent='Loading...'; ce.classList.add('vc-loading');
-  fetch('https://api.countapi.xyz/get/'+VISIT_NS+'/visits')
-    .then(r=>r.json()).then(d=>{
-      const t=d.value||parseInt(localStorage.getItem('js_local_visits')||'0');
-      ce.classList.remove('vc-loading'); ce.textContent=t.toLocaleString('en-IN');
-      if(se) se.textContent='Total sessions tracked · Refreshed: '+new Date().toLocaleTimeString('en-IN');
-      if(te) te.textContent=Math.max(1,Math.round(t*0.04)).toLocaleString('en-IN');
-      if(we) we.textContent=Math.max(1,Math.round(t*0.18)).toLocaleString('en-IN');
-    }).catch(()=>{
-      const l=parseInt(localStorage.getItem('js_local_visits')||'0');
-      ce.classList.remove('vc-loading'); ce.textContent=l.toLocaleString('en-IN')+'*';
-      if(se) se.textContent='* Local count only — deploy to jobssignal.in for real count';
-      if(te) te.textContent=Math.max(1,Math.round(l*0.1)).toString();
-      if(we) we.textContent=l.toString();
-    });
-}
-
-// ── SMART FAB BUTTON ─────────────────────────────────────────
-function onFabClick(){
-  const loggedIn=!!localStorage.getItem('js_user');
-  const onDash=document.getElementById('dashView')?.classList.contains('active');
-  if(loggedIn){
-    if(!onDash) goTo('dashView');
-    setTimeout(()=>{show('searchCard');document.getElementById('searchCard')?.scrollIntoView({behavior:'smooth'});},100);
-  } else {
-    goTo('signupView');
+const VISIT_KEY='js_visit_counted',VISIT_NS='jobssignal-in-kiran-2025';
+function trackVisit(){if(sessionStorage.getItem(VISIT_KEY))return;sessionStorage.setItem(VISIT_KEY,'1');fetch('https://api.countapi.xyz/hit/'+VISIT_NS+'/visits').then(r=>r.json()).then(d=>{try{const c=parseInt(localStorage.getItem('js_total_visits')||'0');if(d.value&&d.value>c)localStorage.setItem('js_total_visits',String(d.value));}catch(e){}}).catch(()=>{});try{const l=parseInt(localStorage.getItem('js_local_visits')||'0');localStorage.setItem('js_local_visits',String(l+1));}catch(e){}}
+function loadVisitorCount(){const ce=document.getElementById('visitorCount'),se=document.getElementById('visitorSub'),te=document.getElementById('visitorToday'),we=document.getElementById('visitorWeek');if(!ce)return;ce.textContent='...';ce.classList.add('vc-loading');fetch('https://api.countapi.xyz/get/'+VISIT_NS+'/visits').then(r=>r.json()).then(d=>{const t=d.value||parseInt(localStorage.getItem('js_local_visits')||'0');ce.classList.remove('vc-loading');ce.textContent=t.toLocaleString('en-IN');if(se)se.textContent='Updated '+new Date().toLocaleTimeString('en-IN');if(te)te.textContent=Math.max(1,Math.round(t*0.04)).toLocaleString('en-IN');if(we)we.textContent=Math.max(1,Math.round(t*0.18)).toLocaleString('en-IN');}).catch(()=>{const l=parseInt(localStorage.getItem('js_local_visits')||'0');ce.classList.remove('vc-loading');ce.textContent=l+'*';});}
+function isDuplicate(field,val){
+  if(!val||val.length<3)return false;
+  function normPhone(v){
+    var d=(v||'').replace(/[^0-9]/g,'');
+    return d.length>10?d.slice(-10):d;
   }
-  updateFabButton();
+  try{
+    // 1. Check permanent registry (survives logout)
+    if(field==='phone'&&val.length===10){
+      var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
+      var np=normPhone(val);
+      for(var i=0;i<reg.length;i++){if(normPhone(reg[i])===np)return true;}
+    }
+    if(field==='email'&&val.indexOf('@')>0){
+      var regE=JSON.parse(localStorage.getItem('js_reg_emails')||'[]');
+      var ev=val.toLowerCase().trim();
+      for(var j=0;j<regE.length;j++){if(regE[j].toLowerCase()===ev)return true;}
+    }
+    // 2. Also check current session (logged-in user)
+    var keys=['js_user','js_session'];
+    for(var ki=0;ki<keys.length;ki++){
+      var raw=localStorage.getItem(keys[ki]);
+      if(!raw)continue;
+      var u=JSON.parse(raw);
+      if(!u)continue;
+      if(field==='phone'&&val.length===10){
+        if(normPhone(u.phone||'')===normPhone(val))return true;
+      }
+      if(field==='email'&&val.indexOf('@')>0){
+        if((u.email||'').toLowerCase().trim()===val.toLowerCase().trim())return true;
+      }
+    }
+  }catch(e){}
+  return false;
 }
-function updateFabButton(){
-  const fab=document.getElementById('stickyFab');
-  if(!fab) return;
-  const loggedIn=!!localStorage.getItem('js_user');
-  const onDash=document.getElementById('dashView')?.classList.contains('active');
-  if(!loggedIn){
-    fab.innerHTML='📡 Try Free — See Live Signals';
-    fab.style.cssText+='background:var(--em);color:var(--night);font-weight:800;';
-  } else if(onDash){
-    fab.innerHTML='📡 Search Now';
-    fab.style.background='var(--em)'; fab.style.color='var(--night)';
-  } else {
-    fab.innerHTML='📡 Go to Dashboard';
-    fab.style.background='var(--em)'; fab.style.color='var(--night)';
+function checkDuplicate(field){
+  const nEl=document.getElementById('s1_name');
+  const pEl=document.getElementById('s1_phone');
+  const nMsg=document.getElementById('s1_name_msg');
+  const pMsg=document.getElementById('s1_phone_msg');
+  const LOGIN_LINK='<a onclick="goTo(\'loginView\')" style="color:#f0a84c;cursor:pointer;text-decoration:underline;">Log in →</a>';
+  if(field==='name'&&nEl&&nMsg){
+    const v=nEl.value.trim();
+    if(v.length<2){nMsg.innerHTML='';nMsg.dataset.dup='0';return;}
+    if(isDuplicate('name',v)){
+      nMsg.innerHTML='❌ <span style="color:#ff6b6b;">Already registered — '+LOGIN_LINK+'</span>';
+      nMsg.dataset.dup='1';nEl.style.borderColor='rgba(255,107,107,.6)';
+    }else{
+      nMsg.innerHTML=v.length>2?'<span style="color:#00c896;">✅ Available</span>':'';
+      nMsg.dataset.dup='0';nEl.style.borderColor='';
+    }
   }
-}
-
-// ── ADMIN TEST FUNCTIONS ──────────────────────────────────────
-function adminTestPage(page){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  const map={landing:'landingView',signup:'signupView',login:'loginView',dashboard:'dashView',changePass:'changePassView'};
-  const names={landing:'🏠 Landing',signup:'✍️ Sign Up',login:'🔑 Login',dashboard:'📡 Dashboard',changePass:'🔒 Change Password'};
-  goTo(map[page]||'landingView');
-  if(log) log.innerHTML='['+ts+'] Navigated: <span style="color:var(--em);">'+names[page]+'</span><br>'+log.innerHTML;
-  showToast('Testing: '+names[page],'green');
-}
-function adminTestFeature(mode){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  goTo('dashView');
-  setTimeout(()=>{
-    const btn=document.querySelector('[data-mode="'+mode+'"]');
-    if(btn){btn.classList.remove('locked');switchMode(mode,btn);show('searchCard');}
-    if(log) log.innerHTML='['+ts+'] Mode test: <span style="color:var(--em);">'+mode+'</span><br>'+log.innerHTML;
-    showToast('Testing mode: '+mode,'green');
-  },200);
-}
-function adminTestPay(amount,plan){
-  const log=document.getElementById('adminTestLog');
-  const ts=new Date().toLocaleTimeString('en-IN');
-  openPay(plan,amount);
-  if(log) log.innerHTML='['+ts+'] Payment test: <span style="color:var(--gold);">₹'+amount+' · '+plan+'</span><br>'+log.innerHTML;
-}
-function adminClearLog(){
-  const log=document.getElementById('adminTestLog');
-  if(log) log.innerHTML='Log cleared.';
-}
-function adminUpdateChecklist(){
-  let done=0;
-  for(let i=1;i<=10;i++) if(document.getElementById('chk'+i)?.checked) done++;
-  const el=document.getElementById('checklistStatus');
-  if(!el) return;
-  if(done===10){
-    el.innerHTML='✅ 10/10 — <strong>READY FOR DEPLOYMENT!</strong>';
-    el.style.cssText='background:rgba(0,200,150,.15);border-color:rgba(0,200,150,.3);color:var(--em);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid;margin-top:12px;';
-  } else {
-    el.innerHTML=done+'/10 checks complete — not ready yet';
-    el.style.cssText='background:rgba(255,255,255,.03);border-color:var(--bn);color:rgba(255,255,255,.4);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid;margin-top:12px;';
+  if(field==='phone'&&pEl&&pMsg){
+    const v=pEl.value.trim();
+    if(v.length<10){pMsg.innerHTML='';pMsg.dataset.dup='0';pEl.style.borderColor='';return;}
+    if(v.length===10){
+      if(isDuplicate('phone',v)){
+        pMsg.innerHTML='❌ <span style="color:#ff6b6b;font-weight:600;">Mobile already registered — <a onclick="goTo(\'loginView\')" style="color:#f0a84c;cursor:pointer;text-decoration:underline;font-weight:700;">Log in →</a></span>';
+        pMsg.dataset.dup='1';
+        pEl.style.borderColor='rgba(255,107,107,.7)';
+      }else{
+        pMsg.innerHTML='<span style="color:#00c896;">✅ Available</span>';
+        pMsg.dataset.dup='0';pEl.style.borderColor='rgba(0,200,150,.4)';
+      }
+    }
+  }
+  // Email check
+  const eEl=document.getElementById('s1_email');
+  const eMsg=document.getElementById('s1_email_msg');
+  if(field==='email'&&eEl&&eMsg){
+    const v=eEl.value.trim();
+    if(v.length<5||v.indexOf('@')<0){eMsg.innerHTML='';eMsg.dataset.dup='0';return;}
+    if(isDuplicate('email',v)){
+      eMsg.innerHTML='❌ <span style="color:#ff6b6b;font-weight:600;">Email already registered — <a onclick="goTo(\'loginView\')" style="color:#f0a84c;cursor:pointer;text-decoration:underline;font-weight:700;">Log in →</a></span>';
+      eMsg.dataset.dup='1';eEl.style.borderColor='rgba(255,107,107,.7)';
+    }else{
+      eMsg.innerHTML='<span style="color:#00c896;">✅ Available</span>';
+      eMsg.dataset.dup='0';eEl.style.borderColor='rgba(0,200,150,.4)';
+    }
   }
 }
+function adminTestPage(p){const log=document.getElementById('adminTestLog'),ts=new Date().toLocaleTimeString('en-IN');const m={landing:'landingView',signup:'signupView',login:'loginView',dashboard:'dashView',changePass:'changePassView'};const n={landing:'🏠 Landing',signup:'✍️ Sign Up',login:'🔑 Login',dashboard:'📡 Dashboard',changePass:'🔒 Password'};goTo(m[p]||'landingView');if(log)log.innerHTML='['+ts+'] '+n[p]+'<br>'+log.innerHTML;showToast('Testing: '+n[p],'green');}
+function adminTestFeature(mode){goTo('dashView');setTimeout(function(){const btn=document.querySelector('[data-mode="'+mode+'"]');if(btn){btn.classList.remove('locked');switchMode(mode,btn);show('searchCard');}showToast('Testing: '+mode,'green');},200);}
+function adminTestPay(a,p){openPay(p,a);}
+function adminClearLog(){const l=document.getElementById('adminTestLog');if(l)l.innerHTML='No tests yet.';}
+function adminUpdateChecklist(){var d=0;for(var i=1;i<=8;i++)if(document.getElementById('chk'+i)&&document.getElementById('chk'+i).checked)d++;var el=document.getElementById('checklistStatus');if(!el)return;el.innerHTML=d===8?'✅ READY FOR DEPLOYMENT!':d+'/8 — not ready';el.style.color=d===8?'var(--em)':'rgba(255,255,255,.4)';}
+function showInstallBanner(){if(window.matchMedia('(display-mode:standalone)').matches)return;if(localStorage.getItem('pwa_dismissed'))return;var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='flex';}
+function installPWA(){var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';if(typeof deferredPrompt!=='undefined'&&deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(c){if(c.outcome==='accepted')showToast('✅ Added!','green');deferredPrompt=null;});}}
+function dismissInstallBanner(){var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';localStorage.setItem('pwa_dismissed','1');}
 
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
@@ -3132,6 +3068,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(lv) lv.classList.add('active');
   }
 });
+
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
