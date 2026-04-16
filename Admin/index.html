@@ -1,1 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin — JobsSignal</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#07090f;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;
+}
 
+/* ── Logo ────────────────────────────────────────────────── */
+.brand{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:40px;text-decoration:none;
+}
+.brand-icon{
+  width:40px;height:40px;border-radius:11px;
+  background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.brand-name{
+  font-family:'Syne',sans-serif;font-size:20px;font-weight:900;
+  color:white;letter-spacing:-0.5px;
+}
+.brand-name span{
+  font-family:'Plus Jakarta Sans',serif;
+  font-style:italic;color:#00c896;font-weight:400;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card{
+  width:100%;max-width:400px;
+  background:#0d1117;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px;
+  padding:36px 36px 32px;
+  box-shadow:0 24px 64px rgba(0,0,0,.4);
+}
+.card-title{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:900;
+  color:white;margin-bottom:6px;
+}
+.card-sub{
+  font-size:13px;color:rgba(255,255,255,.35);
+  margin-bottom:28px;line-height:1.5;
+}
+
+/* ── Form ────────────────────────────────────────────────── */
+.field{margin-bottom:18px;}
+.field label{
+  display:block;font-size:11px;font-weight:700;
+  color:rgba(255,255,255,.4);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:7px;
+}
+.field input{
+  width:100%;padding:12px 14px;
+  background:#131a24;
+  border:1.5px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  font-size:14px;color:white;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  transition:border-color .15s;
+}
+.field input:focus{
+  outline:none;
+  border-color:rgba(0,200,150,.4);
+  box-shadow:0 0 0 3px rgba(0,200,150,.08);
+}
+.field input::placeholder{color:rgba(255,255,255,.2);}
+
+/* Password show/hide */
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-right:44px;}
+.pw-eye{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:transparent;border:none;
+  color:rgba(255,255,255,.3);cursor:pointer;
+  font-size:14px;padding:4px;
+}
+.pw-eye:hover{color:rgba(255,255,255,.6);}
+
+/* Error */
+.err-box{
+  background:rgba(220,38,38,.1);
+  border:1px solid rgba(220,38,38,.2);
+  border-radius:8px;padding:10px 14px;
+  font-size:12px;color:#f87171;
+  margin-bottom:18px;display:none;
+  line-height:1.5;
+}
+
+/* Lock */
+.lock-box{
+  background:rgba(240,168,76,.08);
+  border:1px solid rgba(240,168,76,.2);
+  border-radius:8px;padding:10px 14px;
+  font-size:12px;color:#f0a84c;
+  margin-bottom:18px;display:none;
+  line-height:1.5;
+}
+
+/* Submit button */
+.btn-login{
+  width:100%;padding:13px;
+  background:#00c896;color:#07090f;
+  border:none;border-radius:10px;
+  font-size:14px;font-weight:800;
+  cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-login:hover{background:#00a87a;transform:translateY(-1px);}
+.btn-login:active{transform:none;}
+.btn-login:disabled{
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.3);cursor:not-allowed;transform:none;
+}
+
+/* Back link */
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:20px;font-size:12px;color:rgba(255,255,255,.25);
+  text-decoration:none;transition:color .15s;
+}
+.back-link:hover{color:rgba(255,255,255,.5);}
+
+/* Attempts indicator */
+.attempts-row{
+  display:flex;gap:4px;margin-top:10px;
+  justify-content:center;
+}
+.attempt-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  transition:background .2s;
+}
+.attempt-dot.used{background:#ef4444;}
+
+/* Success state */
+.success-box{
+  text-align:center;padding:20px 0;display:none;
+}
+.success-icon{font-size:48px;margin-bottom:12px;}
+.success-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;margin-bottom:6px;}
+.success-sub{font-size:13px;color:rgba(255,255,255,.4);}
+
+/* Security notice */
+.security-note{
+  margin-top:24px;font-size:11px;color:rgba(255,255,255,.15);
+  text-align:center;line-height:1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- Brand -->
+<a href="/" class="brand">
+  <div class="brand-icon">
+    <svg width="20" height="20" viewBox="0 0 42 42" fill="none">
+      <path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/>
+      <circle cx="32" cy="10" r="2.5" fill="#f0a84c"/>
+    </svg>
+  </div>
+  <div class="brand-name">Jobs<span>Signal</span></div>
+</a>
+
+<!-- Login card -->
+<div class="card">
+
+  <!-- Form state -->
+  <div id="formState">
+    <div class="card-title">Admin Access</div>
+    <div class="card-sub">Restricted area. Authorised personnel only.</div>
+
+    <div class="err-box" id="errBox"></div>
+    <div class="lock-box" id="lockBox">🔒 Too many wrong attempts. Please wait before trying again.</div>
+
+    <form onsubmit="handleLogin(event)" autocomplete="off">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="adminUser" placeholder="Enter username"
+               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="adminPass" placeholder="Enter password"
+                 autocomplete="current-password" id="adminPass">
+          <button type="button" class="pw-eye" onclick="togglePw()" id="pwEye">👁</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login" id="loginBtn">
+        <span id="btnText">Sign In</span>
+      </button>
+    </form>
+
+    <div class="attempts-row" id="attemptsRow">
+      <div class="attempt-dot" id="dot1"></div>
+      <div class="attempt-dot" id="dot2"></div>
+      <div class="attempt-dot" id="dot3"></div>
+    </div>
+  </div>
+
+  <!-- Success state -->
+  <div class="success-box" id="successState">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Welcome, Kiran</div>
+    <div class="success-sub">Redirecting to admin dashboard...</div>
+  </div>
+
+</div>
+
+<a href="/" class="back-link">← Back to JobsSignal</a>
+
+<div class="security-note">
+  This page is not indexed by search engines.<br>
+  All access attempts are rate-limited.
+</div>
+
+<script>
+// ── Config ───────────────────────────────────────────────
+const CORRECT_USER = 'admin';
+const CORRECT_PASS = 'admin@123';
+const MAX_ATTEMPTS = 3;
+const LOCK_MINUTES = 5;
+const REDIRECT_URL  = '/?adminauth=1';
+
+// ── State ────────────────────────────────────────────────
+function getAttempts(){
+  return parseInt(localStorage.getItem('js_admin_attempts')||'0');
+}
+function getLockUntil(){
+  return parseInt(localStorage.getItem('js_admin_lock')||'0');
+}
+function isLocked(){
+  return getLockUntil() > Date.now();
+}
+function getLockMinutes(){
+  return Math.ceil((getLockUntil()-Date.now())/60000);
+}
+
+// ── Init on page load ────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  updateAttemptsUI();
+  checkLockState();
+  // Auto-focus username
+  if(!isLocked()){
+    document.getElementById('adminUser').focus();
+  }
+  // If already authenticated, redirect
+  if(localStorage.getItem('js_admin_auth')==='1'){
+    window.location.href = REDIRECT_URL;
+  }
+});
+
+function checkLockState(){
+  if(isLocked()){
+    showLockUI();
+    // Auto-check every 10s
+    setTimeout(function(){
+      checkLockState();
+      updateAttemptsUI();
+    }, 10000);
+  } else {
+    hideLockUI();
+  }
+}
+
+// ── Login handler ─────────────────────────────────────────
+function handleLogin(e){
+  e.preventDefault();
+
+  // Check lock
+  if(isLocked()){
+    showError('Account locked for '+getLockMinutes()+' more minute(s). Please wait.');
+    return;
+  }
+
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+  const btn = document.getElementById('loginBtn');
+  const btnText = document.getElementById('btnText');
+
+  hideError();
+
+  if(!u || !p){
+    showError('Please enter both username and password.');
+    return;
+  }
+
+  // Simulate slight delay (prevents timing attacks)
+  btn.disabled = true;
+  btnText.textContent = 'Verifying...';
+
+  setTimeout(function(){
+    if(u === CORRECT_USER && p === CORRECT_PASS){
+      // ✅ Success
+      localStorage.removeItem('js_admin_attempts');
+      localStorage.removeItem('js_admin_lock');
+      localStorage.setItem('js_admin_auth','1');
+
+      document.getElementById('formState').style.display = 'none';
+      document.getElementById('successState').style.display = 'block';
+
+      setTimeout(function(){
+        window.location.href = REDIRECT_URL;
+      }, 1200);
+
+    } else {
+      // ❌ Wrong credentials
+      btn.disabled = false;
+      btnText.textContent = 'Sign In';
+
+      const attempts = getAttempts() + 1;
+      localStorage.setItem('js_admin_attempts', String(attempts));
+
+      if(attempts >= MAX_ATTEMPTS){
+        const lockUntil = Date.now() + LOCK_MINUTES * 60 * 1000;
+        localStorage.setItem('js_admin_lock', String(lockUntil));
+        localStorage.removeItem('js_admin_attempts');
+        showLockUI();
+        showError('Too many wrong attempts. Account locked for '+LOCK_MINUTES+' minutes.');
+      } else {
+        const remaining = MAX_ATTEMPTS - attempts;
+        showError('Invalid credentials. ' + remaining + ' attempt' + (remaining>1?'s':'') + ' remaining.');
+        updateAttemptsUI();
+        document.getElementById('adminPass').value = '';
+        document.getElementById('adminPass').focus();
+      }
+    }
+  }, 600);
+}
+
+// ── UI helpers ────────────────────────────────────────────
+function showError(msg){
+  const el = document.getElementById('errBox');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideError(){
+  document.getElementById('errBox').style.display = 'none';
+}
+function showLockUI(){
+  const lock = document.getElementById('lockBox');
+  lock.style.display = 'block';
+  lock.textContent = '🔒 Account locked. Try again in '+getLockMinutes()+' minute(s).';
+  document.getElementById('loginBtn').disabled = true;
+  document.getElementById('btnText').textContent = 'Locked';
+}
+function hideLockUI(){
+  document.getElementById('lockBox').style.display = 'none';
+  document.getElementById('loginBtn').disabled = false;
+  document.getElementById('btnText').textContent = 'Sign In';
+}
+function updateAttemptsUI(){
+  const a = getAttempts();
+  for(var i=1;i<=3;i++){
+    const dot = document.getElementById('dot'+i);
+    if(dot) dot.className = 'attempt-dot' + (i<=a?' used':'');
+  }
+}
+
+// ── Password toggle ───────────────────────────────────────
+function togglePw(){
+  const inp = document.getElementById('adminPass');
+  const eye = document.getElementById('pwEye');
+  if(inp.type==='password'){
+    inp.type='text';
+    eye.textContent='🙈';
+  } else {
+    inp.type='password';
+    eye.textContent='👁';
+  }
+}
+
+// ── Handle redirect from main app ─────────────────────────
+// When main app is loaded with ?adminauth=1, it checks localStorage
+// and opens admin panel directly if js_admin_auth === '1'
+</script>
+</body>
+</html>
