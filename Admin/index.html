@@ -8,389 +8,169 @@
 <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Plus Jakarta Sans',sans-serif;
-  background:#07090f;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:24px;
-}
-
-/* ── Logo ────────────────────────────────────────────────── */
-.brand{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:40px;text-decoration:none;
-}
-.brand-icon{
-  width:40px;height:40px;border-radius:11px;
-  background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);
-  display:flex;align-items:center;justify-content:center;
-}
-.brand-name{
-  font-family:'Syne',sans-serif;font-size:20px;font-weight:900;
-  color:white;letter-spacing:-0.5px;
-}
-.brand-name span{
-  font-family:'Plus Jakarta Sans',serif;
-  font-style:italic;color:#00c896;font-weight:400;
-}
-
-/* ── Card ────────────────────────────────────────────────── */
-.card{
-  width:100%;max-width:400px;
-  background:#0d1117;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:20px;
-  padding:36px 36px 32px;
-  box-shadow:0 24px 64px rgba(0,0,0,.4);
-}
-.card-title{
-  font-family:'Syne',sans-serif;
-  font-size:22px;font-weight:900;
-  color:white;margin-bottom:6px;
-}
-.card-sub{
-  font-size:13px;color:rgba(255,255,255,.35);
-  margin-bottom:28px;line-height:1.5;
-}
-
-/* ── Form ────────────────────────────────────────────────── */
+body{font-family:'DM Sans',sans-serif;background:#faf7f2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:36px;cursor:pointer;}
+.brand-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;}
+.brand-wordmark em{color:#e8943a;font-style:italic;font-weight:300;}
+.brand-sub{font-size:10px;color:#a0a3ae;letter-spacing:.4px;margin-top:2px;}
+.card{width:100%;max-width:400px;background:#fff;border:1px solid rgba(15,17,23,.09);border-radius:20px;padding:36px 36px 32px;box-shadow:0 12px 48px rgba(15,17,23,.1);}
+.card-title{font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#0f1117;margin-bottom:6px;letter-spacing:-.3px;}
+.card-sub{font-size:13px;color:#3a3d4a;margin-bottom:28px;line-height:1.5;}
 .field{margin-bottom:18px;}
-.field label{
-  display:block;font-size:11px;font-weight:700;
-  color:rgba(255,255,255,.4);letter-spacing:1.5px;
-  text-transform:uppercase;margin-bottom:7px;
-}
-.field input{
-  width:100%;padding:12px 14px;
-  background:#131a24;
-  border:1.5px solid rgba(255,255,255,.08);
-  border-radius:10px;
-  font-size:14px;color:white;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  transition:border-color .15s;
-}
-.field input:focus{
-  outline:none;
-  border-color:rgba(0,200,150,.4);
-  box-shadow:0 0 0 3px rgba(0,200,150,.08);
-}
-.field input::placeholder{color:rgba(255,255,255,.2);}
-
-/* Password show/hide */
+.field label{display:block;font-size:10px;font-weight:700;color:#3a3d4a;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.field input{width:100%;padding:11px 14px;background:#fff;border:1.5px solid rgba(15,17,23,.1);border-radius:9px;font-size:13px;color:#0f1117;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.field input:focus{outline:none;border-color:#e8943a;box-shadow:0 0 0 3px rgba(232,148,58,.1);}
+.field input::placeholder{color:#a0a3ae;}
 .pw-wrap{position:relative;}
 .pw-wrap input{padding-right:44px;}
-.pw-eye{
-  position:absolute;right:12px;top:50%;transform:translateY(-50%);
-  background:transparent;border:none;
-  color:rgba(255,255,255,.3);cursor:pointer;
-  font-size:14px;padding:4px;
-}
-.pw-eye:hover{color:rgba(255,255,255,.6);}
-
-/* Error */
-.err-box{
-  background:rgba(220,38,38,.1);
-  border:1px solid rgba(220,38,38,.2);
-  border-radius:8px;padding:10px 14px;
-  font-size:12px;color:#f87171;
-  margin-bottom:18px;display:none;
-  line-height:1.5;
-}
-
-/* Lock */
-.lock-box{
-  background:rgba(240,168,76,.08);
-  border:1px solid rgba(240,168,76,.2);
-  border-radius:8px;padding:10px 14px;
-  font-size:12px;color:#f0a84c;
-  margin-bottom:18px;display:none;
-  line-height:1.5;
-}
-
-/* Submit button */
-.btn-login{
-  width:100%;padding:13px;
-  background:#00c896;color:#07090f;
-  border:none;border-radius:10px;
-  font-size:14px;font-weight:800;
-  cursor:pointer;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.btn-login:hover{background:#00a87a;transform:translateY(-1px);}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#a0a3ae;cursor:pointer;font-size:15px;padding:4px;}
+.pw-eye:hover{color:#3a3d4a;}
+.err-box{background:#fdecea;border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#c0392b;margin-bottom:16px;display:none;line-height:1.5;}
+.lock-box{background:rgba(232,148,58,.08);border:1px solid rgba(232,148,58,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#e8943a;margin-bottom:16px;display:none;line-height:1.5;}
+.btn-login{width:100%;padding:12px;background:#e8943a;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-login:hover{background:#d4822e;transform:translateY(-1px);}
 .btn-login:active{transform:none;}
-.btn-login:disabled{
-  background:rgba(255,255,255,.08);
-  color:rgba(255,255,255,.3);cursor:not-allowed;transform:none;
-}
-
-/* Back link */
-.back-link{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:20px;font-size:12px;color:rgba(255,255,255,.25);
-  text-decoration:none;transition:color .15s;
-}
-.back-link:hover{color:rgba(255,255,255,.5);}
-
-/* Attempts indicator */
-.attempts-row{
-  display:flex;gap:4px;margin-top:10px;
-  justify-content:center;
-}
-.attempt-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(255,255,255,.12);
-  transition:background .2s;
-}
-.attempt-dot.used{background:#ef4444;}
-
-/* Success state */
-.success-box{
-  text-align:center;padding:20px 0;display:none;
-}
-.success-icon{font-size:48px;margin-bottom:12px;}
-.success-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;margin-bottom:6px;}
-.success-sub{font-size:13px;color:rgba(255,255,255,.4);}
-
-/* Security notice */
-.security-note{
-  margin-top:24px;font-size:11px;color:rgba(255,255,255,.15);
-  text-align:center;line-height:1.6;
-}
+.btn-login:disabled{background:rgba(15,17,23,.08);color:#a0a3ae;cursor:not-allowed;transform:none;}
+.back-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12px;color:#a0a3ae;cursor:pointer;transition:color .15s;}
+.back-link:hover{color:#3a3d4a;}
+.attempts-row{display:flex;gap:5px;margin-top:12px;justify-content:center;}
+.attempt-dot{width:6px;height:6px;border-radius:50%;background:rgba(15,17,23,.1);transition:background .2s;}
+.attempt-dot.used{background:#c0392b;}
+.success-box{text-align:center;padding:20px 0;display:none;}
+.success-icon{font-size:48px;margin-bottom:14px;}
+.success-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;margin-bottom:6px;}
+.success-sub{font-size:13px;color:#3a3d4a;}
+.security-note{margin-top:20px;font-size:11px;color:#a0a3ae;text-align:center;line-height:1.6;}
 </style>
 </head>
 <body>
 
-<!-- Brand -->
-<a href="/" class="brand">
-  <div class="brand-icon">
-    <svg width="20" height="20" viewBox="0 0 42 42" fill="none">
-      <path d="M25 4L11 23h10L18 38l16-19H24L25 4z" fill="#00c896"/>
-      <circle cx="32" cy="10" r="2.5" fill="#f0a84c"/>
-    </svg>
+<div class="brand" onclick="window.location.href='/'">
+  <svg width="36" height="36" viewBox="0 0 42 42" fill="none">
+    <rect width="42" height="42" rx="10" fill="#e8943a" fill-opacity=".12"/>
+    <rect x=".5" y=".5" width="41" height="41" rx="9.5" stroke="#e8943a" stroke-opacity=".3"/>
+    <path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#1a6b6b"/>
+    <circle cx="31" cy="11" r="3" fill="#e8943a"/>
+  </svg>
+  <div>
+    <div class="brand-wordmark">Jobs<em>Signal</em></div>
+    <div class="brand-sub">admin access</div>
   </div>
-  <div class="brand-name">Jobs<span>Signal</span></div>
-</a>
+</div>
 
-<!-- Login card -->
 <div class="card">
-
-  <!-- Form state -->
   <div id="formState">
-    <div class="card-title">Admin Access</div>
+    <div class="card-title">Admin Access.</div>
     <div class="card-sub">Restricted area. Authorised personnel only.</div>
-
     <div class="err-box" id="errBox"></div>
-    <div class="lock-box" id="lockBox">🔒 Too many wrong attempts. Please wait before trying again.</div>
-
+    <div class="lock-box" id="lockBox">Locked. Please wait.</div>
     <form onsubmit="handleLogin(event)" autocomplete="off">
       <div class="field">
         <label>Username</label>
-        <input type="text" id="adminUser" placeholder="Enter username"
-               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <input type="text" id="adminUser" placeholder="Enter username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <div class="field">
         <label>Password</label>
         <div class="pw-wrap">
-          <input type="password" id="adminPass" placeholder="Enter password"
-                 autocomplete="current-password" id="adminPass">
+          <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password">
           <button type="button" class="pw-eye" onclick="togglePw()" id="pwEye">👁</button>
         </div>
       </div>
-
-      <button type="submit" class="btn-login" id="loginBtn">
-        <span id="btnText">Sign In</span>
-      </button>
+      <button type="submit" class="btn-login" id="loginBtn"><span id="btnText">Sign In →</span></button>
     </form>
-
-    <div class="attempts-row" id="attemptsRow">
+    <div class="attempts-row">
       <div class="attempt-dot" id="dot1"></div>
       <div class="attempt-dot" id="dot2"></div>
       <div class="attempt-dot" id="dot3"></div>
     </div>
   </div>
-
-  <!-- Success state -->
   <div class="success-box" id="successState">
     <div class="success-icon">✅</div>
-    <div class="success-title">Welcome, Kiran</div>
+    <div class="success-title">Welcome, Kiran.</div>
     <div class="success-sub">Redirecting to admin dashboard...</div>
   </div>
-
 </div>
 
-<a href="/" class="back-link">← Back to JobsSignal</a>
-
-<div class="security-note">
-  This page is not indexed by search engines.<br>
-  All access attempts are rate-limited.
-</div>
+<div class="back-link" onclick="window.location.href='/'">← Back to JobsSignal</div>
+<div class="security-note">This page is not indexed by search engines.<br>All access attempts are rate-limited.</div>
 
 <script>
-// ── Config ───────────────────────────────────────────────
-const CORRECT_USER = 'admin';
-const CORRECT_PASS = 'admin@123';
-const MAX_ATTEMPTS = 3;
-const LOCK_MINUTES = 5;
-const REDIRECT_URL  = '/?adminauth=1';
-
-// ── State ────────────────────────────────────────────────
-function getAttempts(){
-  return parseInt(localStorage.getItem('js_admin_attempts')||'0');
-}
-function getLockUntil(){
-  return parseInt(localStorage.getItem('js_admin_lock')||'0');
-}
-function isLocked(){
-  return getLockUntil() > Date.now();
-}
-function getLockMinutes(){
-  return Math.ceil((getLockUntil()-Date.now())/60000);
-}
-
-// ── Init on page load ────────────────────────────────────
-window.addEventListener('DOMContentLoaded', function(){
-  updateAttemptsUI();
-  checkLockState();
-  // Auto-focus username
-  if(!isLocked()){
-    document.getElementById('adminUser').focus();
-  }
-  // If already authenticated, redirect
-  if(localStorage.getItem('js_admin_auth')==='1'){
-    window.location.href = REDIRECT_URL;
-  }
+var CORRECT_USER='admin',CORRECT_PASS='admin@123',MAX_ATTEMPTS=3,LOCK_MINUTES=5,REDIRECT_URL='/?adminauth=1';
+function getAttempts(){return parseInt(localStorage.getItem('js_admin_attempts')||'0');}
+function getLockUntil(){return parseInt(localStorage.getItem('js_admin_lock')||'0');}
+function isLocked(){return getLockUntil()>Date.now();}
+function getLockMins(){return Math.ceil((getLockUntil()-Date.now())/60000);}
+window.addEventListener('DOMContentLoaded',function(){
+  updateDots();checkLock();
+  if(!isLocked())document.getElementById('adminUser').focus();
+  if(localStorage.getItem('js_admin_auth')==='1')window.location.href=REDIRECT_URL;
 });
-
-function checkLockState(){
-  if(isLocked()){
-    showLockUI();
-    // Auto-check every 10s
-    setTimeout(function(){
-      checkLockState();
-      updateAttemptsUI();
-    }, 10000);
-  } else {
-    hideLockUI();
-  }
+function checkLock(){
+  if(isLocked()){showLock();setTimeout(function(){checkLock();updateDots();},10000);}
+  else hideLock();
 }
-
-// ── Login handler ─────────────────────────────────────────
 function handleLogin(e){
   e.preventDefault();
-
-  // Check lock
-  if(isLocked()){
-    showError('Account locked for '+getLockMinutes()+' more minute(s). Please wait.');
-    return;
-  }
-
-  const u = document.getElementById('adminUser').value.trim();
-  const p = document.getElementById('adminPass').value.trim();
-  const btn = document.getElementById('loginBtn');
-  const btnText = document.getElementById('btnText');
-
-  hideError();
-
-  if(!u || !p){
-    showError('Please enter both username and password.');
-    return;
-  }
-
-  // Simulate slight delay (prevents timing attacks)
-  btn.disabled = true;
-  btnText.textContent = 'Verifying...';
-
+  if(isLocked()){showErr('Locked for '+getLockMins()+' more minute(s).');return;}
+  var u=document.getElementById('adminUser').value.trim();
+  var p=document.getElementById('adminPass').value.trim();
+  var btn=document.getElementById('loginBtn');
+  var bt=document.getElementById('btnText');
+  hideErr();
+  if(!u||!p){showErr('Please enter both username and password.');return;}
+  btn.disabled=true;bt.textContent='Verifying...';
   setTimeout(function(){
-    if(u === CORRECT_USER && p === CORRECT_PASS){
-      // ✅ Success
+    if(u===CORRECT_USER&&p===CORRECT_PASS){
       localStorage.removeItem('js_admin_attempts');
       localStorage.removeItem('js_admin_lock');
       localStorage.setItem('js_admin_auth','1');
-
-      document.getElementById('formState').style.display = 'none';
-      document.getElementById('successState').style.display = 'block';
-
-      setTimeout(function(){
-        window.location.href = REDIRECT_URL;
-      }, 1200);
-
-    } else {
-      // ❌ Wrong credentials
-      btn.disabled = false;
-      btnText.textContent = 'Sign In';
-
-      const attempts = getAttempts() + 1;
-      localStorage.setItem('js_admin_attempts', String(attempts));
-
-      if(attempts >= MAX_ATTEMPTS){
-        const lockUntil = Date.now() + LOCK_MINUTES * 60 * 1000;
-        localStorage.setItem('js_admin_lock', String(lockUntil));
+      document.getElementById('formState').style.display='none';
+      document.getElementById('successState').style.display='block';
+      setTimeout(function(){window.location.href=REDIRECT_URL;},1200);
+    }else{
+      btn.disabled=false;bt.textContent='Sign In →';
+      var a=getAttempts()+1;
+      localStorage.setItem('js_admin_attempts',String(a));
+      if(a>=MAX_ATTEMPTS){
+        localStorage.setItem('js_admin_lock',String(Date.now()+LOCK_MINUTES*60000));
         localStorage.removeItem('js_admin_attempts');
-        showLockUI();
-        showError('Too many wrong attempts. Account locked for '+LOCK_MINUTES+' minutes.');
-      } else {
-        const remaining = MAX_ATTEMPTS - attempts;
-        showError('Invalid credentials. ' + remaining + ' attempt' + (remaining>1?'s':'') + ' remaining.');
-        updateAttemptsUI();
-        document.getElementById('adminPass').value = '';
+        showLock();showErr('Too many attempts. Locked for '+LOCK_MINUTES+' minutes.');
+      }else{
+        var r=MAX_ATTEMPTS-a;
+        showErr('Invalid credentials. '+r+' attempt'+(r>1?'s':'')+' remaining.');
+        updateDots();
+        document.getElementById('adminPass').value='';
         document.getElementById('adminPass').focus();
       }
     }
-  }, 600);
+  },600);
 }
-
-// ── UI helpers ────────────────────────────────────────────
-function showError(msg){
-  const el = document.getElementById('errBox');
-  el.textContent = msg;
-  el.style.display = 'block';
+function showErr(m){var e=document.getElementById('errBox');e.textContent=m;e.style.display='block';}
+function hideErr(){document.getElementById('errBox').style.display='none';}
+function showLock(){
+  var l=document.getElementById('lockBox');
+  l.textContent='🔒 Account locked. Try again in '+getLockMins()+' minute(s).';
+  l.style.display='block';
+  document.getElementById('loginBtn').disabled=true;
+  document.getElementById('btnText').textContent='Locked';
 }
-function hideError(){
-  document.getElementById('errBox').style.display = 'none';
+function hideLock(){
+  document.getElementById('lockBox').style.display='none';
+  document.getElementById('loginBtn').disabled=false;
+  document.getElementById('btnText').textContent='Sign In →';
 }
-function showLockUI(){
-  const lock = document.getElementById('lockBox');
-  lock.style.display = 'block';
-  lock.textContent = '🔒 Account locked. Try again in '+getLockMinutes()+' minute(s).';
-  document.getElementById('loginBtn').disabled = true;
-  document.getElementById('btnText').textContent = 'Locked';
+function updateDots(){
+  var a=getAttempts();
+  for(var i=1;i<=3;i++){var d=document.getElementById('dot'+i);if(d)d.className='attempt-dot'+(i<=a?' used':'');}
 }
-function hideLockUI(){
-  document.getElementById('lockBox').style.display = 'none';
-  document.getElementById('loginBtn').disabled = false;
-  document.getElementById('btnText').textContent = 'Sign In';
-}
-function updateAttemptsUI(){
-  const a = getAttempts();
-  for(var i=1;i<=3;i++){
-    const dot = document.getElementById('dot'+i);
-    if(dot) dot.className = 'attempt-dot' + (i<=a?' used':'');
-  }
-}
-
-// ── Password toggle ───────────────────────────────────────
 function togglePw(){
-  const inp = document.getElementById('adminPass');
-  const eye = document.getElementById('pwEye');
-  if(inp.type==='password'){
-    inp.type='text';
-    eye.textContent='🙈';
-  } else {
-    inp.type='password';
-    eye.textContent='👁';
-  }
+  var i=document.getElementById('adminPass'),e=document.getElementById('pwEye');
+  if(i.type==='password'){i.type='text';e.textContent='🙈';}
+  else{i.type='password';e.textContent='👁';}
 }
-
-// ── Handle redirect from main app ─────────────────────────
-// When main app is loaded with ?adminauth=1, it checks localStorage
-// and opens admin panel directly if js_admin_auth === '1'
 </script>
 </body>
 </html>
