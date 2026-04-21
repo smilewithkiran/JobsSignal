@@ -1649,6 +1649,8 @@ tr:hover td{background:var(--cream);}
 
 
 
+
+
 <script>
 
 // ============================================================
@@ -1783,10 +1785,13 @@ window.addEventListener('scroll',()=>{
 // SIGNUP
 // ============================================================
 function pickPill(btn,gid){
-  document.querySelectorAll('#'+gid+' .pill-btn').forEach(b=>b.classList.remove('sel'));
+  if(gid==='prefLocRow'){
+    btn.classList.toggle('sel');
+    return;
+  }
+  document.querySelectorAll('#'+gid+' .pill-btn').forEach(function(b){b.classList.remove('sel');});
   btn.classList.add('sel');
-}
-function nextStep(from){
+}function nextStep(from){
   if(from===1){
     var n=document.getElementById('s1_name')?.value.trim();
     var p=document.getElementById('s1_phone')?.value.trim();
@@ -1966,12 +1971,16 @@ function buildDash(user,pl){
 // DASHBOARD STATES
 // ============================================================
 function showFreeDash(){
-  show('previewBanner','flex'); hide('awayWidget'); hide('convTriggers');
-  show('searchCard'); show('sidebarUpgrade');
-  hide('sidebarWatchlist'); hide('sidebarSaved');
+  var pb=document.getElementById('previewBanner');
+  if(pb) pb.style.display='flex';
+  var ds=document.getElementById('dashSearch');
+  if(ds) ds.style.display='block';
+  var uc=document.getElementById('upgradeCard');
+  if(uc) uc.style.display='block';
+  var fw=document.getElementById('fomoWrap');
+  if(fw) fw.style.display='none';
   lockModes();
-}
-function showLockedDash(){
+}function showLockedDash(){
   var fw=document.getElementById('fomoWrap');
   if(fw){fw.style.display='block';fw.innerHTML=buildFomoHTML();fw.scrollIntoView({behavior:'smooth'});}
 }
@@ -1995,13 +2004,16 @@ function buildFomoHTML(){
   h+='</div><button class="btn-fp" data-n="Monthly Plan" data-a="99" onclick="openPay(this.dataset.n,parseInt(this.dataset.a))">Unlock Full Access</button></div>';
   return h;
 }function showPaidDash(){
-  hide('previewBanner'); hide('awayWidget'); hide('convTriggers');
-  show('searchCard'); hide('sidebarUpgrade'); unlockModes();
-  const w=gjson(S_WATCH,[]); const s=gjson(S_SAVED,[]);
-  if(Array.isArray(w)&&w.length>0) show('sidebarWatchlist'); else hide('sidebarWatchlist');
-  if(Array.isArray(s)&&s.length>0) show('sidebarSaved'); else hide('sidebarSaved');
-}
-function lockModes(){
+  var pb=document.getElementById('previewBanner');
+  if(pb) pb.style.display='none';
+  var ds=document.getElementById('dashSearch');
+  if(ds) ds.style.display='block';
+  var uc=document.getElementById('upgradeCard');
+  if(uc) uc.style.display='none';
+  var fw=document.getElementById('fomoWrap');
+  if(fw) fw.style.display='none';
+  unlockModes();
+}function lockModes(){
   ['hashtag','notice','referral','walkin'].forEach(m=>{
     document.querySelector('[data-mode="'+m+'"]')?.classList.add('locked');
   });
@@ -3089,6 +3101,17 @@ function editTmpl(){
   showToast('Template is editable now — click away when done','amber');
 }
 
+
+function selectPlan(amount, plan, el){
+  document.querySelectorAll('.ucc-plan').forEach(function(p){p.classList.remove('ucc-sel');});
+  if(el) el.classList.add('ucc-sel');
+  var btn=document.getElementById('btnUpgrade');
+  if(btn){
+    btn.textContent='Unlock '+plan+' - Rs.'+amount;
+    btn.onclick=function(){openPay(plan,amount);};
+  }
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3211,7 +3234,11 @@ function liPopupSkip(){
 
 
 
+
+
 </script>
+
+
 
 
 
