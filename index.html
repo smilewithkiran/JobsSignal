@@ -874,6 +874,285 @@ tr:hover td{background:var(--cream);}
 @media(max-width:900px){
   .mob-logout-btn{display:flex!important;}
 }
+
+/* Hide hero visual and floating cards on mobile — prevents overflow */
+@media(max-width:900px){
+  .hero-visual{display:none!important;}
+  .fc-float{display:none!important;}
+  .land-hero{grid-template-columns:1fr!important;padding:100px 18px 50px!important;}
+  .hero-title{font-size:38px!important;}
+  .stat-strip .st{min-width:50%;}
+  /* Prevent ANY horizontal overflow */
+  html,body{overflow-x:hidden!important;max-width:100vw!important;}
+  *{max-width:100%;}
+  img,svg,canvas{max-width:100%!important;height:auto!important;}
+  /* Dashboard on mobile */
+  .sb-content{padding:12px 14px!important;}
+  .content-grid{grid-template-columns:1fr!important;}
+  .stat-cards,.admin-stat-cards{grid-template-columns:1fr 1fr!important;gap:10px!important;}
+  /* Search inputs stack on mobile */
+  .search-row{flex-direction:column!important;}
+  .sg{width:100%!important;min-width:unset!important;}
+  .btn-run{width:100%!important;justify-content:center!important;padding:12px!important;}
+  /* Result cards on mobile */
+  .prc-actions{flex-direction:column!important;}
+  .prc-btn{width:100%!important;justify-content:center!important;}
+  /* Mode tabs scroll */
+  .mode-tabs{overflow-x:auto!important;-webkit-overflow-scrolling:touch;}
+  /* Payment modal */
+  .pm-features{grid-template-columns:1fr!important;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   SPLIT AUTH — Login & Signup (hirist.tech style)
+   ═══════════════════════════════════════════════════════ */
+.split-auth{
+  display:flex;min-height:100vh;
+  background:var(--cream);
+}
+
+/* ── Left dark panel ──────────────────────────────────── */
+.sa-left{
+  width:44%;background:var(--ink);
+  padding:48px 44px;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.sa-left::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,148,58,.13) 0%,transparent 65%);
+  pointer-events:none;
+}
+.sa-left::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,107,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+/* Brand */
+.sa-brand{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:44px;cursor:pointer;position:relative;z-index:1;
+}
+.sa-brand-icon{
+  width:36px;height:36px;
+  background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.25);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;
+}
+.sa-wordmark{
+  font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:#fff;
+}
+.sa-wordmark em{color:var(--amber);font-style:italic;font-weight:300;}
+.sa-tagline{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.4px;margin-top:1px;}
+
+/* Headline */
+.sa-headline{
+  font-family:'Fraunces',serif;font-size:36px;font-weight:800;
+  line-height:1.1;letter-spacing:-1px;color:#fff;
+  margin-bottom:14px;position:relative;z-index:1;
+}
+.sa-headline em{color:var(--amber);font-style:italic;font-weight:300;}
+.sa-sub{
+  font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;
+  margin-bottom:32px;position:relative;z-index:1;max-width:300px;
+}
+
+/* Stats */
+.sa-stats{
+  display:flex;margin-bottom:32px;
+  position:relative;z-index:1;
+}
+.sa-stat{padding:12px 18px;border-right:1px solid rgba(255,255,255,.07);}
+.sa-stat:first-child{padding-left:0;}
+.sa-stat:last-child{border-right:none;}
+.sa-stat-n{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:800;
+  color:var(--amber);line-height:1;
+}
+.sa-stat-n span{font-size:13px;font-weight:400;color:rgba(232,148,58,.6);}
+.sa-stat-l{font-size:9px;color:rgba(255,255,255,.3);margin-top:2px;text-transform:uppercase;letter-spacing:.8px;}
+
+/* Testimonial */
+.sa-testi{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:16px 18px;margin-top:auto;
+  position:relative;z-index:1;
+}
+.sa-testi-q{
+  font-size:12px;color:rgba(255,255,255,.65);line-height:1.65;
+  font-style:italic;margin-bottom:12px;
+}
+.sa-testi-q::before{
+  content:'"';font-family:'Fraunces',serif;font-size:26px;
+  color:var(--amber);line-height:.3;display:block;
+  margin-bottom:8px;font-style:normal;
+}
+.sa-testi-by{display:flex;align-items:center;gap:8px;}
+.sa-av{
+  width:28px;height:28px;border-radius:50%;font-size:10px;
+  font-weight:700;color:#fff;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;
+}
+.sa-av1{background:linear-gradient(135deg,#e8943a,#c0392b);}
+.sa-av2{background:linear-gradient(135deg,#1a6b6b,#2d9b9b);}
+.sa-av3{background:linear-gradient(135deg,#667eea,#764ba2);}
+.sa-testi-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.7);}
+.sa-testi-role{font-size:10px;color:rgba(255,255,255,.3);}
+
+/* 5 modes card */
+.sa-modes-card{
+  background:rgba(232,148,58,.08);border:1px solid rgba(232,148,58,.15);
+  border-radius:12px;padding:18px 20px;position:relative;z-index:1;
+}
+.sa-modes-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(232,148,58,.7);margin-bottom:10px;
+}
+.sa-mode-row{font-size:12px;color:rgba(255,255,255,.7);padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);}
+.sa-mode-row:last-child{border:none;}
+
+/* ── Right form panel ─────────────────────────────────── */
+.sa-right{
+  flex:1;background:var(--cream);
+  padding:48px 52px;
+  display:flex;align-items:center;justify-content:center;
+  overflow-y:auto;
+}
+.sa-form-wrap{width:100%;max-width:440px;}
+
+/* Eyebrow */
+.sa-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--amber);
+  display:flex;align-items:center;gap:7px;margin-bottom:10px;
+}
+.sa-eyebrow::before{content:'';width:16px;height:1.5px;background:var(--amber);}
+
+/* Title */
+.sa-title{
+  font-family:'Fraunces',serif;font-size:30px;font-weight:800;
+  color:var(--ink);line-height:1.1;letter-spacing:-.5px;margin-bottom:6px;
+}
+.sa-title em{color:var(--amber);font-style:italic;font-weight:300;}
+.sa-form-sub{font-size:13px;color:var(--soft);margin-bottom:24px;line-height:1.5;}
+.sa-form-sub a{color:var(--amber);font-weight:600;cursor:pointer;text-decoration:none;}
+.sa-form-sub a:hover{text-decoration:underline;}
+
+/* Step dots */
+.sa-step-bar{display:flex;gap:6px;margin-bottom:28px;}
+.sa-step-dot{height:3px;flex:1;border-radius:3px;background:rgba(15,17,23,.1);transition:background .3s;}
+.sa-step-dot.active{background:var(--amber);}
+.sa-step-dot.done{background:var(--teal);}
+
+/* Hint box */
+.sa-hint-box{
+  background:rgba(26,107,107,.06);border:1px solid rgba(26,107,107,.18);
+  border-radius:10px;padding:12px 14px;font-size:13px;color:var(--teal);
+  margin-bottom:22px;line-height:1.5;
+}
+
+/* Fields */
+.sa-field{margin-bottom:16px;}
+.sa-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sa-label{
+  display:block;font-size:10px;font-weight:700;
+  color:var(--soft);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;
+}
+.sa-input{
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:13px;color:var(--ink);background:#fff;
+  font-family:'DM Sans',sans-serif;transition:all .15s;
+  box-sizing:border-box;
+}
+.sa-input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,148,58,.1);}
+.sa-input::placeholder{color:#a0a3ae;}
+.sa-select{cursor:pointer;}
+.sa-field-msg{font-size:11px;min-height:14px;margin-top:4px;}
+
+/* Error */
+.sa-err{
+  background:var(--red-pale);border:1px solid rgba(192,57,43,.2);
+  border-radius:8px;padding:10px 14px;font-size:12px;color:var(--red);
+  margin-bottom:14px;line-height:1.5;
+}
+
+/* LinkedIn tip */
+.sa-li-tip{
+  background:#eff6ff;border:1.5px solid #bfdbfe;
+  border-radius:11px;padding:13px 15px;
+  display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;
+}
+.sa-li-icon{
+  width:30px;height:30px;border-radius:7px;background:#0a66c2;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900;color:#fff;
+  font-family:'Fraunces',serif;flex-shrink:0;
+}
+.sa-li-body{flex:1;}
+.sa-li-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:2px;}
+.sa-li-text{font-size:11px;color:#3b82f6;line-height:1.5;}
+.sa-li-btn{
+  padding:7px 12px;border-radius:7px;background:#0a66c2;
+  color:#fff;font-size:11px;font-weight:700;border:none;
+  cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;
+}
+
+/* Pill rows */
+.sa-pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;}
+.pill-btn{
+  padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);
+  background:#fff;color:var(--soft);font-size:12px;font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;
+}
+.pill-btn.sel{background:var(--ink);color:#fff;border-color:var(--ink);}
+.pill-btn:hover:not(.sel){border-color:var(--amber);color:var(--amber);}
+
+/* Ready box */
+.sa-ready-box{
+  background:var(--teal-pale);border:1.5px solid rgba(26,107,107,.2);
+  border-radius:12px;padding:14px 16px;display:flex;
+  align-items:flex-start;gap:12px;margin-bottom:16px;
+}
+.sa-ready-icon{font-size:22px;flex-shrink:0;}
+.sa-ready-title{font-size:13px;font-weight:700;color:var(--teal);margin-bottom:3px;}
+.sa-ready-text{font-size:12px;color:var(--teal-lt);line-height:1.5;}
+
+/* Buttons */
+.sa-btn{
+  width:100%;padding:13px;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-bottom:10px;border:none;
+}
+.sa-btn-amber{background:var(--amber);color:#fff;}
+.sa-btn-amber:hover{background:#d4822e;transform:translateY(-1px);}
+.sa-btn-ghost{
+  background:transparent;color:var(--soft);
+  border:1.5px solid var(--border)!important;
+}
+.sa-btn-ghost:hover{border-color:var(--amber)!important;color:var(--amber);}
+.sa-security{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;}
+
+/* ── Mobile responsive ────────────────────────────────── */
+@media(max-width:768px){
+  .split-auth{flex-direction:column;min-height:auto;}
+  .sa-left{
+    width:100%;padding:28px 22px;min-height:auto;
+    flex-direction:row;flex-wrap:wrap;align-items:center;gap:0;
+  }
+  .sa-left::before,.sa-left::after{display:none;}
+  .sa-brand{margin-bottom:0;flex:0 0 100%;}
+  .sa-headline{font-size:24px;margin-bottom:8px;flex:1;}
+  .sa-headline br{display:none;}
+  .sa-sub,.sa-stats,.sa-testi,.sa-modes-card{display:none;}
+  .sa-right{padding:28px 22px;}
+  .sa-field-row{grid-template-columns:1fr;}
+  .sa-title{font-size:24px;}
+}
 </style>
 </head>
 <body>
@@ -1070,130 +1349,280 @@ tr:hover td{background:var(--cream);}
      LOGIN PAGE
      ═══════════════════════════════════════ -->
 <div class="view" id="loginView">
-<div class="auth-page">
-  <div class="auth-header">
-    <div class="auth-brand" onclick="goTo('landingView')">
-      <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#e8943a" fill-opacity=".12"/><path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#1a6b6b"/><circle cx="31" cy="11" r="3" fill="#e8943a"/></svg>
-      <div class="auth-wordmark">Jobs<em>Signal</em></div>
+<div class="split-auth">
+
+  <!-- LEFT PANEL -->
+  <div class="sa-left">
+    <div class="sa-brand" onclick="goTo('landingView')">
+      <div class="sa-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 42 42" fill="none">
+          <path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#e8943a"/>
+          <circle cx="31" cy="11" r="3" fill="#f4b46a"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sa-wordmark">Jobs<em>Signal</em></div>
+        <div class="sa-tagline">real-time signals · india</div>
+      </div>
+    </div>
+
+    <h2 class="sa-headline">Find recruiters<br>before the<br>job goes <em>live.</em></h2>
+    <p class="sa-sub">Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly.</p>
+
+    <div class="sa-stats">
+      <div class="sa-stat"><div class="sa-stat-n">2,400<span>+</span></div><div class="sa-stat-l">Signals/day</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">8<span>hrs</span></div><div class="sa-stat-l">Before portals</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">₹49</div><div class="sa-stat-l">Starts from</div></div>
+    </div>
+
+    <div class="sa-testi">
+      <div class="sa-testi-q">I applied to a Staff Engineer role at Razorpay within 2 hours of the recruiter's post. Got a call the same evening.</div>
+      <div class="sa-testi-by">
+        <div class="sa-av sa-av1">SK</div>
+        <div><div class="sa-testi-name">Suresh K.</div><div class="sa-testi-role">Staff Engineer · Bengaluru</div></div>
+      </div>
     </div>
   </div>
-  <div class="auth-card">
-    <div class="auth-title">Welcome back.</div>
-    <div class="auth-sub">Don't have an account? <a onclick="goTo('signupView')">Sign up free →</a></div>
-    <div class="form-field"><label class="form-label">Mobile Number</label><input class="form-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10"></div>
-    <div style="background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:var(--teal);">
-      📱 Enter your registered mobile number to log in. No password needed.
+
+  <!-- RIGHT PANEL -->
+  <div class="sa-right">
+    <div class="sa-form-wrap">
+      <div class="sa-eyebrow">Log In</div>
+      <div class="sa-title">Welcome <em>back.</em></div>
+      <div class="sa-form-sub">Don't have an account? <a onclick="goTo('signupView')">Sign up free →</a></div>
+
+      <div class="sa-hint-box">
+        📱 Enter your registered mobile number. No password needed.
+      </div>
+
+      <div class="sa-field">
+        <label class="sa-label">Mobile Number</label>
+        <input class="sa-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10" autocomplete="tel" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+
+      <div id="loginErr" class="sa-err" style="display:none;"></div>
+
+      <button class="sa-btn sa-btn-amber" onclick="doLogin()">Log In →</button>
+      <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back to Home</button>
+
+      <div class="sa-security">🔒 Secured · Your data stays on your device</div>
     </div>
-    <div id="loginErr" style="background:var(--red-pale);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;"></div>
-    <button class="btn-auth" onclick="doLogin()">Log In →</button>
-    <div style="text-align:center;margin-top:14px;"><button type="button" onclick="showForgotPass()" style="background:none;border:none;font-size:12px;color:var(--amber);cursor:pointer;font-weight:600;font-family:'DM Sans',sans-serif;padding:4px 8px;">Forgot password?</button></div>
-    <button class="btn-auth-sec" onclick="goTo('landingView')">← Back</button>
   </div>
+
 </div>
 </div><!-- /loginView -->
 
-<!-- ═══════════════════════════════════════
-     SIGNUP PAGE
-     ═══════════════════════════════════════ -->
 <div class="view" id="signupView">
-<div class="auth-page">
-  <div class="auth-header">
-    <div class="auth-brand" onclick="goTo('landingView')">
-      <svg width="32" height="32" viewBox="0 0 42 42" fill="none"><rect width="42" height="42" rx="10" fill="#e8943a" fill-opacity=".12"/><path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#1a6b6b"/><circle cx="31" cy="11" r="3" fill="#e8943a"/></svg>
-      <div class="auth-wordmark">Jobs<em>Signal</em></div>
+<div class="split-auth">
+
+  <!-- LEFT PANEL — changes per step -->
+  <div class="sa-left" id="signupLeft">
+    <div class="sa-brand" onclick="goTo('landingView')">
+      <div class="sa-brand-icon">
+        <svg width="18" height="18" viewBox="0 0 42 42" fill="none">
+          <path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#e8943a"/>
+          <circle cx="31" cy="11" r="3" fill="#f4b46a"/>
+        </svg>
+      </div>
+      <div>
+        <div class="sa-wordmark">Jobs<em>Signal</em></div>
+        <div class="sa-tagline">real-time signals · india</div>
+      </div>
+    </div>
+
+    <!-- Step 1 left content -->
+    <div id="sl1">
+      <h2 class="sa-headline">Start finding<br>recruiter<br><em>signals today.</em></h2>
+      <p class="sa-sub">Join 2,400+ Indian job seekers who find recruiter posts hours before they appear on Naukri or LinkedIn Jobs.</p>
+      <div class="sa-stats">
+        <div class="sa-stat"><div class="sa-stat-n">30<span>sec</span></div><div class="sa-stat-l">To sign up</div></div>
+        <div class="sa-stat"><div class="sa-stat-n">1</div><div class="sa-stat-l">Free search</div></div>
+        <div class="sa-stat"><div class="sa-stat-n">0</div><div class="sa-stat-l">Card needed</div></div>
+      </div>
+      <div class="sa-testi">
+        <div class="sa-testi-q">Notice Period mode found me 8 recruiters looking for 30-day joiners in Mumbai. Got an offer in 12 days.</div>
+        <div class="sa-testi-by">
+          <div class="sa-av sa-av2">AR</div>
+          <div><div class="sa-testi-name">Aditya R.</div><div class="sa-testi-role">Product Manager · Mumbai</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 left content -->
+    <div id="sl2" style="display:none;">
+      <h2 class="sa-headline">Tell us a<br>little about<br><em>yourself.</em></h2>
+      <p class="sa-sub">This helps us show the most relevant recruiter signals for your experience and preferred locations.</p>
+      <div class="sa-modes-card">
+        <div class="sa-modes-label">5 Search Modes</div>
+        <div class="sa-mode-row">🎯 Skill + City</div>
+        <div class="sa-mode-row"># Hashtag Hunt</div>
+        <div class="sa-mode-row">⏱️ Notice Period</div>
+        <div class="sa-mode-row">🤝 Referral Radar</div>
+        <div class="sa-mode-row">🚶 Walk-in Drives</div>
+      </div>
+    </div>
+
+    <!-- Step 3 left content -->
+    <div id="sl3" style="display:none;">
+      <h2 class="sa-headline">You are<br>all <em>set!</em></h2>
+      <p class="sa-sub">Your account is ready. Keep LinkedIn open for instant results when you search.</p>
+      <div class="sa-testi" style="margin-top:auto;">
+        <div class="sa-testi-q">Used Referral Radar and found an Infosys employee offering referrals for TA roles. She referred me the same day.</div>
+        <div class="sa-testi-by">
+          <div class="sa-av sa-av3">PM</div>
+          <div><div class="sa-testi-name">Preethi M.</div><div class="sa-testi-role">Talent Acquisition · Hyderabad</div></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="auth-card" style="max-width:520px;">
-    <div class="signup-steps">
-      <div class="ss-dot done" id="sdot1"></div>
-      <div class="ss-dot" id="sdot2"></div>
-      <div class="ss-dot" id="sdot3"></div>
-    </div>
 
-    <!-- STEP 1 -->
-    <div id="step1">
-      <div class="auth-title">Create your account.</div>
-      <div class="auth-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
-      <div class="india-chip">🇮🇳 <strong>India-only platform.</strong> +91 mobile required.</div>
-      <div class="li-signup-tip">
-        <div class="li-st-icon">in</div>
-        <div>
-          <div class="li-st-title">⚡ Open LinkedIn Before You Start</div>
-          <div class="li-st-sub">JobsSignal opens LinkedIn searches. Log into LinkedIn first so results appear instantly.</div>
-          <button class="btn-li-open" onclick="window.open('https://www.linkedin.com','_blank')">Open LinkedIn →</button>
-        </div>
-      </div>
-      <div class="form-field"><label class="form-label">Full Name *</label><input class="form-input" id="s1_name" placeholder="e.g. Riya Desai" oninput="checkDuplicate('name')" autocomplete="off"><div id="s1_name_msg" class="field-msg"></div></div>
-      <div class="form-row">
-        <div class="form-field"><label class="form-label">Mobile (+91) *</label><input class="form-input" id="s1_phone" placeholder="98765 43210" maxlength="10" oninput="checkDuplicate('phone')" autocomplete="off"><div id="s1_phone_msg" class="field-msg"></div></div>
-        <div class="form-field"><label class="form-label">Email *</label><input class="form-input" id="s1_email" placeholder="you@email.com" oninput="checkDuplicate('email')" autocomplete="off"><div id="s1_email_msg" class="field-msg"></div></div>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label class="form-label">Your City *</label><select class="form-select" id="s1_city"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div>
-        <div class="form-field"><label class="form-label">Primary Skill *</label><input class="form-input" id="s1_skill" placeholder="React, HR, Python..."></div>
-      </div>
-      <button class="btn-auth" onclick="nextStep(1)">Continue →</button>
-      <button class="btn-auth-sec" onclick="goTo('landingView')">← Back</button>
-    </div>
+  <!-- RIGHT PANEL -->
+  <div class="sa-right">
+    <div class="sa-form-wrap">
 
-    <!-- STEP 2 -->
-    <div id="step2" style="display:none;">
-      <div class="auth-title">Tell us about you.</div>
-      <div class="auth-sub" style="margin-bottom:20px;">Help us personalise your signal feed.</div>
-      <div class="form-field"><label class="form-label">Currently Working?</label>
-        <div class="pill-row" id="wsRow">
-          <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
-        </div>
+      <!-- Step dots -->
+      <div class="sa-step-bar">
+        <div class="sa-step-dot" id="sdot1"></div>
+        <div class="sa-step-dot" id="sdot2"></div>
+        <div class="sa-step-dot" id="sdot3"></div>
       </div>
-      <div class="form-field"><label class="form-label">Experience Level</label>
-        <div class="pill-row" id="expRow">
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1–3 yrs</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3–7 yrs</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7–10 yrs</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">10–15 yrs</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">15–20 yrs</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">20+ yrs</button>
-        </div>
-      </div>
-      <div class="form-field"><label class="form-label">Preferred Locations</label>
-        <div class="pill-row" id="prefLocRow">
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Hyderabad</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Bengaluru</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Mumbai</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Pune</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Delhi NCR</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Chennai</button>
-          <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Remote</button>
-        </div>
-      </div>
-      <button class="btn-auth" onclick="nextStep(2)">Continue →</button>
-      <button class="btn-auth-sec" onclick="nextStep(-1)">← Back</button>
-    </div>
 
-    <!-- STEP 3 -->
-    <div id="step3" style="display:none;">
-      <div style="text-align:center;padding:10px 0 20px;">
-        <div style="font-size:52px;margin-bottom:16px;">🎉</div>
-        <div class="auth-title" style="text-align:center;">You are all set!</div>
-        <div class="auth-sub" style="text-align:center;">Your account is ready. Keep LinkedIn open for instant results.</div>
+      <!-- STEP 1 -->
+      <div id="step1">
+        <div class="sa-eyebrow">Create Account — Step 1 of 3</div>
+        <div class="sa-title">Create your <em>account.</em></div>
+        <div class="sa-form-sub">Already have one? <a onclick="goTo('loginView')">Log in →</a></div>
+
+        <!-- LinkedIn tip -->
+        <div class="sa-li-tip">
+          <div class="sa-li-icon">in</div>
+          <div class="sa-li-body">
+            <div class="sa-li-title">⚡ Open LinkedIn before you start</div>
+            <div class="sa-li-text">JobsSignal opens LinkedIn searches. Log in to LinkedIn first so results appear instantly.</div>
+          </div>
+          <button type="button" class="sa-li-btn" onclick="window.open('https://www.linkedin.com','_blank')">Open →</button>
+        </div>
+
+        <div class="sa-field-row">
+          <div class="sa-field">
+            <label class="sa-label">Full Name *</label>
+            <input class="sa-input" id="s1_name" placeholder="e.g. Riya Desai" oninput="checkDuplicate('name')" autocomplete="off">
+            <div id="s1_name_msg" class="sa-field-msg"></div>
+          </div>
+          <div class="sa-field">
+            <label class="sa-label">Mobile (+91) *</label>
+            <input class="sa-input" id="s1_phone" placeholder="98765 43210" maxlength="10" type="tel" oninput="checkDuplicate('phone')" autocomplete="off">
+            <div id="s1_phone_msg" class="sa-field-msg"></div>
+          </div>
+          <div class="sa-field">
+            <label class="sa-label">Email *</label>
+            <input class="sa-input" id="s1_email" placeholder="you@email.com" oninput="checkDuplicate('email')" autocomplete="off">
+            <div id="s1_email_msg" class="sa-field-msg"></div>
+          </div>
+          <div class="sa-field">
+            <label class="sa-label">Primary Skill *</label>
+            <input class="sa-input" id="s1_skill" placeholder="React, HR, Python..." list="skillSuggestions">
+            <div id="s1_skill_msg" class="sa-field-msg"></div>
+          </div>
+        </div>
+
+        <div class="sa-field">
+          <label class="sa-label">Your City *</label>
+          <select class="sa-input sa-select" id="s1_city">
+            <option value="">Select city...</option>
+            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
+            <option>Pune</option><option>Delhi NCR</option><option>Chennai</option>
+            <option>Kolkata</option><option>Noida</option><option>Remote</option>
+          </select>
+          <div id="s1_city_msg" class="sa-field-msg"></div>
+        </div>
+
+        <button class="sa-btn sa-btn-amber" onclick="nextStep(1)">Continue → Step 2</button>
+        <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back to Home</button>
       </div>
-      <div style="background:var(--teal-pale);border:1.5px solid rgba(26,107,107,.2);border-radius:12px;padding:14px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
-        <div style="font-size:20px;">✅</div>
-        <div><div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:2px;">LinkedIn open? You are ready!</div><div style="font-size:12px;color:var(--teal-lt);line-height:1.5;">Keep LinkedIn logged in. Every search opens LinkedIn with perfect results.</div></div>
+
+      <!-- STEP 2 -->
+      <div id="step2" style="display:none;">
+        <div class="sa-eyebrow">Create Account — Step 2 of 3</div>
+        <div class="sa-title">Your <em>preferences.</em></div>
+        <div class="sa-form-sub" style="margin-bottom:24px;">Help us personalise your signal feed.</div>
+
+        <div class="sa-field">
+          <label class="sa-label">Currently Working?</label>
+          <div class="sa-pill-row" id="wsRow">
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
+          </div>
+        </div>
+
+        <div class="sa-field" style="margin-top:16px;">
+          <label class="sa-label">Experience Level</label>
+          <div class="sa-pill-row" id="expRow">
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1–3 yrs</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3–7 yrs</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7–10 yrs</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">10–15 yrs</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">15–20 yrs</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">20+ yrs</button>
+          </div>
+        </div>
+
+        <div class="sa-field" style="margin-top:16px;">
+          <label class="sa-label">Preferred Locations <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#a0a3ae;">(select multiple)</span></label>
+          <div class="sa-pill-row" id="prefLocRow">
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Hyderabad</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Bengaluru</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Mumbai</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Pune</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Delhi NCR</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Chennai</button>
+            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Remote</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:20px;">
+          <button class="sa-btn sa-btn-ghost" style="flex:0 0 auto;width:auto;" onclick="nextStep(-1)">← Back</button>
+          <button class="sa-btn sa-btn-amber" style="flex:1;" onclick="nextStep(2)">Continue → Step 3</button>
+        </div>
       </div>
-      <button class="btn-auth" style="max-width:280px;margin:0 auto;display:block;" onclick="doSignup()">📡 Use My Free Preview →</button>
+
+      <!-- STEP 3 -->
+      <div id="step3" style="display:none;">
+        <div class="sa-eyebrow">Almost Done — Step 3 of 3</div>
+        <div class="sa-title">You're all <em>set!</em></div>
+        <div class="sa-form-sub" style="margin-bottom:24px;">Your account is ready. One last thing —</div>
+
+        <div class="sa-ready-box">
+          <div class="sa-ready-icon">✅</div>
+          <div>
+            <div class="sa-ready-title">Keep LinkedIn open for best results</div>
+            <div class="sa-ready-text">Every search opens LinkedIn with perfect recruiter results. Keep LinkedIn logged in on your browser.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--amber-pale);border:1.5px solid rgba(232,148,58,.25);border-radius:12px;padding:16px 18px;margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:8px;">🎁 What you get for free:</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;"><span style="color:var(--amber);">✓</span> 1 free recruiter signal search</div>
+            <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;"><span style="color:var(--amber);">✓</span> All 5 search modes to try</div>
+            <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;"><span style="color:var(--amber);">✓</span> Comment templates included</div>
+            <div style="font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;"><span style="color:var(--amber);">✓</span> No credit card needed</div>
+          </div>
+        </div>
+
+        <button class="sa-btn sa-btn-amber" onclick="doSignup()">📡 Use My Free Preview →</button>
+        <button class="sa-btn sa-btn-ghost" onclick="nextStep(-2)">← Back</button>
+      </div>
+
     </div>
   </div>
+
 </div>
 </div><!-- /signupView -->
 
-<!-- ═══════════════════════════════════════
-     USER DASHBOARD — SIDEBAR LAYOUT
-     ═══════════════════════════════════════ -->
 <div class="view" id="dashView">
 <div class="sb-layout">
 
@@ -1225,7 +1654,7 @@ tr:hover td{background:var(--cream);}
     <div class="sb-section">
       <div class="sb-section-label">Account</div>
       <ul class="sb-nav">
-        <li class="sb-item" onclick="openPay('Monthly Plan',99)"><span class="sb-icon">⬆️</span> Upgrade Plan</li>
+        <li class="sb-item" onclick="document.getElementById('upgradeCard').scrollIntoView({behavior:'smooth'})"><span class="sb-icon">⬆️</span> Upgrade Plan</li>
       </ul>
     </div>
 
@@ -1233,7 +1662,7 @@ tr:hover td{background:var(--cream);}
       <div class="sb-plan-label">Current Plan</div>
       <div class="sb-plan-name" id="sbPlanName">Free Preview</div>
       <div class="sb-plan-days" id="sbPlanDays">1 search remaining</div>
-      <button class="btn-sb-upgrade" onclick="openPay('Monthly Plan',99)">Upgrade ₹99/month →</button>
+      <button class="btn-sb-upgrade" onclick="document.getElementById('upgradeCard')?.scrollIntoView({behavior:'smooth'})">View All Plans →</button>
     </div>
 
     <div class="sb-user">
@@ -1422,12 +1851,13 @@ tr:hover td{background:var(--cream);}
     <div class="rp-card" id="upgradeCard" style="display:none;">
       <div class="rp-title">⬆️ Upgrade Plan</div>
       <div class="ucc-plans">
-        <div class="ucc-plan" onclick="selectPlan(49,'7 Days',this)"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan ucc-pop" style="position:relative;" onclick="selectPlan(99,'Monthly Plan',this)"><div class="ucc-plan-badge">POPULAR</div><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan" onclick="selectPlan(179,'60 Days',this)"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan" onclick="selectPlan(599,'Annual Plan',this)"><div class="ucc-plan-days">Annual</div><div class="ucc-plan-price">₹599</div><div class="ucc-plan-sub">best value</div></div>
+        <div class="ucc-plan" onclick="openPay('7 Days',49)"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan ucc-pop" style="position:relative;" onclick="openPay('Monthly Plan',99)"><div class="ucc-plan-badge">POPULAR</div><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan" onclick="openPay('60 Days',179)"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan" onclick="openPay('Annual Plan',599)"><div class="ucc-plan-days">Annual</div><div class="ucc-plan-price">₹599</div><div class="ucc-plan-sub">best value</div></div>
       </div>
-      <button class="btn-upgrade" id="btnUpgrade" onclick="openPay('Monthly Plan',99)">Unlock Full Access →</button>
+      <div style="font-size:11px;color:var(--soft);text-align:center;margin-bottom:8px;">Tap a plan to pay</div>
+      <button class="btn-upgrade" id="btnUpgrade" onclick="openPay('Monthly Plan',99)">Upgrade — ₹99/month →</button>
     </div>
 
     <!-- Daily Tip -->
@@ -1727,6 +2157,8 @@ tr:hover td{background:var(--cream);}
 
 
 
+
+
 <script>
 
 // ============================================================
@@ -1898,6 +2330,13 @@ function pickPill(btn,gid){
     document.getElementById('step2').style.display='none';
     document.getElementById('step3').style.display='block';
     updateSignupDots(3);
+  } else if(from===-2){
+    // Back from step 3 to step 2
+    ['sl1','sl2','sl3'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+    var sl2b=document.getElementById('sl2');if(sl2b)sl2b.style.display='block';
+    var s3b=document.getElementById('step3');var s2d=document.getElementById('step2');
+    if(s3b)s3b.style.display='none';if(s2d)s2d.style.display='block';
+    updateSignupDots(2);window.scrollTo(0,0);
   } else if(from===-1){
     // Back from step 2 to step 1
     document.getElementById('step2').style.display='none';
@@ -2377,8 +2816,10 @@ function runSearch(mode){
     try{const h=gjson('js_history',[]);h.unshift({skill,city,mode,t:new Date().toISOString()});sto('js_history',h.slice(0,10));}catch(x){}
   }catch(e){}
   const urls=buildURL(mode,skill,city,np,htags,company,keyword);
-  // Open LinkedIn directly (popup wrappers block on mobile)
-  window.open(urls.primary,'_blank');
+  // Use anchor click — not blocked by Android Chrome popup blocker
+  var a=document.createElement('a');
+  a.href=urls.primary;a.target='_blank';a.rel='noopener noreferrer';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
   const load=document.getElementById('sLoad'),fill=document.getElementById('slFill'),lbl=document.getElementById('slLbl'),rbox=document.getElementById('resultsBox');
   if(!load||!fill||!lbl)return;
@@ -3180,6 +3621,16 @@ function selectPlan(amount, plan, el){
   }
 }
 
+
+function showFieldErr(id, msg){
+  var inp=document.getElementById(id);
+  if(inp) inp.style.borderColor='#c0392b';
+  var msgEl=document.getElementById(id+'_msg');
+  if(msgEl){
+    msgEl.innerHTML='<span style="color:#c0392b;font-size:11px;">'+msg+'</span>';
+    setTimeout(function(){if(msgEl)msgEl.innerHTML='';if(inp)inp.style.borderColor='';},4000);
+  }
+}
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3307,7 +3758,11 @@ function liPopupSkip(){
 
 
 
+
+
 </script>
+
+
 
 
 
