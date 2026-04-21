@@ -797,12 +797,6 @@ tr:hover td{background:var(--cream);}
     <li><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</a></li>
   </ul>
   <div class="ln-right">
-    <!-- Welcome back button (shown when user is already registered) -->
-    <div id="welcomeBackBtn" style="display:none;align-items:center;gap:8px;background:rgba(232,148,58,.08);border:1px solid rgba(232,148,58,.2);border-radius:9px;padding:7px 14px;cursor:pointer;" onclick="enterDashboard()">
-      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#e8943a,#d4822e);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;" id="wbAvatar">K</div>
-      <span style="font-size:13px;font-weight:600;color:#0f1117;">Welcome back, <span class="wb-name">there</span></span>
-      <span style="font-size:12px;color:#e8943a;font-weight:700;">→</span>
-    </div>
     <button class="btn-ln-ghost" onclick="goTo('loginView')">Log In</button>
     <button class="btn-ln-cta" onclick="goTo('signupView')">Sign Up Free →</button>
   </div>
@@ -985,6 +979,7 @@ tr:hover td{background:var(--cream);}
     <div class="form-field"><label class="form-label">Password</label><input class="form-input" id="li_pass" placeholder="Your password" type="password"></div>
     <div id="loginErr" style="font-size:12px;color:var(--red);margin-bottom:12px;display:none;"></div>
     <button class="btn-auth" onclick="doLogin()">Log In →</button>
+    <div style="text-align:center;margin-top:14px;"><a onclick="showForgotPass()" style="font-size:12px;color:var(--amber);cursor:pointer;font-weight:600;">Forgot password?</a></div>
     <button class="btn-auth-sec" onclick="goTo('landingView')">← Back</button>
   </div>
 </div>
@@ -1204,7 +1199,7 @@ tr:hover td{background:var(--cream);}
           <!-- SKILL + CITY -->
           <div class="ss active" id="ss-skill">
             <div class="search-row">
-              <div class="sg" style="flex:1.5;"><label class="sg-lbl">Job Title</label><input class="sg-in" id="sk_skill" placeholder="Staff Engineer, TA Manager, Data Analyst..." onchange="autoSelectHashtags(this.value)"><div class="sg-tip">Enter exact job title only — no commas</div></div>
+              <div class="sg" style="flex:1.5;"><label class="sg-lbl">Job Title</label><input class="sg-in" id="sk_skill" placeholder="Staff Engineer, TA Manager, Data Analyst..." list="skillSuggestions" onchange="autoSelectHashtags(this.value)"><div class="sg-tip">Enter exact job title only — no commas</div></div>
               <div class="sg"><label class="sg-lbl">Keyword <span style="font-weight:400;text-transform:none;font-size:10px;color:#a0a3ae;">(optional)</span></label><input class="sg-in" id="sk_keyword" placeholder="Java, SAP, Python..."><div class="sg-tip">Add specific skill/tech</div></div>
               <div class="sg" style="max-width:160px;"><label class="sg-lbl">City</label><select class="sg-sel" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Remote</option></select></div>
               <div class="sg" style="max-width:150px;"><label class="sg-lbl">Experience</label><select class="sg-sel" id="sk_exp"><option>Any</option><option>Fresher</option><option>1-3 Years</option><option>3-7 Years</option><option>7-10 Years</option><option>10-12 Years</option><option>12-15 Years</option><option>15-20 Years</option><option>20+ Years</option></select></div>
@@ -1308,10 +1303,10 @@ tr:hover td{background:var(--cream);}
     <div class="rp-card" id="upgradeCard">
       <div class="rp-title">⬆️ Upgrade Plan</div>
       <div class="ucc-plans">
-        <div class="ucc-plan" onclick="selectPlan(49,'Weekly')"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan ucc-pop" style="position:relative;" onclick="selectPlan(99,'Monthly')"><div class="ucc-plan-badge">POPULAR</div><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan" onclick="selectPlan(179,'60 Days')"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div><div class="ucc-plan-sub">unlimited</div></div>
-        <div class="ucc-plan" onclick="selectPlan(599,'Annual')"><div class="ucc-plan-days">Annual</div><div class="ucc-plan-price">₹599</div><div class="ucc-plan-sub">best value</div></div>
+        <div class="ucc-plan" onclick="selectPlan(49,'7 Days',this)"><div class="ucc-plan-days">7 Days</div><div class="ucc-plan-price">₹49</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan ucc-pop" style="position:relative;" onclick="selectPlan(99,'Monthly Plan',this)"><div class="ucc-plan-badge">POPULAR</div><div class="ucc-plan-days">30 Days</div><div class="ucc-plan-price">₹99</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan" onclick="selectPlan(179,'60 Days',this)"><div class="ucc-plan-days">60 Days</div><div class="ucc-plan-price">₹179</div><div class="ucc-plan-sub">unlimited</div></div>
+        <div class="ucc-plan" onclick="selectPlan(599,'Annual Plan',this)"><div class="ucc-plan-days">Annual</div><div class="ucc-plan-price">₹599</div><div class="ucc-plan-sub">best value</div></div>
       </div>
       <button class="btn-upgrade" id="btnUpgrade" onclick="openPay('Monthly Plan',99)">Unlock Full Access →</button>
     </div>
@@ -1479,7 +1474,7 @@ tr:hover td{background:var(--cream);}
             <div class="test-section">
               <div class="test-section-label">Search Modes</div>
               <button class="test-btn tb-active" onclick="adminTestFeature('skill')">🎯 Skill + City</button>
-              <button class="test-btn" onclick="adminTestFeature('hashtag')"># Hashtag Hunt</button>
+              <button class="test-btn" onclick="adminTestFeature('hashtag'"># Hashtag Hunt</button>
               <button class="test-btn" onclick="adminTestFeature('notice')">⏱️ Notice Period</button>
               <button class="test-btn" onclick="adminTestFeature('referral')">🤝 Referral Radar</button>
               <button class="test-btn" onclick="adminTestFeature('walkin')">🚶 Walk-in Drives</button>
@@ -1593,6 +1588,7 @@ tr:hover td{background:var(--cream);}
   <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:#111827;color:white;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
   <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:#9ca3af;font-size:12px;border:1px solid #e5e7eb;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
 </div>
+
 
 
 <script>
@@ -1783,12 +1779,27 @@ function doSignup(){
 // LOGIN
 // ============================================================
 function doLogin(){
-  const phone=document.getElementById('li_phone')?.value.trim();
-  const pass=document.getElementById('li_pass')?.value.trim();
+  var phone=document.getElementById('li_phone')?.value.trim();
+  var pass=document.getElementById('li_pass')?.value.trim();
+  var errEl=document.getElementById('loginErr');
+  if(errEl)errEl.style.display='none';
   if(!phone){showToast('Enter mobile number','amber');return;}
   if(!pass){showToast('Enter password','amber');return;}
+  var normP=function(v){var d=(v||'').replace(/[^0-9]/g,'');return d.length>10?d.slice(-10):d;};
+  var ep=normP(phone);
   try{
-    enterDash({name:'Kiran Manepalli',phone,email:'kiran@gmail.com',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad']});
+    var raw=localStorage.getItem(S_USER);
+    if(raw){
+      var u=JSON.parse(raw);
+      if(u&&u.phone&&normP(u.phone)===ep){
+        var correctPass=u.password||normP(u.phone);
+        if(pass===correctPass||pass===normP(u.phone)){enterDash(u);return;}
+        if(errEl){errEl.textContent='Wrong password. Try your mobile number as password.';errEl.style.display='block';}
+        showToast('Wrong password','red');return;
+      }
+    }
+    if(errEl){errEl.textContent='Mobile not registered. Please sign up first.';errEl.style.display='block';}
+    showToast('Mobile not found — please sign up','amber');
   }catch(err){console.error(err);showToast('Login error. Try again.','red');}
 }
 
@@ -1860,11 +1871,29 @@ function showFreeDash(){
   lockModes();
 }
 function showLockedDash(){
-  hide('previewBanner'); buildAway(); show('awayWidget'); showTriggers(); show('convTriggers');
-  hide('searchCard'); show('sidebarUpgrade');
-  hide('sidebarWatchlist'); hide('sidebarSaved');
+  var fw=document.getElementById('fomoWrap');
+  if(fw){fw.style.display='block';fw.innerHTML=buildFomoHTML();fw.scrollIntoView({behavior:'smooth'});}
 }
-function showPaidDash(){
+function buildFomoHTML(){
+  var plans=[
+    {n:'7 Days',a:49,s:'unlimited',p:false},
+    {n:'Monthly Plan',a:99,s:'unlimited',p:true},
+    {n:'60 Days',a:179,s:'unlimited',p:false},
+    {n:'Annual Plan',a:599,s:'best value',p:false}
+  ];
+  var h='<div class="fomo-wrap">';
+  h+='<div class="fomo-title">Unlock Full Access</div>';
+  h+='<div class="fomo-sub">Your free preview is used. Upgrade for unlimited searches and all 5 modes.</div>';
+  h+='<div class="fomo-plans">';
+  plans.forEach(function(pl){
+    var days=pl.n==='Monthly Plan'?'30 Days':pl.n==='Annual Plan'?'Annual':pl.n;
+    h+='<div class="fp-plan'+(pl.p?' fp-pop':'')+'"'+(pl.p?' style="position:relative;"':'')+' data-n="'+pl.n+'" data-a="'+pl.a+'" onclick="openPay(this.dataset.n,parseInt(this.dataset.a))">';
+    if(pl.p) h+='<div class="fp-badge">POPULAR</div>';
+    h+='<div class="fp-days">'+days+'</div><div class="fp-price">'+String.fromCharCode(8377)+pl.a+'</div><div class="fp-sub">'+pl.s+'</div></div>';
+  });
+  h+='</div><button class="btn-fp" data-n="Monthly Plan" data-a="99" onclick="openPay(this.dataset.n,parseInt(this.dataset.a))">Unlock Full Access</button></div>';
+  return h;
+}function showPaidDash(){
   hide('previewBanner'); hide('awayWidget'); hide('convTriggers');
   show('searchCard'); hide('sidebarUpgrade'); unlockModes();
   const w=gjson(S_WATCH,[]); const s=gjson(S_SAVED,[]);
@@ -2146,7 +2175,7 @@ function switchMode(mode,btn){
     showToast('Upgrade to unlock '+mode+' search 🔒','amber');
     openPay('30 Days',99); return;
   }
-  document.querySelectorAll('.dc-mode').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.ss').forEach(s=>s.classList.remove('active'));
   document.getElementById('ss-'+mode)?.classList.add('active');
@@ -2200,11 +2229,16 @@ function buildResults(mode,skill,city,urls,np,htags,company,keyword){
   const btLbl=peak?'✅ Best time — recruiters likely online now':'⏰ Good time — comment within 2 hours';
   const waText=encodeURIComponent(`📡 Job signals on JobsSignal.in!\n\nSearching: ${skill} in ${city}\n\njobssignal.in`);
   const safeTmpl=`Hi, I am a ${skill} professional in ${city}. I came across your post and would love to explore this opportunity. Currently on ${np||'30 days'} notice. Sharing my CV via DM.`.substring(0,200);
-  const rCount=document.getElementById('rCount'),rSub=document.getElementById('rSub'),list=document.getElementById('rList');
-  if(!rCount||!rSub||!list)return;
-  rCount.textContent=`Smart LinkedIn search: "${skill}" in ${city}`;
+  var rCount=document.getElementById('rCount'),rSub=document.getElementById('rSub');
+  var tp=document.getElementById('tab-posts'),tj=document.getElementById('tab-jobs'),tpe=document.getElementById('tab-people');
+  if(!rCount||!rSub)return;
+  rCount.textContent='Smart LinkedIn search: "'+skill+'" in '+city;
   rSub.textContent='Real LinkedIn results · Sorted newest · India only';
-  list.innerHTML=`<div class="best-time ${btCls}">${btLbl}</div><div class="result-tabs"><button type="button" class="rt-tab active" onclick="showTab('posts',this)">📡 Recruiter Posts</button><button type="button" class="rt-tab" onclick="showTab('jobs',this)">💼 LinkedIn Jobs</button><button type="button" class="rt-tab" onclick="showTab('people',this)">👤 Find Recruiters</button></div><div id="tab-posts">${postsTab(mode,skill,city,urls,safeTmpl,htags,np,company,'https://wa.me/?text='+waText,keyword)}</div><div id="tab-jobs" style="display:none;">${jobsTab(skill,city,urls,t,'https://wa.me/?text='+waText,keyword)}</div><div id="tab-people" style="display:none;">${peopleTab(skill,city,urls,t,keyword)}</div>`;
+  document.querySelectorAll('.rt-tab').forEach(function(b){b.classList.remove('active');});
+  var ft=document.querySelector('.rt-tab');if(ft)ft.classList.add('active');
+  if(tp){tp.style.display='block';tp.innerHTML=postsTab(mode,skill,city,urls,safeTmpl,htags,np,company,'https://wa.me/?text='+waText,keyword);}
+  if(tj){tj.style.display='none';tj.innerHTML=jobsTab(skill,city,urls,t,'https://wa.me/?text='+waText,keyword);}
+  if(tpe){tpe.style.display='none';tpe.innerHTML=peopleTab(skill,city,urls,t,keyword);}
 }
 function showTab(tab,btn){
   ['posts','jobs','people'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===tab?'block':'none';});
@@ -2623,6 +2657,30 @@ function dlProfile(id){
   </div>
 </div>
 <script>window.onload=()=>{window.print();}<\/script>
+
+<div id="forgotModal" style="display:none;position:fixed;inset:0;z-index:9100;background:rgba(15,17,23,.55);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:18px;max-width:400px;width:100%;padding:32px 28px;box-shadow:0 16px 52px rgba(15,17,23,.15);">
+    <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:6px;">Reset Password.</div>
+    <div style="font-size:13px;color:var(--soft);margin-bottom:22px;line-height:1.5;">Enter your registered mobile number. Password resets to your mobile number.</div>
+    <div class="form-field"><label class="form-label">Registered Mobile</label><input class="form-input" id="fpPhone" placeholder="98765 43210" maxlength="10" type="tel"></div>
+    <div id="fpMsg" style="font-size:12px;margin-bottom:12px;display:none;padding:10px;border-radius:8px;"></div>
+    <button onclick="doForgotPass()" style="width:100%;padding:11px;border-radius:9px;background:var(--amber);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">Reset Password</button>
+    <button onclick="document.getElementById('forgotModal').style.display='none'" style="width:100%;padding:10px;border-radius:9px;background:var(--warm);color:var(--soft);border:1px solid var(--border);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
+  </div>
+</div>
+<datalist id="skillSuggestions">
+  <option value="Software Engineer"><option value="Senior Software Engineer"><option value="Staff Engineer">
+  <option value="Frontend Developer"><option value="Backend Developer"><option value="Full Stack Developer">
+  <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
+  <option value="Data Engineer"><option value="Data Scientist"><option value="ML Engineer">
+  <option value="DevOps Engineer"><option value="Cloud Engineer"><option value="Product Manager">
+  <option value="Project Manager"><option value="Business Analyst"><option value="Talent Acquisition">
+  <option value="HR Manager"><option value="HR Business Partner"><option value="Recruiter">
+  <option value="Finance Manager"><option value="Chartered Accountant"><option value="Sales Manager">
+  <option value="Business Development Manager"><option value="Marketing Manager"><option value="UI UX Designer">
+  <option value="QA Engineer"><option value="Technical Lead"><option value="Engineering Manager">
+  <option value="SAP Consultant"><option value="Salesforce Developer">
+</datalist>
 </body>
 </html>`;
 
@@ -2779,6 +2837,35 @@ function showToast(msg,type){
 // ============================================================
 // INIT — runs on every page load including refresh
 // ============================================================
+
+function showForgotPass(){
+  var el=document.getElementById('forgotModal');
+  if(el)el.style.display='flex';
+}
+function doForgotPass(){
+  var ph=document.getElementById('fpPhone');
+  var msg=document.getElementById('fpMsg');
+  if(!ph||!msg)return;
+  var v=ph.value.trim();
+  if(!v||v.length<10){msg.textContent='Enter valid 10-digit mobile.';msg.style.background='var(--red-pale)';msg.style.color='var(--red)';msg.style.display='block';return;}
+  var normP=function(x){var d=(x||'').replace(/[^0-9]/g,'');return d.length>10?d.slice(-10):d;};
+  try{
+    var raw=localStorage.getItem(S_USER);
+    if(raw){
+      var u=JSON.parse(raw);
+      if(u&&u.phone&&normP(u.phone)===normP(v)){
+        u.password=normP(v);localStorage.setItem(S_USER,JSON.stringify(u));
+        msg.textContent='Password reset to your mobile number. Please log in.';
+        msg.style.background='var(--teal-pale)';msg.style.color='var(--teal)';msg.style.display='block';
+        setTimeout(function(){document.getElementById('forgotModal').style.display='none';goTo('loginView');},2000);
+        return;
+      }
+    }
+  }catch(e){}
+  msg.textContent='Mobile not found. Please check or sign up.';
+  msg.style.background='var(--red-pale)';msg.style.color='var(--red)';msg.style.display='block';
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -2894,28 +2981,8 @@ function liPopupSkip(){
     if(pop._onConfirm) pop._onConfirm();
   }
 }
-
-document.addEventListener('DOMContentLoaded',()=>{
-  // Scroll reveal
-  try{
-    const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.1});
-    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-  }catch(e){}
-
-  // Restore session — if user exists in localStorage, show dashboard
-  // goTo('dashView') is called INSIDE restoreSession before any error-prone code
-  const restored = restoreSession();
-  if(!restored){
-    // No saved session — show landing page
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    const lv=document.getElementById('landingView');
-    if(lv) lv.classList.add('active');
-  }
-});
-
-
-
 </script>
+
 
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 </body>
@@ -4256,11 +4323,11 @@ function showDashPanel(panel) {
   // All panels show same search content for now
 }
 
-function selectPlan(amount, plan) {
-  document.querySelectorAll('.ucc-plan').forEach(p => p.classList.remove('ucc-sel'));
-  event.currentTarget.classList.add('ucc-sel');
-  const btn = document.getElementById('btnUpgrade');
-  if(btn) { btn.textContent = 'Unlock '+plan+' — ₹'+amount+' →'; btn.onclick = () => openPay(plan+' Plan', amount); }
+function selectPlan(amount, plan, el) {
+  document.querySelectorAll('.ucc-plan').forEach(function(p){p.classList.remove('ucc-sel');});
+  if(el) el.classList.add('ucc-sel');
+  var btn=document.getElementById('btnUpgrade');
+  if(btn){btn.textContent='Unlock '+plan+' — ₹'+amount+' →';btn.onclick=function(){openPay(plan,amount);};}
 }
 
 function showCommentTemplate() {
@@ -4357,5 +4424,4 @@ renderAdminTable = function(db) {
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 </body>
 </html>
-</body>
 </html>
