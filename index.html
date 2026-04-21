@@ -1647,7 +1647,7 @@ tr:hover td{background:var(--cream);}
       <ul class="sb-nav">
         <li class="sb-item" onclick="showCommentTemplate()"><span class="sb-icon">💬</span> Comment Templates</li>
         <li class="sb-item" onclick="showDashPanel('profile')"><span class="sb-icon">👤</span> My Profile</li>
-        <li class="sb-item" onclick="goTo('changePassView')"><span class="sb-icon">🔒</span> Change Password</li>
+        
       </ul>
     </div>
     <div class="sb-divider"></div>
@@ -1677,7 +1677,7 @@ tr:hover td{background:var(--cream);}
     <!-- TOP BAR -->
     <div class="sb-topbar">
       <div>
-        <div class="sb-greeting" id="dGreetTop">Good morning 👋</div>
+        <div id="dGreetTop" style="font-family:'Fraunces',serif;font-weight:800;font-size:19px;color:var(--ink);line-height:1.1;letter-spacing:-.3px;">Welcome</div>
         <div class="sb-greeting-sub" id="dPlan">Free Plan · 1 preview</div>
       </div>
       <div class="sb-topbar-right">
@@ -2116,9 +2116,12 @@ tr:hover td{background:var(--cream);}
       <div class="tc-title">💬 Comment Template</div>
       <button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button>
     </div>
-    <div class="tc-body">
-      <div style="font-size:12px;color:#3a3d4a;margin-bottom:14px;">Pick a tone — 
+    <div class
+<script>
 
+// ============================================================
+// CONFIG
+// =================
 <script>
 
 // ============================================================
@@ -2404,11 +2407,9 @@ function doLogout(){
 function buildDash(user,pl){
   const first=user.name.split(' ')[0];
   const init=user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-  const h=new Date().getHours();
-  const gr=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   setEl('dName',first); setEl('dAv',init);
-  setEl('dGreet',user.skill||'Job Seeker');
-  setEl('dPlan',isPaid?(pl.plan||'Paid')+' · Active ✅':'Free Plan · 1 preview');
+  setEl('dGreet',user.skill||user.city||'Job Seeker');
+  setEl('dPlan',(user.skill?user.skill+(user.city?' · '+user.city:''):'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
   const skEl=document.getElementById('sk_skill');
   if(skEl) skEl.value=user.skill||lastSkill||'';
   const csel=document.getElementById('sk_city');
@@ -2430,23 +2431,15 @@ function buildDash(user,pl){
 // DASHBOARD STATES
 // ============================================================
 function showFreeDash(){
-  // Show preview banners (both — right panel and main content)
-  var pb=document.getElementById('previewBanner');
-  if(pb) pb.style.display='flex';
-  var pbm=document.getElementById('previewBannerMain');
-  if(pbm) pbm.style.display='block';
-  // Show search
-  var ds=document.getElementById('dashSearch');
-  if(ds) ds.style.display='block';
-  // Show upgrade sidebar card
-  var uc=document.getElementById('upgradeCard');
-  if(uc) uc.style.display='block';
-  // Hide FOMO wall
-  var fw=document.getElementById('fomoWrap');
-  if(fw) fw.style.display='none';
-  var _up=document.getElementById('upgradePlansMain');if(_up)_up.style.display='block';
+  var pb=document.getElementById('previewBanner');if(pb)pb.style.display='flex';
+  var pbm=document.getElementById('previewBannerMain');if(pbm)pbm.style.display='block';
+  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  var uc=document.getElementById('upgradeCard');if(uc)uc.style.display='block';
+  var fw=document.getElementById('fomoWrap');if(fw)fw.style.display='none';
+  var up=document.getElementById('upgradePlansMain');if(up)up.style.display='none';
   lockModes();
 }
+
 function buildFomoHTML(){
   var plans=[
     {n:'7 Days',a:49,s:'unlimited',p:false},
@@ -2671,6 +2664,8 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
   const enc=s=>encodeURIComponent(s);
   const t=getTerms(skill);
   const C=city||'Hyderabad'; const NP=np||'30 Days'; const KW=keyword||'';
+  const skillQ='"'+skill+'"'+(KW?' "'+KW+'"':'');
+  const jobSkill=t.j+(KW?' '+KW:'');
   const cb='https://www.linkedin.com/search/results/content/';
   const jb='https://www.linkedin.com/jobs/search/';
   const pb='https://www.linkedin.com/search/results/people/';
@@ -2684,15 +2679,15 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
   const NO='-"open to work" -"#opentowork" -"opentowork" -"seeking" -"looking for a role" -"available for" -"job seeker" -"actively looking" -"notice period" -"I am looking"';
   // Only show posts from people who are HIRING
   const HIRE='"hiring" OR "we are hiring" OR "urgent requirement" OR "immediate requirement" OR "join our team" OR "apply now" OR "DM me"';
-  const tQ='"'+t.j+'"'+(KW?' "'+KW+'"':'');
+  const tQ=skillQ;
   if(mode==='skill'){return{
     primary:  cb+'?keywords='+enc('('+HIRE+') '+tQ+' "'+C+'"'+' '+NO)+d24,
     fallback: cb+'?keywords='+enc('"hiring" '+tQ+' "'+C+'"')+dwk,
     month:    cb+'?keywords='+enc(tQ+' "'+C+'" hiring')+dmo,
-    jobs:     jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+j24,
-    jobsWk:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk,
-    jobsMo:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jmo,
-    ea:       jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk+'&f_AL=true',
+    jobs:     jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+j24,
+    jobsWk:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk,
+    jobsMo:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jmo,
+    ea:       jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk+'&f_AL=true',
     people:   cb+'?keywords='+enc('"hiring" '+tQ+' "'+C+'"')+dwk,
     recruiters:pb+'?keywords='+enc('recruiter "'+t.j+'" "'+C+'"'),
   };}
@@ -2700,10 +2695,10 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
     primary:  cb+'?keywords='+enc(tags.slice(0,3).join(' ')+' "'+C+'"')+d24,
     fallback: cb+'?keywords='+enc(tags.slice(0,3).join(' ')+' "'+C+'"')+dwk,
     month:    cb+'?keywords='+enc(tags.slice(0,3).join(' ')+' "'+C+'"')+dmo,
-    jobs:     jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+j24,
-    jobsWk:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk,
-    jobsMo:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jmo,
-    ea:       jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk+'&f_AL=true',
+    jobs:     jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+j24,
+    jobsWk:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk,
+    jobsMo:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jmo,
+    ea:       jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk+'&f_AL=true',
     people:   cb+'?keywords='+enc(tags.slice(0,2).join(' ')+' "'+C+'"')+dwk,
     recruiters:pb+'?keywords='+enc('recruiter "'+t.j+'" "'+C+'"'),
   };}
@@ -2714,10 +2709,10 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
       primary:  cb+'?keywords='+enc(npQ+' '+tQ+' "'+C+'" hiring')+dwk,
       fallback: cb+'?keywords='+enc('"notice period" '+tQ+' "'+C+'"')+dwk,
       month:    cb+'?keywords='+enc(npQ+' '+tQ+' "'+C+'"')+dmo,
-      jobs:     jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+j24,
-      jobsWk:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk,
-      jobsMo:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jmo,
-      ea:       jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk+'&f_AL=true',
+      jobs:     jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+j24,
+      jobsWk:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk,
+      jobsMo:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jmo,
+      ea:       jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk+'&f_AL=true',
       people:   cb+'?keywords='+enc(npQ+' '+tQ+' "'+C+'"')+dwk,
       recruiters:pb+'?keywords='+enc('recruiter "'+t.j+'" "'+C+'"'),
   };}
@@ -2725,10 +2720,10 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
     primary:  cb+'?keywords='+enc('"DM me for referral" OR "drop your CV" OR "tag someone" "'+C+'"')+d24,
     fallback: cb+'?keywords='+enc('"referral" "'+co+'" "'+C+'" hiring')+dwk,
     month:    cb+'?keywords='+enc('"referral" '+tQ+' "'+C+'"')+dmo,
-    jobs:     jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+j24,
-    jobsWk:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk,
-    jobsMo:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jmo,
-    ea:       jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk+'&f_AL=true',
+    jobs:     jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+j24,
+    jobsWk:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk,
+    jobsMo:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jmo,
+    ea:       jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk+'&f_AL=true',
     people:   cb+'?keywords='+enc('"referral" "'+co+'" "'+C+'"')+dwk,
     recruiters:pb+'?keywords='+enc('recruiter "'+co+'" "'+C+'"'),
   };}
@@ -2737,9 +2732,9 @@ function buildURL(mode,skill,city,np,htags,company,keyword){
     fallback: cb+'?keywords='+enc('"walk in interview" "'+C+'"')+dwk,
     month:    cb+'?keywords='+enc('"walkin" OR "walk-in" "'+C+'"')+dmo,
     jobs:     jb+'?keywords='+enc('walk in '+t.j)+'&location='+enc(C)+jwk,
-    jobsWk:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk,
-    jobsMo:   jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jmo,
-    ea:       jb+'?keywords='+enc(t.j+(KW?' '+KW:''))+'&location='+enc(C)+jwk+'&f_AL=true',
+    jobsWk:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk,
+    jobsMo:   jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jmo,
+    ea:       jb+'?keywords='+enc(jobSkill)+'&location='+enc(C)+jwk+'&f_AL=true',
     people:   cb+'?keywords='+enc('"walk-in" "'+C+'"')+dwk,
     recruiters:pb+'?keywords='+enc('recruiter "'+C+'" walk-in'),
   };}
@@ -3600,6 +3595,19 @@ function showFieldErr(id, msg){
     setTimeout(function(){if(msgEl)msgEl.innerHTML='';if(inp)inp.style.borderColor='';},4000);
   }
 }
+
+function showLockedDash(){
+  var pb=document.getElementById('previewBanner');if(pb)pb.style.display='none';
+  var pbm=document.getElementById('previewBannerMain');if(pbm)pbm.style.display='none';
+  var fw=document.getElementById('fomoWrap');
+  if(fw){fw.style.display='block';fw.innerHTML=buildFomoHTML();}
+  var up=document.getElementById('upgradePlansMain');
+  if(up){up.style.display='block';}
+  setTimeout(function(){
+    var el=document.getElementById('upgradePlansMain');
+    if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  },400);
+}
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3731,9 +3739,10 @@ function liPopupSkip(){
 
 
 
-</script>
 
-t.getElementById('adminTestLog');if(l)l.innerHTML='No tests yet.';}
+
+</script>
+ElementById('adminTestLog');if(l)l.innerHTML='No tests yet.';}
 function adminUpdateChecklist(){var d=0;for(var i=1;i<=8;i++)if(document.getElementById('chk'+i)&&document.getElementById('chk'+i).checked)d++;var el=document.getElementById('checklistStatus');if(!el)return;el.innerHTML=d===8?'✅ READY!':d+'/8 not ready';el.style.color=d===8?'var(--em)':'rgba(255,255,255,.4)';}
 function showInstallBanner(){if(window.matchMedia('(display-mode:standalone)').matches)return;if(localStorage.getItem('pwa_dismissed'))return;var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='flex';}
 function installPWA(){var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='none';if(typeof deferredPrompt2!=='undefined'&&deferredPrompt2){deferredPrompt2.prompt();deferredPrompt2.userChoice.then(function(c){if(c.outcome==='accepted')showToast('✅ Added!','green');deferredPrompt2=null;});}}
