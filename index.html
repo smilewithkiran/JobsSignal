@@ -1647,6 +1647,8 @@ tr:hover td{background:var(--cream);}
 
 
 
+
+
 <script>
 
 // ============================================================
@@ -1794,7 +1796,18 @@ function nextStep(from){
     if(!p||p.length<10){showToast('Enter valid 10-digit mobile','amber');document.getElementById('s1_phone')?.focus();return;}
     if(!e||e.indexOf('@')<0){showToast('Enter a valid email','amber');document.getElementById('s1_email')?.focus();return;}
     if(!c||c===''){showToast('Select your city','amber');return;}
-    if(isDuplicate('phone',p)){showToast('Mobile already registered — please Log In','amber');checkDuplicate('phone');return;}
+    if(isDuplicate('phone',p)){
+      // Only block if user object actually exists for this phone
+      var normP3=function(v){var d=(v||'').replace(/[^0-9]/g,'');return d.length>10?d.slice(-10):d;};
+      var hasObj=false;
+      try{var rr=localStorage.getItem(S_USER);if(rr){var uu=JSON.parse(rr);if(uu&&uu.phone&&normP3(uu.phone)===normP3(p))hasObj=true;}}catch(ex){}
+      if(hasObj){
+        showFieldErr('s1_phone','Mobile already registered. Please Log In.');
+        showToast('Mobile already registered','amber');
+        return;
+      }
+      // Phone registered but no user data — allow re-signup to restore
+    }
     if(isDuplicate('email',e)){showToast('Email already registered — please Log In','amber');return;}
     // Move to step 2
     document.getElementById('step1').style.display='none';
@@ -1847,30 +1860,50 @@ function doSignup(){
 // LOGIN
 // ============================================================
 function doLogin(){
-  var phone=document.getElementById('li_phone')?.value.trim();
-  var pass=document.getElementById('li_pass')?.value.trim();
+  var phone=(document.getElementById('li_phone')?.value||'').trim();
+  var pass=(document.getElementById('li_pass')?.value||'').trim();
   var errEl=document.getElementById('loginErr');
-  if(errEl)errEl.style.display='none';
-  if(!phone){showToast('Enter mobile number','amber');return;}
-  if(!pass){showToast('Enter password','amber');return;}
-  var normP=function(v){var d=(v||'').replace(/[^0-9]/g,'');return d.length>10?d.slice(-10):d;};
+  if(errEl) errEl.style.display='none';
+  if(!phone){ showToast('Enter mobile number','amber'); return; }
+  if(!pass){  showToast('Enter password','amber'); return; }
+  var normP=function(v){ var d=(v||'').replace(/[^0-9]/g,''); return d.length>10?d.slice(-10):d; };
   var ep=normP(phone);
+  if(ep.length<10){ showToast('Enter valid 10-digit number','amber'); return; }
   try{
+    // ── Check 1: Full user object exists ───────────────
     var raw=localStorage.getItem(S_USER);
     if(raw){
       var u=JSON.parse(raw);
       if(u&&u.phone&&normP(u.phone)===ep){
         var correctPass=u.password||normP(u.phone);
-        if(pass===correctPass||pass===normP(u.phone)){enterDash(u);return;}
-        if(errEl){errEl.textContent='Wrong password. Try your mobile number as password.';errEl.style.display='block';}
-        showToast('Wrong password','red');return;
+        if(pass===correctPass||pass===normP(u.phone)){
+          enterDash(u); return;
+        }
+        if(errEl){ errEl.textContent='Wrong password. Your password is your mobile number: '+ep; errEl.style.display='block'; }
+        showToast('Wrong password — use your mobile number','red'); return;
       }
     }
-    if(errEl){errEl.textContent='Mobile not registered. Please sign up first.';errEl.style.display='block';}
+    // ── Check 2: Phone in registry but no user object ──
+    // Happens when: old signup, browser cleared, or re-login after rebuild
+    var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
+    var inReg=reg.some(function(p){ return normP(p)===ep; });
+    if(inReg){
+      // Phone is registered — restore as basic user, password = mobile
+      if(pass===ep){
+        var restoredUser={name:'Job Seeker',phone:ep,email:'',city:'Hyderabad',skill:'',prefLocs:[]};
+        localStorage.setItem(S_USER,JSON.stringify(restoredUser));
+        enterDash(restoredUser);
+        showToast('Welcome back! Please update your profile.','amber');
+        return;
+      }
+      if(errEl){ errEl.textContent='Wrong password. Your password is your mobile number: '+ep; errEl.style.display='block'; }
+      showToast('Wrong password — use your mobile number','red'); return;
+    }
+    // ── Not found anywhere ─────────────────────────────
+    if(errEl){ errEl.textContent='Mobile not registered. Please sign up first — it takes 30 seconds!'; errEl.style.display='block'; }
     showToast('Mobile not found — please sign up','amber');
-  }catch(err){console.error(err);showToast('Login error. Try again.','red');}
+  }catch(err){ console.error(err); showToast('Login error. Try again.','red'); }
 }
-
 // ============================================================
 // ENTER DASHBOARD
 // ============================================================
@@ -2920,52 +2953,80 @@ function showForgotPass(){
 function doForgotPass(){
   var ph=document.getElementById('fpPhone');
   var msg=document.getElementById('fpMsg');
-  if(!ph||!msg){showToast('Error: modal elements missing','red');return;}
-
-  var v=ph.value.replace(/[^0-9]/g,''); // strip non-digits
+  if(!ph||!msg){ showToast('Error: modal elements missing','red'); return; }
+  var v=ph.value.replace(/[^0-9]/g,'');
   if(v.length<10){
     msg.textContent='Please enter your 10-digit mobile number.';
     msg.style.cssText='display:block;padding:10px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
     ph.focus(); return;
   }
-  v = v.slice(-10); // take last 10 digits
+  v=v.slice(-10);
+  var normP=function(x){ var d=(x||'').replace(/[^0-9]/g,''); return d.length>10?d.slice(-10):d; };
 
-  // Look up user in localStorage
-  var found = false;
+  // ── Check js_user first ──────────────────────────────
   try{
-    var raw = localStorage.getItem(S_USER);
+    var raw=localStorage.getItem(S_USER);
     if(raw){
-      var u = JSON.parse(raw);
-      var storedPhone = (u.phone||'').replace(/[^0-9]/g,'').slice(-10);
-      if(storedPhone === v){
-        // Match found — reset password to mobile number
-        u.password = v;
-        localStorage.setItem(S_USER, JSON.stringify(u));
-        found = true;
-        msg.textContent = '✅ Password reset! Your new password is your mobile number: ' + v;
-        msg.style.cssText = 'display:block;padding:12px;border-radius:8px;font-size:12px;background:#e8f4f4;color:#1a6b6b;border:1px solid rgba(26,107,107,.2);font-weight:600;';
-        // Auto close and redirect to login after 3 seconds
+      var u=JSON.parse(raw);
+      if(u&&u.phone&&normP(u.phone)===v){
+        u.password=v;
+        localStorage.setItem(S_USER,JSON.stringify(u));
+        msg.textContent='✅ Password reset! Your new password is: '+v+'. Redirecting to login...';
+        msg.style.cssText='display:block;padding:12px;border-radius:8px;font-size:12px;background:#e8f4f4;color:#1a6b6b;border:1px solid rgba(26,107,107,.2);font-weight:600;';
         setTimeout(function(){
           document.getElementById('forgotModal').style.display='none';
-          ph.value='';
-          msg.style.display='none';
+          ph.value=''; msg.style.display='none';
           goTo('loginView');
-          showToast('Password reset! Login with your mobile number.','green');
-          // Pre-fill phone in login
-          var loginPhone=document.getElementById('li_phone');
-          if(loginPhone) loginPhone.value=v;
-        }, 3000);
+          var lp=document.getElementById('li_phone'); if(lp) lp.value=v;
+          showToast('Password reset! Use your mobile number to login.','green');
+        },2500);
         return;
       }
     }
-  }catch(e){ console.error('Forgot pass error:',e); }
+  }catch(e){}
 
-  if(!found){
-    msg.textContent = 'Mobile number not found. Did you sign up with a different number? Try logging in with your mobile number as password.';
-    msg.style.cssText = 'display:block;padding:12px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
-  }
+  // ── Check js_reg_phones registry ─────────────────────
+  try{
+    var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
+    var inReg=reg.some(function(p){ return normP(p)===v; });
+    if(inReg){
+      // Phone is in registry — restore user with mobile as password
+      var newUser={name:'Job Seeker',phone:v,email:'',city:'Hyderabad',skill:'',prefLocs:[],password:v};
+      localStorage.setItem(S_USER,JSON.stringify(newUser));
+      msg.textContent='✅ Account found! Password set to your mobile number: '+v+'. Redirecting...';
+      msg.style.cssText='display:block;padding:12px;border-radius:8px;font-size:12px;background:#e8f4f4;color:#1a6b6b;border:1px solid rgba(26,107,107,.2);font-weight:600;';
+      setTimeout(function(){
+        document.getElementById('forgotModal').style.display='none';
+        ph.value=''; msg.style.display='none';
+        goTo('loginView');
+        var lp=document.getElementById('li_phone'); if(lp) lp.value=v;
+        showToast('Account recovered! Login with your mobile number.','green');
+      },2500);
+      return;
+    }
+  }catch(e){}
+
+  // ── Not found anywhere ───────────────────────────────
+  msg.textContent='Mobile number '+v+' not found. Please sign up first — it only takes 30 seconds.';
+  msg.style.cssText='display:block;padding:12px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
+  // Add a sign up button
+  setTimeout(function(){
+    var signupBtn=document.createElement('button');
+    signupBtn.textContent='Sign Up Now →';
+    signupBtn.style.cssText='margin-top:8px;padding:8px 16px;border-radius:8px;background:#e8943a;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;width:100%;';
+    signupBtn.onclick=function(){
+      document.getElementById('forgotModal').style.display='none';
+      goTo('signupView');
+      // Pre-fill phone if on step 1
+      var sp=document.getElementById('s1_phone');
+      if(sp){ sp.value=v; sp.dispatchEvent(new Event('input')); }
+    };
+    if(msg.parentNode && !msg.parentNode.querySelector('.fp-signup-btn')){
+      signupBtn.className='fp-signup-btn';
+      msg.parentNode.insertBefore(signupBtn, msg.nextSibling);
+    }
+  },100);
 }
-
 // ── Comment Template Functions ─────────────────────────────
 function showCommentTemplate(){
   var skill=lastSkill||currentUser.skill||'your role';
@@ -3148,7 +3209,11 @@ function liPopupSkip(){
 
 
 
+
+
 </script>
+
+
 
 
 
