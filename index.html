@@ -797,6 +797,12 @@ tr:hover td{background:var(--cream);}
     <li><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</a></li>
   </ul>
   <div class="ln-right">
+    <!-- Welcome back button (shown when user is already registered) -->
+    <div id="welcomeBackBtn" style="display:none;align-items:center;gap:8px;background:rgba(232,148,58,.08);border:1px solid rgba(232,148,58,.2);border-radius:9px;padding:7px 14px;cursor:pointer;" onclick="enterDashboard()">
+      <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#e8943a,#d4822e);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;" id="wbAvatar">K</div>
+      <span style="font-size:13px;font-weight:600;color:#0f1117;">Welcome back, <span class="wb-name">there</span></span>
+      <span style="font-size:12px;color:#e8943a;font-weight:700;">→</span>
+    </div>
     <button class="btn-ln-ghost" onclick="goTo('loginView')">Log In</button>
     <button class="btn-ln-cta" onclick="goTo('signupView')">Sign Up Free →</button>
   </div>
@@ -1646,28 +1652,42 @@ function saveSession(){
 }
 
 function restoreSession(){
+  // Silently restore session data WITHOUT redirecting to dashboard
+  // Landing page is always shown first — user clicks Log In to enter
   try{
     const raw=gst(S_USER);
     if(!raw) return false;
     const u=JSON.parse(raw);
     if(!u||!u.name||!u.name.trim()) return false;
-    // Restore plan/preview flags
     try{
       const pl=gjson(S_PLAN,{});
       if(pl.plan && new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
     }catch(e){}
     try{ if(gst(S_PREV)==='1') prevUsed=true; }catch(e){}
     currentUser=u; lastSkill=u.skill||''; lastCity=u.city||'';
-    // Switch to dashboard FIRST — before any buildDash calls
-    goTo('dashView');
-    // Then build dashboard content (errors here won't send user to landing)
+    // Show "Welcome back" button on landing nav — but DON'T redirect
     try{
-      const pl=gjson(S_PLAN,{});
-      buildDash(u,pl);
-    }catch(e){ console.warn('buildDash error:',e); }
+      const wb=document.getElementById('welcomeBackBtn');
+      if(wb){
+        wb.style.display='flex';
+        wb.querySelector('.wb-name').textContent=u.name.split(' ')[0];
+      }
+    }catch(e){}
     return true;
   }catch(e){ console.warn('restore:',e); }
   return false;
+}
+
+function enterDashboard(){
+  // Called when user explicitly clicks to enter dashboard
+  try{
+    if(!currentUser||!currentUser.name){
+      goTo('loginView'); return;
+    }
+    goTo('dashView');
+    const pl=gjson(S_PLAN,{});
+    buildDash(currentUser,pl);
+  }catch(e){ goTo('loginView'); }
 }
 
 // ============================================================
@@ -1780,10 +1800,17 @@ function enterDash(user){
   const pl=gjson(S_PLAN,{});
   if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
   if(gst(S_PREV)==='1') prevUsed=true;
-  saveSession(); // persist before navigation
+  saveSession();
   buildDash(user,pl);
   goTo('dashView');
   showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
+  // Update welcome back button for next visit
+  try{
+    const wb=document.getElementById('welcomeBackBtn');
+    if(wb){wb.style.display='flex';wb.querySelector('.wb-name').textContent=user.name.split(' ')[0];}
+    const wba=document.getElementById('wbAvatar');
+    if(wba)wba.textContent=user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+  }catch(e){}
 }
 
 // ============================================================
@@ -2777,13 +2804,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     goTo('adminLoginView');
     setTimeout(function(){doAdminLogin_auto();},100);
   }
-  const restored = restoreSession();
-  if(!restored){
-    // No saved session — show landing page
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    const lv=document.getElementById('landingView');
-    if(lv) lv.classList.add('active');
-  }
+  // Always show landing page first — restoreSession just loads data silently
+  restoreSession();
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const lv=document.getElementById('landingView');
+  if(lv) lv.classList.add('active');
 });
 
 
