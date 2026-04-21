@@ -1591,6 +1591,8 @@ tr:hover td{background:var(--cream);}
 
 
 
+
+
 <script>
 
 // ============================================================
@@ -1725,24 +1727,37 @@ function pickPill(btn,gid){
 }
 function nextStep(from){
   if(from===1){
-    const n=document.getElementById('s1_name')?.value.trim();
-    const p=document.getElementById('s1_phone')?.value.trim();
-    const e=document.getElementById('s1_email')?.value.trim();
-    const c=document.getElementById('s1_city')?.value;
-    if(!n){showToast('Enter your name','amber');return;}
-    if(!p||p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-    if(!e){showToast('Enter your email','amber');return;}
-    if(!c){showToast('Select your city','amber');return;}
-    if(isDuplicate('phone',p)){checkDuplicate('phone');showToast('Mobile already registered — Log In','amber');return;}
-    var em2=document.getElementById('s1_email')?document.getElementById('s1_email').value.trim():'';
-    if(isDuplicate('email',em2)){showToast('Email already registered — Log In','amber');return;}
-    setProgress(2);
-    document.getElementById('step1')?.classList.remove('active');
-    document.getElementById('step2')?.classList.add('active');
-  }else{
-    setProgress(3);
-    document.getElementById('step2')?.classList.remove('active');
-    document.getElementById('step3')?.classList.add('active');
+    var n=document.getElementById('s1_name')?.value.trim();
+    var p=document.getElementById('s1_phone')?.value.trim();
+    var e=document.getElementById('s1_email')?.value.trim();
+    var c=document.getElementById('s1_city')?.value;
+    if(!n){showToast('Enter your name','amber');document.getElementById('s1_name')?.focus();return;}
+    if(!p||p.length<10){showToast('Enter valid 10-digit mobile','amber');document.getElementById('s1_phone')?.focus();return;}
+    if(!e||e.indexOf('@')<0){showToast('Enter a valid email','amber');document.getElementById('s1_email')?.focus();return;}
+    if(!c||c===''){showToast('Select your city','amber');return;}
+    if(isDuplicate('phone',p)){showToast('Mobile already registered — please Log In','amber');checkDuplicate('phone');return;}
+    if(isDuplicate('email',e)){showToast('Email already registered — please Log In','amber');return;}
+    // Move to step 2
+    document.getElementById('step1').style.display='none';
+    document.getElementById('step2').style.display='block';
+    updateSignupDots(2);
+  } else if(from===2){
+    // Move to step 3
+    document.getElementById('step2').style.display='none';
+    document.getElementById('step3').style.display='block';
+    updateSignupDots(3);
+  } else if(from===-1){
+    // Back from step 2 to step 1
+    document.getElementById('step2').style.display='none';
+    document.getElementById('step1').style.display='block';
+    updateSignupDots(1);
+  }
+}
+function updateSignupDots(step){
+  for(var i=1;i<=3;i++){
+    var dot=document.getElementById('sdot'+i);
+    if(!dot)continue;
+    dot.className='ss-dot'+(i<=step?' done':'');
   }
 }
 function prevStep(to){
@@ -1751,14 +1766,8 @@ function prevStep(to){
   document.getElementById('step'+to)?.classList.add('active');
 }
 function setProgress(step){
-  for(let i=1;i<=3;i++){
-    const c=document.getElementById('pb'+i),l=document.getElementById('pbl'+i);
-    if(!c||!l)continue;
-    if(i<step){c.className='pb-circle done';c.textContent='✓';l.className='pb-label done';}
-    else if(i===step){c.className='pb-circle active';c.textContent=i;l.className='pb-label active';}
-    else{c.className='pb-circle todo';c.textContent=i;l.className='pb-label';}
-    if(i<3){const ln=document.getElementById('pbl'+i+(i+1));if(ln)ln.className='pb-line'+(i<step?' done':'');}
-  }
+  // Redirect to updateSignupDots
+  if(typeof updateSignupDots==='function') updateSignupDots(step);
 }
 function doSignup(){
   const name=document.getElementById('s1_name')?.value.trim()||'Job Seeker';
@@ -1768,7 +1777,7 @@ function doSignup(){
   const skill=document.getElementById('s1_skill')?.value.trim()||'Talent Acquisition';
   const prefLocs=[...document.querySelectorAll('#prefLocRow .pill-btn.sel')].map(b=>b.textContent.trim());
   // Final gate — block duplicate phone/email
-  if(phone&&isDuplicate('phone',phone)){goTo('signupView');document.getElementById('step1')?.classList.add('active');document.getElementById('step2')?.classList.remove('active');document.getElementById('step3')?.classList.remove('active');showToast('❌ Mobile already registered. Please Log In.','amber');setTimeout(()=>{checkDuplicate('phone');},300);return;}
+  if(phone&&isDuplicate('phone',phone)){goTo('signupView');document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none';document.getElementById('step3').style.display='none';updateSignupDots(1);showToast('❌ Mobile already registered. Please Log In.','amber');setTimeout(()=>{checkDuplicate('phone');},300);return;}
   if(email&&isDuplicate('email',email)){goTo('signupView');document.getElementById('step1')?.classList.add('active');document.getElementById('step2')?.classList.remove('active');document.getElementById('step3')?.classList.remove('active');showToast('❌ Email already registered. Please Log In.','amber');return;}
   // Save to permanent registry
   try{var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');if(phone&&!reg.includes(phone))reg.push(phone);localStorage.setItem('js_reg_phones',JSON.stringify(reg));var regE=JSON.parse(localStorage.getItem('js_reg_emails')||'[]');if(email&&!regE.includes(email.toLowerCase()))regE.push(email.toLowerCase());localStorage.setItem('js_reg_emails',JSON.stringify(regE));}catch(e){}
@@ -2981,7 +2990,11 @@ function liPopupSkip(){
     if(pop._onConfirm) pop._onConfirm();
   }
 }
+
+
 </script>
+
+
 
 
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
