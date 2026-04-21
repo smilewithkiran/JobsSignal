@@ -1593,6 +1593,7 @@ tr:hover td{background:var(--cream);}
 
 
 
+
 <script>
 
 // ============================================================
@@ -2849,32 +2850,63 @@ function showToast(msg,type){
 
 function showForgotPass(){
   var el=document.getElementById('forgotModal');
-  if(el)el.style.display='flex';
+  if(!el)return;
+  // Clear previous state
+  var ph=document.getElementById('fpPhone');
+  var msg=document.getElementById('fpMsg');
+  if(ph) ph.value='';
+  if(msg){msg.textContent='';msg.style.display='none';}
+  el.style.display='flex';
+  setTimeout(function(){if(ph)ph.focus();},100);
 }
 function doForgotPass(){
   var ph=document.getElementById('fpPhone');
   var msg=document.getElementById('fpMsg');
-  if(!ph||!msg)return;
-  var v=ph.value.trim();
-  if(!v||v.length<10){msg.textContent='Enter valid 10-digit mobile.';msg.style.background='var(--red-pale)';msg.style.color='var(--red)';msg.style.display='block';return;}
-  var normP=function(x){var d=(x||'').replace(/[^0-9]/g,'');return d.length>10?d.slice(-10):d;};
+  if(!ph||!msg){showToast('Error: modal elements missing','red');return;}
+
+  var v=ph.value.replace(/[^0-9]/g,''); // strip non-digits
+  if(v.length<10){
+    msg.textContent='Please enter your 10-digit mobile number.';
+    msg.style.cssText='display:block;padding:10px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
+    ph.focus(); return;
+  }
+  v = v.slice(-10); // take last 10 digits
+
+  // Look up user in localStorage
+  var found = false;
   try{
-    var raw=localStorage.getItem(S_USER);
+    var raw = localStorage.getItem(S_USER);
     if(raw){
-      var u=JSON.parse(raw);
-      if(u&&u.phone&&normP(u.phone)===normP(v)){
-        u.password=normP(v);localStorage.setItem(S_USER,JSON.stringify(u));
-        msg.textContent='Password reset to your mobile number. Please log in.';
-        msg.style.background='var(--teal-pale)';msg.style.color='var(--teal)';msg.style.display='block';
-        setTimeout(function(){document.getElementById('forgotModal').style.display='none';goTo('loginView');},2000);
+      var u = JSON.parse(raw);
+      var storedPhone = (u.phone||'').replace(/[^0-9]/g,'').slice(-10);
+      if(storedPhone === v){
+        // Match found — reset password to mobile number
+        u.password = v;
+        localStorage.setItem(S_USER, JSON.stringify(u));
+        found = true;
+        msg.textContent = '✅ Password reset! Your new password is your mobile number: ' + v;
+        msg.style.cssText = 'display:block;padding:12px;border-radius:8px;font-size:12px;background:#e8f4f4;color:#1a6b6b;border:1px solid rgba(26,107,107,.2);font-weight:600;';
+        // Auto close and redirect to login after 3 seconds
+        setTimeout(function(){
+          document.getElementById('forgotModal').style.display='none';
+          ph.value='';
+          msg.style.display='none';
+          goTo('loginView');
+          showToast('Password reset! Login with your mobile number.','green');
+          // Pre-fill phone in login
+          var loginPhone=document.getElementById('li_phone');
+          if(loginPhone) loginPhone.value=v;
+        }, 3000);
         return;
       }
     }
-  }catch(e){}
-  msg.textContent='Mobile not found. Please check or sign up.';
-  msg.style.background='var(--red-pale)';msg.style.color='var(--red)';msg.style.display='block';
-}
+  }catch(e){ console.error('Forgot pass error:',e); }
 
+  if(!found){
+    msg.textContent = 'Mobile number not found. Did you sign up with a different number? Try logging in with your mobile number as password.';
+    msg.style.cssText = 'display:block;padding:12px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
+  }
+}
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -2992,7 +3024,9 @@ function liPopupSkip(){
 }
 
 
+
 </script>
+
 
 
 
