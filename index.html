@@ -769,6 +769,52 @@ tr:hover td{background:var(--cream);}
   .modes-grid{grid-template-columns:1fr 1fr;}
 }
 
+
+/* Comment Template Overlay */
+.tmpl-overlay{
+  display:none;position:fixed;inset:0;z-index:900;
+  background:rgba(15,17,23,.5);backdrop-filter:blur(3px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.tmpl-overlay.open{display:flex;}
+.tmpl-card{
+  background:#fff;border-radius:18px;max-width:480px;width:100%;
+  box-shadow:0 16px 52px rgba(15,17,23,.15);overflow:hidden;
+}
+.tc-header{
+  background:#0f1117;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.tc-title{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
+.tc-close{
+  background:transparent;border:none;color:rgba(255,255,255,.4);
+  font-size:18px;cursor:pointer;padding:2px 6px;line-height:1;
+}
+.tc-close:hover{color:rgba(255,255,255,.8);}
+.tc-body{padding:20px 22px;}
+.tc-tabs{display:flex;gap:7px;margin-bottom:14px;}
+.tc-tab{
+  padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  border:1.5px solid rgba(15,17,23,.12);color:#3a3d4a;background:#fff;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;
+}
+.tc-tab.active{background:#0f1117;color:#fff;border-color:#0f1117;}
+.tc-text{
+  background:#faf7f2;border:1px solid rgba(15,17,23,.09);
+  border-left:3px solid #e8943a;border-radius:9px;
+  padding:14px;font-size:13px;color:#0f1117;line-height:1.7;
+  margin-bottom:14px;min-height:80px;
+}
+.tc-actions{display:flex;gap:8px;}
+.tc-btn{
+  padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;
+}
+.tc-btn-copy{background:#e8943a;color:#fff;}
+.tc-btn-copy:hover{background:#d4822e;}
+.tc-btn-edit{background:#f5ede0;color:#3a3d4a;border:1px solid rgba(15,17,23,.1);}
+.tc-btn-edit:hover{border-color:#e8943a;color:#e8943a;}
+.tc-copied{font-size:12px;color:#1a6b6b;margin-top:8px;display:none;font-weight:600;}
 </style>
 </head>
 <body>
@@ -1561,21 +1607,26 @@ tr:hover td{background:var(--cream);}
 <!-- COMMENT TEMPLATE -->
 <div class="tmpl-overlay" id="tmplOverlay">
   <div class="tmpl-card">
-    <div class="tc-header"><div class="tc-title">💬 Comment Template</div><button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button></div>
-    <div style="font-size:12px;color:var(--soft);margin-bottom:13px;">Pick a tone — copy and paste directly on LinkedIn.</div>
-        <div class="tc-tabs">
-      <button type="button" class="tc-tab active" onclick="switchTmpl(this,'professional')">Professional</button>
-      <button type="button" class="tc-tab" onclick="switchTmpl(this,'friendly')">Friendly</button>
-      <button type="button" class="tc-tab" onclick="switchTmpl(this,'short')">Short &amp; Sharp</button>
+    <div class="tc-header">
+      <div class="tc-title">💬 Comment Template</div>
+      <button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button>
     </div>
-    <div class="tmpl-text" id="tmplText"></div>
-    <div style="font-size:11px;color:var(--soft);margin-top:8px;">✏️ Click Edit to customise before copying.</div>
-    <div class="tc-actions">
-      <button type="button" class="btn-copy" onclick="copyTemplate()" id="copyBtn">📋 Copy to Clipboard</button>
-      <button type="button" class="btn-tmpl-edit" onclick="makeEditable()">✏️ Edit</button>
+    <div class="tc-body">
+      <div style="font-size:12px;color:#3a3d4a;margin-bottom:14px;">Pick a tone — copy and paste directly on LinkedIn.</div>
+      <div class="tc-tabs">
+        <button type="button" class="tc-tab active" onclick="switchTmplTab('professional',this)">Professional</button>
+        <button type="button" class="tc-tab" onclick="switchTmplTab('friendly',this)">Friendly</button>
+        <button type="button" class="tc-tab" onclick="switchTmplTab('short',this)">Short &amp; Sharp</button>
+      </div>
+      <div class="tc-text" id="tmplText"></div>
+      <div style="font-size:11px;color:#6b7280;margin-bottom:10px;">✏️ Click Edit to customise before copying.</div>
+      <div class="tc-actions">
+        <button type="button" class="tc-btn tc-btn-copy" onclick="copyTmpl()">📋 Copy to Clipboard</button>
+        <button type="button" class="tc-btn tc-btn-edit" onclick="editTmpl()">✏️ Edit</button>
+      </div>
+      <div class="tc-copied" id="tmplCopied">✅ Copied to clipboard!</div>
     </div>
   </div>
-</div>
 
 <!-- TOAST -->
 <div class="toast" id="toastEl"><span id="toastIcon">✅</span> <span id="toastMsg"></span></div>
@@ -1588,6 +1639,8 @@ tr:hover td{background:var(--cream);}
   <button onclick="installPWA()" style="padding:9px 16px;border-radius:8px;background:#111827;color:white;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Add →</button>
   <button onclick="dismissInstallBanner()" style="padding:9px 10px;border-radius:8px;background:transparent;color:#9ca3af;font-size:12px;border:1px solid #e5e7eb;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">✕</button>
 </div>
+
+
 
 
 
@@ -1632,7 +1685,12 @@ function goTo(id){
   window.scrollTo(0,0);
   var fabG=document.getElementById('stickyFab');if(fabG)fabG.style.display='none';
 }
-function closeModal(id){document.getElementById(id)?.classList.remove('open');}
+function closeModal(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.classList.remove('open');       // for class-based modals (tmplOverlay)
+  el.style.display='none';           // for inline-style modals (paymentModal, forgotModal)
+}
 function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function show(id,d='block'){const el=document.getElementById(id);if(el)el.style.display=d;}
 function hide(id){const el=document.getElementById(id);if(el)el.style.display='none';}
@@ -2907,6 +2965,69 @@ function doForgotPass(){
     msg.style.cssText = 'display:block;padding:12px;border-radius:8px;font-size:12px;background:#fdecea;color:#c0392b;border:1px solid rgba(192,57,43,.2);';
   }
 }
+
+// ── Comment Template Functions ─────────────────────────────
+function showCommentTemplate(){
+  var skill=lastSkill||currentUser.skill||'your role';
+  var city=lastCity||currentUser.city||'your city';
+  var np=currentUser.np||'30 days';
+  window._tmplData={
+    professional:'Hi, I came across your hiring post for '+skill+' in '+city+'. I am a '+skill+' professional with relevant experience and would love to explore this opportunity. Currently on '+np+' notice. Would be happy to share my CV — please feel free to DM.',
+    friendly:'Hi! Saw your post about hiring '+skill+' in '+city+' — looks exciting! I am a '+skill+' professional and this role seems like a great fit. Can we connect? Happy to share more.',
+    short:'Hi, interested in your '+skill+' opening in '+city+'. '+skill+' professional, '+np+' notice. Happy to connect and share CV!'
+  };
+  window._tmplCurrent='professional';
+  var tb=document.getElementById('tmplText');
+  if(tb) tb.textContent=window._tmplData.professional;
+  document.querySelectorAll('.tc-tab').forEach(function(b){b.classList.remove('active');});
+  var ft=document.querySelector('.tc-tab');
+  if(ft) ft.classList.add('active');
+  var cp=document.getElementById('tmplCopied');
+  if(cp) cp.style.display='none';
+  document.getElementById('tmplOverlay')?.classList.add('open');
+}
+function switchTmplTab(tone, btn){
+  document.querySelectorAll('.tc-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  window._tmplCurrent = tone;
+  var tb=document.getElementById('tmplText');
+  if(tb && window._tmplData) tb.textContent = window._tmplData[tone]||'';
+  var cp=document.getElementById('tmplCopied');
+  if(cp) cp.style.display='none';
+}
+function copyTmpl(){
+  var tb=document.getElementById('tmplText');
+  if(!tb) return;
+  var text = tb.textContent || tb.innerText || '';
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      var cp=document.getElementById('tmplCopied');
+      if(cp){cp.style.display='block';setTimeout(function(){cp.style.display='none';},2500);}
+    }).catch(function(){
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  var cp=document.getElementById('tmplCopied');
+  if(cp){cp.style.display='block';setTimeout(function(){cp.style.display='none';},2500);}
+}
+function editTmpl(){
+  var tb=document.getElementById('tmplText');
+  if(!tb) return;
+  tb.contentEditable='true';
+  tb.style.outline='2px solid #e8943a';
+  tb.focus();
+  showToast('Template is editable now — click away when done','amber');
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3025,7 +3146,11 @@ function liPopupSkip(){
 
 
 
+
+
 </script>
+
+
 
 
 
