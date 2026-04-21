@@ -672,7 +672,7 @@ tr:hover td{background:var(--cream);}
 /* ══════════════════════════════════════════════
    PAYMENT MODAL
    ══════════════════════════════════════════════ */
-.payment-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,17,23,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.payment-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,17,23,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
 .payment-modal.open{display:flex;}
 .pm-wrap{background:#fff;border-radius:20px;max-width:460px;width:100%;box-shadow:var(--shadow-lg);overflow:hidden;}
 .pm-top{background:var(--ink);padding:22px 26px;}
@@ -694,7 +694,7 @@ tr:hover td{background:var(--cream);}
 /* ══════════════════════════════════════════════
    LINKEDIN CHECK POPUP
    ══════════════════════════════════════════════ */
-#liCheckPopup{display:none;position:fixed;inset:0;z-index:9000;background:rgba(15,17,23,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+#liCheckPopup{display:none;position:fixed;inset:0;z-index:9000;background:rgba(15,17,23,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
 
 /* ══════════════════════════════════════════════
    PWA BANNER
@@ -709,7 +709,7 @@ tr:hover td{background:var(--cream);}
 /* ══════════════════════════════════════════════
    PROFILE DOWNLOAD MODAL
    ══════════════════════════════════════════════ */
-.profile-dl-modal{display:none;position:fixed;inset:0;z-index:800;background:rgba(15,17,23,.5);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px;}
+.profile-dl-modal{display:none;position:fixed;inset:0;z-index:800;background:rgba(15,17,23,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px;}
 .profile-dl-modal.open{display:flex;}
 
 /* ══════════════════════════════════════════════
@@ -746,7 +746,12 @@ tr:hover td{background:var(--cream);}
   .sb-nav{flex-direction:row;gap:0;}
   .sb-item{flex-direction:column;padding:8px 6px;font-size:9px;gap:3px;border-radius:8px;flex:1;justify-content:center;text-align:center;}
   .sb-item .sb-icon{width:auto;}
-  .sb-user{padding:8px;}.sb-logout{display:none;}
+  .sb-user{padding:8px;}.sb-logout{
+    display:flex!important;align-items:center;justify-content:center;
+    background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.25);
+    border-radius:7px;color:#e05555;font-size:10px;font-weight:700;
+    padding:5px 10px;cursor:pointer;white-space:nowrap;
+  }
   .sb-main,.admin-main{margin-left:0;padding-bottom:64px;}
   .content-grid{grid-template-columns:1fr;}
   .right-panel{display:none;}
@@ -773,7 +778,7 @@ tr:hover td{background:var(--cream);}
 /* Comment Template Overlay */
 .tmpl-overlay{
   display:none;position:fixed;inset:0;z-index:900;
-  background:rgba(15,17,23,.5);backdrop-filter:blur(3px);
+  background:rgba(15,17,23,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
   align-items:center;justify-content:center;padding:20px;
 }
 .tmpl-overlay.open{display:flex;}
@@ -865,6 +870,10 @@ tr:hover td{background:var(--cream);}
   color:var(--ink);margin-bottom:8px;
 }
 .ps-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:20px;}
+
+@media(max-width:900px){
+  .mob-logout-btn{display:flex!important;}
+}
 </style>
 </head>
 <body>
@@ -1072,8 +1081,10 @@ tr:hover td{background:var(--cream);}
     <div class="auth-title">Welcome back.</div>
     <div class="auth-sub">Don't have an account? <a onclick="goTo('signupView')">Sign up free →</a></div>
     <div class="form-field"><label class="form-label">Mobile Number</label><input class="form-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10"></div>
-    <div class="form-field"><label class="form-label">Password</label><input class="form-input" id="li_pass" placeholder="Your password" type="password"></div>
-    <div id="loginErr" style="font-size:12px;color:var(--red);margin-bottom:12px;display:none;"></div>
+    <div style="background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:var(--teal);">
+      📱 Enter your registered mobile number to log in. No password needed.
+    </div>
+    <div id="loginErr" style="background:var(--red-pale);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;"></div>
     <button class="btn-auth" onclick="doLogin()">Log In →</button>
     <div style="text-align:center;margin-top:14px;"><button type="button" onclick="showForgotPass()" style="background:none;border:none;font-size:12px;color:var(--amber);cursor:pointer;font-weight:600;font-family:'DM Sans',sans-serif;padding:4px 8px;">Forgot password?</button></div>
     <button class="btn-auth-sec" onclick="goTo('landingView')">← Back</button>
@@ -1242,6 +1253,7 @@ tr:hover td{background:var(--cream);}
       </div>
       <div class="sb-topbar-right">
         <button class="btn-find-signals" onclick="showDashPanel('search');document.getElementById('dashSearch').scrollIntoView({behavior:'smooth'})">📡 Find Signals</button>
+        <button onclick="doLogout()" style="padding:8px 12px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;" class="mob-logout-btn" title="Log out">Sign Out</button>
       </div>
     </div>
 
@@ -1276,6 +1288,17 @@ tr:hover td{background:var(--cream);}
       </div>
 
       <!-- SEARCH PANEL -->
+      <!-- FREE PREVIEW NOTICE — in main content, visible all screen sizes -->
+      <div id="previewBannerMain" style="display:none;background:var(--warm);border:1.5px solid rgba(232,148,58,.3);border-radius:13px;padding:16px 18px;margin-bottom:16px;display:none;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:28px;">🎁</div>
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:var(--ink);margin-bottom:3px;">You have 1 free signal search!</div>
+            <div style="font-size:12px;color:var(--soft);line-height:1.5;">Use it now — see live recruiter posts. No card needed.</div>
+          </div>
+          <button class="btn-preview" onclick="document.getElementById('sk_skill').focus()" style="flex-shrink:0;">Search Free →</button>
+        </div>
+      </div>
       <div class="search-panel" id="dashSearch">
         <div class="sp-header">
           <div class="sp-title">📡 Find Recruiter Signals</div>
@@ -1702,6 +1725,8 @@ tr:hover td{background:var(--cream);}
 
 
 
+
+
 <script>
 
 // ============================================================
@@ -1742,11 +1767,10 @@ function goTo(id){
 }
 function closeModal(id){
   var el=document.getElementById(id);
-  if(!el)return;
-  el.classList.remove('open');       // for class-based modals (tmplOverlay)
-  el.style.display='none';           // for inline-style modals (paymentModal, forgotModal)
-}
-function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+  if(!el) return;
+  el.classList.remove('open');
+  el.style.display='none';
+}function setEl(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function show(id,d='block'){const el=document.getElementById(id);if(el)el.style.display=d;}
 function hide(id){const el=document.getElementById(id);if(el)el.style.display='none';}
 
@@ -1917,50 +1941,35 @@ function doSignup(){
 // ============================================================
 function doLogin(){
   var phone=(document.getElementById('li_phone')?.value||'').trim();
-  var pass=(document.getElementById('li_pass')?.value||'').trim();
   var errEl=document.getElementById('loginErr');
   if(errEl) errEl.style.display='none';
-  if(!phone){ showToast('Enter mobile number','amber'); return; }
-  if(!pass){  showToast('Enter password','amber'); return; }
+  if(!phone){ showToast('Enter your mobile number','amber'); return; }
   var normP=function(v){ var d=(v||'').replace(/[^0-9]/g,''); return d.length>10?d.slice(-10):d; };
   var ep=normP(phone);
-  if(ep.length<10){ showToast('Enter valid 10-digit number','amber'); return; }
+  if(ep.length<10){ showToast('Enter valid 10-digit mobile number','amber'); return; }
   try{
-    // ── Check 1: Full user object exists ───────────────
+    // Check stored user object
     var raw=localStorage.getItem(S_USER);
     if(raw){
       var u=JSON.parse(raw);
       if(u&&u.phone&&normP(u.phone)===ep){
-        var correctPass=u.password||normP(u.phone);
-        if(pass===correctPass||pass===normP(u.phone)){
-          enterDash(u); return;
-        }
-        if(errEl){ errEl.textContent='Wrong password. Your password is your mobile number: '+ep; errEl.style.display='block'; }
-        showToast('Wrong password — use your mobile number','red'); return;
+        enterDash(u); return;
       }
     }
-    // ── Check 2: Phone in registry but no user object ──
-    // Happens when: old signup, browser cleared, or re-login after rebuild
+    // Check registry (phone registered but user object missing)
     var reg=JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
     var inReg=reg.some(function(p){ return normP(p)===ep; });
     if(inReg){
-      // Phone is registered — restore as basic user, password = mobile
-      if(pass===ep){
-        var restoredUser={name:'Job Seeker',phone:ep,email:'',city:'Hyderabad',skill:'',prefLocs:[]};
-        localStorage.setItem(S_USER,JSON.stringify(restoredUser));
-        enterDash(restoredUser);
-        showToast('Welcome back! Please update your profile.','amber');
-        return;
-      }
-      if(errEl){ errEl.textContent='Wrong password. Your password is your mobile number: '+ep; errEl.style.display='block'; }
-      showToast('Wrong password — use your mobile number','red'); return;
+      var restoredUser={name:'Job Seeker',phone:ep,email:'',city:'Hyderabad',skill:'',prefLocs:[]};
+      localStorage.setItem(S_USER,JSON.stringify(restoredUser));
+      enterDash(restoredUser);
+      showToast('Welcome back! Please complete your profile.','amber');
+      return;
     }
-    // ── Not found anywhere ─────────────────────────────
-    if(errEl){ errEl.textContent='Mobile not registered. Please sign up first — it takes 30 seconds!'; errEl.style.display='block'; }
+    if(errEl){ errEl.textContent='Mobile not registered. Please sign up first!'; errEl.style.display='block'; }
     showToast('Mobile not found — please sign up','amber');
   }catch(err){ console.error(err); showToast('Login error. Try again.','red'); }
-}
-// ============================================================
+}// ============================================================
 // ENTER DASHBOARD
 // ============================================================
 function enterDash(user){
@@ -2022,20 +2031,22 @@ function buildDash(user,pl){
 // DASHBOARD STATES
 // ============================================================
 function showFreeDash(){
+  // Show preview banners (both — right panel and main content)
   var pb=document.getElementById('previewBanner');
   if(pb) pb.style.display='flex';
+  var pbm=document.getElementById('previewBannerMain');
+  if(pbm) pbm.style.display='block';
+  // Show search
   var ds=document.getElementById('dashSearch');
   if(ds) ds.style.display='block';
+  // Show upgrade sidebar card
   var uc=document.getElementById('upgradeCard');
   if(uc) uc.style.display='block';
+  // Hide FOMO wall
   var fw=document.getElementById('fomoWrap');
   if(fw) fw.style.display='none';
   lockModes();
-}function showLockedDash(){
-  var fw=document.getElementById('fomoWrap');
-  if(fw){fw.style.display='block';fw.innerHTML=buildFomoHTML();fw.scrollIntoView({behavior:'smooth'});}
-}
-function buildFomoHTML(){
+}function buildFomoHTML(){
   var plans=[
     {n:'7 Days',a:49,s:'unlimited',p:false},
     {n:'Monthly Plan',a:99,s:'unlimited',p:true},
@@ -2596,14 +2607,22 @@ function makeEditable(){
 // PAYMENT
 // ============================================================
 function openPay(name,amount){
-  selPlan={name,amount};
-  setEl('pmPlanName',name); setEl('pmAmount',amount); setEl('payBtnAmt',amount);
+  if(!name||!amount){ showToast('Select a plan first','amber'); return; }
+  selPlan={name:name, amount:amount};
+  setEl('pmPlanName',name);
+  setEl('pmAmount',amount);
+  setEl('payBtnAmt',amount);
   setEl('pmDuration','Full access · '+name+' · All features');
-  const pb=document.getElementById('pmPayBody'),ps=document.getElementById('paymentSuccess');
-  if(pb) pb.style.display='block'; if(ps) ps.classList.remove('show');
-  document.getElementById('paymentModal')?.classList.add('open');
-}
-function processPayment(){
+  var pb=document.getElementById('pmPayBody');
+  var ps=document.getElementById('paymentSuccess');
+  if(pb){ pb.style.display='block'; }
+  if(ps){ ps.style.display='none'; ps.classList.remove('show'); }
+  var modal=document.getElementById('paymentModal');
+  if(modal){
+    modal.classList.remove('open');       // clear class first
+    modal.style.display='flex';           // force display via inline style
+  }
+}function processPayment(){
   const btn=document.querySelector('.btn-pay');
   if(btn){btn.innerHTML='⏳ Opening Razorpay...';btn.disabled=true;}
   const opts={
@@ -3286,7 +3305,11 @@ function liPopupSkip(){
 
 
 
+
+
 </script>
+
+
 
 
 
