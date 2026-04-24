@@ -1153,6 +1153,51 @@ tr:hover td{background:var(--cream);}
   .sa-field-row{grid-template-columns:1fr;}
   .sa-title{font-size:24px;}
 }
+
+/* ── Adzuna Job Cards ───────────────────────────────── */
+.az-container{min-height:80px;}
+.az-loading{display:flex;align-items:center;gap:12px;padding:24px;color:var(--soft);font-size:13px;}
+.az-spin{width:18px;height:18px;border:2px solid rgba(15,17,23,.12);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.az-empty{padding:24px;font-size:13px;color:var(--soft);line-height:1.6;}
+.az-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;}
+.az-count{font-weight:700;font-size:13px;color:var(--ink);}
+.az-src{font-size:11px;color:var(--muted);}
+.az-grid{display:flex;flex-direction:column;gap:10px;}
+.az-card{
+  background:#fff;border:1.5px solid var(--border);border-radius:12px;
+  padding:14px 16px;transition:all .15s;cursor:default;
+}
+.az-card:hover{border-color:var(--amber);box-shadow:0 2px 12px rgba(232,148,58,.12);}
+.az-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.az-logo{
+  width:40px;height:40px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:800;color:#fff;flex-shrink:0;
+  font-family:'Fraunces',serif;
+}
+.az-info{flex:1;min-width:0;}
+.az-title{font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:2px;}
+.az-company{font-size:12px;color:var(--soft);font-weight:600;}
+.az-meta{display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+.az-loc,.az-sal{font-size:11px;color:var(--soft);display:flex;align-items:center;gap:3px;}
+.az-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.az-footer{display:flex;align-items:center;justify-content:space-between;}
+.az-date{font-size:11px;color:var(--muted);}
+.az-apply{
+  padding:7px 16px;border-radius:7px;background:var(--amber);
+  color:#fff;font-size:12px;font-weight:700;text-decoration:none;
+  transition:all .15s;
+}
+.az-apply:hover{background:#d4822e;}
+.az-powered{
+  font-size:10px;color:var(--muted);text-align:center;
+  padding:12px 0 4px;border-top:1px solid var(--border);margin-top:14px;
+}
+@media(max-width:900px){
+  .az-meta{gap:8px;}
+  .az-title{font-size:13px;}
+}
 </style>
 </head>
 <body>
@@ -2122,6 +2167,7 @@ tr:hover td{background:var(--cream);}
 // ============================================================
 // CONFIG
 // =================
+
 <script>
 
 // ============================================================
@@ -2884,36 +2930,33 @@ function postsTab(mode,skill,city,urls,safeTmpl,htags,np,company,waURL,keyword){
 
 function jobsTab(skill,city,urls,t,waURL,keyword){
   var KW=keyword||'';
-  var titleDisplay='"'+skill+'"'+(KW?' + "'+KW+'"':'');
   var h=['<div class="pro-result-section">'];
   h.push('<div class="pro-time-tabs">');
-  h.push('<button type="button" class="pro-tt active" data-section="jobs" data-period="24h" onclick="switchPeriod(this,this.dataset.section)">⚡ Last 24 Hours</button>');
-  h.push('<button type="button" class="pro-tt" data-section="jobs" data-period="week" onclick="switchPeriod(this,this.dataset.section)">📅 Past Week</button>');
-  h.push('<button type="button" class="pro-tt" data-section="jobs" data-period="month" onclick="switchPeriod(this,this.dataset.section)">🗓️ Past Month</button>');
+  h.push('<button type="button" class="pro-tt active" data-section="jobs" data-period="live" onclick="switchPeriod(this,\'jobs\')">⚡ Live Jobs</button>');
+  h.push('<button type="button" class="pro-tt" data-section="jobs" data-period="24h" onclick="switchPeriod(this,\'jobs\')">📋 LinkedIn 24h</button>');
+  h.push('<button type="button" class="pro-tt" data-section="jobs" data-period="week" onclick="switchPeriod(this,\'jobs\')">📅 LinkedIn Week</button>');
   h.push('</div>');
-  h.push('<div class="pro-result-card" id="jobs-24h">');
-  h.push('<div class="prc-header"><div><div class="prc-title">💼 LinkedIn Jobs · Last 24 Hours</div><div class="prc-sub">Exact title match · '+city+' · Newest first</div></div><span class="prc-badge fresh">● 24H</span></div>');
-  h.push('<div class="prc-query">'+titleDisplay+' · "'+city+'" · Last 24h</div>');
-  h.push('<div class="prc-actions">');
-  h.push('<a class="prc-btn jobs-btn" href="'+urls.jobs+'" target="_blank" rel="noopener">💼 View Jobs (24h)</a>');
-  h.push('<a class="prc-btn ea-btn" href="'+urls.ea+'" target="_blank" rel="noopener">⚡ Easy Apply Only</a>');
-  h.push('</div></div>');
+  // LIVE JOBS - Adzuna (shown by default)
+  h.push('<div class="pro-result-card" id="jobs-live">');
+  h.push('<div class="prc-header"><div><div class="prc-title">💼 Live Jobs — '+skill+' in '+city+'</div><div class="prc-sub">From Indeed, company sites &amp; 100+ sources · Updated daily</div></div><span class="prc-badge fresh">● LIVE</span></div>');
+  h.push('<div id="az-results-container" class="az-container"></div>');
+  h.push('</div>');
+  // LINKEDIN 24H
+  h.push('<div class="pro-result-card" id="jobs-24h" style="display:none;">');
+  h.push('<div class="prc-header"><div><div class="prc-title">💼 LinkedIn Jobs · Last 24 Hours</div><div class="prc-sub">'+skill+' · '+city+' · Newest first</div></div><span class="prc-badge fresh">● 24H</span></div>');
+  h.push('<div class="prc-actions"><a class="prc-btn jobs-btn" href="'+urls.jobs+'" target="_blank" rel="noopener">💼 View on LinkedIn (24h)</a><a class="prc-btn ea-btn" href="'+urls.ea+'" target="_blank" rel="noopener">⚡ Easy Apply Only</a></div>');
+  h.push('</div>');
+  // LINKEDIN WEEK
   h.push('<div class="pro-result-card" id="jobs-week" style="display:none;">');
-  h.push('<div class="prc-header"><div><div class="prc-title">💼 LinkedIn Jobs · Past Week</div><div class="prc-sub">Last 7 days · '+city+'</div></div><span class="prc-badge week">● WEEK</span></div>');
-  h.push('<div class="prc-query">'+titleDisplay+' · "'+city+'" · Past Week</div>');
-  h.push('<div class="prc-actions">');
-  h.push('<a class="prc-btn jobs-btn" href="'+urls.jobsWk+'" target="_blank" rel="noopener">💼 View Jobs (Week)</a>');
-  h.push('<a class="prc-btn ea-btn" href="'+urls.ea+'" target="_blank" rel="noopener">⚡ Easy Apply Only</a>');
-  h.push('</div></div>');
-  h.push('<div class="pro-result-card" id="jobs-month" style="display:none;">');
-  h.push('<div class="prc-header"><div><div class="prc-title">💼 LinkedIn Jobs · Past Month</div><div class="prc-sub">Last 30 days · '+city+'</div></div><span class="prc-badge month">● MONTH</span></div>');
-  h.push('<div class="prc-query">'+titleDisplay+' · "'+city+'" · Past Month</div>');
-  h.push('<div class="prc-actions">');
-  h.push('<a class="prc-btn jobs-btn" href="'+urls.jobsMo+'" target="_blank" rel="noopener">💼 View Jobs (Month)</a>');
-  h.push('<a class="prc-btn ea-btn" href="'+urls.ea+'" target="_blank" rel="noopener">⚡ Easy Apply Only</a>');
-  h.push('</div></div>');
-  h.push('<div class="pro-tip-box blue-tip">💡 <strong>Enter job title only</strong> (no commas). Example: "Staff Engineer" — add Java separately in Keyword field.</div>');
+  h.push('<div class="prc-header"><div><div class="prc-title">💼 LinkedIn Jobs · Past Week</div><div class="prc-sub">'+skill+' · '+city+' · Last 7 days</div></div><span class="prc-badge week">● WEEK</span></div>');
+  h.push('<div class="prc-actions"><a class="prc-btn jobs-btn" href="'+urls.jobsWk+'" target="_blank" rel="noopener">💼 View on LinkedIn (Week)</a><a class="prc-btn ea-btn" href="'+urls.ea+'" target="_blank" rel="noopener">⚡ Easy Apply Only</a></div>');
   h.push('</div>');
+  h.push('</div>');
+  // Trigger Adzuna fetch after DOM renders
+  setTimeout(function(){
+    var c=document.getElementById('az-results-container');
+    if(c) fetchAdzunaJobs(skill,city,c);
+  },200);
   return h.join('');
 }
 
@@ -3608,6 +3651,84 @@ function showLockedDash(){
     if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
   },400);
 }
+
+// ── Adzuna City Mapping (exact names Adzuna India recognises) ──
+var AZ_CITY_MAP={
+  'Hyderabad':'Hyderabad',
+  'Bengaluru':'Bangalore','Bangalore':'Bangalore',
+  'Mumbai':'Mumbai','Pune':'Pune',
+  'Delhi NCR':'Delhi','Delhi':'Delhi','Noida':'Noida','Gurugram':'Gurugram',
+  'Chennai':'Chennai','Kolkata':'Kolkata','Ahmedabad':'Ahmedabad',
+  'Remote':'India'
+};
+
+function fetchAdzunaJobs(skill, city, container){
+  if(!container)return;
+  container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
+
+  var azCity = AZ_CITY_MAP[city] || city || 'Hyderabad';
+  // Build smart query: use exact skill + common hiring keywords
+  var q = encodeURIComponent(skill);
+  var loc = encodeURIComponent(azCity);
+  var url = AZ_URL+'?app_id='+AZ_ID+'&app_key='+AZ_KEY
+    +'&what='+q+'&where='+loc
+    +'&results_per_page=10&sort_by=date&content-type=application/json';
+
+  fetch(url)
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(data){
+      var jobs = data.results||[];
+      if(jobs.length===0){
+        container.innerHTML='<div class="az-empty">No live jobs found for <strong>'+skill+'</strong> in <strong>'+azCity+'</strong>. Try a different skill or city.</div>';
+        return;
+      }
+      var html='<div class="az-header"><span class="az-count">'+data.count.toLocaleString()+' jobs found</span><span class="az-src">Indeed · Company sites · 100+ sources</span></div>';
+      html+='<div class="az-grid">';
+      jobs.forEach(function(j){
+        var title = j.title||'';
+        var company = (j.company&&j.company.display_name)||'';
+        var loc2 = (j.location&&j.location.display_name)||azCity;
+        var created = j.created?new Date(j.created).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}):'';
+        var salMin = j.salary_min?'₹'+Math.round(j.salary_min/100000)+'L':'';
+        var salMax = j.salary_max?'–₹'+Math.round(j.salary_max/100000)+'L':'';
+        var salStr = (salMin||salMax)?(salMin+salMax)+' pa':'Salary not specified';
+        var desc = (j.description||'').replace(/<[^>]*>/g,'').substring(0,100)+'...';
+        var applyUrl = j.redirect_url||'#';
+        // Company initial for logo placeholder
+        var initial = company?company.charAt(0).toUpperCase():'J';
+        var colors=['#e8943a','#1a6b6b','#6366f1','#0a66c2','#059669','#dc2626'];
+        var color = colors[company.charCodeAt(0)%colors.length];
+
+        html+='<div class="az-card">'
+          +'<div class="az-card-top">'
+          +'<div class="az-logo" style="background:'+color+'">'+initial+'</div>'
+          +'<div class="az-info">'
+          +'<div class="az-title">'+title+'</div>'
+          +'<div class="az-company">'+company+'</div>'
+          +'</div></div>'
+          +'<div class="az-meta">'
+          +'<span class="az-loc">📍 '+loc2+'</span>'
+          +'<span class="az-sal">💰 '+salStr+'</span>'
+          +'</div>'
+          +'<div class="az-desc">'+desc+'</div>'
+          +'<div class="az-footer">'
+          +'<span class="az-date">'+created+'</span>'
+          +'<a class="az-apply" href="'+applyUrl+'" target="_blank" rel="noopener">Apply →</a>'
+          +'</div>'
+          +'</div>';
+      });
+      html+='</div>';
+      html+='<div class="az-powered">Powered by <strong>Adzuna</strong> · 100+ job sources · Updated daily</div>';
+      container.innerHTML=html;
+    })
+    .catch(function(err){
+      console.error('Adzuna error:',err);
+      container.innerHTML='<div class="az-empty">⚠️ Could not load jobs right now. <a href="https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'&loc='+encodeURIComponent(azCity)+'" target="_blank" style="color:var(--amber);">Search on Adzuna.in →</a></div>';
+    });
+}
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3658,6 +3779,9 @@ function switchPeriod(btn,section){
 }
 
 
+const AZ_ID='7d0512c2';
+const AZ_KEY='79b7781b37844979749df7d951561f02';
+const AZ_URL='https://api.adzuna.com/v1/api/jobs/in/search/1';
 const VISIT_KEY='js_visit_counted',VISIT_NS='jobssignal-in-kiran-2025';
 function trackVisit(){if(sessionStorage.getItem(VISIT_KEY))return;sessionStorage.setItem(VISIT_KEY,'1');fetch('https://api.countapi.xyz/hit/'+VISIT_NS+'/visits').then(r=>r.json()).then(d=>{try{var c=parseInt(localStorage.getItem('js_total_visits')||'0');if(d.value&&d.value>c)localStorage.setItem('js_total_visits',String(d.value));}catch(e){}}).catch(function(){});try{var l=parseInt(localStorage.getItem('js_local_visits')||'0');localStorage.setItem('js_local_visits',String(l+1));}catch(e){}}
 function loadVisitorCount(){var ce=document.getElementById('visitorCount'),se=document.getElementById('visitorSub'),te=document.getElementById('visitorToday'),we=document.getElementById('visitorWeek');if(!ce)return;ce.textContent='...';ce.classList.add('vc-loading');fetch('https://api.countapi.xyz/get/'+VISIT_NS+'/visits').then(r=>r.json()).then(d=>{var t=d.value||parseInt(localStorage.getItem('js_local_visits')||'0');ce.classList.remove('vc-loading');ce.textContent=t.toLocaleString('en-IN');if(se)se.textContent='Updated '+new Date().toLocaleTimeString('en-IN');if(te)te.textContent=Math.max(1,Math.round(t*0.04)).toLocaleString('en-IN');if(we)we.textContent=Math.max(1,Math.round(t*0.18)).toLocaleString('en-IN');}).catch(function(){var l=parseInt(localStorage.getItem('js_local_visits')||'0');ce.classList.remove('vc-loading');ce.textContent=l+'*';});}
@@ -3741,7 +3865,9 @@ function liPopupSkip(){
 
 
 
+
 </script>
+
 ElementById('adminTestLog');if(l)l.innerHTML='No tests yet.';}
 function adminUpdateChecklist(){var d=0;for(var i=1;i<=8;i++)if(document.getElementById('chk'+i)&&document.getElementById('chk'+i).checked)d++;var el=document.getElementById('checklistStatus');if(!el)return;el.innerHTML=d===8?'✅ READY!':d+'/8 not ready';el.style.color=d===8?'var(--em)':'rgba(255,255,255,.4)';}
 function showInstallBanner(){if(window.matchMedia('(display-mode:standalone)').matches)return;if(localStorage.getItem('pwa_dismissed'))return;var b=document.getElementById('pwaInstallBanner');if(b)b.style.display='flex';}
