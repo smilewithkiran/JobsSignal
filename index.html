@@ -1198,6 +1198,28 @@ tr:hover td{background:var(--cream);}
   .az-meta{gap:8px;}
   .az-title{font-size:13px;}
 }
+
+/* Magic login link card */
+.magic-link-card{
+  background:var(--warm);border:1.5px solid rgba(232,148,58,.25);
+  border-radius:14px;padding:18px 20px;margin-top:20px;
+}
+.mlc-title{font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.mlc-sub{font-size:12px;color:var(--soft);margin-bottom:12px;line-height:1.5;}
+.mlc-url{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:9px 12px;font-size:11px;color:var(--soft);
+  word-break:break-all;line-height:1.5;margin-bottom:10px;
+  font-family:monospace;
+}
+.mlc-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.mlc-btn{
+  padding:8px 16px;border-radius:7px;font-size:12px;font-weight:700;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+}
+.mlc-copy{background:var(--amber);color:#fff;}
+.mlc-copy.copied{background:var(--teal);color:#fff;}
+.mlc-dismiss{background:transparent;color:var(--soft);border:1px solid var(--border);}
 </style>
 </head>
 <body>
@@ -1352,9 +1374,11 @@ tr:hover td{background:var(--cream);}
     <h2 class="sec-title" style="text-align:center;margin-bottom:12px;">Less than a coffee.<br><em>More than a portal.</em></h2>
     <p class="sec-sub" style="text-align:center;max-width:400px;margin:0 auto;">Start free. No card. Upgrade when ready.</p></div>
     <div class="pricing-grid">
-      <div class="price-card reveal d1"><div class="pc-plan">Free Preview</div><div class="pc-price">₹0</div><div class="pc-period">1 search · no card</div><div class="pc-div"></div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Recruiter posts · 24h</li><li>LinkedIn Jobs tab</li><li>Comment template</li></ul><button class="pc-btn pcb-d" onclick="goTo('signupView')">Try Free</button></div>
-      <div class="price-card reveal d2"><div class="pc-plan">Weekly</div><div class="pc-price"><small>₹</small>49</div><div class="pc-period">7 days · unlimited</div><div class="pc-div"></div><ul class="pc-feats"><li>Unlimited searches · 7d</li><li>All 5 modes</li><li>24h · Week · Month tabs</li><li>Referral Radar</li><li>WhatsApp share</li></ul><button class="pc-btn pcb-d" onclick="goTo('signupView')">Get ₹49</button></div>
-      <div class="price-card feat-p reveal" style="position:relative;"><div class="feat-badge">MOST POPULAR</div><div class="pc-plan">Monthly</div><div class="pc-price"><small>₹</small>99</div><div class="pc-period">30 days · unlimited</div><div class="pc-div"></div><ul class="pc-feats"><li>Everything in Weekly</li><li>30 days access</li><li>Walk-in Drives mode</li><li>Notice Period mode</li><li>Comment templates</li><li>WhatsApp share</li></ul><button class="pc-btn pcb-a" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card reveal d1"><div class="pc-plan">Free Preview</div><div class="pc-price">₹0</div><div class="pc-period">1 search · no card</div><div class="pc-div"></div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Recruiter posts · 24h</li><li>LinkedIn Jobs + <strong>Live Job Listings</strong></li><li>Comment template</li></ul><button class="pc-btn pcb-d" onclick="goTo('signupView')">Try Free</button></div>
+      <div class="price-card reveal d2"><div class="pc-plan">Weekly</div><div class="pc-price"><small>₹</small>49</div><div class="pc-period">7 days · unlimited</div><div class="pc-div"></div><ul class="pc-feats"><li>Unlimited searches · 7d</li><li>All 5 modes</li><li>24h · Week · Month tabs</li><li>Referral Radar</li><li>WhatsApp share</li>
+<li>Live Job Listings (Adzuna)</li></ul><button class="pc-btn pcb-d" onclick="goTo('signupView')">Get ₹49</button></div>
+      <div class="price-card feat-p reveal" style="position:relative;"><div class="feat-badge">MOST POPULAR</div><div class="pc-plan">Monthly</div><div class="pc-price"><small>₹</small>99</div><div class="pc-period">30 days · unlimited</div><div class="pc-div"></div><ul class="pc-feats"><li>Everything in Weekly</li><li>30 days access</li><li>Walk-in Drives mode</li><li>Notice Period mode</li><li>Comment templates</li><li>WhatsApp share</li>
+<li>Live Job Listings (Adzuna)</li></ul><button class="pc-btn pcb-a" onclick="goTo('signupView')">Get ₹99 →</button></div>
       <div class="price-card reveal d3"><div class="pc-plan">Annual</div><div class="pc-price"><small>₹</small>599</div><div class="pc-period">365 days · best value</div><div class="pc-div"></div><ul class="pc-feats"><li>Full year access</li><li>All modes · all cities</li><li>Priority support</li><li>Early access features</li><li>Save ₹589 vs monthly</li></ul><button class="pc-btn pcb-d" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </div>
@@ -1773,6 +1797,17 @@ tr:hover td{background:var(--cream);}
           <button class="btn-preview" onclick="document.getElementById('sk_skill').focus()" style="flex-shrink:0;">Search Free →</button>
         </div>
       </div>
+      <!-- Magic Login Link — cross-browser device sync -->
+      <div class="magic-link-card" id="magicLinkCard" style="display:none;">
+        <div class="mlc-title">🔗 Use JobsSignal on Other Browsers or Devices</div>
+        <div class="mlc-sub">Copy this personal link and open it on any browser (Firefox, Safari, mobile etc.) to instantly log in with your profile and plan.</div>
+        <div class="mlc-url" id="magicLinkUrl"></div>
+        <div class="mlc-actions">
+          <button class="mlc-btn mlc-copy" id="copyMagicBtn" onclick="copyMagicLink()">Copy Link</button>
+          <button class="mlc-btn mlc-dismiss" onclick="document.getElementById('magicLinkCard').style.display='none'">Got it, hide</button>
+        </div>
+      </div>
+
       <div class="search-panel" id="dashSearch">
         <div class="sp-header">
           <div class="sp-title">📡 Find Recruiter Signals</div>
@@ -2146,28 +2181,7 @@ tr:hover td{background:var(--cream);}
       <div class="rzp-powered"><span>Secured by</span><span class="rzp-logo">Razorpay</span><span>· UPI · Cards · NetBanking</span></div>
     </div>
     <div class="payment-success" id="paymentSuccess">
-      <div class="ps-icon">🎉</div>
-      <div class="ps-title">Payment Successful!</div>
-      <div class="ps-sub">Your <strong id="psplan">30 Days</strong> plan is now active. All features unlocked — start searching now!</div>
-      <button type="button" class="btn-primary" onclick="afterPayment()">📡 Start Searching →</button>
-    </div>
-  </div>
-</div>
-
-<!-- COMMENT TEMPLATE -->
-<div class="tmpl-overlay" id="tmplOverlay">
-  <div class="tmpl-card">
-    <div class="tc-header">
-      <div class="tc-title">💬 Comment Template</div>
-      <button type="button" class="tc-close" onclick="closeModal('tmplOverlay')">✕</button>
-    </div>
-    <div class
-<script>
-
-// ============================================================
-// CONFIG
-// =================
-
+      <div 
 <script>
 
 // ============================================================
@@ -2436,6 +2450,8 @@ function enterDash(user){
     const wba=document.getElementById('wbAvatar');
     if(wba)wba.textContent=user.name.split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
   }catch(e){}
+  // Show magic link card for cross-browser use
+  setTimeout(function(){ try{ showMagicLinkCard(); }catch(e){} }, 800);
 }
 
 // ============================================================
@@ -3729,6 +3745,101 @@ function fetchAdzunaJobs(skill, city, container){
       container.innerHTML='<div class="az-empty">⚠️ Could not load jobs right now. <a href="https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'&loc='+encodeURIComponent(azCity)+'" target="_blank" style="color:var(--amber);">Search on Adzuna.in →</a></div>';
     });
 }
+
+// ── Cross-browser login: magic link generation & restore ──
+function generateMagicLink(user, plan){
+  // Encode user + plan data into URL parameter
+  var data = {
+    n: user.name||'',
+    p: user.phone||'',
+    e: user.email||'',
+    c: user.city||'',
+    s: user.skill||'',
+    l: (user.prefLocs||[]).join(','),
+    np: user.np||'',
+    pl: plan&&plan.plan?plan.plan:'',
+    pa: plan&&plan.amount?plan.amount:0,
+    pe: plan&&plan.expiresAt?plan.expiresAt:'',
+    pid: plan&&plan.paymentId?plan.paymentId:''
+  };
+  try{
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    var base = window.location.origin + window.location.pathname;
+    return base + '?u=' + encoded;
+  }catch(e){ return window.location.href; }
+}
+
+function restoreMagicLink(){
+  // Check URL for ?u= parameter on page load
+  try{
+    var params = new URLSearchParams(window.location.search);
+    var u = params.get('u');
+    if(!u) return false;
+    var data = JSON.parse(decodeURIComponent(escape(atob(u))));
+    if(!data||!data.p) return false;
+    // Restore user object
+    var user = {
+      name: data.n||'Job Seeker',
+      phone: data.p,
+      email: data.e||'',
+      city: data.c||'Hyderabad',
+      skill: data.s||'',
+      prefLocs: data.l?data.l.split(',').filter(Boolean):[],
+      np: data.np||''
+    };
+    localStorage.setItem(S_USER, JSON.stringify(user));
+    // Restore reg_phones
+    var reg = JSON.parse(localStorage.getItem('js_reg_phones')||'[]');
+    var normP = function(v){ var d=(v||'').replace(/[^0-9]/g,''); return d.length>10?d.slice(-10):d; };
+    if(!reg.some(function(p){ return normP(p)===normP(data.p); })){
+      reg.push(data.p);
+      localStorage.setItem('js_reg_phones', JSON.stringify(reg));
+    }
+    // Restore plan if valid and not expired
+    if(data.pl && data.pe && new Date(data.pe) > new Date()){
+      var plan = {plan:data.pl, amount:data.pa, paymentId:data.pid, expiresAt:data.pe, activatedAt:''};
+      localStorage.setItem(S_PLAN, JSON.stringify(plan));
+      isPaid = true; prevUsed = true;
+    }
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+    // Auto-login
+    currentUser = user;
+    lastSkill = user.skill||'';
+    lastCity = user.city||'';
+    var pl = JSON.parse(localStorage.getItem(S_PLAN)||'{}');
+    if(pl.plan && new Date(pl.expiresAt)>new Date()){ isPaid=true; prevUsed=true; }
+    saveSession();
+    buildDash(user, pl);
+    goTo('dashView');
+    showToast('Logged in on this device! ✅', 'green');
+    return true;
+  }catch(e){ console.warn('magic link restore error:', e); return false; }
+}
+
+function showMagicLinkCard(){
+  var user = currentUser||gjson(S_USER,{});
+  var plan = gjson(S_PLAN,{});
+  var link = generateMagicLink(user, plan);
+  var card = document.getElementById('magicLinkCard');
+  if(!card) return;
+  var urlEl = document.getElementById('magicLinkUrl');
+  if(urlEl) urlEl.textContent = link;
+  card.style.display = 'block';
+}
+
+function copyMagicLink(){
+  var urlEl = document.getElementById('magicLinkUrl');
+  if(!urlEl) return;
+  var text = urlEl.textContent;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(function(){
+      var btn = document.getElementById('copyMagicBtn');
+      if(btn){ btn.textContent = '✅ Copied!'; btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = 'Copy Link'; btn.classList.remove('copied'); }, 2500); }
+    });
+  }
+}
 document.addEventListener('DOMContentLoaded',()=>{
   // Scroll reveal
   try{
@@ -3755,7 +3866,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     setTimeout(function(){doAdminLogin_auto();},100);
   }
   // Always show landing page first — restoreSession just loads data silently
-  restoreSession();
+  if(restoreMagicLink()) return;
+    restoreSession();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const lv=document.getElementById('landingView');
   if(lv) lv.classList.add('active');
@@ -3816,6 +3928,59 @@ function doAdminLogin_auto(){
 var liCheckDone = localStorage.getItem('js_li_checked') === '1';
 
 function showLiPopup(onConfirm){
+  if(liCheckDone){ onConfirm(); return; }
+  var pop = document.getElementById('liCheckPopup');
+  if(pop){
+    pop.style.display='flex';
+    pop._onConfirm = onConfirm;
+  } else {
+    onConfirm();
+  }
+}
+
+function liPopupOpenLinkedIn(){
+  window.open('https://www.linkedin.com','_blank');
+}
+
+function liPopupConfirm(){
+  localStorage.setItem('js_li_checked','1');
+  liCheckDone = true;
+  var pop = document.getElementById('liCheckPopup');
+  if(pop){
+    pop.style.display='none';
+    if(pop._onConfirm) pop._onConfirm();
+  }
+}
+
+function liPopupSkip(){
+  var pop = document.getElementById('liCheckPopup');
+  if(pop){
+    pop.style.display='none';
+    if(pop._onConfirm) pop._onConfirm();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+tion showLiPopup(onConfirm){
   if(liCheckDone){ onConfirm(); return; }
   var pop = document.getElementById('liCheckPopup');
   if(pop){
