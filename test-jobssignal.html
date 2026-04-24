@@ -3,512 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>JobsSignal — TEST FILE</title>
+<title>JobsSignal — Test</title>
+
+<!-- Firebase SDK FIRST — before our script -->
+
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;1,9..144,300&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── RESET ── */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --ink:#0f1117;--cream:#faf7f2;--amber:#e8943a;--teal:#1a6b6b;
   --soft:#6b7280;--muted:#9ca3af;--border:rgba(15,17,23,.09);
   --warm:#fdf3e7;--red:#c0392b;--red-pale:#fdecea;
-  --teal-pale:#e8f4f4;--shadow:0 2px 12px rgba(15,17,23,.07);
+  --teal-pale:#e8f4f4;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
-
-/* ── TEST BANNER ── */
-#testBanner{
-  position:fixed;top:0;left:0;right:0;z-index:9999;
-  background:#1a1a2e;color:#fff;font-size:12px;font-weight:700;
-  padding:8px 20px;display:flex;align-items:center;justify-content:space-between;
-}
-#testBanner span{opacity:.6;}
-#testStatus{color:#4ade80;font-size:11px;}
-
-
-/* ── VIEWS ── */
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);}
 .view{display:none;min-height:100vh;}
 .view.active{display:block;}
 
-/* ── NAV ── */
-.land-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(250,247,242,.92);backdrop-filter:blur(12px);
+/* NAV */
+.top-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(250,247,242,.95);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
-  padding:0 28px;height:60px;
+  padding:0 24px;height:58px;
   display:flex;align-items:center;justify-content:space-between;
 }
-.nav-logo{font-family:'Fraunces',serif;font-size:18px;font-weight:800;cursor:pointer;}
+.nav-logo{font-family:'Fraunces',serif;font-size:18px;font-weight:800;cursor:pointer;color:var(--ink);}
 .nav-logo em{color:var(--amber);font-style:italic;font-weight:300;}
 .nav-links{display:flex;align-items:center;gap:6px;}
-.nav-links a{
-  font-size:13px;font-weight:600;color:var(--soft);
-  cursor:pointer;padding:7px 12px;border-radius:7px;text-decoration:none;
-  transition:all .15s;
-}
-.nav-links a:hover{background:rgba(15,17,23,.05);color:var(--ink);}
-.btn-nav-login{border:1.5px solid var(--border)!important;color:var(--ink)!important;}
-.btn-nav-signup{background:var(--ink)!important;color:#fff!important;}
-.btn-nav-signup:hover{background:#2a2d3a!important;}
+.nav-links button{background:transparent;border:none;font-size:13px;font-weight:600;color:var(--soft);cursor:pointer;padding:7px 12px;border-radius:7px;font-family:'DM Sans',sans-serif;}
+.nav-links button:hover{background:rgba(15,17,23,.05);}
+.btn-login{border:1.5px solid var(--border)!important;color:var(--ink)!important;}
+.btn-signup{background:var(--ink)!important;color:#fff!important;border-radius:8px;}
+body{padding-top:58px;}
 
-/* ── HERO ── */
-.hero{padding:100px 28px 60px;max-width:800px;margin:0 auto;text-align:center;}
-.hero h1{font-family:'Fraunces',serif;font-size:52px;font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:16px;}
+/* HERO */
+.hero{max-width:780px;margin:0 auto;padding:70px 24px 50px;text-align:center;}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.hero h1{font-family:'Fraunces',serif;font-size:52px;font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:14px;}
 .hero h1 em{color:var(--amber);font-style:italic;font-weight:300;}
 .hero p{font-size:16px;color:var(--soft);line-height:1.7;max-width:500px;margin:0 auto 28px;}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .btn-primary{padding:13px 28px;border-radius:10px;background:var(--amber);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .btn-ghost{padding:13px 24px;border-radius:10px;background:transparent;color:var(--ink);border:1.5px solid var(--border);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
-/* ── SECTIONS ── */
-section{padding:60px 28px;max-width:900px;margin:0 auto;}
-section h2{font-family:'Fraunces',serif;font-size:36px;font-weight:800;margin-bottom:12px;letter-spacing:-1px;}
+/* SECTIONS */
+section{padding:60px 24px;max-width:900px;margin:0 auto;}
+section h2{font-family:'Fraunces',serif;font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:12px;}
 section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
-.section-sub{font-size:15px;color:var(--soft);line-height:1.7;margin-bottom:32px;}
-.eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.sec-sub{font-size:15px;color:var(--soft);line-height:1.7;margin-bottom:28px;}
+.steps{display:flex;flex-direction:column;gap:14px;}
+.step{display:flex;gap:14px;background:#fff;border-radius:12px;padding:18px;border:1px solid var(--border);}
+.step-n{width:32px;height:32px;border-radius:50%;background:var(--amber);color:#fff;font-family:'Fraunces',serif;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.mode-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:16px;}
+.mode-icon{font-size:22px;margin-bottom:7px;}
+.mode-name{font-weight:700;font-size:13px;color:#fff;margin-bottom:4px;}
+.mode-desc{font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;}
+.mode-new{color:var(--amber)!important;}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.price-card{background:#fff;border-radius:13px;padding:20px;border:1px solid var(--border);}
+.price-card.pop{border:2px solid var(--amber);background:var(--warm);}
+.pc-name{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin-bottom:5px;}
+.pc-price{font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:var(--ink);line-height:1;margin-bottom:3px;}
+.pc-per{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.pc-feats{list-style:none;margin-bottom:14px;}
+.pc-feats li{font-size:12px;color:var(--soft);padding:3px 0;display:flex;align-items:center;gap:6px;}
+.pc-feats li::before{content:'✓';color:var(--amber);font-weight:700;}
+.pc-btn{width:100%;padding:9px;border-radius:8px;background:var(--ink);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.pc-btn.pop-btn{background:var(--amber);}
+.pop-badge{background:var(--amber);color:#fff;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:5px;}
 
-/* Steps */
-.steps{display:flex;flex-direction:column;gap:20px;}
-.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:12px;padding:20px;border:1px solid var(--border);}
-.step-num{width:36px;height:36px;border-radius:50%;background:var(--amber);color:#fff;font-family:'Fraunces',serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.step-title{font-weight:700;font-size:14px;margin-bottom:4px;}
-.step-desc{font-size:13px;color:var(--soft);line-height:1.5;}
-
-/* Mode cards */
-.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
-.mode-card{background:#fff;border-radius:12px;padding:18px;border:1px solid var(--border);}
-.mode-icon{font-size:24px;margin-bottom:8px;}
-.mode-name{font-weight:700;font-size:14px;margin-bottom:4px;}
-.mode-desc{font-size:12px;color:var(--soft);line-height:1.5;}
-
-/* Pricing grid */
-.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
-.price-card{background:#fff;border-radius:14px;padding:22px;border:1px solid var(--border);}
-.price-card.featured{border:2px solid var(--amber);background:var(--warm);}
-.pc-plan{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin-bottom:6px;}
-.pc-price{font-family:'Fraunces',serif;font-size:38px;font-weight:800;color:var(--ink);line-height:1;margin-bottom:4px;}
-.pc-period{font-size:12px;color:var(--muted);margin-bottom:14px;}
-.pc-feats{list-style:none;margin-bottom:16px;}
-.pc-feats li{font-size:12px;color:var(--soft);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;}
-.pc-feats li::before{content:'✓';color:var(--amber);font-weight:700;flex-shrink:0;}
-.pc-btn{width:100%;padding:10px;border-radius:8px;background:var(--ink);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.pc-btn.featured-btn{background:var(--amber);}
-.pc-badge{background:var(--amber);color:#fff;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:6px;}
-
-/* ── AUTH PAGES ── */
-.split-auth{display:flex;min-height:calc(100vh - 36px);}
-.sa-left{width:42%;background:var(--ink);padding:48px;display:flex;flex-direction:column;}
-.sa-right{flex:1;padding:48px;display:flex;align-items:center;justify-content:center;}
-.sa-wordmark{font-family:'Fraunces',serif;font-size:20px;font-weight:800;color:#fff;cursor:pointer;margin-bottom:44px;}
-.sa-wordmark em{color:var(--amber);font-style:italic;font-weight:300;}
-.sa-headline{font-family:'Fraunces',serif;font-size:38px;font-weight:800;color:#fff;line-height:1.05;letter-spacing:-1px;margin-bottom:12px;}
-.sa-headline em{color:var(--amber);font-style:italic;font-weight:300;}
-.sa-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:32px;}
-.sa-stats{display:flex;gap:0;margin-top:auto;}
-.sa-stat{padding:12px 18px;border-right:1px solid rgba(255,255,255,.08);}
+/* AUTH — SPLIT SCREEN */
+.split-auth{display:flex;min-height:calc(100vh - 58px);}
+.sa-left{width:42%;background:var(--ink);padding:48px 40px;display:flex;flex-direction:column;}
+.sa-left h2{font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:12px;}
+.sa-left h2 em{color:var(--amber);font-style:italic;font-weight:300;}
+.sa-left p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:32px;}
+.sa-stats{display:flex;margin-top:auto;}
+.sa-stat{padding:10px 16px;border-right:1px solid rgba(255,255,255,.08);}
 .sa-stat:first-child{padding-left:0;}
 .sa-stat:last-child{border:none;}
-.sa-stat-n{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--amber);}
+.sa-stat-n{font-family:'Fraunces',serif;font-size:20px;font-weight:800;color:var(--amber);}
 .sa-stat-l{font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
-.sa-form{width:100%;max-width:420px;}
+.sa-right{flex:1;background:var(--cream);padding:48px;display:flex;align-items:center;justify-content:center;}
+.sa-form{width:100%;max-width:400px;}
 .sa-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:7px;margin-bottom:10px;}
 .sa-eyebrow::before{content:'';width:16px;height:1.5px;background:var(--amber);}
-.sa-title{font-family:'Fraunces',serif;font-size:30px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+.sa-title{font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--ink);margin-bottom:6px;}
 .sa-title em{color:var(--amber);font-style:italic;font-weight:300;}
-.sa-subtitle{font-size:13px;color:var(--soft);margin-bottom:22px;}
-.sa-subtitle a{color:var(--amber);font-weight:600;cursor:pointer;text-decoration:none;}
-.sa-hint{background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);border-radius:9px;padding:11px 14px;font-size:12px;color:var(--teal);margin-bottom:18px;}
-.sa-field{margin-bottom:16px;}
-.sa-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin-bottom:6px;}
-.sa-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);transition:border-color .15s;}
-.sa-input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,148,58,.1);}
-.sa-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;margin-bottom:10px;}
+.sa-sub{font-size:13px;color:var(--soft);margin-bottom:20px;}
+.sa-sub button{background:none;border:none;color:var(--amber);font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;padding:0;}
+.sa-hint{background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);border-radius:9px;padding:11px 14px;font-size:12px;color:var(--teal);margin-bottom:18px;line-height:1.5;}
+.sa-field{margin-bottom:14px;}
+.sa-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin-bottom:5px;}
+.sa-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);}
+.sa-input:focus{outline:none;border-color:var(--amber);}
+.sa-btn{width:100%;padding:12px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;margin-bottom:8px;}
 .sa-btn-amber{background:var(--amber);color:#fff;}
-.sa-btn-ghost{background:transparent;color:var(--soft);border:1.5px solid var(--border)!important;}
+.sa-btn-ghost{background:transparent;color:var(--soft);border:1.5px solid var(--border);}
 .sa-err{background:var(--red-pale);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;}
-/* Step dots */
-.step-bar{display:flex;gap:6px;margin-bottom:24px;}
+.step-bar{display:flex;gap:6px;margin-bottom:22px;}
 .step-dot{height:3px;flex:1;border-radius:3px;background:rgba(15,17,23,.1);}
 .step-dot.active{background:var(--amber);}
 .step-dot.done{background:var(--teal);}
-/* Field row 2-col */
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-/* Pill row */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-msg{font-size:11px;min-height:14px;color:var(--red);margin-top:3px;}
 .pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;}
-.pill-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.pill-btn{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .pill-btn.sel{background:var(--ink);color:#fff;border-color:var(--ink);}
-/* LinkedIn tip */
-.li-tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:13px 15px;display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
-.li-icon{width:30px;height:30px;border-radius:7px;background:#0a66c2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;}
-.li-body{flex:1;}
-.li-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:2px;}
-.li-text{font-size:11px;color:#3b82f6;line-height:1.5;}
-.li-btn-open{padding:7px 12px;border-radius:7px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;flex-shrink:0;}
-/* Field msg */
-.field-msg{min-height:14px;margin-top:3px;font-size:11px;}
+.li-tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;}
+.li-icon{width:28px;height:28px;border-radius:6px;background:#0a66c2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;}
+.li-btn{padding:6px 11px;border-radius:6px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 
-/* ── DASHBOARD ── */
-.dash-wrap{display:flex;height:calc(100vh - 36px);}
-
-/* Sidebar */
-.sidebar{
-  width:250px;flex-shrink:0;background:var(--ink);
-  display:flex;flex-direction:column;overflow-y:auto;
-}
-.sb-brand{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.07);}
-.sb-wordmark{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:#fff;}
-.sb-wordmark em{color:var(--amber);font-style:italic;font-weight:300;}
-.sb-user{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.07);}
-.sb-av{width:34px;height:34px;border-radius:50%;background:var(--amber);font-family:'Fraunces',serif;font-size:14px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* DASHBOARD */
+.dash-wrap{display:flex;height:calc(100vh - 58px);}
+.sidebar{width:240px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;}
+.sb-brand{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.07);}
+.sb-wm{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
+.sb-wm em{color:var(--amber);font-style:italic;font-weight:300;}
+.sb-user{display:flex;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);}
+.sb-av{width:32px;height:32px;border-radius:50%;background:var(--amber);font-family:'Fraunces',serif;font-size:13px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sb-uname{font-size:13px;font-weight:700;color:#fff;}
 .sb-urole{font-size:11px;color:rgba(255,255,255,.4);}
-.sb-logout{background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.25);border-radius:6px;color:#ff8080;font-size:10px;font-weight:700;padding:4px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:auto;flex-shrink:0;}
-.sb-nav{padding:12px 0;flex:1;}
-.sb-section-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 18px 4px;}
-.sb-item{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;}
+.sb-out{margin-left:auto;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.25);border-radius:6px;color:#ff8080;font-size:9px;font-weight:700;padding:3px 7px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.sb-nav{padding:10px 0;flex:1;}
+.sb-sec-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 16px 3px;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer;}
 .sb-item:hover{background:rgba(255,255,255,.05);color:#fff;}
 .sb-item.active{background:rgba(232,148,58,.12);color:var(--amber);}
-.sb-icon{font-size:15px;flex-shrink:0;}
-
-/* Main content */
+.sb-icon{font-size:14px;flex-shrink:0;}
 .sb-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.sb-topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.sb-name-big{font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:var(--ink);}
-.sb-meta{font-size:11px;color:var(--soft);}
-.sb-topbar-right{display:flex;align-items:center;gap:8px;}
-.btn-find{padding:9px 18px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.mob-logout{padding:8px 12px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;}
-.sb-content{flex:1;overflow-y:auto;padding:20px 24px;}
-
-/* Stat cards */
-.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
-.sc-num{font-family:'Fraunces',serif;font-size:24px;font-weight:800;color:var(--ink);}
-.sc-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
-
-/* Mode tabs */
-.mode-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;-webkit-overflow-scrolling:touch;}
-.mode-tab{padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all .15s;flex-shrink:0;}
+.sb-topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 22px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.sb-fullname{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);}
+.sb-usermeta{font-size:11px;color:var(--soft);}
+.sb-topbar-r{display:flex;align-items:center;gap:8px;}
+.btn-find{padding:8px 16px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.sb-content{flex:1;overflow-y:auto;padding:18px 22px;}
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.sc{background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;text-align:center;}
+.sc-n{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);}
+.sc-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
+.preview-banner{background:linear-gradient(135deg,#1a6b6b,#0d4444);border-radius:12px;padding:14px 18px;display:none;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.pb-icon{font-size:26px;flex-shrink:0;}
+.pb-title{font-family:'Fraunces',serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px;}
+.pb-sub{font-size:11px;color:rgba(255,255,255,.6);}
+.btn-prev{padding:8px 16px;border-radius:7px;background:var(--amber);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.mode-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:14px;-webkit-overflow-scrolling:touch;}
+.mode-tab{padding:7px 14px;border-radius:7px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .mode-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
-.mode-tab.locked{opacity:.5;cursor:not-allowed;}
-
-/* Search panel */
-.search-panel{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px;}
-.search-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
-.sg{display:flex;flex-direction:column;gap:5px;}
+.search-panel{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:14px;}
+.search-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;}
+.sg{display:flex;flex-direction:column;gap:4px;}
 .sg-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);}
-.sg-input{padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);}
-.sg-input:focus{outline:none;border-color:var(--amber);}
-.sg-select{padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;cursor:pointer;}
-.btn-run{padding:10px 24px;border-radius:9px;background:var(--amber);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
-
-/* Preview banner */
-.preview-banner{background:linear-gradient(135deg,#1a6b6b,#0d4444);border-radius:13px;padding:16px 20px;display:none;align-items:center;gap:14px;margin-bottom:16px;}
-.pb-icon{font-size:28px;flex-shrink:0;}
-.pb-title{font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;}
-.pb-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;}
-.btn-preview{padding:9px 18px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0;}
-
-/* Magic link card */
-.magic-link-card{background:var(--warm);border:1.5px solid rgba(232,148,58,.25);border-radius:14px;padding:18px 20px;margin-bottom:16px;display:none;}
-.mlc-title{font-family:'Fraunces',serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px;}
-.mlc-sub{font-size:12px;color:var(--soft);margin-bottom:10px;line-height:1.5;}
-.mlc-url{background:#fff;border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-size:11px;color:var(--soft);word-break:break-all;font-family:monospace;margin-bottom:10px;}
-.mlc-actions{display:flex;gap:8px;}
-.mlc-copy{padding:7px 14px;border-radius:7px;background:var(--amber);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.mlc-dismiss{padding:7px 14px;border-radius:7px;background:transparent;color:var(--soft);border:1px solid var(--border);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-
-/* Result tabs */
-.result-tabs-wrap{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
-.result-header{padding:14px 18px 0;}
-.rh-title{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);}
-.rh-sub{font-size:12px;color:var(--soft);margin-top:2px;}
-.rt-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 18px;margin-top:12px;}
-.rt-tab{padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--soft);border:none;background:transparent;border-bottom:2.5px solid transparent;font-family:'DM Sans',sans-serif;transition:all .15s;}
-.rt-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
-.rt-content{padding:18px;}
+.sg-input,.sg-select{padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);}
+.sg-input:focus,.sg-select:focus{outline:none;border-color:var(--amber);}
+.btn-run{padding:10px 22px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.results-wrap{background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:14px;}
+.r-header{padding:12px 16px 0;}
+.r-title{font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:var(--ink);}
+.r-sub{font-size:11px;color:var(--soft);margin-top:2px;}
+.r-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 16px;margin-top:10px;}
+.r-tab{padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--soft);border:none;background:transparent;border-bottom:2.5px solid transparent;font-family:'DM Sans',sans-serif;}
+.r-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
+.r-content{padding:16px;}
 .tab-pane{display:none;}
 .tab-pane.active{display:block;}
-
-/* Upgrade plans */
-.upgrade-plans{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;display:none;}
-.up-title{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);margin-bottom:4px;}
-.up-sub{font-size:12px;color:var(--soft);margin-bottom:16px;}
-.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.plan-card{border:1.5px solid var(--border);border-radius:11px;padding:14px;cursor:pointer;text-align:center;transition:border-color .15s;}
-.plan-card:hover{border-color:var(--amber);}
-.plan-card.popular{border-color:var(--amber);background:rgba(232,148,58,.04);position:relative;}
-.pop-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--amber);color:#fff;font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;white-space:nowrap;}
-.plan-days{font-size:11px;font-weight:700;color:var(--soft);}
-.plan-price{font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--ink);}
-.plan-tag{font-size:10px;color:var(--muted);}
-.up-note{font-size:11px;color:var(--muted);text-align:center;}
-
-/* Adzuna cards */
-.az-container{min-height:60px;}
-.az-loading{display:flex;align-items:center;gap:10px;padding:20px;color:var(--soft);font-size:13px;}
-.az-spin{width:16px;height:16px;border:2px solid rgba(15,17,23,.1);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.az-empty{padding:20px;font-size:13px;color:var(--soft);line-height:1.6;}
-.az-header{display:flex;align-items:center;justify-content:space-between;padding:0 0 12px;border-bottom:1px solid var(--border);margin-bottom:12px;}
-.az-count{font-weight:700;font-size:13px;color:var(--ink);}
-.az-src{font-size:11px;color:var(--muted);}
-.az-grid{display:flex;flex-direction:column;gap:10px;}
-.az-card{background:var(--cream);border:1.5px solid var(--border);border-radius:11px;padding:14px;transition:border-color .15s;}
-.az-card:hover{border-color:var(--amber);}
-.az-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px;}
-.az-logo{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Fraunces',serif;}
-.az-info{flex:1;}
-.az-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:1px;}
-.az-company{font-size:11px;color:var(--soft);font-weight:600;}
-.az-meta{display:flex;gap:12px;margin-bottom:6px;flex-wrap:wrap;}
-.az-loc,.az-sal{font-size:11px;color:var(--soft);}
-.az-desc{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:8px;}
-.az-footer{display:flex;align-items:center;justify-content:space-between;}
-.az-date{font-size:10px;color:var(--muted);}
-.az-apply{padding:6px 14px;border-radius:6px;background:var(--amber);color:#fff;font-size:12px;font-weight:700;text-decoration:none;transition:background .15s;}
-.az-apply:hover{background:#d4822e;}
-.az-powered{font-size:10px;color:var(--muted);text-align:center;padding:10px 0 0;border-top:1px solid var(--border);margin-top:12px;}
-
-/* Recruiter posts placeholder */
-.post-placeholder{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;}
-.pp-query{font-size:12px;color:var(--amber);font-family:monospace;margin-bottom:8px;background:var(--warm);padding:8px 12px;border-radius:6px;}
-.pp-action{display:flex;gap:8px;flex-wrap:wrap;}
+.pp-query{font-size:12px;color:var(--amber);font-family:monospace;background:var(--warm);padding:8px 12px;border-radius:6px;margin-bottom:10px;word-break:break-all;}
+.pp-action{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
 .pp-btn{padding:8px 16px;border-radius:7px;background:var(--ink);color:#fff;font-size:12px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .pp-btn.li-blue{background:#0a66c2;}
-.pp-tip{font-size:11px;color:var(--soft);margin-top:8px;line-height:1.5;}
-
-/* Toast */
-#toast{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
-  background:var(--ink);color:#fff;padding:10px 20px;border-radius:30px;
-  font-size:13px;font-weight:600;z-index:9000;transition:transform .3s;
-  white-space:nowrap;pointer-events:none;
-}
+.pp-tip{font-size:11px;color:var(--soft);line-height:1.5;}
+.period-tabs{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap;}
+.ptab{padding:7px 13px;border-radius:7px;background:#fff;color:var(--soft);border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.ptab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.jtab{padding:7px 13px;border-radius:7px;background:#fff;color:var(--soft);border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.jtab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
+.az-loading{display:flex;align-items:center;gap:10px;padding:18px;color:var(--soft);font-size:13px;}
+.az-spin{width:15px;height:15px;border:2px solid rgba(15,17,23,.1);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.az-grid{display:flex;flex-direction:column;gap:9px;}
+.az-card{background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:12px;}
+.az-card:hover{border-color:var(--amber);}
+.az-top{display:flex;gap:10px;margin-bottom:7px;}
+.az-logo{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Fraunces',serif;}
+.az-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;line-height:1.3;}
+.az-company{font-size:11px;color:var(--soft);font-weight:600;}
+.az-meta{font-size:11px;color:var(--soft);margin-bottom:6px;}
+.az-footer{display:flex;align-items:center;justify-content:space-between;}
+.az-date{font-size:10px;color:var(--muted);}
+.az-apply{padding:5px 12px;border-radius:6px;background:var(--amber);color:#fff;font-size:11px;font-weight:700;text-decoration:none;}
+.az-powered{font-size:10px;color:var(--muted);text-align:center;padding:10px 0 0;border-top:1px solid var(--border);margin-top:10px;}
+.upgrade-plans{background:#fff;border:1px solid var(--border);border-radius:13px;padding:20px;margin-bottom:14px;display:none;}
+.up-title{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);margin-bottom:3px;}
+.up-sub{font-size:12px;color:var(--soft);margin-bottom:14px;}
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
+.plan-card{border:1.5px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;text-align:center;}
+.plan-card:hover{border-color:var(--amber);}
+.plan-card.pop{border-color:var(--amber);background:var(--warm);position:relative;}
+.pop-b{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--amber);color:#fff;font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;white-space:nowrap;}
+.plan-days{font-size:11px;font-weight:700;color:var(--soft);}
+.plan-price{font-family:'Fraunces',serif;font-size:24px;font-weight:800;color:var(--ink);}
+.plan-tag{font-size:10px;color:var(--muted);}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:9px 18px;border-radius:28px;font-size:13px;font-weight:600;z-index:9999;transition:transform .3s;white-space:nowrap;pointer-events:none;}
 #toast.show{transform:translateX(-50%) translateY(0);}
-#toast.amber{background:var(--amber);}
 #toast.green{background:var(--teal);}
+#toast.amber{background:var(--amber);}
 #toast.red{background:var(--red);}
+/* Firebase status bar */
+#fb-status-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,17,23,.85);color:#fff;font-size:11px;padding:4px 16px;display:flex;gap:12px;align-items:center;z-index:500;}
+#fb-status-bar button{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer;}
 
 /* Mobile */
 @media(max-width:768px){
   .sa-left{display:none;}
   .sa-right{padding:28px 20px;}
   .field-row{grid-template-columns:1fr;}
-  .sidebar{width:70px;}
-  .sb-user div{display:none;}
-  .sb-item span:last-child{display:none;}
-  .sb-section-label{display:none;}
+  .sidebar{width:60px;}
+  .sb-user>div,.sb-uname,.sb-urole,.sb-sec-label,.sb-item span:last-child{display:none;}
+  .sb-content{padding:14px;}
   .stat-cards{grid-template-columns:1fr 1fr;}
   .search-row{flex-direction:column;}
-  .mob-logout{display:flex!important;}
+  .sg-input,.sg-select{width:100%;}
   .plans-grid{grid-template-columns:1fr 1fr;}
+  .mode-tab{font-size:11px;padding:6px 10px;}
+  .r-tab{font-size:11px;padding:7px 10px;}
+  .nav-links button:not(.btn-login):not(.btn-signup){display:none;}
 }
-
-@media(min-width:768px){.test-banner-desktop{display:flex!important;}}
-
-@media(min-width:768px){}
-
-@media(min-width:769px){#testBanner{display:flex!important;}}
-
-@media(min-width:769px){}
-
-.ptab,.jtab{padding:7px 15px;border-radius:7px;background:#fff;color:var(--soft);
-  border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;
-  font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
-.ptab-active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;}
-.jtab-active{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
-
-@media(min-width:769px){ #testBanner{display:flex!important;}}
-
-.ptab,.jtab{padding:7px 14px;border-radius:7px;background:#fff;color:var(--soft);border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
-.ptab-active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;}
-.jtab-active{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
-body{padding-top:60px;}
-@media(max-width:768px){body{padding-top:60px;} #mainNav .nav-links a:not(.btn-nav-login):not(.btn-nav-signup){display:none;} }
 </style>
 </head>
 <body>
 
-<!-- TEST BANNER -->
-<nav class="land-nav" id="mainNav">
-  <div class="nav-logo" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
-  <div class="nav-links">
-    <a onclick="goToSection('howItWorks')">How It Works</a>
-    <a onclick="goToSection('modes')">Search Modes</a>
-    <a onclick="goToSection('pricing')">Pricing</a>
-    <a class="btn-nav-login" onclick="goTo('loginView')">Log In</a>
-    <a class="btn-nav-signup" onclick="goTo('signupView')">Sign Up Free</a>
-  </div>
-</nav>
-
-<div id="testBanner" style="display:none;" class="test-banner-desktop">
-  <div>🧪 TEST FILE — <span>Not live</span></div>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-      <span id="testStatus" style="font-size:11px;">Checking...</span>
-      <span id="fbStatus" style="font-size:11px;color:#aaa;">Firebase: loading...</span>
-      <button onclick="testFirebaseWrite()" style="background:#22c55e;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;">Test DB</button>
-      <button onclick="seedKiranAccount()" style="background:#f59e0b;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;">Sync Account to Firebase</button>
-    </div>
-</div>
 <div id="toast"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     LANDING VIEW
-════════════════════════════════════════════════════ -->
-<nav class="land-nav" id="mainNav">
+<!-- Firebase status (bottom bar, unobtrusive) -->
+<div id="fb-status-bar">
+  <span id="fb-status">⏳ Connecting to database...</span>
+  <button onclick="seedAccount()">Sync This Account</button>
+  <button onclick="testDB()">Test DB</button>
+</div>
+
+<!-- NAV — outside all views -->
+<nav class="top-nav" id="mainNav">
   <div class="nav-logo" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
   <div class="nav-links">
-    <a onclick="goToSection('howItWorks')">How It Works</a>
-    <a onclick="goToSection('modes')">Search Modes</a>
-    <a onclick="goToSection('pricing')">Pricing</a>
-    <a class="btn-nav-login" onclick="goTo('loginView')">Log In</a>
-    <a class="btn-nav-signup" onclick="goTo('signupView')">Sign Up Free</a>
+    <button onclick="goToSec('howItWorks')">How It Works</button>
+    <button onclick="goToSec('modes')">Search Modes</button>
+    <button onclick="goToSec('pricing')">Pricing</button>
+    <button class="btn-login" onclick="goTo('loginView')">Log In</button>
+    <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
   </div>
 </nav>
 
+<!-- ═══ LANDING ═══ -->
 <div class="view active" id="landingView">
-
-
-
-  <!-- HERO -->
-  <div class="hero" style="padding-top:90px;">
+  <div class="hero">
     <div class="eyebrow">Real-time Recruiter Signals · India</div>
     <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
     <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from 100+ sources.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="goTo('signupView')">📡 Find Signals Free →</button>
-      <button class="btn-ghost" onclick="goToSection('howItWorks')">How It Works</button>
+      <button class="btn-ghost" onclick="goToSec('howItWorks')">How It Works</button>
     </div>
   </div>
 
-  <!-- HOW IT WORKS -->
   <section id="howItWorks">
     <div class="eyebrow">How It Works</div>
     <h2>Three steps to your<br>next <em>opportunity.</em></h2>
-    <p class="section-sub">Sign up once. Search instantly. Apply before anyone else.</p>
+    <p class="sec-sub">Sign up once. Search instantly. Apply before anyone else.</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><div class="step-title">Sign up free — 30 seconds</div><div class="step-desc">Enter your name, mobile, skill and city. No password. No card. Done.</div></div></div>
-      <div class="step"><div class="step-num">2</div><div><div class="step-title">Choose your search mode</div><div class="step-desc">Skill+City · Hashtag Hunt · Notice Period · Referral Radar · Walk-in Drives</div></div></div>
-      <div class="step"><div class="step-num">3</div><div><div class="step-title">See live results — inside the app</div><div class="step-desc">LinkedIn recruiter posts open instantly. <strong>Live job cards from Adzuna</strong> (100+ sources) show inside JobsSignal with salary, company and Apply button.</div></div></div>
+      <div class="step"><div class="step-n">1</div><div><strong>Sign up free — 30 seconds.</strong><br><span style="font-size:13px;color:var(--soft);">Enter your name, mobile, skill and city. No password needed.</span></div></div>
+      <div class="step"><div class="step-n">2</div><div><strong>Choose your search mode.</strong><br><span style="font-size:13px;color:var(--soft);">5 modes: Skill+City · Hashtag Hunt · Notice Period · Referral Radar · Walk-in Drives</span></div></div>
+      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Adzuna (100+ sources) show inside the app with salary &amp; Apply button.</span></div></div>
     </div>
   </section>
 
-  <!-- SEARCH MODES -->
-  <section id="modes" style="background:var(--ink);border-radius:20px;max-width:100%;padding:60px 28px;">
+  <section id="modes" style="background:var(--ink);border-radius:18px;max-width:100%;padding:50px 24px;">
     <div style="max-width:900px;margin:0 auto;">
       <div class="eyebrow" style="color:rgba(255,255,255,.4);">Five Search Modes</div>
-      <h2 style="color:#fff;margin-bottom:12px;">Every signal type,<br><em>one platform.</em></h2>
-      <p class="section-sub" style="color:rgba(255,255,255,.45);">Five modes built for every situation — fresh grad to 20-year veteran.</p>
+      <h2 style="color:#fff;margin-bottom:12px;">Every signal type, <em>one platform.</em></h2>
       <div class="modes-grid">
-        <div class="mode-card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);">
-          <div class="mode-icon">🎯</div>
-          <div class="mode-name" style="color:#fff;">Skill + City</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">Recruiter posts hiring for your exact skill in your city — last 24h, week, month.</div>
-        </div>
-        <div class="mode-card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);">
-          <div class="mode-icon">#</div>
-          <div class="mode-name" style="color:#fff;">Hashtag Hunt</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">#Hiring #NowHiring #Urgent — find recruiter posts before they trend.</div>
-        </div>
-        <div class="mode-card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);">
-          <div class="mode-icon">⏱️</div>
-          <div class="mode-name" style="color:#fff;">Notice Period</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">Recruiters specifically looking for 30-day, 60-day or immediate joiners.</div>
-        </div>
-        <div class="mode-card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);">
-          <div class="mode-icon">🤝</div>
-          <div class="mode-name" style="color:#fff;">Referral Radar</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">Find employees offering referrals at your target companies right now.</div>
-        </div>
-        <div class="mode-card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);">
-          <div class="mode-icon">🚶</div>
-          <div class="mode-name" style="color:#fff;">Walk-in Drives</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">Live walk-in interview announcements in your city this week.</div>
-        </div>
-        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);">
-          <div class="mode-icon">💼</div>
-          <div class="mode-name" style="color:var(--amber);">Live Job Listings NEW</div>
-          <div class="mode-desc" style="color:rgba(255,255,255,.5);">Real job cards from Indeed + 100 sources — salary, company, Apply button. All inside the app. Powered by Adzuna.</div>
-        </div>
+        <div class="mode-card"><div class="mode-icon">🎯</div><div class="mode-name">Skill + City</div><div class="mode-desc">Recruiter posts for your exact skill in your city.</div></div>
+        <div class="mode-card"><div class="mode-icon">#</div><div class="mode-name">Hashtag Hunt</div><div class="mode-desc">#Hiring #NowHiring — find posts before they trend.</div></div>
+        <div class="mode-card"><div class="mode-icon">⏱️</div><div class="mode-name">Notice Period</div><div class="mode-desc">Recruiters looking for 30-day or immediate joiners.</div></div>
+        <div class="mode-card"><div class="mode-icon">🤝</div><div class="mode-name">Referral Radar</div><div class="mode-desc">Find employees offering referrals at target companies.</div></div>
+        <div class="mode-card"><div class="mode-icon">🚶</div><div class="mode-name">Walk-in Drives</div><div class="mode-desc">Live walk-in interview announcements this week.</div></div>
+        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Indeed + 100 sources inside the app. Salary, company, Apply button. Powered by Adzuna.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
   <section id="pricing">
     <div class="eyebrow" style="text-align:center;">Pricing</div>
     <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
-    <p class="section-sub" style="text-align:center;max-width:400px;margin:0 auto 28px;">Start free. No card. Upgrade when ready.</p>
+    <p class="sec-sub" style="text-align:center;max-width:380px;margin:0 auto 24px;">Start free. No card. Upgrade when ready.</p>
     <div class="price-grid">
-      <div class="price-card">
-        <div class="pc-plan">Free Preview</div>
-        <div class="pc-price">₹0</div>
-        <div class="pc-period">1 search · no card</div>
-        <ul class="pc-feats">
-          <li>1 signal search</li>
-          <li>All 5 modes</li>
-          <li>LinkedIn recruiter posts</li>
-          <li>Live Job Listings (Adzuna)</li>
-          <li>Comment template</li>
-        </ul>
-        <button class="pc-btn" onclick="goTo('signupView')">Try Free</button>
-      </div>
-      <div class="price-card">
-        <div class="pc-plan">Weekly</div>
-        <div class="pc-price">₹49</div>
-        <div class="pc-period">7 days · unlimited</div>
-        <ul class="pc-feats">
-          <li>Unlimited searches</li>
-          <li>All 5 modes</li>
-          <li>24h · Week · Month tabs</li>
-          <li>Live Job Listings (Adzuna)</li>
-          <li>WhatsApp share</li>
-        </ul>
-        <button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button>
-      </div>
-      <div class="price-card featured">
-        <div class="pc-badge">POPULAR</div>
-        <div class="pc-plan">Monthly</div>
-        <div class="pc-price">₹99</div>
-        <div class="pc-period">30 days · unlimited</div>
-        <ul class="pc-feats">
-          <li>Unlimited searches</li>
-          <li>All 5 modes</li>
-          <li>24h · Week · Month tabs</li>
-          <li>Live Job Listings (Adzuna)</li>
-          <li>WhatsApp share</li>
-        </ul>
-        <button class="pc-btn featured-btn" onclick="goTo('signupView')">Get ₹99 →</button>
-      </div>
-      <div class="price-card">
-        <div class="pc-plan">Annual</div>
-        <div class="pc-price">₹599</div>
-        <div class="pc-period">365 days · unlimited</div>
-        <ul class="pc-feats">
-          <li>Everything in Monthly</li>
-          <li>Priority support</li>
-          <li>All future features</li>
-          <li>Live Job Listings (Adzuna)</li>
-          <li>Best value</li>
-        </ul>
-        <button class="pc-btn" onclick="goTo('signupView')">Get Annual</button>
-      </div>
+      <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
+      <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
+      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
+</div>
 
-</div><!-- /landingView -->
-
-
-<!-- ═══════════════════════════════════════════════════
-     LOGIN VIEW
-════════════════════════════════════════════════════ -->
+<!-- ═══ LOGIN ═══ -->
 <div class="view" id="loginView">
 <div class="split-auth">
   <div class="sa-left">
-    <div class="sa-wordmark" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
-    <div class="sa-headline">Welcome <em>back.</em></div>
-    <p class="sa-sub">Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on portals. Don't miss them.</p>
+    <h2>Welcome <em>back.</em></h2>
+    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on portals.</p>
     <div class="sa-stats">
       <div class="sa-stat"><div class="sa-stat-n">2,400+</div><div class="sa-stat-l">Signals/day</div></div>
       <div class="sa-stat"><div class="sa-stat-n">8hrs</div><div class="sa-stat-l">Before portals</div></div>
@@ -519,809 +322,527 @@ body{padding-top:60px;}
     <div class="sa-form">
       <div class="sa-eyebrow">Log In</div>
       <div class="sa-title">Welcome <em>back.</em></div>
-      <p class="sa-subtitle">New here? <a onclick="goTo('signupView')">Sign up free →</a></p>
+      <div class="sa-sub">New here? <button onclick="goTo('signupView')">Sign up free →</button></div>
       <div class="sa-hint">📱 Enter your registered mobile number. No password needed.</div>
-      <div class="sa-field">
-        <label class="sa-label">Mobile Number</label>
-        <input class="sa-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10" onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
+      <div class="sa-field"><label class="sa-label">Mobile Number</label><input class="sa-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10"></div>
       <div class="sa-err" id="loginErr"></div>
       <button class="sa-btn sa-btn-amber" onclick="doLogin()">Log In →</button>
-      <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back to Home</button>
+      <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back</button>
     </div>
   </div>
 </div>
-</div><!-- /loginView -->
+</div>
 
-
-<!-- ═══════════════════════════════════════════════════
-     SIGNUP VIEW
-════════════════════════════════════════════════════ -->
+<!-- ═══ SIGNUP ═══ -->
 <div class="view" id="signupView">
 <div class="split-auth">
   <div class="sa-left">
-    <div class="sa-wordmark" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
-    <div id="sl1">
-      <div class="sa-headline">Start finding<br>recruiter<br><em>signals today.</em></div>
-      <p class="sa-sub">30 seconds to sign up. 1 free search. No card needed.</p>
-      <div class="sa-stats">
-        <div class="sa-stat"><div class="sa-stat-n">30sec</div><div class="sa-stat-l">To sign up</div></div>
-        <div class="sa-stat"><div class="sa-stat-n">1</div><div class="sa-stat-l">Free search</div></div>
-        <div class="sa-stat"><div class="sa-stat-n">0</div><div class="sa-stat-l">Card needed</div></div>
-      </div>
-    </div>
-    <div id="sl2" style="display:none;">
-      <div class="sa-headline">Tell us a<br>little about<br><em>yourself.</em></div>
-      <p class="sa-sub">Helps us show the most relevant recruiter signals for your skill and location.</p>
-    </div>
-    <div id="sl3" style="display:none;">
-      <div class="sa-headline">You are<br>all <em>set!</em></div>
-      <p class="sa-sub">Your account is ready. Keep LinkedIn open for instant results.</p>
+    <div id="sl1"><h2>Start finding<br>recruiter<br><em>signals today.</em></h2><p>30 seconds to sign up. 1 free search. No card needed.</p></div>
+    <div id="sl2" style="display:none;"><h2>Tell us a<br>little about<br><em>yourself.</em></h2><p>Helps us show the most relevant recruiter signals.</p></div>
+    <div id="sl3" style="display:none;"><h2>You are<br>all <em>set!</em></h2><p>Your account is ready. Keep LinkedIn open for instant results.</p></div>
+    <div class="sa-stats" style="margin-top:auto;">
+      <div class="sa-stat"><div class="sa-stat-n">30sec</div><div class="sa-stat-l">To sign up</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">1</div><div class="sa-stat-l">Free search</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">₹0</div><div class="sa-stat-l">Card needed</div></div>
     </div>
   </div>
   <div class="sa-right">
     <div class="sa-form">
-      <div class="step-bar">
-        <div class="step-dot active" id="sdot1"></div>
-        <div class="step-dot" id="sdot2"></div>
-        <div class="step-dot" id="sdot3"></div>
-      </div>
-
-      <!-- STEP 1 -->
+      <div class="step-bar"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div></div>
+      <!-- Step 1 -->
       <div id="step1">
         <div class="sa-eyebrow">Create Account — Step 1 of 3</div>
         <div class="sa-title">Create your <em>account.</em></div>
-        <p class="sa-subtitle">Already have one? <a onclick="goTo('loginView')">Log in →</a></p>
-        <div class="li-tip">
-          <div class="li-icon">in</div>
-          <div class="li-body"><div class="li-title">⚡ Open LinkedIn first</div><div class="li-text">JobsSignal opens LinkedIn searches. Log in to LinkedIn for instant results.</div></div>
-          <button type="button" class="li-btn-open" onclick="window.open('https://www.linkedin.com','_blank')">Open →</button>
-        </div>
+        <div class="sa-sub">Already have one? <button onclick="goTo('loginView')">Log in →</button></div>
+        <div class="li-tip"><div class="li-icon">in</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:2px;">⚡ Open LinkedIn first</div><div style="font-size:11px;color:#3b82f6;">Log in to LinkedIn for instant results.</div></div><button class="li-btn" onclick="window.open('https://www.linkedin.com','_blank')">Open →</button></div>
         <div class="field-row">
-          <div class="sa-field"><label class="sa-label">Full Name *</label><input class="sa-input" id="s1_name" placeholder="Riya Desai"><div id="s1_name_msg" class="field-msg"></div></div>
-          <div class="sa-field"><label class="sa-label">Mobile (+91) *</label><input class="sa-input" id="s1_phone" placeholder="98765 43210" maxlength="10" type="tel"><div id="s1_phone_msg" class="field-msg"></div></div>
-          <div class="sa-field"><label class="sa-label">Email *</label><input class="sa-input" id="s1_email" placeholder="you@email.com"><div id="s1_email_msg" class="field-msg"></div></div>
-          <div class="sa-field"><label class="sa-label">Primary Skill *</label><input class="sa-input" id="s1_skill" placeholder="Talent Acquisition..." list="skillSugg"><div id="s1_skill_msg" class="field-msg"></div></div>
+          <div class="sa-field"><label class="sa-label">Full Name *</label><input class="sa-input" id="s1n" placeholder="Riya Desai"><div class="field-msg" id="s1n_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Mobile *</label><input class="sa-input" id="s1p" placeholder="98765 43210" maxlength="10" type="tel"><div class="field-msg" id="s1p_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Email *</label><input class="sa-input" id="s1e" placeholder="you@email.com"><div class="field-msg" id="s1e_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Primary Skill *</label><input class="sa-input" id="s1s" placeholder="Talent Acquisition..." list="skillList"><div class="field-msg" id="s1s_m"></div></div>
         </div>
-        <div class="sa-field"><label class="sa-label">City *</label>
-          <select class="sa-input" id="s1_city" style="cursor:pointer;">
-            <option value="">Select city...</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Pune</option><option>Delhi NCR</option><option>Chennai</option>
-            <option>Kolkata</option><option>Noida</option><option>Remote</option>
-          </select>
-          <div id="s1_city_msg" class="field-msg"></div>
-        </div>
+        <div class="sa-field"><label class="sa-label">City *</label><select class="sa-input" id="s1c"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Remote</option></select><div class="field-msg" id="s1c_m"></div></div>
         <button class="sa-btn sa-btn-amber" onclick="nextStep(1)">Continue → Step 2</button>
-        <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back to Home</button>
+        <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back</button>
       </div>
-
-      <!-- STEP 2 -->
+      <!-- Step 2 -->
       <div id="step2" style="display:none;">
         <div class="sa-eyebrow">Create Account — Step 2 of 3</div>
         <div class="sa-title">Your <em>preferences.</em></div>
-        <p class="sa-subtitle" style="margin-bottom:20px;">Help us personalise your signal feed.</p>
-        <div class="sa-field"><label class="sa-label">Currently Working?</label>
-          <div class="pill-row" id="wsRow">
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Job Searching</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button>
-          </div>
-        </div>
-        <div class="sa-field" style="margin-top:14px;"><label class="sa-label">Experience Level</label>
-          <div class="pill-row" id="expRow">
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1–3 yrs</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3–7 yrs</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7–10 yrs</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">10–15 yrs</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">15+ yrs</button>
-          </div>
-        </div>
-        <div class="sa-field" style="margin-top:14px;"><label class="sa-label">Preferred Locations <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);">(select multiple)</span></label>
-          <div class="pill-row" id="prefLocRow">
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Hyderabad</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Bengaluru</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Mumbai</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Pune</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Delhi NCR</button>
-            <button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Remote</button>
-          </div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:18px;">
-          <button class="sa-btn sa-btn-ghost" style="flex:0 0 auto;width:auto;" onclick="nextStep(-1)">← Back</button>
-          <button class="sa-btn sa-btn-amber" style="flex:1;" onclick="nextStep(2)">Continue → Step 3</button>
-        </div>
+        <div class="sa-field"><label class="sa-label">Currently Working?</label><div class="pill-row" id="wsRow"><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Searching</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button></div></div>
+        <div class="sa-field" style="margin-top:12px;"><label class="sa-label">Experience</label><div class="pill-row" id="expRow"><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1–3 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3–7 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7–10 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">10–15 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">15+ yrs</button></div></div>
+        <div class="sa-field" style="margin-top:12px;"><label class="sa-label">Preferred Locations <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);">(multiple)</span></label><div class="pill-row" id="prefLocRow"><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Hyderabad</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Bengaluru</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Mumbai</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Pune</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Delhi NCR</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Remote</button></div></div>
+        <div style="display:flex;gap:8px;margin-top:16px;"><button class="sa-btn sa-btn-ghost" style="flex:0 0 auto;width:auto;" onclick="nextStep(-1)">← Back</button><button class="sa-btn sa-btn-amber" style="flex:1;" onclick="nextStep(2)">Continue → Step 3</button></div>
       </div>
-
-      <!-- STEP 3 -->
+      <!-- Step 3 -->
       <div id="step3" style="display:none;">
         <div class="sa-eyebrow">Almost Done — Step 3 of 3</div>
         <div class="sa-title">You're all <em>set!</em></div>
-        <p class="sa-subtitle" style="margin-bottom:20px;">Your account is ready. Use your free search now.</p>
-        <div style="background:var(--teal-pale);border:1.5px solid rgba(26,107,107,.2);border-radius:12px;padding:16px 18px;margin-bottom:18px;">
-          <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:8px;">🎁 What you get for free:</div>
-          <div style="font-size:13px;color:var(--ink);display:flex;flex-direction:column;gap:6px;">
+        <div style="background:var(--teal-pale);border:1.5px solid rgba(26,107,107,.2);border-radius:11px;padding:14px 16px;margin-bottom:16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:8px;">🎁 What you get free:</div>
+          <div style="font-size:13px;display:flex;flex-direction:column;gap:5px;">
             <div>✓ 1 free recruiter signal search</div>
             <div>✓ All 5 search modes</div>
             <div>✓ Live Job Listings from Adzuna</div>
             <div>✓ No credit card needed</div>
           </div>
         </div>
-        <button class="sa-btn sa-btn-amber" onclick="doSignup()">📡 Use My Free Preview →</button>
+        <button class="sa-btn sa-btn-amber" onclick="doSignup()">📡 Start My Free Search →</button>
         <button class="sa-btn sa-btn-ghost" onclick="nextStep(-2)">← Back</button>
       </div>
-
     </div>
   </div>
 </div>
-</div><!-- /signupView -->
+</div>
 
-
-<!-- ═══════════════════════════════════════════════════
-     DASHBOARD VIEW
-════════════════════════════════════════════════════ -->
+<!-- ═══ DASHBOARD ═══ -->
 <div class="view" id="dashView">
 <div class="dash-wrap">
-
-  <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sb-brand"><div class="sb-wordmark">Jobs<em>Signal</em></div></div>
-    <div class="sb-user">
-      <div class="sb-av" id="dAv">KM</div>
-      <div><div class="sb-uname" id="dName">Kiran</div><div class="sb-urole" id="dGreet">Talent Acquisition</div></div>
-      <button class="sb-logout" onclick="doLogout()">Out</button>
-    </div>
+    <div class="sb-brand"><div class="sb-wm">Jobs<em>Signal</em></div></div>
+    <div class="sb-user"><div class="sb-av" id="dAv">KM</div><div><div class="sb-uname" id="dName">User</div><div class="sb-urole" id="dRole">Job Seeker</div></div><button class="sb-out" onclick="doLogout()">Out</button></div>
     <div class="sb-nav">
-      <div class="sb-section-label">Search</div>
-      <div class="sb-item active" onclick="showPanel('search')"><span class="sb-icon">📡</span><span>Find Signals</span></div>
-      <div class="sb-section-label">Account</div>
-      <div class="sb-item" onclick="showPanel('upgrade')"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
+      <div class="sb-sec-label">Search</div>
+      <div class="sb-item active" onclick="scrollToSearch()"><span class="sb-icon">📡</span><span>Find Signals</span></div>
+      <div class="sb-sec-label">Account</div>
+      <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
     </div>
   </div>
-
-  <!-- MAIN -->
   <div class="sb-main">
     <div class="sb-topbar">
-      <div>
-        <div class="sb-name-big" id="dGreetTop">Welcome</div>
-        <div class="sb-meta" id="dPlan">Free Plan</div>
-      </div>
-      <div class="sb-topbar-right">
-        <button class="btn-find" onclick="document.getElementById('dashSearch').scrollIntoView({behavior:'smooth'})">📡 Find Signals</button>
-        <button class="mob-logout" onclick="doLogout()">Sign Out</button>
-      </div>
+      <div><div class="sb-fullname" id="dFullName">Welcome</div><div class="sb-usermeta" id="dMeta">Free Plan</div></div>
+      <div class="sb-topbar-r"><button class="btn-find" onclick="scrollToSearch()">📡 Find Signals</button><button style="padding:8px 12px;border-radius:7px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="doLogout()">Sign Out</button></div>
     </div>
-
     <div class="sb-content">
-
-      <!-- Stat cards -->
       <div class="stat-cards">
-        <div class="stat-card"><div class="sc-num" id="scCity">Hyd</div><div class="sc-label">City</div></div>
-        <div class="stat-card"><div class="sc-num" id="scSkill">TA</div><div class="sc-label">Skill</div></div>
-        <div class="stat-card"><div class="sc-num" id="scPlan">Free</div><div class="sc-label">Plan</div></div>
-        <div class="stat-card"><div class="sc-num" id="scStatus">1</div><div class="sc-label">Searches Left</div></div>
+        <div class="sc"><div class="sc-n" id="scCity">Hyd</div><div class="sc-l">City</div></div>
+        <div class="sc"><div class="sc-n" id="scSkill">TA</div><div class="sc-l">Skill</div></div>
+        <div class="sc"><div class="sc-n" id="scPlan">Free</div><div class="sc-l">Plan</div></div>
+        <div class="sc"><div class="sc-n" id="scLeft">1</div><div class="sc-l">Searches</div></div>
       </div>
-
-      <!-- Preview banner -->
-      <div class="preview-banner" id="previewBanner">
-        <div class="pb-icon">🎁</div>
-        <div><div class="pb-title">You have 1 free signal search!</div><div class="pb-sub">Try it now — see live recruiter posts + live Adzuna jobs. No card needed.</div></div>
-        <button class="btn-preview" onclick="document.getElementById('dashSearch').scrollIntoView({behavior:'smooth'})">Search Free →</button>
+      <div class="preview-banner" id="prevBanner"><div class="pb-icon">🎁</div><div><div class="pb-title">1 free signal search!</div><div class="pb-sub">Try now — recruiter posts + Adzuna live jobs. No card needed.</div></div><button class="btn-prev" onclick="scrollToSearch()">Search Free →</button></div>
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="switchMode(this)">🎯 Skill + City</button>
+        <button class="mode-tab" onclick="switchMode(this)"># Hashtag</button>
+        <button class="mode-tab" onclick="switchMode(this)">⏱️ Notice</button>
+        <button class="mode-tab" onclick="switchMode(this)">🤝 Referral</button>
+        <button class="mode-tab" onclick="switchMode(this)">🚶 Walk-in</button>
       </div>
-
-      <!-- Search panel -->
       <div class="search-panel" id="dashSearch">
-        <!-- Mode tabs -->
-        <div class="mode-tabs">
-          <button class="mode-tab active" data-mode="skill" onclick="switchMode('skill',this)">🎯 Skill + City</button>
-          <button class="mode-tab" data-mode="hashtag" onclick="switchMode('hashtag',this)"># Hashtag Hunt</button>
-          <button class="mode-tab" data-mode="notice" onclick="switchMode('notice',this)">⏱️ Notice Period</button>
-          <button class="mode-tab" data-mode="referral" onclick="switchMode('referral',this)">🤝 Referral Radar</button>
-          <button class="mode-tab" data-mode="walkin" onclick="switchMode('walkin',this)">🚶 Walk-in</button>
-        </div>
         <div class="search-row">
-          <div class="sg"><label class="sg-label">Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition, React Dev..." list="skillSugg" style="min-width:200px;"></div>
-          <div class="sg"><label class="sg-label">City</label>
-            <select class="sg-select" id="sk_city">
-              <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-              <option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option>
-            </select>
-          </div>
+          <div class="sg"><label class="sg-label">Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition..." list="skillList" style="min-width:180px;"></div>
+          <div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select></div>
           <button class="btn-run" onclick="runSearch()">📡 Find Signals →</button>
         </div>
       </div>
-
-      <!-- Results -->
       <div id="resultsArea" style="display:none;">
-        <div class="result-tabs-wrap">
-          <div class="result-header">
-            <div class="rh-title" id="rTitle">Results</div>
-            <div class="rh-sub" id="rSub">Live results</div>
+        <div class="results-wrap">
+          <div class="r-header"><div class="r-title" id="rTitle">Results</div><div class="r-sub" id="rSub"></div></div>
+          <div class="r-tabs">
+            <button class="r-tab active" onclick="showRTab('rp',this)">📡 Recruiter Posts</button>
+            <button class="r-tab" onclick="showRTab('rj',this)">💼 Job Listings</button>
+            <button class="r-tab" onclick="showRTab('rr',this)">👤 Find Recruiters</button>
           </div>
-          <div class="rt-tabs">
-            <button class="rt-tab active" onclick="showRTab('posts',this)">📡 Recruiter Posts</button>
-            <button class="rt-tab" onclick="showRTab('jobs',this)">💼 Job Listings</button>
-            <button class="rt-tab" onclick="showRTab('people',this)">👤 Find Recruiters</button>
-          </div>
-          <div class="rt-content">
-            <div class="tab-pane active" id="rposts"></div>
-            <div class="tab-pane" id="rjobs"></div>
-            <div class="tab-pane" id="rpeople"></div>
+          <div class="r-content">
+            <div class="tab-pane active" id="rp"></div>
+            <div class="tab-pane" id="rj"></div>
+            <div class="tab-pane" id="rr"></div>
           </div>
         </div>
       </div>
-
-      <!-- Upgrade plans (shown after free preview used) -->
       <div class="upgrade-plans" id="upgradePlans">
         <div class="up-title">⬆️ Unlock Full Access</div>
-        <div class="up-sub">Your free preview is used. Upgrade for unlimited searches, all 5 modes and Live Job Listings.</div>
+        <div class="up-sub">Your free preview is used. Upgrade for unlimited searches.</div>
         <div class="plans-grid">
           <div class="plan-card" onclick="openPay('7 Days',49)"><div class="plan-days">7 Days</div><div class="plan-price">₹49</div><div class="plan-tag">unlimited</div></div>
-          <div class="plan-card popular" onclick="openPay('Monthly Plan',99)"><div class="pop-badge">POPULAR</div><div class="plan-days">30 Days</div><div class="plan-price">₹99</div><div class="plan-tag">unlimited</div></div>
+          <div class="plan-card pop" onclick="openPay('Monthly Plan',99)"><div class="pop-b">POPULAR</div><div class="plan-days">30 Days</div><div class="plan-price">₹99</div><div class="plan-tag">unlimited</div></div>
           <div class="plan-card" onclick="openPay('60 Days',179)"><div class="plan-days">60 Days</div><div class="plan-price">₹179</div><div class="plan-tag">unlimited</div></div>
           <div class="plan-card" onclick="openPay('Annual Plan',599)"><div class="plan-days">Annual</div><div class="plan-price">₹599</div><div class="plan-tag">best value</div></div>
         </div>
-        <div class="up-note">Tap plan → Razorpay payment opens · UPI · Cards · NetBanking</div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;">Tap plan to pay · Razorpay · UPI · Cards</div>
       </div>
-
-    </div><!-- /sb-content -->
-  </div><!-- /sb-main -->
+    </div>
+  </div>
 </div>
-</div><!-- /dashView -->
+</div>
 
-<!-- Skill suggestions -->
-<datalist id="skillSugg">
-  <option value="Talent Acquisition"><option value="HR Manager"><option value=
-
-
+<datalist id="skillList">
+  <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
+  <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
+  <option value="Data Scientist"><option value="Product Manager"><option value="DevOps Engineer">
+  <option value="Business Analyst"><option value="Sales Manager"><option value="Marketing Manager">
+</datalist>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────
+const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_reg_phones';
+const AZ_ID='7d0512c2', AZ_KEY='79b7781b37844979749df7d951561f02';
+const AZ_URL='https://api.adzuna.com/v1/api/jobs/in/search/1';
+const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
+// Use Firebase REST API — no SDK needed, works on all browsers
+const AZ_CITIES={'Hyderabad':'Hyderabad','Bengaluru':'Bangalore','Mumbai':'Mumbai','Pune':'Pune','Delhi NCR':'Delhi','Chennai':'Chennai','Kolkata':'Kolkata','Remote':'India'};
+let db=null, currentUser={}, isPaid=false, prevUsed=false, selPlan={}, lastSkill='', lastCity='';
 
+// ── HELPERS ─────────────────────────────────────────
+const gst=k=>localStorage.getItem(k);
+const sto=(k,v)=>localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
+const gjson=(k,d)=>{try{const r=gst(k);return r?JSON.parse(r):d;}catch(e){return d;}};
+const normP=v=>(v||'').replace(/[^0-9]/g,'').slice(-10);
+function showToast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='show '+(type||'');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.className='',2800);
+}
 
-
-
-
-
-// ── CONFIG ──────────────────────────────────────────────
-const S_USER = 'js_user';
-const S_PLAN = 'js_plan';
-const S_PREV = 'js_preview_used';
-const S_REG  = 'js_reg_phones';
-const AZ_ID  = '7d0512c2';
-const AZ_KEY = '79b7781b37844979749df7d951561f02';
-const AZ_URL = 'https://api.adzuna.com/v1/api/jobs/in/search/1';
-const AZ_CITY = {
-  'Hyderabad':'Hyderabad','Bengaluru':'Bangalore','Bangalore':'Bangalore',
-  'Mumbai':'Mumbai','Pune':'Pune','Delhi NCR':'Delhi','Chennai':'Chennai',
-  'Kolkata':'Kolkata','Noida':'Noida','Remote':'India'
-};
-
-let currentUser = {}, isPaid = false, prevUsed = false, selPlan = {};
-
-
-// ════ FIREBASE — Cross-browser login ════
-const FB_CONFIG={apiKey:"AIzaSyBJ2WhZ70oElaa88N3bG1u_Z9skmbBhMxg",databaseURL:"https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"jobssignal-b1c5c",appId:"1:1053772511983:web:9f76422c73d84c771a391a"};
-let db=null;
-function initFirebase(){
+// ── FIREBASE REST API (no SDK — no CDN blocking) ────
+async function fbSaveUser(user){
   try{
-    if(!window.firebase){setTimeout(initFirebase,600);return;}
-    if(!firebase.apps.length)firebase.initializeApp(FB_CONFIG);
-    db=firebase.database();
-    const el=document.getElementById('fbStatus');
-    if(el){el.textContent='Firebase ✅';el.style.color='#4ade80';}
-  }catch(e){const el=document.getElementById('fbStatus');if(el){el.textContent='Firebase ❌ '+e.message;el.style.color='#f87171';}}
+    const p=normP(user.phone);if(p.length<10)return;
+    const data={name:user.name||'',phone:p,email:user.email||'',city:user.city||'',skill:user.skill||'',prefLocs:(user.prefLocs||[]).join(','),updatedAt:new Date().toISOString()};
+    await fetch(FB_DB+'/users/'+p+'.json',{method:'PUT',body:JSON.stringify(data)});
+    updateFbStatus('Firebase ✅ User saved');
+  }catch(e){updateFbStatus('Firebase ❌ '+e.message);}
 }
-function fbSaveUser(user){
-  try{if(!db)return;const p=normP(user.phone);if(p.length<10)return;
-    db.ref('users/'+p).set({name:user.name||'',phone:p,email:user.email||'',city:user.city||'',skill:user.skill||'',prefLocs:(user.prefLocs||[]).join(','),updatedAt:new Date().toISOString()});
-  }catch(e){console.warn('fbSaveUser:',e);}
-}
-function fbSavePlan(phone,plan){
-  try{if(!db||!plan||!plan.plan)return;const p=normP(phone);
-    db.ref('users/'+p+'/plan').set({plan:plan.plan,amount:plan.amount||0,paymentId:plan.paymentId||'',expiresAt:plan.expiresAt||'',activatedAt:plan.activatedAt||new Date().toISOString()});
+async function fbSavePlan(phone,plan){
+  try{
+    const p=normP(phone);
+    await fetch(FB_DB+'/users/'+p+'/plan.json',{method:'PUT',body:JSON.stringify(plan)});
   }catch(e){console.warn('fbSavePlan:',e);}
 }
-function fbLogin(phone,onFound,onNotFound){
+async function fbGetUser(phone){
   try{
-    if(!db){onNotFound();return;}
     const p=normP(phone);
-    const errEl=document.getElementById('loginErr');
-    if(errEl){errEl.textContent='Checking database... ⏳';errEl.style.display='block';}
-    db.ref('users/'+p).once('value').then(function(snap){
-      const data=snap.val();
-      if(!data||!data.phone){onNotFound();return;}
-      const user={name:data.name||'Job Seeker',phone:data.phone||p,email:data.email||'',city:data.city||'Hyderabad',skill:data.skill||'',prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
-      sto(S_USER,user);
-      if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;}
-      onFound(user);
-    }).catch(function(e){console.warn('fbLogin:',e);onNotFound();});
-  }catch(e){console.warn('fbLogin:',e);onNotFound();}
+    const r=await fetch(FB_DB+'/users/'+p+'.json');
+    if(!r.ok)return null;
+    return await r.json();
+  }catch(e){return null;}
 }
-// ── HELPERS ─────────────────────────────────────────────
-const gst = k => localStorage.getItem(k);
-const sto = (k,v) => localStorage.setItem(k, typeof v==='string'?v:JSON.stringify(v));
-const gjson = (k,d) => { try{const r=gst(k);return r?JSON.parse(r):d;}catch(e){return d;} };
-const setEl = (id,v) => { const e=document.getElementById(id);if(e)e.textContent=v; };
-const normP = v => (v||'').replace(/[^0-9]/g,'').slice(-10);
-
-function showToast(msg, type=''){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='show '+(type||'');
-  clearTimeout(t._t); t._t=setTimeout(()=>t.className='',2800);
+function updateFbStatus(msg){
+  const el=document.getElementById('fb-status');
+  if(el)el.textContent=msg;
+}
+async function testDB(){
+  try{
+    const r=await fetch(FB_DB+'/test/ping.json',{method:'PUT',body:JSON.stringify({t:new Date().toISOString()})});
+    alert(r.ok?'Firebase write ✅ Working!':'Firebase ❌ Status: '+r.status);
+  }catch(e){alert('Firebase ❌ '+e.message);}
+}
+async function seedAccount(){
+  const raw=gst(S_USER);
+  let user=raw?JSON.parse(raw):{name:'Kiran Manepalli',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad']};
+  if(!user.phone){user.phone='9160075557';}
+  sto(S_USER,user);
+  await fbSaveUser(user);
+  const plan=gjson(S_PLAN,{});
+  if(plan.plan)await fbSavePlan(user.phone,plan);
+  alert('Account synced! ✅\nName: '+user.name+'\nPhone: '+normP(user.phone)+'\n\nNow open any browser and login with '+normP(user.phone));
 }
 
-// ── NAVIGATION ──────────────────────────────────────────
+// ── NAVIGATION ──────────────────────────────────────
 function goTo(viewId){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const v=document.getElementById(viewId);
-  if(v){ v.classList.add('active'); window.scrollTo(0,0); }
+  if(v){v.classList.add('active');window.scrollTo(0,0);}
   const nav=document.getElementById('mainNav');
-  if(nav) nav.style.display=viewId==='dashView'?'none':'flex';
+  if(nav)nav.style.display=viewId==='dashView'?'none':'flex';
+  const fbb=document.getElementById('fb-status-bar');
+  if(fbb)fbb.style.display=viewId==='dashView'?'none':'flex';
 }
-
-// FIX 1: goToSection — scroll to section on landing page properly
-function goToSection(sectionId){
+function goToSec(id){
   goTo('landingView');
-  setTimeout(function(){
-    const el=document.getElementById(sectionId);
-    if(el){
-      const y=el.getBoundingClientRect().top+window.pageYOffset-70;
-      window.scrollTo({top:y,behavior:'smooth'});
-    }
-  },50);
+  setTimeout(()=>{const el=document.getElementById(id);if(el){const y=el.getBoundingClientRect().top+window.pageYOffset-65;window.scrollTo({top:y,behavior:'smooth'});}},50);
 }
-
-// ── FIX 2: SESSION — auto-redirect to dash on refresh ──
-function restoreSession(){
-  try{
-    const raw=gst(S_USER); if(!raw) return false;
-    const u=JSON.parse(raw); if(!u||!u.name) return false;
-    const pl=gjson(S_PLAN,{});
-    if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
-    if(gst(S_PREV)==='1') prevUsed=true;
-    currentUser=u; 
-    return {user:u, plan:pl};
-  }catch(e){ return false; }
+function scrollToSearch(){
+  const el=document.getElementById('dashSearch');
+  if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+function switchMode(btn){
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function showRTab(tab,btn){
+  document.querySelectorAll('.r-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['rp','rj','rr'].forEach(x=>{const e=document.getElementById(x);if(e)e.classList.toggle('active',x===tab);});
+}
+function showUpgrade(){showLockedDash();}
 
-function restoreMagicLink(){return false;}
-
-// ── LOGIN ───────────────────────────────────────────────
-function doLogin(){
-  const phone=(document.getElementById('li_phone')?.value||'').trim();
+// ── LOGIN ────────────────────────────────────────────
+async function doLogin(){
+  const phone=(document.getElementById('li_phone').value||'').trim();
   const errEl=document.getElementById('loginErr');
-  if(errEl)errEl.style.display='none';
+  errEl.style.display='none';
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-  // Step 1: localStorage (instant)
-  try{
-    const raw=gst(S_USER);
-    if(raw){
-      const u=JSON.parse(raw);
-      if(u&&u.phone&&normP(u.phone)===ep){
-        fbSaveUser(u); // auto-sync to Firebase
-        enterDash(u); return;
-      }
-    }
-  }catch(e){}
-  // Step 2: Firebase (any browser/device)
-  if(!db){
-    if(errEl){errEl.textContent='Connecting to database... ⏳ please wait';errEl.style.display='block';}
-    setTimeout(function(){if(errEl)errEl.style.display='none'; doLogin();},1500);
+  // Check localStorage first (instant)
+  try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
+  // Check Firebase (cross-browser)
+  errEl.textContent='Checking database ⏳';errEl.style.display='block';
+  const data=await fbGetUser(ep);
+  if(data&&data.phone){
+    const user={name:data.name||'Job Seeker',phone:data.phone,email:data.email||'',city:data.city||'Hyderabad',skill:data.skill||'',prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
+    sto(S_USER,user);
+    if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;}
+    errEl.style.display='none';
+    enterDash(user);
     return;
   }
-  fbLogin(ep,
-    function(user){showToast('Welcome back, '+user.name.split(' ')[0]+'! ✅','green');enterDash(user);},
-    function(){
-      if(errEl){
-        errEl.innerHTML='Mobile not found. <a onclick="goTo(\'signupView\')" style="color:var(--amber);cursor:pointer;font-weight:700;">Sign up free →</a>';
-        errEl.style.display='block';
-      }
-    }
-  );
-}// ── SIGNUP ──────────────────────────────────────────────
-function nextStep(from){
-  if(from===1){
-    const n=(document.getElementById('s1_name')?.value||'').trim();
-    const p=(document.getElementById('s1_phone')?.value||'').trim();
-    const e=(document.getElementById('s1_email')?.value||'').trim();
-    const c=(document.getElementById('s1_city')?.value||'').trim();
-    const s=(document.getElementById('s1_skill')?.value||'').trim();
-    const showErr=(id,msg)=>{
-      const el=document.getElementById(id+'_msg');
-      if(el)el.innerHTML='<span style="color:#c0392b;">'+msg+'</span>';
-      const inp=document.getElementById(id);
-      if(inp)inp.style.borderColor='#c0392b';
-    };
-    if(!n){showErr('s1_name','Enter your full name');return;}
-    if(!p||p.replace(/\D/g,'').length<10){showErr('s1_phone','Enter valid 10-digit mobile');return;}
-    if(!e||!e.includes('@')){showErr('s1_email','Enter valid email');return;}
-    if(!s){showErr('s1_skill','Enter your primary skill');return;}
-    if(!c){showToast('Please select your city','amber');return;}
-    // Dup check
-    const ep=normP(p);
-    const reg=gjson(S_REG,[]);
-    const raw=gst(S_USER);
-    let hasObj=false;
-    try{const u=JSON.parse(raw);if(u&&normP(u.phone)===ep)hasObj=true;}catch(x){}
-    if(hasObj&&reg.some(ph=>normP(ph)===ep)){showErr('s1_phone','Already registered. Please Log In.');return;}
-    document.getElementById('step1').style.display='none';
-    document.getElementById('step2').style.display='block';
-    ['sl1','sl2','sl3'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-    document.getElementById('sl2').style.display='block';
-    updateDots(2);
-  } else if(from===2){
-    document.getElementById('step2').style.display='none';
-    document.getElementById('step3').style.display='block';
-    ['sl1','sl2','sl3'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-    document.getElementById('sl3').style.display='block';
-    updateDots(3);
-  } else if(from===-1){
-    document.getElementById('step2').style.display='none';
-    document.getElementById('step1').style.display='block';
-    ['sl1','sl2','sl3'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-    document.getElementById('sl1').style.display='block';
-    updateDots(1);
-  } else if(from===-2){
-    document.getElementById('step3').style.display='none';
-    document.getElementById('step2').style.display='block';
-    ['sl1','sl2','sl3'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-    document.getElementById('sl2').style.display='block';
-    updateDots(2);
-  }
-  window.scrollTo(0,0);
+  errEl.innerHTML='Mobile not registered. <button onclick="goTo(\'signupView\')" style="background:none;border:none;color:var(--amber);font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;">Sign up free →</button>';
+  errEl.style.display='block';
 }
-function updateDots(step){
-  for(let i=1;i<=3;i++){
-    const d=document.getElementById('sdot'+i);
-    if(!d)continue;
-    d.className='step-dot'+(i<step?' done':i===step?' active':'');
-  }
+
+// ── SIGNUP ───────────────────────────────────────────
+function nextStep(from){
+  const show=(id)=>{document.getElementById(id).style.display='block';};
+  const hide=(id)=>{document.getElementById(id).style.display='none';};
+  const sl=(n)=>{['sl1','sl2','sl3'].forEach(x=>hide(x));show('sl'+n);};
+  const dots=(n)=>{for(let i=1;i<=3;i++){const d=document.getElementById('sd'+i);if(d)d.className='step-dot'+(i<n?' done':i===n?' active':'');}};
+  if(from===1){
+    const n=(document.getElementById('s1n').value||'').trim();
+    const p=(document.getElementById('s1p').value||'').trim();
+    const e=(document.getElementById('s1e').value||'').trim();
+    const s=(document.getElementById('s1s').value||'').trim();
+    const c=(document.getElementById('s1c').value||'').trim();
+    const err=(id,msg)=>{const el=document.getElementById(id+'_m');if(el)el.textContent=msg;};
+    if(!n){err('s1n','Enter your full name');return;}
+    if(!p||p.replace(/\D/g,'').length<10){err('s1p','Enter valid 10-digit mobile');return;}
+    if(!e||!e.includes('@')){err('s1e','Enter valid email');return;}
+    if(!s){err('s1s','Enter your primary skill');return;}
+    if(!c){showToast('Please select your city','amber');return;}
+    hide('step1');show('step2');sl(2);dots(2);
+  }else if(from===2){hide('step2');show('step3');sl(3);dots(3);}
+  else if(from===-1){hide('step2');show('step1');sl(1);dots(1);}
+  else if(from===-2){hide('step3');show('step2');sl(2);dots(2);}
+  window.scrollTo(0,0);
 }
 function pickPill(btn,gid){
   if(gid==='prefLocRow'){btn.classList.toggle('sel');return;}
   document.querySelectorAll('#'+gid+' .pill-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
 }
-function doSignup(){
-  const name=document.getElementById('s1_name')?.value.trim()||'Job Seeker';
-  const phone=document.getElementById('s1_phone')?.value.trim()||'';
-  const email=document.getElementById('s1_email')?.value.trim()||'';
-  const city=document.getElementById('s1_city')?.value||'Hyderabad';
-  const skill=document.getElementById('s1_skill')?.value.trim()||'';
-  const prefLocs=[...document.querySelectorAll('#prefLocRow .pill-btn.sel')].map(b=>b.textContent.trim());
-  const ep=normP(phone);
-  const user={name,phone:ep,email,city,skill,prefLocs};
+async function doSignup(){
+  const user={
+    name:(document.getElementById('s1n').value||'').trim(),
+    phone:normP(document.getElementById('s1p').value||''),
+    email:(document.getElementById('s1e').value||'').trim(),
+    city:document.getElementById('s1c').value||'Hyderabad',
+    skill:(document.getElementById('s1s').value||'').trim(),
+    prefLocs:[...document.querySelectorAll('#prefLocRow .pill-btn.sel')].map(b=>b.textContent.trim())
+  };
   sto(S_USER,user);
   const reg=gjson(S_REG,[]);
-  if(!reg.some(p=>normP(p)===ep)){reg.push(ep);sto(S_REG,reg);}
+  if(!reg.some(p=>normP(p)===user.phone)){reg.push(user.phone);sto(S_REG,reg);}
+  await fbSaveUser(user);
   enterDash(user);
 }
 
-// ── ENTER DASHBOARD ─────────────────────────────────────
+// ── DASHBOARD ────────────────────────────────────────
 function enterDash(user){
   currentUser=user;
   const pl=gjson(S_PLAN,{});
   if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
-  if(gst(S_PREV)==='1') prevUsed=true;
-  buildDash(user,pl);
-  goTo('dashView');
+  if(gst(S_PREV)==='1')prevUsed=true;
+  buildDash(user,pl);goTo('dashView');
   showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
-  // Show magic link card for cross-browser access
 }
-
 function buildDash(user,pl){
   const first=user.name?user.name.split(' ')[0]:'User';
-  const init=(user.name||'JS').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-  setEl('dAv',init); setEl('dName',first);
-  setEl('dGreet',user.skill||'Job Seeker');
-  setEl('dGreetTop',user.name||first);
-  setEl('dPlan',(user.skill||'')+(user.city?' · '+user.city:'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
-  setEl('scCity',(user.city||'Hyd').substring(0,6));
-  setEl('scSkill',(user.skill||'—').substring(0,8));
-  setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');
-  setEl('scStatus',isPaid?'∞':'1');
-  if(isPaid) showPaidDash();
-  else if(prevUsed) showLockedDash();
-  else showFreeDash();
+  const init=(user.name||'JS').split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('dAv',init);setEl('dName',first);setEl('dFullName',user.name||first);
+  setEl('dRole',user.skill||'Job Seeker');
+  setEl('dMeta',(user.skill||'')+(user.city?' · '+user.city:'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
+  setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
+  setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
+  if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
+  if(isPaid)showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
 }
-
 function showFreeDash(){
-  document.getElementById('previewBanner').style.display='flex';
-  document.getElementById('upgradePlans').style.display='none';
-  document.getElementById('dashSearch').style.display='block';
+  const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
+  const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
 }
 function showPaidDash(){
-  document.getElementById('previewBanner').style.display='none';
-  document.getElementById('upgradePlans').style.display='none';
-  document.getElementById('dashSearch').style.display='block';
+  const pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
+  const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
 }
 function showLockedDash(){
-  document.getElementById('previewBanner').style.display='none';
-  document.getElementById('dashSearch').style.display='none';
-  document.getElementById('upgradePlans').style.display='block';
+  const pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
+  const ds=document.getElementById('dashSearch');if(ds)ds.style.display='none';
+  const up=document.getElementById('upgradePlans');if(up){up.style.display='block';up.scrollIntoView({behavior:'smooth',block:'nearest'});}
+}
+function doLogout(){
+  localStorage.removeItem(S_USER);localStorage.removeItem(S_PREV);
+  currentUser={};isPaid=false;prevUsed=false;
+  goTo('landingView');showToast('Logged out','amber');
 }
 
-// ── SEARCH ──────────────────────────────────────────────
-function switchMode(mode,btn){
-  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-
+// ── SEARCH ───────────────────────────────────────────
 function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
-  const skill=(document.getElementById('sk_skill')?.value||'').trim()||currentUser.skill||'Software Engineer';
-  const city=document.getElementById('sk_city')?.value||currentUser.city||'Hyderabad';
-  lastSkill=skill; lastCity=city;
+  const skill=(document.getElementById('sk_skill').value||'').trim()||currentUser.skill||'Software Engineer';
+  const city=document.getElementById('sk_city').value||'Hyderabad';
+  lastSkill=skill;lastCity=city;
   const enc=s=>encodeURIComponent(s);
   const q=enc('"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")');
-  const url24h='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
-  const urlWeek='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
-  const urlMonth='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
-  const jBase='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
-  const jobs24h=jBase+'&f_TPR=r86400&sortBy=DD';
-  const jobsWeek=jBase+'&f_TPR=r604800&sortBy=DD';
-  const jobsMonth=jBase+'&f_TPR=r2592000&sortBy=DD';
-  const easyApply=jBase+'&f_AL=true&sortBy=DD';
-  const peopleUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
-  const a=document.createElement('a');a.href=url24h;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  const u24=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-24h%22&sortBy=%22date_posted%22`;
+  const uWk=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-week%22&sortBy=%22date_posted%22`;
+  const uMo=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-month%22&sortBy=%22date_posted%22`;
+  const jb=`https://www.linkedin.com/jobs/search/?keywords=${enc(skill)}&location=${enc(city)}`;
+  const j24=jb+'&f_TPR=r86400&sortBy=DD';
+  const jWk=jb+'&f_TPR=r604800&sortBy=DD';
+  const jMo=jb+'&f_TPR=r2592000&sortBy=DD';
+  const jEA=jb+'&f_AL=true&sortBy=DD';
+  const pUrl=`https://www.linkedin.com/search/results/people/?keywords=${enc('recruiter "'+skill+'" "'+city+'"')}`;
+  const a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
-  document.getElementById('rTitle').textContent='"'+skill+'" in '+city;
-  document.getElementById('rSub').textContent='Recruiter posts + LinkedIn jobs + Live listings from Adzuna';
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('rTitle',`"${skill}" in ${city}`);
+  setEl('rSub','LinkedIn recruiter posts + Job listings + Live Adzuna jobs');
   document.getElementById('resultsArea').style.display='block';
-  buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth);
-  buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply);
-  buildAdzunaJobs(skill,city);
-  buildFindRecruiters(skill,city,peopleUrl);
+  buildPosts(skill,city,u24,uWk,uMo);
+  buildJobs(skill,city,j24,jWk,jMo,jEA);
+  buildAdzuna(skill,city);
+  buildPeople(skill,city,pUrl);
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
-  if(!isPaid) setTimeout(function(){showLockedDash();},25000);
-}function showRTab(tab,btn){
-  document.querySelectorAll('.rt-tab').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.getElementById('rposts').classList.remove('active');
-  document.getElementById('rjobs').classList.remove('active');
-  document.getElementById('rpeople').classList.remove('active');
-  document.getElementById('r'+tab).classList.add('active');
+  if(!isPaid)setTimeout(()=>showLockedDash(),25000);
 }
 
-function buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth){
-  const el=document.getElementById('rposts');if(!el)return;
-  const tabs=[
-    {id:'p24h',lbl:'⚡ 24 Hours',url:url24h,tip:'Best time — least competition. Comment and DM the recruiter immediately.'},
-    {id:'pweek',lbl:'📅 Past Week',url:urlWeek,tip:'Posts from last 7 days. Some roles still open.'},
-    {id:'pmonth',lbl:'🗓️ Past Month',url:urlMonth,tip:'30 days of recruiter activity in your domain.'}
-  ];
-  var h='<div>';
-  h+='<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">';
-  tabs.forEach(function(t,i){h+='<button type="button" class="ptab'+(i===0?' ptab-active':'')+'" data-period="'+t.id+'" onclick="swPrd(this)">'+t.lbl+'</button>';});
+function buildPosts(skill,city,u24,uWk,uMo){
+  const el=document.getElementById('rp');if(!el)return;
+  const items=[{id:'pp24',lbl:'⚡ 24 Hours',url:u24},{id:'ppwk',lbl:'📅 Past Week',url:uWk},{id:'ppmo',lbl:'🗓️ Past Month',url:uMo}];
+  let h='<div class="period-tabs">';
+  items.forEach((t,i)=>h+=`<button type="button" class="ptab${i===0?' active':''}" data-p="${t.id}" onclick="swP(this)">${t.lbl}</button>`);
   h+='</div>';
-  tabs.forEach(function(t,i){
-    h+='<div id="'+t.id+'" style="display:'+(i===0?'block':'none')+'">';
-    h+='<div class="pp-query">"'+skill+'" "'+city+'" &middot; '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+'</div>';
-    h+='<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+t.url+'" target="_blank" rel="noopener">'+t.lbl+' Recruiter Posts &rarr;</a></div>';
-    h+='<div class="pp-tip" style="margin-top:8px;">💡 '+t.tip+'</div></div>';
+  items.forEach((t,i)=>{
+    h+=`<div id="${t.id}" style="display:${i===0?'block':'none'}">`;
+    h+=`<div class="pp-query">"${skill}" "${city}" &middot; Recruiter posts &middot; ${t.lbl.replace(/⚡|📅|🗓️/g,'').trim()}</div>`;
+    h+=`<div class="pp-action"><a class="pp-btn li-blue" href="${t.url}" target="_blank" rel="noopener">${t.lbl} Recruiter Posts &rarr;</a></div>`;
+    h+=`<div class="pp-tip">💡 ${i===0?'Best time — least competition. Comment and DM immediately.':i===1?'7 days of recruiter posts. Some roles still open.':'30 days of recruiter activity in your domain.'}</div>`;
+    h+='</div>';
   });
-  h+='</div>';
   el.innerHTML=h;
 }
-function swPrd(btn){
-  document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('ptab-active');});
-  btn.classList.add('ptab-active');
-  var p=btn.getAttribute('data-period');
-  ['p24h','pweek','pmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
-}function swPeriod(p,btn){
-  document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('ptab-active');});
-  if(btn)btn.classList.add('ptab-active');
-  ['p24h','pweek','pmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+function swP(btn){
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const p=btn.getAttribute('data-p');
+  ['pp24','ppwk','ppmo'].forEach(x=>{const e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
 }
-// ── FIX 3: ADZUNA JOBS ──────────────────────────────────
-function buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply){
-  const el=document.getElementById('rjobs');if(!el)return;
-  const ptabs=[
-    {id:'jlive',lbl:'💼 Live Jobs (Adzuna)',isAdzuna:true},
-    {id:'j24h',lbl:'⚡ LinkedIn 24h',url:jobs24h,tip:'Freshest roles — highest callback chance.'},
-    {id:'jweek',lbl:'📅 LinkedIn Week',url:jobsWeek,tip:'Past 7 days of LinkedIn listings.'},
-    {id:'jmonth',lbl:'🗓️ LinkedIn Month',url:jobsMonth,tip:'30 days — includes still-open roles.'}
-  ];
-  var h='<div>';
-  h+='<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">';
-  ptabs.forEach(function(t,i){h+='<button type="button" class="jtab'+(i===0?' jtab-active':'')+'" data-jtab="'+t.id+'" onclick="swJtab(this)">'+t.lbl+'</button>';});
+
+function buildJobs(skill,city,j24,jWk,jMo,jEA){
+  const el=document.getElementById('rj');if(!el)return;
+  const tabs=[{id:'jlive',lbl:'💼 Live Jobs (Adzuna)'},{id:'jj24',lbl:'⚡ LinkedIn 24h',url:j24},{id:'jjwk',lbl:'📅 LinkedIn Week',url:jWk},{id:'jjmo',lbl:'🗓️ LinkedIn Month',url:jMo}];
+  let h='<div class="period-tabs">';
+  tabs.forEach((t,i)=>h+=`<button type="button" class="jtab${i===0?' active':''}" data-j="${t.id}" onclick="swJ(this)">${t.lbl}</button>`);
   h+='</div>';
-  h+='<div id="jlive"><div id="az-container" class="az-container"></div></div>';
-  ptabs.slice(1).forEach(function(t){
-    h+='<div id="'+t.id+'" style="display:none">';
-    h+='<div class="pp-query">"'+skill+'" &middot; '+city+' &middot; LinkedIn Jobs &middot; '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+'</div>';
-    h+='<div class="pp-action" style="margin-top:10px;">';
-    h+='<a class="pp-btn li-blue" href="'+t.url+'" target="_blank" rel="noopener">💼 '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+' LinkedIn Jobs &rarr;</a> ';
-    h+='<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply &rarr;</a>';
-    h+='</div><div class="pp-tip" style="margin-top:8px;">💡 '+t.tip+'</div></div>';
+  h+=`<div id="jlive"><div id="az-box" class="az-container"></div></div>`;
+  tabs.slice(1).forEach(t=>{
+    h+=`<div id="${t.id}" style="display:none">`;
+    h+=`<div class="pp-query">"${skill}" &middot; ${city} &middot; ${t.lbl.replace(/⚡|📅|🗓️/g,'').trim()}</div>`;
+    h+=`<div class="pp-action"><a class="pp-btn li-blue" href="${t.url}" target="_blank" rel="noopener">💼 ${t.lbl.replace(/⚡|📅|🗓️/g,'').trim()} &rarr;</a> <a class="pp-btn li-blue" href="${jEA}" target="_blank" rel="noopener">⚡ Easy Apply &rarr;</a></div>`;
+    h+=`<div class="pp-tip">💡 LinkedIn job listings &mdash; filtered by date. Easy Apply shows jobs you can apply without leaving LinkedIn.</div>`;
+    h+='</div>';
   });
-  h+='</div>';
   el.innerHTML=h;
-  setTimeout(function(){var c=document.getElementById('az-container');if(c)buildAdzunaJobs(skill,city,c);},300);
+  setTimeout(()=>{const c=document.getElementById('az-box');if(c)fetchAdzuna(skill,city,c);},300);
 }
-function swJtab(btn){
-  document.querySelectorAll('.jtab').forEach(function(b){b.classList.remove('jtab-active');});
-  btn.classList.add('jtab-active');
-  var p=btn.getAttribute('data-jtab');
-  ['jlive','j24h','jweek','jmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
-}function swJobPeriod(p,btn){
-  document.querySelectorAll('.jtab').forEach(function(b){b.classList.remove('jtab-active');});
-  if(btn)btn.classList.add('jtab-active');
-  ['jlive','j24h','jweek','jmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+function swJ(btn){
+  document.querySelectorAll('.jtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const p=btn.getAttribute('data-j');
+  ['jlive','jj24','jjwk','jjmo'].forEach(x=>{const e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
 }
-function buildAdzunaJobs(skill,city,containerEl){
-  const el=document.getElementById('rjobs');
-  if(!el)return;
-  el.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
-  const azCity=AZ_CITY[city]||city||'Hyderabad';
-  const url=AZ_URL+'?app_id='+AZ_ID+'&app_key='+AZ_KEY
-    +'&what='+encodeURIComponent(skill)+'&where='+encodeURIComponent(azCity)
-    +'&results_per_page=10&sort_by=date&content-type=application/json';
+
+function buildAdzuna(skill,city){
+  // Also fetch in the main Recruiter Posts context so Adzuna shows by default
+  // (job listings tab will also load it)
+}
+function buildPeople(skill,city,url){
+  const el=document.getElementById('rr');if(!el)return;
+  el.innerHTML=`<div class="pp-query">Recruiters hiring for "${skill}" in ${city}</div><div class="pp-action"><a class="pp-btn li-blue" href="${url}" target="_blank" rel="noopener">👤 Find Recruiters on LinkedIn &rarr;</a></div><div class="pp-tip">💡 Connect directly and send a personalised message using the comment templates.</div>`;
+}
+
+function fetchAdzuna(skill,city,container){
+  container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
+  const azCity=AZ_CITIES[city]||city||'Hyderabad';
+  const url=`${AZ_URL}?app_id=${AZ_ID}&app_key=${AZ_KEY}&what=${encodeURIComponent(skill)}&where=${encodeURIComponent(azCity)}&results_per_page=10&sort_by=date&content-type=application/json`;
   fetch(url)
-    .then(r=>{
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      return r.json();
-    })
+    .then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status))
     .then(data=>{
       const jobs=data.results||[];
-      if(!jobs.length){
-        el.innerHTML='<div class="az-empty">No live jobs found for <strong>'+skill+'</strong> in <strong>'+azCity+'</strong>. <a href="https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'" target="_blank" style="color:var(--amber);">Search on Adzuna.in →</a></div>';
-        return;
-      }
-      let h='<div class="az-header"><span class="az-count">'+data.count.toLocaleString()+' jobs found</span><span class="az-src">Indeed · Company sites · 100+ sources</span></div><div class="az-grid">';
+      if(!jobs.length){container.innerHTML=`<div class="pp-tip">No live jobs found for "${skill}" in ${azCity}. <a href="https://www.adzuna.in/search?q=${encodeURIComponent(skill)}" target="_blank" style="color:var(--amber)">Search on Adzuna.in →</a></div>`;return;}
       const colors=['#e8943a','#1a6b6b','#6366f1','#0a66c2','#059669','#dc2626'];
+      let h=`<div style="display:flex;align-items:center;justify-content:space-between;padding:0 0 10px;border-bottom:1px solid var(--border);margin-bottom:10px;"><span style="font-weight:700;font-size:13px;">${data.count.toLocaleString()} jobs found</span><span style="font-size:11px;color:var(--muted);">Indeed · Company sites · 100+ sources</span></div><div class="az-grid">`;
       jobs.forEach(j=>{
-        const title=j.title||'';
-        const company=(j.company&&j.company.display_name)||'';
-        const loc=(j.location&&j.location.display_name)||azCity;
-        const salMin=j.salary_min?'₹'+Math.round(j.salary_min/100000)+'L':'';
-        const salMax=j.salary_max?'–₹'+Math.round(j.salary_max/100000)+'L':'';
-        const sal=(salMin||salMax)?(salMin+salMax)+' pa':'Salary not listed';
-        const desc=(j.description||'').replace(/<[^>]*>/g,'').substring(0,90)+'...';
-        const created=j.created?new Date(j.created).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}):'';
-        const color=colors[(company.charCodeAt(0)||0)%colors.length];
-        const init=company?company[0].toUpperCase():'J';
-        h+='<div class="az-card"><div class="az-card-top"><div class="az-logo" style="background:'+color+'">'+init+'</div><div class="az-info"><div class="az-title">'+title+'</div><div class="az-company">'+company+'</div></div></div><div class="az-meta"><span class="az-loc">📍 '+loc+'</span><span class="az-sal">💰 '+sal+'</span></div><div class="az-desc">'+desc+'</div><div class="az-footer"><span class="az-date">'+created+'</span><a class="az-apply" href="'+j.redirect_url+'" target="_blank" rel="noopener">Apply →</a></div></div>';
+        const co=(j.company&&j.company.display_name)||'';const loc=(j.location&&j.location.display_name)||azCity;
+        const sm=j.salary_min?'₹'+Math.round(j.salary_min/100000)+'L':'';const sx=j.salary_max?'–₹'+Math.round(j.salary_max/100000)+'L':'';
+        const sal=(sm||sx)?(sm+sx)+' pa':'Salary not listed';
+        const dt=j.created?new Date(j.created).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}):'';
+        const init=co?co[0].toUpperCase():'J';const clr=colors[(co.charCodeAt(0)||0)%colors.length];
+        const desc=(j.description||'').replace(/<[^>]*>/g,'').slice(0,80)+'...';
+        h+=`<div class="az-card"><div class="az-top"><div class="az-logo" style="background:${clr}">${init}</div><div class="az-info"><div class="az-title">${j.title||''}</div><div class="az-company">${co}</div></div></div><div class="az-meta">📍 ${loc} &nbsp;💰 ${sal}</div><div style="font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:7px;">${desc}</div><div class="az-footer"><span class="az-date">${dt}</span><a class="az-apply" href="${j.redirect_url||'#'}" target="_blank" rel="noopener">Apply →</a></div></div>`;
       });
       h+='</div><div class="az-powered">Powered by <strong>Adzuna</strong> · 100+ job sources · Updated daily</div>';
-      el.innerHTML=h;
+      container.innerHTML=h;
     })
-    .catch(err=>{
-      console.error('Adzuna error:',err);
-      el.innerHTML='<div class="az-empty">⚠️ Could not load live jobs. <a href="https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'&loc='+encodeURIComponent(azCity)+'" target="_blank" style="color:var(--amber);">Search on Adzuna.in directly →</a><br><br><span style="font-size:11px;color:var(--muted);">Error: '+err.message+'</span></div>';
-    });
+    .catch(e=>{container.innerHTML=`<div class="pp-tip">⚠️ Could not load live jobs. <a href="https://www.adzuna.in/search?q=${encodeURIComponent(skill)}&loc=${encodeURIComponent(azCity)}" target="_blank" style="color:var(--amber)">Search on Adzuna.in →</a><br><small style="color:var(--muted)">Error: ${e}</small></div>`;});
 }
 
-function buildFindRecruiters(skill,city){
-  const el=document.getElementById('rpeople');
-  if(!el)return;
-  const url='https://www.linkedin.com/search/results/people/?keywords='+encodeURIComponent('recruiter "'+skill+'" "'+city+'"');
-  el.innerHTML='<div class="post-placeholder"><div class="pp-query">Recruiters hiring for "'+skill+'" in '+city+'</div><div class="pp-action"><a class="pp-btn li-blue" href="'+url+'" target="_blank" rel="noopener">Find Recruiters on LinkedIn →</a></div><div class="pp-tip">💡 Connect directly with recruiters and send a personalised message using the Comment Template.</div></div>';
-}
-
-// ── UPGRADE / PAYMENT ────────────────────────────────────
+// ── PAYMENT ──────────────────────────────────────────
 function openPay(name,amount){
   selPlan={name,amount};
   try{
-    const options={
-      key:'rzp_live_STQSX6OgVKJ1cm',
-      amount:amount*100,currency:'INR',
-      name:'JobsSignal',description:name+' Plan',
-      notes:{plan:name,user:currentUser.name||'',city:currentUser.city||''},
+    const rzp=new Razorpay({key:'rzp_live_STQSX6OgVKJ1cm',amount:amount*100,currency:'INR',name:'JobsSignal',description:name+' Plan',
       handler:function(r){onPayOk(r.razorpay_payment_id);},
       prefill:{name:currentUser.name||'',email:currentUser.email||'',contact:currentUser.phone||''},
-      theme:{color:'#e8943a'},
-    };
-    const rzp=new Razorpay(options);
+      theme:{color:'#e8943a'}});
     rzp.open();
-  }catch(e){
-    console.error('Razorpay error:',e);
-    showToast('Payment error — please check if Razorpay script is loaded','red');
-  }
+  }catch(e){showToast('Payment error — Razorpay not loaded','red');console.error(e);}
 }
-function onPayOk(pid){
+async function onPayOk(pid){
   isPaid=true;prevUsed=true;
   const exp=new Date();
   const days=selPlan.name.includes('7')?7:selPlan.name.includes('60')?60:selPlan.name.includes('Annual')?365:30;
   exp.setDate(exp.getDate()+days);
-  const pd={plan:selPlan.name,amount:selPlan.amount,paymentId:pid,activatedAt:new Date().toISOString(),expiresAt:exp.toISOString()};
-  sto(S_PLAN,pd);
-  fbSavePlan(currentUser.phone,pd);
-  setEl('scPlan',selPlan.name.split(' ')[0]);
-  setEl('scStatus','∞');
-  setEl('dPlan',currentUser.skill+' · '+currentUser.city+' · '+selPlan.name+' ✅');
-  showPaidDash();
-  showToast('✅ Payment successful! All features unlocked.','green');
-}
-function showPanel(p){
-  if(p==='upgrade') showLockedDash();
-  else document.getElementById('dashSearch').scrollIntoView({behavior:'smooth'});
+  const planData={plan:selPlan.name,amount:selPlan.amount,paymentId:pid,activatedAt:new Date().toISOString(),expiresAt:exp.toISOString()};
+  sto(S_PLAN,planData);
+  await fbSavePlan(currentUser.phone,planData);
+  document.getElementById('scPlan').textContent=selPlan.name.split(' ')[0];
+  document.getElementById('scLeft').textContent='∞';
+  showPaidDash();showToast('✅ Payment successful! All features unlocked.','green');
 }
 
-// ── LOGOUT ───────────────────────────────────────────────
-function doLogout(){
-  localStorage.removeItem(S_USER);
-  localStorage.removeItem(S_PREV);
-  currentUser={}; isPaid=false; prevUsed=false;
-  goTo('landingView');
-  showToast('Logged out','amber');
-}
+// ── INIT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',async function(){
+  // Test Firebase connection with REST API
+  try{
+    const r=await fetch(FB_DB+'/.json?shallow=true');
+    updateFbStatus(r.ok?'Firebase ✅ Connected':'Firebase ⚠️ Status: '+r.status);
+  }catch(e){updateFbStatus('Firebase ❌ '+e.message);}
 
-// ── MAGIC LINK ───────────────────────────────────────────
-
-// ── TEST STATUS ──────────────────────────────────────────
-function runTests(){
-  const status=[];
-  status.push('AZ_KEY: '+(AZ_KEY?'✅':'❌'));
-  status.push('localStorage: '+(typeof localStorage!=='undefined'?'✅':'❌'));
-  const user=gjson(S_USER,null);
-  status.push('Saved user: '+(user?'✅ '+user.name:'❌ none'));
-  document.getElementById('testStatus').textContent=status.join(' · ');
-  // Test Adzuna connectivity
-  fetch(AZ_URL+'?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&what=developer&where=Hyderabad&results_per_page=1')
-    .then(r=>{
-      document.getElementById('testStatus').textContent+=(' · Adzuna API: '+(r.ok?'✅ OK':'❌ '+r.status));
-    })
-    .catch(e=>{
-      document.getElementById('testStatus').textContent+=' · Adzuna API: ❌ '+e.message;
-    });
-}
-
-// ── INIT ─────────────────────────────────────────────────
-
-function testFirebaseWrite(){
-  if(!db){alert('Firebase not ready. Wait 2 seconds and try again.');return;}
-  db.ref('test/ping').set({t:new Date().toISOString()})
-    .then(function(){alert('Firebase write SUCCESS ✅\nDatabase is working!');})
-    .catch(function(e){alert('Firebase write FAILED ❌\n'+e.message);});
-}
-function seedKiranAccount(){
-  if(!db){alert('Firebase not ready yet. Wait 2 seconds.');return;}
-  var raw=localStorage.getItem('js_user');
-  var user=null;
-  if(raw){try{user=JSON.parse(raw);}catch(e){}}
-  if(!user||!user.phone){
-    user={name:'Kiran Manepalli',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad']};
-  }
-  fbSaveUser(user);
-  localStorage.setItem('js_user',JSON.stringify(user));
-  var plan=null;try{plan=JSON.parse(localStorage.getItem('js_plan')||'{}');}catch(e){}
-  if(plan&&plan.plan) fbSavePlan(user.phone,plan);
-  setTimeout(function(){alert('Account synced to Firebase! ✅\nName: '+user.name+'\nPhone: '+normP(user.phone)+'\n\nNow open any other browser and log in with '+normP(user.phone));},200);
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  initFirebase();
-  // Check magic link first
-  if(restoreMagicLink()) return;
-  
-  // FIX 2: If user has valid session, AUTO-redirect to dashboard on refresh
-  const session=restoreSession();
-  if(session){
-    currentUser=session.user;
-    const pl=session.plan;
-    buildDash(session.user, pl);
-    goTo('dashView'); // ← THIS IS THE KEY FIX — redirect to dash on refresh
-  }
-  
-  runTests();
+  // Restore session
+  try{
+    const raw=gst(S_USER);
+    if(raw){
+      const u=JSON.parse(raw);
+      if(u&&u.name){
+        const pl=gjson(S_PLAN,{});
+        if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
+        if(gst(S_PREV)==='1')prevUsed=true;
+        currentUser=u;
+        buildDash(u,pl);
+        goTo('dashView');
+        return;
+      }
+    }
+  }catch(e){}
 });
-
-
-
-
-
-
 </script>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
-
 </body>
 </html>
