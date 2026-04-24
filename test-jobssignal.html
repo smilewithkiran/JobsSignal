@@ -24,7 +24,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);o
 }
 #testBanner span{opacity:.6;}
 #testStatus{color:#4ade80;font-size:11px;}
-body{padding-top:36px;}
+
 
 /* ── VIEWS ── */
 .view{display:none;min-height:100vh;}
@@ -32,7 +32,7 @@ body{padding-top:36px;}
 
 /* ── NAV ── */
 .land-nav{
-  position:fixed;top:36px;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(250,247,242,.92);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   padding:0 28px;height:60px;
@@ -306,23 +306,42 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 }
 
 @media(min-width:768px){.test-banner-desktop{display:flex!important;}}
-body{padding-top:0;}
-@media(min-width:768px){body{padding-top:36px;}}
+
+@media(min-width:768px){}
 
 @media(min-width:769px){#testBanner{display:flex!important;}}
-body{padding-top:0!important;}
-@media(min-width:769px){body{padding-top:36px!important;}}
+
+@media(min-width:769px){}
 
 .ptab,.jtab{padding:7px 15px;border-radius:7px;background:#fff;color:var(--soft);
   border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;
   font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
 .ptab-active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;}
 .jtab-active{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
+
+@media(min-width:769px){ #testBanner{display:flex!important;}}
+
+.ptab,.jtab{padding:7px 14px;border-radius:7px;background:#fff;color:var(--soft);border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.ptab-active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;}
+.jtab-active{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
+body{padding-top:60px;}
+@media(max-width:768px){body{padding-top:60px;} #mainNav .nav-links a:not(.btn-nav-login):not(.btn-nav-signup){display:none;} }
 </style>
 </head>
 <body>
 
 <!-- TEST BANNER -->
+<nav class="land-nav" id="mainNav">
+  <div class="nav-logo" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
+  <div class="nav-links">
+    <a onclick="goToSection('howItWorks')">How It Works</a>
+    <a onclick="goToSection('modes')">Search Modes</a>
+    <a onclick="goToSection('pricing')">Pricing</a>
+    <a class="btn-nav-login" onclick="goTo('loginView')">Log In</a>
+    <a class="btn-nav-signup" onclick="goTo('signupView')">Sign Up Free</a>
+  </div>
+</nav>
+
 <div id="testBanner" style="display:none;" class="test-banner-desktop">
   <div>🧪 TEST FILE — <span>Not live</span></div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
@@ -337,22 +356,23 @@ body{padding-top:0!important;}
 <!-- ═══════════════════════════════════════════════════
      LANDING VIEW
 ════════════════════════════════════════════════════ -->
+<nav class="land-nav" id="mainNav">
+  <div class="nav-logo" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
+  <div class="nav-links">
+    <a onclick="goToSection('howItWorks')">How It Works</a>
+    <a onclick="goToSection('modes')">Search Modes</a>
+    <a onclick="goToSection('pricing')">Pricing</a>
+    <a class="btn-nav-login" onclick="goTo('loginView')">Log In</a>
+    <a class="btn-nav-signup" onclick="goTo('signupView')">Sign Up Free</a>
+  </div>
+</nav>
+
 <div class="view active" id="landingView">
 
-  <!-- NAV — FIX: use onclick goToSection() not scrollIntoView -->
-  <nav class="land-nav" id="mainNav">
-    <div class="nav-logo" onclick="goTo('landingView')">Jobs<em>Signal</em></div>
-    <div class="nav-links">
-      <a onclick="goToSection('howItWorks')">How It Works</a>
-      <a onclick="goToSection('modes')">Search Modes</a>
-      <a onclick="goToSection('pricing')">Pricing</a>
-      <a class="btn-nav-login" onclick="goTo('loginView')">Log In</a>
-      <a class="btn-nav-signup" onclick="goTo('signupView')">Sign Up Free</a>
-    </div>
-  </nav>
+
 
   <!-- HERO -->
-  <div class="hero" style="padding-top:130px;">
+  <div class="hero" style="padding-top:90px;">
     <div class="eyebrow">Real-time Recruiter Signals · India</div>
     <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
     <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from 100+ sources.</p>
@@ -756,7 +776,9 @@ body{padding-top:0!important;}
   <option value="Talent Acquisition"><option value="HR Manager"><option value=
 
 
+
 <script>
+
 
 
 
@@ -835,6 +857,8 @@ function goTo(viewId){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const v=document.getElementById(viewId);
   if(v){ v.classList.add('active'); window.scrollTo(0,0); }
+  const nav=document.getElementById('mainNav');
+  if(nav) nav.style.display=viewId==='dashView'?'none':'flex';
 }
 
 // FIX 1: goToSection — scroll to section on landing page properly
@@ -1033,33 +1057,28 @@ function runSearch(){
   const city=document.getElementById('sk_city')?.value||currentUser.city||'Hyderabad';
   lastSkill=skill; lastCity=city;
   const enc=s=>encodeURIComponent(s);
-  // Recruiter post queries (exact skill + city)
   const q=enc('"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")');
   const url24h='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
   const urlWeek='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
   const urlMonth='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
-  // LinkedIn job listings (actual jobs, not posts)
-  const jobsBase='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
-  const jobs24h=jobsBase+'&f_TPR=r86400&sortBy=DD';
-  const jobsWeek=jobsBase+'&f_TPR=r604800&sortBy=DD';
-  const jobsMonth=jobsBase+'&f_TPR=r2592000&sortBy=DD';
-  const easyApply=jobsBase+'&f_AL=true&sortBy=DD';
-  // People search
+  const jBase='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
+  const jobs24h=jBase+'&f_TPR=r86400&sortBy=DD';
+  const jobsWeek=jBase+'&f_TPR=r604800&sortBy=DD';
+  const jobsMonth=jBase+'&f_TPR=r2592000&sortBy=DD';
+  const easyApply=jBase+'&f_AL=true&sortBy=DD';
   const peopleUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
-  // Open 24h recruiter posts in new tab
   const a=document.createElement('a');a.href=url24h;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
   document.getElementById('rTitle').textContent='"'+skill+'" in '+city;
-  document.getElementById('rSub').textContent='LinkedIn recruiter posts + Job listings + Live Adzuna jobs';
+  document.getElementById('rSub').textContent='Recruiter posts + LinkedIn jobs + Live listings from Adzuna';
   document.getElementById('resultsArea').style.display='block';
   buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth);
   buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply);
   buildAdzunaJobs(skill,city);
   buildFindRecruiters(skill,city,peopleUrl);
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
-  if(!isPaid) setTimeout(()=>showLockedDash(),25000);
-}
-function showRTab(tab,btn){
+  if(!isPaid) setTimeout(function(){showLockedDash();},25000);
+}function showRTab(tab,btn){
   document.querySelectorAll('.rt-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
   document.getElementById('rposts').classList.remove('active');
@@ -1070,30 +1089,30 @@ function showRTab(tab,btn){
 
 function buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth){
   const el=document.getElementById('rposts');if(!el)return;
-  el.innerHTML='<div>'
-    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-    +'<button class="ptab ptab-active" onclick="swPeriod(\'p24h\',this)">⚡ 24 Hours</button>'
-    +'<button class="ptab" onclick="swPeriod(\'pweek\',this)">📅 Past Week</button>'
-    +'<button class="ptab" onclick="swPeriod(\'pmonth\',this)">🗓️ Past Month</button>'
-    +'</div>'
-    +'<div id="p24h">'
-    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · 24h</div>'
-    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+url24h+'" target="_blank" rel="noopener">📡 View 24h Recruiter Posts →</a></div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 Best time to apply — least competition. Comment on the post and DM the recruiter.</div>'
-    +'</div>'
-    +'<div id="pweek" style="display:none;">'
-    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · Past week</div>'
-    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+urlWeek+'" target="_blank" rel="noopener">📅 View Week Recruiter Posts →</a></div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 Posts from last 7 days. Some roles may still be open.</div>'
-    +'</div>'
-    +'<div id="pmonth" style="display:none;">'
-    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · Past month</div>'
-    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+urlMonth+'" target="_blank" rel="noopener">🗓️ View Month Recruiter Posts →</a></div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 30 days of recruiter activity. Good for spotting active companies.</div>'
-    +'</div>'
-    +'</div>';
+  const tabs=[
+    {id:'p24h',lbl:'⚡ 24 Hours',url:url24h,tip:'Best time — least competition. Comment and DM the recruiter immediately.'},
+    {id:'pweek',lbl:'📅 Past Week',url:urlWeek,tip:'Posts from last 7 days. Some roles still open.'},
+    {id:'pmonth',lbl:'🗓️ Past Month',url:urlMonth,tip:'30 days of recruiter activity in your domain.'}
+  ];
+  var h='<div>';
+  h+='<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">';
+  tabs.forEach(function(t,i){h+='<button type="button" class="ptab'+(i===0?' ptab-active':'')+'" data-period="'+t.id+'" onclick="swPrd(this)">'+t.lbl+'</button>';});
+  h+='</div>';
+  tabs.forEach(function(t,i){
+    h+='<div id="'+t.id+'" style="display:'+(i===0?'block':'none')+'">';
+    h+='<div class="pp-query">"'+skill+'" "'+city+'" &middot; '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+'</div>';
+    h+='<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+t.url+'" target="_blank" rel="noopener">'+t.lbl+' Recruiter Posts &rarr;</a></div>';
+    h+='<div class="pp-tip" style="margin-top:8px;">💡 '+t.tip+'</div></div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
 }
-function swPeriod(p,btn){
+function swPrd(btn){
+  document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('ptab-active');});
+  btn.classList.add('ptab-active');
+  var p=btn.getAttribute('data-period');
+  ['p24h','pweek','pmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+}function swPeriod(p,btn){
   document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('ptab-active');});
   if(btn)btn.classList.add('ptab-active');
   ['p24h','pweek','pmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
@@ -1101,41 +1120,35 @@ function swPeriod(p,btn){
 // ── FIX 3: ADZUNA JOBS ──────────────────────────────────
 function buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply){
   const el=document.getElementById('rjobs');if(!el)return;
-  el.innerHTML='<div>'
-    +'<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">'
-    +'<button class="jtab jtab-active" onclick="swJobPeriod(\'jlive\',this)">💼 Live Jobs</button>'
-    +'<button class="jtab" onclick="swJobPeriod(\'j24h\',this)">⚡ LinkedIn 24h</button>'
-    +'<button class="jtab" onclick="swJobPeriod(\'jweek\',this)">📅 LinkedIn Week</button>'
-    +'<button class="jtab" onclick="swJobPeriod(\'jmonth\',this)">🗓️ LinkedIn Month</button>'
-    +'</div>'
-    +'<div id="jlive"><div id="az-container" class="az-container"></div></div>'
-    +'<div id="j24h" style="display:none;">'
-    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · 24h</div>'
-    +'<div class="pp-action" style="margin-top:10px;">'
-    +'<a class="pp-btn li-blue" href="'+jobs24h+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (24h) →</a>'
-    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
-    +'</div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 LinkedIn job listings posted in last 24 hours. Freshest roles — highest chance of callback.</div>'
-    +'</div>'
-    +'<div id="jweek" style="display:none;">'
-    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · Past week</div>'
-    +'<div class="pp-action" style="margin-top:10px;">'
-    +'<a class="pp-btn li-blue" href="'+jobsWeek+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (Week) →</a>'
-    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
-    +'</div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 Past 7 days of LinkedIn job listings with Easy Apply filter available.</div>'
-    +'</div>'
-    +'<div id="jmonth" style="display:none;">'
-    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · Past month</div>'
-    +'<div class="pp-action" style="margin-top:10px;">'
-    +'<a class="pp-btn li-blue" href="'+jobsMonth+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (Month) →</a>'
-    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
-    +'</div>'
-    +'<div class="pp-tip" style="margin-top:8px;">💡 30 days of LinkedIn job listings. Good for finding still-open roles.</div>'
-    +'</div></div>';
+  const ptabs=[
+    {id:'jlive',lbl:'💼 Live Jobs (Adzuna)',isAdzuna:true},
+    {id:'j24h',lbl:'⚡ LinkedIn 24h',url:jobs24h,tip:'Freshest roles — highest callback chance.'},
+    {id:'jweek',lbl:'📅 LinkedIn Week',url:jobsWeek,tip:'Past 7 days of LinkedIn listings.'},
+    {id:'jmonth',lbl:'🗓️ LinkedIn Month',url:jobsMonth,tip:'30 days — includes still-open roles.'}
+  ];
+  var h='<div>';
+  h+='<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">';
+  ptabs.forEach(function(t,i){h+='<button type="button" class="jtab'+(i===0?' jtab-active':'')+'" data-jtab="'+t.id+'" onclick="swJtab(this)">'+t.lbl+'</button>';});
+  h+='</div>';
+  h+='<div id="jlive"><div id="az-container" class="az-container"></div></div>';
+  ptabs.slice(1).forEach(function(t){
+    h+='<div id="'+t.id+'" style="display:none">';
+    h+='<div class="pp-query">"'+skill+'" &middot; '+city+' &middot; LinkedIn Jobs &middot; '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+'</div>';
+    h+='<div class="pp-action" style="margin-top:10px;">';
+    h+='<a class="pp-btn li-blue" href="'+t.url+'" target="_blank" rel="noopener">💼 '+t.lbl.replace(/⚡|📅|🗓️/g,'').trim()+' LinkedIn Jobs &rarr;</a> ';
+    h+='<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply &rarr;</a>';
+    h+='</div><div class="pp-tip" style="margin-top:8px;">💡 '+t.tip+'</div></div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
   setTimeout(function(){var c=document.getElementById('az-container');if(c)buildAdzunaJobs(skill,city,c);},300);
 }
-function swJobPeriod(p,btn){
+function swJtab(btn){
+  document.querySelectorAll('.jtab').forEach(function(b){b.classList.remove('jtab-active');});
+  btn.classList.add('jtab-active');
+  var p=btn.getAttribute('data-jtab');
+  ['jlive','j24h','jweek','jmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+}function swJobPeriod(p,btn){
   document.querySelectorAll('.jtab').forEach(function(b){b.classList.remove('jtab-active');});
   if(btn)btn.classList.add('jtab-active');
   ['jlive','j24h','jweek','jmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
@@ -1301,8 +1314,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 
-</script>
 
+</script>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
