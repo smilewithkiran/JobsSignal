@@ -311,7 +311,12 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <!-- TEST BANNER -->
 <div id="testBanner">
   <div>🧪 JobsSignal TEST FILE — <span>Not the live site</span></div>
-  <div style="display:flex;gap:14px;"><span id="testStatus">Checking...</span> <span id="fbStatus" style="color:#aaa;">Firebase: loading...</span></div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <span id="testStatus" style="font-size:11px;">Checking...</span>
+      <span id="fbStatus" style="font-size:11px;color:#aaa;">Firebase: loading...</span>
+      <button onclick="testFirebaseWrite()" style="background:#22c55e;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;">Test DB</button>
+      <button onclick="seedKiranAccount()" style="background:#f59e0b;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;">Sync Account to Firebase</button>
+    </div>
 </div>
 <div id="toast"></div>
 
@@ -745,17 +750,10 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 <!-- Skill suggestions -->
 <datalist id="skillSugg">
-  <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
-  <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
-  <option value="Data Engineer"><option value="Product Manager"><option value="DevOps Engineer">
-  <option value="Data Scientist"><option value="Business Analyst"><option value="Sales Manager">
-</datalist>
-
-<!-- ═══════════════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════════════ -->
-
+  <option value="Talent Acquisition"><option value="HR Manager"><option value=
 <script>
+
+
 
 // ── CONFIG ──────────────────────────────────────────────
 const S_USER = 'js_user';
@@ -779,7 +777,7 @@ const FB_CONFIG={apiKey:"AIzaSyBJ2WhZ70oElaa88N3bG1u_Z9skmbBhMxg",databaseURL:"h
 let db=null;
 function initFirebase(){
   try{
-    if(!window.firebase)return;
+    if(!window.firebase){setTimeout(initFirebase,600);return;}
     if(!firebase.apps.length)firebase.initializeApp(FB_CONFIG);
     db=firebase.database();
     const el=document.getElementById('fbStatus');
@@ -886,10 +884,33 @@ function doLogin(){
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-  try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&u.phone&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
-  fbLogin(ep,function(user){showToast('Welcome back, '+user.name.split(' ')[0]+'!','green');enterDash(user);},function(){if(errEl){errEl.textContent='Mobile not registered. Please sign up first!';errEl.style.display='block';}});
-}
-// ── SIGNUP ──────────────────────────────────────────────
+  // Step 1: localStorage (instant)
+  try{
+    const raw=gst(S_USER);
+    if(raw){
+      const u=JSON.parse(raw);
+      if(u&&u.phone&&normP(u.phone)===ep){
+        fbSaveUser(u); // auto-sync to Firebase
+        enterDash(u); return;
+      }
+    }
+  }catch(e){}
+  // Step 2: Firebase (any browser/device)
+  if(!db){
+    if(errEl){errEl.textContent='Connecting to database... ⏳ please wait';errEl.style.display='block';}
+    setTimeout(function(){if(errEl)errEl.style.display='none'; doLogin();},1500);
+    return;
+  }
+  fbLogin(ep,
+    function(user){showToast('Welcome back, '+user.name.split(' ')[0]+'! ✅','green');enterDash(user);},
+    function(){
+      if(errEl){
+        errEl.innerHTML='Mobile not found. <a onclick="goTo(\'signupView\')" style="color:var(--amber);cursor:pointer;font-weight:700;">Sign up free →</a>';
+        errEl.style.display='block';
+      }
+    }
+  );
+}// ── SIGNUP ──────────────────────────────────────────────
 function nextStep(from){
   if(from===1){
     const n=(document.getElementById('s1_name')?.value||'').trim();
@@ -1221,6 +1242,27 @@ function runTests(){
 }
 
 // ── INIT ─────────────────────────────────────────────────
+
+function testFirebaseWrite(){
+  if(!db){alert('Firebase not ready. Wait 2 seconds and try again.');return;}
+  db.ref('test/ping').set({t:new Date().toISOString()})
+    .then(function(){alert('Firebase write SUCCESS ✅\nDatabase is working!');})
+    .catch(function(e){alert('Firebase write FAILED ❌\n'+e.message);});
+}
+function seedKiranAccount(){
+  if(!db){alert('Firebase not ready yet. Wait 2 seconds.');return;}
+  var raw=localStorage.getItem('js_user');
+  var user=null;
+  if(raw){try{user=JSON.parse(raw);}catch(e){}}
+  if(!user||!user.phone){
+    user={name:'Kiran Manepalli',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad']};
+  }
+  fbSaveUser(user);
+  localStorage.setItem('js_user',JSON.stringify(user));
+  var plan=null;try{plan=JSON.parse(localStorage.getItem('js_plan')||'{}');}catch(e){}
+  if(plan&&plan.plan) fbSavePlan(user.phone,plan);
+  setTimeout(function(){alert('Account synced to Firebase! ✅\nName: '+user.name+'\nPhone: '+normP(user.phone)+'\n\nNow open any other browser and log in with '+normP(user.phone));},200);
+}
 document.addEventListener('DOMContentLoaded',()=>{
   initFirebase();
   // Check magic link first
@@ -1238,7 +1280,29 @@ document.addEventListener('DOMContentLoaded',()=>{
   runTests();
 });
 
+
+
 </script>
+ument.addEventListener('DOMContentLoaded',()=>{
+  initFirebase();
+  // Check magic link first
+  if(restoreMagicLink()) return;
+  
+  // FIX 2: If user has valid session, AUTO-redirect to dashboard on refresh
+  const session=restoreSession();
+  if(session){
+    currentUser=session.user;
+    const pl=session.plan;
+    buildDash(session.user, pl);
+    goTo('dashView'); // ← THIS IS THE KEY FIX — redirect to dash on refresh
+  }
+  
+  runTests();
+});
+
+
+</script>
+
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
