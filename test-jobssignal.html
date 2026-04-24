@@ -304,13 +304,27 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .mob-logout{display:flex!important;}
   .plans-grid{grid-template-columns:1fr 1fr;}
 }
+
+@media(min-width:768px){.test-banner-desktop{display:flex!important;}}
+body{padding-top:0;}
+@media(min-width:768px){body{padding-top:36px;}}
+
+@media(min-width:769px){#testBanner{display:flex!important;}}
+body{padding-top:0!important;}
+@media(min-width:769px){body{padding-top:36px!important;}}
+
+.ptab,.jtab{padding:7px 15px;border-radius:7px;background:#fff;color:var(--soft);
+  border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.ptab-active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;}
+.jtab-active{background:var(--amber)!important;color:#fff!important;border-color:var(--amber)!important;}
 </style>
 </head>
 <body>
 
 <!-- TEST BANNER -->
-<div id="testBanner">
-  <div>🧪 JobsSignal TEST FILE — <span>Not the live site</span></div>
+<div id="testBanner" style="display:none;" class="test-banner-desktop">
+  <div>🧪 TEST FILE — <span>Not live</span></div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
       <span id="testStatus" style="font-size:11px;">Checking...</span>
       <span id="fbStatus" style="font-size:11px;color:#aaa;">Firebase: loading...</span>
@@ -670,17 +684,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <div class="stat-card"><div class="sc-num" id="scStatus">1</div><div class="sc-label">Searches Left</div></div>
       </div>
 
-      <!-- Magic link card -->
-      <div class="magic-link-card" id="magicLinkCard">
-        <div class="mlc-title">🔗 Use on Other Browsers / Devices</div>
-        <div class="mlc-sub">Copy this personal link. Open it in Firefox, Safari or mobile browser to instantly log in with your profile and plan.</div>
-        <div class="mlc-url" id="magicLinkUrl">Generating...</div>
-        <div class="mlc-actions">
-          <button class="mlc-copy" id="copyMagicBtn" onclick="copyMagicLink()">Copy Link</button>
-          <button class="mlc-dismiss" onclick="document.getElementById('magicLinkCard').style.display='none'">Got it, hide</button>
-        </div>
-      </div>
-
       <!-- Preview banner -->
       <div class="preview-banner" id="previewBanner">
         <div class="pb-icon">🎁</div>
@@ -751,7 +754,11 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <!-- Skill suggestions -->
 <datalist id="skillSugg">
   <option value="Talent Acquisition"><option value="HR Manager"><option value=
+
+
 <script>
+
+
 
 
 
@@ -855,26 +862,7 @@ function restoreSession(){
   }catch(e){ return false; }
 }
 
-function restoreMagicLink(){
-  try{
-    const params=new URLSearchParams(window.location.search);
-    const u=params.get('u'); if(!u) return false;
-    const data=JSON.parse(decodeURIComponent(escape(atob(u))));
-    if(!data||!data.p) return false;
-    const user={name:data.n||'Job Seeker',phone:data.p,email:data.e||'',
-      city:data.c||'Hyderabad',skill:data.s||'',prefLocs:data.l?data.l.split(',').filter(Boolean):[]};
-    sto(S_USER,user);
-    const reg=gjson(S_REG,[]);
-    if(!reg.some(p=>normP(p)===normP(data.p))){ reg.push(data.p); sto(S_REG,reg); }
-    if(data.pl&&data.pe&&new Date(data.pe)>new Date()){
-      sto(S_PLAN,{plan:data.pl,amount:data.pa,paymentId:data.pid,expiresAt:data.pe});
-      isPaid=true;prevUsed=true;
-    }
-    window.history.replaceState({},document.title,window.location.pathname);
-    enterDash(user);
-    return true;
-  }catch(e){ return false; }
-}
+function restoreMagicLink(){return false;}
 
 // ── LOGIN ───────────────────────────────────────────────
 function doLogin(){
@@ -999,7 +987,6 @@ function enterDash(user){
   goTo('dashView');
   showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
   // Show magic link card for cross-browser access
-  setTimeout(()=>showMagicLinkCard(),1000);
 }
 
 function buildDash(user,pl){
@@ -1044,33 +1031,34 @@ function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
   const skill=(document.getElementById('sk_skill')?.value||'').trim()||currentUser.skill||'Software Engineer';
   const city=document.getElementById('sk_city')?.value||currentUser.city||'Hyderabad';
-  
-  // Open LinkedIn recruiter posts
+  lastSkill=skill; lastCity=city;
   const enc=s=>encodeURIComponent(s);
-  const primaryUrl='https://www.linkedin.com/search/results/content/?keywords='+
-    enc('"hiring" OR "urgent requirement" "'+skill+'" "'+city+'" -"open to work" -"#opentowork"')+
-    '&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
-  const a=document.createElement('a');
-  a.href=primaryUrl;a.target='_blank';a.rel='noopener noreferrer';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  
+  // Recruiter post queries (exact skill + city)
+  const q=enc('"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")');
+  const url24h='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
+  const urlWeek='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
+  const urlMonth='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
+  // LinkedIn job listings (actual jobs, not posts)
+  const jobsBase='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
+  const jobs24h=jobsBase+'&f_TPR=r86400&sortBy=DD';
+  const jobsWeek=jobsBase+'&f_TPR=r604800&sortBy=DD';
+  const jobsMonth=jobsBase+'&f_TPR=r2592000&sortBy=DD';
+  const easyApply=jobsBase+'&f_AL=true&sortBy=DD';
+  // People search
+  const peopleUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
+  // Open 24h recruiter posts in new tab
+  const a=document.createElement('a');a.href=url24h;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
-  
-  // Show results area
-  document.getElementById('rTitle').textContent='Results: "'+skill+'" in '+city;
-  document.getElementById('rSub').textContent='LinkedIn recruiter posts + Live Job Listings from Adzuna';
+  document.getElementById('rTitle').textContent='"'+skill+'" in '+city;
+  document.getElementById('rSub').textContent='LinkedIn recruiter posts + Job listings + Live Adzuna jobs';
   document.getElementById('resultsArea').style.display='block';
-  
-  // Build result tabs
-  buildRecruiterPosts(skill,city,primaryUrl);
+  buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth);
+  buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply);
   buildAdzunaJobs(skill,city);
-  buildFindRecruiters(skill,city);
-  
+  buildFindRecruiters(skill,city,peopleUrl);
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
-  
-  if(!isPaid) setTimeout(()=>showLockedDash(),15000);
+  if(!isPaid) setTimeout(()=>showLockedDash(),25000);
 }
-
 function showRTab(tab,btn){
   document.querySelectorAll('.rt-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
@@ -1080,22 +1068,79 @@ function showRTab(tab,btn){
   document.getElementById('r'+tab).classList.add('active');
 }
 
-function buildRecruiterPosts(skill,city,url){
-  const el=document.getElementById('rposts');
-  if(!el)return;
-  el.innerHTML=`
-    <div class="post-placeholder">
-      <div class="pp-query">"${skill}" "${city}" hiring · 24h recruiter posts</div>
-      <div class="pp-action">
-        <a class="pp-btn li-blue" href="${url}" target="_blank" rel="noopener">View Recruiter Posts (24h) →</a>
-        <a class="pp-btn li-blue" href="${url.replace('past-24h','past-week')}" target="_blank" rel="noopener">Past Week →</a>
-      </div>
-      <div class="pp-tip">💡 LinkedIn just opened in a new tab with exact recruiter posts. Comment quickly — 24h posts get less competition.</div>
-    </div>`;
+function buildRecruiterPosts(skill,city,url24h,urlWeek,urlMonth){
+  const el=document.getElementById('rposts');if(!el)return;
+  el.innerHTML='<div>'
+    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
+    +'<button class="ptab ptab-active" onclick="swPeriod(\'p24h\',this)">⚡ 24 Hours</button>'
+    +'<button class="ptab" onclick="swPeriod(\'pweek\',this)">📅 Past Week</button>'
+    +'<button class="ptab" onclick="swPeriod(\'pmonth\',this)">🗓️ Past Month</button>'
+    +'</div>'
+    +'<div id="p24h">'
+    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · 24h</div>'
+    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+url24h+'" target="_blank" rel="noopener">📡 View 24h Recruiter Posts →</a></div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 Best time to apply — least competition. Comment on the post and DM the recruiter.</div>'
+    +'</div>'
+    +'<div id="pweek" style="display:none;">'
+    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · Past week</div>'
+    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+urlWeek+'" target="_blank" rel="noopener">📅 View Week Recruiter Posts →</a></div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 Posts from last 7 days. Some roles may still be open.</div>'
+    +'</div>'
+    +'<div id="pmonth" style="display:none;">'
+    +'<div class="pp-query">"'+skill+'" "'+city+'" · Recruiter posts · Past month</div>'
+    +'<div class="pp-action" style="margin-top:10px;"><a class="pp-btn li-blue" href="'+urlMonth+'" target="_blank" rel="noopener">🗓️ View Month Recruiter Posts →</a></div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 30 days of recruiter activity. Good for spotting active companies.</div>'
+    +'</div>'
+    +'</div>';
 }
-
+function swPeriod(p,btn){
+  document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('ptab-active');});
+  if(btn)btn.classList.add('ptab-active');
+  ['p24h','pweek','pmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+}
 // ── FIX 3: ADZUNA JOBS ──────────────────────────────────
-function buildAdzunaJobs(skill,city){
+function buildLinkedInJobs(skill,city,jobs24h,jobsWeek,jobsMonth,easyApply){
+  const el=document.getElementById('rjobs');if(!el)return;
+  el.innerHTML='<div>'
+    +'<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">'
+    +'<button class="jtab jtab-active" onclick="swJobPeriod(\'jlive\',this)">💼 Live Jobs</button>'
+    +'<button class="jtab" onclick="swJobPeriod(\'j24h\',this)">⚡ LinkedIn 24h</button>'
+    +'<button class="jtab" onclick="swJobPeriod(\'jweek\',this)">📅 LinkedIn Week</button>'
+    +'<button class="jtab" onclick="swJobPeriod(\'jmonth\',this)">🗓️ LinkedIn Month</button>'
+    +'</div>'
+    +'<div id="jlive"><div id="az-container" class="az-container"></div></div>'
+    +'<div id="j24h" style="display:none;">'
+    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · 24h</div>'
+    +'<div class="pp-action" style="margin-top:10px;">'
+    +'<a class="pp-btn li-blue" href="'+jobs24h+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (24h) →</a>'
+    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
+    +'</div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 LinkedIn job listings posted in last 24 hours. Freshest roles — highest chance of callback.</div>'
+    +'</div>'
+    +'<div id="jweek" style="display:none;">'
+    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · Past week</div>'
+    +'<div class="pp-action" style="margin-top:10px;">'
+    +'<a class="pp-btn li-blue" href="'+jobsWeek+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (Week) →</a>'
+    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
+    +'</div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 Past 7 days of LinkedIn job listings with Easy Apply filter available.</div>'
+    +'</div>'
+    +'<div id="jmonth" style="display:none;">'
+    +'<div class="pp-query">"'+skill+'" · '+city+' · LinkedIn Jobs · Past month</div>'
+    +'<div class="pp-action" style="margin-top:10px;">'
+    +'<a class="pp-btn li-blue" href="'+jobsMonth+'" target="_blank" rel="noopener">💼 LinkedIn Jobs (Month) →</a>'
+    +'<a class="pp-btn li-blue" href="'+easyApply+'" target="_blank" rel="noopener">⚡ Easy Apply →</a>'
+    +'</div>'
+    +'<div class="pp-tip" style="margin-top:8px;">💡 30 days of LinkedIn job listings. Good for finding still-open roles.</div>'
+    +'</div></div>';
+  setTimeout(function(){var c=document.getElementById('az-container');if(c)buildAdzunaJobs(skill,city,c);},300);
+}
+function swJobPeriod(p,btn){
+  document.querySelectorAll('.jtab').forEach(function(b){b.classList.remove('jtab-active');});
+  if(btn)btn.classList.add('jtab-active');
+  ['jlive','j24h','jweek','jmonth'].forEach(function(x){var e=document.getElementById(x);if(e)e.style.display=x===p?'block':'none';});
+}
+function buildAdzunaJobs(skill,city,containerEl){
   const el=document.getElementById('rjobs');
   if(!el)return;
   el.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
@@ -1178,7 +1223,6 @@ function onPayOk(pid){
   setEl('dPlan',currentUser.skill+' · '+currentUser.city+' · '+selPlan.name+' ✅');
   showPaidDash();
   showToast('✅ Payment successful! All features unlocked.','green');
-  setTimeout(()=>showMagicLinkCard(),500);
 }
 function showPanel(p){
   if(p==='upgrade') showLockedDash();
@@ -1195,33 +1239,6 @@ function doLogout(){
 }
 
 // ── MAGIC LINK ───────────────────────────────────────────
-function showMagicLinkCard(){
-  const user=currentUser||gjson(S_USER,{});
-  const plan=gjson(S_PLAN,{});
-  const data={n:user.name||'',p:user.phone||'',e:user.email||'',c:user.city||'',s:user.skill||'',
-    l:(user.prefLocs||[]).join(','),pl:plan.plan||'',pa:plan.amount||0,pe:plan.expiresAt||'',pid:plan.paymentId||''};
-  try{
-    const enc=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const base=window.location.origin+window.location.pathname;
-    const link=base+'?u='+enc;
-    const card=document.getElementById('magicLinkCard');
-    const urlEl=document.getElementById('magicLinkUrl');
-    if(card) card.style.display='block';
-    if(urlEl) urlEl.textContent=link;
-  }catch(e){}
-}
-function copyMagicLink(){
-  const urlEl=document.getElementById('magicLinkUrl');
-  if(!urlEl) return;
-  const text=urlEl.textContent;
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(text).then(()=>{
-      const btn=document.getElementById('copyMagicBtn');
-      if(btn){btn.textContent='✅ Copied!';btn.style.background='var(--teal)';}
-      setTimeout(()=>{if(btn){btn.textContent='Copy Link';btn.style.background='';} },2500);
-    });
-  }
-}
 
 // ── TEST STATUS ──────────────────────────────────────────
 function runTests(){
@@ -1282,23 +1299,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 
-</script>
-ument.addEventListener('DOMContentLoaded',()=>{
-  initFirebase();
-  // Check magic link first
-  if(restoreMagicLink()) return;
-  
-  // FIX 2: If user has valid session, AUTO-redirect to dashboard on refresh
-  const session=restoreSession();
-  if(session){
-    currentUser=session.user;
-    const pl=session.plan;
-    buildDash(session.user, pl);
-    goTo('dashView'); // ← THIS IS THE KEY FIX — redirect to dash on refresh
-  }
-  
-  runTests();
-});
 
 
 </script>
