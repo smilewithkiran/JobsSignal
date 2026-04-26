@@ -308,64 +308,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .comp-table th:nth-child(3),.comp-table td:nth-child(3),
   .comp-table th:nth-child(4),.comp-table td:nth-child(4){display:none;}
   .comp-cta h3{font-size:28px;}
-}
-
-/* ── Comparison Section ─────────────────────────── */
-.comp-section{padding:80px 24px;max-width:1060px;margin:0 auto;}
-.stat-strip{display:flex;background:var(--ink);border-radius:16px;overflow:hidden;margin-bottom:56px;}
-.stat-block{flex:1;padding:26px 20px;border-right:1px solid rgba(255,255,255,.08);text-align:center;}
-.stat-block:last-child{border-right:none;}
-.stat-val{font-family:'Fraunces',serif;font-size:34px;font-weight:800;color:var(--amber);line-height:1;margin-bottom:5px;}
-.stat-val sup{font-size:16px;}
-.stat-lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
-.stat-desc{font-size:11px;color:rgba(255,255,255,.22);margin-top:4px;line-height:1.4;}
-.versus-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:start;margin-bottom:52px;}
-.vs-card{background:#fff;border-radius:18px;border:1px solid var(--border);padding:28px;}
-.vs-card.js{background:var(--ink);border-color:transparent;box-shadow:0 16px 48px rgba(15,17,23,.18);}
-.vs-portal-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-.vs-portal-label.jsl{color:rgba(255,255,255,.3);}
-.vs-portal-name{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:3px;}
-.vs-portal-name.jsl{color:#fff;}
-.vs-portal-name.jsl em{color:var(--amber);font-style:italic;font-weight:300;}
-.vs-portal-tag{font-size:12px;color:var(--soft);margin-bottom:20px;}
-.vs-portal-tag.jsl{color:rgba(255,255,255,.35);}
-.vs-rows{display:flex;flex-direction:column;gap:8px;}
-.vs-row{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:8px;background:rgba(15,17,23,.03);font-size:12px;color:var(--soft);line-height:1.4;}
-.vs-row.bad{background:rgba(192,57,43,.05);}
-.vs-row.good{background:rgba(232,148,58,.07);color:rgba(255,255,255,.78);}
-.vs-row strong{color:#fff;}
-.vs-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
-.vs-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:72px;gap:10px;}
-.vs-badge{width:44px;height:44px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13px;font-weight:800;color:var(--soft);}
-.vs-line{width:1px;height:50px;background:linear-gradient(to bottom,transparent,var(--border),transparent);}
-.comp-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:48px;}
-.comp-table th{padding:13px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:rgba(15,17,23,.02);border-bottom:1px solid var(--border);}
-.comp-table th:last-child{background:var(--ink);color:var(--amber);text-align:center;}
-.comp-table td{padding:11px 16px;font-size:12px;color:var(--soft);border-bottom:1px solid rgba(15,17,23,.05);vertical-align:middle;}
-.comp-table tr:last-child td{border-bottom:none;}
-.comp-table td:first-child{font-weight:600;color:var(--ink);font-size:11px;}
-.comp-table td.tc{text-align:center;}
-.comp-table td.win{color:var(--teal);text-align:center;font-weight:700;}
-.comp-table td.lose{color:var(--red);text-align:center;}
-.comp-table td.hl{text-align:center;background:rgba(232,148,58,.07);color:var(--amber);font-weight:700;}
-.comp-cta{background:var(--ink);border-radius:18px;padding:44px;text-align:center;}
-.comp-cta h3{font-family:'Fraunces',serif;font-size:38px;font-weight:800;color:#fff;line-height:1.05;letter-spacing:-1.5px;margin-bottom:12px;}
-.comp-cta h3 em{color:var(--amber);font-style:italic;font-weight:300;}
-.comp-cta p{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:24px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto;}
-.comp-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-@media(max-width:768px){
-  .versus-wrap{grid-template-columns:1fr;gap:12px;}
-  .vs-divider{flex-direction:row;padding-top:0;padding:0;}
-  .vs-line{width:50px;height:1px;}
-  .stat-strip{flex-wrap:wrap;}
-  .stat-block{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
-  .comp-table{font-size:10px;}
-  .comp-table th,.comp-table td{padding:9px 10px;}
-  .comp-table th:nth-child(3),.comp-table td:nth-child(3),
-  .comp-table th:nth-child(4),.comp-table td:nth-child(4){display:none;}
-  .comp-cta h3{font-size:28px;}
-}
-</style>
+}</style>
 </head>
 <body>
 <div id="toast"></div>
@@ -536,7 +479,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Job Listings inside app</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
-</div>
+
+</div><!-- /landingView -->
 
 <!-- ═══ LOGIN ═══ -->
 <div class="view" id="loginView">
@@ -978,7 +922,11 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <option value="Python Developer"><option value="Data Scientist"><option value="Data Engineer">
   <option value="Product Manager"><option value="DevOps Engineer"><option value="F
 
+<script
+
 <script>
+
+
 
 
 // ════════════════════════════════════════════════════════
@@ -1777,9 +1725,11 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 
 
+
+
 </script>
 
-<!-- Razorpay -->
+Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 </body>
 </html>
