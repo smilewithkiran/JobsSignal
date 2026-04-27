@@ -355,7 +355,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
       <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -734,7 +734,9 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 </datalist>
 
 
+
 <script>
+
 
 // ── CONFIG ──────────────────────────────────────────
 const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_reg_phones';
@@ -951,53 +953,72 @@ function runSearch(){
   const expVal=document.getElementById('sk_exp')?.value||'';
   lastSkill=skill;lastCity=city;
   const enc=s=>encodeURIComponent(s);
-  const expMap={
-    fresher:'("fresher" OR "entry level" OR "0 years")',
-    '1-3':'("1 year" OR "2 years" OR "3 years")',
-    '3-7':'("3 years" OR "4 years" OR "5 years" OR "6 years" OR "7 years")',
-    '7-10':'("7 years" OR "8 years" OR "9 years" OR "10 years")',
-    '10-15':'("10 years" OR "11 years" OR "12 years" OR "15 years")',
-    '15+':'("15+ years" OR "senior" OR "lead")'
+
+  // LinkedIn experience filter codes for Jobs search (f_E param)
+  // Does NOT go in keyword query — only as URL param on Jobs URLs
+  const expFE={
+    'fresher':'2','1-3':'2,3','3-7':'3,4',
+    '7-10':'4','10-15':'4,5','15+':'5,6'
   };
-  const expStr=expVal&&expMap[expVal]?' '+expMap[expVal]:'';
+  const fE=expVal&&expFE[expVal]?'&f_E='+expFE[expVal]:'';
+
+  // ── RECRUITER POST QUERIES (content search — LOCKED) ──
+  // These are the exact working queries. DO NOT change structure.
   let baseQ;
   if(currentMode==='hashtag'){
     baseQ='"'+skill+'" "'+city+'" (#hiring OR #NowHiring OR #Recruiting OR #JobOpening OR #Vacancy)';
   }else if(currentMode==='notice'){
     const nv=(document.getElementById('sk_notice')?.value)||'';
-    const nm={immediate:'"immediate joiner" OR "immediate joining"','30days':'"30 days notice" OR "30 days"','60days':'"60 days notice" OR "60 days"',serving:'"serving notice" OR "notice period"'};
+    const nm={
+      immediate:'"immediate joiner" OR "immediate joining"',
+      '30days':'"30 days notice" OR "30 days"',
+      '60days':'"60 days notice" OR "60 days"',
+      serving:'"serving notice" OR "notice period"'
+    };
     baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period")');
   }else if(currentMode==='referral'){
     baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume")';
   }else if(currentMode==='walkin'){
     baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "drive" OR "direct interview")';
   }else{
+    // DEFAULT Skill+City — exact working query (LOCKED — confirmed working)
     baseQ='"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")';
   }
-  const q=enc(baseQ+expStr);
+  // Note: NO experience text in query — experience uses f_E param on Jobs URLs only
+
+  const q=enc(baseQ);
   const u24='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
   const uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
   const uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
+
+  // LinkedIn Jobs — use f_E for experience filter (proper LinkedIn param)
   const jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
-  const j24=jb+'&f_TPR=r86400&sortBy=DD';
-  const jWk=jb+'&f_TPR=r604800&sortBy=DD';
-  const jMo=jb+'&f_TPR=r2592000&sortBy=DD';
+  const j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
+  const jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
+  const jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
+
   const pUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
-  const a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
+
+  // Open 24h recruiter posts in new tab
+  const a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
-  const se2=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
+
   const modeName=MODES[currentMode]?.title||'Skill + City';
+  const se2=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
   se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
-  se2('rSub',modeName+' · LinkedIn signals + Job listings from 100+ sources');
+  se2('rSub',modeName+' · LinkedIn recruiter posts + Job listings from 100+ sources');
   document.getElementById('resultsArea').style.display='block';
+
   buildPosts(skill,city,u24,uWk,uMo);
   buildJobs(skill,city,j24,jWk,jMo);
   buildAdzuna(skill,city);
   buildPeople(skill,city,pUrl);
+
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
   if(!isPaid)setTimeout(function(){showLockedDash();},25000);
 }
-
 function buildPosts(skill,city,u24,uWk,uMo){
   const el=document.getElementById('rp');if(!el)return;
   const items=[{id:'pp24',lbl:'⚡ 24 Hours',url:u24},{id:'ppwk',lbl:'📅 Past Week',url:uWk},{id:'ppmo',lbl:'🗓️ Past Month',url:uMo}];
@@ -1377,7 +1398,9 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(e){}
 });
 
+
 </script>
+
 
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
