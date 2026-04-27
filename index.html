@@ -211,8 +211,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 #toast.amber{background:var(--amber);}
 #toast.red{background:var(--red);}
 /* Firebase status bar */
-#fb-status-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,17,23,.85);color:#fff;font-size:11px;padding:4px 16px;display:flex;gap:12px;align-items:center;z-index:500;}
-#fb-status-bar button{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer;}
 
 /* Mobile */
 @media(max-width:768px){
@@ -230,43 +228,17 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .r-tab{font-size:11px;padding:7px 10px;}
   .nav-links button:not(.btn-login):not(.btn-signup){display:none;}
 }
+
+.mode-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.mode-header-icon{font-size:22px;}
+.mode-header-title{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);}
+.mode-header-desc{font-size:12px;color:var(--soft);margin-top:1px;}
+.search-hint{font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:var(--warm);border-radius:7px;line-height:1.5;}
 </style>
 </head>
 <body>
 
 <div id="toast"></div>
-
-<!-- Firebase status (bottom bar, unobtrusive) -->
-<div id="fb-status-bar">
-  <span id="fb-status">⏳ Connecting to database...</span>
-  <button onclick="seedAccount()">Sync This Account</button>
-  <button onclick="testDB()">Test DB</button>
-</div>
-
-<!-- NAV — outside all views -->
-<nav class="top-nav" id="mainNav">
-  <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JobsSignal"><circle cx="18" cy="18" r="16" fill="none" stroke="rgba(232,148,58,0.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="10" fill="none" stroke="rgba(232,148,58,0.55)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="28" y2="8" stroke="#e8943a" stroke-width="1.2" stroke-linecap="round"/><text x="40" y="24" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="24" font-family="-apple-system,Helvetica,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
-  <div class="nav-links">
-    <button onclick="goToSec('howItWorks')">How It Works</button>
-    <button onclick="goToSec('modes')">Search Modes</button>
-    <button onclick="goToSec('comparison')">vs Portals</button>
-    <button onclick="goToSec('pricing')">Pricing</button>
-    <button class="btn-login" onclick="goTo('loginView')">Log In</button>
-    <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
-  </div>
-</nav>
-
-<!-- ═══ LANDING ═══ -->
-<div class="view active" id="landingView">
-  <div class="hero">
-    <div class="eyebrow">Real-time Recruiter Signals · India</div>
-    <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
-    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from 100+ sources.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="goTo('signupView')">📡 Find Signals Free →</button>
-      <button class="btn-ghost" onclick="goToSec('howItWorks')">How It Works</button>
-    </div>
-  </div>
 
   <section id="howItWorks">
     <div class="eyebrow">How It Works</div>
@@ -378,7 +350,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
-</div>
+
 
 <!-- ═══ LOGIN ═══ -->
 <div class="view" id="loginView">
@@ -488,7 +460,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" onclick="showRTab('rr',null)"><span class="sb-icon">👤</span><span>Find Recruiters</span></div>
       <div style="height:1px;background:rgba(255,255,255,.07);margin:6px 0;"></div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
-      <div class="sb-item" onclick="goTo('adminLoginView')"><span class="sb-icon">🔐</span><span>Admin</span></div>
     </div>
   </div>
   <div class="sb-main">
@@ -504,20 +475,15 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <div class="sc"><div class="sc-n" id="scLeft">1</div><div class="sc-l">Searches</div></div>
       </div>
       <div class="preview-banner" id="prevBanner"><div class="pb-icon">🎁</div><div><div class="pb-title">1 free signal search!</div><div class="pb-sub">Try now — recruiter posts + Adzuna live jobs. No card needed.</div></div><button class="btn-prev" onclick="scrollToSearch()">Search Free →</button></div>
-      <div class="mode-tabs">
-        <button class="mode-tab active" onclick="switchMode(this)">🎯 Skill + City</button>
-        <button class="mode-tab" onclick="switchMode(this)"># Hashtag</button>
-        <button class="mode-tab" onclick="switchMode(this)">⏱️ Notice</button>
-        <button class="mode-tab" onclick="switchMode(this)">🤝 Referral</button>
-        <button class="mode-tab" onclick="switchMode(this)">🚶 Walk-in</button>
-      </div>
       <div class="search-panel" id="dashSearch">
-        <div class="search-row">
-          <div class="sg"><label class="sg-label">Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition..." list="skillList" style="min-width:180px;"></div>
-          <div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Remote</option></select></div>
-          <div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp"><option value="">Any</option><option value="fresher">Fresher</option><option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option><option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option><option value="15+">15+ yrs</option></select></div>
-          <button class="btn-run" onclick="runSearch()">📡 Find Signals →</button>
+        <div class="mode-header">
+          <div class="mode-header-icon" id="modeIcon">🎯</div>
+          <div>
+            <div class="mode-header-title" id="modeTitle">Skill + City</div>
+            <div class="mode-header-desc" id="modeDesc">Find exact recruiter posts for your skill in your city</div>
+          </div>
         </div>
+        <div id="modePanelWrap"></div>
       </div>
       <div id="resultsArea" style="display:none;">
         <div class="results-wrap">
@@ -765,7 +731,14 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 </datalist>
 
 
+<div id="welcomeBar" style="display:none;background:#fff;border-bottom:1px solid rgba(15,17,23,.09);padding:12px 24px;position:sticky;top:58px;z-index:150;"></div>
+
+
+
 <script>
+
+
+
 
 // ── CONFIG ──────────────────────────────────────────
 const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_reg_phones';
@@ -793,8 +766,7 @@ async function fbSaveUser(user){
     const p=normP(user.phone);if(p.length<10)return;
     const data={name:user.name||'',phone:p,email:user.email||'',city:user.city||'',skill:user.skill||'',prefLocs:(user.prefLocs||[]).join(','),updatedAt:new Date().toISOString()};
     await fetch(FB_DB+'/users/'+p+'.json',{method:'PUT',body:JSON.stringify(data)});
-    updateFbStatus('Firebase ✅ User saved');
-  }catch(e){updateFbStatus('Firebase ❌ '+e.message);}
+  }catch(e){}
 }
 async function fbSavePlan(phone,plan){
   try{
@@ -820,26 +792,9 @@ async function fbEmailExists(email){
     return d&&Object.keys(d).length>0;
   }catch(e){return false;}
 }
-function updateFbStatus(msg){
-  const el=document.getElementById('fb-status');
-  if(el)el.textContent=msg;
-}
-async function testDB(){
-  try{
-    const r=await fetch(FB_DB+'/test/ping.json',{method:'PUT',body:JSON.stringify({t:new Date().toISOString()})});
-    alert(r.ok?'Firebase write ✅ Working!':'Firebase ❌ Status: '+r.status);
-  }catch(e){alert('Firebase ❌ '+e.message);}
-}
-async function seedAccount(){
-  const raw=gst(S_USER);
-  let user=raw?JSON.parse(raw):{name:'Kiran Manepalli',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:['Hyderabad']};
-  if(!user.phone){user.phone='9160075557';}
-  sto(S_USER,user);
-  await fbSaveUser(user);
-  const plan=gjson(S_PLAN,{});
-  if(plan.plan)await fbSavePlan(user.phone,plan);
-  alert('Account synced! ✅\nName: '+user.name+'\nPhone: '+normP(user.phone)+'\n\nNow open any browser and login with '+normP(user.phone));
-}
+
+
+
 
 // ── NAVIGATION ──────────────────────────────────────
 function goTo(viewId){
@@ -964,7 +919,7 @@ function buildDash(user,pl){
   setEl('dAv',init);setEl('dName',first);setEl('dFullName',user.name||first);
   setEl('dRole',user.skill||'Job Seeker');
   setEl('dMeta',(user.skill||'')+(user.city?' · '+user.city:'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
-  setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
+  setEl('scCity',user.city||'City');setEl('scSkill',user.skill||'Skill');
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
   if(isPaid)showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
@@ -1004,7 +959,11 @@ function runSearch(){
   const expStr=expVal&&expMap[expVal]?' '+expMap[expVal]:'';
   let baseQ;
   if(currentMode==='hashtag') baseQ='"'+skill+'" "'+city+'" (#hiring OR #NowHiring OR #Recruiting OR #JobOpening)';
-  else if(currentMode==='notice') baseQ='"'+skill+'" "'+city+'" ("immediate joiner" OR "30 days" OR "60 days" OR "notice period" OR "serving notice")';
+  else if(currentMode==='notice'){
+    var nv=(document.getElementById('sk_notice')||{}).value||'';
+    var nm={immediate:'"immediate joiner" OR "immediate joining"','30days':'"30 days notice" OR "30 days"','60days':'"60 days notice" OR "60 days"',serving:'"serving notice" OR "notice period"'};
+    baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period")');
+  }
   else if(currentMode==='referral') baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume")';
   else if(currentMode==='walkin') baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "drive")';
   else baseQ='"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")';
@@ -1137,24 +1096,88 @@ async function onPayOk(pid){
 }
 
 // ── INIT ─────────────────────────────────────────────
-
-const MODES={
-  skill:{icon:'🎯',title:'Skill + City',desc:'Exact recruiter posts for your skill in your city',hint:'Results open on LinkedIn. Comment quickly — 24h posts get least competition.'},
-  hashtag:{icon:'#️⃣',title:'Hashtag Hunt',desc:'#hiring #NowHiring posts for your skill',hint:'Finds hashtag-based recruiter posts — often found hours before job portals.'},
-  notice:{icon:'⏱️',title:'Notice Period',desc:'Recruiters needing your exact notice window',hint:'Finds posts where recruiters specifically mention notice period requirements.'},
-  referral:{icon:'🤝',title:'Referral Radar',desc:'Find employees offering referrals now',hint:'DM them quickly with your resume — referrals have very high callback rates.'},
-  walkin:{icon:'🚶',title:'Walk-in Drives',desc:'Live walk-in drives in your city this week',hint:'Walk-in announcements — show up with resume, no application needed.'}
-};
 let currentMode='skill';
-function setMode(mode,btn){
-  currentMode=mode;
-  document.querySelectorAll('.sb-item[id^="mode-"]').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  const m=MODES[mode];if(!m)return;
-  const sp=document.getElementById('dashSearch');
-  if(sp)sp.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+function buildSearchPanel(mode){
+  var el=document.getElementById('modeSearchContent');if(!el)return;
+  var skill=currentUser.skill||'';
+  var city=currentUser.city||'Hyderabad';
+  var expVal=currentUser.exp||'';
+  var cities=['Hyderabad','Bengaluru','Mumbai','Pune','Delhi NCR','Chennai','Kolkata','Noida','Remote'];
+  var cityOpts=cities.map(function(c){return '<option'+(c===city?' selected':'')+'>'+c+'</option>';}).join('');
+  var expOpts=[
+    ['','Any experience'],['fresher','Fresher'],['1-3','1-3 yrs'],
+    ['3-7','3-7 yrs'],['7-10','7-10 yrs'],['10-15','10-15 yrs'],['15+','15+ yrs']
+  ].map(function(o){return '<option value="'+o[0]+'"'+(expVal===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
+
+  var skillF='<div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition, React Dev..." list="skillList" value="'+skill+'" style="min-width:170px;"></div>';
+  var cityF='<div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city">'+cityOpts+'</select></div>';
+  var expF='<div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp">'+expOpts+'</select></div>';
+  var runF='<button class="btn-run" onclick="runSearch()">&#128241; Find Signals &rarr;</button>';
+
+  var mIcons={skill:'&#127919;',hashtag:'#',notice:'&#9201;&#65039;',referral:'&#129309;',walkin:'&#128694;'};
+  var mTitles={skill:'Skill + City',hashtag:'Hashtag Hunt',notice:'Notice Period',referral:'Referral Radar',walkin:'Walk-in Drives'};
+  var mDescs={
+    skill:'Find exact recruiter posts hiring for your skill in your city',
+    hashtag:'Find #hiring #NowHiring posts for your skill before they trend',
+    notice:'Find recruiters looking for candidates with your notice window',
+    referral:'Find employees offering referrals at top companies right now',
+    walkin:'Find walk-in interview drives in your city this week'
+  };
+  var mHints={
+    skill:'Results open on LinkedIn. Comment quickly - 24h posts get least competition.',
+    hashtag:'Searches for hashtag-based recruiter posts. Often found hours before job portals.',
+    notice:'Select your notice window. Finds posts where recruiters mention specific timelines.',
+    referral:'DM them with your resume - referrals have 5x higher callback rate than direct applications.',
+    walkin:'Walk-in drives - no application needed. Show up with resume and attend directly.'
+  };
+
+  var extra='';
+  if(mode==='notice'){
+    extra='<div class="sg"><label class="sg-label">Notice Period</label>'
+      +'<select class="sg-select" id="sk_notice">'
+      +'<option value="immediate">Immediate Joiner</option>'
+      +'<option value="15">15 Days</option>'
+      +'<option value="30">30 Days</option>'
+      +'<option value="60">60 Days</option>'
+      +'<option value="90">90 Days</option>'
+      +'</select></div>';
+  }
+
+  var h='<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">'
+    +'<div style="font-size:20px;">'+(mIcons[mode]||'&#127919;')+'</div>'
+    +'<div><div style="font-size:16px;font-weight:800;color:var(--ink);">'+(mTitles[mode]||'Search')+'</div>'
+    +'<div style="font-size:12px;color:var(--soft);margin-top:2px;">'+(mDescs[mode]||'')+'</div></div></div>';
+  h+='<div class="search-row">'+skillF+cityF+expF+extra+runF+'</div>';
+  h+='<div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:var(--warm);border-radius:7px;">'+(mHints[mode]||'')+'</div>';
+  el.innerHTML=h;
 }
 
+function setMode(mode,btn){
+  currentMode=mode;
+  document.querySelectorAll('.sb-item[id^="mode-"]').forEach(function(b){b.classList.remove('active');});
+  if(btn){btn.classList.add('active');}
+  else{var nb=document.getElementById('mode-'+mode);if(nb)nb.classList.add('active');}
+  var m=MODES[mode];if(!m)return;
+  var se=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
+  se('modeIcon',m.icon);se('modeTitle',m.title);se('modeDesc',m.desc);
+  var wrap=document.getElementById('modePanelWrap');if(!wrap)return;
+  var cu=currentUser;
+  var cv=function(c){return c===(cu.city||'Hyderabad')?' selected':'';};
+  var cityOpts=['Hyderabad','Bengaluru','Mumbai','Pune','Delhi NCR','Chennai','Kolkata','Noida','Remote'].map(function(c){return '<option'+cv(c)+'>'+c+'</option>';}).join('');
+  var expOpts='<option value="">Any exp</option><option value="fresher">Fresher</option><option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option><option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option><option value="15+">15+ yrs</option>';
+  var sv=cu.skill||'';
+  var h='<div class="search-row">';
+  h+='<div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition..." list="skillList" value="'+sv+'" style="min-width:180px;"></div>';
+  h+='<div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city">'+cityOpts+'</select></div>';
+  h+='<div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp">'+expOpts+'</select></div>';
+  if(mode==='notice'){
+    h+='<div class="sg"><label class="sg-label">Notice Period</label><select class="sg-select" id="sk_notice"><option value="">Any</option><option value="immediate">Immediate</option><option value="30days">30 Days</option><option value="60days">60 Days</option><option value="serving">Serving Notice</option></select></div>';
+  }
+  h+='<button class="btn-run" onclick="runSearch()">📡 Find Signals \u2192</button></div>';
+  h+='<div class="search-hint">💡 '+m.hint+'</div>';
+  wrap.innerHTML=h;
+}
 
 function doAdminLogin(){
   const u=document.getElementById('admin_user')?.value.trim();
@@ -1357,31 +1380,47 @@ function showRTab(tab,btn){
   var ra=document.getElementById('resultsArea');
   if(ra&&ra.style.display!=='none')ra.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-document.addEventListener('DOMContentLoaded',async function(){
-  // Test Firebase connection with REST API
-  try{
-    const r=await fetch(FB_DB+'/.json?shallow=true');
-    updateFbStatus(r.ok?'Firebase ✅ Connected':'Firebase ⚠️ Status: '+r.status);
-  }catch(e){updateFbStatus('Firebase ❌ '+e.message);}
 
-  // Restore session
+function showWelcomeBar(user){
+  currentUser=user;
+  var bar=document.getElementById('welcomeBar');
+  if(!bar)return;
+  var pl=gjson(S_PLAN,{});
+  var planValid=pl.plan&&new Date(pl.expiresAt)>new Date();
+  var first=(user.name||'User').split(' ')[0];
+  var init=(user.name||'JS').split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
+  var planLabel=planValid?pl.plan+' ✅':'Free Plan';
+  var d=document.createElement('div');
+  d.style.cssText='display:flex;align-items:center;gap:14px;flex-wrap:wrap;';
+  var av=document.createElement('div');
+  av.style.cssText='width:30px;height:30px;border-radius:50%;background:var(--amber);font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;';
+  av.textContent=init;
+  var info=document.createElement('div');
+  var n1=document.createElement('div');n1.style.cssText='font-size:13px;font-weight:700;color:var(--ink);';n1.textContent='Welcome back, '+first+'!';
+  var n2=document.createElement('div');n2.style.cssText='font-size:11px;color:var(--soft);';n2.textContent=(user.skill||'Job Seeker')+' · '+(user.city||'India')+' · '+planLabel;
+  info.appendChild(n1);info.appendChild(n2);
+  var left=document.createElement('div');left.style.cssText='display:flex;align-items:center;gap:10px;';
+  left.appendChild(av);left.appendChild(info);
+  var right=document.createElement('div');right.style.cssText='display:flex;gap:8px;margin-left:auto;';
+  var goBtn=document.createElement('button');
+  goBtn.style.cssText='padding:8px 18px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;';
+  goBtn.textContent='Go to Dashboard →';
+  goBtn.onclick=function(){enterDash(currentUser);};
+  var closeBtn=document.createElement('button');
+  closeBtn.style.cssText='padding:8px 12px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;cursor:pointer;';
+  closeBtn.textContent='✕';
+  closeBtn.onclick=function(){bar.style.display='none';};
+  right.appendChild(goBtn);right.appendChild(closeBtn);
+  d.appendChild(left);d.appendChild(right);
+  bar.innerHTML='';bar.appendChild(d);
+  bar.style.display='block';
+}
+document.addEventListener('DOMContentLoaded',function(){
   try{
-    const raw=gst(S_USER);
-    if(raw){
-      const u=JSON.parse(raw);
-      if(u&&u.name){
-        const pl=gjson(S_PLAN,{});
-        if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
-        if(gst(S_PREV)==='1')prevUsed=true;
-        currentUser=u;
-        buildDash(u,pl);
-        goTo('dashView');
-        return;
-      }
-    }
+    var raw=gst(S_USER);
+    if(raw){var u=JSON.parse(raw);if(u&&u.name){showWelcomeBar(u);return;}}
   }catch(e){}
 });
-
 </script>
 
 <!-- Razorpay -->
