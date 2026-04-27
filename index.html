@@ -210,7 +210,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 #toast.green{background:var(--teal);}
 #toast.amber{background:var(--amber);}
 #toast.red{background:var(--red);}
-/* Firebase status bar */
+
 
 /* Mobile */
 @media(max-width:768px){
@@ -229,15 +229,21 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .nav-links button:not(.btn-login):not(.btn-signup){display:none;}
 }
 
-.mode-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
-.mode-header-icon{font-size:22px;}
-.mode-header-title{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);}
-.mode-header-desc{font-size:12px;color:var(--soft);margin-top:1px;}
-.search-hint{font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:var(--warm);border-radius:7px;line-height:1.5;}
-
-.sb-sec-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:10px 16px 4px;}
+.sb-brand{padding:8px 12px 6px;border-bottom:1px solid rgba(255,255,255,.07);}
+.sb-sec-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 16px 3px;}
+.mode-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.mode-header-icon{font-size:20px;}
+.mode-header-title{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);}
+.mode-header-desc{font-size:11px;color:var(--soft);margin-top:2px;}
+.search-hint{font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:rgba(232,148,58,.06);border-radius:7px;line-height:1.5;}
+.source-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.src-tab{padding:7px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--soft);font-family:inherit;}
+.src-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 </style>
+
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%230f1117"/><circle cx="16" cy="16" r="11" fill="none" stroke="%23e8943a" stroke-width="1" opacity="0.4"/><circle cx="16" cy="16" r="6" fill="none" stroke="%23e8943a" stroke-width="1" opacity="0.7"/><circle cx="16" cy="16" r="3" fill="%23e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="%23e8943a" stroke-width="1.5" stroke-linecap="round"/></svg>'>
 </head>
+
 <body>
 
 <div id="toast"></div>
@@ -245,7 +251,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 <!-- NAV — outside all views -->
 <nav class="top-nav" id="mainNav">
-  <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JobsSignal"><circle cx="18" cy="18" r="16" fill="none" stroke="rgba(232,148,58,0.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="10" fill="none" stroke="rgba(232,148,58,0.55)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="28" y2="8" stroke="#e8943a" stroke-width="1.2" stroke-linecap="round"/><text x="40" y="24" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="24" font-family="-apple-system,Helvetica,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
+  <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
   <div class="nav-links">
     <button onclick="goToSec('howItWorks')">How It Works</button>
     <button onclick="goToSec('modes')">Search Modes</button>
@@ -257,13 +263,14 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 </nav>
 
 <!-- ═══ LANDING ═══ -->
-<div id="welcomeBar" style="display:none;background:#fff;border-bottom:1px solid rgba(15,17,23,.09);padding:12px 24px;position:sticky;top:58px;z-index:150;"></div>
+<div id="welcomeBar" style="display:none;background:#fff;border-bottom:1px solid var(--border);padding:10px 24px;position:sticky;top:58px;z-index:150;"></div>
 
 <div class="view active" id="landingView">
   <div class="hero">
     <div class="eyebrow">Real-time Recruiter Signals · India</div>
     <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
     <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from 100+ sources.</p>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:20px;flex-wrap:wrap;"><div style="display:flex;"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80" style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-right:-8px;" alt=""><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80" style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-right:-8px;" alt=""><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&q=80" style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-right:-8px;" alt=""><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" style="width:30px;height:30px;border-radius:50%;border:2px solid #fff;object-fit:cover;" alt=""></div><div style="font-size:12px;color:var(--soft);margin-left:10px;"><strong style="color:var(--ink);">2,400+</strong> found recruiters this month</div></div>
     <div class="hero-btns">
       <button class="btn-primary" onclick="goTo('signupView')">📡 Find Signals Free →</button>
       <button class="btn-ghost" onclick="goToSec('howItWorks')">How It Works</button>
@@ -297,56 +304,48 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   </section>
 
 
-  <!-- ═══ COMPARISON ═══ -->
-  <section id="comparison" style="max-width:900px;margin:0 auto;padding:60px 24px;">
+  <section id="comparison" style="max-width:920px;margin:0 auto;padding:60px 24px;">
     <div class="eyebrow">Why JobsSignal</div>
-    <h2 style="font-family:'Fraunces',serif;font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;">Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th.</h2>
+    <h2 style="font-family:'Fraunces',serif;font-size:42px;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;">Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th.</h2>
     <p style="font-size:15px;color:var(--soft);line-height:1.7;max-width:480px;margin-bottom:36px;">Every portal shows jobs 500 people already applied to. JobsSignal finds the recruiter before the job is posted.</p>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--ink);border-radius:14px;overflow:hidden;margin-bottom:40px;">
-      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">0<sup style="font-size:13px;">hrs</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Delay</div></div>
-      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">10<sup style="font-size:13px;">x</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Less Competition</div></div>
-      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">5<sup style="font-size:13px;">x</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Referral Rate</div></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);border-radius:14px;overflow:hidden;margin-bottom:36px;">
+      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">0<sup style="font-size:13px;">hr</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Delay</div></div>
+      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">10x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Less Competition</div></div>
+      <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">5x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Referral Rate</div></div>
       <div style="padding:20px 16px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--amber);">₹49</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Starts From</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:14px;align-items:start;margin-bottom:32px;">
       <div style="background:#fff;border-radius:14px;border:1px solid var(--border);padding:22px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Other Portals</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Other Portals</div>
         <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:var(--ink);margin-bottom:14px;">Naukri · LinkedIn · Indeed</div>
         <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">⏰ Jobs appear 24–48 hrs after recruiter posts</div>
+          <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">⏰ Jobs appear 24–48 hrs late</div>
           <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">👥 500–5,000 applicants per listing</div>
           <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">🔍 No notice period filter</div>
-          <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">🤝 No referral finder</div>
           <div style="padding:8px 10px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">💰 ₹1,800–5,000/year for premium</div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:70px;gap:8px;">
-        <div style="height:36px;width:1px;background:var(--border);"></div>
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:11px;font-weight:800;color:var(--soft);">VS</div>
-        <div style="height:36px;width:1px;background:var(--border);"></div>
-      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:70px;gap:8px;"><div style="height:36px;width:1px;background:var(--border);"></div><div style="width:36px;height:36px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:11px;font-weight:800;color:var(--soft);">VS</div><div style="height:36px;width:1px;background:var(--border);"></div></div>
       <div style="background:var(--ink);border-radius:14px;padding:22px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px;">JobsSignal</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px;">JobsSignal</div>
         <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:14px;">Jobs<em style="color:var(--amber);font-style:italic;font-weight:300;">Signal</em></div>
         <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">⚡ Find posts the <strong style="color:#fff;">same minute</strong> published</div>
-          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">🎯 Among the <strong style="color:#fff;">first 5–10</strong> to see every post</div>
-          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">⏱️ <strong style="color:#fff;">Notice Period mode</strong> — find your window</div>
-          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">🤝 <strong style="color:#fff;">Referral Radar</strong> — live referral offers</div>
-          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">💰 <strong style="color:#fff;">₹49 · 7 days</strong> · ₹99/month · ₹599/year</div>
+          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">⚡ Posts found the <strong style="color:#fff;">same minute</strong></div>
+          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">🎯 <strong style="color:#fff;">First 5–10</strong> to see every post</div>
+          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">⏱️ <strong style="color:#fff;">Notice Period mode</strong> built-in</div>
+          <div style="padding:8px 10px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">💰 <strong style="color:#fff;">₹49 / 7 days</strong> · ₹599/year</div>
         </div>
       </div>
     </div>
     <div style="background:var(--ink);border-radius:14px;padding:36px;text-align:center;">
-      <h3 style="font-family:'Fraunces',serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:10px;">"Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th."</h3>
-      <p style="font-size:14px;color:rgba(255,255,255,.4);margin-bottom:20px;line-height:1.7;">Every other portal shows jobs 500 people already applied to.<br>JobsSignal shows you the recruiter before the job is even posted.</p>
+      <h3 style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:10px;">"Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th."</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,.4);margin-bottom:20px;line-height:1.7;">Every portal shows you jobs 500 people already applied to.<br>JobsSignal finds the recruiter before the job is even posted.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <button class="btn-primary" onclick="goTo('signupView')">📡 Start Free — 1 Search →</button>
         <button class="btn-ghost" onclick="goToSec('pricing')" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);">See Pricing ↓</button>
       </div>
     </div>
   </section>
-
   <section id="pricing">
     <div class="eyebrow" style="text-align:center;">Pricing</div>
     <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
@@ -355,7 +354,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
       <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -453,80 +452,184 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <div class="view" id="dashView">
 <div class="dash-wrap">
   <div class="sidebar">
-    <div class="sb-brand" style="padding:6px 14px 8px;"><svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JobsSignal"><circle cx="15" cy="15" r="13" fill="none" stroke="rgba(232,148,58,0.3)" stroke-width="1.2"/><circle cx="15" cy="15" r="8" fill="none" stroke="rgba(232,148,58,0.55)" stroke-width="1.2"/><circle cx="15" cy="15" r="3" fill="#e8943a"/><line x1="15" y1="15" x2="23" y2="7" stroke="#e8943a" stroke-width="1.2" stroke-linecap="round"/><text x="33" y="20" font-family="Georgia,serif" font-size="16" font-weight="700" fill="white">Jobs</text><text x="67" y="20" font-family="-apple-system,Helvetica,sans-serif" font-size="16" font-weight="300" fill="#e8943a">Signal</text></svg></div>
+    <div class="sb-brand"><svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="12" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.2"/><circle cx="15" cy="15" r="7" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.2"/><circle cx="15" cy="15" r="3" fill="#e8943a"/><line x1="15" y1="15" x2="22" y2="8" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="33" y="21" font-family="Georgia,serif" font-size="16" font-weight="700" fill="white">Jobs</text><text x="67" y="21" font-family="system-ui,sans-serif" font-size="16" font-weight="300" fill="#e8943a">Signal</text></svg></div></div>
     <div class="sb-user"><div class="sb-av" id="dAv">KM</div><div><div class="sb-uname" id="dName">User</div><div class="sb-urole" id="dRole">Job Seeker</div></div></div>
     <div class="sb-nav">
-      <div class="sb-sec-label">Search Modes</div>
+            <div class="sb-sec-label">Search Modes</div>
       <div class="sb-item active" id="mode-skill" onclick="setMode('skill',this)"><span class="sb-icon">🎯</span><span>Skill + City</span></div>
       <div class="sb-item" id="mode-hashtag" onclick="setMode('hashtag',this)"><span class="sb-icon">#️⃣</span><span>Hashtag Hunt</span></div>
       <div class="sb-item" id="mode-notice" onclick="setMode('notice',this)"><span class="sb-icon">⏱️</span><span>Notice Period</span></div>
       <div class="sb-item" id="mode-referral" onclick="setMode('referral',this)"><span class="sb-icon">🤝</span><span>Referral Radar</span></div>
       <div class="sb-item" id="mode-walkin" onclick="setMode('walkin',this)"><span class="sb-icon">🚶</span><span>Walk-in Drives</span></div>
-      <div style="height:1px;background:rgba(255,255,255,.07);margin:6px 0;"></div>
+      <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0;"></div>
       <div class="sb-sec-label">Results</div>
-      <div class="sb-item" onclick="showRTab('rp',null)"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
-      <div class="sb-item" onclick="showRTab('rj',null)"><span class="sb-icon">💼</span><span>Job Listings</span></div>
-      <div class="sb-item" onclick="showRTab('rr',null)"><span class="sb-icon">👤</span><span>Find Recruiters</span></div>
-      <div style="height:1px;background:rgba(255,255,255,.07);margin:6px 0;"></div>
+      <div class="sb-item" onclick="showRTab('rp',this)"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
+      <div class="sb-item" onclick="showRTab('rj',this)"><span class="sb-icon">💼</span><span>Job Listings</span></div>
+      <div class="sb-item" onclick="showRTab('rr',this)"><span class="sb-icon">👤</span><span>Find Recruiters</span></div>
+      <div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0;"></div>
       <div class="sb-sec-label">Account</div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
-    </div>
-  </div>
-  <div class="sb-main">
-    <div class="sb-topbar">
-      <div><div class="sb-fullname" id="dFullName">Welcome</div><div class="sb-usermeta" id="dMeta">Free Plan</div></div>
-      <div class="sb-topbar-r"><button class="btn-find" onclick="scrollToSearch()">📡 Find Signals</button><button style="padding:8px 12px;border-radius:7px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="doLogout()">Sign Out</button></div>
-    </div>
-    <div class="sb-content">
-      <div class="stat-cards">
-        <div class="sc"><div class="sc-n" id="scCity">Hyd</div><div class="sc-l">City</div></div>
-        <div class="sc"><div class="sc-n" id="scSkill">TA</div><div class="sc-l">Skill</div></div>
-        <div class="sc"><div class="sc-n" id="scPlan">Free</div><div class="sc-l">Plan</div></div>
-        <div class="sc"><div class="sc-n" id="scLeft">1</div><div class="sc-l">Searches</div></div>
-      </div>
-      <div class="preview-banner" id="prevBanner"><div class="pb-icon">🎁</div><div><div class="pb-title">1 free signal search!</div><div class="pb-sub">Try now — recruiter posts + Adzuna live jobs. No card needed.</div></div><button class="btn-prev" onclick="scrollToSearch()">Search Free →</button></div>
-      
-      <div class="search-panel" id="dashSearch">
-        <div class="mode-header">
-          <div class="mode-header-icon" id="modeIcon">🎯</div>
-          <div>
-            <div class="mode-header-title" id="modeTitle">Skill + City</div>
-            <div class="mode-header-desc" id="modeDesc">Find exact recruiter posts for your skill in your city</div>
-          </div>
-        </div>
+<div class="search-panel" id="dashSearch">
+        <div class="mode-header"><span class="mode-header-icon" id="modeIcon">🎯</span><div><div class="mode-header-title" id="modeTitle">Skill + City</div><div class="mode-header-desc" id="modeDesc">Find exact recruiter posts for your skill in your city</div></div></div>
         <div id="modePanelWrap"></div>
       </div>
-      <div id="resultsArea" style="display:none;">
-        <div class="results-wrap">
-          <div class="r-header"><div class="r-title" id="rTitle">Results</div><div class="r-sub" id="rSub"></div></div>
-          <div class="r-tabs">
-            <button class="r-tab active" onclick="showRTab('rp',this)">📡 Recruiter Posts</button>
-            <button class="r-tab" onclick="showRTab('rj',this)">💼 Job Listings</button>
-            <button class="r-tab" onclick="showRTab('rr',this)">👤 Find Recruiters</button>
-          </div>
-          <div class="r-content">
-            <div class="tab-pane active" id="rp"></div>
-            <div class="tab-pane" id="rj"></div>
-            <div class="tab-pane" id="rr"></div>
-          </div>
-        </div>
+
+
+<!-- NAV — outside all views -->
+<nav class="top-nav" id="mainNav">
+  <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
+  <div class="nav-links">
+    <button onclick="goToSec('howItWorks')">How It Works</button>
+    <button onclick="goToSec('modes')">Search Modes</button>
+    <button onclick="goToSec('pricing')">Pricing</button>
+    <button class="btn-login" onclick="goTo('loginView')">Log In</button>
+    <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
+  </div>
+</nav>
+
+<!-- ═══ LANDING ═══ -->
+<div id="welcomeBar" style="display:none;background:#fff;border-bottom:1px solid var(--border);padding:10px 24px;position:sticky;top:58px;z-index:150;"></div>
+
+<div class="view active" id="landingView">
+  <div class="hero">
+    <div class="eyebrow">Real-time Recruiter Signals · India</div>
+    <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
+    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from 100+ sources.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goTo('signupView')">📡 Find Signals Free →</button>
+      <button class="btn-ghost" onclick="goToSec('howItWorks')">How It Works</button>
+    </div>
+  </div>
+
+  <section id="howItWorks">
+    <div class="eyebrow">How It Works</div>
+    <h2>Three steps to your<br>next <em>opportunity.</em></h2>
+    <p class="sec-sub">Sign up once. Search instantly. Apply before anyone else.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div><strong>Sign up free — 30 seconds.</strong><br><span style="font-size:13px;color:var(--soft);">Enter your name, mobile, skill and city. No password needed.</span></div></div>
+      <div class="step"><div class="step-n">2</div><div><strong>Choose your search mode.</strong><br><span style="font-size:13px;color:var(--soft);">5 modes: Skill+City · Hashtag Hunt · Notice Period · Referral Radar · Walk-in Drives</span></div></div>
+      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Adzuna (100+ sources) show inside the app with salary &amp; Apply button.</span></div></div>
+    </div>
+  </section>
+
+  <section id="modes" style="background:var(--ink);border-radius:18px;max-width:100%;padding:50px 24px;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="eyebrow" style="color:rgba(255,255,255,.4);">Five Search Modes</div>
+      <h2 style="color:#fff;margin-bottom:12px;">Every signal type, <em>one platform.</em></h2>
+      <div class="modes-grid">
+        <div class="mode-card"><div class="mode-icon">🎯</div><div class="mode-name">Skill + City</div><div class="mode-desc">Recruiter posts for your exact skill in your city.</div></div>
+        <div class="mode-card"><div class="mode-icon">#</div><div class="mode-name">Hashtag Hunt</div><div class="mode-desc">#Hiring #NowHiring — find posts before they trend.</div></div>
+        <div class="mode-card"><div class="mode-icon">⏱️</div><div class="mode-name">Notice Period</div><div class="mode-desc">Recruiters looking for 30-day or immediate joiners.</div></div>
+        <div class="mode-card"><div class="mode-icon">🤝</div><div class="mode-name">Referral Radar</div><div class="mode-desc">Find employees offering referrals at target companies.</div></div>
+        <div class="mode-card"><div class="mode-icon">🚶</div><div class="mode-name">Walk-in Drives</div><div class="mode-desc">Live walk-in interview announcements this week.</div></div>
+        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Indeed + 100 sources inside the app. Salary, company, Apply button. Powered by Adzuna.</div></div>
       </div>
-      <div class="upgrade-plans" id="upgradePlans">
-        <div class="up-title">⬆️ Unlock Full Access</div>
-        <div class="up-sub">Your free preview is used. Upgrade for unlimited searches.</div>
-        <div class="plans-grid">
-          <div class="plan-card" onclick="openPay('7 Days',49)"><div class="plan-days">7 Days</div><div class="plan-price">₹49</div><div class="plan-tag">unlimited</div></div>
-          <div class="plan-card pop" onclick="openPay('Monthly Plan',99)"><div class="pop-b">POPULAR</div><div class="plan-days">30 Days</div><div class="plan-price">₹99</div><div class="plan-tag">unlimited</div></div>
-          <div class="plan-card" onclick="openPay('60 Days',179)"><div class="plan-days">60 Days</div><div class="plan-price">₹179</div><div class="plan-tag">unlimited</div></div>
-          <div class="plan-card" onclick="openPay('Annual Plan',599)"><div class="plan-days">Annual</div><div class="plan-price">₹599</div><div class="plan-tag">best value</div></div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="eyebrow" style="text-align:center;">Pricing</div>
+    <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
+    <p class="sec-sub" style="text-align:center;max-width:380px;margin:0 auto 24px;">Start free. No card. Upgrade when ready.</p>
+    <div class="price-grid">
+      <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
+      <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
+      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>All future features</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ LOGIN ═══ -->
+<div class="view" id="loginView">
+<div class="split-auth">
+  <div class="sa-left">
+    <h2>Welcome <em>back.</em></h2>
+    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on portals.</p>
+    <div class="sa-stats">
+      <div class="sa-stat"><div class="sa-stat-n">2,400+</div><div class="sa-stat-l">Signals/day</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">8hrs</div><div class="sa-stat-l">Before portals</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">₹49</div><div class="sa-stat-l">Starts from</div></div>
+    </div>
+  </div>
+  <div class="sa-right">
+    <div class="sa-form">
+      <div class="sa-eyebrow">Log In</div>
+      <div class="sa-title">Welcome <em>back.</em></div>
+      <div class="sa-sub">New here? <button onclick="goTo('signupView')">Sign up free →</button></div>
+      <div class="sa-hint">📱 Enter your registered mobile number. No password needed.</div>
+      <div class="sa-field"><label class="sa-label">Mobile Number</label><input class="sa-input" id="li_phone" placeholder="98765 43210" type="tel" maxlength="10"></div>
+      <div class="sa-err" id="loginErr"></div>
+      <button class="sa-btn sa-btn-amber" onclick="doLogin()">Log In →</button>
+      <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SIGNUP ═══ -->
+<div class="view" id="signupView">
+<div class="split-auth">
+  <div class="sa-left">
+    <div id="sl1"><h2>Start finding<br>recruiter<br><em>signals today.</em></h2><p>30 seconds to sign up. 1 free search. No card needed.</p></div>
+    <div id="sl2" style="display:none;"><h2>Tell us a<br>little about<br><em>yourself.</em></h2><p>Helps us show the most relevant recruiter signals.</p></div>
+    <div id="sl3" style="display:none;"><h2>You are<br>all <em>set!</em></h2><p>Your account is ready. Keep LinkedIn open for instant results.</p></div>
+    <div class="sa-stats" style="margin-top:auto;">
+      <div class="sa-stat"><div class="sa-stat-n">30sec</div><div class="sa-stat-l">To sign up</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">1</div><div class="sa-stat-l">Free search</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">₹0</div><div class="sa-stat-l">Card needed</div></div>
+    </div>
+  </div>
+  <div class="sa-right">
+    <div class="sa-form">
+      <div class="step-bar"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div></div>
+      <!-- Step 1 -->
+      <div id="step1">
+        <div class="sa-eyebrow">Create Account — Step 1 of 3</div>
+        <div class="sa-title">Create your <em>account.</em></div>
+        <div class="sa-sub">Already have one? <button onclick="goTo('loginView')">Log in →</button></div>
+        <div class="li-tip"><div class="li-icon">in</div><div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:2px;">⚡ Open LinkedIn first</div><div style="font-size:11px;color:#3b82f6;">Log in to LinkedIn for instant results.</div></div><button class="li-btn" onclick="window.open('https://www.linkedin.com','_blank')">Open →</button></div>
+        <div class="field-row">
+          <div class="sa-field"><label class="sa-label">Full Name *</label><input class="sa-input" id="s1n" placeholder="Riya Desai"><div class="field-msg" id="s1n_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Mobile *</label><input class="sa-input" id="s1p" placeholder="98765 43210" maxlength="10" type="tel"><div class="field-msg" id="s1p_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Email *</label><input class="sa-input" id="s1e" placeholder="you@email.com"><div class="field-msg" id="s1e_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Primary Skill *</label><input class="sa-input" id="s1s" placeholder="Talent Acquisition..." list="skillList"><div class="field-msg" id="s1s_m"></div></div>
         </div>
-        <div style="font-size:11px;color:var(--muted);text-align:center;">Tap plan to pay · Razorpay · UPI · Cards</div>
+        <div class="sa-field"><label class="sa-label">City *</label><select class="sa-input" id="s1c"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Remote</option></select><div class="field-msg" id="s1c_m"></div></div>
+        <button class="sa-btn sa-btn-amber" onclick="nextStep(1)">Continue → Step 2</button>
+        <button class="sa-btn sa-btn-ghost" onclick="goTo('landingView')">← Back</button>
+      </div>
+      <!-- Step 2 -->
+      <div id="step2" style="display:none;">
+        <div class="sa-eyebrow">Create Account — Step 2 of 3</div>
+        <div class="sa-title">Your <em>preferences.</em></div>
+        <div class="sa-field"><label class="sa-label">Currently Working?</label><div class="pill-row" id="wsRow"><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">✅ Employed</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">⏱️ Serving Notice</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🔍 Searching</button><button type="button" class="pill-btn" onclick="pickPill(this,'wsRow')">🎓 Fresher</button></div></div>
+        <div class="sa-field" style="margin-top:12px;"><label class="sa-label">Experience</label><div class="pill-row" id="expRow"><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">Fresher</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">1–3 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">3–7 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">7–10 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">10–15 yrs</button><button type="button" class="pill-btn" onclick="pickPill(this,'expRow')">15+ yrs</button></div></div>
+        <div class="sa-field" style="margin-top:12px;"><label class="sa-label">Preferred Locations <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);">(multiple)</span></label><div class="pill-row" id="prefLocRow"><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Hyderabad</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Bengaluru</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Mumbai</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Pune</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Delhi NCR</button><button type="button" class="pill-btn" onclick="pickPill(this,'prefLocRow')">Remote</button></div></div>
+        <div style="display:flex;gap:8px;margin-top:16px;"><button class="sa-btn sa-btn-ghost" style="flex:0 0 auto;width:auto;" onclick="nextStep(-1)">← Back</button><button class="sa-btn sa-btn-amber" style="flex:1;" onclick="nextStep(2)">Continue → Step 3</button></div>
+      </div>
+      <!-- Step 3 -->
+      <div id="step3" style="display:none;">
+        <div class="sa-eyebrow">Almost Done — Step 3 of 3</div>
+        <div class="sa-title">You're all <em>set!</em></div>
+        <div style="background:var(--teal-pale);border:1.5px solid rgba(26,107,107,.2);border-radius:11px;padding:14px 16px;margin-bottom:16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:8px;">🎁 What you get free:</div>
+          <div style="font-size:13px;display:flex;flex-direction:column;gap:5px;">
+            <div>✓ 1 free recruiter signal search</div>
+            <div>✓ All 5 search modes</div>
+            <div>✓ Live Job Listings from Adzuna</div>
+            <div>✓ No credit card needed</div>
+          </div>
+        </div>
+        <button class="sa-btn sa-btn-amber" onclick="doSignup()">📡 Start My Free Search →</button>
+        <button class="sa-btn sa-btn-ghost" onclick="nextStep(-2)">← Back</button>
       </div>
     </div>
   </div>
 </div>
 </div>
 
+<!-- ═══ DASHBOARD ═══ -->
 <div class="view" id="adminLoginView">
 <div class="auth-page">
   <div class="auth-header">
@@ -715,27 +818,10 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         </div>
 
       </div><!-- /admin-panel -->
-    </div><!-- /admin-content -->
-  </div><!-- /admin-main -->
-</div><!-- /sb-layout -->
-</div><!-- /adminView -->
-
-<!-- ═══════════════════════════════════════
-     CHANGE PASSWORD
-     ═══════════════════════════════════════ -->
-
-<!-- Datalist -->
-
-<datalist id="skillList">
-  <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
-  <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
-  <option value="Data Scientist"><option value="Product Manager"><option value="DevOps Engineer">
-
-
+    </div><!-- /admin-content
 
 
 <script>
-
 
 
 
@@ -783,16 +869,6 @@ async function fbGetUser(phone){
     return await r.json();
   }catch(e){return null;}
 }
-async function fbEmailExists(email){
-  try{
-    if(!email)return false;
-    const url=FB_DB+'/users.json?orderBy=%22email%22&equalTo='+encodeURIComponent('"'+email.toLowerCase().trim()+'"')+'&limitToFirst=1';
-    const r=await fetch(url);
-    if(!r.ok)return false;
-    const d=await r.json();
-    return d&&Object.keys(d).length>0;
-  }catch(e){return false;}
-}
 
 
 
@@ -803,7 +879,7 @@ function goTo(viewId){
   const v=document.getElementById(viewId);
   if(v){v.classList.add('active');window.scrollTo(0,0);}
   const nav=document.getElementById('mainNav');
-  if(nav)nav.style.display=viewId==='dashView'||viewId==='adminView'?'none':'flex';
+  if(nav)nav.style.display=viewId==='dashView'?'none':'flex';
 }
 function goToSec(id){
   goTo('landingView');
@@ -818,13 +894,11 @@ function switchMode(btn){
   btn.classList.add('active');
 }
 function showRTab(tab,btn){
-  document.querySelectorAll('.r-tab').forEach(function(b){b.classList.remove('active');});
-  if(btn)btn.classList.add('active');
-  else{document.querySelectorAll('.r-tab').forEach(function(b){if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+tab+"'"))b.classList.add('active');});}
-  ['rp','rj','rr'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.toggle('active',x===tab);});
-  var ra=document.getElementById('resultsArea');
-  if(ra&&ra.style.display!=='none')ra.scrollIntoView({behavior:'smooth',block:'nearest'});
-}function showUpgrade(){showLockedDash();}
+  document.querySelectorAll('.r-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['rp','rj','rr'].forEach(x=>{const e=document.getElementById(x);if(e)e.classList.toggle('active',x===tab);});
+}
+function showUpgrade(){showLockedDash();}
 
 // ── LOGIN ────────────────────────────────────────────
 async function doLogin(){
@@ -869,12 +943,11 @@ async function nextStep(from){
     if(!e||!e.includes('@')){err('s1e','Enter valid email');return;}
     if(!s){err('s1s','Enter your primary skill');return;}
     if(!c){showToast('Please select your city','amber');return;}
-    const ep2=normP(p);
-    const existPhone=await fbGetUser(ep2);
+    var ep2=normP(p);var existPhone=await fbGetUser(ep2);
     if(existPhone&&existPhone.phone){showToast('Mobile already registered — please log in','amber');return;}
-    const sb2=document.querySelector('#step1 .sa-btn-amber');
+    var sb2=document.querySelector('#step1 .sa-btn-amber');
     if(sb2){sb2.textContent='Checking… ⏳';sb2.disabled=true;}
-    const emailUsed=await fbEmailExists(e);
+    var emailUsed=await fbEmailExists(e);
     if(sb2){sb2.textContent='Continue → Step 2';sb2.disabled=false;}
     if(emailUsed){showToast('Email already registered — please log in','amber');return;}
     hide('step1');show('step2');sl(2);dots(2);
@@ -920,7 +993,7 @@ function buildDash(user,pl){
   setEl('dAv',init);setEl('dName',first);setEl('dFullName',user.name||first);
   setEl('dRole',user.skill||'Job Seeker');
   setEl('dMeta',(user.skill||'')+(user.city?' · '+user.city:'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
-  setEl('scCity',user.city||'City');setEl('scSkill',user.skill||'Skill');
+  setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
   if(isPaid)showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
@@ -949,77 +1022,34 @@ function doLogout(){
 // ── SEARCH ───────────────────────────────────────────
 function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
-  const skill=(document.getElementById('sk_skill')?.value||'').trim()||currentUser.skill||'Software Engineer';
-  const city=document.getElementById('sk_city')?.value||currentUser.city||'Hyderabad';
-  const expVal=document.getElementById('sk_exp')?.value||'';
+  const skill=(document.getElementById('sk_skill').value||'').trim()||currentUser.skill||'Software Engineer';
+  const city=document.getElementById('sk_city').value||'Hyderabad';
   lastSkill=skill;lastCity=city;
   const enc=s=>encodeURIComponent(s);
-
-  // LinkedIn experience filter codes for Jobs search (f_E param)
-  // Does NOT go in keyword query — only as URL param on Jobs URLs
-  const expFE={
-    'fresher':'2','1-3':'2,3','3-7':'3,4',
-    '7-10':'4','10-15':'4,5','15+':'5,6'
-  };
-  const fE=expVal&&expFE[expVal]?'&f_E='+expFE[expVal]:'';
-
-  // ── RECRUITER POST QUERIES (content search — LOCKED) ──
-  // These are the exact working queries. DO NOT change structure.
-  let baseQ;
-  if(currentMode==='hashtag'){
-    baseQ='"'+skill+'" "'+city+'" (#hiring OR #NowHiring OR #Recruiting OR #JobOpening OR #Vacancy)';
-  }else if(currentMode==='notice'){
-    const nv=(document.getElementById('sk_notice')?.value)||'';
-    const nm={
-      immediate:'"immediate joiner" OR "immediate joining"',
-      '30days':'"30 days notice" OR "30 days"',
-      '60days':'"60 days notice" OR "60 days"',
-      serving:'"serving notice" OR "notice period"'
-    };
-    baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period") -"open to work" -"seeking" -"looking for" -"job seeker"');
-  }else if(currentMode==='referral'){
-    baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume")';
-  }else if(currentMode==='walkin'){
-    baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "drive" OR "direct interview")';
-  }else{
-    // DEFAULT Skill+City — exact working query (LOCKED — confirmed working)
-    baseQ='"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")';
-  }
-  // Note: NO experience text in query — experience uses f_E param on Jobs URLs only
-
-  const q=enc(baseQ);
-  const u24='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
-  const uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
-  const uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
-
-  // LinkedIn Jobs — use f_E for experience filter (proper LinkedIn param)
-  const jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
-  const j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
-  const jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
-  const jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
-
-  const pUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
-
-  // Open 24h recruiter posts in new tab
-  const a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-
+  const q=enc('"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")');
+  const u24=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-24h%22&sortBy=%22date_posted%22`;
+  const uWk=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-week%22&sortBy=%22date_posted%22`;
+  const uMo=`https://www.linkedin.com/search/results/content/?keywords=${q}&datePosted=%22past-month%22&sortBy=%22date_posted%22`;
+  const jb=`https://www.linkedin.com/jobs/search/?keywords=${enc(skill)}&location=${enc(city)}`;
+  const j24=jb+'&f_TPR=r86400&sortBy=DD';
+  const jWk=jb+'&f_TPR=r604800&sortBy=DD';
+  const jMo=jb+'&f_TPR=r2592000&sortBy=DD';
+  const jEA=jb+'&f_AL=true&sortBy=DD';
+  const pUrl=`https://www.linkedin.com/search/results/people/?keywords=${enc('recruiter "'+skill+'" "'+city+'"')}`;
+  const a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
   if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
-
-  const modeName=MODES[currentMode]?.title||'Skill + City';
-  const se2=function(id,v){const e=document.getElementById(id);if(e)e.textContent=v;};
-  se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
-  se2('rSub',modeName+' · LinkedIn recruiter posts + Job listings from 100+ sources');
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('rTitle',`"${skill}" in ${city}`);
+  setEl('rSub','LinkedIn recruiter posts + Job listings + Live Adzuna jobs');
   document.getElementById('resultsArea').style.display='block';
-
   buildPosts(skill,city,u24,uWk,uMo);
-  buildJobs(skill,city,j24,jWk,jMo);
+  buildJobs(skill,city,j24,jWk,jMo,jEA);
   buildAdzuna(skill,city);
   buildPeople(skill,city,pUrl);
-
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
-  if(!isPaid)setTimeout(function(){showLockedDash();},25000);
+  if(!isPaid)setTimeout(()=>showLockedDash(),25000);
 }
+
 function buildPosts(skill,city,u24,uWk,uMo){
   const el=document.getElementById('rp');if(!el)return;
   const items=[{id:'pp24',lbl:'⚡ 24 Hours',url:u24},{id:'ppwk',lbl:'📅 Past Week',url:uWk},{id:'ppmo',lbl:'🗓️ Past Month',url:uMo}];
@@ -1078,8 +1108,7 @@ function buildPeople(skill,city,url){
 function fetchAdzuna(skill,city,container){
   container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
   const azCity=AZ_CITIES[city]||city||'Hyderabad';
-  const azQ=new URLSearchParams({app_id:AZ_ID,app_key:AZ_KEY,what:skill,where:azCity,results_per_page:10,sort_by:'date','content-type':'application/json',full_time:1});
-  const url=AZ_URL+'?'+azQ.toString();
+  const url=`${AZ_URL}?app_id=${AZ_ID}&app_key=${AZ_KEY}&what=${encodeURIComponent(skill)}&where=${encodeURIComponent(azCity)}&results_per_page=10&sort_by=date&content-type=application/json`;
   fetch(url)
     .then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status))
     .then(data=>{
@@ -1128,31 +1157,32 @@ async function onPayOk(pid){
 
 // ── INIT ─────────────────────────────────────────────
 
+
+// ── SEARCH MODES ───────────────────────────────────
 const MODES={
-  skill:{icon:'🎯',title:'Skill + City',desc:'Find exact recruiter posts hiring for your skill in your city',hint:'Results open on LinkedIn. Comment quickly — 24h posts have least competition.'},
-  hashtag:{icon:'#️⃣',title:'Hashtag Hunt',desc:'Find #hiring #NowHiring posts for your skill before they trend',hint:'Searches #hiring #NowHiring hashtag posts on LinkedIn. Found hours before job portals.'},
-  notice:{icon:'⏱️',title:'Notice Period',desc:'Recruiters looking for your exact notice window',hint:'Finds posts where recruiters mention specific notice period requirements.'},
-  referral:{icon:'🤝',title:'Referral Radar',desc:'Find employees offering referrals at top companies now',hint:'DM them quickly with your resume — referral applications have 5x higher callback rates.'},
-  walkin:{icon:'🚶',title:'Walk-in Drives',desc:'Live walk-in interview drives in your city this week',hint:'Walk-in drives announced on LinkedIn. Just show up with your resume — no application needed.'}
+  skill:{icon:'🎯',title:'Skill + City',desc:'Find exact recruiter hiring posts for your skill in your city',hint:'Results open on LinkedIn. Comment in first hour — least competition on 24h posts.'},
+  hashtag:{icon:'#️⃣',title:'Hashtag Hunt',desc:'Find #hiring #NowHiring posts for your skill before they trend',hint:'Hashtag posts found before job portals list them. Reply quickly.'},
+  notice:{icon:'⏱️',title:'Notice Period',desc:'Recruiters explicitly looking for your notice window',hint:'Find recruiters who mention exact notice requirements — Immediate / 30d / 60d.'},
+  referral:{icon:'🤝',title:'Referral Radar',desc:'Find employees offering live referrals at top companies',hint:'DM with your resume — referral applications have 5x higher callback rates.'},
+  walkin:{icon:'🚶',title:'Walk-in Drives',desc:'Live walk-in drives in your city this week',hint:'Show up with resume — no online application needed. High success rate.'}
 };
 let currentMode='skill';
 
 function setMode(mode,btn){
   currentMode=mode;
   document.querySelectorAll('.sb-item[id^="mode-"]').forEach(function(b){b.classList.remove('active');});
-  if(btn){btn.classList.add('active');}else{var nb=document.getElementById('mode-'+mode);if(nb)nb.classList.add('active');}
+  if(btn)btn.classList.add('active');
+  else{var nb=document.getElementById('mode-'+mode);if(nb)nb.classList.add('active');}
   var m=MODES[mode];if(!m)return;
   var se=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
   se('modeIcon',m.icon);se('modeTitle',m.title);se('modeDesc',m.desc);
   var wrap=document.getElementById('modePanelWrap');if(!wrap)return;
   var cu=currentUser||{};
-  var cv=function(c){return c===(cu.city||'Hyderabad')?' selected':'';};
   var cities=['Hyderabad','Bengaluru','Mumbai','Pune','Delhi NCR','Chennai','Kolkata','Noida','Remote'];
-  var cityOpts=cities.map(function(c){return '<option'+cv(c)+'>'+c+'</option>';}).join('');
+  var cityOpts=cities.map(function(c){return '<option'+(c===(cu.city||'Hyderabad')?' selected':'')+'>'+c+'</option>';}).join('');
   var expOpts='<option value="">Any experience</option><option value="fresher">Fresher</option><option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option><option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option><option value="15+">15+ yrs</option>';
-  var sv=cu.skill||'';
   var h='<div class="search-row">';
-  h+='<div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="Talent Acquisition..." list="skillList" value="'+sv+'" style="min-width:180px;"></div>';
+  h+='<div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="e.g. SAP ABAP, React, HR..." list="skillList" value="'+(cu.skill||'')+'" style="min-width:180px;"></div>';
   h+='<div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city">'+cityOpts+'</select></div>';
   h+='<div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp">'+expOpts+'</select></div>';
   if(mode==='notice'){
@@ -1165,39 +1195,213 @@ function setMode(mode,btn){
   if(sp)sp.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
+// ── SEARCH ─────────────────────────────────────────
+// DO NOT MODIFY QUERY STRUCTURE — confirmed working
+const EXCLUDE=' -"open to work" -"actively looking" -"seeking opportunities" -"job seeker" -"opentowork" -"#opentowork"';
+
+function runSearch(){
+  if(!isPaid&&prevUsed){showLockedDash();return;}
+  var skill=(document.getElementById('sk_skill')||{value:''}).value.trim()||currentUser.skill||'Software Engineer';
+  var city=(document.getElementById('sk_city')||{value:'Hyderabad'}).value||currentUser.city||'Hyderabad';
+  var expVal=(document.getElementById('sk_exp')||{value:''}).value||'';
+  lastSkill=skill;lastCity=city;
+  var enc=function(s){return encodeURIComponent(s);};
+  // Experience → LinkedIn f_E param (jobs only, NOT in keyword query)
+  var expFE={fresher:'2','1-3':'2,3','3-7':'3,4','7-10':'4','10-15':'4,5','15+':'5,6'};
+  var fE=expVal&&expFE[expVal]?'&f_E='+expFE[expVal]:'';
+  var baseQ;
+  if(currentMode==='hashtag'){
+    baseQ='"'+skill+'" "'+city+'" (#hiring OR #NowHiring OR #Recruiting OR #JobOpening OR #Vacancy)'+EXCLUDE;
+  }else if(currentMode==='notice'){
+    var nv=(document.getElementById('sk_notice')||{value:''}).value||'';
+    var nm={immediate:'"immediate joiner" OR "immediate joining"','30days':'"30 days notice" OR "30 days"','60days':'"60 days notice" OR "60 days"',serving:'"serving notice" OR "notice period"'};
+    baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period")')+EXCLUDE;
+  }else if(currentMode==='referral'){
+    baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume")'+EXCLUDE;
+  }else if(currentMode==='walkin'){
+    baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "drive" OR "direct interview")'+EXCLUDE;
+  }else{
+    // Skill+City default (LOCKED)
+    baseQ='"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy")'+EXCLUDE;
+  }
+  var q=enc(baseQ);
+  var u24='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
+  var uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
+  var uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
+  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
+  var j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
+  var jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
+  var jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
+  var pUrl='https://www.linkedin.com/search/results/people/?keywords='+enc('recruiter "'+skill+'" "'+city+'"');
+  var a=document.createElement('a');a.href=u24;a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  if(!isPaid){prevUsed=true;sto(S_PREV,'1');}
+  var se=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
+  se('rTitle','"'+skill+'" in '+city);
+  se('rSub',(MODES[currentMode]||{title:'Skill+City'}).title+' · LinkedIn + Adzuna + Jooble + Remotive + Jobicy');
+  document.getElementById('resultsArea').style.display='block';
+  buildPosts(skill,city,u24,uWk,uMo);
+  buildJobs(skill,city,j24,jWk,jMo);
+  buildAllJobs(skill,city);
+  buildPeople(skill,city,pUrl);
+  document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(!isPaid)setTimeout(function(){showLockedDash();},25000);
+}
+
+// ── JOB LISTING SOURCES ───────────────────────────────
+// Adzuna (strict title_only + what_and)
+function fetchAdzuna(skill,city,container){
+  var azCityMap={Hyderabad:'hyderabad',Bengaluru:'bengaluru',Mumbai:'mumbai',Pune:'pune','Delhi NCR':'delhi',Chennai:'chennai',Kolkata:'kolkata',Noida:'noida',Remote:'india'};
+  var azCity=azCityMap[city]||city.toLowerCase()||'hyderabad';
+  // title_only=1 ensures ONLY job titles are searched — prevents "BI Engineer" for "Talent Acquisition"
+  // what_and ensures ALL words must appear in title
+  var azQ=new URLSearchParams({app_id:AZ_ID,app_key:AZ_KEY,what_and:skill,title_only:1,where:azCity,results_per_page:8,sort_by:'date','content-type':'application/json'});
+  var url=AZ_URL+'?'+azQ.toString();
+  fetch(url)
+    .then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+    .then(function(data){
+      var jobs=(data.results||[]);
+      if(!jobs.length){container.innerHTML='<div class="az-empty">No Adzuna listings for "'+skill+'" in '+city+' right now.</div>';return;}
+      var h='';
+      jobs.forEach(function(j){
+        var title=j.title||'Job Opening';
+        var company=(j.company&&j.company.display_name)||'Company';
+        var location=(j.location&&j.location.display_name)||city;
+        var salary=j.salary_min&&j.salary_max?'₹'+Math.round(j.salary_min/1000)+'k–₹'+Math.round(j.salary_max/1000)+'k/yr':'';
+        var posted=j.created?new Date(j.created).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
+        h+='<div class="az-card"><div class="az-title"><a href="'+j.redirect_url+'" target="_blank" rel="noopener">'+title+'</a></div>';
+        h+='<div class="az-meta">'+company+' · '+location+(salary?' · '+salary:'')+(posted?' · '+posted:'')+'</div>';
+        h+='<div class="az-actions"><a class="az-btn" href="'+j.redirect_url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
+      });
+      container.innerHTML=h;
+    })
+    .catch(function(e){container.innerHTML='<div class="az-empty">Adzuna: '+e+'</div>';});
+}
+
+// Jooble — aggregates Indian portals (Naukri, TimesJobs, etc.)
+function fetchJooble(skill,city,container){
+  container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Jooble...</span></div>';
+  var url='https://jooble.org/api/'+JOOBLE_KEY;
+  fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({keywords:skill,location:city,resultonpage:6})})
+    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
+    .then(function(data){
+      var jobs=(data.jobs||[]);
+      if(!jobs.length){container.innerHTML='<div class="az-empty">No Jooble listings found.</div>';return;}
+      var h='';
+      jobs.forEach(function(j){
+        var title=j.title||'Job Opening';
+        var company=j.company||'Company';
+        var location=j.location||city;
+        var salary=j.salary||'';
+        h+='<div class="az-card"><div class="az-title"><a href="'+j.link+'" target="_blank" rel="noopener">'+title+'</a></div>';
+        h+='<div class="az-meta">'+company+' · '+location+(salary?' · '+salary:'')+'</div>';
+        h+='<div class="az-actions"><a class="az-btn" href="'+j.link+'" target="_blank" rel="noopener">View Job →</a></div></div>';
+      });
+      container.innerHTML=h;
+    })
+    .catch(function(e){container.innerHTML='<div class="az-empty">Jooble not available (need API key).</div>';});
+}
+
+// Remotive — remote tech roles
+function fetchRemotive(skill,container){
+  container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Remotive...</span></div>';
+  fetch('https://remotive.com/api/remote-jobs?search='+encodeURIComponent(skill)+'&limit=6')
+    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
+    .then(function(data){
+      var jobs=(data.jobs||[]).slice(0,6);
+      if(!jobs.length){container.innerHTML='<div class="az-empty">No Remotive listings for "'+skill+'".</div>';return;}
+      var h='';
+      jobs.forEach(function(j){
+        h+='<div class="az-card"><div class="az-title"><a href="'+j.url+'" target="_blank" rel="noopener">'+j.title+'</a></div>';
+        h+='<div class="az-meta">'+j.company_name+' · Remote'+(j.salary?(' · '+j.salary):'')+'</div>';
+        h+='<div class="az-actions"><a class="az-btn" href="'+j.url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
+      });
+      container.innerHTML=h;
+    })
+    .catch(function(){container.innerHTML='<div class="az-empty">Remotive not available right now.</div>';});
+}
+
+// Jobicy — remote jobs
+function fetchJobicy(skill,container){
+  container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Jobicy...</span></div>';
+  fetch('https://jobicy.com/api/v2/remote-jobs?count=6&tag='+encodeURIComponent(skill))
+    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
+    .then(function(data){
+      var jobs=(data.jobs||[]).slice(0,6);
+      if(!jobs.length){container.innerHTML='<div class="az-empty">No Jobicy listings for "'+skill+'".</div>';return;}
+      var h='';
+      jobs.forEach(function(j){
+        h+='<div class="az-card"><div class="az-title"><a href="'+j.url+'" target="_blank" rel="noopener">'+j.jobTitle+'</a></div>';
+        h+='<div class="az-meta">'+j.companyName+' · Remote'+(j.jobSalary?(' · '+j.jobSalary):'')+'</div>';
+        h+='<div class="az-actions"><a class="az-btn" href="'+j.url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
+      });
+      container.innerHTML=h;
+    })
+    .catch(function(){container.innerHTML='<div class="az-empty">Jobicy not available right now.</div>';});
+}
+
+// Master: build all job sources in tabs
+function buildAllJobs(skill,city){
+  var jobCont=document.getElementById('rj');
+  if(!jobCont)return;
+  var srcHtml='<div class="source-tabs" id="srcTabs">';
+  srcHtml+='<button class="src-tab active" onclick="switchSrc(\'az\',this)">📊 Adzuna</button>';
+  srcHtml+='<button class="src-tab" onclick="switchSrc(\'jb\',this)">🇮🇳 Jooble</button>';
+  srcHtml+='<button class="src-tab" onclick="switchSrc(\'rm\',this)">🌐 Remotive</button>';
+  srcHtml+='<button class="src-tab" onclick="switchSrc(\'jc\',this)">💼 Jobicy</button>';
+  srcHtml+='</div><div id="src-az"></div><div id="src-jb" style="display:none"></div><div id="src-rm" style="display:none"></div><div id="src-jc" style="display:none"></div>';
+  jobCont.innerHTML=srcHtml;
+  fetchAdzuna(skill,city,document.getElementById('src-az'));
+}
+
+function switchSrc(src,btn){
+  document.querySelectorAll('.src-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  ['az','jb','rm','jc'].forEach(function(s){
+    var el=document.getElementById('src-'+s);
+    if(el)el.style.display=s===src?'block':'none';
+  });
+  var skill=lastSkill||currentUser.skill||'';
+  var city=lastCity||currentUser.city||'Hyderabad';
+  var el=document.getElementById('src-'+src);
+  if(!el||el.innerHTML.trim()!=='')return;
+  if(src==='jb')fetchJooble(skill,city,el);
+  else if(src==='rm')fetchRemotive(skill,el);
+  else if(src==='jc')fetchJobicy(skill,el);
+}
+
+// ── WELCOME BAR ────────────────────────────────────
 function showWelcomeBar(user){
   currentUser=user;
-  var bar=document.getElementById('welcomeBar');
-  if(!bar)return;
+  var bar=document.getElementById('welcomeBar');if(!bar)return;
   var pl=gjson(S_PLAN,{});
   var planValid=pl.plan&&new Date(pl.expiresAt)>new Date();
   var first=(user.name||'User').split(' ')[0];
   var init=(user.name||'JS').split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
   var planLabel=planValid?pl.plan+' ✅':'Free Plan';
-  var d=document.createElement('div');
-  d.style.cssText='display:flex;align-items:center;gap:14px;flex-wrap:wrap;';
-  var av=document.createElement('div');
-  av.style.cssText='width:32px;height:32px;border-radius:50%;background:var(--amber);font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-family:\'Fraunces\',serif;';
-  av.textContent=init;
+  var d=document.createElement('div');d.style.cssText='display:flex;align-items:center;gap:14px;flex-wrap:wrap;';
+  var av=document.createElement('div');av.style.cssText='width:32px;height:32px;border-radius:50%;background:var(--amber);font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;';av.textContent=init;
   var info=document.createElement('div');
   var n1=document.createElement('div');n1.style.cssText='font-size:13px;font-weight:700;color:var(--ink);';n1.textContent='Welcome back, '+first+'!';
   var n2=document.createElement('div');n2.style.cssText='font-size:11px;color:var(--soft);';n2.textContent=(user.skill||'Job Seeker')+' · '+(user.city||'India')+' · '+planLabel;
   info.appendChild(n1);info.appendChild(n2);
-  var left=document.createElement('div');left.style.cssText='display:flex;align-items:center;gap:10px;';
-  left.appendChild(av);left.appendChild(info);
+  var left=document.createElement('div');left.style.cssText='display:flex;align-items:center;gap:10px;';left.appendChild(av);left.appendChild(info);
   var right=document.createElement('div');right.style.cssText='display:flex;gap:8px;margin-left:auto;';
-  var goBtn=document.createElement('button');
-  goBtn.style.cssText='padding:8px 18px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;';
-  goBtn.textContent='Go to Dashboard →';
-  goBtn.onclick=function(){enterDash(currentUser);};
-  var closeBtn=document.createElement('button');
-  closeBtn.style.cssText='padding:8px 12px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;cursor:pointer;';
-  closeBtn.textContent='✕';
-  closeBtn.onclick=function(){bar.style.display='none';};
-  right.appendChild(goBtn);right.appendChild(closeBtn);
-  d.appendChild(left);d.appendChild(right);
-  bar.innerHTML='';bar.appendChild(d);
-  bar.style.display='block';
+  var goBtn=document.createElement('button');goBtn.style.cssText='padding:8px 18px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;';goBtn.textContent='Go to Dashboard →';goBtn.onclick=function(){enterDash(currentUser);};
+  var closeBtn=document.createElement('button');closeBtn.style.cssText='padding:8px 12px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--soft);font-size:12px;cursor:pointer;';closeBtn.textContent='✕';closeBtn.onclick=function(){bar.style.display='none';};
+  right.appendChild(goBtn);right.appendChild(closeBtn);d.appendChild(left);d.appendChild(right);
+  bar.innerHTML='';bar.appendChild(d);bar.style.display='block';
+}
+
+// ── EMAIL DUP CHECK ────────────────────────────────
+async function fbEmailExists(email){
+  try{
+    if(!email)return false;
+    var url=FB_DB+'/users.json?orderBy=%22email%22&equalTo='+encodeURIComponent('"'+email.toLowerCase().trim()+'"')+'&limitToFirst=1';
+    var r=await fetch(url);if(!r.ok)return false;
+    var d=await r.json();return d&&Object.keys(d).length>0;
+  }catch(e){return false;}
 }
 
 
@@ -1245,22 +1449,6 @@ function doAdminLogin(){
   }
 }
 
-
-function doAdminLogin_auto(){
-  // Called when already authenticated via /Admin page
-  if(localStorage.getItem('js_admin_auth')!=='1')return;
-  goTo('adminView');
-  renderAdminTable(DB);
-  renderPaymentSummary();
-  try{loadVisitorCount();}catch(e){}
-  showToast('Welcome Kiran! 🔐','green');
-  // Clean URL
-  if(window.history&&window.history.replaceState){
-    window.history.replaceState({},'',window.location.pathname);
-  }
-}
-
-
 function renderAdminTable(data){
   const tbody=document.getElementById('adminTableBody'),cnt=document.getElementById('tableCount');
   if(!tbody)return; if(cnt) cnt.textContent='Showing '+data.length+' profiles';
@@ -1272,7 +1460,6 @@ function renderAdminTable(data){
     tbody.appendChild(tr);
   });
 }
-
 
 function switchAdminTab(tab){
   // Reset all tabs
@@ -1293,7 +1480,6 @@ function switchAdminTab(tab){
   if(tab==='profiles'){renderAdminTable(DB);}
 }
 
-
 function renderPaymentSummary(){
   // Update admin stats from localStorage payments
   const pays = gjson(S_PAY, []);
@@ -1310,7 +1496,6 @@ function renderPaymentSummary(){
   setEl('adminStat60', el60);
   setEl('adminStatAnn', elAn); setEl('adminStatAnnb', elAn);
 }
-
 
 function exportAllCSV(){
   const today = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
@@ -1387,17 +1572,12 @@ function exportAllCSV(){
   showToast('All '+DB.length+' profiles exported — use Print > Save as PDF','green');
 }
 
-
-function buildFomoHTML(){
-  var h='<div style="padding:20px 0;text-align:center;">';
-  h+='<div style="font-size:20px;font-weight:800;color:#0f1117;margin-bottom:8px;">&#x1F512; Unlock Full Access</div>';
-  h+='<div style="font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.6;">You have used your free preview. Upgrade to search every day.</div>';
-  h+='</div>'; return h;
+function adminLogout(){
+  localStorage.removeItem('js_admin_auth');
+  goTo('landingView');
+  showToast('Logged out of admin','amber');
 }
-function showUpgrade(){showLockedDash();}
 
-// Admin DB — loads from Firebase when admin logs in
-var DB=[];
 async function loadAdminDB(callback){
   try{
     const r=await fetch(FB_DB+'/users.json');
@@ -1408,6 +1588,7 @@ async function loadAdminDB(callback){
     callback(DB);
   }catch(e){console.warn('loadAdminDB:',e);callback([]);}
 }
+
 function loadVisitorCount(){
   fetch(FB_DB+'/stats/visitors.json')
     .then(function(r){return r.json();})
@@ -1418,12 +1599,59 @@ function loadVisitorCount(){
     }).catch(function(){});
 }
 
-function adminLogout(){
-  localStorage.removeItem('js_admin_auth');
-  goTo('landingView');
-  showToast('Logged out of admin','amber');
+
+
+// ── ADMIN DB ────────────────────────────────────────
+var DB=[];
+async function loadAdminDB(callback){
+  try{
+    var r=await fetch(FB_DB+'/users.json');
+    if(!r.ok){callback([]);return;}
+    var data=await r.json();
+    if(!data){callback([]);return;}
+    DB=Object.values(data).filter(function(u){return u&&u.phone;});
+    callback(DB);
+  }catch(e){callback([]);}
 }
+function loadVisitorCount(){
+  fetch(FB_DB+'/stats/visitors.json').then(function(r){return r.json();})
+    .then(function(d){var el=document.getElementById('visitorCount');if(el)el.textContent=d?Object.keys(d).length:0;}).catch(function(){});
+}
+
+// ── ADMIN ROUTE ─────────────────────────────────────
+function doAdminLogin_auto(){
+  var path=window.location.pathname.toLowerCase();
+  var isAdminRoute=path==='/admin'||path==='/admin/'||path.includes('/admin/index');
+  if(isAdminRoute){
+    document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+    var nav=document.getElementById('mainNav');if(nav)nav.style.display='none';
+    if(localStorage.getItem('js_admin_auth')==='1'){
+      var av=document.getElementById('adminView');if(av)av.classList.add('active');
+      loadAdminDB(function(data){renderAdminTable(data);renderPaymentSummary();});
+      try{loadVisitorCount();}catch(e){}
+    }else{
+      var alv=document.getElementById('adminLoginView');if(alv)alv.classList.add('active');
+    }
+    return true;
+  }
+  return false;
+}
+function adminLogout(){localStorage.removeItem('js_admin_auth');goTo('landingView');showToast('Logged out','amber');}
+
+function showRTab(tab,btn){
+  document.querySelectorAll('.r-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  else{document.querySelectorAll('.r-tab').forEach(function(b){var oc=b.getAttribute('onclick')||'';if(oc.includes("'"+tab+"'"))b.classList.add('active');});}
+  ['rp','rj','rr'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.toggle('active',x===tab);});
+  var ra=document.getElementById('resultsArea');
+  if(ra&&ra.style.display!=='none')ra.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function buildFomoHTML(){return '<div style="padding:20px 0;text-align:center;"><div style="font-size:18px;font-weight:800;color:#0f1117;margin-bottom:8px;">&#x1F512; Unlock Full Access</div><div style="font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.6;">Free preview used. Upgrade for unlimited daily searches.</div></div>';}
+function showUpgrade(){showLockedDash();}
+
+// ── INIT ───────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
+  if(doAdminLogin_auto())return;
   try{
     var raw=gst(S_USER);
     if(raw){var u=JSON.parse(raw);if(u&&u.name){showWelcomeBar(u);return;}}
@@ -1434,11 +1662,28 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
-
 </script>
 
 
+Each(function(b){var oc=b.getAttribute('onclick')||'';if(oc.includes("'"+tab+"'"))b.classList.add('active');});}
+  ['rp','rj','rr'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.toggle('active',x===tab);});
+  var ra=document.getElementById('resultsArea');
+  if(ra&&ra.style.display!=='none')ra.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function buildFomoHTML(){return '<div style="padding:20px 0;text-align:center;"><div style="font-size:18px;font-weight:800;color:#0f1117;margin-bottom:8px;">&#x1F512; Unlock Full Access</div><div style="font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.6;">Free preview used. Upgrade for unlimited daily searches.</div></div>';}
+function showUpgrade(){showLockedDash();}
 
+// ── INIT ───────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  if(doAdminLogin_auto())return;
+  try{
+    var raw=gst(S_USER);
+    if(raw){var u=JSON.parse(raw);if(u&&u.name){showWelcomeBar(u);return;}}
+  }catch(e){}
+});
+
+
+</script>
 
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
