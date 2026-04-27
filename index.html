@@ -453,8 +453,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <div class="view" id="dashView">
 <div class="dash-wrap">
   <div class="sidebar">
-    <div class="sb-brand" style="padding:16px 14px 12px;"><svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JobsSignal"><circle cx="15" cy="15" r="13" fill="none" stroke="rgba(232,148,58,0.3)" stroke-width="1.2"/><circle cx="15" cy="15" r="8" fill="none" stroke="rgba(232,148,58,0.55)" stroke-width="1.2"/><circle cx="15" cy="15" r="3" fill="#e8943a"/><line x1="15" y1="15" x2="23" y2="7" stroke="#e8943a" stroke-width="1.2" stroke-linecap="round"/><text x="33" y="20" font-family="Georgia,serif" font-size="16" font-weight="700" fill="white">Jobs</text><text x="67" y="20" font-family="-apple-system,Helvetica,sans-serif" font-size="16" font-weight="300" fill="#e8943a">Signal</text></svg></div>
-    <div class="sb-user"><div class="sb-av" id="dAv">KM</div><div><div class="sb-uname" id="dName">User</div><div class="sb-urole" id="dRole">Job Seeker</div></div><button class="sb-out" onclick="doLogout()">Out</button></div>
+    <div class="sb-brand" style="padding:6px 14px 8px;"><svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JobsSignal"><circle cx="15" cy="15" r="13" fill="none" stroke="rgba(232,148,58,0.3)" stroke-width="1.2"/><circle cx="15" cy="15" r="8" fill="none" stroke="rgba(232,148,58,0.55)" stroke-width="1.2"/><circle cx="15" cy="15" r="3" fill="#e8943a"/><line x1="15" y1="15" x2="23" y2="7" stroke="#e8943a" stroke-width="1.2" stroke-linecap="round"/><text x="33" y="20" font-family="Georgia,serif" font-size="16" font-weight="700" fill="white">Jobs</text><text x="67" y="20" font-family="-apple-system,Helvetica,sans-serif" font-size="16" font-weight="300" fill="#e8943a">Signal</text></svg></div>
+    <div class="sb-user"><div class="sb-av" id="dAv">KM</div><div><div class="sb-uname" id="dName">User</div><div class="sb-urole" id="dRole">Job Seeker</div></div></div>
     <div class="sb-nav">
       <div class="sb-sec-label">Search Modes</div>
       <div class="sb-item active" id="mode-skill" onclick="setMode('skill',this)"><span class="sb-icon">🎯</span><span>Skill + City</span></div>
@@ -730,12 +730,15 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
   <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
   <option value="Data Scientist"><option value="Product Manager"><option value="DevOps Engineer">
-  <option value="Business Analyst"><option value="Sales Manager"><option value="Marketing Manager">
-</datalist>
+
 
 
 
 <script>
+
+
+
+
 
 
 // ── CONFIG ──────────────────────────────────────────
@@ -800,9 +803,7 @@ function goTo(viewId){
   const v=document.getElementById(viewId);
   if(v){v.classList.add('active');window.scrollTo(0,0);}
   const nav=document.getElementById('mainNav');
-  if(nav)nav.style.display=viewId==='dashView'?'none':'flex';
-  const fbb=document.getElementById('fb-status-bar');
-  if(fbb)fbb.style.display=viewId==='dashView'?'none':'flex';
+  if(nav)nav.style.display=viewId==='dashView'||viewId==='adminView'?'none':'flex';
 }
 function goToSec(id){
   goTo('landingView');
@@ -975,7 +976,7 @@ function runSearch(){
       '60days':'"60 days notice" OR "60 days"',
       serving:'"serving notice" OR "notice period"'
     };
-    baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period")');
+    baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period") -"open to work" -"seeking" -"looking for" -"job seeker"');
   }else if(currentMode==='referral'){
     baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume")';
   }else if(currentMode==='walkin'){
@@ -1077,7 +1078,8 @@ function buildPeople(skill,city,url){
 function fetchAdzuna(skill,city,container){
   container.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching live jobs from 100+ sources...</span></div>';
   const azCity=AZ_CITIES[city]||city||'Hyderabad';
-  const url=`${AZ_URL}?app_id=${AZ_ID}&app_key=${AZ_KEY}&what=${encodeURIComponent(skill)}&where=${encodeURIComponent(azCity)}&results_per_page=10&sort_by=date&content-type=application/json`;
+  const azQ=new URLSearchParams({app_id:AZ_ID,app_key:AZ_KEY,what:skill,where:azCity,results_per_page:10,sort_by:'date','content-type':'application/json',full_time:1});
+  const url=AZ_URL+'?'+azQ.toString();
   fetch(url)
     .then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status))
     .then(data=>{
@@ -1222,8 +1224,10 @@ function doAdminLogin(){
     localStorage.removeItem('js_admin_lock');
     localStorage.setItem('js_admin_auth','1');
     goTo('adminView');
-    renderAdminTable(DB);
-    renderPaymentSummary();
+    loadAdminDB(function(data){
+      renderAdminTable(data);
+      renderPaymentSummary();
+    });
     try{loadVisitorCount();}catch(e){}
     showToast('Welcome Kiran! 🔐','green');
   } else {
@@ -1391,6 +1395,34 @@ function buildFomoHTML(){
   h+='</div>'; return h;
 }
 function showUpgrade(){showLockedDash();}
+
+// Admin DB — loads from Firebase when admin logs in
+var DB=[];
+async function loadAdminDB(callback){
+  try{
+    const r=await fetch(FB_DB+'/users.json');
+    if(!r.ok){callback([]);return;}
+    const data=await r.json();
+    if(!data){callback([]);return;}
+    DB=Object.values(data).filter(function(u){return u&&u.phone;});
+    callback(DB);
+  }catch(e){console.warn('loadAdminDB:',e);callback([]);}
+}
+function loadVisitorCount(){
+  fetch(FB_DB+'/stats/visitors.json')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      const cnt=data?Object.keys(data).length:0;
+      const el=document.getElementById('visitorCount');
+      if(el)el.textContent=cnt;
+    }).catch(function(){});
+}
+
+function adminLogout(){
+  localStorage.removeItem('js_admin_auth');
+  goTo('landingView');
+  showToast('Logged out of admin','amber');
+}
 document.addEventListener('DOMContentLoaded',function(){
   try{
     var raw=gst(S_USER);
@@ -1399,7 +1431,13 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 
 
+
+
+
+
 </script>
+
+
 
 
 <!-- Razorpay -->
