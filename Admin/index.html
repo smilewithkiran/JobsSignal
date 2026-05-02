@@ -22,6 +22,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-login-admin:hover{background:#d4832f;}
 .err-msg{background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;font-size:12px;color:#dc2626;margin-bottom:16px;display:none;}
 /* Dashboard */
+.stat-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;padding:20px 22px;text-align:center;min-width:120px;}
+.visitor-bar{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f3f4f6;}
+.visitor-bar-label{font-size:12px;color:#374151;width:80px;flex-shrink:0;}
+.visitor-bar-track{flex:1;height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;}
+.visitor-bar-fill{height:100%;background:linear-gradient(90deg,#1a6b6b,#2a9d8f);border-radius:4px;transition:width .5s;}
+.visitor-bar-count{font-size:12px;font-weight:700;color:#1a6b6b;width:30px;text-align:right;flex-shrink:0;}
 .admin-dash{display:none;min-height:100vh;}
 .admin-nav{background:#0f1117;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
 .admin-nav-logo{display:flex;align-items:center;gap:8px;font-family:Georgia,serif;font-size:18px;font-weight:700;color:#fff;}
@@ -84,10 +90,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="admin-body">
     <div class="admin-stats">
-      <div class="stat-card"><div class="stat-val" id="statTotal">—</div><div class="stat-lbl">Total Users</div></div>
+      <div class="stat-card"><div class="stat-val" id="statTotal">—</div><div class="stat-lbl">Registered Users</div></div>
       <div class="stat-card"><div class="stat-val" id="statPaid">—</div><div class="stat-lbl">Paid Users</div></div>
       <div class="stat-card"><div class="stat-val" id="statRevenue">—</div><div class="stat-lbl">Est. Revenue</div></div>
       <div class="stat-card"><div class="stat-val" id="statToday">—</div><div class="stat-lbl">Joined Today</div></div>
+      <div class="stat-card" style="border-color:rgba(26,107,107,.3);"><div class="stat-val" id="statVisitors" style="color:#1a6b6b;">—</div><div class="stat-lbl">Total Visitors</div></div>
+      <div class="stat-card" style="border-color:rgba(26,107,107,.3);"><div class="stat-val" id="statVisitorsToday" style="color:#1a6b6b;">—</div><div class="stat-lbl">Visitors Today</div></div>
+      <div class="stat-card" style="border-color:rgba(26,107,107,.3);"><div class="stat-val" id="statPageviews" style="color:#1a6b6b;">—</div><div class="stat-lbl">Total Page Views</div></div>
     </div>
     <div class="admin-section">
       <div class="admin-section-header">
@@ -102,6 +111,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </table>
       </div>
     </div>
+
+    <!-- Visitor Analytics -->
+    <div style="padding:0 28px 28px;">
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">📊 Visitor Analytics <span style="font-size:11px;font-weight:400;color:#9ca3af;">(anonymous tracking)</span></div>
+        </div>
+        <div id="visitorChart" style="padding:4px 0;">
+          <div style="color:#9ca3af;font-size:13px;text-align:center;padding:20px;">Loading visitor data...</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -145,6 +167,7 @@ function showDash(){
   document.getElementById('loginWrap').style.display='none';
   document.getElementById('adminDash').style.display='block';
   loadUsers();
+  loadVisitors();
 }
 
 async function loadUsers(){
@@ -211,6 +234,61 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function setTbody(h){document.getElementById('adminTbody').innerHTML=h;}
 
 // Auto-login if session exists
+// ── VISITOR TRACKING ────────────────────────────────
+async function loadVisitors(){
+  try{
+    // Load visitor data from Firebase
+    var r=await fetch(FB_DB+'/stats/visits.json');
+    if(!r.ok){
+      document.getElementById('statVisitors').textContent='N/A';
+      document.getElementById('statVisitorsToday').textContent='N/A';
+      document.getElementById('statPageviews').textContent='N/A';
+      document.getElementById('visitorChart').innerHTML='<div style="color:#dc2626;font-size:13px;padding:16px;text-align:center;">Visitor data not available — Firebase rules may need update.<br><small>Add: stats → .read:true, .write:true</small></div>';
+      return;
+    }
+    var data=await r.json()||{};
+    var today=new Date().toISOString().split('T')[0];
+    var totalVisitors=Object.keys(data).length;
+    var todayVisitors=0;
+    // Build daily counts for chart
+    var dailyCounts={};
+    Object.values(data).forEach(function(visits){
+      Object.keys(visits||{}).forEach(function(date){
+        dailyCounts[date]=(dailyCounts[date]||0)+1;
+        if(date===today)todayVisitors++;
+      });
+    });
+    // Page views
+    var pvRes=await fetch(FB_DB+'/stats/pageviews.json');
+    var pv=pvRes.ok?(await pvRes.json()||0):0;
+    // Update stat cards
+    document.getElementById('statVisitors').textContent=totalVisitors.toLocaleString('en-IN');
+    document.getElementById('statVisitorsToday').textContent=todayVisitors.toLocaleString('en-IN');
+    document.getElementById('statPageviews').textContent=typeof pv==='number'?pv.toLocaleString('en-IN'):'—';
+    // Build chart — last 14 days
+    var dates=[];
+    for(var i=13;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);dates.push(d.toISOString().split('T')[0]);}
+    var maxVal=Math.max(1,...dates.map(function(d){return dailyCounts[d]||0;}));
+    var chartHTML='<div style="margin-bottom:10px;font-size:12px;font-weight:700;color:#374151;">Last 14 Days — Unique Daily Visitors</div>';
+    dates.forEach(function(d){
+      var count=dailyCounts[d]||0;
+      var pct=Math.round((count/maxVal)*100);
+      var label=d.slice(5).replace('-','/');
+      var isToday=d===today;
+      chartHTML+='<div class="visitor-bar">'
+        +'<div class="visitor-bar-label" style="'+(isToday?'font-weight:700;color:#e8943a;':'')+'">'+label+(isToday?' ★':'')+'</div>'
+        +'<div class="visitor-bar-track"><div class="visitor-bar-fill" style="width:'+pct+'%;'+(isToday?'background:linear-gradient(90deg,#e8943a,#f4a251);':'')+'"></div></div>'
+        +'<div class="visitor-bar-count">'+count+'</div>'
+        +'</div>';
+    });
+    if(totalVisitors===0)chartHTML+='<div style="color:#9ca3af;font-size:12px;text-align:center;padding:16px;">No visitor data yet. Make sure visitor tracking is active on the main site.</div>';
+    document.getElementById('visitorChart').innerHTML=chartHTML;
+  }catch(e){
+    document.getElementById('statVisitors').textContent='Err';
+    document.getElementById('visitorChart').innerHTML='<div style="color:#dc2626;font-size:13px;padding:16px;">Error loading visitor data: '+e.message+'</div>';
+  }
+}
+
 document.addEventListener('DOMContentLoaded',function(){
   if(localStorage.getItem(AUTH_KEY)==='1') showDash();
 });
