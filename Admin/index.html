@@ -1,176 +1,858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Admin — JobsSignal</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:#faf7f2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
-.brand{display:flex;align-items:center;gap:10px;margin-bottom:36px;cursor:pointer;}
-.brand-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;}
-.brand-wordmark em{color:#e8943a;font-style:italic;font-weight:300;}
-.brand-sub{font-size:10px;color:#a0a3ae;letter-spacing:.4px;margin-top:2px;}
-.card{width:100%;max-width:400px;background:#fff;border:1px solid rgba(15,17,23,.09);border-radius:20px;padding:36px 36px 32px;box-shadow:0 12px 48px rgba(15,17,23,.1);}
-.card-title{font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#0f1117;margin-bottom:6px;letter-spacing:-.3px;}
-.card-sub{font-size:13px;color:#3a3d4a;margin-bottom:28px;line-height:1.5;}
-.field{margin-bottom:18px;}
-.field label{display:block;font-size:10px;font-weight:700;color:#3a3d4a;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
-.field input{width:100%;padding:11px 14px;background:#fff;border:1.5px solid rgba(15,17,23,.1);border-radius:9px;font-size:13px;color:#0f1117;font-family:'DM Sans',sans-serif;transition:all .15s;}
-.field input:focus{outline:none;border-color:#e8943a;box-shadow:0 0 0 3px rgba(232,148,58,.1);}
-.field input::placeholder{color:#a0a3ae;}
-.pw-wrap{position:relative;}
-.pw-wrap input{padding-right:44px;}
-.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#a0a3ae;cursor:pointer;font-size:15px;padding:4px;}
-.pw-eye:hover{color:#3a3d4a;}
-.err-box{background:#fdecea;border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#c0392b;margin-bottom:16px;display:none;line-height:1.5;}
-.lock-box{background:rgba(232,148,58,.08);border:1px solid rgba(232,148,58,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#e8943a;margin-bottom:16px;display:none;line-height:1.5;}
-.btn-login{width:100%;padding:12px;background:#e8943a;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-login:hover{background:#d4822e;transform:translateY(-1px);}
-.btn-login:active{transform:none;}
-.btn-login:disabled{background:rgba(15,17,23,.08);color:#a0a3ae;cursor:not-allowed;transform:none;}
-.back-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12px;color:#a0a3ae;cursor:pointer;transition:color .15s;}
-.back-link:hover{color:#3a3d4a;}
-.attempts-row{display:flex;gap:5px;margin-top:12px;justify-content:center;}
-.attempt-dot{width:6px;height:6px;border-radius:50%;background:rgba(15,17,23,.1);transition:background .2s;}
-.attempt-dot.used{background:#c0392b;}
-.success-box{text-align:center;padding:20px 0;display:none;}
-.success-icon{font-size:48px;margin-bottom:14px;}
-.success-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;margin-bottom:6px;}
-.success-sub{font-size:13px;color:#3a3d4a;}
-.security-note{margin-top:20px;font-size:11px;color:#a0a3ae;text-align:center;line-height:1.6;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElegantAura • Ladies Jewellery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .logo-font { font-family: 'Playfair Display', serif; }
+        .product-card { transition: all 0.3s; }
+        .product-card:hover { transform: scale(1.03); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        .nav-link { position: relative; }
+        .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: #c026d3; transition: width 0.3s; }
+        .nav-link:hover:after { width: 100%; }
+        .modal { animation: pop 0.3s; }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
 </head>
-<body>
-
-<div class="brand" onclick="window.location.href='/'">
-  <svg width="36" height="36" viewBox="0 0 42 42" fill="none">
-    <rect width="42" height="42" rx="10" fill="#e8943a" fill-opacity=".12"/>
-    <rect x=".5" y=".5" width="41" height="41" rx="9.5" stroke="#e8943a" stroke-opacity=".3"/>
-    <path d="M25 6L11 25h10L18 38l16-21H24L25 6z" fill="#1a6b6b"/>
-    <circle cx="31" cy="11" r="3" fill="#e8943a"/>
-  </svg>
-  <div>
-    <div class="brand-wordmark">Jobs<em>Signal</em></div>
-    <div class="brand-sub">admin access</div>
-  </div>
-</div>
-
-<div class="card">
-  <div id="formState">
-    <div class="card-title">Admin Access.</div>
-    <div class="card-sub">Restricted area. Authorised personnel only.</div>
-    <div class="err-box" id="errBox"></div>
-    <div class="lock-box" id="lockBox">Locked. Please wait.</div>
-    <form onsubmit="handleLogin(event)" autocomplete="off">
-      <div class="field">
-        <label>Username</label>
-        <input type="text" id="adminUser" placeholder="Enter username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <div class="pw-wrap">
-          <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password">
-          <button type="button" class="pw-eye" onclick="togglePw()" id="pwEye">👁</button>
+<body class="bg-gradient-to-br from-pink-50 to-rose-50 text-gray-800">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-gem text-3xl text-pink-600"></i>
+                <span class="logo-font text-3xl font-bold tracking-widest text-pink-700">ElegantAura</span>
+            </div>
+            
+            <div class="flex gap-8 text-sm font-medium">
+                <button onclick="showSection('home')" class="nav-link text-gray-700 hover:text-pink-600">HOME</button>
+                <button onclick="showSection('shop')" class="nav-link text-gray-700 hover:text-pink-600">SHOP</button>
+                <button onclick="showSection('cart')" class="nav-link text-gray-700 hover:text-pink-600 flex items-center gap-2">
+                    CART 
+                    <span id="cart-count" class="bg-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="showAdmin()" class="nav-link text-gray-700 hover:text-pink-600">ADMIN</button>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div onclick="showSection('cart')" class="relative cursor-pointer">
+                    <i class="fa-solid fa-shopping-bag text-2xl text-pink-700"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-pink-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">0</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <button type="submit" class="btn-login" id="loginBtn"><span id="btnText">Sign In →</span></button>
-    </form>
-    <div class="attempts-row">
-      <div class="attempt-dot" id="dot1"></div>
-      <div class="attempt-dot" id="dot2"></div>
-      <div class="attempt-dot" id="dot3"></div>
+    </nav>
+
+    <!-- HOME SECTION -->
+    <div id="home" class="section">
+        <div class="h-screen bg-[url('https://picsum.photos/id/1015/2000/1200')] bg-cover bg-center relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+                <div class="max-w-2xl">
+                    <h1 class="logo-font text-7xl text-white tracking-widest mb-4">Timeless Beauty</h1>
+                    <p class="text-2xl text-white/90 mb-8">Handcrafted jewellery for the modern woman</p>
+                    <button onclick="showSection('shop')" 
+                            class="bg-white hover:bg-pink-100 text-pink-700 font-semibold px-12 py-5 rounded-2xl text-lg shadow-xl transition-all">
+                        SHOP NOW
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trust bar -->
+        <div class="bg-white py-6 border-b">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-3 gap-8 text-center text-sm">
+                <div class="flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-shield-halved text-pink-600 text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Secure UPI Payment</p>
+                        <p class="text-gray-500 text-xs">Instant &amp; Safe</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-truck text-pink-600 text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Pan India Delivery</p>
+                        <p class="text-gray-500 text-xs">3-7 days</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-ban text-pink-600 text-2xl"></i>
+                    <div>
+                        <p class="font-semibold text-red-600">NO REFUNDS</p>
+                        <p class="text-gray-500 text-xs">All sales final</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="success-box" id="successState">
-    <div class="success-icon">✅</div>
-    <div class="success-title">Welcome, Kiran.</div>
-    <div class="success-sub">Redirecting to admin dashboard...</div>
-  </div>
-</div>
 
-<div class="back-link" onclick="window.location.href='/'">← Back to JobsSignal</div>
-<div class="security-note">This page is not indexed by search engines.<br>All access attempts are rate-limited.</div>
+    <!-- SHOP SECTION -->
+    <div id="shop" class="section hidden max-w-7xl mx-auto px-6 py-12">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-4xl font-semibold logo-font text-pink-700">Our Collection</h2>
+            <button onclick="showAdmin()" 
+                    class="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-plus"></i> MANAGE PRODUCTS (ADMIN)
+            </button>
+        </div>
+        
+        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Populated by JS -->
+        </div>
+    </div>
 
-<script>
-var CORRECT_USER='admin',CORRECT_PASS='admin@123',MAX_ATTEMPTS=3,LOCK_MINUTES=5,REDIRECT_URL='/?adminauth=1';
-function getAttempts(){return parseInt(localStorage.getItem('js_admin_attempts')||'0');}
-function getLockUntil(){return parseInt(localStorage.getItem('js_admin_lock')||'0');}
-function isLocked(){return getLockUntil()>Date.now();}
-function getLockMins(){return Math.ceil((getLockUntil()-Date.now())/60000);}
-window.addEventListener('DOMContentLoaded',function(){
-  updateDots();checkLock();
-  if(!isLocked())document.getElementById('adminUser').focus();
-  if(localStorage.getItem('js_admin_auth')==='1')window.location.href=REDIRECT_URL;
-});
-function checkLock(){
-  if(isLocked()){showLock();setTimeout(function(){checkLock();updateDots();},10000);}
-  else hideLock();
-}
-function handleLogin(e){
-  e.preventDefault();
-  if(isLocked()){showErr('Locked for '+getLockMins()+' more minute(s).');return;}
-  var u=document.getElementById('adminUser').value.trim();
-  var p=document.getElementById('adminPass').value.trim();
-  var btn=document.getElementById('loginBtn');
-  var bt=document.getElementById('btnText');
-  hideErr();
-  if(!u||!p){showErr('Please enter both username and password.');return;}
-  btn.disabled=true;bt.textContent='Verifying...';
-  setTimeout(function(){
-    if(u===CORRECT_USER&&p===CORRECT_PASS){
-      localStorage.removeItem('js_admin_attempts');
-      localStorage.removeItem('js_admin_lock');
-      localStorage.setItem('js_admin_auth','1');
-      document.getElementById('formState').style.display='none';
-      document.getElementById('successState').style.display='block';
-      setTimeout(function(){window.location.href=REDIRECT_URL;},1200);
-    }else{
-      btn.disabled=false;bt.textContent='Sign In →';
-      var a=getAttempts()+1;
-      localStorage.setItem('js_admin_attempts',String(a));
-      if(a>=MAX_ATTEMPTS){
-        localStorage.setItem('js_admin_lock',String(Date.now()+LOCK_MINUTES*60000));
-        localStorage.removeItem('js_admin_attempts');
-        showLock();showErr('Too many attempts. Locked for '+LOCK_MINUTES+' minutes.');
-      }else{
-        var r=MAX_ATTEMPTS-a;
-        showErr('Invalid credentials. '+r+' attempt'+(r>1?'s':'')+' remaining.');
-        updateDots();
-        document.getElementById('adminPass').value='';
-        document.getElementById('adminPass').focus();
-      }
-    }
-  },600);
-}
-function showErr(m){var e=document.getElementById('errBox');e.textContent=m;e.style.display='block';}
-function hideErr(){document.getElementById('errBox').style.display='none';}
-function showLock(){
-  var l=document.getElementById('lockBox');
-  l.textContent='🔒 Account locked. Try again in '+getLockMins()+' minute(s).';
-  l.style.display='block';
-  document.getElementById('loginBtn').disabled=true;
-  document.getElementById('btnText').textContent='Locked';
-}
-function hideLock(){
-  document.getElementById('lockBox').style.display='none';
-  document.getElementById('loginBtn').disabled=false;
-  document.getElementById('btnText').textContent='Sign In →';
-}
-function updateDots(){
-  var a=getAttempts();
-  for(var i=1;i<=3;i++){var d=document.getElementById('dot'+i);if(d)d.className='attempt-dot'+(i<=a?' used':'');}
-}
-function togglePw(){
-  var i=document.getElementById('adminPass'),e=document.getElementById('pwEye');
-  if(i.type==='password'){i.type='text';e.textContent='🙈';}
-  else{i.type='password';e.textContent='👁';}
-}
-</script>
+    <!-- CART SECTION -->
+    <div id="cart" class="section hidden max-w-4xl mx-auto px-6 py-12">
+        <h2 class="text-4xl font-semibold logo-font mb-8 text-pink-700">Your Cart</h2>
+        
+        <div id="cart-items" class="space-y-6 mb-12">
+            <!-- Populated by JS -->
+        </div>
+        
+        <div class="bg-white p-8 rounded-3xl shadow">
+            <div class="flex justify-between text-xl mb-6">
+                <span class="font-medium">Total</span>
+                <span id="cart-total" class="font-bold text-2xl">₹0</span>
+            </div>
+            <button onclick="proceedToCheckout()" 
+                    class="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-6 rounded-2xl text-lg font-semibold hover:brightness-110 transition">
+                PROCEED TO CHECKOUT
+            </button>
+        </div>
+        
+        <p class="text-center text-xs text-gray-400 mt-8">No refunds • All sales final</p>
+    </div>
+
+    <!-- CHECKOUT SECTION -->
+    <div id="checkout" class="section hidden max-w-3xl mx-auto px-6 py-12">
+        <h2 class="text-4xl font-semibold logo-font mb-8 text-pink-700">Checkout</h2>
+        
+        <div class="grid md:grid-cols-2 gap-10">
+            <!-- Customer Details -->
+            <div>
+                <div class="bg-white rounded-3xl p-8 shadow">
+                    <h3 class="font-semibold mb-6 text-lg">Delivery Details</h3>
+                    <div class="space-y-5">
+                        <input id="customer-name" type="text" placeholder="Full Name" 
+                               class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300">
+                        <input id="customer-phone" type="tel" placeholder="Phone Number" 
+                               class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300">
+                        <textarea id="customer-address" rows="4" placeholder="Full Delivery Address (with PIN code)"
+                                  class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300 resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment -->
+            <div class="bg-white rounded-3xl p-8 shadow">
+                <h3 class="font-semibold mb-6 text-lg">Pay with UPI</h3>
+                
+                <div id="upi-qr-container" class="flex flex-col items-center">
+                    <div class="mb-4 text-center">
+                        <p class="text-sm text-gray-500">Scan QR with any UPI app</p>
+                        <p id="qr-amount" class="text-3xl font-bold text-pink-700">₹0</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-2xl shadow-inner">
+                        <img id="upi-qr" src="" alt="UPI QR" class="w-64 h-64 rounded-xl">
+                    </div>
+                    
+                    <p class="text-xs text-center text-gray-400 mt-6 max-w-xs">
+                        Pay exact amount shown above.<br>
+                        After payment, enter Transaction ID below.
+                    </p>
+                </div>
+                
+                <div class="mt-8">
+                    <input id="tx-id" type="text" placeholder="UPI Transaction ID / Reference No."
+                           class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300 text-sm">
+                </div>
+                
+                <button onclick="placeOrder()" 
+                        class="mt-8 w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-6 rounded-2xl text-lg font-semibold">
+                    CONFIRM PAYMENT &amp; PLACE ORDER
+                </button>
+                
+                <div class="text-red-500 text-center text-xs mt-6 font-medium">
+                    ⚠️ NO REFUNDS • ALL SALES FINAL
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="showSection('cart')" 
+                class="mt-8 text-pink-600 hover:text-pink-700 flex items-center gap-2 text-sm">
+            ← Back to Cart
+        </button>
+    </div>
+
+    <!-- ADMIN SECTION -->
+    <div id="admin" class="section hidden">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <!-- Login Screen -->
+            <div id="admin-login" class="max-w-md mx-auto bg-white rounded-3xl shadow-xl p-10 text-center">
+                <i class="fa-solid fa-lock text-6xl text-pink-600 mb-6"></i>
+                <h3 class="text-2xl font-semibold mb-8">Admin Access</h3>
+                <input id="admin-pass" type="password" placeholder="Password" 
+                       class="w-full px-6 py-4 border rounded-2xl mb-6 text-center text-lg">
+                <button onclick="loginAdmin()" 
+                        class="w-full bg-pink-700 hover:bg-pink-800 text-white py-5 rounded-2xl text-lg font-medium">
+                    LOGIN
+                </button>
+                <p class="text-xs text-gray-400 mt-6">Default password: admin123</p>
+            </div>
+            
+            <!-- Admin Dashboard -->
+            <div id="admin-dashboard" class="hidden">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-4xl logo-font text-pink-700">Admin Dashboard</h2>
+                    <button onclick="logoutAdmin()" 
+                            class="text-red-500 hover:text-red-600 flex items-center gap-2">
+                        <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+                    </button>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="flex border-b mb-8">
+                    <button onclick="switchAdminTab(0)" id="tab-products" 
+                            class="admin-tab px-8 py-4 font-medium border-b-2 border-pink-600 text-pink-600">PRODUCTS</button>
+                    <button onclick="switchAdminTab(1)" id="tab-orders"
+                            class="admin-tab px-8 py-4 font-medium text-gray-500">ORDERS (<span id="orders-count">0</span>)</button>
+                    <button onclick="switchAdminTab(2)" id="tab-settings"
+                            class="admin-tab px-8 py-4 font-medium text-gray-500">SETTINGS</button>
+                </div>
+                
+                <!-- PRODUCTS TAB -->
+                <div id="admin-products-tab">
+                    <div class="bg-white rounded-3xl p-8 mb-8">
+                        <h3 class="text-lg font-semibold mb-6">Add New Product</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input id="new-name" type="text" placeholder="Product Name" class="border rounded-2xl px-5 py-4">
+                            <input id="new-price" type="number" placeholder="Price (₹)" class="border rounded-2xl px-5 py-4">
+                            <textarea id="new-desc" placeholder="Short description" rows="2" 
+                                      class="border rounded-2xl px-5 py-4 col-span-2"></textarea>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-2">Product Image</label>
+                                <input id="new-image" type="file" accept="image/*" class="block w-full">
+                            </div>
+                            <button onclick="addProduct()" 
+                                    class="bg-pink-600 hover:bg-pink-700 text-white py-4 rounded-2xl">ADD PRODUCT</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="admin-products-grid">
+                        <!-- JS populated -->
+                    </div>
+                </div>
+                
+                <!-- ORDERS TAB -->
+                <div id="admin-orders-tab" class="hidden">
+                    <div class="bg-white rounded-3xl overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="text-left px-8 py-4 text-sm font-medium">Order ID</th>
+                                    <th class="text-left px-8 py-4 text-sm font-medium">Customer</th>
+                                    <th class="text-left px-8 py-4 text-sm font-medium">Amount</th>
+                                    <th class="text-left px-8 py-4 text-sm font-medium">Date</th>
+                                    <th class="text-left px-8 py-4 text-sm font-medium">Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body" class="divide-y">
+                                <!-- JS populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS TAB -->
+                <div id="admin-settings-tab" class="hidden bg-white rounded-3xl p-10">
+                    <h3 class="font-semibold mb-6">UPI Payment Settings</h3>
+                    <div class="max-w-md">
+                        <label class="block text-sm text-gray-500 mb-2">Your UPI ID (VPA)</label>
+                        <input id="upi-id" type="text" value="yourname@oksbi" 
+                               class="w-full border border-gray-300 rounded-2xl px-6 py-5 text-lg">
+                        <button onclick="saveSettings()" 
+                                class="mt-8 bg-pink-700 text-white px-10 py-4 rounded-2xl">SAVE UPI ID</button>
+                    </div>
+                    
+                    <div class="mt-12 text-xs bg-amber-50 border border-amber-200 p-6 rounded-2xl">
+                        <strong>Note:</strong> QR code is generated dynamically with exact amount and order ID.<br>
+                        Change your UPI ID here before going live.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-pink-950 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-3 mb-6">
+                <i class="fa-solid fa-gem text-4xl text-pink-400"></i>
+            </div>
+            <p class="text-pink-300 text-sm">ElegantAura • Handcrafted Jewellery</p>
+            <p class="text-xs text-pink-400 mt-8">NO REFUNDS POLICY • All transactions are final</p>
+            <p class="text-[10px] text-pink-700 mt-4">Built with ❤️ for Kiran • Hyderabad</p>
+        </div>
+    </footer>
+
+    <!-- ORDER SUCCESS MODAL -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div class="modal bg-white rounded-3xl max-w-md w-full p-10 text-center">
+            <i class="fa-solid fa-check-circle text-6xl text-green-500 mb-6"></i>
+            <h3 class="text-2xl font-semibold mb-2">Order Placed Successfully!</h3>
+            <p class="text-gray-600 mb-8">Thank you. Your order has been recorded.<br>Delivery address saved for admin.</p>
+            <button onclick="closeSuccessModal()" 
+                    class="bg-pink-700 text-white px-12 py-4 rounded-2xl">CLOSE</button>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            // Already initialized via CDN
+        }
+
+        // Data storage
+        let products = []
+        let cart = []
+        let orders = []
+        let currentUPI = "yourname@oksbi"
+        let isAdminLoggedIn = false
+        let currentAdminTab = 0
+
+        // Sample initial products (you can delete them later from admin)
+        function loadInitialData() {
+            if (localStorage.getItem("elegantaura_products")) {
+                products = JSON.parse(localStorage.getItem("elegantaura_products"))
+            } else {
+                products = [
+                    {
+                        id: 1,
+                        name: "Pearl Drop Necklace",
+                        price: 2499,
+                        desc: "18K gold plated with freshwater pearls",
+                        image: "https://picsum.photos/id/1015/600/600"
+                    },
+                    {
+                        id: 2,
+                        name: "Hoop Earrings Set",
+                        price: 1299,
+                        desc: "Rose gold hoops with crystal studs",
+                        image: "https://picsum.photos/id/201/600/600"
+                    },
+                    {
+                        id: 3,
+                        name: "Kundan Bracelet",
+                        price: 1899,
+                        desc: "Traditional kundan work in antique gold",
+                        image: "https://picsum.photos/id/29/600/600"
+                    },
+                    {
+                        id: 4,
+                        name: "Emerald Ring",
+                        price: 3199,
+                        desc: "Green stone ring with cubic zirconia",
+                        image: "https://picsum.photos/id/160/600/600"
+                    }
+                ]
+                saveProducts()
+            }
+            
+            if (localStorage.getItem("elegantaura_orders")) {
+                orders = JSON.parse(localStorage.getItem("elegantaura_orders"))
+            }
+            
+            if (localStorage.getItem("elegantaura_upi")) {
+                currentUPI = localStorage.getItem("elegantaura_upi")
+            }
+            
+            renderProducts()
+            renderAdminProducts()
+        }
+
+        function saveProducts() {
+            localStorage.setItem("elegantaura_products", JSON.stringify(products))
+        }
+
+        function saveOrders() {
+            localStorage.setItem("elegantaura_orders", JSON.stringify(orders))
+        }
+
+        // Render products on shop page
+        function renderProducts() {
+            const grid = document.getElementById("products-grid")
+            grid.innerHTML = ""
+            
+            products.forEach(product => {
+                const card = document.createElement("div")
+                card.className = "product-card bg-white rounded-3xl overflow-hidden shadow"
+                card.innerHTML = `
+                    <img src="${product.image}" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h4 class="font-semibold text-lg">${product.name}</h4>
+                        <p class="text-gray-500 text-sm mt-1 line-clamp-2">${product.desc}</p>
+                        <div class="flex justify-between items-end mt-6">
+                            <span class="text-2xl font-bold text-pink-700">₹${product.price}</span>
+                            <button onclick="addToCart(${product.id}); event.stopImmediatePropagation()" 
+                                    class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-2xl text-sm font-medium">
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                `
+                grid.appendChild(card)
+            })
+        }
+
+        // Add to cart
+        function addToCart(id) {
+            const product = products.find(p => p.id === id)
+            if (!product) return
+            
+            const existing = cart.find(item => item.id === id)
+            if (existing) {
+                existing.quantity = (existing.quantity || 1) + 1
+            } else {
+                cart.push({...product, quantity: 1})
+            }
+            
+            updateCartCount()
+            showToast(`${product.name} added to cart`)
+        }
+
+        function updateCartCount() {
+            let count = 0
+            cart.forEach(item => count += item.quantity || 1)
+            document.getElementById("cart-count").textContent = count
+            document.getElementById("cart-count-mobile").textContent = count
+        }
+
+        // Render cart
+        function renderCart() {
+            const container = document.getElementById("cart-items")
+            container.innerHTML = ""
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center py-12 text-gray-400">Your cart is empty</p>`
+                document.getElementById("cart-total").textContent = "₹0"
+                return
+            }
+            
+            let total = 0
+            
+            cart.forEach((item, index) => {
+                const qty = item.quantity || 1
+                const itemTotal = item.price * qty
+                total += itemTotal
+                
+                const div = document.createElement("div")
+                div.className = "flex gap-6 bg-white p-6 rounded-3xl"
+                div.innerHTML = `
+                    <img src="${item.image}" class="w-24 h-24 object-cover rounded-2xl">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <h4 class="font-medium">${item.name}</h4>
+                                <p class="text-pink-600 text-sm">₹${item.price} × ${qty}</p>
+                            </div>
+                            <span class="font-bold">₹${itemTotal}</span>
+                        </div>
+                        <div class="flex gap-3 mt-6">
+                            <button onclick="changeQuantity(${index}, -1)" class="w-8 h-8 flex items-center justify-center border rounded-xl">-</button>
+                            <span class="px-6 flex items-center">${qty}</span>
+                            <button onclick="changeQuantity(${index}, 1)" class="w-8 h-8 flex items-center justify-center border rounded-xl">+</button>
+                            <button onclick="removeFromCart(${index})" class="ml-auto text-red-500 text-sm">Remove</button>
+                        </div>
+                    </div>
+                `
+                container.appendChild(div)
+            })
+            
+            document.getElementById("cart-total").textContent = `₹${total}`
+        }
+
+        function changeQuantity(index, delta) {
+            cart[index].quantity = (cart[index].quantity || 1) + delta
+            if (cart[index].quantity < 1) cart[index].quantity = 1
+            renderCart()
+            updateCartCount()
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1)
+            renderCart()
+            updateCartCount()
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showToast("Cart is empty", true)
+                return
+            }
+            showSection("checkout")
+            renderCheckoutQR()
+        }
+
+        function renderCheckoutQR() {
+            let total = 0
+            cart.forEach(item => total += item.price * (item.quantity || 1))
+            
+            document.getElementById("qr-amount").textContent = `₹${total}`
+            
+            const orderId = "EA" + Date.now().toString().slice(-6)
+            const upiLink = `upi://pay?pa=${currentUPI}&am=${total}&cu=INR&tn=Order${orderId}`
+            
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(upiLink)}`
+            document.getElementById("upi-qr").src = qrUrl
+        }
+
+        // Place order
+        function placeOrder() {
+            const name = document.getElementById("customer-name").value.trim()
+            const phone = document.getElementById("customer-phone").value.trim()
+            const address = document.getElementById("customer-address").value.trim()
+            const txId = document.getElementById("tx-id").value.trim()
+            
+            if (!name || !phone || !address) {
+                showToast("Please fill all delivery details", true)
+                return
+            }
+            if (!txId) {
+                showToast("Please enter UPI Transaction ID", true)
+                return
+            }
+            
+            let total = 0
+            cart.forEach(item => total += item.price * (item.quantity || 1))
+            
+            const newOrder = {
+                id: "EA" + Date.now().toString().slice(-8),
+                date: new Date().toLocaleDateString("en-IN"),
+                customer: { name, phone, address },
+                items: [...cart],
+                total: total,
+                txId: txId,
+                status: "Pending Verification"
+            }
+            
+            orders.unshift(newOrder)
+            saveOrders()
+            
+            // Clear cart
+            cart = []
+            updateCartCount()
+            
+            // Show success
+            document.getElementById("success-modal").classList.remove("hidden")
+            document.getElementById("success-modal").classList.add("flex")
+            
+            // Reset form
+            document.getElementById("customer-name").value = ""
+            document.getElementById("customer-phone").value = ""
+            document.getElementById("customer-address").value = ""
+            document.getElementById("tx-id").value = ""
+        }
+
+        function closeSuccessModal() {
+            document.getElementById("success-modal").classList.add("hidden")
+            document.getElementById("success-modal").classList.remove("flex")
+            showSection("home")
+        }
+
+        // Admin functions
+        function showAdmin() {
+            showSection("admin")
+            if (isAdminLoggedIn) {
+                document.getElementById("admin-login").classList.add("hidden")
+                document.getElementById("admin-dashboard").classList.remove("hidden")
+                renderAdminProducts()
+                renderOrdersTable()
+            } else {
+                document.getElementById("admin-login").classList.remove("hidden")
+                document.getElementById("admin-dashboard").classList.add("hidden")
+            }
+        }
+
+        function loginAdmin() {
+            const pass = document.getElementById("admin-pass").value
+            if (pass === "admin123") {
+                isAdminLoggedIn = true
+                document.getElementById("admin-login").classList.add("hidden")
+                document.getElementById("admin-dashboard").classList.remove("hidden")
+                renderAdminProducts()
+                renderOrdersTable()
+                switchAdminTab(0)
+            } else {
+                showToast("Wrong password!", true)
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false
+            showSection("home")
+        }
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab
+            document.querySelectorAll(".admin-tab").forEach((el, i) => {
+                if (i === tab) {
+                    el.classList.add("border-b-2", "border-pink-600", "text-pink-600")
+                } else {
+                    el.classList.remove("border-b-2", "border-pink-600", "text-pink-600")
+                }
+            })
+            
+            document.getElementById("admin-products-tab").classList.toggle("hidden", tab !== 0)
+            document.getElementById("admin-orders-tab").classList.toggle("hidden", tab !== 1)
+            document.getElementById("admin-settings-tab").classList.toggle("hidden", tab !== 2)
+            
+            if (tab === 1) renderOrdersTable()
+        }
+
+        function renderAdminProducts() {
+            const grid = document.getElementById("admin-products-grid")
+            grid.innerHTML = ""
+            
+            products.forEach((product, index) => {
+                const card = document.createElement("div")
+                card.className = "bg-white rounded-3xl overflow-hidden shadow"
+                card.innerHTML = `
+                    <img src="${product.image}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <p class="font-medium text-sm">${product.name}</p>
+                        <p class="text-pink-600">₹${product.price}</p>
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="deleteProduct(${index}); event.stopImmediatePropagation()" 
+                                    class="flex-1 bg-red-100 text-red-600 py-2 text-xs rounded-2xl">DELETE</button>
+                        </div>
+                    </div>
+                `
+                grid.appendChild(card)
+            })
+        }
+
+        function addProduct() {
+            const name = document.getElementById("new-name").value.trim()
+            const price = parseInt(document.getElementById("new-price").value)
+            const desc = document.getElementById("new-desc").value.trim()
+            const fileInput = document.getElementById("new-image")
+            
+            if (!name || !price) {
+                showToast("Name and price required", true)
+                return
+            }
+            
+            if (fileInput.files.length > 0) {
+                const reader = new FileReader()
+                reader.onload = function(e) {
+                    const newProduct = {
+                        id: Date.now(),
+                        name: name,
+                        price: price,
+                        desc: desc || "Beautiful handcrafted piece",
+                        image: e.target.result
+                    }
+                    products.push(newProduct)
+                    saveProducts()
+                    renderProducts()
+                    renderAdminProducts()
+                    // Clear form
+                    document.getElementById("new-name").value = ""
+                    document.getElementById("new-price").value = ""
+                    document.getElementById("new-desc").value = ""
+                    fileInput.value = ""
+                    showToast("Product added successfully")
+                }
+                reader.readAsDataURL(fileInput.files[0])
+            } else {
+                // No image uploaded, use placeholder
+                const newProduct = {
+                    id: Date.now(),
+                    name: name,
+                    price: price,
+                    desc: desc || "Beautiful handcrafted piece",
+                    image: "https://picsum.photos/id/201/600/600"
+                }
+                products.push(newProduct)
+                saveProducts()
+                renderProducts()
+                renderAdminProducts()
+                showToast("Product added (using placeholder image)")
+            }
+        }
+
+        function deleteProduct(index) {
+            if (confirm("Delete this product permanently?")) {
+                products.splice(index, 1)
+                saveProducts()
+                renderProducts()
+                renderAdminProducts()
+            }
+        }
+
+        function renderOrdersTable() {
+            const tbody = document.getElementById("orders-table-body")
+            tbody.innerHTML = ""
+            document.getElementById("orders-count").textContent = orders.length
+            
+            orders.forEach(order => {
+                const tr = document.createElement("tr")
+                tr.className = "hover:bg-gray-50"
+                tr.innerHTML = `
+                    <td class="px-8 py-6 text-sm font-medium">${order.id}</td>
+                    <td class="px-8 py-6">
+                        <div><strong>${order.customer.name}</strong></div>
+                        <div class="text-xs text-gray-500">${order.customer.phone}</div>
+                    </td>
+                    <td class="px-8 py-6 font-semibold">₹${order.total}</td>
+                    <td class="px-8 py-6 text-sm">${order.date}</td>
+                    <td class="px-8 py-6">
+                        <span class="px-4 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-3xl">${order.status}</span>
+                    </td>
+                    <td class="px-8 py-6 text-right">
+                        <button onclick="viewOrderDetails('${order.id}'); event.stopImmediatePropagation()" 
+                                class="text-pink-600 hover:underline text-xs">VIEW</button>
+                    </td>
+                `
+                tbody.appendChild(tr)
+            })
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = orders.find(o => o.id === orderId)
+            if (!order) return
+            
+            let itemsHTML = ""
+            order.items.forEach(item => {
+                itemsHTML += `<div class="flex justify-between text-sm py-2">
+                    <span>${item.name} × ${item.quantity || 1}</span>
+                    <span>₹${item.price * (item.quantity || 1)}</span>
+                </div>`
+            })
+            
+            const details = `
+                <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[60]">
+                    <div class="bg-white rounded-3xl max-w-lg w-full mx-4 p-8">
+                        <h3 class="font-semibold text-xl mb-6">Order ${order.id}</h3>
+                        
+                        <div class="grid grid-cols-2 gap-6 text-sm mb-8">
+                            <div>
+                                <p class="text-gray-400">Customer</p>
+                                <p class="font-medium">${order.customer.name}</p>
+                                <p class="text-xs">${order.customer.phone}</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">Date</p>
+                                <p>${order.date}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                            ${itemsHTML}
+                            <div class="border-t pt-4 mt-4 flex justify-between font-bold">
+                                <span>Total</span>
+                                <span>₹${order.total}</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Delivery Address</p>
+                            <p class="text-sm">${order.customer.address}</p>
+                        </div>
+                        
+                        <div class="mt-6 text-xs">
+                            <span class="font-medium">UPI Transaction ID:</span> ${order.txId}
+                        </div>
+                        
+                        <button onclick="this.closest('.fixed').remove()" 
+                                class="mt-10 w-full bg-gray-900 text-white py-4 rounded-2xl">CLOSE</button>
+                    </div>
+                </div>
+            `
+            const tempDiv = document.createElement("div")
+            tempDiv.innerHTML = details
+            document.body.appendChild(tempDiv.firstElementChild)
+        }
+
+        function saveSettings() {
+            currentUPI = document.getElementById("upi-id").value.trim()
+            if (currentUPI) {
+                localStorage.setItem("elegantaura_upi", currentUPI)
+                showToast("UPI ID saved successfully")
+            }
+        }
+
+        // Section switching
+        function showSection(section) {
+            document.querySelectorAll(".section").forEach(sec => {
+                sec.classList.add("hidden")
+            })
+            
+            if (section === "home") document.getElementById("home").classList.remove("hidden")
+            else if (section === "shop") {
+                document.getElementById("shop").classList.remove("hidden")
+                renderProducts()
+            }
+            else if (section === "cart") {
+                document.getElementById("cart").classList.remove("hidden")
+                renderCart()
+            }
+            else if (section === "checkout") {
+                document.getElementById("checkout").classList.remove("hidden")
+            }
+            else if (section === "admin") {
+                document.getElementById("admin").classList.remove("hidden")
+            }
+        }
+
+        // Toast notification
+        function showToast(msg, isError = false) {
+            const toast = document.createElement("div")
+            toast.style.cssText = `position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:14px 28px; border-radius:9999px; font-size:14px; color:white; z-index:9999; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.2);`
+            toast.style.backgroundColor = isError ? "#e11d48" : "#c026d3"
+            toast.textContent = msg
+            document.body.appendChild(toast)
+            
+            setTimeout(() => {
+                toast.style.transition = "all 0.3s"
+                toast.style.opacity = "0"
+                setTimeout(() => toast.remove(), 300)
+            }, 2800)
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener("keydown", function(e) {
+            if (e.metaKey && e.key === "k") {
+                e.preventDefault()
+                showSection("shop")
+            }
+        })
+
+        // Initialize everything
+        window.onload = function() {
+            initializeTailwind()
+            loadInitialData()
+            updateCartCount()
+            
+            // Show home by default
+            showSection("home")
+            
+            // Make admin password visible hint on focus
+            const passInput = document.getElementById("admin-pass")
+            passInput.addEventListener("focus", () => {
+                passInput.placeholder = "admin123"
+            })
+            
+            console.log("%c✅ ElegantAura website ready!\nUPI QR + Admin panel + Local storage working.\nChange UPI ID in Admin → Settings before going live.\nYou can now deploy this single file.", "color:#c026d3; font-family:monospace")
+        }
+    </script>
 </body>
 </html>
