@@ -1,858 +1,219 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElegantAura • Ladies Jewellery</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .logo-font { font-family: 'Playfair Display', serif; }
-        .product-card { transition: all 0.3s; }
-        .product-card:hover { transform: scale(1.03); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
-        .nav-link { position: relative; }
-        .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: #c026d3; transition: width 0.3s; }
-        .nav-link:hover:after { width: 100%; }
-        .modal { animation: pop 0.3s; }
-        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JobsSignal Admin</title>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%230f1117"/><circle cx="16" cy="16" r="11" fill="none" stroke="%23e8943a" stroke-width="1" opacity="0.4"/><circle cx="16" cy="16" r="3" fill="%23e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="%23e8943a" stroke-width="1.5" stroke-linecap="round"/></svg>'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f6fa;color:#0f1117;min-height:100vh;}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f1117 60%,#1a2030);}
+.login-card{background:#fff;border-radius:20px;padding:44px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;}
+.login-title{font-size:24px;font-weight:800;color:#0f1117;margin-bottom:6px;}
+.login-sub{font-size:13px;color:#6b7280;margin-bottom:28px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:6px;}
+.field input{width:100%;padding:11px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;}
+.field input:focus{border-color:#e8943a;}
+.btn-login-admin{width:100%;padding:13px;background:#e8943a;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .2s;}
+.btn-login-admin:hover{background:#d4832f;}
+.err-msg{background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;font-size:12px;color:#dc2626;margin-bottom:16px;display:none;}
+/* Dashboard */
+.admin-dash{display:none;min-height:100vh;}
+.admin-nav{background:#0f1117;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.admin-nav-logo{display:flex;align-items:center;gap:8px;font-family:Georgia,serif;font-size:18px;font-weight:700;color:#fff;}
+.admin-nav-logo em{color:#e8943a;font-style:italic;font-weight:300;}
+.admin-nav-right{display:flex;align-items:center;gap:12px;}
+.admin-nav-user{font-size:12px;color:rgba(255,255,255,.5);}
+.btn-logout{padding:7px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;font-family:inherit;}
+.admin-body{max-width:1200px;margin:0 auto;padding:32px 24px;}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+.stat-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e5e7eb;}
+.stat-val{font-size:28px;font-weight:800;color:#0f1117;margin-bottom:4px;}
+.stat-lbl{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;}
+.admin-section{background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:24px;}
+.admin-section-header{padding:16px 20px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;}
+.admin-section-title{font-size:15px;font-weight:700;color:#0f1117;}
+.btn-export{padding:7px 14px;background:#0f1117;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table th{padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;background:#f9fafb;border-bottom:1px solid #e5e7eb;}
+.admin-table td{padding:11px 16px;font-size:13px;color:#374151;border-bottom:1px solid #f3f4f6;vertical-align:middle;}
+.admin-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-paid{background:#d1fae5;color:#065f46;}
+.badge-free{background:#f3f4f6;color:#6b7280;}
+.badge-exp{background:#fee2e2;color:#991b1b;}
+.search-bar{padding:16px 20px;border-bottom:1px solid #f3f4f6;}
+.search-bar input{width:100%;max-width:340px;padding:8px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;outline:none;}
+.search-bar input:focus{border-color:#e8943a;}
+@media(max-width:768px){.admin-stats{grid-template-columns:1fr 1fr;}.admin-table th:nth-child(5),.admin-table td:nth-child(5),.admin-table th:nth-child(6),.admin-table td:nth-child(6){display:none;}}
+</style>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-rose-50 text-gray-800">
-    <!-- NAVBAR -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-gem text-3xl text-pink-600"></i>
-                <span class="logo-font text-3xl font-bold tracking-widest text-pink-700">ElegantAura</span>
-            </div>
-            
-            <div class="flex gap-8 text-sm font-medium">
-                <button onclick="showSection('home')" class="nav-link text-gray-700 hover:text-pink-600">HOME</button>
-                <button onclick="showSection('shop')" class="nav-link text-gray-700 hover:text-pink-600">SHOP</button>
-                <button onclick="showSection('cart')" class="nav-link text-gray-700 hover:text-pink-600 flex items-center gap-2">
-                    CART 
-                    <span id="cart-count" class="bg-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
-                </button>
-                <button onclick="showAdmin()" class="nav-link text-gray-700 hover:text-pink-600">ADMIN</button>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <div onclick="showSection('cart')" class="relative cursor-pointer">
-                    <i class="fa-solid fa-shopping-bag text-2xl text-pink-700"></i>
-                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-pink-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">0</span>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <!-- HOME SECTION -->
-    <div id="home" class="section">
-        <div class="h-screen bg-[url('https://picsum.photos/id/1015/2000/1200')] bg-cover bg-center relative">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-center px-6">
-                <div class="max-w-2xl">
-                    <h1 class="logo-font text-7xl text-white tracking-widest mb-4">Timeless Beauty</h1>
-                    <p class="text-2xl text-white/90 mb-8">Handcrafted jewellery for the modern woman</p>
-                    <button onclick="showSection('shop')" 
-                            class="bg-white hover:bg-pink-100 text-pink-700 font-semibold px-12 py-5 rounded-2xl text-lg shadow-xl transition-all">
-                        SHOP NOW
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Trust bar -->
-        <div class="bg-white py-6 border-b">
-            <div class="max-w-7xl mx-auto px-6 grid grid-cols-3 gap-8 text-center text-sm">
-                <div class="flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-shield-halved text-pink-600 text-2xl"></i>
-                    <div>
-                        <p class="font-semibold">Secure UPI Payment</p>
-                        <p class="text-gray-500 text-xs">Instant &amp; Safe</p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-truck text-pink-600 text-2xl"></i>
-                    <div>
-                        <p class="font-semibold">Pan India Delivery</p>
-                        <p class="text-gray-500 text-xs">3-7 days</p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-ban text-pink-600 text-2xl"></i>
-                    <div>
-                        <p class="font-semibold text-red-600">NO REFUNDS</p>
-                        <p class="text-gray-500 text-xs">All sales final</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0f1117"/><circle cx="16" cy="16" r="11" fill="none" stroke="#e8943a" stroke-width="1" opacity="0.4"/><circle cx="16" cy="16" r="6" fill="none" stroke="#e8943a" stroke-width="1" opacity="0.7"/><circle cx="16" cy="16" r="3" fill="#e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="#e8943a" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#0f1117;">Jobs<em style="color:#e8943a;font-style:italic;font-weight:300;">Signal</em></span>
     </div>
+    <div class="login-title">Admin Access</div>
+    <div class="login-sub">Restricted area — authorised personnel only.</div>
+    <div class="err-msg" id="loginErr"></div>
+    <div class="field"><label>Username</label><input type="text" id="adminUser" placeholder="admin" autocomplete="username"></div>
+    <div class="field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login-admin" onclick="doLogin()">Sign In →</button>
+  </div>
+</div>
 
-    <!-- SHOP SECTION -->
-    <div id="shop" class="section hidden max-w-7xl mx-auto px-6 py-12">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-4xl font-semibold logo-font text-pink-700">Our Collection</h2>
-            <button onclick="showAdmin()" 
-                    class="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-2">
-                <i class="fa-solid fa-plus"></i> MANAGE PRODUCTS (ADMIN)
-            </button>
-        </div>
-        
-        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Populated by JS -->
-        </div>
+<!-- DASHBOARD -->
+<div class="admin-dash" id="adminDash">
+  <div class="admin-nav">
+    <div class="admin-nav-logo">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#e8943a" fill-opacity=".15"/><circle cx="16" cy="16" r="3" fill="#e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="#e8943a" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Jobs<em>Signal</em> Admin
     </div>
-
-    <!-- CART SECTION -->
-    <div id="cart" class="section hidden max-w-4xl mx-auto px-6 py-12">
-        <h2 class="text-4xl font-semibold logo-font mb-8 text-pink-700">Your Cart</h2>
-        
-        <div id="cart-items" class="space-y-6 mb-12">
-            <!-- Populated by JS -->
-        </div>
-        
-        <div class="bg-white p-8 rounded-3xl shadow">
-            <div class="flex justify-between text-xl mb-6">
-                <span class="font-medium">Total</span>
-                <span id="cart-total" class="font-bold text-2xl">₹0</span>
-            </div>
-            <button onclick="proceedToCheckout()" 
-                    class="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-6 rounded-2xl text-lg font-semibold hover:brightness-110 transition">
-                PROCEED TO CHECKOUT
-            </button>
-        </div>
-        
-        <p class="text-center text-xs text-gray-400 mt-8">No refunds • All sales final</p>
+    <div class="admin-nav-right">
+      <span class="admin-nav-user">Kiran Manepalli</span>
+      <button class="btn-logout" onclick="doLogout()">Sign Out</button>
     </div>
-
-    <!-- CHECKOUT SECTION -->
-    <div id="checkout" class="section hidden max-w-3xl mx-auto px-6 py-12">
-        <h2 class="text-4xl font-semibold logo-font mb-8 text-pink-700">Checkout</h2>
-        
-        <div class="grid md:grid-cols-2 gap-10">
-            <!-- Customer Details -->
-            <div>
-                <div class="bg-white rounded-3xl p-8 shadow">
-                    <h3 class="font-semibold mb-6 text-lg">Delivery Details</h3>
-                    <div class="space-y-5">
-                        <input id="customer-name" type="text" placeholder="Full Name" 
-                               class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300">
-                        <input id="customer-phone" type="tel" placeholder="Phone Number" 
-                               class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300">
-                        <textarea id="customer-address" rows="4" placeholder="Full Delivery Address (with PIN code)"
-                                  class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300 resize-none"></textarea>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Payment -->
-            <div class="bg-white rounded-3xl p-8 shadow">
-                <h3 class="font-semibold mb-6 text-lg">Pay with UPI</h3>
-                
-                <div id="upi-qr-container" class="flex flex-col items-center">
-                    <div class="mb-4 text-center">
-                        <p class="text-sm text-gray-500">Scan QR with any UPI app</p>
-                        <p id="qr-amount" class="text-3xl font-bold text-pink-700">₹0</p>
-                    </div>
-                    
-                    <div class="bg-white p-4 rounded-2xl shadow-inner">
-                        <img id="upi-qr" src="" alt="UPI QR" class="w-64 h-64 rounded-xl">
-                    </div>
-                    
-                    <p class="text-xs text-center text-gray-400 mt-6 max-w-xs">
-                        Pay exact amount shown above.<br>
-                        After payment, enter Transaction ID below.
-                    </p>
-                </div>
-                
-                <div class="mt-8">
-                    <input id="tx-id" type="text" placeholder="UPI Transaction ID / Reference No."
-                           class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-pink-300 text-sm">
-                </div>
-                
-                <button onclick="placeOrder()" 
-                        class="mt-8 w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-6 rounded-2xl text-lg font-semibold">
-                    CONFIRM PAYMENT &amp; PLACE ORDER
-                </button>
-                
-                <div class="text-red-500 text-center text-xs mt-6 font-medium">
-                    ⚠️ NO REFUNDS • ALL SALES FINAL
-                </div>
-            </div>
-        </div>
-        
-        <button onclick="showSection('cart')" 
-                class="mt-8 text-pink-600 hover:text-pink-700 flex items-center gap-2 text-sm">
-            ← Back to Cart
-        </button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-stats">
+      <div class="stat-card"><div class="stat-val" id="statTotal">—</div><div class="stat-lbl">Total Users</div></div>
+      <div class="stat-card"><div class="stat-val" id="statPaid">—</div><div class="stat-lbl">Paid Users</div></div>
+      <div class="stat-card"><div class="stat-val" id="statRevenue">—</div><div class="stat-lbl">Est. Revenue</div></div>
+      <div class="stat-card"><div class="stat-val" id="statToday">—</div><div class="stat-lbl">Joined Today</div></div>
     </div>
-
-    <!-- ADMIN SECTION -->
-    <div id="admin" class="section hidden">
-        <div class="max-w-6xl mx-auto px-6 py-12">
-            <!-- Login Screen -->
-            <div id="admin-login" class="max-w-md mx-auto bg-white rounded-3xl shadow-xl p-10 text-center">
-                <i class="fa-solid fa-lock text-6xl text-pink-600 mb-6"></i>
-                <h3 class="text-2xl font-semibold mb-8">Admin Access</h3>
-                <input id="admin-pass" type="password" placeholder="Password" 
-                       class="w-full px-6 py-4 border rounded-2xl mb-6 text-center text-lg">
-                <button onclick="loginAdmin()" 
-                        class="w-full bg-pink-700 hover:bg-pink-800 text-white py-5 rounded-2xl text-lg font-medium">
-                    LOGIN
-                </button>
-                <p class="text-xs text-gray-400 mt-6">Default password: admin123</p>
-            </div>
-            
-            <!-- Admin Dashboard -->
-            <div id="admin-dashboard" class="hidden">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-4xl logo-font text-pink-700">Admin Dashboard</h2>
-                    <button onclick="logoutAdmin()" 
-                            class="text-red-500 hover:text-red-600 flex items-center gap-2">
-                        <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
-                    </button>
-                </div>
-                
-                <!-- Tabs -->
-                <div class="flex border-b mb-8">
-                    <button onclick="switchAdminTab(0)" id="tab-products" 
-                            class="admin-tab px-8 py-4 font-medium border-b-2 border-pink-600 text-pink-600">PRODUCTS</button>
-                    <button onclick="switchAdminTab(1)" id="tab-orders"
-                            class="admin-tab px-8 py-4 font-medium text-gray-500">ORDERS (<span id="orders-count">0</span>)</button>
-                    <button onclick="switchAdminTab(2)" id="tab-settings"
-                            class="admin-tab px-8 py-4 font-medium text-gray-500">SETTINGS</button>
-                </div>
-                
-                <!-- PRODUCTS TAB -->
-                <div id="admin-products-tab">
-                    <div class="bg-white rounded-3xl p-8 mb-8">
-                        <h3 class="text-lg font-semibold mb-6">Add New Product</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input id="new-name" type="text" placeholder="Product Name" class="border rounded-2xl px-5 py-4">
-                            <input id="new-price" type="number" placeholder="Price (₹)" class="border rounded-2xl px-5 py-4">
-                            <textarea id="new-desc" placeholder="Short description" rows="2" 
-                                      class="border rounded-2xl px-5 py-4 col-span-2"></textarea>
-                            <div>
-                                <label class="block text-xs text-gray-500 mb-2">Product Image</label>
-                                <input id="new-image" type="file" accept="image/*" class="block w-full">
-                            </div>
-                            <button onclick="addProduct()" 
-                                    class="bg-pink-600 hover:bg-pink-700 text-white py-4 rounded-2xl">ADD PRODUCT</button>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="admin-products-grid">
-                        <!-- JS populated -->
-                    </div>
-                </div>
-                
-                <!-- ORDERS TAB -->
-                <div id="admin-orders-tab" class="hidden">
-                    <div class="bg-white rounded-3xl overflow-hidden">
-                        <table class="w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="text-left px-8 py-4 text-sm font-medium">Order ID</th>
-                                    <th class="text-left px-8 py-4 text-sm font-medium">Customer</th>
-                                    <th class="text-left px-8 py-4 text-sm font-medium">Amount</th>
-                                    <th class="text-left px-8 py-4 text-sm font-medium">Date</th>
-                                    <th class="text-left px-8 py-4 text-sm font-medium">Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="orders-table-body" class="divide-y">
-                                <!-- JS populated -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- SETTINGS TAB -->
-                <div id="admin-settings-tab" class="hidden bg-white rounded-3xl p-10">
-                    <h3 class="font-semibold mb-6">UPI Payment Settings</h3>
-                    <div class="max-w-md">
-                        <label class="block text-sm text-gray-500 mb-2">Your UPI ID (VPA)</label>
-                        <input id="upi-id" type="text" value="yourname@oksbi" 
-                               class="w-full border border-gray-300 rounded-2xl px-6 py-5 text-lg">
-                        <button onclick="saveSettings()" 
-                                class="mt-8 bg-pink-700 text-white px-10 py-4 rounded-2xl">SAVE UPI ID</button>
-                    </div>
-                    
-                    <div class="mt-12 text-xs bg-amber-50 border border-amber-200 p-6 rounded-2xl">
-                        <strong>Note:</strong> QR code is generated dynamically with exact amount and order ID.<br>
-                        Change your UPI ID here before going live.
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="admin-section">
+      <div class="admin-section-header">
+        <div class="admin-section-title">All Users <span style="font-size:12px;font-weight:400;color:#6b7280;" id="userCount"></span></div>
+        <button class="btn-export" onclick="exportCSV()">⬇️ Export CSV</button>
+      </div>
+      <div class="search-bar"><input type="text" placeholder="Search by name, mobile, skill, city..." oninput="filterTable(this.value)" id="searchInput"></div>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Skill</th><th>City</th><th>Email</th><th>Plan</th><th>Joined</th></tr></thead>
+          <tbody id="adminTbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:#6b7280;">Loading users from Firebase...</td></tr></tbody>
+        </table>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer class="bg-pink-950 text-white py-12">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="flex justify-center gap-3 mb-6">
-                <i class="fa-solid fa-gem text-4xl text-pink-400"></i>
-            </div>
-            <p class="text-pink-300 text-sm">ElegantAura • Handcrafted Jewellery</p>
-            <p class="text-xs text-pink-400 mt-8">NO REFUNDS POLICY • All transactions are final</p>
-            <p class="text-[10px] text-pink-700 mt-4">Built with ❤️ for Kiran • Hyderabad</p>
-        </div>
-    </footer>
+<script>
+const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
+const ADMIN_USER='admin', ADMIN_PASS='admin@123';
+const AUTH_KEY='js_admin_auth_v2';
+let ALL_USERS=[];
 
-    <!-- ORDER SUCCESS MODAL -->
-    <div id="success-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="modal bg-white rounded-3xl max-w-md w-full p-10 text-center">
-            <i class="fa-solid fa-check-circle text-6xl text-green-500 mb-6"></i>
-            <h3 class="text-2xl font-semibold mb-2">Order Placed Successfully!</h3>
-            <p class="text-gray-600 mb-8">Thank you. Your order has been recorded.<br>Delivery address saved for admin.</p>
-            <button onclick="closeSuccessModal()" 
-                    class="bg-pink-700 text-white px-12 py-4 rounded-2xl">CLOSE</button>
-        </div>
-    </div>
+function doLogin(){
+  var u=document.getElementById('adminUser').value.trim();
+  var p=document.getElementById('adminPass').value.trim();
+  var err=document.getElementById('loginErr');
+  err.style.display='none';
+  // Brute force
+  var now=Date.now();
+  var lock=parseInt(localStorage.getItem('js_adm_lock')||'0');
+  if(lock>now){var mins=Math.ceil((lock-now)/60000);err.textContent='Too many attempts. Wait '+mins+' min.';err.style.display='block';return;}
+  var tries=parseInt(localStorage.getItem('js_adm_tries')||'0');
+  if(u===ADMIN_USER&&p===ADMIN_PASS){
+    localStorage.setItem(AUTH_KEY,'1');
+    localStorage.removeItem('js_adm_tries');localStorage.removeItem('js_adm_lock');
+    showDash();
+  }else{
+    var t=tries+1;localStorage.setItem('js_adm_tries',t);
+    if(t>=3){localStorage.setItem('js_adm_lock',String(now+5*60*1000));localStorage.removeItem('js_adm_tries');err.textContent='Too many wrong attempts. Locked 5 minutes.';}
+    else{err.textContent='Invalid credentials. '+(3-t)+' attempt(s) left.';}
+    err.style.display='block';
+    document.getElementById('adminPass').select();
+  }
+}
 
-    <script>
-        // Tailwind script
-        function initializeTailwind() {
-            // Already initialized via CDN
-        }
+function doLogout(){
+  localStorage.removeItem(AUTH_KEY);
+  document.getElementById('adminDash').style.display='none';
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('adminPass').value='';
+}
 
-        // Data storage
-        let products = []
-        let cart = []
-        let orders = []
-        let currentUPI = "yourname@oksbi"
-        let isAdminLoggedIn = false
-        let currentAdminTab = 0
+function showDash(){
+  document.getElementById('loginWrap').style.display='none';
+  document.getElementById('adminDash').style.display='block';
+  loadUsers();
+}
 
-        // Sample initial products (you can delete them later from admin)
-        function loadInitialData() {
-            if (localStorage.getItem("elegantaura_products")) {
-                products = JSON.parse(localStorage.getItem("elegantaura_products"))
-            } else {
-                products = [
-                    {
-                        id: 1,
-                        name: "Pearl Drop Necklace",
-                        price: 2499,
-                        desc: "18K gold plated with freshwater pearls",
-                        image: "https://picsum.photos/id/1015/600/600"
-                    },
-                    {
-                        id: 2,
-                        name: "Hoop Earrings Set",
-                        price: 1299,
-                        desc: "Rose gold hoops with crystal studs",
-                        image: "https://picsum.photos/id/201/600/600"
-                    },
-                    {
-                        id: 3,
-                        name: "Kundan Bracelet",
-                        price: 1899,
-                        desc: "Traditional kundan work in antique gold",
-                        image: "https://picsum.photos/id/29/600/600"
-                    },
-                    {
-                        id: 4,
-                        name: "Emerald Ring",
-                        price: 3199,
-                        desc: "Green stone ring with cubic zirconia",
-                        image: "https://picsum.photos/id/160/600/600"
-                    }
-                ]
-                saveProducts()
-            }
-            
-            if (localStorage.getItem("elegantaura_orders")) {
-                orders = JSON.parse(localStorage.getItem("elegantaura_orders"))
-            }
-            
-            if (localStorage.getItem("elegantaura_upi")) {
-                currentUPI = localStorage.getItem("elegantaura_upi")
-            }
-            
-            renderProducts()
-            renderAdminProducts()
-        }
+async function loadUsers(){
+  try{
+    var r=await fetch(FB_DB+'/users.json');
+    if(!r.ok){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#dc2626;">Firebase error: '+r.status+'</td></tr>');return;}
+    var data=await r.json();
+    if(!data){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#6b7280;">No users yet.</td></tr>');return;}
+    ALL_USERS=Object.values(data).filter(function(u){return u&&u.phone;});
+    renderUsers(ALL_USERS);
+    renderStats(ALL_USERS);
+  }catch(e){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#dc2626;">Error: '+e.message+'</td></tr>');}
+}
 
-        function saveProducts() {
-            localStorage.setItem("elegantaura_products", JSON.stringify(products))
-        }
+function renderStats(users){
+  var paid=users.filter(function(u){return u.plan&&u.plan.plan&&new Date(u.plan.expiresAt)>new Date();});
+  var today=new Date().toDateString();
+  var todayCount=users.filter(function(u){return u.joinedAt&&new Date(u.joinedAt).toDateString()===today;});
+  var planAmt={'7 Days':49,'30 Days':99,'60 Days':179,'Annual':599};
+  var rev=paid.reduce(function(s,u){return s+(planAmt[(u.plan&&u.plan.plan)||'']||0);},0);
+  document.getElementById('statTotal').textContent=users.length;
+  document.getElementById('statPaid').textContent=paid.length;
+  document.getElementById('statRevenue').textContent='₹'+rev.toLocaleString('en-IN');
+  document.getElementById('statToday').textContent=todayCount.length;
+  document.getElementById('userCount').textContent='('+users.length+' total)';
+}
 
-        function saveOrders() {
-            localStorage.setItem("elegantaura_orders", JSON.stringify(orders))
-        }
+function renderUsers(users){
+  if(!users.length){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#6b7280;">No users found.</td></tr>');return;}
+  var now=new Date();
+  var rows=users.map(function(u,i){
+    var plan=u.plan||{};
+    var hasPlan=plan.plan&&new Date(plan.expiresAt)>now;
+    var isExp=plan.plan&&new Date(plan.expiresAt)<=now;
+    var badge=hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
+    var joined=u.joinedAt?new Date(u.joinedAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
+    return '<tr><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td></tr>';
+  });
+  setTbody(rows.join(''));
+}
 
-        // Render products on shop page
-        function renderProducts() {
-            const grid = document.getElementById("products-grid")
-            grid.innerHTML = ""
-            
-            products.forEach(product => {
-                const card = document.createElement("div")
-                card.className = "product-card bg-white rounded-3xl overflow-hidden shadow"
-                card.innerHTML = `
-                    <img src="${product.image}" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="font-semibold text-lg">${product.name}</h4>
-                        <p class="text-gray-500 text-sm mt-1 line-clamp-2">${product.desc}</p>
-                        <div class="flex justify-between items-end mt-6">
-                            <span class="text-2xl font-bold text-pink-700">₹${product.price}</span>
-                            <button onclick="addToCart(${product.id}); event.stopImmediatePropagation()" 
-                                    class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-2xl text-sm font-medium">
-                                ADD TO CART
-                            </button>
-                        </div>
-                    </div>
-                `
-                grid.appendChild(card)
-            })
-        }
+function filterTable(q){
+  if(!q.trim()){renderUsers(ALL_USERS);return;}
+  var lq=q.toLowerCase();
+  var filtered=ALL_USERS.filter(function(u){
+    return [(u.name||''),(u.phone||''),(u.skill||''),(u.city||''),(u.email||'')].some(function(v){return v.toLowerCase().includes(lq);});
+  });
+  renderUsers(filtered);
+}
 
-        // Add to cart
-        function addToCart(id) {
-            const product = products.find(p => p.id === id)
-            if (!product) return
-            
-            const existing = cart.find(item => item.id === id)
-            if (existing) {
-                existing.quantity = (existing.quantity || 1) + 1
-            } else {
-                cart.push({...product, quantity: 1})
-            }
-            
-            updateCartCount()
-            showToast(`${product.name} added to cart`)
-        }
+function exportCSV(){
+  if(!ALL_USERS.length){alert('No data to export');return;}
+  var rows=[['Name','Mobile','Email','Skill','City','Plan','Plan Expires','Joined']];
+  ALL_USERS.forEach(function(u){
+    var plan=u.plan||{};
+    rows.push([u.name||'',u.phone||'',u.email||'',u.skill||'',u.city||'',plan.plan||'Free',plan.expiresAt||'',u.joinedAt||'']);
+  });
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+(c+'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='jobssignal_users_'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+}
 
-        function updateCartCount() {
-            let count = 0
-            cart.forEach(item => count += item.quantity || 1)
-            document.getElementById("cart-count").textContent = count
-            document.getElementById("cart-count-mobile").textContent = count
-        }
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function setTbody(h){document.getElementById('adminTbody').innerHTML=h;}
 
-        // Render cart
-        function renderCart() {
-            const container = document.getElementById("cart-items")
-            container.innerHTML = ""
-            
-            if (cart.length === 0) {
-                container.innerHTML = `<p class="text-center py-12 text-gray-400">Your cart is empty</p>`
-                document.getElementById("cart-total").textContent = "₹0"
-                return
-            }
-            
-            let total = 0
-            
-            cart.forEach((item, index) => {
-                const qty = item.quantity || 1
-                const itemTotal = item.price * qty
-                total += itemTotal
-                
-                const div = document.createElement("div")
-                div.className = "flex gap-6 bg-white p-6 rounded-3xl"
-                div.innerHTML = `
-                    <img src="${item.image}" class="w-24 h-24 object-cover rounded-2xl">
-                    <div class="flex-1">
-                        <div class="flex justify-between">
-                            <div>
-                                <h4 class="font-medium">${item.name}</h4>
-                                <p class="text-pink-600 text-sm">₹${item.price} × ${qty}</p>
-                            </div>
-                            <span class="font-bold">₹${itemTotal}</span>
-                        </div>
-                        <div class="flex gap-3 mt-6">
-                            <button onclick="changeQuantity(${index}, -1)" class="w-8 h-8 flex items-center justify-center border rounded-xl">-</button>
-                            <span class="px-6 flex items-center">${qty}</span>
-                            <button onclick="changeQuantity(${index}, 1)" class="w-8 h-8 flex items-center justify-center border rounded-xl">+</button>
-                            <button onclick="removeFromCart(${index})" class="ml-auto text-red-500 text-sm">Remove</button>
-                        </div>
-                    </div>
-                `
-                container.appendChild(div)
-            })
-            
-            document.getElementById("cart-total").textContent = `₹${total}`
-        }
-
-        function changeQuantity(index, delta) {
-            cart[index].quantity = (cart[index].quantity || 1) + delta
-            if (cart[index].quantity < 1) cart[index].quantity = 1
-            renderCart()
-            updateCartCount()
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1)
-            renderCart()
-            updateCartCount()
-        }
-
-        // Proceed to checkout
-        function proceedToCheckout() {
-            if (cart.length === 0) {
-                showToast("Cart is empty", true)
-                return
-            }
-            showSection("checkout")
-            renderCheckoutQR()
-        }
-
-        function renderCheckoutQR() {
-            let total = 0
-            cart.forEach(item => total += item.price * (item.quantity || 1))
-            
-            document.getElementById("qr-amount").textContent = `₹${total}`
-            
-            const orderId = "EA" + Date.now().toString().slice(-6)
-            const upiLink = `upi://pay?pa=${currentUPI}&am=${total}&cu=INR&tn=Order${orderId}`
-            
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(upiLink)}`
-            document.getElementById("upi-qr").src = qrUrl
-        }
-
-        // Place order
-        function placeOrder() {
-            const name = document.getElementById("customer-name").value.trim()
-            const phone = document.getElementById("customer-phone").value.trim()
-            const address = document.getElementById("customer-address").value.trim()
-            const txId = document.getElementById("tx-id").value.trim()
-            
-            if (!name || !phone || !address) {
-                showToast("Please fill all delivery details", true)
-                return
-            }
-            if (!txId) {
-                showToast("Please enter UPI Transaction ID", true)
-                return
-            }
-            
-            let total = 0
-            cart.forEach(item => total += item.price * (item.quantity || 1))
-            
-            const newOrder = {
-                id: "EA" + Date.now().toString().slice(-8),
-                date: new Date().toLocaleDateString("en-IN"),
-                customer: { name, phone, address },
-                items: [...cart],
-                total: total,
-                txId: txId,
-                status: "Pending Verification"
-            }
-            
-            orders.unshift(newOrder)
-            saveOrders()
-            
-            // Clear cart
-            cart = []
-            updateCartCount()
-            
-            // Show success
-            document.getElementById("success-modal").classList.remove("hidden")
-            document.getElementById("success-modal").classList.add("flex")
-            
-            // Reset form
-            document.getElementById("customer-name").value = ""
-            document.getElementById("customer-phone").value = ""
-            document.getElementById("customer-address").value = ""
-            document.getElementById("tx-id").value = ""
-        }
-
-        function closeSuccessModal() {
-            document.getElementById("success-modal").classList.add("hidden")
-            document.getElementById("success-modal").classList.remove("flex")
-            showSection("home")
-        }
-
-        // Admin functions
-        function showAdmin() {
-            showSection("admin")
-            if (isAdminLoggedIn) {
-                document.getElementById("admin-login").classList.add("hidden")
-                document.getElementById("admin-dashboard").classList.remove("hidden")
-                renderAdminProducts()
-                renderOrdersTable()
-            } else {
-                document.getElementById("admin-login").classList.remove("hidden")
-                document.getElementById("admin-dashboard").classList.add("hidden")
-            }
-        }
-
-        function loginAdmin() {
-            const pass = document.getElementById("admin-pass").value
-            if (pass === "admin123") {
-                isAdminLoggedIn = true
-                document.getElementById("admin-login").classList.add("hidden")
-                document.getElementById("admin-dashboard").classList.remove("hidden")
-                renderAdminProducts()
-                renderOrdersTable()
-                switchAdminTab(0)
-            } else {
-                showToast("Wrong password!", true)
-            }
-        }
-
-        function logoutAdmin() {
-            isAdminLoggedIn = false
-            showSection("home")
-        }
-
-        function switchAdminTab(tab) {
-            currentAdminTab = tab
-            document.querySelectorAll(".admin-tab").forEach((el, i) => {
-                if (i === tab) {
-                    el.classList.add("border-b-2", "border-pink-600", "text-pink-600")
-                } else {
-                    el.classList.remove("border-b-2", "border-pink-600", "text-pink-600")
-                }
-            })
-            
-            document.getElementById("admin-products-tab").classList.toggle("hidden", tab !== 0)
-            document.getElementById("admin-orders-tab").classList.toggle("hidden", tab !== 1)
-            document.getElementById("admin-settings-tab").classList.toggle("hidden", tab !== 2)
-            
-            if (tab === 1) renderOrdersTable()
-        }
-
-        function renderAdminProducts() {
-            const grid = document.getElementById("admin-products-grid")
-            grid.innerHTML = ""
-            
-            products.forEach((product, index) => {
-                const card = document.createElement("div")
-                card.className = "bg-white rounded-3xl overflow-hidden shadow"
-                card.innerHTML = `
-                    <img src="${product.image}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <p class="font-medium text-sm">${product.name}</p>
-                        <p class="text-pink-600">₹${product.price}</p>
-                        <div class="flex gap-2 mt-4">
-                            <button onclick="deleteProduct(${index}); event.stopImmediatePropagation()" 
-                                    class="flex-1 bg-red-100 text-red-600 py-2 text-xs rounded-2xl">DELETE</button>
-                        </div>
-                    </div>
-                `
-                grid.appendChild(card)
-            })
-        }
-
-        function addProduct() {
-            const name = document.getElementById("new-name").value.trim()
-            const price = parseInt(document.getElementById("new-price").value)
-            const desc = document.getElementById("new-desc").value.trim()
-            const fileInput = document.getElementById("new-image")
-            
-            if (!name || !price) {
-                showToast("Name and price required", true)
-                return
-            }
-            
-            if (fileInput.files.length > 0) {
-                const reader = new FileReader()
-                reader.onload = function(e) {
-                    const newProduct = {
-                        id: Date.now(),
-                        name: name,
-                        price: price,
-                        desc: desc || "Beautiful handcrafted piece",
-                        image: e.target.result
-                    }
-                    products.push(newProduct)
-                    saveProducts()
-                    renderProducts()
-                    renderAdminProducts()
-                    // Clear form
-                    document.getElementById("new-name").value = ""
-                    document.getElementById("new-price").value = ""
-                    document.getElementById("new-desc").value = ""
-                    fileInput.value = ""
-                    showToast("Product added successfully")
-                }
-                reader.readAsDataURL(fileInput.files[0])
-            } else {
-                // No image uploaded, use placeholder
-                const newProduct = {
-                    id: Date.now(),
-                    name: name,
-                    price: price,
-                    desc: desc || "Beautiful handcrafted piece",
-                    image: "https://picsum.photos/id/201/600/600"
-                }
-                products.push(newProduct)
-                saveProducts()
-                renderProducts()
-                renderAdminProducts()
-                showToast("Product added (using placeholder image)")
-            }
-        }
-
-        function deleteProduct(index) {
-            if (confirm("Delete this product permanently?")) {
-                products.splice(index, 1)
-                saveProducts()
-                renderProducts()
-                renderAdminProducts()
-            }
-        }
-
-        function renderOrdersTable() {
-            const tbody = document.getElementById("orders-table-body")
-            tbody.innerHTML = ""
-            document.getElementById("orders-count").textContent = orders.length
-            
-            orders.forEach(order => {
-                const tr = document.createElement("tr")
-                tr.className = "hover:bg-gray-50"
-                tr.innerHTML = `
-                    <td class="px-8 py-6 text-sm font-medium">${order.id}</td>
-                    <td class="px-8 py-6">
-                        <div><strong>${order.customer.name}</strong></div>
-                        <div class="text-xs text-gray-500">${order.customer.phone}</div>
-                    </td>
-                    <td class="px-8 py-6 font-semibold">₹${order.total}</td>
-                    <td class="px-8 py-6 text-sm">${order.date}</td>
-                    <td class="px-8 py-6">
-                        <span class="px-4 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-3xl">${order.status}</span>
-                    </td>
-                    <td class="px-8 py-6 text-right">
-                        <button onclick="viewOrderDetails('${order.id}'); event.stopImmediatePropagation()" 
-                                class="text-pink-600 hover:underline text-xs">VIEW</button>
-                    </td>
-                `
-                tbody.appendChild(tr)
-            })
-        }
-
-        function viewOrderDetails(orderId) {
-            const order = orders.find(o => o.id === orderId)
-            if (!order) return
-            
-            let itemsHTML = ""
-            order.items.forEach(item => {
-                itemsHTML += `<div class="flex justify-between text-sm py-2">
-                    <span>${item.name} × ${item.quantity || 1}</span>
-                    <span>₹${item.price * (item.quantity || 1)}</span>
-                </div>`
-            })
-            
-            const details = `
-                <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[60]">
-                    <div class="bg-white rounded-3xl max-w-lg w-full mx-4 p-8">
-                        <h3 class="font-semibold text-xl mb-6">Order ${order.id}</h3>
-                        
-                        <div class="grid grid-cols-2 gap-6 text-sm mb-8">
-                            <div>
-                                <p class="text-gray-400">Customer</p>
-                                <p class="font-medium">${order.customer.name}</p>
-                                <p class="text-xs">${order.customer.phone}</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400">Date</p>
-                                <p>${order.date}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-2xl p-6 mb-6">
-                            ${itemsHTML}
-                            <div class="border-t pt-4 mt-4 flex justify-between font-bold">
-                                <span>Total</span>
-                                <span>₹${order.total}</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <p class="text-gray-400 text-xs mb-1">Delivery Address</p>
-                            <p class="text-sm">${order.customer.address}</p>
-                        </div>
-                        
-                        <div class="mt-6 text-xs">
-                            <span class="font-medium">UPI Transaction ID:</span> ${order.txId}
-                        </div>
-                        
-                        <button onclick="this.closest('.fixed').remove()" 
-                                class="mt-10 w-full bg-gray-900 text-white py-4 rounded-2xl">CLOSE</button>
-                    </div>
-                </div>
-            `
-            const tempDiv = document.createElement("div")
-            tempDiv.innerHTML = details
-            document.body.appendChild(tempDiv.firstElementChild)
-        }
-
-        function saveSettings() {
-            currentUPI = document.getElementById("upi-id").value.trim()
-            if (currentUPI) {
-                localStorage.setItem("elegantaura_upi", currentUPI)
-                showToast("UPI ID saved successfully")
-            }
-        }
-
-        // Section switching
-        function showSection(section) {
-            document.querySelectorAll(".section").forEach(sec => {
-                sec.classList.add("hidden")
-            })
-            
-            if (section === "home") document.getElementById("home").classList.remove("hidden")
-            else if (section === "shop") {
-                document.getElementById("shop").classList.remove("hidden")
-                renderProducts()
-            }
-            else if (section === "cart") {
-                document.getElementById("cart").classList.remove("hidden")
-                renderCart()
-            }
-            else if (section === "checkout") {
-                document.getElementById("checkout").classList.remove("hidden")
-            }
-            else if (section === "admin") {
-                document.getElementById("admin").classList.remove("hidden")
-            }
-        }
-
-        // Toast notification
-        function showToast(msg, isError = false) {
-            const toast = document.createElement("div")
-            toast.style.cssText = `position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:14px 28px; border-radius:9999px; font-size:14px; color:white; z-index:9999; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.2);`
-            toast.style.backgroundColor = isError ? "#e11d48" : "#c026d3"
-            toast.textContent = msg
-            document.body.appendChild(toast)
-            
-            setTimeout(() => {
-                toast.style.transition = "all 0.3s"
-                toast.style.opacity = "0"
-                setTimeout(() => toast.remove(), 300)
-            }, 2800)
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener("keydown", function(e) {
-            if (e.metaKey && e.key === "k") {
-                e.preventDefault()
-                showSection("shop")
-            }
-        })
-
-        // Initialize everything
-        window.onload = function() {
-            initializeTailwind()
-            loadInitialData()
-            updateCartCount()
-            
-            // Show home by default
-            showSection("home")
-            
-            // Make admin password visible hint on focus
-            const passInput = document.getElementById("admin-pass")
-            passInput.addEventListener("focus", () => {
-                passInput.placeholder = "admin123"
-            })
-            
-            console.log("%c✅ ElegantAura website ready!\nUPI QR + Admin panel + Local storage working.\nChange UPI ID in Admin → Settings before going live.\nYou can now deploy this single file.", "color:#c026d3; font-family:monospace")
-        }
-    </script>
+// Auto-login if session exists
+document.addEventListener('DOMContentLoaded',function(){
+  if(localStorage.getItem(AUTH_KEY)==='1') showDash();
+});
+</script>
 </body>
 </html>
