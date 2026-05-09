@@ -118,7 +118,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .li-btn{padding:6px 11px;border-radius:6px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 
 /* DASHBOARD */
-.dash-wrap{display:flex;height:calc(100vh - 58px);margin-top:58px;overflow:hidden;}
+.dash-wrap{display:flex;height:100vh;margin-top:0;overflow:hidden;}
 .sidebar{width:240px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;}
 .sb-brand{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.07);}
 .sb-wm{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
@@ -243,6 +243,127 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .az-btn{display:inline-block;padding:7px 14px;background:var(--ink);color:#fff;border-radius:7px;font-size:12px;font-weight:600;text-decoration:none;}
 .az-empty{padding:24px;text-align:center;color:var(--soft);font-size:13px;line-height:1.6;}
 .sb-sec-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 16px 3px;}
+
+/* ── CAREER TOOLKIT SIDEBAR ── */
+.sb-lock{margin-left:auto;font-size:10px;color:rgba(255,255,255,.3);}
+.sb-item.locked{opacity:.6;cursor:pointer;}
+
+/* ── JOB RESULTS NEW DESIGN ── */
+.src-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.src-tab{padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
+.src-pane{animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* Google Jobs cards */
+.gj-count{font-size:11px;color:var(--soft);margin-bottom:12px;font-weight:600;}
+.gj-card{background:#fff;border-radius:12px;border:1.5px solid var(--border);padding:14px 16px;margin-bottom:10px;transition:box-shadow .2s;}
+.gj-card:hover{box-shadow:0 4px 20px rgba(15,17,23,.08);}
+.gj-top{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;}
+.gj-logo{width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.az-logo-ph{width:36px;height:36px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--soft);}
+.gj-info{flex:1;}
+.gj-title{font-size:13px;font-weight:700;margin-bottom:2px;}
+.gj-title a{color:var(--ink);text-decoration:none;}
+.gj-title a:hover{color:var(--amber);}
+.gj-company{font-size:11px;color:var(--soft);}
+.gj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.gj-tag{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;}
+.gj-tag.salary{background:#f0fdf4;color:#16a34a;}
+.gj-tag.source{background:#eff6ff;color:#1d4ed8;}
+.gj-tag.time{background:#fff7ed;color:#ea580c;}
+.gj-tag.type{background:#faf5ff;color:#7c3aed;}
+.gj-tag.remote{background:#f0fdf4;color:#16a34a;}
+.gj-desc{font-size:11px;color:var(--soft);line-height:1.6;margin-bottom:10px;}
+.gj-footer{display:flex;align-items:center;gap:10px;}
+.gj-apply-btn{padding:7px 14px;background:var(--amber);color:#fff;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;}
+.gj-remote{font-size:11px;color:#16a34a;font-weight:600;}
+
+/* LinkedIn jobs redirect */
+.lj-redirect{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;border:1.5px solid var(--border);}
+.lj-btn{display:inline-block;padding:12px 24px;background:#0077b5;color:#fff;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px;}
+
+/* Loading spinner */
+.az-loading{display:flex;align-items:center;gap:12px;padding:20px;font-size:13px;color:var(--soft);}
+.az-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.az-empty{text-align:center;padding:32px 20px;color:var(--soft);font-size:13px;line-height:1.7;background:#fff;border-radius:12px;border:1.5px solid var(--border);}
+
+/* ── ATS CHECKER ── */
+.ats-wrap{height:100vh;overflow-y:auto;background:var(--cream);}
+.ats-header{background:var(--ink);padding:20px 28px;position:sticky;top:0;z-index:10;}
+.ats-back{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;}
+.ats-header-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;}
+.ats-header-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;}
+.ats-body{max-width:760px;margin:0 auto;padding:32px 28px;}
+.ats-upload-zone{background:#fff;border-radius:20px;border:2px dashed var(--border);padding:40px 32px;text-align:center;}
+.auz-icon{font-size:48px;margin-bottom:16px;}
+.auz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;margin-bottom:6px;}
+.auz-sub{font-size:13px;color:var(--soft);margin-bottom:20px;}
+.auz-btn{padding:11px 24px;background:var(--ink);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.auz-or{font-size:11px;color:var(--muted);margin:20px 0;text-transform:uppercase;letter-spacing:1px;}
+.auz-paste{width:100%;min-height:140px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--cream);resize:vertical;margin-bottom:14px;}
+.auz-paste:focus{outline:none;border-color:var(--amber);}
+.auz-analyse-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d97706);color:#fff;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* ATS Result */
+.ats-result{animation:fadeIn .4s ease;}
+.ats-score-wrap{background:var(--ink);border-radius:20px;padding:32px;text-align:center;margin-bottom:20px;}
+.ats-gauge{position:relative;width:140px;height:140px;margin:0 auto 16px;}
+.ats-gauge svg{transform:rotate(-90deg);}
+.ats-score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:#fff;}
+.ats-score-label{font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;}
+.ats-verdict{font-size:14px;font-weight:700;color:#fff;margin-top:8px;}
+.ats-sections{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.ats-section{background:#fff;border-radius:14px;padding:18px;border:1.5px solid var(--border);}
+.ats-sec-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.ats-sec-score{margin-left:auto;font-family:'Fraunces',serif;font-size:16px;font-weight:800;}
+.ats-item{font-size:11px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--soft);display:flex;align-items:flex-start;gap:6px;}
+.ats-item:last-child{border:none;}
+.ats-item .ats-dot{flex-shrink:0;margin-top:2px;}
+.ats-cta{background:linear-gradient(135deg,var(--amber),#d97706);border-radius:14px;padding:24px;text-align:center;color:#fff;}
+.ats-cta-title{font-family:'Fraunces',serif;font-size:18px;font-weight:800;margin-bottom:8px;}
+.ats-cta-btn{display:inline-block;margin-top:12px;padding:11px 24px;background:#fff;color:var(--amber);border-radius:8px;font-size:13px;font-weight:800;text-decoration:none;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+
+/* ── RESUME BUILDER ── */
+.resume-wrap{height:100vh;overflow-y:auto;background:var(--cream);}
+.resume-body{max-width:900px;margin:0 auto;padding:32px 28px;}
+.rb-step-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:-.5px;}
+.rb-input-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+.rb-opt{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;}
+.rb-opt:hover{border-color:var(--amber);box-shadow:0 4px 20px rgba(232,148,58,.15);}
+.rb-opt.selected{border-color:var(--amber);background:#fff7ed;}
+.rb-opt-icon{font-size:28px;margin-bottom:8px;}
+.rb-opt-title{font-size:13px;font-weight:800;margin-bottom:4px;}
+.rb-opt-sub{font-size:10px;color:var(--soft);line-height:1.5;}
+.rb-next-btn{padding:12px 28px;background:var(--amber);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.rb-template-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.rb-tmpl-card{background:#fff;border-radius:14px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:all .2s;}
+.rb-tmpl-card:hover{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,148,58,.15);}
+.rb-tmpl-card.selected{border-color:var(--amber);}
+.rb-tmpl-thumb{height:200px;overflow:hidden;position:relative;}
+.rb-tmpl-info{padding:12px 14px;border-top:1px solid var(--border);}
+.rb-tmpl-name{font-size:12px;font-weight:800;color:var(--ink);}
+.rb-tmpl-role{font-size:10px;color:var(--soft);margin-top:2px;}
+.rb-tmpl-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;margin-top:4px;}
+.badge-pro{background:#eff6ff;color:#1d4ed8;}
+.badge-modern{background:#faf5ff;color:#7c3aed;}
+.rb-preview-wrap{display:grid;grid-template-columns:1fr 240px;gap:24px;}
+.rb-preview-panel{background:#fff;border-radius:14px;border:1.5px solid var(--border);min-height:600px;overflow:hidden;}
+.rb-download-panel{display:flex;flex-direction:column;gap:10px;}
+.rb-download-btn{padding:14px;background:linear-gradient(135deg,var(--amber),#d97706);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.rb-edit-btn,.rb-template-btn{padding:11px;background:#fff;border:1.5px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);}
+@media(max-width:700px){
+  .ats-sections{grid-template-columns:1fr;}
+  .rb-preview-wrap{grid-template-columns:1fr;}
+}
+
+/* ── Auth left panel features ── */
+.sa-features{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.sa-feat{display:flex;align-items:flex-start;gap:10px;}
+.sa-feat-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.sa-feat-t{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
+.sa-feat-s{font-size:10px;color:rgba(255,255,255,.5);line-height:1.4;}
 </style>
 </head>
 <body>
@@ -341,11 +462,17 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <div class="view" id="loginView">
 <div class="split-auth">
   <div class="sa-left">
-    <h2>Welcome <em>back.</em></h2>
-    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on portals.</p>
-    <div class="sa-stats">
-      <div class="sa-stat"><div class="sa-stat-n">2,400+</div><div class="sa-stat-l">Signals/day</div></div>
-      <div class="sa-stat"><div class="sa-stat-n">8hrs</div><div class="sa-stat-l">Before portals</div></div>
+    <h2>Your complete<br><em>career toolkit.</em></h2>
+    <p>Find recruiters before anyone else — check your ATS score and build a stunning resume.</p>
+    <div class="sa-features">
+      <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Real-time Recruiter Signals</div><div class="sa-feat-s">LinkedIn recruiter posts before they go viral</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Know how ATS-ready your resume is — free</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder — 10 Templates</div><div class="sa-feat-s">Professional PDF resume in minutes</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live listings from Naukri, LinkedIn, Indeed</div></div></div>
+    </div>
+    <div class="sa-stats" style="margin-top:20px;">
+      <div class="sa-stat"><div class="sa-stat-n">2,400+</div><div class="sa-stat-l">Job Seekers</div></div>
+      <div class="sa-stat"><div class="sa-stat-n">10</div><div class="sa-stat-l">Templates</div></div>
       <div class="sa-stat"><div class="sa-stat-n">₹49</div><div class="sa-stat-l">Starts from</div></div>
     </div>
   </div>
@@ -368,14 +495,15 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 <div class="view" id="signupView">
 <div class="split-auth">
   <div class="sa-left">
-    <div id="sl1"><h2>Start finding<br>recruiter<br><em>signals today.</em></h2><p>30 seconds to sign up. 1 free search. No card needed.</p></div>
-    <div id="sl2" style="display:none;"><h2>Tell us a<br>little about<br><em>yourself.</em></h2><p>Helps us show the most relevant recruiter signals.</p></div>
-    <div id="sl3" style="display:none;"><h2>You are<br>all <em>set!</em></h2><p>Your account is ready. Keep LinkedIn open for instant results.</p></div>
-    <div class="sa-stats" style="margin-top:auto;">
-      <div class="sa-stat"><div class="sa-stat-n">30sec</div><div class="sa-stat-l">To sign up</div></div>
-      <div class="sa-stat"><div class="sa-stat-n">1</div><div class="sa-stat-l">Free search</div></div>
-      <div class="sa-stat"><div class="sa-stat-n">₹0</div><div class="sa-stat-l">Card needed</div></div>
+    <h2>Join 2,400+<br><em>job seekers.</em></h2>
+    <p>Find recruiters, check your ATS score, build a stunning resume — all in one place. 30 seconds to sign up.</p>
+    <div class="sa-features">
+      <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Recruiter Signal Finder</div><div class="sa-feat-s">5 smart search modes — Skill, Hashtag, Notice, Referral, Walk-in</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Upload resume → instant ATS score + fix list</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">10 stunning templates · LinkedIn PDF → ready resume</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live job listings from Naukri, LinkedIn, Indeed & more</div></div></div>
     </div>
+    <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,.4);">1 free search · No card needed · Cancel anytime</div>
   </div>
   <div class="sa-right">
     <div class="sa-form">
@@ -457,6 +585,10 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-referral" onclick="setMode('referral',this)"><span class="sb-icon">🤝</span><span>Referral Radar</span></div>
       <div class="sb-item" id="mode-walkin" onclick="setMode('walkin',this)"><span class="sb-icon">🚶</span><span>Walk-in Drives</span></div>
       <div class="sb-divider"></div>
+      <div class="sb-sec-label">Career Toolkit</div>
+      <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
+      <div class="sb-item" id="sb-resume" onclick="goToolkit('resume')"><span class="sb-icon">📄</span><span>Resume Builder</span><span class="sb-lock" id="lock-resume"></span></div>
+      <div class="sb-divider"></div>
       <div class="sb-sec-label">Results</div>
       <div class="sb-item" onclick="document.querySelector('.r-tab').click()"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
       <div class="sb-item" onclick="document.querySelectorAll('.r-tab')[1].click()"><span class="sb-icon">💼</span><span>Job Listings</span></div>
@@ -495,14 +627,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <button class="btn-prev" onclick="scrollToSearch()">Search Free →</button>
       </div>
 
-      <!-- Mode tabs (horizontal scroll on mobile) -->
-      <div class="mode-tabs">
-        <button class="mode-tab active" onclick="setMode('skill',this)">🎯 Skill + City</button>
-        <button class="mode-tab" onclick="setMode('hashtag',this)"># Hashtag</button>
-        <button class="mode-tab" onclick="setMode('notice',this)">⏱️ Notice</button>
-        <button class="mode-tab" onclick="setMode('referral',this)">🤝 Referral</button>
-        <button class="mode-tab" onclick="setMode('walkin',this)">🚶 Walk-in</button>
-      </div>
 
       <!-- Search panel -->
       <div class="search-panel" id="dashSearch">
@@ -573,6 +697,99 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 </div><!-- /dashView -->
 
 
+<!-- ATS CHECKER VIEW -->
+<div class="view" id="atsView">
+  <div class="ats-wrap">
+    <div class="ats-header">
+      <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
+      <div class="ats-header-title">📊 ATS Score Checker</div>
+      <div class="ats-header-sub">Find out how recruiter-friendly your resume is — instantly</div>
+    </div>
+    <div class="ats-body" id="atsBody">
+      <div class="ats-upload-zone" id="atsUploadZone">
+        <div class="auz-icon">📄</div>
+        <div class="auz-title">Drop your resume here</div>
+        <div class="auz-sub">PDF · DOC · DOCX · LinkedIn PDF export</div>
+        <input type="file" id="atsFileInput" accept=".pdf,.doc,.docx" style="display:none" onchange="handleATSFile(this)">
+        <button class="auz-btn" onclick="document.getElementById('atsFileInput').click()">Choose File →</button>
+        <div class="auz-or">or</div>
+        <textarea class="auz-paste" id="atsPasteText" placeholder="Paste your resume text or LinkedIn profile text here..."></textarea>
+        <button class="auz-analyse-btn" onclick="runATSCheck()">📊 Check My ATS Score →</button>
+      </div>
+      <div class="ats-result" id="atsResult" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME BUILDER VIEW -->
+<div class="view" id="resumeView">
+  <div class="resume-wrap">
+    <div class="ats-header">
+      <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
+      <div class="ats-header-title">📄 Resume Builder</div>
+      <div class="ats-header-sub">Choose a template · Fill your details · Download PDF</div>
+    </div>
+    <div class="resume-body" id="resumeBody">
+      <!-- Step 1: Input method -->
+      <div class="rb-step" id="rbStep1">
+        <div class="rb-step-title">Step 1 — How do you want to start?</div>
+        <div class="rb-input-options">
+          <div class="rb-opt" onclick="showRBInput('linkedin-pdf')">
+            <div class="rb-opt-icon">📎</div>
+            <div class="rb-opt-title">LinkedIn PDF</div>
+            <div class="rb-opt-sub">Upload your LinkedIn profile PDF export</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('linkedin-text')">
+            <div class="rb-opt-icon">📋</div>
+            <div class="rb-opt-title">Paste LinkedIn Text</div>
+            <div class="rb-opt-sub">Copy & paste your LinkedIn profile text</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('manual')">
+            <div class="rb-opt-icon">✏️</div>
+            <div class="rb-opt-title">Fill Manually</div>
+            <div class="rb-opt-sub">Enter your details step by step</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('paste')">
+            <div class="rb-opt-icon">📝</div>
+            <div class="rb-opt-title">Paste Any Text</div>
+            <div class="rb-opt-sub">Paste unformatted resume or profile</div>
+          </div>
+        </div>
+        <!-- Input areas (shown based on selection) -->
+        <div id="rb-input-area" style="display:none;margin-top:20px;"></div>
+        <button class="rb-next-btn" id="rbNextBtn" style="display:none;" onclick="goToTemplates()">Choose Template →</button>
+      </div>
+      <!-- Step 2: Template gallery (built in Phase 6) -->
+      <div class="rb-step" id="rbStep2" style="display:none;">
+        <div class="rb-step-title">Step 2 — Choose Your Template</div>
+        <div class="rb-template-gallery" id="rbTemplateGallery">
+          <!-- Templates injected by JS -->
+        </div>
+      </div>
+      <!-- Step 3: Form fill -->
+      <div class="rb-step" id="rbStep3" style="display:none;">
+        <div class="rb-step-title">Step 3 — Your Details</div>
+        <div id="rbFormWrap"></div>
+        <button class="rb-next-btn" onclick="previewResume()">Preview Resume →</button>
+      </div>
+      <!-- Step 4: Preview + Download -->
+      <div class="rb-step" id="rbStep4" style="display:none;">
+        <div class="rb-step-title">Step 4 — Preview & Download</div>
+        <div class="rb-preview-wrap">
+          <div class="rb-preview-panel" id="rbPreviewPanel"></div>
+          <div class="rb-download-panel">
+            <button class="rb-download-btn" onclick="downloadResumePDF()">⬇️ Download PDF</button>
+            <button class="rb-edit-btn" onclick="goStep(3)">← Edit Details</button>
+            <button class="rb-template-btn" onclick="goStep(2)">Change Template</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <datalist id="skillList">
   <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
@@ -587,10 +804,19 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 <div class="view" id="adminView"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6fa;"><div style="background:#fff;border-radius:20px;padding:44px;text-align:center;max-width:420px;"><div style="font-size:32px;margin-bottom:12px;">&#128274;</div><div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;margin-bottom:8px;">Admin Dashboard</div><p style="font-size:13px;color:#6b7280;margin-bottom:24px;line-height:1.6;">Full admin panel at the dedicated admin page.</p><a href="/admin" style="display:inline-block;padding:12px 28px;background:#0f1117;color:#fff;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:12px;">Open Admin Panel</a><div><button onclick="adminLogout()" style="background:none;border:none;color:#6b7280;font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;">Sign Out</button></div></div></div></div>
 
-
-
-
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ── VISITOR TRACKING ────────────────────────────────
 // Fires on every page load — stores anonymous visitor ID + date in Firebase
@@ -623,10 +849,661 @@ function trackVisit(){
 
 
 // ── CONFIG ──────────────────────────────────────────
+
+// ── JSearch (Google Jobs) API ──
+const JSEARCH_KEY='32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535';
+const JSEARCH_URL='https://jsearch.p.rapidapi.com/search';
 const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_reg_phones';
+// ═══════════════════════════════════════════════════
+// TODO: REPLACE EXTERNAL JOB SOURCES
+// ─────────────────────────────────────────────────── 
+// CURRENT ISSUES:
+//   - Adzuna: Low Indian job volume, irrelevant results
+//   - Jooble: Opens new page (CORS blocked in browser)
+//   - Remotive/Jobicy: Remote-only, not India-focused
+//
+// RECOMMENDED REPLACEMENT: JSearch API (RapidAPI)
+//   → Powered by Google Jobs data
+//   → Covers Naukri, LinkedIn, Indeed, Shine, TimesJobs
+//   → CORS-friendly (API key in header, works from browser)
+//   → Free tier: 500 req/month
+//   → Sign up: rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch
+//   → Replace fetchAdzuna/fetchJooble/fetchRemotive/fetchJobicy
+//     with single fetchJSearch(skill, city, el) function
+//
+// PENDING DECISION: Kiran to confirm before implementation
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO: RESUME BUILDER + ATS CHECKER (Add to Career Toolkit)
+// ───────────────────────────────────────────────────
+//
+// FEATURE 1 — ATS Score Checker (Profile-based, NOT JD-based)
+//   → User uploads resume or pastes text
+//   → Claude API analyses resume ONLY (no JD needed)
+//   → Returns:
+//       • ATS Score: X/100
+//       • What's missing: (e.g. no LinkedIn URL, no metrics, weak summary)
+//       • What to add: (e.g. quantified achievements, skills section)
+//       • What to remove: (e.g. photos, tables, graphics — ATS can't read)
+//       • Formatting issues: (fonts, columns, special chars)
+//       • Keyword gaps: (based on role/title in resume itself)
+//   → NO job description needed — general ATS best practices
+//   → PENDING: Build inside JobsSignal Career Toolkit section
+//
+// FEATURE 2 — Resume Builder (2 input methods)
+//   Method A: LinkedIn Profile URL
+//     → User pastes LinkedIn URL
+//     → Claude API extracts: name, title, skills, experience, education
+//     → Auto-fills resume template
+//     → NOTE: LinkedIn blocks direct scraping — may need user to
+//       paste their LinkedIn "About" + Experience text manually
+//       OR use a LinkedIn PDF export as input
+//   Method B: Manual Form Input
+//     → Fields: Name, Email, Phone, LinkedIn URL, GitHub URL
+//     → Current Role + Summary
+//     → Work Experience (company, role, duration, achievements)
+//     → Education (degree, college, year, percentage/CGPA)
+//     → Skills (technical + soft)
+//     → Projects (name, description, tech stack, link)
+//     → Certifications
+//     → Claude API writes professional bullet points from raw input
+//
+// FEATURE 3 — Resume Templates (pre-designed, role-specific)
+//   Templates needed:
+//     1. Software Engineer — minimal, dark accent, GitHub/LeetCode links
+//     2. Data Scientist — skills matrix, project highlights, Kaggle
+//     3. Product Manager — metrics-first, impact numbers big
+//     4. HR / Talent Acquisition — warm, people-first, achievements
+//     5. Fresher / Campus — education first, projects, internships
+//     6. Senior / Lead / Director — executive summary, leadership
+//     7. Full Stack Developer — tech stack visual, project showcase
+//     8. DevOps / Cloud — certifications prominent, tools list
+//   Styles per template: Modern · Classic · Minimal · Creative
+//   Output: Print-to-PDF via window.print() with @media print CSS
+//   Library option: jsPDF or html2canvas for direct download
+//
+// PRICING: Included in JobsSignal Career plan (₹199/month)
+//   OR standalone ₹99 one-time unlock
+//
+// BUILD ORDER:
+//   Step 1 → 3 HTML/CSS resume templates
+//   Step 2 → Manual form input → fills template
+//   Step 3 → Claude API writes bullet points from raw input
+//   Step 4 → ATS scorer (Claude API, profile-only)
+//   Step 5 → LinkedIn PDF upload → parse → fill template
+//   Step 6 → More templates (8 total)
+//
+// PENDING: Kiran confirmed — add inside JobsSignal portal
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 2 — UI BUGS + FEATURE ADDITIONS
+// Date logged: May 2026
+// Status: PENDING — Do not code until Kiran confirms
+// ───────────────────────────────────────────────────
+//
+// ── BUG 1: GAP ABOVE LOGO IN DASHBOARD ─────────────
+//   Problem: 58px gap still showing above JobsSignal
+//            logo in sidebar even after goTo fix
+//   Root cause: CSS margin-top:58px on dash-wrap
+//               not being removed when nav hides
+//   Fix needed: Verify goTo() correctly sets
+//               dash-wrap margin-top to 0 on dashView
+//               AND confirm nav display:none fires
+//               before layout paint
+//   Status: PENDING FIX
+//
+// ── BUG 2: DUPLICATE MODE BUTTONS ──────────────────
+//   Problem: Search mode buttons appearing TWICE —
+//            once in left sidebar (sb-nav) AND
+//            once as mode-tabs strip in main content
+//   Decision: KEEP sidebar only, REMOVE mode-tabs
+//             strip from sb-content completely
+//   Elements to remove from HTML:
+//     → <div class="mode-tabs"> entire block
+//     → Keep only sb-nav sidebar items for mode switching
+//   Status: PENDING FIX
+//
+// ── BUG 3: DUPLICATE RESULTS TABS ──────────────────
+//   Problem: Recruiter Posts, Job Listings, Find
+//            Recruiters tabs appearing in BOTH sidebar
+//            AND as r-tabs strip in results area
+//   Decision: KEEP sidebar links, KEEP r-tabs in
+//             results area (they serve different purpose)
+//             BUT remove redundant r-tabs if confusing
+//   Clarification needed from Kiran — see questions below
+//   Status: PENDING CLARIFICATION
+//
+// ── BUG 4: JOB SOURCES CLEANUP ─────────────────────
+//   Remove completely:
+//     → Adzuna (irrelevant Indian jobs, broad search fails)
+//     → Jooble (CORS blocked, opens new page)
+//     → Remotive (remote-only, not India focused)
+//   Keep:
+//     → LinkedIn Posts (recruiter posts tab — working)
+//     → LinkedIn Jobs (redirect with skill+city+exp)
+//   Add NEW:
+//     → Google Jobs via JSearch API (RapidAPI)
+//       - Covers Naukri + LinkedIn + Indeed + Shine
+//       - CORS friendly, works from browser
+//       - Free 500 req/month
+//       - API key needed from rapidapi.com/jsearch
+//   Final Job Listings tabs after cleanup:
+//     → 💼 LinkedIn Jobs
+//     → 🔍 Google Jobs (JSearch)
+//   Status: PENDING — need JSearch API key from Kiran
+//
+// ── FEATURE 1: ATS CHECKER ─────────────────────────
+//   Input methods (ALL of these):
+//     A) Upload PDF resume → parse text → Claude analyses
+//     B) Upload DOC/DOCX resume → parse → Claude analyses
+//     C) Upload LinkedIn PDF export → Claude analyses
+//     D) Paste LinkedIn profile URL → workaround needed
+//        (LinkedIn blocks scraping — user pastes
+//         their own About+Experience text manually
+//         OR uploads their LinkedIn PDF export)
+//     E) Paste raw unformatted text → Claude analyses
+//   Output (profile-only, NO JD needed):
+//     → ATS Score: X/100 with visual gauge
+//     → ✅ What's good
+//     → ❌ What's missing (LinkedIn URL, metrics, summary)
+//     → ⚠️ What to fix (tables, photos, columns, graphics)
+//     → 💡 What to add (action verbs, quantified achievements)
+//     → Keyword gaps based on job title in resume itself
+//     → Formatting issues (fonts, special chars, file type)
+//     → Verdict: passes X/10 ATS systems
+//   Design: Stunning, wow factor — animated score gauge,
+//           color-coded sections, not a boring text dump
+//   Status: PENDING BUILD
+//
+// ── FEATURE 2: RESUME BUILDER ──────────────────────
+//   Input methods:
+//     A) LinkedIn PDF upload → Claude extracts all data
+//        → auto-fills chosen template
+//     B) LinkedIn URL → user pastes About+Experience
+//        text manually (workaround for scraping block)
+//     C) Manual form:
+//        → Name, Phone, Email, City
+//        → LinkedIn URL, GitHub URL, Portfolio URL
+//        → Current Role + Professional Summary
+//        → Work Experience (multiple entries):
+//           Company, Role, Duration, Key achievements
+//        → Education: Degree, College, Year, Score
+//        → Skills: Technical + Soft
+//        → Projects: Name, Description, Tech stack, Link
+//        → Certifications: Name, Issuer, Year
+//        → Languages
+//     D) Unformatted profile paste → Claude restructures
+//        and fills template automatically
+//   Claude API role:
+//     → Rewrites weak bullet points with action verbs
+//     → Adds metrics where possible
+//     → Writes professional summary from raw input
+//     → Suggests missing sections
+//   Templates: 50+ (see template TODO below)
+//   Output: PDF via window.print() with @media print CSS
+//   Design: Stunning template gallery, Canva-like browser
+//   Status: PENDING BUILD
+//
+// ── FEATURE 3: RESUME TEMPLATES (50+) ─────────────
+//   Architecture: Template engine NOT 50 separate files
+//     6 Base Layouts:
+//       1. Single Column Classic (best ATS)
+//       2. Two Column Sidebar Left
+//       3. Two Column Sidebar Right
+//       4. Header Band (full-width color header)
+//       5. Timeline Style
+//       6. Card / Modular
+//     × 10 Color Themes:
+//       Midnight, Slate, Ember, Forest, Signal,
+//       Mono, Blush, Ocean, Saffron, Lavender
+//     × 6 Font Pairs:
+//       Corporate, Modern, Tech, Classic, Friendly, Sharp
+//     = 50-100+ unique combinations
+//   Role-specific packs:
+//     Software Engineer (8), Data Scientist (6),
+//     Product Manager (6), HR/Recruiter (5),
+//     Fresher/Campus (8), Sales/BD (5),
+//     DevOps/Cloud (5), Design/Creative (5),
+//     Senior/Executive (6)
+//   Template gallery UI:
+//     → Filter by role, style, color
+//     → Thumbnail preview of each template
+//     → "Use This" button → opens builder
+//     → Live preview as user fills form
+//   Status: PENDING BUILD — build 10 first, then 50+
+//
+// ── FEATURE 4: NAV + LANDING PAGE UPDATES ──────────
+//   Current nav items: How it Works, Search Modes,
+//                      vs Portals, Pricing
+//   New nav items (suggested):
+//     → How it Works
+//     → Search Modes
+//     → Resume Builder  ← NEW
+//     → ATS Checker     ← NEW
+//     → vs Portals
+//     → Pricing
+//   OR group as:
+//     → Features (dropdown: Search, Resume, ATS)
+//     → vs Portals
+//     → Pricing
+//   Landing page sections to update:
+//     → Hero: mention Resume Builder + ATS as new features
+//     → How it Works: add resume + ATS steps
+//     → Search Modes: keep but update job sources
+//     → vs Portals: add resume/ATS comparison rows
+//     → Pricing: update what's included in each plan
+//   Pricing update needed:
+//     → Current: ₹49/7d · ₹99/30d · ₹179/60d · ₹599/yr
+//     → Add ATS + Resume to paid plans
+//     → Or separate pricing for resume builder
+//     → PENDING: Kiran to decide pricing structure
+//   Status: PENDING DECISION on nav structure + pricing
+//
+// ── DESIGN REQUIREMENT: STUNNING + WOW ─────────────
+//   All 3 features must feel premium:
+//   Search:
+//     → Animated search experience
+//     → Results cards with hover effects
+//     → Source badges (Google Jobs, LinkedIn)
+//     → Smooth loading skeletons
+//   ATS Checker:
+//     → Animated circular score gauge (0-100)
+//     → Color transitions green/amber/red
+//     → Section-by-section reveal animation
+//     → Shareable score card
+//   Resume Builder:
+//     → Template gallery like Canva
+//     → Live preview as you type
+//     → Smooth template switching
+//     → Professional PDF output
+//   Status: Design direction confirmed — implement when coding
+//
+// ═══════════════════════════════════════════════════
+// QUESTIONS FOR KIRAN BEFORE CODING — see below
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 3 — KIRAN CONFIRMED DECISIONS
+// Date logged: May 2026
+// Status: READY TO CODE — waiting final questions
+// ───────────────────────────────────────────────────
+//
+// ── CONFIRMED DECISION 1: RESULTS TABS ─────────────
+//   ✅ Sidebar links = navigation between result sections
+//   ✅ r-tabs strip inside results = switching after search
+//   ✅ REMOVE mode-tabs strip (duplicate of sidebar)
+//   Action: Delete <div class="mode-tabs"> from dashView HTML
+//
+// ── CONFIRMED DECISION 2: JSEARCH API ──────────────
+//   ✅ RapidAPI JSearch confirmed
+//   App: default-application_11914553
+//   X-RapidAPI-Key: 32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535
+//   Request URL: rapidapi.com
+//   Endpoint: https://jsearch.p.rapidapi.com/search
+//   Headers: {
+//     'X-RapidAPI-Key': '32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535',
+//     'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+//   }
+//   Query params: query="{skill} {city}", num_pages=1
+//   Remove: Adzuna, Jooble, Remotive, Jobicy completely
+//   Keep: LinkedIn Posts, LinkedIn Jobs, Google Jobs (JSearch)
+//   Final Job Listings tabs:
+//     → 🔍 Google Jobs (JSearch — live API results)
+//     → 🔗 LinkedIn Jobs (redirect with filters)
+//
+// ── CONFIRMED DECISION 3: LINKEDIN INPUT ───────────
+//   ✅ BOTH methods supported:
+//   Method A: Upload LinkedIn PDF export
+//     → LinkedIn profile → More → Save to PDF
+//     → Upload to JobsSignal
+//     → Claude API reads PDF text → extracts all data
+//   Method B: Paste LinkedIn profile text manually
+//     → User copies About + Experience from LinkedIn
+//     → Pastes into textarea
+//     → Claude API parses and structures it
+//
+// ── CONFIRMED DECISION 4: PRICING ──────────────────
+//   ✅ Keep SAME pricing — just add features to plans
+//   Current: ₹49/7d · ₹99/30d · ₹179/60d · ₹599/yr
+//   ATS Checker + Resume Builder included in ALL paid plans
+//   Free users: 1 ATS check preview, see templates exist
+//   Paid users: Full ATS report + all 10 templates
+//
+// ── CONFIRMED DECISION 5: NAV MENU ─────────────────
+//   ✅ Option A — add as separate nav items
+//   New nav order:
+//     → How it Works
+//     → Search Modes
+//     → Resume Builder  ← NEW
+//     → ATS Checker     ← NEW
+//     → vs Portals
+//     → Pricing
+//   Landing page sections to add:
+//     → Resume Builder section (after Search Modes)
+//     → ATS Checker section (after Resume Builder)
+//     → Update vs Portals table with resume/ATS rows
+//     → Update Pricing cards to mention new features
+//
+// ── CONFIRMED DECISION 6: TEMPLATES ────────────────
+//   ✅ 10 stunning templates for launch
+//   Quality over quantity
+//   Template list (10):
+//     1. Carbon      — Software Engineer, dark sidebar
+//     2. Clarity     — All roles, classic single column
+//     3. Signal      — IT/Tech, JobsSignal teal branding
+//     4. Impact      — PM/Senior, metrics-first
+//     5. Bloom       — HR/TA, warm amber tones
+//     6. Fresh       — Fresher/Campus, education-first
+//     7. Stack       — DevOps/Cloud, certifications bold
+//     8. Executive   — Director/VP, one-page leadership
+//     9. Spectrum    — Data Scientist, skills matrix
+//     10. Minimal    — Universal, pure white, ultra clean
+//   Each template: @media print CSS for clean PDF export
+//
+// ── CONFIRMED DECISION 7: REMOVE SCHEMESEVA ────────
+//   ✅ Remove all SchemeSeva references from this codebase
+//   SchemeSeva is a separate product — separate chat/repo
+//   No cross-linking from JobsSignal for now
+//
+// ── BUILD ORDER (once all questions answered) ───────
+//   Phase 1 — Bug Fixes:
+//     → Fix gap above logo (dash-wrap margin)
+//     → Remove duplicate mode-tabs strip
+//     → Confirm results tab behavior
+//   Phase 2 — Job Sources:
+//     → Remove Adzuna, Jooble, Remotive, Jobicy
+//     → Add JSearch (Google Jobs) with API key
+//     → Keep LinkedIn Posts + LinkedIn Jobs
+//   Phase 3 — ATS Checker:
+//     → File upload (PDF/DOC)
+//     → LinkedIn PDF upload
+//     → LinkedIn text paste
+//     → Claude API analysis
+//     → Stunning score UI
+//   Phase 4 — Resume Builder:
+//     → 10 template designs (HTML/CSS)
+//     → Template gallery UI
+//     → Manual form input
+//     → LinkedIn PDF/text input
+//     → Claude API content enhancement
+//     → PDF download via print CSS
+//   Phase 5 — Landing Page Updates:
+//     → New nav items
+//     → Resume Builder + ATS sections
+//     → Updated vs Portals
+//     → Updated Pricing cards
+//
+// ── PENDING QUESTIONS — see below in chat ──────────
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 4 — FINAL CONFIRMED DECISIONS
+// Date logged: May 2026
+// Status: PENDING final 5 questions answered
+// ───────────────────────────────────────────────────
+//
+// ── CONFIRMED: ATS CHECKER LOCATION ────────────────
+//   ✅ Option A: Separate sidebar item
+//   Sidebar structure (updated):
+//     Search Modes
+//       🎯 Skill + City
+//       #️⃣ Hashtag Hunt
+//       ⏱️ Notice Period
+//       🤝 Referral Radar
+//       🚶 Walk-in Drives
+//     ─────────────
+//     Career Toolkit    ← NEW SECTION
+//       📊 ATS Checker  ← NEW (paid only)
+//       📄 Resume Builder ← NEW (paid only)
+//     ─────────────
+//     Results
+//       📡 Recruiter Posts
+//       💼 Job Listings
+//       👤 Find Recruiters
+//     ─────────────
+//     Account
+//       ⬆️ Upgrade Plan
+//
+// ── CONFIRMED: PDF DOWNLOAD METHOD ─────────────────
+//   ✅ Option B: jsPDF library (direct download button)
+//   Include via CDN in <head>:
+//   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+//   Also include html2canvas for template capture:
+//   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+//   Flow: Render template in hidden div → html2canvas → jsPDF → download
+//
+// ── CONFIRMED: TEMPLATE MIX ────────────────────────
+//   ✅ 5 Professional + 5 Modern (10 total for launch)
+//   Professional (5):
+//     1. Clarity    — Single column, serif, ATS-safe, all roles
+//     2. Executive  — One page, leadership, Director/VP
+//     3. Corporate  — Two column, navy header, IT/Finance
+//     4. Trust      — Clean minimal, warm grey, HR/Consulting
+//     5. Scholar    — Education-first, Fresher/Campus
+//   Modern (5):
+//     6. Carbon     — Dark sidebar, dev-focused, Software Eng
+//     7. Signal     — Teal accent, JobsSignal brand, IT/Tech
+//     8. Impact     — Metrics-first bold header, PM/Senior
+//     9. Spectrum   — Skills matrix, Data Scientist/DevOps
+//     10. Vivid     — Color-blocked creative, Design/Marketing
+//
+// ── CONFIRMED: PRICING ACCESS RULES ────────────────
+//   ✅ ATS Checker + Resume Builder = ₹99 and ₹599 ONLY
+//   Plan access matrix:
+//     ₹49  / 7 days  → Signals only, NO Career Toolkit
+//     ₹99  / 30 days → Signals + ATS Checker + Resume Builder ✅
+//     ₹179 / 60 days → Signals ONLY (same as ₹49) — NOTE: confirm
+//     ₹599 / Annual  → Everything + ATS + Resume Builder ✅
+//   Free users:
+//     → See Career Toolkit in sidebar (greyed/locked)
+//     → Clicking shows upgrade prompt
+//   NOTE: ₹179 plan not mentioned by Kiran — need confirmation
+//         Does ₹179/60d get Career Toolkit or not?
+//
+// ── CONFIRMED: LOGIN/SIGNUP PAGE UPDATES ───────────
+//   Update messaging + copy to reflect new features:
+//   Login page changes:
+//     → Tagline update: "Find signals, build resume, check ATS"
+//     → Feature pills below form showing what they get
+//     → Keep mobile-number-only login (no password)
+//   Signup page changes:
+//     → Updated welcome message with new features
+//     → Add optional: "Your LinkedIn URL" field (for resume)
+//     → Add optional: "Upload your resume" for instant ATS check
+//     → Feature highlight: "After signup — check your ATS score free"
+//     → Keep: Name, Mobile, Skill, City, Experience fields
+//   Note: All new fields are OPTIONAL — don't break existing flow
+//
+// ── PENDING: CLAUDE API KEY ─────────────────────────
+//   ⚠️ Kiran asked: "Where do I get Claude API key? Is it free?"
+//   Answer: See chat — Anthropic console, NOT free but very cheap
+//   Decision PENDING on approach:
+//     Option A: Use Anthropic API key (pay per use)
+//     Option B: No live AI for resume builder
+//               (templates pre-filled, user edits manually)
+//     Option C: Use free Claude.ai artifacts approach
+//   WAITING for Kiran decision before coding resume AI features
+//
+// ── PENDING QUESTIONS — answered in chat ───────────
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 5 — ALL DECISIONS FINAL. READY TO CODE.
+// Date logged: May 2026
+// Status: ✅ ALL CONFIRMED — Start coding next session
+// ───────────────────────────────────────────────────
+//
+// ── CONFIRMED: ATS CHECKER — NO API KEY (RULE-BASED) 
+//   ✅ Option B: Free, rule-based ATS analysis
+//   No Claude API key needed for now
+//   ATS Logic (pure JavaScript):
+//     → Check contact info: email, phone, LinkedIn URL
+//     → Check sections present: summary, experience,
+//       education, skills, projects, certifications
+//     → Check formatting issues:
+//         - Tables detected (warn)
+//         - Images/photos detected (warn)
+//         - Multiple columns detected (warn)
+//         - Special characters in name/heading (warn)
+//     → Check content quality:
+//         - Count bullet points with numbers/metrics
+//         - Count action verbs (led, built, managed...)
+//         - Count weak phrases (responsible for, worked on)
+//         - Resume length (too short <300 words, too long >900)
+//     → Check keywords:
+//         - Extract job title from resume
+//         - Check if related keywords present
+//         - Check skill section keyword count
+//     → Calculate score: weighted sum of above checks
+//     → Output: Score + color-coded sections + fix list
+//   PDF/DOC reading: Use PDF.js (CDN) for PDF parsing
+//                    Use mammoth.js (CDN) for DOC/DOCX
+//   LinkedIn PDF: Same as PDF upload (LinkedIn PDF is standard)
+//   LinkedIn text paste: Textarea → same rule-based analysis
+//   NO Claude API call — 100% free, no key needed
+//
+// ── CONFIRMED: RESUME BUILDER — NO API KEY ─────────
+//   ✅ No Claude API for content generation
+//   User fills form → data plugged into template directly
+//   Template auto-formats the content
+//   Claude NOT used for bullet point rewriting (no key)
+//   User writes their own content, template makes it look great
+//   jsPDF + html2canvas for PDF download
+//   LinkedIn PDF upload → extract text → pre-fill form fields
+//     (PDF.js reads LinkedIn PDF, regex extracts name/title/etc)
+//   LinkedIn text paste → user pastes → smart parse fills form
+//
+// ── CONFIRMED: ₹179 / 60 DAYS PLAN ────────────────
+//   ✅ Option A: ₹179 gets Career Toolkit too
+//   Final access matrix:
+//     ₹49  / 7 days   → Signals only (no Career Toolkit)
+//     ₹99  / 30 days  → Signals + ATS + Resume Builder ✅
+//     ₹179 / 60 days  → Signals + ATS + Resume Builder ✅
+//     ₹599 / Annual   → Everything ✅
+//   Free users:
+//     → Career Toolkit visible in sidebar but locked
+//     → Click → shows upgrade prompt with plan options
+//
+// ── CONFIRMED: LOGIN & SIGNUP LEFT PANEL ───────────
+//   ✅ Keep form exactly same (no new fields)
+//   ✅ Update LEFT SIDE wording only
+//   Current left panel wording (generic job search):
+//     → Update to mention: ATS Checker, Resume Builder
+//     → Show feature icons/pills on left panel
+//   Login left panel — new copy:
+//     Headline: "Your complete job search toolkit"
+//     Features to show:
+//       📡 Real-time recruiter signals
+//       📊 ATS Score Checker
+//       📄 AI Resume Builder (10+ templates)
+//       💼 Google Jobs + LinkedIn listings
+//       🎯 5 smart search modes
+//   Signup left panel — new copy:
+//     Headline: "Join 2,400+ job seekers"
+//     Subtext: "Find recruiters, check your ATS score,
+//               build a stunning resume — all in one place"
+//     Features same as login left panel
+//
+// ── FULL BUILD ORDER (start next session) ──────────
+//
+//   PHASE 1 — BUG FIXES (do first, quick wins)
+//     → Fix gap above logo (dash-wrap margin-top:0)
+//     → Remove <div class="mode-tabs"> from dashView
+//     → Confirm sidebar-only mode switching works
+//
+//   PHASE 2 — JOB SOURCES
+//     → Remove: fetchAdzuna, fetchJooble, fetchRemotive,
+//               fetchJobicy, switchSrc, buildJobsAll
+//     → Remove: Adzuna/Jooble/Remotive/Jobicy CSS
+//     → Add: fetchGoogleJobs(skill, city, exp)
+//             using JSearch RapidAPI
+//             Key: 32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535
+//             Host: jsearch.p.rapidapi.com
+//     → Job Listings tabs become:
+//         🔍 Google Jobs | 🔗 LinkedIn Jobs
+//     → Google Jobs cards show:
+//         Title, Company, City, Salary, Source badge,
+//         Date posted, Apply link
+//
+//   PHASE 3 — CAREER TOOLKIT SIDEBAR
+//     → Add "Career Toolkit" section to sidebar HTML
+//     → Add 📊 ATS Checker sidebar item
+//     → Add 📄 Resume Builder sidebar item
+//     → Locked state for free/₹49 users
+//     → Unlocked for ₹99, ₹179, ₹599 users
+//
+//   PHASE 4 — ATS CHECKER UI (stunning)
+//     → New view: atsView (hidden, shown via goTo)
+//     → Upload zone: drag+drop PDF/DOC/LinkedIn PDF
+//     → OR textarea for LinkedIn text paste
+//     → Animated circular score gauge (0-100)
+//     → Color: red <40, amber 40-70, green >70
+//     → Sections: Contact, Format, Content,
+//                 Keywords, Structure
+//     → Each section: score + specific fixes
+//     → CTA: "Now build your resume →"
+//
+//   PHASE 5 — RESUME BUILDER UI (stunning)
+//     → New view: resumeView (hidden, shown via goTo)
+//     → Step 1: Choose input method
+//         [📎 LinkedIn PDF] [📝 LinkedIn Text] [✏️ Fill Form]
+//     → Step 2: Template gallery (10 templates, 3-col grid)
+//         Filter: [All] [Professional] [Modern]
+//         Filter: [SE] [PM] [HR] [Fresher] [Senior]
+//     → Step 3: Fill / review form
+//         Sections: Personal, Summary, Experience,
+//                   Education, Skills, Projects, Certs
+//         Add/remove experience entries dynamically
+//     → Step 4: Live preview (right panel shows template)
+//     → Step 5: Download PDF (jsPDF + html2canvas)
+//
+//   PHASE 6 — 10 RESUME TEMPLATES
+//     Professional (5):
+//       1. Clarity    — Single col, serif, ATS-safe
+//       2. Executive  — One page, leadership
+//       3. Corporate  — Two col, navy header
+//       4. Trust      — Minimal, warm grey
+//       5. Scholar    — Education-first, fresher
+//     Modern (5):
+//       6. Carbon     — Dark sidebar, dev-focused
+//       7. Signal     — Teal/amber, JobsSignal brand
+//       8. Impact     — Metrics-first bold header
+//       9. Spectrum   — Skills matrix, data/devops
+//       10. Vivid     — Color-blocked, design/marketing
+//     Each template:
+//       → HTML/CSS self-contained
+//       → @media print CSS for clean PDF
+//       → Responsive preview in browser
+//       → Thumbnail for gallery
+//
+//   PHASE 7 — LOGIN/SIGNUP LEFT PANEL UPDATE
+//     → New copy and feature pills on left side
+//     → Mention ATS + Resume Builder
+//     → Keep form fields exactly same
+//
+//   PHASE 8 — LANDING PAGE UPDATES
+//     → New nav items: Resume Builder, ATS Checker
+//     → New landing sections for each feature
+//     → Update vs Portals table
+//     → Update Pricing cards
+//     → Update How it Works steps
+//
+// ═══════════════════════════════════════════════════
+// ALL DECISIONS CONFIRMED. NO MORE QUESTIONS.
+// READY TO START CODING — PHASE 1 FIRST.
+// ═══════════════════════════════════════════════════
+
+
+
 const AZ_ID='7d0512c2', AZ_KEY='79b7781b37844979749df7d951561f02';
 const JOOBLE_KEY='9bb9b665-d6b3-4e51-8ff3-f1d83a9c9c94'; // Free Jooble key — replace if expired
-const AZ_URL='https://api.adzuna.com/v1/api/jobs/in/search/1';
 const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
 // Use Firebase REST API — no SDK needed, works on all browsers
 const AZ_CITIES={'Hyderabad':'Hyderabad','Bengaluru':'Bangalore','Mumbai':'Mumbai','Pune':'Pune','Delhi NCR':'Delhi','Chennai':'Chennai','Kolkata':'Kolkata','Remote':'India'};
@@ -927,6 +1804,110 @@ function setMode(mode,btn){
   document.getElementById('dashSearch').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
+
+// ── GOOGLE JOBS via JSearch RapidAPI ─────────────────────────────────────────
+function fetchGoogleJobs(skill, city, exp, el){
+  el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Searching Google Jobs for '+skill+' in '+city+'...</div>';
+  var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years experience)','5-8':'(5-8 years experience)','8+':'(8+ years OR senior OR lead)'};
+  var expStr=expMap[exp]||'';
+  var q=skill+' '+city+(expStr?' '+expStr:'');
+  fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=1&date_posted=all&country=in',{
+    method:'GET',
+    headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
+  }).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+  .then(function(d){
+    var jobs=(d.data||[]).filter(function(j){
+      // Filter: must match skill in title or description
+      var t=(j.job_title||'').toLowerCase();
+      var desc=(j.job_description||'').toLowerCase();
+      var sk=skill.toLowerCase();
+      return t.includes(sk)||desc.includes(sk);
+    });
+    if(!jobs.length){
+      el.innerHTML='<div class="az-empty">No Google Jobs found for <strong>'+skill+'</strong> in <strong>'+city+'</strong>.<br><small>Try a shorter skill name — e.g. "React" instead of "React Developer"</small></div>';
+      return;
+    }
+    var h='<div class="gj-count">'+jobs.length+' jobs found via Google Jobs</div>';
+    jobs.slice(0,12).forEach(function(j){
+      var sal=j.job_min_salary&&j.job_max_salary?'₹'+Math.round(j.job_min_salary/100000)+'L–₹'+Math.round(j.job_max_salary/100000)+'L/yr':'';
+      var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
+      var src=j.job_publisher||'Google Jobs';
+      var ename=(j.employer_name||"Co").charAt(0).toUpperCase();
+      h+='<div class="gj-card">'
+        +'<div class="gj-top">'
+        +'<div class="gj-logo">'+logo+'</div>'
+        +'<div class="gj-info">'
+        +'<div class="gj-title"><a href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">'+(j.job_title||'Job Opening')+'</a></div>'
+        +'<div class="gj-company">'+(j.employer_name||'Company')+' &nbsp;·&nbsp; '+(j.job_city||city)+', '+(j.job_state||'India')+'</div>'
+        +'</div>'
+        +'</div>'
+        +'<div class="gj-tags">'
+        +(sal?'<span class="gj-tag salary">'+sal+'</span>':'')
+        +(j.job_employment_type?'<span class="gj-tag type">'+j.job_employment_type+'</span>':'')
+        +(posted?'<span class="gj-tag time">'+posted+'</span>':'')
+        +'<span class="gj-tag source">via '+src+'</span>'
+        +'</div>'
+        +(j.job_description?'<div class="gj-desc">'+(j.job_description||'').replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
+        +'<div class="gj-footer">'
+        +'<a class="gj-apply" href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
+        +(j.job_is_remote?'<span class="gj-remote">🌐 Remote</span>':'')
+        +'</div>'
+        +'</div>';
+    });
+    el.innerHTML=h;
+  }).catch(function(e){
+    el.innerHTML='<div class="az-empty">Google Jobs search failed: '+e+'<br><small>Check internet connection or try again.</small></div>';
+  });
+}
+
+function timeSince(dateStr){
+  var d=new Date(dateStr);var now=new Date();
+  var diff=Math.floor((now-d)/1000);
+  if(diff<3600)return Math.floor(diff/60)+'m ago';
+  if(diff<86400)return Math.floor(diff/3600)+'h ago';
+  return Math.floor(diff/86400)+'d ago';
+}
+
+// ── NEW buildJobsAll — Google Jobs + LinkedIn Jobs only ───────────────────────
+function buildJobsAll(skill,city,exp){
+  var cont=document.getElementById('rj');if(!cont)return;
+  // Build tabs and panes using DOM — no inline onclick quote conflicts
+  cont.innerHTML='';
+  var tabs=document.createElement('div');tabs.className='src-tabs';tabs.id='srcTabs';
+  var gjTab=document.createElement('button');gjTab.className='src-tab active';gjTab.textContent='🔍 Google Jobs';
+  var ljTab=document.createElement('button');ljTab.className='src-tab';ljTab.textContent='🔗 LinkedIn Jobs';
+  var gjPane=document.createElement('div');gjPane.id='gj-pane';gjPane.className='src-pane';
+  var ljPane=document.createElement('div');ljPane.id='lj-pane';gjPane.className='src-pane';ljPane.style.display='none';
+  // LinkedIn pane content
+  var ljLink=buildLinkedInJobsUrl(skill,city,exp);
+  ljPane.innerHTML='<div class="lj-redirect">'
+    +'<div style="font-size:40px;margin-bottom:12px;">🔗</div>'
+    +'<div style="font-size:16px;font-weight:800;margin-bottom:8px;">LinkedIn Jobs</div>'
+    +'<div style="font-size:12px;color:var(--soft);margin-bottom:18px;line-height:1.6;">Opens LinkedIn with your exact skill, city and experience filters pre-applied.</div>'
+    +'<a class="lj-btn" href="'+ljLink+'" target="_blank" rel="noopener">Search LinkedIn Jobs →</a>'
+    +'</div>';
+  // Tab click handlers
+  gjTab.onclick=function(){
+    gjTab.classList.add('active');ljTab.classList.remove('active');
+    gjPane.style.display='block';ljPane.style.display='none';
+  };
+  ljTab.onclick=function(){
+    ljTab.classList.add('active');gjTab.classList.remove('active');
+    ljPane.style.display='block';gjPane.style.display='none';
+  };
+  tabs.appendChild(gjTab);tabs.appendChild(ljTab);
+  cont.appendChild(tabs);cont.appendChild(gjPane);cont.appendChild(ljPane);
+  fetchGoogleJobs(skill,city,exp,gjPane);
+}
+
+function buildLinkedInJobsUrl(skill,city,exp){
+  var expMap={'0-1':'1','1-3':'2','3-5':'3','5-8':'4','8+':'5'};
+  var fE=expMap[exp]||'';
+  var url='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city+', India');
+  if(fE)url+='&f_E='+fE;
+  return url;
+}
+
 // ── SEARCH (LOCKED QUERIES — DO NOT MODIFY) ────────
 // Exclusions prevent job-seeker posts from showing in recruiter search
 var EX=' -"open to work" -"actively looking" -"seeking opportunities" -"job seeker" -"#opentowork" -"new role"';
@@ -991,151 +1972,23 @@ function runSearch(){
   document.getElementById('resultsArea').style.display='block';
 
   buildPosts(skill,city,u24,uWk,uMo);
-  buildJobsAll(skill,city,j24,jWk,jMo);
+  buildJobsAll(skill,city,expVal);
   buildPeople(skill,city,pUrl);
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
   if(!isPaid)setTimeout(function(){showLockedDash();},25000);
 }
 
 // ── JOB SOURCES ─────────────────────────────────────
-function buildJobsAll(skill,city,j24,jWk,jMo){
-  var cont=document.getElementById('rj');if(!cont)return;
-  // Source tabs
-  var h='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" id="srcTabs">';
-  h+='<button class="r-tab active" onclick="switchSrc(\'az\',this)" style="font-size:12px;">📊 Adzuna</button>';
-  h+='<button class="r-tab" onclick="switchSrc(\'jb\',this)" style="font-size:12px;">🇮🇳 Jooble</button>';
-  h+='<button class="r-tab" onclick="switchSrc(\'rm\',this)" style="font-size:12px;">🌐 Remotive</button>';
-  h+='<button class="r-tab" onclick="switchSrc(\'jc\',this)" style="font-size:12px;">💼 Jobicy</button>';
-  h+='<button class="r-tab" onclick="switchSrc(\'lj\',this)" style="font-size:12px;">🔗 LinkedIn Jobs</button>';
-  h+='</div>';
-  // Job containers
-  h+='<div id="src-az"><div class="az-loading"><div class="az-spin"></div><span>Fetching from Adzuna...</span></div></div>';
-  h+='<div id="src-jb" style="display:none"></div>';
-  h+='<div id="src-rm" style="display:none"></div>';
-  h+='<div id="src-jc" style="display:none"></div>';
-  // LinkedIn Jobs links tab
-  h+='<div id="src-lj" style="display:none"><div class="pp-card">';
-  h+='<div class="pp-title">LinkedIn Jobs — '+skill+' in '+city+'</div>';
-  h+='<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">';
-  h+='<a class="az-btn" href="'+j24+'" target="_blank" rel="noopener">⚡ Past 24 Hours →</a>';
-  h+='<a class="az-btn" href="'+jWk+'" target="_blank" rel="noopener">📅 Past Week →</a>';
-  h+='<a class="az-btn" href="'+jMo+'" target="_blank" rel="noopener">🗓️ Past Month →</a>';
-  h+='</div><div class="pp-tip">💡 LinkedIn Jobs filtered by date. Experience filter applied if selected.</div></div></div>';
-  cont.innerHTML=h;
-  fetchAdzuna(skill,city,document.getElementById('src-az'));
-}
 
-function switchSrc(src,btn){
-  document.querySelectorAll('#srcTabs .r-tab').forEach(function(b){b.classList.remove('active');});
-  if(btn)btn.classList.add('active');
-  var ids=['az','jb','rm','jc','lj'];
-  ids.forEach(function(s){var e=document.getElementById('src-'+s);if(e)e.style.display=s===src?'block':'none';});
-  // Lazy-load on first click
-  var el=document.getElementById('src-'+src);
-  if(!el||el.dataset.loaded)return;
-  el.dataset.loaded='1';
-  if(src==='jb')fetchJooble(lastSkill,lastCity,el);
-  else if(src==='rm')fetchRemotive(lastSkill,el);
-  else if(src==='jc')fetchJobicy(lastSkill,el);
-}
 
 // Adzuna — title_only + what_and for STRICT matching
 // This prevents "Talent Acquisition" returning .Net/Java jobs
-function fetchAdzuna(skill,city,el){
-  var cityMap={Hyderabad:'hyderabad',Bengaluru:'bangalore',Mumbai:'mumbai',Pune:'pune',
-    'Delhi NCR':'delhi',Chennai:'chennai',Kolkata:'kolkata',Noida:'noida',Remote:'india'};
-  var azCity=cityMap[city]||city.toLowerCase()||'hyderabad';
-  // Try strict match first (title_only), fall back to broad if 0 results
-  var strictParams=new URLSearchParams({app_id:AZ_ID,app_key:AZ_KEY,what:skill,title_only:1,where:azCity,results_per_page:12,sort_by:'date','content-type':'application/json'});
-  var broadParams=new URLSearchParams({app_id:AZ_ID,app_key:AZ_KEY,what:skill,where:azCity,results_per_page:12,sort_by:'date','content-type':'application/json'});
-  var params=strictParams;
-  fetch(AZ_URL+'?'+params.toString())
-    .then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
-    .then(function(d){
-      var jobs=d.results||[];
-      // If strict title search gives 0 results, retry without title_only
-      if(!jobs.length){
-        return fetch(AZ_URL+'?'+broadParams.toString()).then(function(r2){return r2.ok?r2.json():Promise.reject('HTTP '+r2.status);}).then(function(d2){return d2.results||[];});
-      }
-      return jobs;
-    })
-    .then(function(jobs){
-      if(!jobs.length){el.innerHTML='<div class="az-empty">No Adzuna jobs for "'+skill+'" in '+city+' right now.<br><small style="color:var(--muted);">Adzuna covers 100+ Indian job boards. Try a broader skill term.</small></div>';return;}
-      var h='';
-      jobs.forEach(function(j){
-        var title=j.title||'Job Opening';
-        var co=(j.company&&j.company.display_name)||'Company';
-        var loc=(j.location&&j.location.display_name)||city;
-        var sal=j.salary_min&&j.salary_max?'₹'+Math.round(j.salary_min/1000)+'k–'+Math.round(j.salary_max/1000)+'k':'';
-        var date=j.created?new Date(j.created).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'';
-        h+='<div class="az-card"><div class="az-title"><a href="'+j.redirect_url+'" target="_blank" rel="noopener">'+title+'</a></div>';
-        h+='<div class="az-meta">'+co+' · '+loc+(sal?' · '+sal:'')+(date?' · '+date:'')+'</div>';
-        h+='<div class="az-actions"><a class="az-btn" href="'+j.redirect_url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
-      });
-      el.innerHTML=h;
-    })
-    .catch(function(e){el.innerHTML='<div class="az-empty">Adzuna: '+e+'</div>';});
-}
 
 // Jooble — aggregates Indian portals (Naukri, TimesJobs etc.)
-function fetchJooble(skill,city,el){
-  el.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Jooble (aggregates Naukri, TimesJobs etc.)...</span></div>';
-  var jUrl='https://corsproxy.io/?'+encodeURIComponent('https://jooble.org/api/'+JOOBLE_KEY);
-  fetch(jUrl,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({keywords:skill,location:city,resultonpage:8})
-  }).then(function(r){return r.ok?r.json():Promise.reject(r.status);})
-  .then(function(d){
-    var jobs=d.jobs||[];
-    if(!jobs.length){el.innerHTML='<div class="az-empty">No Jooble results for "'+skill+'" in '+city+'.<br><small>Tip: Try a shorter skill name</small></div>';return;}
-    var h='';
-    jobs.forEach(function(j){
-      h+='<div class="az-card"><div class="az-title"><a href="'+j.link+'" target="_blank" rel="noopener">'+(j.title||'Job Opening')+'</a></div>';
-      h+='<div class="az-meta">'+(j.company||'Company')+' · '+(j.location||city)+(j.salary?' · '+j.salary:'')+'</div>';
-      h+='<div class="az-actions"><a class="az-btn" href="'+j.link+'" target="_blank" rel="noopener">View Job →</a></div></div>';
-    });
-    el.innerHTML=h;
-  }).catch(function(){
-    el.innerHTML='<div class="az-empty">🇮🇳 Jooble (Naukri/TimesJobs aggregator) — CORS blocked in browser.<br>'
-      +'<a class="az-btn" style="display:inline-block;margin-top:8px;" href="https://jooble.org/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city)+'" target="_blank" rel="noopener">Search on Jooble →</a></div>';
-  });
-}
 
 // Remotive — remote tech jobs
-function fetchRemotive(skill,el){
-  el.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Remotive...</span></div>';
-  fetch('https://remotive.com/api/remote-jobs?search='+encodeURIComponent(skill)+'&limit=8')
-    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
-    .then(function(d){
-      var jobs=(d.jobs||[]).slice(0,8);
-      if(!jobs.length){el.innerHTML='<div class="az-empty">No Remotive remote jobs for "'+skill+'".<br><small style="color:var(--muted);">Remotive covers global remote roles — try: React, Python, DevOps, Product Manager.</small></div>';return;}
-      var h='';
-      jobs.forEach(function(j){
-        h+='<div class="az-card"><div class="az-title"><a href="'+j.url+'" target="_blank" rel="noopener">'+j.title+'</a></div>';
-        h+='<div class="az-meta">'+j.company_name+' · Remote'+(j.salary?' · '+j.salary:'')+'</div>';
-        h+='<div class="az-actions"><a class="az-btn" href="'+j.url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
-      });
-      el.innerHTML=h;
-    }).catch(function(){el.innerHTML='<div class="az-empty">Remotive not available right now.</div>';});
-}
 
 // Jobicy — remote jobs board
-function fetchJobicy(skill,el){
-  el.innerHTML='<div class="az-loading"><div class="az-spin"></div><span>Fetching from Jobicy...</span></div>';
-  fetch('https://jobicy.com/api/v2/remote-jobs?count=8&tag='+encodeURIComponent(skill))
-    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
-    .then(function(d){
-      var jobs=(d.jobs||[]).slice(0,8);
-      if(!jobs.length){el.innerHTML='<div class="az-empty">No Jobicy listings for "'+skill+'".</div>';return;}
-      var h='';
-      jobs.forEach(function(j){
-        h+='<div class="az-card"><div class="az-title"><a href="'+j.url+'" target="_blank" rel="noopener">'+(j.jobTitle||'Job Opening')+'</a></div>';
-        h+='<div class="az-meta">'+(j.companyName||'Company')+' · Remote'+(j.jobSalary?' · '+j.jobSalary:'')+'</div>';
-        h+='<div class="az-actions"><a class="az-btn" href="'+j.url+'" target="_blank" rel="noopener">View Job →</a></div></div>';
-      });
-      el.innerHTML=h;
-    }).catch(function(){el.innerHTML='<div class="az-empty">Jobicy not available right now.</div>';});
-}
 
 // ── ADMIN ────────────────────────────────────────────
 var DB=[];
@@ -1366,22 +2219,505 @@ function checkAdminRoute(){
 // ── FIX nextStep: email dup check ───────────────────
 
 // ── INIT ─────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',function(){
-  trackVisit(); // record this visit
-  if(checkAdminRoute())return;
-  try{
-    var raw=gst(S_USER);
-    if(raw){var u=JSON.parse(raw);if(u&&u.name){showWelcomeBar(u);return;}}
-  }catch(e){}
-});
 
+// ══════════════════════════════════════════════════════════════════
+// CAREER TOOLKIT — goToolkit, ATS CHECKER, RESUME BUILDER
+// ══════════════════════════════════════════════════════════════════
+
+// Check if user has toolkit access (₹99, ₹179, ₹599 plans)
+function hasToolkitAccess(){
+  var plan=localStorage.getItem(S_PLAN)||'';
+  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Annual Plan';
+}
+
+function goToolkit(tool){
+  if(!hasToolkitAccess()){
+    showToast('Career Toolkit is available on ₹99, ₹179 or ₹599 plans. Tap Upgrade Plan to unlock.','amber');
+    showUpgrade();return;
+  }
+  if(tool==='ats'){
+    goTo('atsView');
+    document.getElementById('atsResult').style.display='none';
+    document.getElementById('atsUploadZone').style.display='block';
+    document.getElementById('atsPasteText').value='';
+  }else if(tool==='resume'){
+    goTo('resumeView');
+    goStep(1);
+    buildTemplateGallery();
+  }
+}
+
+// ── ATS CHECKER — RULE BASED (No API) ─────────────────────────────
+var atsResumeText='';
+
+function handleATSFile(input){
+  var file=input.files[0];if(!file)return;
+  var ext=file.name.split('.').pop().toLowerCase();
+  if(ext==='pdf'){
+    // Use FileReader for basic text extraction from PDF
+    var reader=new FileReader();
+    reader.onload=function(e){
+      // For PDF, we extract what we can from the binary
+      var text=extractTextFromPDF(e.target.result);
+      atsResumeText=text;
+      document.getElementById('atsPasteText').value=text.slice(0,500)+'... [File loaded: '+file.name+']';
+    };
+    reader.readAsText(file);
+  }else{
+    // DOC/DOCX — read as text (basic extraction)
+    var reader=new FileReader();
+    reader.onload=function(e){atsResumeText=e.target.result;document.getElementById('atsPasteText').value='[File loaded: '+file.name+'] Paste your resume text below for best results.';};
+    reader.readAsText(file);
+  }
+}
+
+function extractTextFromPDF(raw){
+  // Basic text extraction — get readable strings from PDF binary
+  var text='';
+  var matches=raw.match(/[a-zA-Z0-9@.,\s\-\/\+\(\)]{20,}/g)||[];
+  text=matches.join(' ').replace(/\s+/g,' ');
+  return text.length>100?text:'PDF loaded. Please also paste your resume text below for accurate analysis.';
+}
+
+// ── ATS SCORING ENGINE ─────────────────────────────────────────────
+var ACTION_VERBS=['led','built','developed','designed','managed','created','implemented','architected','launched','delivered','achieved','improved','optimised','increased','reduced','negotiated','collaborated','mentored','automated','streamlined','spearheaded','drove','generated','executed'];
+var WEAK_PHRASES=['responsible for','worked on','helped with','assisted in','was involved','duties included','tasked with'];
+var REQUIRED_SECTIONS=['experience','education','skills','summary','objective','contact','email','phone'];
+var FORMATTING_WARNINGS=['<table','<img','background-color','text-box','shape'];
+
+function runATSCheck(){
+  var text=document.getElementById('atsPasteText').value.trim();
+  if(atsResumeText&&atsResumeText.length>100)text=atsResumeText+' '+text;
+  if(!text||text.length<80){showToast('Please paste your resume text or upload a file first.','amber');return;}
+  atsResumeText=text;
+  var result=scoreResume(text);
+  renderATSResult(result);
+}
+
+function scoreResume(text){
+  var t=text.toLowerCase();
+  var words=t.split(/\s+/);
+  var score=0;var issues=[];var good=[];var missing=[];var fixes=[];
+
+  // 1. Contact info (15 pts)
+  var emailFound=/[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/.test(t);
+  var phoneFound=/[\+]?[\d\-\(\)\s]{10,}/.test(t);
+  var linkedInFound=t.includes('linkedin');
+  var githubFound=t.includes('github');
+  var contactScore=0;
+  if(emailFound){contactScore+=5;good.push('Email address found');}else{missing.push('No email address detected');}
+  if(phoneFound){contactScore+=5;good.push('Phone number found');}else{missing.push('No phone number detected');}
+  if(linkedInFound){contactScore+=3;good.push('LinkedIn URL present');}else{fixes.push('Add your LinkedIn profile URL');}
+  if(githubFound){contactScore+=2;good.push('GitHub link present');}
+  score+=contactScore;
+
+  // 2. Sections (20 pts)
+  var secScore=0;
+  var hasExp=t.includes('experience')||t.includes('work history')||t.includes('employment');
+  var hasEdu=t.includes('education')||t.includes('degree')||t.includes('university')||t.includes('college');
+  var hasSkills=t.includes('skills')||t.includes('technologies')||t.includes('tools')||t.includes('competencies');
+  var hasSummary=t.includes('summary')||t.includes('objective')||t.includes('profile')||t.includes('about');
+  var hasCerts=t.includes('certification')||t.includes('certificate')||t.includes('certified');
+  var hasProjects=t.includes('project')||t.includes('portfolio');
+  if(hasExp){secScore+=6;good.push('Experience section found');}else{missing.push('No Experience section detected');}
+  if(hasEdu){secScore+=5;good.push('Education section found');}else{missing.push('No Education section detected');}
+  if(hasSkills){secScore+=5;good.push('Skills section found');}else{missing.push('Add a dedicated Skills section');}
+  if(hasSummary){secScore+=4;good.push('Professional summary present');}else{fixes.push('Add a 2-3 line professional summary at the top');}
+  if(hasCerts)good.push('Certifications section present');
+  if(hasProjects)good.push('Projects section present');
+  score+=secScore;
+
+  // 3. Content quality (30 pts)
+  var contentScore=0;
+  var actionCount=ACTION_VERBS.filter(function(v){return t.includes(v);}).length;
+  var weakCount=WEAK_PHRASES.filter(function(p){return t.includes(p);}).length;
+  var numbersFound=(text.match(/\d+[%\+\-]?|\₹[\d,]+/g)||[]).length;
+  var wordCount=words.length;
+  if(actionCount>=6){contentScore+=12;good.push('Strong action verbs used ('+actionCount+' found)');}
+  else if(actionCount>=3){contentScore+=7;fixes.push('Use more action verbs — found only '+actionCount+'. Add: led, built, achieved, delivered...');}
+  else{fixes.push('Very few action verbs. Replace "responsible for" with: led, built, developed, achieved');}
+  if(numbersFound>=5){contentScore+=10;good.push('Good use of numbers & metrics ('+numbersFound+' found)');}
+  else if(numbersFound>=2){contentScore+=5;fixes.push('Add more metrics — only '+numbersFound+' numbers found. E.g. "Led team of 8" or "Increased sales by 40%"');}
+  else{missing.push('No quantified achievements — add numbers and metrics to every bullet point');}
+  if(weakCount===0){contentScore+=8;good.push('No weak phrases detected');}
+  else{fixes.push('Remove "'+WEAK_PHRASES.filter(function(p){return t.includes(p);})[0]+'" — replace with strong action verbs');}
+  if(wordCount>=250&&wordCount<=800){contentScore+=0;good.push('Good resume length ('+wordCount+' words)');}
+  else if(wordCount<250){missing.push('Resume too short ('+wordCount+' words) — needs more detail');}
+  else{fixes.push('Resume may be too long ('+wordCount+' words) — aim for 400-700 words');}
+  score+=contentScore;
+
+  // 4. Formatting (20 pts)
+  var fmtScore=20; // start full, deduct
+  var hasTable=t.includes('<table')||t.includes('|---|');
+  var hasPhoto=t.includes('<img')||t.includes('photo')||t.includes('photograph');
+  var hasColumns=t.includes('column');
+  if(!hasTable){good.push('No tables detected (ATS-safe)');}else{fmtScore-=6;issues.push('Tables detected — ATS cannot read table content, use plain text');}
+  if(!hasPhoto){good.push('No photo detected (ATS-safe)');}else{fmtScore-=5;issues.push('Photo detected — remove photo from resume (causes ATS rejection)');}
+  score+=Math.max(0,fmtScore);
+
+  // 5. Keywords (15 pts)
+  var kwScore=0;
+  var skillTerms=text.match(/[A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+){0,2}/g)||[];
+  var uniqueSkills=new Set(skillTerms.filter(function(s){return s.length>3;})).size;
+  if(uniqueSkills>=15){kwScore=15;good.push('Rich keyword density ('+uniqueSkills+' unique terms)');}
+  else if(uniqueSkills>=8){kwScore=9;fixes.push('Expand skills section — add more specific technologies, tools, methodologies');}
+  else{kwScore=4;missing.push('Very few keywords — your skills section needs more specific terms');}
+  score+=kwScore;
+
+  // Clamp score
+  score=Math.min(100,Math.max(0,Math.round(score)));
+
+  var verdict='';var color='';
+  if(score>=80){verdict='Strong resume — will pass most ATS systems';color='#16a34a';}
+  else if(score>=55){verdict='Average resume — passes some ATS, needs improvement';color='#d97706';}
+  else{verdict='Weak resume — likely rejected by most ATS systems';color='#dc2626';}
+
+  return {score:score,verdict:verdict,color:color,good:good,missing:missing,fixes:fixes,issues:issues};
+}
+
+function resetATSCheck(){document.getElementById("atsResult").style.display="none";document.getElementById("atsUploadZone").style.display="block";}
+function renderATSResult(r){
+  document.getElementById('atsUploadZone').style.display='none';
+  var res=document.getElementById('atsResult');
+  res.style.display='block';
+  var circumference=2*Math.PI*54;
+  var offset=circumference-(r.score/100)*circumference;
+  var allFixes=r.issues.concat(r.missing).concat(r.fixes);
+
+  var goodHTML=r.good.map(function(g){return '<div class="ats-item"><span class="ats-dot">✅</span>'+g+'</div>';}).join('');
+  var fixHTML=allFixes.slice(0,8).map(function(f){return '<div class="ats-item"><span class="ats-dot">'+(r.missing.includes(f)?'❌':'⚠️')+'</span>'+f+'</div>';}).join('');
+
+  res.innerHTML=
+    '<div class="ats-score-wrap">'
+    +'<div class="ats-gauge">'
+    +'<svg width="140" height="140" viewBox="0 0 140 140">'
+    +'<circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="12"/>'
+    +'<circle cx="70" cy="70" r="54" fill="none" stroke="'+r.color+'" stroke-width="12" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'" stroke-linecap="round" style="transition:stroke-dashoffset 1s ease;"/>'
+    +'</svg>'
+    +'<div class="ats-score-num">'+r.score+'</div>'
+    +'</div>'
+    +'<div class="ats-score-label">ATS Score / 100</div>'
+    +'<div class="ats-verdict" style="color:'+r.color+'">'+r.verdict+'</div>'
+    +'</div>'
+    +'<div class="ats-sections">'
+    +'<div class="ats-section">'
+    +'<div class="ats-sec-title" style="color:#16a34a;">✅ Whats Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
+    +goodHTML
+    +'</div>'
+    +'<div class="ats-section">'
+    +'<div class="ats-sec-title" style="color:#dc2626;">⚠️ Fix These <span class="ats-sec-score" style="color:#dc2626;">'+allFixes.length+'</span></div>'
+    +fixHTML
+    +'</div>'
+    +'</div>'
+    +'<div class="ats-cta">'
+    +'<div class="ats-cta-title">Now build a resume that beats ATS →</div>'
+    +'<div style="font-size:12px;opacity:.8;">10 stunning templates · Download as PDF</div>'
+    +'<button class="ats-cta-btn" onclick="goToolkit(&quot;resume&quot;)">Build My Resume →</button>'
+    +'</div>'
+    +'<div style="text-align:center;margin-top:14px;">'
+    +'<button onclick="resetATSCheck()" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;">← Check another resume</button>';
+    +'</div>';
+
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════════════════════════════════════════════════════════════
+// RESUME BUILDER
+// ══════════════════════════════════════════════════════════════════
+var rbData={};var rbTemplate=0;var rbInputMethod='';
+
+function goStep(n){
+  document.querySelectorAll('.rb-step').forEach(function(s){s.style.display='none';});
+  var s=document.getElementById('rbStep'+n);if(s)s.style.display='block';
+}
+
+function showRBInput(method){
+  rbInputMethod=method;
+  document.querySelectorAll('.rb-opt').forEach(function(o){o.classList.remove('selected');});
+  event.currentTarget.classList.add('selected');
+  var area=document.getElementById('rb-input-area');
+  var html='';
+  if(method==='linkedin-pdf'){
+    html='<div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;font-size:12px;color:var(--soft);line-height:1.6;">'
+      +'<strong style="color:var(--ink);">How to get your LinkedIn PDF:</strong><br>'
+      +'1. Go to your LinkedIn profile<br>'
+      +'2. Click "More" → "Save to PDF"<br>'
+      +'3. Upload that PDF here</div>'
+      +'<input type="file" id="rbFileInput" accept=".pdf" onchange="loadRBFile(this)" style="display:none">'
+      +'<button onclick="triggerRBFile()" class="auz-btn">Upload LinkedIn PDF →</button>';
+      +'<div id="rbFileStatus" style="font-size:12px;color:var(--soft);margin-top:8px;"></div>';
+  }else if(method==='linkedin-text'){
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Copy your LinkedIn About + Experience section and paste here:</div>'
+      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbLinkedInText" placeholder="Paste your LinkedIn profile text here..."></textarea>';
+  }else if(method==='paste'){
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Paste any resume or profile text — formatted or unformatted:</div>'
+      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbPasteText" placeholder="Paste your resume text here..."></textarea>';
+  }else{
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Fill your details in the next step after choosing a template.</div>';
+  }
+  area.innerHTML=html;
+  area.style.display='block';
+  document.getElementById('rbNextBtn').style.display='inline-block';
+}
+
+function triggerRBFile(){var el=document.getElementById("rbFileInput");if(el)el.click();}
+function loadRBFile(input){
+  var file=input.files[0];if(!file)return;
+  document.getElementById('rbFileStatus').textContent='✅ '+file.name+' loaded';
+  var reader=new FileReader();
+  reader.onload=function(e){rbData.rawText=e.target.result;};
+  reader.readAsText(file);
+}
+
+function goToTemplates(){
+  // Save input data
+  if(rbInputMethod==='linkedin-text'){
+    var t=document.getElementById('rbLinkedInText');
+    if(t)rbData.rawText=t.value;
+  }else if(rbInputMethod==='paste'){
+    var t=document.getElementById('rbPasteText');
+    if(t)rbData.rawText=t.value;
+  }
+  if(rbInputMethod==='manual'||!rbData.rawText){
+    rbData.rawText='';
+  }else{
+    parseRawText(rbData.rawText);
+  }
+  goStep(2);
+}
+
+function parseRawText(text){
+  // Smart parse: extract name, email, phone, skills from raw text
+  var lines=text.split(/\n/).filter(function(l){return l.trim().length>0;});
+
+  rbData.name=rbData.name||(lines[0]||'').trim().slice(0,40);
+  var emailMatch=text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if(emailMatch)rbData.email=emailMatch[0];
+  var phoneMatch=text.match(/[\+]?[\d\-\s\(\)]{10,13}/);
+  if(phoneMatch)rbData.phone=phoneMatch[0].trim();
+  var liMatch=text.match(/linkedin\.com\/in\/[\w\-]+/i);
+  if(liMatch)rbData.linkedin='https://'+liMatch[0];
+  var ghMatch=text.match(/github\.com\/[\w\-]+/i);
+  if(ghMatch)rbData.github='https://'+ghMatch[0];
+  rbData.rawText=text;
+}
+
+// ── TEMPLATE DEFINITIONS ──────────────────────────────────────────
+var TEMPLATES=[
+  // Professional 5
+  {id:0,name:'Clarity',role:'All Roles',type:'Professional',accent:'#1e3a5f',bg:'#ffffff',sidebar:false,desc:'Single column, serif headings, ATS-safe'},
+  {id:1,name:'Executive',role:'Director / VP',type:'Professional',accent:'#0f1117',bg:'#ffffff',sidebar:false,desc:'One page, leadership-focused, minimal'},
+  {id:2,name:'Corporate',role:'IT / Finance',type:'Professional',accent:'#1d4ed8',bg:'#f8fafc',sidebar:true,desc:'Two column, navy accent, boardroom ready'},
+  {id:3,name:'Trust',role:'HR / Consulting',type:'Professional',accent:'#374151',bg:'#faf7f2',sidebar:false,desc:'Warm minimal, relationship-first layout'},
+  {id:4,name:'Scholar',role:'Fresher / Campus',type:'Professional',accent:'#059669',bg:'#ffffff',sidebar:false,desc:'Education-first, projects prominent'},
+  // Modern 5
+  {id:5,name:'Carbon',role:'Software Engineer',type:'Modern',accent:'#e8943a',bg:'#0f1117',sidebar:true,desc:'Dark sidebar, developer-focused, bold'},
+  {id:6,name:'Signal',role:'IT / Tech',type:'Modern',accent:'#e8943a',bg:'#faf7f2',sidebar:true,desc:'JobsSignal brand, teal/amber, modern'},
+  {id:7,name:'Impact',role:'Product Manager',type:'Modern',accent:'#7c3aed',bg:'#ffffff',sidebar:false,desc:'Metrics-first, achievement numbers bold'},
+  {id:8,name:'Spectrum',role:'Data / DevOps',type:'Modern',accent:'#0891b2',bg:'#f0f9ff',sidebar:false,desc:'Skills matrix, certifications bold'},
+  {id:9,name:'Vivid',role:'Design / Creative',type:'Modern',accent:'#e11d48',bg:'#fff1f2',sidebar:true,desc:'Color-blocked creative, stands out'}
+];
+
+function buildTemplateGallery(){
+  var gallery=document.getElementById('rbTemplateGallery');
+  if(!gallery)return;
+  var filterDiv=document.createElement('div');filterDiv.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;';
+  ['all','Professional','Modern'].forEach(function(type,idx){
+    var btn=document.createElement('button');btn.className='filter-pill'+(idx===0?' active':'');
+    btn.textContent=type==='all'?'All (10)':type==='Professional'?'Professional (5)':'Modern (5)';
+    btn.onclick=function(){filterTemplates(type,btn);};
+    filterDiv.appendChild(btn);
+  });
+  gallery.appendChild(filterDiv);
+  var html=''
+    +'<div class="rb-template-gallery" id="tmplGrid">';
+  TEMPLATES.forEach(function(t){
+    html+='<div class="rb-tmpl-card" data-type="'+t.type+'" onclick="selectTemplate('+t.id+')" id="tmpl-'+t.id+'">'
+      +'<div class="rb-tmpl-thumb">'+renderTemplateThumbnail(t)+'</div>'
+      +'<div class="rb-tmpl-info">'
+      +'<div class="rb-tmpl-name">'+t.name+'</div>'
+      +'<div class="rb-tmpl-role">'+t.role+'</div>'
+      +'<span class="rb-tmpl-badge '+(t.type==='Professional'?'badge-pro':'badge-modern')+'">'+t.type+'</span>'
+      +'</div></div>';
+  });
+  html+='</div><button class="rb-next-btn" id="tmplNextBtn" style="display:none;margin-top:20px;" onclick="goStep(3);buildResumeForm();">Fill Details →</button>';
+  var tmplGrid=document.createElement('div');tmplGrid.className='rb-template-gallery';tmplGrid.id='tmplGrid';tmplGrid.innerHTML=html;gallery.appendChild(tmplGrid);
+  var nb=document.createElement('button');nb.className='rb-next-btn';nb.id='tmplNextBtn';nb.style.display='none';nb.style.marginTop='20px';nb.textContent='Fill Details →';nb.onclick=function(){goStep(3);buildResumeForm();};gallery.appendChild(nb);
+}
+
+function filterTemplates(type,btn){
+  document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){
+    c.style.display=(type==='all'||c.dataset.type===type)?'block':'none';
+  });
+}
+
+function selectTemplate(id){
+  rbTemplate=id;
+  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){c.classList.remove('selected');});
+  var card=document.getElementById('tmpl-'+id);
+  if(card){card.classList.add('selected');card.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  document.getElementById('tmplNextBtn').style.display='inline-block';
+}
+
+function renderTemplateThumbnail(t){
+  var s='<div style="background:'+t.bg+';height:100%;padding:12px;font-family:sans-serif;transform:scale(1);overflow:hidden;">';
+  if(t.sidebar){
+    s+='<div style="display:flex;height:100%;gap:0;">'
+      +'<div style="width:36%;background:'+t.accent+';padding:8px;">'
+      +'<div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.3);margin-bottom:6px;"></div>'
+      +'<div style="height:5px;background:rgba(255,255,255,.6);border-radius:2px;margin-bottom:3px;width:80%;"></div>'
+      +'<div style="height:3px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:10px;width:60%;"></div>'
+      +renderMiniLines(5,'rgba(255,255,255,.25)')
+      +'</div>'
+      +'<div style="flex:1;padding:8px;">'
+      +'<div style="height:6px;background:'+t.accent+';border-radius:2px;margin-bottom:6px;width:70%;"></div>'
+      +renderMiniLines(8,'#e5e7eb')
+      +'</div>'
+      +'</div>';
+  }else{
+    s+='<div style="border-bottom:3px solid '+t.accent+';padding-bottom:6px;margin-bottom:8px;">'
+      +'<div style="height:7px;background:'+t.accent+';border-radius:2px;margin-bottom:3px;width:50%;"></div>'
+      +'<div style="height:3px;background:#e5e7eb;border-radius:2px;width:70%;"></div>'
+      +'</div>'
+      +renderMiniLines(10,'#e5e7eb');
+  }
+  s+='</div>';
+  return s;
+}
+
+function renderMiniLines(n,color){
+  var h='';
+  for(var i=0;i<n;i++){
+    h+='<div style="height:3px;background:'+color+';border-radius:1px;margin-bottom:4px;width:'+(60+Math.floor(Math.random()*35))+'%;"></div>';
+  }
+  return h;
+}
+
+// ── RESUME FORM ───────────────────────────────────────────────────
+function buildResumeForm(){
+  var wrap=document.getElementById('rbFormWrap');if(!wrap)return;
+  var d=rbData;
+  wrap.innerHTML='';
+  var grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;';
+  function addF(lbl,id,val,type,full){
+    var div=document.createElement('div');
+    if(full)div.style.gridColumn='1/-1';
+    var label=document.createElement('label');
+    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
+    label.textContent=lbl;
+    var inp=document.createElement('input');
+    inp.type=type||'text';inp.id='rb-'+id;inp.value=val||'';
+    inp.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff;box-sizing:border-box;';
+    div.appendChild(label);div.appendChild(inp);grid.appendChild(div);
+  }
+  function addTA(lbl,id,val,ph,rows,full){
+    var div=document.createElement('div');
+    div.style.gridColumn='1/-1';
+    var label=document.createElement('label');
+    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
+    label.textContent=lbl;
+    var ta=document.createElement('textarea');
+    ta.id='rb-'+id;ta.rows=rows||4;ta.placeholder=ph||'';ta.value=val||'';
+    ta.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;resize:vertical;box-sizing:border-box;';
+    div.appendChild(label);div.appendChild(ta);grid.appendChild(div);
+  }
+  addF('Full Name','name',d.name||currentUser.name||'','text',false);
+  addF('Email','email',d.email||currentUser.email||'','email',false);
+  addF('Phone','phone',d.phone||currentUser.phone||'','tel',false);
+  addF('City','city',d.city||currentUser.city||'','text',false);
+  addF('LinkedIn URL','linkedin',d.linkedin||'','url',false);
+  addF('GitHub URL','github',d.github||'','url',false);
+  addTA('Professional Summary','summary',d.summary||'','Write 2-3 lines about your expertise and key strengths...',3,true);
+  addTA('Work Experience','experience',d.experience||d.rawText||'','Company | Role | Duration - Key achievements...',7,true);
+  addF('Education','education',d.education||'','text',true);
+  addTA('Skills','skills',d.skills||'','React, Node.js, Python, AWS, SQL, Docker, Git...',3,true);
+  addTA('Projects','projects',d.projects||'','Project Name | Tech Stack | Description...',4,true);
+  addF('Certifications','certifications',d.certifications||'','text',true);
+  wrap.appendChild(grid);
+}
+
+
+function renderFullResume(d,t){
+  var sk=(d.skills||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var accent=t.accent||'#1e3a5f'; var bg=t.bg||'#fff';
+  if(t.sidebar){
+    return '<div style="display:flex;height:100%;font-family:Georgia,serif;font-size:9px;line-height:1.5;">'
+      +'<div style="width:35%;background:'+accent+';color:#fff;padding:20px 14px;">'
+      +'<div style="font-size:16px;font-weight:800;margin-bottom:2px;">'+(d.name||'Your Name')+'</div>'
+      +'<div style="font-size:9px;opacity:.7;margin-bottom:14px;">'+(d.city||'')+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">CONTACT</div>'
+      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.email||'')+'</div>'
+      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.phone||'')+'</div>'
+      +(d.linkedin?'<div style="opacity:.7;font-size:7px;margin-bottom:12px;">'+d.linkedin+'</div>':'<div style="margin-bottom:12px;"></div>')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">SKILLS</div>'
+      +sk.slice(0,10).map(function(s){return '<div style="background:rgba(255,255,255,.15);border-radius:3px;padding:2px 6px;margin-bottom:3px;font-size:8px;">'+s+'</div>';}).join('')
+      +'</div>'
+      +'<div style="flex:1;padding:20px 14px;background:'+bg+';">'
+      +(d.summary?'<div style="font-size:8px;color:#6b7280;margin-bottom:12px;line-height:1.6;font-style:italic;">'+d.summary+'</div>':'')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EXPERIENCE</div>'
+      +'<div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,500)+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EDUCATION</div>'
+      +'<div style="font-size:8px;color:#374151;">'+(d.education||'')+'</div>'
+      +'</div></div>';
+  }else{
+    return '<div style="font-family:Georgia,serif;font-size:9px;line-height:1.6;padding:24px;background:'+bg+';">'
+      +'<div style="border-bottom:2.5px solid '+accent+';padding-bottom:10px;margin-bottom:12px;">'
+      +'<div style="font-size:18px;font-weight:800;color:'+accent+';">'+(d.name||'Your Name')+'</div>'
+      +'<div style="font-size:9px;color:#6b7280;margin-top:3px;">'+(d.email||'')+' · '+(d.phone||'')+' · '+(d.city||'')+(d.linkedin?' · '+d.linkedin:'')+'</div>'
+      +'</div>'
+      +(d.summary?'<div style="font-size:8px;color:#374151;margin-bottom:12px;line-height:1.7;font-style:italic;">'+d.summary+'</div>':'')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EXPERIENCE</div>'
+      +'<div style="font-size:8px;color:#374151;line-height:1.7;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,600)+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">SKILLS</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">'
+      +sk.slice(0,12).map(function(s){return '<span style="background:'+accent+'22;color:'+accent+';border-radius:3px;padding:1px 6px;font-size:7px;font-weight:700;">'+s+'</span>';}).join('')
+      +'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EDUCATION</div>'
+      +'<div style="font-size:8px;color:#374151;margin-bottom:10px;">'+(d.education||'')+'</div>'
+      +(d.projects?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">PROJECTS</div><div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:10px;">'+(d.projects||'').slice(0,300)+'</div>':'')
+      +(d.certifications?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">CERTIFICATIONS</div><div style="font-size:8px;color:#374151;">'+d.certifications+'</div>':'')
+      +'</div>';
+  }
+}
+
+function downloadResumePDF(){
+  if(typeof html2canvas==='undefined'){showToast('PDF library loading, try again...','amber');return;}
+  var panel=document.getElementById('rbPreviewPanel');
+  if(!panel){showToast('No resume to download','amber');return;}
+  var name=((rbData.name||'resume').replace(/\s+/g,'_'))+'_resume';
+  showToast('Generating PDF...','amber');
+  html2canvas(panel,{scale:2,useCORS:true,allowTaint:true}).then(function(canvas){
+    var imgData=canvas.toDataURL('image/png');
+    var pdf=new jspdf.jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var w=pdf.internal.pageSize.getWidth();
+    var h=(canvas.height*w)/canvas.width;
+    pdf.addImage(imgData,'PNG',0,0,w,h);
+    pdf.save(name+'.pdf');
+    showToast('Resume downloaded ✅','amber');
+  }).catch(function(e){
+    showToast('PDF generation failed. Try again.','amber');
+  });
+}
+
+function previewResume(){
+  rbData=Object.assign(rbData,getRBFieldValues());
+  var t=TEMPLATES[rbTemplate]||TEMPLATES[0];
+  var panel=document.getElementById('rbPreviewPanel');
+  if(panel){
+    panel.innerHTML=renderFullResume(rbData,t);
+    panel.style.background=t.bg;
+    panel.style.minHeight='600px';
+    panel.style.padding='0';
+  }
+  goStep(4);
+}
 
 
 
 </script>
-
-
-
 
 
 <!-- Razorpay -->
