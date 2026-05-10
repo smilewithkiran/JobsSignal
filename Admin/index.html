@@ -186,13 +186,17 @@ function renderStats(users){
   var paid=users.filter(function(u){return u.plan&&u.plan.plan&&new Date(u.plan.expiresAt)>new Date();});
   var today=new Date().toDateString();
   var todayCount=users.filter(function(u){return u.joinedAt&&new Date(u.joinedAt).toDateString()===today;});
-  var planAmt={'7 Days':49,'30 Days':99,'60 Days':179,'Annual':599};
-  var rev=paid.reduce(function(s,u){return s+(planAmt[(u.plan&&u.plan.plan)||'']||0);},0);
+  var superUser=users.filter(function(u){return u.phone==='9160075557';});
+  var planAmt={'7 Days':49,'30 Days':99,'60 Days':179,'Annual':599,'Admin Access 🔑':0};
+  var rev=paid.reduce(function(s,u){
+    var amt=planAmt[(u.plan&&u.plan.plan)||'']||0;
+    return s+amt;
+  },0);
   document.getElementById('statTotal').textContent=users.length;
   document.getElementById('statPaid').textContent=paid.length;
   document.getElementById('statRevenue').textContent='₹'+rev.toLocaleString('en-IN');
   document.getElementById('statToday').textContent=todayCount.length;
-  document.getElementById('userCount').textContent='('+users.length+' total)';
+  document.getElementById('userCount').textContent='('+users.length+' total'+(superUser.length?' + '+superUser.length+' super user':'')+')'
 }
 
 function renderUsers(users){
@@ -202,9 +206,11 @@ function renderUsers(users){
     var plan=u.plan||{};
     var hasPlan=plan.plan&&new Date(plan.expiresAt)>now;
     var isExp=plan.plan&&new Date(plan.expiresAt)<=now;
-    var badge=hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
+    var isSuperUser=u.phone==='9160075557';
+    var badge=isSuperUser?'<span class="badge" style="background:#e8943a;color:#fff;">🔑 Admin</span>':hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
     var joined=u.joinedAt?new Date(u.joinedAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
-    return '<tr><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td></tr>';
+    var planExpiry=plan.expiresAt?new Date(plan.expiresAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
+    return '<tr style="'+(isSuperUser?'background:rgba(232,148,58,.08);':'')+'"><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+(isSuperUser?'🔑 ':'')+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td></tr>';
   });
   setTbody(rows.join(''));
 }
