@@ -118,7 +118,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .li-btn{padding:6px 11px;border-radius:6px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 
 /* DASHBOARD */
-.dash-wrap{display:flex;height:100vh;margin-top:0;overflow:hidden;}
+.dash-wrap{display:flex;height:100vh;margin-top:0 !important;padding-top:0 !important;overflow:hidden;}
 .sidebar{width:240px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;}
 .sb-brand{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.07);}
 .sb-wm{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
@@ -152,7 +152,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .pb-title{font-family:'Fraunces',serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px;}
 .pb-sub{font-size:11px;color:rgba(255,255,255,.6);}
 .btn-prev{padding:8px 16px;border-radius:7px;background:var(--amber);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.mode-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:14px;-webkit-overflow-scrolling:touch;}
+.mode-tabs{display:none !important;/* BUG FIX: Remove duplicate mode buttons */}
 .mode-tab{padding:7px 14px;border-radius:7px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .mode-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .search-panel{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:14px;}
@@ -280,8 +280,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .gj-remote{font-size:11px;color:#16a34a;font-weight:600;}
 
 /* LinkedIn jobs redirect */
-.lj-redirect{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;border:1.5px solid var(--border);}
-.lj-btn{display:inline-block;padding:12px 24px;background:#0077b5;color:#fff;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px;}
+.lj-redirect{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;}
+.lj-btn{display:inline-block;padding:12px 24px;background:var(--ink);color:#fff;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
 /* Loading spinner */
 .az-loading{display:flex;align-items:center;gap:12px;padding:20px;font-size:13px;color:var(--soft);}
@@ -378,6 +378,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <button onclick="goToSec('howItWorks')">How It Works</button>
     <button onclick="goToSec('modes')">Search Modes</button>
     <button onclick="goToSec('comparison')">vs Portals</button>
+    <button onclick="goToSec('toolkit')">🧰 Toolkit</button>
     <button onclick="goToSec('pricing')">Pricing</button>
     <button class="btn-login" onclick="goTo('loginView')">Log In</button>
     <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
@@ -446,14 +447,59 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
   <section id="comparison" style="max-width:900px;margin:0 auto;padding:60px 24px;"><div class="eyebrow">Why JobsSignal</div><h2 style="font-family:'Fraunces',serif;font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;">Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th.</h2><p style="font-size:15px;color:var(--soft);line-height:1.7;max-width:480px;margin-bottom:32px;">Every portal shows jobs 500 people already applied to. JobsSignal finds the recruiter before the job is posted.</p><div style="display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);border-radius:14px;overflow:hidden;margin-bottom:28px;"><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">0<sup>hr</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Delay</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">10x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Less Competition</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">5x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Referral Rate</div></div><div style="padding:18px 12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">&#8377;49</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Starts From</div></div></div><div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:12px;margin-bottom:24px;"><div style="background:#fff;border-radius:14px;border:1px solid var(--border);padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;">Other Portals</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);margin-bottom:12px;">Naukri &#183; LinkedIn &#183; Indeed</div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128336; Jobs appear 24&#8211;48 hrs late</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128101; 500&#8211;5,000 applicants per listing</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128269; No notice period filter</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128176; &#8377;1,800&#8211;5,000/year premium</div></div></div><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:60px;gap:8px;"><div style="height:30px;width:1px;background:var(--border);"></div><div style="width:32px;height:32px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--soft);">VS</div><div style="height:30px;width:1px;background:var(--border);"></div></div><div style="background:var(--ink);border-radius:14px;padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:7px;">JobsSignal</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:12px;">Jobs<em style="color:var(--amber);font-style:italic;font-weight:300;">Signal</em></div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9889; Same minute as recruiter posts</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#127919; First 5&#8211;10 to see every post</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9201;&#65039; Notice Period + Referral modes</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#128176; &#8377;49/7d &#183; &#8377;99/mo &#183; &#8377;599/yr</div></div></div></div><div style="background:var(--ink);border-radius:14px;padding:32px;text-align:center;"><h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:8px;">Apply first. Not 500th.</h3><p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:18px;line-height:1.7;">Every portal shows jobs 500 people already applied to.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><button class="btn-primary" onclick="goTo('signupView')">Start Free</button><button class="btn-ghost" onclick="goToSec('pricing')" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);">See Pricing</button></div></div></section>
   <section id="pricing">
+
+  <!-- TOOLKIT SECTION -->
+  <section id="toolkit" style="background:linear-gradient(135deg,var(--ink) 0%,#1a2835 100%);border-radius:18px;margin:60px 24px;padding:60px 24px;max-width:100%;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="eyebrow" style="color:var(--amber);text-align:center;">Career Toolkit</div>
+      <h2 style="color:#fff;text-align:center;margin-bottom:12px;">ATS Checker + Resume <em style="color:var(--amber);font-style:italic;font-weight:300;">Builder.</em></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,.6);text-align:center;line-height:1.7;max-width:580px;margin:0 auto 40px;">Transform your resume into an ATS powerhouse. Check your score instantly. Build stunning versions in 2 minutes.</p>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
+        <!-- ATS Checker -->
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(232,148,58,.2);border-radius:16px;padding:32px;backdrop-filter:blur(10px);">
+          <div style="font-size:32px;margin-bottom:12px;">📊</div>
+          <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;">ATS Checker</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;">Get a score out of 100. See what's missing. Fix weak phrases. Remove ATS-blocking tables & images.</p>
+          <ul style="list-style:none;font-size:12px;color:rgba(255,255,255,.7);line-height:2;">
+            <li>✓ Action verb analysis</li>
+            <li>✓ Missing sections detected</li>
+            <li>✓ Metrics & numbers check</li>
+            <li>✓ Formatting warnings</li>
+            <li>✓ LinkedIn compatibility</li>
+          </ul>
+        </div>
+
+        <!-- Resume Builder -->
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(232,148,58,.2);border-radius:16px;padding:32px;backdrop-filter:blur(10px);">
+          <div style="font-size:32px;margin-bottom:12px;">📄</div>
+          <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;">Resume Builder</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;">10 professional templates. Import from LinkedIn. Export as PDF. Build in minutes, not hours.</p>
+          <ul style="list-style:none;font-size:12px;color:rgba(255,255,255,.7);line-height:2;">
+            <li>✓ 10 professional templates</li>
+            <li>✓ LinkedIn PDF import</li>
+            <li>✓ Real-time preview</li>
+            <li>✓ One-click PDF export</li>
+            <li>✓ ATS-optimized designs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:18px;">✨ Available on ₹99, ₹179, and ₹599 plans</p>
+        <button class="btn-primary" onclick="goTo('signupView')" style="padding:14px 32px;font-size:15px;">Start Building Your Resume Free</button>
+      </div>
+    </div>
+  </section>
     <div class="eyebrow" style="text-align:center;">Pricing</div>
     <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
     <p class="sec-sub" style="text-align:center;max-width:380px;margin:0 auto 24px;">Start free. No card. Upgrade when ready.</p>
     <div class="price-grid">
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
-      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>ATS Checker ✓</li><li>Resume Builder ✓</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card"><div class="pc-name">Quarterly</div><div class="pc-price">₹179</div><div class="pc-per">60 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>ATS Checker + Resume Builder</li><li>Extended access</li><li>All 5 search modes</li><li>Live Job Listings</li><li>Best for job hunters</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹179</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Quarterly</li><li>WhatsApp renewal reminders</li><li>ATS Checker + Resume Builder</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -588,11 +634,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
       <div class="sb-item" id="sb-resume" onclick="goToolkit('resume')"><span class="sb-icon">📄</span><span>Resume Builder</span><span class="sb-lock" id="lock-resume"></span></div>
-      <div class="sb-divider"></div>
-      <div class="sb-sec-label">Results</div>
-      <div class="sb-item" onclick="document.querySelector('.r-tab').click()"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
-      <div class="sb-item" onclick="document.querySelectorAll('.r-tab')[1].click()"><span class="sb-icon">💼</span><span>Job Listings</span></div>
-      <div class="sb-item" onclick="document.querySelectorAll('.r-tab')[2].click()"><span class="sb-icon">👤</span><span>Find Recruiters</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Account</div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
@@ -804,7 +845,13 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 <div class="view" id="adminView"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6fa;"><div style="background:#fff;border-radius:20px;padding:44px;text-align:center;max-width:420px;"><div style="font-size:32px;margin-bottom:12px;">&#128274;</div><div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#0f1117;margin-bottom:8px;">Admin Dashboard</div><p style="font-size:13px;color:#6b7280;margin-bottom:24px;line-height:1.6;">Full admin panel at the dedicated admin page.</p><a href="/admin" style="display:inline-block;padding:12px 28px;background:#0f1117;color:#fff;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:12px;">Open Admin Panel</a><div><button onclick="adminLogout()" style="background:none;border:none;color:#6b7280;font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;">Sign Out</button></div></div></div></div>
 
+
+
+
 <script>
+
+
+
 
 
 
@@ -1501,6 +1548,363 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 // ═══════════════════════════════════════════════════
 
 
+// ═══════════════════════════════════════════════════
+// TODO BATCH 7 — CONFIRMED DECISIONS
+// Date logged: May 2026
+// Status: PENDING final questions answered
+// ═══════════════════════════════════════════════════
+//
+// ── CONFIRMED: Q1 — ADMIN CV COLUMN ────────────────
+//   ✅ Leave it — no ATS score or PDF storage for now
+//   Will revisit later when Firebase Storage is set up
+//   Admin CV column: NOT in scope for this build
+//
+// ── CONFIRMED: Q2 — ADMIN TEST ACCESS ──────────────
+//   ✅ Option B: Hardcode phone 9160075557 as SUPER USER
+//   Implementation rules:
+//     → In hasToolkitAccess(): if phone===SUPER_PHONE → true
+//     → In showPaidDash(): if phone===SUPER_PHONE → show paid dash
+//     → In showLockedDash(): if phone===SUPER_PHONE → skip lock, show paid
+//     → In runSearch(): if phone===SUPER_PHONE → bypass prevUsed check
+//     → In onPayOk(): NOT needed (super user bypasses payment entirely)
+//     → In enterDash(): if phone===SUPER_PHONE → always set isPaid=true
+//     → Plan label shown as "Admin Access 🔑" or similar
+//   Important: "Any modifications, new features automatically"
+//     → Any new feature gated by hasToolkitAccess() or isPaid
+//       automatically works for super user since those checks
+//       will always return true for SUPER_PHONE
+//     → No manual updates needed per feature
+//   SUPER_PHONE constant: '9160075557'
+//   Status: PENDING CODE
+//
+// ── CONFIRMED: Q3 — REFRESH SESSION RESTORE ────────
+//   ✅ Paid plan user (30 days) redirected to homepage on refresh
+//   Root cause confirmed: DOMContentLoaded not restoring session
+//   Fix: In DOMContentLoaded handler:
+//     1. checkAdminRoute() → if admin, stop
+//     2. Check localStorage for S_USER data
+//     3. If S_USER exists AND has valid phone:
+//        → Call enterDash() directly (restore session)
+//        → Do NOT show welcome bar or landing
+//     4. If no S_USER → show landing/welcome bar normally
+//   Super user rule: if phone===SUPER_PHONE
+//     → Always enterDash() directly (no login needed ever)
+//   Status: PENDING CODE
+//
+// ── CONFIRMED: Q4 — LINKEDIN JOBS INVISIBLE TEXT ───
+//   ✅ Option A: Show styled card with "Search LinkedIn Jobs →" button
+//   Problem: Text is invisible (likely white on white background)
+//   Fix needed:
+//     → Check ljPane background color vs text color
+//     → ljPane has no explicit background — inherits dark theme
+//       from results area which has var(--ink) background
+//     → All text inside ljPane needs explicit colors
+//     → lj-redirect div needs: background:#fff, color:var(--ink)
+//     → Button color: #0077b5 (LinkedIn blue) with white text
+//     → Also fix: LinkedIn Jobs button text and icon
+//   Status: PENDING CODE
+//
+// ── CONFIRMED: Q5 — LANDING PAGE NEW SECTIONS ──────
+//   ✅ Option A: Full sections with illustrated mockup images
+//   Two new full sections to add to landing page:
+//
+//   Section 1 — ATS Checker:
+//     Left: Heading + description + bullet points
+//     Right: HTML/CSS illustrated mockup of ATS score
+//            (animated gauge, score number, green/red items)
+//     Heading: "Know your ATS score before they reject you"
+//     Subtext: "Upload your resume — get an instant score,
+//               see exactly what to fix, free."
+//     Bullets: ✅ Instant score 0-100
+//              ✅ Section-by-section breakdown
+//              ✅ Action verb + metric checker
+//              ✅ PDF, DOC, LinkedIn PDF — any format
+//     CTA: "Check My ATS Score Free →"
+//
+//   Section 2 — Resume Builder:
+//     Left: HTML/CSS illustrated mockup showing template gallery
+//           (mini thumbnails of 3 templates in different styles)
+//     Right: Heading + description + bullet points
+//     Heading: "Build a resume that actually gets interviews"
+//     Subtext: "10 stunning templates. LinkedIn PDF → ready
+//               resume in minutes. Download as PDF."
+//     Bullets: ✅ 10 professional + modern templates
+//              ✅ LinkedIn PDF → auto-fill
+//              ✅ jsPDF direct download
+//              ✅ Role-specific designs (SE, PM, HR, Fresher)
+//     CTA: "Build My Resume Free →"
+//
+//   Both sections: full-width, alternating layout,
+//   consistent with existing landing page design
+//   (Fraunces + DM Sans, cream/ink/amber color scheme)
+//
+//   Nav update: Add "Resume Builder" + "ATS Checker"
+//   after "Search Modes" in top nav
+//   Add smooth scroll anchor links to new sections
+//
+//   Status: PENDING QUESTION on mockup style (see Qs below)
+//
+// ── PENDING: PRICING FULL UPDATE ───────────────────
+//   ₹49 / 7 Days (Signals only):
+//     ✅ All 5 search modes
+//     ✅ Google Jobs + LinkedIn Jobs
+//     ✅ Recruiter Posts
+//     ❌ ATS Checker (locked)
+//     ❌ Resume Builder (locked)
+//   ₹99 / 30 Days (+ Career Toolkit):
+//     ✅ All 5 search modes
+//     ✅ Google Jobs + LinkedIn Jobs
+//     ✅ Recruiter Posts
+//     ✅ ATS Score Checker
+//     ✅ Resume Builder — 10 templates
+//     ✅ PDF Download
+//   ₹179 / 60 Days (+ Career Toolkit):
+//     ✅ Same as ₹99 but 60 days
+//     ✅ ATS Score Checker
+//     ✅ Resume Builder — 10 templates
+//     ✅ PDF Download
+//   ₹599 / Annual (Everything):
+//     ✅ All of above
+//     ✅ WhatsApp renewal reminders
+//     ✅ Best value — save ₹597 vs monthly
+//   Status: PENDING CODE
+//
+// ── PENDING: SIDEBAR RESULTS REMOVAL ───────────────
+//   Remove from left sidebar:
+//     → Results section label
+//     → 📡 Recruiter Posts item
+//     → 💼 Job Listings item
+//     → 👤 Find Recruiters item
+//     → Divider before Results
+//   Keep:
+//     → Search Modes (5 items)
+//     → Career Toolkit (ATS + Resume Builder)
+//     → Account (Upgrade Plan)
+//   Status: PENDING CODE
+//
+// ═══════════════════════════════════════════════════
+// BUILD ORDER (once remaining questions answered):
+//   1. Super user (9160075557) hardcode — B2+B4 fix
+//   2. Session restore on refresh — B4 fix
+//   3. Google Jobs logo fix — B1
+//   4. LinkedIn Jobs visibility fix — B2+Q4
+//   5. Mode tabs clickable after search — B3
+//   6. Remove Results from sidebar — F3
+//   7. Pricing cards full update — F2
+//   8. Nav + 2 new landing sections — F1+Q5
+// ═══════════════════════════════════════════════════
+// PENDING QUESTIONS — see chat below
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 8 — FINAL CONFIRMED + FEATURE IDEAS
+// Date logged: May 2026
+// Status: PENDING — Do not code yet
+// ═══════════════════════════════════════════════════
+//
+// ── CONFIRMED: Q1 — SUPER USER LOGIN FLOW ──────────
+//   ✅ Option A: Still enter phone number on login
+//      but get full paid access automatically
+//   Flow for 9160075557:
+//     → User types 9160075557 on login page
+//     → doLogin() detects SUPER_PHONE
+//     → Skips Firebase auth check
+//     → Creates local user object with all access
+//     → Calls enterDash() with isPaid=true
+//     → Plan label: "Admin Access 🔑"
+//     → All features unlocked (ATS, Resume, unlimited search)
+//     → No payment popup ever shown
+//   Also: On refresh, if localStorage has 9160075557
+//     → Auto-restore dashboard (session fix)
+//
+// ── CONFIRMED: Q2 — MOCKUP STYLE ───────────────────
+//   ✅ Best looking option — use judgment
+//   Decision: Browser window frame mockup (Option A)
+//   Reason: Looks most professional, widely used by
+//   SaaS products (Notion, Linear, Framer style)
+//   ATS section mockup: browser frame showing
+//     → Animated circular score gauge
+//     → Color coded sections (green/red)
+//     → Score number large and prominent
+//   Resume section mockup: browser frame showing
+//     → Template gallery grid (3 mini thumbnails)
+//     → Selected template highlighted in amber
+//     → Download PDF button visible
+//
+// ── CONFIRMED: Q3 — NAV CLICK BEHAVIOR ────────────
+//   ✅ Option C: Always go to signup/login first
+//   When visitor clicks "ATS Checker" or
+//   "Resume Builder" in landing page nav:
+//     → If not logged in → goTo('signupView')
+//       with a welcome message highlighting that tool
+//     → If logged in → goToolkit('ats') or
+//       goToolkit('resume') directly
+//   Implementation:
+//     → Nav onclick: check localStorage for S_USER
+//     → If exists: go to tool directly
+//     → If not: goTo('signupView') or goTo('loginView')
+//
+// ═══════════════════════════════════════════════════
+// FEATURE IDEAS — PENDING KIRAN DECISION
+// Presented in chat — waiting for feedback
+// ═══════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════
+// TODO BATCH 6 — BUGS + PENDING FEATURES
+// Date logged: May 2026
+// Status: PENDING — Do NOT code until questions answered
+// ═══════════════════════════════════════════════════
+//
+// ── BUG 1: GOOGLE JOBS — logo not defined ──────────
+//   Error: "ReferenceError: logo is not defined"
+//   Root cause: variable `logo` defined inside
+//               makeJobCard() but scope issue likely
+//               OR makeJobCard called before defined
+//   Fix: Move logo variable definition to top of
+//        makeJobCard, ensure function is defined
+//        before fetchGoogleJobs calls it
+//   Status: PENDING FIX
+//
+// ── BUG 2: LINKEDIN JOBS — only icon showing ────────
+//   Problem: LinkedIn Jobs tab shows only icon/emoji
+//            No redirect button, no text, no link
+//   Root cause: ljPane innerHTML possibly not rendering
+//               OR buildLinkedInJobsUrl returning wrong
+//               URL format — needs debug
+//   Fix: Rewrite ljPane content using simpler DOM
+//        approach, verify buildLinkedInJobsUrl output
+//   Status: PENDING FIX
+//
+// ── BUG 3: MODE TABS NOT CLICKABLE AFTER SEARCH ────
+//   Problem: After search results show, sidebar mode
+//            items (🎯 Skill+City, #️⃣ Hashtag etc.)
+//            become unclickable / no response
+//   Root cause: resultsArea div possibly overlapping
+//               the sidebar in CSS, OR goTo() removing
+//               active class incorrectly, OR setMode()
+//               not firing because currentMode state
+//               gets locked after runSearch()
+//   Fix: Check z-index on resultsArea, ensure setMode()
+//        always works regardless of search state,
+//        add console.log to debug click events
+//   Status: PENDING FIX
+//
+// ── BUG 4: REFRESH REDIRECTS TO HOMEPAGE ───────────
+//   Problem: When user refreshes the dashboard page,
+//            they get redirected to landing page
+//            instead of staying in dashboard
+//   Root cause: DOMContentLoaded re-runs on refresh,
+//               checkAdminRoute() fires, then
+//               showWelcomeBar() checks localStorage
+//               but possibly fails silently,
+//               so no goTo('dashView') is called
+//   Fix: In DOMContentLoaded, after checkAdminRoute,
+//        check if user is logged in (S_USER in
+//        localStorage) and if so, call enterDash()
+//        directly instead of showing welcome bar
+//   Status: PENDING FIX
+//
+// ── FEATURE 1: NAV MENU UPDATE ─────────────────────
+//   Current nav: How it Works · Search Modes ·
+//                vs Portals · Pricing
+//   Required nav: How it Works · Search Modes ·
+//                 Resume Builder · ATS Checker ·
+//                 vs Portals · Pricing
+//   Also update landing page SECTIONS:
+//     → How it Works section: add ATS + Resume steps
+//     → Search Modes section: update job sources
+//       (remove Adzuna/Jooble/Remotive refs)
+//     → New section: ATS Checker (after Search Modes)
+//     → New section: Resume Builder (after ATS)
+//     → vs Portals: add ATS + Resume rows to table
+//     → Pricing: update all plan cards (see below)
+//   Status: PENDING FIX
+//
+// ── FEATURE 2: PRICING PAGE FULL UPDATE ────────────
+//   Current pricing: ₹49/7d · ₹99/30d · ₹179/60d · ₹599/yr
+//   Problems:
+//     → ₹179/60d plan not shown at all
+//     → ATS Checker not mentioned in any plan
+//     → Resume Builder not mentioned in any plan
+//   Required pricing card content:
+//     ₹49 / 7 Days:
+//       ✅ All 5 search modes
+//       ✅ Google Jobs + LinkedIn Jobs
+//       ✅ Recruiter Posts
+//       ❌ ATS Checker
+//       ❌ Resume Builder
+//     ₹99 / 30 Days:
+//       ✅ Everything in ₹49
+//       ✅ ATS Score Checker
+//       ✅ Resume Builder (10 templates)
+//       ✅ PDF Download
+//     ₹179 / 60 Days:
+//       ✅ Everything in ₹99
+//       ✅ ATS Score Checker
+//       ✅ Resume Builder (10 templates)
+//       ✅ PDF Download
+//       (Same as ₹99 but longer duration)
+//     ₹599 / Annual:
+//       ✅ Everything
+//       ✅ ATS + Resume Builder
+//       ✅ WhatsApp renewal reminders
+//       ✅ Best value
+//   Status: PENDING FIX
+//
+// ── FEATURE 3: REMOVE RESULTS FROM SIDEBAR ─────────
+//   Remove these 3 items from left sidebar:
+//     → 📡 Recruiter Posts
+//     → 💼 Job Listings
+//     → 👤 Find Recruiters
+//   Reason: Already visible as tabs in right panel
+//           after search runs — redundant in sidebar
+//   Keep in sidebar:
+//     → Search Modes section (5 modes)
+//     → Career Toolkit section (ATS + Resume Builder)
+//     → Account section (Upgrade Plan)
+//   Remove entirely: Results section + divider
+//   Status: PENDING FIX
+//
+// ── FEATURE 4: ADMIN — CV COLUMN + SCORING ─────────
+//   Add new column to admin user table: "CV / ATS"
+//   This column shows:
+//     → If user uploaded resume for ATS check:
+//         Show ATS score badge (e.g. 67/100 🟡)
+//         Show "Download CV" button
+//     → If no CV uploaded: show "No CV" greyed text
+//   How to store CV data:
+//     → When user does ATS check, store score in
+//       Firebase: /users/{phone}/atsScore = 67
+//     → If PDF uploaded, store in Firebase Storage
+//       OR store base64 in /users/{phone}/cvData
+//       (WARNING: base64 PDF may exceed Firebase limit)
+//     → For now: store ATS score only (no PDF storage)
+//       Admin sees score column, no PDF download yet
+//   Status: PENDING — see Question 1 below
+//
+// ── FEATURE 5: ADMIN — FULL WEBSITE TEST ACCESS ────
+//   Admin should be able to test the full website
+//   as if they are a paid user — bypass payment wall
+//   Options:
+//     A) Add a "Test as User" button in admin panel
+//        → Sets a special localStorage flag
+//        → Redirects to main site with paid access
+//        → Admin can test all features
+//     B) Hardcode admin phone number as always-paid
+//        in hasToolkitAccess() + showPaidDash()
+//     C) Add a bypass URL param:
+//        jobssignal.in?admin_test=true → skip payment
+//   Recommended: Option B (simplest, most reliable)
+//   Status: PENDING — see Question 2 below
+//
+// ══════════════════════════════════════════════════
+// QUESTIONS FOR KIRAN BEFORE CODING
+// (see chat below)
+// ══════════════════════════════════════════════════
+
+
 
 const AZ_ID='7d0512c2', AZ_KEY='79b7781b37844979749df7d951561f02';
 const JOOBLE_KEY='9bb9b665-d6b3-4e51-8ff3-f1d83a9c9c94'; // Free Jooble key — replace if expired
@@ -1554,11 +1958,31 @@ function goTo(viewId){
   var nav=document.getElementById('mainNav');
   var dw=document.querySelector('.dash-wrap');
   if(viewId==='dashView'){
-    if(nav)nav.style.display='none';
-    if(dw){dw.style.marginTop='0';dw.style.height='100vh';}
+    // Hide nav completely
+    if(nav){
+      nav.style.display='none';
+      nav.style.visibility='hidden';
+    }
+    // Fix dash-wrap: no gap above logo
+    if(dw){
+      dw.style.marginTop='0 !important';
+      dw.style.height='100vh';
+      dw.style.paddingTop='0';
+    }
+    // Force layout recalculation
+    document.body.style.overflow='hidden';
   }else{
-    if(nav)nav.style.display='flex';
-    if(dw){dw.style.marginTop='58px';dw.style.height='calc(100vh - 58px)';}
+    // Show nav
+    if(nav){
+      nav.style.display='flex';
+      nav.style.visibility='visible';
+    }
+    // Restore normal layout
+    if(dw){
+      dw.style.marginTop='0';
+      dw.style.height='calc(100vh - 58px)';
+    }
+    document.body.style.overflow='auto';
   }
 }
 function goToSec(id){
@@ -1580,6 +2004,12 @@ function showRTab(tab,btn){
 }
 function showUpgrade(){showLockedDash();}
 
+// ── SUPER USER CHECK ────────────────────────────────
+const SUPER_USER='9160075557';
+function isSuperUser(phone){
+  return normP(phone)===normP(SUPER_USER);
+}
+
 // ── LOGIN ────────────────────────────────────────────
 async function doLogin(){
   const phone=(document.getElementById('li_phone').value||'').trim();
@@ -1588,6 +2018,17 @@ async function doLogin(){
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
+  // Super user instant access
+  if(isSuperUser(ep)){
+    const superUser={name:'Kiran',phone:ep,email:'kiran@jobssignal.in',city:'Hyderabad',skill:'Admin',prefLocs:[]};
+    sto(S_USER,superUser);
+    const superPlan={plan:'Admin Access 🔑',expiresAt:new Date(Date.now()+365*24*60*60*1000).toISOString()};
+    sto(S_PLAN,superPlan);isPaid=true;prevUsed=true;
+    errEl.style.display='none';
+    enterDash(superUser);
+    showToast('Super user access granted 🔑','green');
+    return;
+  }
   // Check localStorage first (instant)
   try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
   // Check Firebase (cross-browser)
@@ -1833,6 +2274,7 @@ function fetchGoogleJobs(skill, city, exp, el){
       var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
       var src=j.job_publisher||'Google Jobs';
       var ename=(j.employer_name||"Co").charAt(0).toUpperCase();
+      var logo='<div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a6b6b,#2a9d8f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;font-family:\'Fraunces\',serif;">'+ename+'</div>';
       h+='<div class="gj-card">'
         +'<div class="gj-top">'
         +'<div class="gj-logo">'+logo+'</div>'
@@ -2214,6 +2656,23 @@ function checkAdminRoute(){
     return true;
   }
   return false;
+}
+
+// ── SESSION RESTORE ON PAGE LOAD ─────────────────────
+function restoreSession(){
+  if(checkAdminRoute())return; // Don't restore if on admin route
+  const savedUser=gjson(S_USER,null);
+  const savedPlan=gjson(S_PLAN,null);
+  if(savedUser&&savedUser.phone){
+    currentUser=savedUser;
+    if(savedPlan&&savedPlan.plan&&new Date(savedPlan.expiresAt)>new Date()){
+      isPaid=true;prevUsed=true;
+    }else if(localStorage.getItem(S_PREV)==='1'){
+      prevUsed=true;
+    }
+    buildDash(savedUser,savedPlan||{});
+    goTo('dashView');
+  }
 }
 
 // ── FIX nextStep: email dup check ───────────────────
@@ -2715,9 +3174,18 @@ function previewResume(){
   goStep(4);
 }
 
+// ── PAGE LOAD — Initialize App ──────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  trackVisit();
+  restoreSession();
+});
+
 
 
 </script>
+
+
+
 
 
 <!-- Razorpay -->
