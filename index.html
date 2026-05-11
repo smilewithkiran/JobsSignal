@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%230f1117"/><circle cx="16" cy="16" r="3" fill="%23e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="%23e8943a" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="16" r="9" fill="none" stroke="%23e8943a" stroke-width="1" opacity="0.5"/></svg>'>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>JobsSignal — Test</title>
 
 <!-- Firebase SDK FIRST — before our script -->
@@ -36,7 +36,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);}
 .nav-links button:hover{background:rgba(15,17,23,.05);}
 .btn-login{border:1.5px solid var(--border)!important;color:var(--ink)!important;}
 .btn-signup{background:var(--ink)!important;color:#fff!important;border-radius:8px;}
-body{padding-top:58px;} #dashView {padding-top: 0 !important;} #dashView body {padding-top: 0 !important;}
+body{padding-top:58px;}
 
 /* HERO */
 .hero{max-width:780px;margin:0 auto;padding:70px 24px 50px;text-align:center;}
@@ -118,8 +118,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .li-btn{padding:6px 11px;border-radius:6px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 
 /* DASHBOARD */
-.dash-wrap{display:flex;height:100vh;margin-top:0 !important;padding-top:0 !important;overflow:hidden;width:100%;}
-.sidebar{width:152px;background:var(--ink);border-right:1px solid var(--border);padding:8px 0;overflow-y:auto;display:flex;flex-direction:column;position:relative;z-index:999;}
+.dash-wrap{display:flex;height:100vh;margin-top:0;overflow:hidden;}
+.sidebar{width:240px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;}
 .sb-brand{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.07);}
 .sb-wm{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
 .sb-wm em{color:var(--amber);font-style:italic;font-weight:300;}
@@ -130,9 +130,9 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-out{margin-left:auto;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.25);border-radius:6px;color:#ff8080;font-size:9px;font-weight:700;padding:3px 7px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
 .sb-nav{padding:10px 0;flex:1;}
 .sb-sec-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:8px 16px 3px;}
-.sb-item{padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,255,255,.5);font-size:9px;text-align:center;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer;}
 .sb-item:hover{background:rgba(255,255,255,.05);color:#fff;}
-.sb-item.active{background:rgba(232,148,58,.12);color:var(--amber);}.sb-item.filter-on{background:rgba(26,107,107,.15);color:var(--teal);}
+.sb-item.active{background:rgba(232,148,58,.12);color:var(--amber);}
 .sb-icon{font-size:14px;flex-shrink:0;}
 .sb-divider{height:1px;background:rgba(255,255,255,.08);margin:6px 12px;}
 .sb-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
@@ -152,7 +152,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .pb-title{font-family:'Fraunces',serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px;}
 .pb-sub{font-size:11px;color:rgba(255,255,255,.6);}
 .btn-prev{padding:8px 16px;border-radius:7px;background:var(--amber);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.mode-tabs{display:none !important;/* BUG FIX: Remove duplicate mode buttons */}
+.mode-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:14px;-webkit-overflow-scrolling:touch;}
 .mode-tab{padding:7px 14px;border-radius:7px;border:1.5px solid var(--border);background:#fff;color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .mode-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .search-panel{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:14px;}
@@ -167,11 +167,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .r-title{font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:var(--ink);}
 .r-sub{font-size:11px;color:var(--soft);margin-top:2px;}
 .r-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 16px;margin-top:10px;}
-.src-tabs{display:flex;flex-direction:row;gap:10px;margin-bottom:16px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.src-tab{flex:1;min-width:120px;padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;text-align:center;}
-.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
-.src-tab:not(.active):hover{border-color:var(--amber);color:var(--amber);}
-.src-pane{animation:fadeIn .3s ease;}
 .r-tab{padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--soft);border:none;background:transparent;border-bottom:2.5px solid transparent;font-family:'DM Sans',sans-serif;}
 .r-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
 .r-content{padding:16px;}
@@ -202,7 +197,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .az-date{font-size:10px;color:var(--muted);}
 .az-apply{padding:5px 12px;border-radius:6px;background:var(--amber);color:#fff;font-size:11px;font-weight:700;text-decoration:none;}
 .az-powered{font-size:10px;color:var(--muted);text-align:center;padding:10px 0 0;border-top:1px solid var(--border);margin-top:10px;}
-.upgrade-plans{background:#fff;border:1px solid var(--border);border-radius:13px;padding:20px;margin-bottom:14px;display:none;position:relative;z-index:50;}
+.upgrade-plans{background:#fff;border:1px solid var(--border);border-radius:13px;padding:20px;margin-bottom:14px;display:none;}
 .up-title{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);margin-bottom:3px;}
 .up-sub{font-size:12px;color:var(--soft);margin-bottom:14px;}
 .plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;}
@@ -224,7 +219,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .sa-left{display:none;}
   .sa-right{padding:28px 20px;}
   .field-row{grid-template-columns:1fr;}
-  .sidebar{width:152px;background:var(--ink);border-right:1px solid var(--border);padding:8px 0;overflow-y:auto;display:flex;flex-direction:column;}
+  .sidebar{width:60px;}
   .sb-user>div,.sb-uname,.sb-urole,.sb-sec-label,.sb-item span:last-child{display:none;}
   .sb-content{padding:14px;}
   .stat-cards{grid-template-columns:1fr 1fr;}
@@ -254,8 +249,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-item.locked{opacity:.6;cursor:pointer;}
 
 /* ── JOB RESULTS NEW DESIGN ── */
-@media (min-width:480px){}
-}@media (min-width:768px){}@media (min-width:480px){}@media (min-width:768px){}}
+
+
 
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
@@ -285,8 +280,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .gj-remote{font-size:11px;color:#16a34a;font-weight:600;}
 
 /* LinkedIn jobs redirect */
-.lj-redirect{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;}
-.lj-btn{display:inline-block;padding:12px 24px;background:var(--ink);color:#fff;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.lj-redirect{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;border:1.5px solid var(--border);}
+.lj-btn{display:inline-block;padding:12px 24px;background:#0077b5;color:#fff;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px;}
 
 /* Loading spinner */
 .az-loading{display:flex;align-items:center;gap:12px;padding:20px;font-size:13px;color:var(--soft);}
@@ -295,21 +290,13 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .az-empty{text-align:center;padding:32px 20px;color:var(--soft);font-size:13px;line-height:1.7;background:#fff;border-radius:12px;border:1.5px solid var(--border);}
 
 /* ── ATS CHECKER ── */
-.ats-wrap{height:calc(100vh - 58px);overflow-y:auto;background:var(--cream);}#dashView .ats-wrap{height:100vh;}
-.ats-header{background:var(--ink);padding:16px 16px;position:sticky;top:0;z-index:10;}@media (min-width:768px){.ats-header{padding:20px 28px;}}
-.template-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:20px 0;}
-.template-card{border:2px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;text-align:center;}
-.template-card:hover{border-color:var(--amber);box-shadow:0 4px 12px rgba(232,148,58,.15);}
-.template-card.active{border-color:var(--amber);background:rgba(232,148,58,.08);}
-.template-preview{height:140px;background:rgba(15,17,23,.05);border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;font-size:48px;}
-.template-name{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px;}
-.template-desc{font-size:12px;color:var(--soft);}
-
+.ats-wrap{height:100vh;overflow-y:auto;background:var(--cream);}
+.ats-header{background:var(--ink);padding:20px 28px;position:sticky;top:0;z-index:10;}
 .ats-back{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;}
-.ats-header-title{font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:#fff;}@media (min-width:768px){.ats-header-title{font-size:22px;}}
+.ats-header-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;}
 .ats-header-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;}
-.ats-body{max-width:760px;margin:0 auto;padding:24px 16px;}@media (min-width:768px){.ats-body{padding:32px 28px;}}
-.ats-upload-zone{background:#fff;border-radius:20px;border:2px dashed var(--border);padding:28px 16px;text-align:center;}@media (min-width:768px){.ats-upload-zone{padding:40px 32px;}}
+.ats-body{max-width:760px;margin:0 auto;padding:32px 28px;}
+.ats-upload-zone{background:#fff;border-radius:20px;border:2px dashed var(--border);padding:40px 32px;text-align:center;}
 .auz-icon{font-size:48px;margin-bottom:16px;}
 .auz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;margin-bottom:6px;}
 .auz-sub{font-size:13px;color:var(--soft);margin-bottom:20px;}
@@ -321,13 +308,13 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 /* ATS Result */
 .ats-result{animation:fadeIn .4s ease;}
-.ats-score-wrap{background:var(--ink);border-radius:20px;padding:24px 16px;text-align:center;margin-bottom:20px;}@media (min-width:768px){.ats-score-wrap{padding:32px;}}
-.ats-gauge{position:relative;width:100px;height:100px;margin:0 auto 16px;}@media (min-width:768px){.ats-gauge{width:140px;height:140px;}}
+.ats-score-wrap{background:var(--ink);border-radius:20px;padding:32px;text-align:center;margin-bottom:20px;}
+.ats-gauge{position:relative;width:140px;height:140px;margin:0 auto 16px;}
 .ats-gauge svg{transform:rotate(-90deg);}
 .ats-score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:#fff;}
 .ats-score-label{font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;}
 .ats-verdict{font-size:14px;font-weight:700;color:#fff;margin-top:8px;}
-.ats-sections{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}@media (min-width:768px){.ats-sections{grid-template-columns:1fr 1fr;}}
+.ats-sections{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .ats-section{background:#fff;border-radius:14px;padding:18px;border:1.5px solid var(--border);}
 .ats-sec-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
 .ats-sec-score{margin-left:auto;font-family:'Fraunces',serif;font-size:16px;font-weight:800;}
@@ -339,36 +326,36 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .ats-cta-btn{display:inline-block;margin-top:12px;padding:11px 24px;background:#fff;color:var(--amber);border-radius:8px;font-size:13px;font-weight:800;text-decoration:none;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
 
 /* ── RESUME BUILDER ── */
-.resume-wrap{height:100vh;overflow-y:auto;background:var(--cream);}
+
 .resume-body{max-width:900px;margin:0 auto;padding:32px 28px;}
-.rb-step-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:-.5px;}
-.rb-input-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
-.rb-opt{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;}
+
+
+
 .rb-opt:hover{border-color:var(--amber);box-shadow:0 4px 20px rgba(232,148,58,.15);}
 .rb-opt.selected{border-color:var(--amber);background:#fff7ed;}
-.rb-opt-icon{font-size:28px;margin-bottom:8px;}
-.rb-opt-title{font-size:13px;font-weight:800;margin-bottom:4px;}
-.rb-opt-sub{font-size:10px;color:var(--soft);line-height:1.5;}
-.rb-next-btn{padding:12px 28px;background:var(--amber);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.rb-template-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}@media (min-width:768px){.rb-template-gallery{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;}}
-.rb-tmpl-card{background:#fff;border-radius:14px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:all .2s;}
+
+
+
+
+
+
 .rb-tmpl-card:hover{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,148,58,.15);}
 .rb-tmpl-card.selected{border-color:var(--amber);}
-.rb-tmpl-thumb{height:200px;overflow:hidden;position:relative;}
-.rb-tmpl-info{padding:12px 14px;border-top:1px solid var(--border);}
-.rb-tmpl-name{font-size:12px;font-weight:800;color:var(--ink);}
-.rb-tmpl-role{font-size:10px;color:var(--soft);margin-top:2px;}
-.rb-tmpl-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;margin-top:4px;}
+
+
+
+
+
 .badge-pro{background:#eff6ff;color:#1d4ed8;}
 .badge-modern{background:#faf5ff;color:#7c3aed;}
-.rb-preview-wrap{display:grid;grid-template-columns:1fr 240px;gap:24px;}
-.rb-preview-panel{background:#fff;border-radius:14px;border:1.5px solid var(--border);min-height:600px;overflow:hidden;}
-.rb-download-panel{display:flex;flex-direction:column;gap:10px;}
-.rb-download-btn{padding:14px;background:linear-gradient(135deg,var(--amber),#d97706);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.rb-edit-btn,.rb-template-btn{padding:11px;background:#fff;border:1.5px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);}
+
+
+
+
+.rb-edit-btn,
 @media(max-width:700px){
   .ats-sections{grid-template-columns:1fr;}
-  .rb-preview-wrap{grid-template-columns:1fr;}
+  
 }
 
 /* ── Auth left panel features ── */
@@ -377,6 +364,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sa-feat-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
 .sa-feat-t{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
 .sa-feat-s{font-size:10px;color:rgba(255,255,255,.5);line-height:1.4;}
+.src-tabs{display:flex;gap:10px;margin-bottom:16px;}.src-tab{flex:1;min-width:130px;padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;text-align:center;}.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}.src-pane{animation:fadeIn .3s ease;}
 </style>
 </head>
 <body>
@@ -391,7 +379,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <button onclick="goToSec('howItWorks')">How It Works</button>
     <button onclick="goToSec('modes')">Search Modes</button>
     <button onclick="goToSec('comparison')">vs Portals</button>
-    <button onclick="goToSec('toolkit')">🧰 Toolkit</button>
     <button onclick="goToSec('pricing')">Pricing</button>
     <button class="btn-login" onclick="goTo('loginView')">Log In</button>
     <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
@@ -405,7 +392,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <div class="hero">
     <div class="eyebrow">Real-time Recruiter Signals · India</div>
     <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
-    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from Google Jobs, LinkedIn Jobs &amp; top Indian portals (Naukri, Indeed, Shine).</p>
+    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from Adzuna, Jooble, Remotive &amp; Jobicy.</p>
 
     <!-- Professional hero image banner -->
     <div style="margin:28px auto 0;max-width:900px;border-radius:20px;overflow:hidden;height:320px;position:relative;box-shadow:0 20px 60px rgba(15,17,23,.14);">
@@ -438,7 +425,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="steps">
       <div class="step"><div class="step-n">1</div><div><strong>Sign up free — 30 seconds.</strong><br><span style="font-size:13px;color:var(--soft);">Enter your name, mobile, skill and city. No password needed.</span></div></div>
       <div class="step"><div class="step-n">2</div><div><strong>Choose your search mode.</strong><br><span style="font-size:13px;color:var(--soft);">5 modes: Skill+City · Hashtag Hunt · Notice Period · Referral Radar · Walk-in Drives</span></div></div>
-      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Google Jobs & LinkedIn Jobs show inside the app with salary, company details & apply links.</span></div></div>
+      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Adzuna (100+ sources) show inside the app with salary &amp; Apply button.</span></div></div>
     </div>
   </section>
 
@@ -452,47 +439,22 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <div class="mode-card"><div class="mode-icon">⏱️</div><div class="mode-name">Notice Period</div><div class="mode-desc">Recruiters looking for 30-day or immediate joiners.</div></div>
         <div class="mode-card"><div class="mode-icon">🤝</div><div class="mode-name">Referral Radar</div><div class="mode-desc">Find employees offering referrals at target companies.</div></div>
         <div class="mode-card"><div class="mode-icon">🚶</div><div class="mode-name">Walk-in Drives</div><div class="mode-desc">Live walk-in interview announcements this week.</div></div>
-        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Google Jobs & LinkedIn Jobs inside the app. Salary, company, apply links. India-focused.</div></div>
+        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Indeed + 100 sources inside the app. Salary, company, Apply button. Powered by Adzuna.</div></div>
       </div>
     </div>
   </section>
 
 
-  <section id="comparison" style="max-width:900px;margin:0 auto;padding:60px 24px;"><div class="eyebrow">Why JobsSignal</div><h2 style="font-family:'Fraunces',serif;font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;">Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th.</h2><p style="font-size:15px;color:var(--soft);line-height:1.7;max-width:480px;margin-bottom:32px;">Every portal shows jobs 500 people already applied to. JobsSignal finds the recruiter before the job is posted.</p><div style="display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);border-radius:14px;overflow:hidden;margin-bottom:28px;"><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">0<sup>hr</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Delay</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">10x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Less Competition</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">5x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Referral Rate</div></div><div style="padding:18px 12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">&#8377;49</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Starts From</div></div></div><div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:12px;margin-bottom:24px;"><div style="background:#fff;border-radius:14px;border:1px solid var(--border);padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;">Other Portals</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);margin-bottom:12px;">Naukri &#183; LinkedIn &#183; Indeed</div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128336; Jobs appear 24&#8211;48 hrs late</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128101; 500&#8211;5,000 applicants per listing</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128269; No notice period filter</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128176; &#8377;1,800&#8211;5,000/year premium</div></div></div><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:60px;gap:8px;"><div style="height:30px;width:1px;background:var(--border);"></div><div style="width:32px;height:32px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--soft);">VS</div><div style="height:30px;width:1px;background:var(--border);"></div></div><div style="background:var(--ink);border-radius:14px;padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:7px;">JobsSignal</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:12px;">Jobs<em style="color:var(--amber);font-style:italic;font-weight:300;">Signal</em></div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9889; Same minute as recruiter posts</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#127919; First 5&#8211;10 to see every post</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9201;&#65039; Notice Period + Referral modes</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">🔍 Exact skill matches (no irrelevant jobs)</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">📊 ATS Checker + Resume Builder included</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">🤝 Direct recruiter contact (not lost in queue)</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#128176; &#8377;49/7d &#183; &#8377;99/mo &#183; &#8377;599/yr</div></div></div></div><div style="background:var(--ink);border-radius:14px;padding:32px;text-align:center;"><h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:8px;">Apply first. Not 500th.</h3><p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:18px;line-height:1.7;">Every portal shows jobs 500 people already applied to.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><button class="btn-primary" onclick="goTo('signupView')">Start Free</button><button class="btn-ghost" onclick="goToSec('pricing')" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);">See Pricing</button></div></div></section>
+  <section id="comparison" style="max-width:900px;margin:0 auto;padding:60px 24px;"><div class="eyebrow">Why JobsSignal</div><h2 style="font-family:'Fraunces',serif;font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;">Apply <em style="color:var(--amber);font-style:italic;font-weight:300;">first.</em> Not 500th.</h2><p style="font-size:15px;color:var(--soft);line-height:1.7;max-width:480px;margin-bottom:32px;">Every portal shows jobs 500 people already applied to. JobsSignal finds the recruiter before the job is posted.</p><div style="display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);border-radius:14px;overflow:hidden;margin-bottom:28px;"><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">0<sup>hr</sup></div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Delay</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">10x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Less Competition</div></div><div style="padding:18px 12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">5x</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Referral Rate</div></div><div style="padding:18px 12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--amber);">&#8377;49</div><div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:3px;">Starts From</div></div></div><div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:12px;margin-bottom:24px;"><div style="background:#fff;border-radius:14px;border:1px solid var(--border);padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;">Other Portals</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:var(--ink);margin-bottom:12px;">Naukri &#183; LinkedIn &#183; Indeed</div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128336; Jobs appear 24&#8211;48 hrs late</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128101; 500&#8211;5,000 applicants per listing</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128269; No notice period filter</div><div style="padding:7px 9px;background:rgba(192,57,43,.05);border-radius:7px;font-size:12px;color:var(--soft);">&#128176; &#8377;1,800&#8211;5,000/year premium</div></div></div><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:60px;gap:8px;"><div style="height:30px;width:1px;background:var(--border);"></div><div style="width:32px;height:32px;border-radius:50%;background:var(--cream);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--soft);">VS</div><div style="height:30px;width:1px;background:var(--border);"></div></div><div style="background:var(--ink);border-radius:14px;padding:20px;"><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:7px;">JobsSignal</div><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:12px;">Jobs<em style="color:var(--amber);font-style:italic;font-weight:300;">Signal</em></div><div style="display:flex;flex-direction:column;gap:6px;"><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9889; Same minute as recruiter posts</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#127919; First 5&#8211;10 to see every post</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#9201;&#65039; Notice Period + Referral modes</div><div style="padding:7px 9px;background:rgba(232,148,58,.08);border-radius:7px;font-size:12px;color:rgba(255,255,255,.8);">&#128176; &#8377;49/7d &#183; &#8377;99/mo &#183; &#8377;599/yr</div></div></div></div><div style="background:var(--ink);border-radius:14px;padding:32px;text-align:center;"><h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:8px;">Apply first. Not 500th.</h3><p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:18px;line-height:1.7;">Every portal shows jobs 500 people already applied to.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><button class="btn-primary" onclick="goTo('signupView')">Start Free</button><button class="btn-ghost" onclick="goToSec('pricing')" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);">See Pricing</button></div></div></section>
   <section id="pricing">
-
-  <!-- TOOLKIT SECTION -->
-  <section id="toolkit" style="background:linear-gradient(135deg,var(--ink) 0%,#1a2835 100%);border-radius:18px;margin:60px 24px;padding:60px 24px;max-width:100%;">
-    <div style="max-width:900px;margin:0 auto;">
-      <div class="eyebrow" style="color:var(--amber);text-align:center;">Career Toolkit</div>
-      <h2 style="color:#fff;text-align:center;margin-bottom:12px;">ATS Checker + Resume <em style="color:var(--amber);font-style:italic;font-weight:300;">Builder.</em></h2>
-      <p style="font-size:15px;color:rgba(255,255,255,.6);text-align:center;line-height:1.7;max-width:580px;margin:0 auto 40px;">Transform your resume into an ATS powerhouse. Check your score instantly. Build stunning versions in 2 minutes.</p>
-      
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
-        <!-- ATS Checker -->
-        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(232,148,58,.2);border-radius:16px;padding:32px;backdrop-filter:blur(10px);">
-          <div style="font-size:32px;margin-bottom:12px;">📊</div>
-          <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;">ATS Checker</h3>
-          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;">Get a score out of 100. See what's missing. Fix weak phrases. Remove ATS-blocking tables & images.</p>
-          <ul style="list-style:none;font-size:12px;color:rgba(255,255,255,.7);line-height:2;">
-            <li>✓ Action verb analysis</li>
-            <li>✓ Missing sections detected</li>
-            <li>✓ Metrics & numbers check</li>
-            <li>✓ Formatting warnings</li>
-            <li>✓ LinkedIn compatibility</li>
-          </ul>
-        </div>
-
-        </section>
     <div class="eyebrow" style="text-align:center;">Pricing</div>
     <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
     <p class="sec-sub" style="text-align:center;max-width:380px;margin:0 auto 24px;">Start free. No card. Upgrade when ready.</p>
     <div class="price-grid">
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
-      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>ATS Checker ✓</li><li>Resume Builder ✓</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Quarterly</div><div class="pc-price">₹179</div><div class="pc-per">60 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>ATS Checker + Resume Builder</li><li>Extended access</li><li>All 5 search modes</li><li>Live Job Listings</li><li>Best for job hunters</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹179</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Quarterly</li><li>ATS Checker + Resume Builder</li><li>Live Job Listings</li><li>Priority support</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -506,7 +468,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="sa-features">
       <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Real-time Recruiter Signals</div><div class="sa-feat-s">LinkedIn recruiter posts before they go viral</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Know how ATS-ready your resume is — free</div></div></div>
-      <div class="sa-feat" style="display:none"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">Professional PDF resume in minutes</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Salary Tools (CTC + Hike Calculator)</div><div class="sa-feat-s">Professional PDF resume in minutes</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live listings from Naukri, LinkedIn, Indeed</div></div></div>
     </div>
     <div class="sa-stats" style="margin-top:20px;">
@@ -539,7 +501,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="sa-features">
       <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Recruiter Signal Finder</div><div class="sa-feat-s">5 smart search modes — Skill, Hashtag, Notice, Referral, Walk-in</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Upload resume → instant ATS score + fix list</div></div></div>
-      <div class="sa-feat" style="display:none"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">10 stunning templates · LinkedIn PDF → ready resume</div></div></div>
+      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Salary Tools</div><div class="sa-feat-s">10 stunning templates · LinkedIn PDF → ready resume</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live job listings from Naukri, LinkedIn, Indeed & more</div></div></div>
     </div>
     <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,.4);">1 free search · No card needed · Cancel anytime</div>
@@ -581,7 +543,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
           <div style="font-size:13px;display:flex;flex-direction:column;gap:5px;">
             <div>✓ 1 free recruiter signal search</div>
             <div>✓ All 5 search modes</div>
-            <div>✓ Live Job Listings from Google Jobs & LinkedIn</div>
+            <div>✓ Live Job Listings from Adzuna</div>
             <div>✓ No credit card needed</div>
           </div>
         </div>
@@ -628,15 +590,20 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
       
       <div class="sb-divider"></div>
+      <div class="sb-sec-label">Results</div>
+      <div class="sb-item" onclick="document.querySelector('.r-tab').click()"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
+      <div class="sb-item" onclick="document.querySelectorAll('.r-tab')[1].click()"><span class="sb-icon">💼</span><span>Job Listings</span></div>
+      <div class="sb-item" onclick="document.querySelectorAll('.r-tab')[2].click()"><span class="sb-icon">👤</span><span>Find Recruiters</span></div>
+      <div class="sb-divider"></div>
       <div class="sb-sec-label">Account</div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
-      <div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
-      <div class="sb-sec-label" style="font-size:8px;padding:8px 8px 2px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;">Smart Filters</div>
-      <div class="sb-item" id="filter-moonlight" onclick="toggleSbFilter('moonlight',this)" title="Companies allowing side projects">
-        <span class="sb-icon">🌙</span><span>Moonlighting<br>OK</span>
+      <div style="height:1px;background:rgba(255,255,255,.1);margin:6px 0;"></div>
+      <div style="font-size:8px;padding:4px 8px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;">Smart Filters</div>
+      <div class="sb-item" id="filter-moonlight" onclick="this.classList.toggle('active');showToast(this.classList.contains('active')?'Moonlighting filter ON':'Moonlighting filter OFF','amber')">
+        <span class="sb-icon">🌙</span><span style="line-height:1.3;">Moonlighting<br>OK</span>
       </div>
-      <div class="sb-item" id="filter-women" onclick="toggleSbFilter('women',this)" title="Returnship & flexible roles">
-        <span class="sb-icon">👩</span><span>Women<br>Returns</span>
+      <div class="sb-item" id="filter-women" onclick="this.classList.toggle('active');showToast(this.classList.contains('active')?'Women Returns filter ON':'Women Returns filter OFF','amber')">
+        <span class="sb-icon">👩</span><span style="line-height:1.3;">Women<br>Returns</span>
       </div>
     </div>
   </div><!-- /sidebar -->
@@ -744,11 +711,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <div class="ats-wrap">
     <div class="ats-header">
       <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;">
-        <button id="tk-ats-btn" onclick="showToolkitTab('ats')" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">📊 ATS Checker</button>
-        <button id="tk-salary-btn" onclick="showToolkitTab('salary')" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🧮 Salary Tools</button>
-      </div>
-      <div class="ats-header-title" id="tk-page-title">📊 ATS Score Checker</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;"><button id="tk-ats-btn" onclick="showToolkitTab('ats')" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">📊 ATS Checker</button><button id="tk-salary-btn" onclick="showToolkitTab('salary')" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">🧮 Salary Tools</button></div><div class="ats-header-title" id="tk-page-title">📊 ATS Score Checker</div>
       <div class="ats-header-sub">Find out how recruiter-friendly your resume is — instantly</div>
     </div>
     <div class="ats-body" id="atsBody">
@@ -762,82 +725,11 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <textarea class="auz-paste" id="atsPasteText" placeholder="Paste your resume text or LinkedIn profile text here..."></textarea>
         <button class="auz-analyse-btn" onclick="runATSCheck()">📊 Check My ATS Score →</button>
       </div>
-      <div class="ats-result" id="atsResult" style="display:none;"></div>
+      <div class="ats-result" id="atsResult" style="display:none;">
+    <div id="salaryToolsPanel" style="display:none;"><div class="ats-body"><div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">🧮 CTC Breakdown Calculator</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Enter CTC &#8594; exact monthly in-hand after PF, PT &amp; TDS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">ANNUAL CTC (&#8377;)</div><input id="ctc-input" type="number" placeholder="e.g. 1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TAX REGIME</div><select id="ctc-regime" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;box-sizing:border-box;"><option value="new">New Regime (2024)</option><option value="old">Old Regime</option></select></div></div><button onclick="calcCTC()" style="background:var(--amber);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Calculate Take-Home</button><div id="ctc-result" style="display:none;margin-top:12px;padding:14px;background:rgba(232,148,58,.08);border-radius:10px;font-size:13px;"></div></div><div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#128200; Hike % Negotiation</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Know your target number + get a negotiation script</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">CURRENT CTC (&#8377;)</div><input id="hike-current" type="number" placeholder="e.g. 800000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TARGET HIKE %</div><input id="hike-pct" type="number" placeholder="e.g. 30" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div></div><button onclick="calcHike()" style="background:var(--teal);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Calculate My Target</button><div id="hike-result" style="display:none;margin-top:12px;padding:14px;background:rgba(26,107,107,.08);border-radius:10px;font-size:13px;"></div></div><div style="background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#127961; City Salary Comparison</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Same CTC &#8212; which city gives you more real value?</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">YOUR CTC</div><input id="city-ctc" type="number" placeholder="1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">FROM</div><select id="city-from" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TO</div><select id="city-to" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;"><option>Mumbai</option><option>Bengaluru</option><option>Hyderabad</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div></div><button onclick="calcCity()" style="background:var(--ink);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Compare Cities</button><div id="city-result" style="display:none;margin-top:12px;padding:14px;background:rgba(15,17,23,.05);border-radius:10px;font-size:13px;"></div></div></div></div>
     </div>
   </div>
 </div>
-
-    <!-- SALARY TOOLS PANEL -->
-    <div id="salaryToolsPanel" style="display:none;">
-      <div class="ats-body">
-
-        <!-- CTC Calculator -->
-        <div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);">
-          <div style="font-size:16px;font-weight:700;margin-bottom:4px;">🧮 CTC Breakdown Calculator</div>
-          <div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Enter CTC → see exact monthly take-home after PF, PT &amp; TDS</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">Annual CTC (₹)</label>
-              <input id="ctc-input" type="number" placeholder="e.g. 1200000" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-            </div>
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">Tax Regime</label>
-              <select id="ctc-regime" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-                <option value="new">New Regime (2024)</option>
-                <option value="old">Old Regime</option>
-              </select>
-            </div>
-          </div>
-          <button onclick="calcCTC()" style="background:var(--amber);color:#fff;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;">Calculate Take-Home →</button>
-          <div id="ctc-result" style="display:none;margin-top:14px;padding:14px;background:rgba(232,148,58,.08);border-radius:10px;"></div>
-        </div>
-
-        <!-- Hike Calculator -->
-        <div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);">
-          <div style="font-size:16px;font-weight:700;margin-bottom:4px;">📈 Hike % Negotiation Calculator</div>
-          <div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Know your target number before the HR call</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">Current CTC (₹)</label>
-              <input id="hike-current" type="number" placeholder="e.g. 800000" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-            </div>
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">Target Hike %</label>
-              <input id="hike-pct" type="number" placeholder="e.g. 30" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-            </div>
-          </div>
-          <button onclick="calcHike()" style="background:var(--teal);color:#fff;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;">Calculate My Target →</button>
-          <div id="hike-result" style="display:none;margin-top:14px;padding:14px;background:rgba(26,107,107,.08);border-radius:10px;"></div>
-        </div>
-
-        <!-- City Comparison -->
-        <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);">
-          <div style="font-size:16px;font-weight:700;margin-bottom:4px;">🏙️ City Salary Comparison</div>
-          <div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Same CTC — which city gives you more real value?</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">Your CTC (₹)</label>
-              <input id="city-ctc" type="number" placeholder="1200000" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-            </div>
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">From City</label>
-              <select id="city-from" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-                <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;">To City</label>
-              <select id="city-to" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;margin-top:5px;font-family:'DM Sans',sans-serif;box-sizing:border-box;">
-                <option>Mumbai</option><option>Bengaluru</option><option>Hyderabad</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option>
-              </select>
-            </div>
-          </div>
-          <button onclick="calcCity()" style="background:var(--ink);color:#fff;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;">Compare Cities →</button>
-          <div id="city-result" style="display:none;margin-top:14px;padding:14px;background:rgba(15,17,23,.05);border-radius:10px;"></div>
-        </div>
-
-      </div>
-    </div>
 
 <!-- RESUME BUILDER VIEW -->
 
@@ -952,7 +844,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   → NO job description needed — general ATS best practices
 //   → PENDING: Build inside JobsSignal Career Toolkit section
 //
-// FEATURE 2 — Resume Builder (2 input methods)
+// FEATURE 2 — Salary Tools (2 input methods)
 //   Method A: LinkedIn Profile URL
 //     → User pastes LinkedIn URL
 //     → Claude API extracts: name, title, skills, experience, education
@@ -1142,7 +1034,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   New nav items (suggested):
 //     → How it Works
 //     → Search Modes
-//     → Resume Builder  ← NEW
+//     → Salary Tools  ← NEW
 //     → ATS Checker     ← NEW
 //     → vs Portals
 //     → Pricing
@@ -1151,7 +1043,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → vs Portals
 //     → Pricing
 //   Landing page sections to update:
-//     → Hero: mention Resume Builder + ATS as new features
+//     → Hero: mention Salary Tools + ATS as new features
 //     → How it Works: add resume + ATS steps
 //     → Search Modes: keep but update job sources
 //     → vs Portals: add resume/ATS comparison rows
@@ -1175,7 +1067,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → Color transitions green/amber/red
 //     → Section-by-section reveal animation
 //     → Shareable score card
-//   Resume Builder:
+//   Salary Tools:
 //     → Template gallery like Canva
 //     → Live preview as you type
 //     → Smooth template switching
@@ -1230,7 +1122,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 // ── CONFIRMED DECISION 4: PRICING ──────────────────
 //   ✅ Keep SAME pricing — just add features to plans
 //   Current: ₹49/7d · ₹99/30d · ₹179/60d · ₹599/yr
-//   ATS Checker + Resume Builder included in ALL paid plans
+//   ATS Checker + Salary Tools included in ALL paid plans
 //   Free users: 1 ATS check preview, see templates exist
 //   Paid users: Full ATS report + all 10 templates
 //
@@ -1239,13 +1131,13 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   New nav order:
 //     → How it Works
 //     → Search Modes
-//     → Resume Builder  ← NEW
+//     → Salary Tools  ← NEW
 //     → ATS Checker     ← NEW
 //     → vs Portals
 //     → Pricing
 //   Landing page sections to add:
-//     → Resume Builder section (after Search Modes)
-//     → ATS Checker section (after Resume Builder)
+//     → Salary Tools section (after Search Modes)
+//     → ATS Checker section (after Salary Tools)
 //     → Update vs Portals table with resume/ATS rows
 //     → Update Pricing cards to mention new features
 //
@@ -1285,7 +1177,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → LinkedIn text paste
 //     → Claude API analysis
 //     → Stunning score UI
-//   Phase 4 — Resume Builder:
+//   Phase 4 — Salary Tools:
 //     → 10 template designs (HTML/CSS)
 //     → Template gallery UI
 //     → Manual form input
@@ -1294,7 +1186,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → PDF download via print CSS
 //   Phase 5 — Landing Page Updates:
 //     → New nav items
-//     → Resume Builder + ATS sections
+//     → Salary Tools + ATS sections
 //     → Updated vs Portals
 //     → Updated Pricing cards
 //
@@ -1320,7 +1212,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     ─────────────
 //     Career Toolkit    ← NEW SECTION
 //       📊 ATS Checker  ← NEW (paid only)
-//       📄 Resume Builder ← NEW (paid only)
+//       📄 Salary Tools ← NEW (paid only)
 //     ─────────────
 //     Results
 //       📡 Recruiter Posts
@@ -1354,12 +1246,12 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     10. Vivid     — Color-blocked creative, Design/Marketing
 //
 // ── CONFIRMED: PRICING ACCESS RULES ────────────────
-//   ✅ ATS Checker + Resume Builder = ₹99 and ₹599 ONLY
+//   ✅ ATS Checker + Salary Tools = ₹99 and ₹599 ONLY
 //   Plan access matrix:
 //     ₹49  / 7 days  → Signals only, NO Career Toolkit
-//     ₹99  / 30 days → Signals + ATS Checker + Resume Builder ✅
+//     ₹99  / 30 days → Signals + ATS Checker + Salary Tools ✅
 //     ₹179 / 60 days → Signals ONLY (same as ₹49) — NOTE: confirm
-//     ₹599 / Annual  → Everything + ATS + Resume Builder ✅
+//     ₹599 / Annual  → Everything + ATS Checker + Salary Tools ✅
 //   Free users:
 //     → See Career Toolkit in sidebar (greyed/locked)
 //     → Clicking shows upgrade prompt
@@ -1444,8 +1336,8 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   ✅ Option A: ₹179 gets Career Toolkit too
 //   Final access matrix:
 //     ₹49  / 7 days   → Signals only (no Career Toolkit)
-//     ₹99  / 30 days  → Signals + ATS + Resume Builder ✅
-//     ₹179 / 60 days  → Signals + ATS + Resume Builder ✅
+//     ₹99  / 30 days  → Signals + ATS Checker + Salary Tools ✅
+//     ₹179 / 60 days  → Signals + ATS Checker + Salary Tools ✅
 //     ₹599 / Annual   → Everything ✅
 //   Free users:
 //     → Career Toolkit visible in sidebar but locked
@@ -1455,14 +1347,14 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   ✅ Keep form exactly same (no new fields)
 //   ✅ Update LEFT SIDE wording only
 //   Current left panel wording (generic job search):
-//     → Update to mention: ATS Checker, Resume Builder
+//     → Update to mention: ATS Checker, Salary Tools
 //     → Show feature icons/pills on left panel
 //   Login left panel — new copy:
 //     Headline: "Your complete job search toolkit"
 //     Features to show:
 //       📡 Real-time recruiter signals
 //       📊 ATS Score Checker
-//       📄 AI Resume Builder (10+ templates)
+//       📄 AI Salary Tools (10+ templates)
 //       💼 Google Jobs + LinkedIn listings
 //       🎯 5 smart search modes
 //   Signup left panel — new copy:
@@ -1495,7 +1387,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   PHASE 3 — CAREER TOOLKIT SIDEBAR
 //     → Add "Career Toolkit" section to sidebar HTML
 //     → Add 📊 ATS Checker sidebar item
-//     → Add 📄 Resume Builder sidebar item
+//     → Add 📄 Salary Tools sidebar item
 //     → Locked state for free/₹49 users
 //     → Unlocked for ₹99, ₹179, ₹599 users
 //
@@ -1545,11 +1437,11 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //
 //   PHASE 7 — LOGIN/SIGNUP LEFT PANEL UPDATE
 //     → New copy and feature pills on left side
-//     → Mention ATS + Resume Builder
+//     → Mention ATS Checker + Salary Tools
 //     → Keep form fields exactly same
 //
 //   PHASE 8 — LANDING PAGE UPDATES
-//     → New nav items: Resume Builder, ATS Checker
+//     → New nav items: Salary Tools, ATS Checker
 //     → New landing sections for each feature
 //     → Update vs Portals table
 //     → Update Pricing cards
@@ -1634,7 +1526,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //              ✅ PDF, DOC, LinkedIn PDF — any format
 //     CTA: "Check My ATS Score Free →"
 //
-//   Section 2 — Resume Builder:
+//   Section 2 — Salary Tools:
 //     Left: HTML/CSS illustrated mockup showing template gallery
 //           (mini thumbnails of 3 templates in different styles)
 //     Right: Heading + description + bullet points
@@ -1651,7 +1543,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   consistent with existing landing page design
 //   (Fraunces + DM Sans, cream/ink/amber color scheme)
 //
-//   Nav update: Add "Resume Builder" + "ATS Checker"
+//   Nav update: Add "Salary Tools" + "ATS Checker"
 //   after "Search Modes" in top nav
 //   Add smooth scroll anchor links to new sections
 //
@@ -1663,18 +1555,18 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     ✅ Google Jobs + LinkedIn Jobs
 //     ✅ Recruiter Posts
 //     ❌ ATS Checker (locked)
-//     ❌ Resume Builder (locked)
+//     ❌ Salary Tools (locked)
 //   ₹99 / 30 Days (+ Career Toolkit):
 //     ✅ All 5 search modes
 //     ✅ Google Jobs + LinkedIn Jobs
 //     ✅ Recruiter Posts
 //     ✅ ATS Score Checker
-//     ✅ Resume Builder — 10 templates
+//     ✅ Salary Tools — 10 templates
 //     ✅ PDF Download
 //   ₹179 / 60 Days (+ Career Toolkit):
 //     ✅ Same as ₹99 but 60 days
 //     ✅ ATS Score Checker
-//     ✅ Resume Builder — 10 templates
+//     ✅ Salary Tools — 10 templates
 //     ✅ PDF Download
 //   ₹599 / Annual (Everything):
 //     ✅ All of above
@@ -1691,7 +1583,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → Divider before Results
 //   Keep:
 //     → Search Modes (5 items)
-//     → Career Toolkit (ATS + Resume Builder)
+//     → Career Toolkit (ATS Checker + Salary Tools)
 //     → Account (Upgrade Plan)
 //   Status: PENDING CODE
 //
@@ -1748,7 +1640,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 // ── CONFIRMED: Q3 — NAV CLICK BEHAVIOR ────────────
 //   ✅ Option C: Always go to signup/login first
 //   When visitor clicks "ATS Checker" or
-//   "Resume Builder" in landing page nav:
+//   "Salary Tools" in landing page nav:
 //     → If not logged in → goTo('signupView')
 //       with a welcome message highlighting that tool
 //     → If logged in → goToolkit('ats') or
@@ -1823,14 +1715,14 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   Current nav: How it Works · Search Modes ·
 //                vs Portals · Pricing
 //   Required nav: How it Works · Search Modes ·
-//                 Resume Builder · ATS Checker ·
+//                 Salary Tools · ATS Checker ·
 //                 vs Portals · Pricing
 //   Also update landing page SECTIONS:
 //     → How it Works section: add ATS + Resume steps
 //     → Search Modes section: update job sources
 //       (remove Adzuna/Jooble/Remotive refs)
 //     → New section: ATS Checker (after Search Modes)
-//     → New section: Resume Builder (after ATS)
+//     → New section: Salary Tools (after ATS)
 //     → vs Portals: add ATS + Resume rows to table
 //     → Pricing: update all plan cards (see below)
 //   Status: PENDING FIX
@@ -1840,28 +1732,28 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   Problems:
 //     → ₹179/60d plan not shown at all
 //     → ATS Checker not mentioned in any plan
-//     → Resume Builder not mentioned in any plan
+//     → Salary Tools not mentioned in any plan
 //   Required pricing card content:
 //     ₹49 / 7 Days:
 //       ✅ All 5 search modes
 //       ✅ Google Jobs + LinkedIn Jobs
 //       ✅ Recruiter Posts
 //       ❌ ATS Checker
-//       ❌ Resume Builder
+//       ❌ Salary Tools
 //     ₹99 / 30 Days:
 //       ✅ Everything in ₹49
 //       ✅ ATS Score Checker
-//       ✅ Resume Builder (10 templates)
+//       ✅ Salary Tools (10 templates)
 //       ✅ PDF Download
 //     ₹179 / 60 Days:
 //       ✅ Everything in ₹99
 //       ✅ ATS Score Checker
-//       ✅ Resume Builder (10 templates)
+//       ✅ Salary Tools (10 templates)
 //       ✅ PDF Download
 //       (Same as ₹99 but longer duration)
 //     ₹599 / Annual:
 //       ✅ Everything
-//       ✅ ATS + Resume Builder
+//       ✅ ATS Checker + Salary Tools
 //       ✅ WhatsApp renewal reminders
 //       ✅ Best value
 //   Status: PENDING FIX
@@ -1875,7 +1767,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //           after search runs — redundant in sidebar
 //   Keep in sidebar:
 //     → Search Modes section (5 modes)
-//     → Career Toolkit section (ATS + Resume Builder)
+//     → Career Toolkit section (ATS Checker + Salary Tools)
 //     → Account section (Upgrade Plan)
 //   Remove entirely: Results section + divider
 //   Status: PENDING FIX
@@ -1969,34 +1861,16 @@ function goTo(viewId){
   var v=document.getElementById(viewId);
   if(v){v.classList.add('active');window.scrollTo(0,0);}
   var nav=document.getElementById('mainNav');
-  var body=document.body;
   var dw=document.querySelector('.dash-wrap');
   if(viewId==='dashView'){
-    // Hide nav
     if(nav){nav.style.display='none';nav.style.visibility='hidden';}
-    // BUG 2 FIX: use setProperty('important') — only way to override CSS rule via JS
-    body.style.setProperty('padding-top','0','important');
-    body.style.setProperty('margin-top','0','important');
-    body.style.setProperty('overflow','hidden','important');
-    document.documentElement.style.setProperty('padding-top','0','important');
-    // dash-wrap: full height, flush top
-    if(dw){
-      dw.style.setProperty('margin-top','0','important');
-      dw.style.setProperty('padding-top','0','important');
-      dw.style.height='100vh';
-      dw.style.position='relative';
-      dw.style.top='0';
-    }
+    document.body.style.setProperty('padding-top','0','important');
+    document.body.style.setProperty('margin-top','0','important');
+    if(dw){dw.style.setProperty('margin-top','0','important');dw.style.height='100vh';}
   }else{
-    // Restore nav
     if(nav){nav.style.display='flex';nav.style.visibility='visible';}
-    // Restore body padding for pages with fixed nav
-    body.style.setProperty('padding-top','58px','important');
-    body.style.setProperty('overflow','auto','important');
-    if(dw){
-      dw.style.marginTop='0';
-      dw.style.height='calc(100vh - 58px)';
-    }
+    document.body.style.setProperty('padding-top','58px','important');
+    if(dw){dw.style.marginTop='0';dw.style.height='calc(100vh - 58px)';}
   }
 }
 function goToSec(id){
@@ -2018,12 +1892,6 @@ function showRTab(tab,btn){
 }
 function showUpgrade(){showLockedDash();}
 
-// ── SUPER USER CHECK ────────────────────────────────
-const SUPER_USER='9160075557';
-function isSuperUser(phone){
-  return normP(phone)===normP(SUPER_USER);
-}
-
 // ── LOGIN ────────────────────────────────────────────
 async function doLogin(){
   const phone=(document.getElementById('li_phone').value||'').trim();
@@ -2032,17 +1900,6 @@ async function doLogin(){
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-  // Super user instant access
-  if(isSuperUser(ep)){
-    const superUser={name:'Kiran',phone:ep,email:'kiran@jobssignal.in',city:'Hyderabad',skill:'Admin',prefLocs:[]};
-    sto(S_USER,superUser);
-    const superPlan={plan:'Admin Access 🔑',expiresAt:new Date(Date.now()+365*24*60*60*1000).toISOString()};
-    sto(S_PLAN,superPlan);isPaid=true;prevUsed=true;
-    errEl.style.display='none';
-    enterDash(superUser);
-    showToast('Super user access granted 🔑','green');
-    return;
-  }
   // Check localStorage first (instant)
   try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
   // Check Firebase (cross-browser)
@@ -2061,36 +1918,7 @@ async function doLogin(){
 }
 
 // ── SIGNUP ───────────────────────────────────────────
-async function nextStep(from){
-  const show=(id)=>{document.getElementById(id).style.display='block';};
-  const hide=(id)=>{document.getElementById(id).style.display='none';};
-  const sl=(n)=>{['sl1','sl2','sl3'].forEach(x=>hide(x));show('sl'+n);};
-  const dots=(n)=>{for(let i=1;i<=3;i++){const d=document.getElementById('sd'+i);if(d)d.className='step-dot'+(i<n?' done':i===n?' active':'');}};
-  if(from===1){
-    const n=(document.getElementById('s1n').value||'').trim();
-    const p=(document.getElementById('s1p').value||'').trim();
-    const e=(document.getElementById('s1e').value||'').trim();
-    const s=(document.getElementById('s1s').value||'').trim();
-    const c=(document.getElementById('s1c').value||'').trim();
-    const err=(id,msg)=>{const el=document.getElementById(id+'_m');if(el)el.textContent=msg;};
-    if(!n){err('s1n','Enter your full name');return;}
-    if(!p||p.replace(/\D/g,'').length<10){err('s1p','Enter valid 10-digit mobile');return;}
-    if(!e||!e.includes('@')){err('s1e','Enter valid email');return;}
-    if(!s){err('s1s','Enter your primary skill');return;}
-    if(!c){showToast('Please select your city','amber');return;}
-    var ep=normP(p);var exU=await fbGetUser(ep);
-    if(exU&&exU.phone){showToast('Mobile already registered — please log in','amber');return;}
-    var sb=document.querySelector('#step1 .sa-btn-amber');
-    if(sb){sb.textContent='Checking ⏳';sb.disabled=true;}
-    var exE=await fbEmailExists(e);
-    if(sb){sb.textContent='Continue → Step 2';sb.disabled=false;}
-    if(exE){showToast('Email already registered — please log in','amber');return;}
-    hide('step1');show('step2');sl(2);dots(2);
-  }else if(from===2){hide('step2');show('step3');sl(3);dots(3);}
-  else if(from===-1){hide('step2');show('step1');sl(1);dots(1);}
-  else if(from===-2){hide('step3');show('step2');sl(2);dots(2);}
-  window.scrollTo(0,0);
-}
+async 
 function pickPill(btn,gid){
   if(gid==='prefLocRow'){btn.classList.toggle('sel');return;}
   document.querySelectorAll('#'+gid+' .pill-btn').forEach(b=>b.classList.remove('sel'));
@@ -2143,16 +1971,8 @@ function showPaidDash(){
   const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
   const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
 }
-function restoreDash(){
-  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
-  var up=document.getElementById('upgradePlans');if(up)up.style.display='none';
-}
-function showLockedDash(){
-  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='none';
-  var pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
-  var up=document.getElementById('upgradePlans');
-  if(up){up.style.display='block';setTimeout(function(){up.scrollIntoView({behavior:'smooth',block:'start'});},150);}
-
+function restoreDash(){var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';var up=document.getElementById('upgradePlans');if(up)up.style.display='none';}
+function showLockedDash(){var ds=document.getElementById('dashSearch');if(ds)ds.style.display='none';var up=document.getElementById('upgradePlans');if(up){up.style.display='block';setTimeout(function(){up.scrollIntoView({behavior:'smooth',block:'start'});},150);}}
 function doLogout(){
   localStorage.removeItem(S_USER);localStorage.removeItem(S_PREV);
   currentUser={};isPaid=false;prevUsed=false;
@@ -2237,7 +2057,7 @@ function setMode(mode,btn){
   se('modeIcon',m.icon);se('modeTitle',m.title);se('modeDesc',m.desc);
   var wrap=document.getElementById('modePanelWrap');if(!wrap)return;
   var cu=currentUser||{};
-  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Aurangabad','Ranchi','Patna','Guwahati','Dehradun','Raipur','Vijayawada','Guntur','Warangal','Tirupati','Hubli','Kolhapur','Surat','Vadodara','Agra','Remote','Pan India'];
+  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Aurangabad','Ranchi','Patna','Guwahati','Dehradun','Raipur','Vijayawada','Guntur','Warangal','Tirupati','Hubli','Surat','Vadodara','Kolhapur','Remote','Pan India'];
   var cOpts=cities.map(function(c){return '<option'+(c===(cu.city||'Hyderabad')?' selected':'')+'>'+c+'</option>';}).join('');
   var eOpts='<option value="">Any experience</option><option value="fresher">Fresher</option>'
     +'<option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option>'
@@ -2258,10 +2078,8 @@ function setMode(mode,btn){
       +'<option value="30days">30 Days</option><option value="60days">60 Days</option>'
       +'<option value="serving">Serving Notice</option></select></div>';
   }
-  h+='<div class="sg"><label class="sg-label">Work Mode</label>'  +'<select class="sg-select" id="sk_wfh">'  +'<option value="">All Modes</option>'  +'<option value="remote">🏠 Remote</option>'  +'<option value="hybrid">🏢 Hybrid</option>'  +'<option value="office">🏬 In-Office</option>'  +'</select></div>';
-if(mode==='skill'||mode==='notice'){
-  h+='<div class="sg"><label class="sg-label">IT Park</label>'    +'<select class="sg-select" id="sk_itpark">'    +'<option value="">All Areas</option>'    +'<option>HITEC City</option><option>Gachibowli</option><option>Madhapur</option>'    +'<option>Electronic City</option><option>Whitefield</option><option>Manyata Tech Park</option>'    +'<option>OMR</option><option>Tidel Park</option><option>BKC</option><option>Powai</option>'    +'<option>Hinjewadi</option><option>Kharadi</option>'    +'</select></div>';
-}
+  h+='<div class="sg"><label class="sg-label">Work Mode</label>'+'<select class="sg-select" id="sk_wfh"><option value="">All Modes</option>'+'<option value="remote">🏠 Remote</option><option value="hybrid">🏢 Hybrid</option>'+'<option value="office">🏬 In-Office</option></select></div>';
+if(mode==='skill'||mode==='notice'){h+='<div class="sg"><label class="sg-label">IT Park</label>'+'<select class="sg-select" id="sk_itpark"><option value="">All Areas</option>'+'<option>HITEC City</option><option>Gachibowli</option><option>Madhapur</option>'+'<option>Electronic City</option><option>Whitefield</option>'+'<option>Manyata Tech Park</option><option>OMR Chennai</option>'+'<option>Tidel Park</option><option>BKC Mumbai</option>'+'<option>Hinjewadi</option><option>Kharadi</option></select></div>';}
 h+='<button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div>';
   h+='<div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;'
     +'background:rgba(232,148,58,.06);border-radius:7px;line-height:1.5;">💡 '+m.hint+'</div>';
@@ -2298,7 +2116,6 @@ function fetchGoogleJobs(skill, city, exp, el){
       var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
       var src=j.job_publisher||'Google Jobs';
       var ename=(j.employer_name||"Co").charAt(0).toUpperCase();
-      var logo='<div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a6b6b,#2a9d8f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;font-family:\'Fraunces\',serif;">'+ename+'</div>';
       h+='<div class="gj-card">'
         +'<div class="gj-top">'
         +'<div class="gj-logo">'+logo+'</div>'
@@ -2315,6 +2132,7 @@ function fetchGoogleJobs(skill, city, exp, el){
         +'</div>'
         +(j.job_description?'<div class="gj-desc">'+(j.job_description||'').replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
         +'<div class="gj-footer">'
+        +'<a class="gj-apply" href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
         +(j.job_is_remote?'<span class="gj-remote">🌐 Remote</span>':'')
         +'</div>'
         +'</div>';
@@ -2433,7 +2251,7 @@ function runSearch(){
   // Update results panel header
   var se2=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
   se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
-  se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn Recruiter Posts + Google Jobs + LinkedIn Jobs');
+  se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn + Adzuna + Jooble + Remotive + Jobicy');
   document.getElementById('resultsArea').style.display='block';
 
   buildPosts(skill,city,u24,uWk,uMo);
@@ -2561,70 +2379,6 @@ function exportAllCSV(){
   th{padding:10px 12px;font-size:10px;font-weight:700;color:#8896a7;text-align:left;border-bottom:2px solid #e4eaf0;text-transform:uppercase;letter-spacing:.5px;background:#f8faff;}
   .footer{padding:14px 28px;background:#f8faff;border-top:1px solid #e4eaf0;font-size:11px;color:#8896a7;text-align:center;}
   @media print{body{padding:0;background:white;}.wrap{box-shadow:none;border-radius:0;max-width:100%;}}
-
-/* MOBILE FIXES — Optimize dashboard for mobile devices */
-@media (max-width: 768px) {
-  .sidebar { width: 60px; }
-  .sb-brand { font-size: 0; }
-  .sb-nav { padding: 12px 0; }
-  .sb-item { flex-direction: column; gap: 0; padding: 12px 8px; }
-  .sb-icon { font-size: 20px; margin: 0; }
-  .sb-item span:last-child { display: none; }
-  .sb-lock { display: none; }
-  
-  .sb-content { padding: 20px 16px; }
-  .dash-search { padding: 16px; }
-  .sk-field { margin-bottom: 12px; }
-  .sk-input { padding: 12px 14px; font-size: 16px; }
-  .sk-label { font-size: 11px; }
-  
-  .find-btn { padding: 12px 20px; font-size: 14px; width: 100%; }
-  .lj-btn { padding: 10px 16px; font-size: 12px; }
-  
-  .r-tabs { padding: 0 12px; gap: 6px; flex-wrap: wrap; }
-  .r-tab { padding: 6px 12px; font-size: 11px; }
-  
-  .src-tabs { flex-wrap: wrap; gap: 6px; }
-  .src-tab { padding: 6px 12px; font-size: 11px; }
-  
-  .gj-card { margin: 10px 0; padding: 12px; }
-  .gj-title { font-size: 13px; }
-  .gj-company { font-size: 12px; }
-  .gj-salary { font-size: 11px; }
-  .gj-desc { font-size: 11px; }
-  .gj-tag { font-size: 10px; padding: 4px 6px; }
-  
-  .lj-redirect { padding: 20px 14px; }
-  .lj-redirect a { padding: 10px 16px; font-size: 12px; }
-  
-  .upgrade-plans { padding: 16px; margin-bottom: 20px; }
-  .up-title { font-size: 14px; }
-  .up-sub { font-size: 11px; }
-  
-  /* Ensure no horizontal scroll */
-  body { overflow-x: hidden; }
-  .sb-content { overflow-x: hidden; }
-}
-
-@media (max-width: 480px) {
-  .sidebar { width: 50px; }
-  .sb-item { padding: 10px 6px; }
-  .sb-icon { font-size: 18px; }
-  
-  .sb-content { padding: 16px 12px; }
-  .dash-search { padding: 12px; }
-  .sk-field { margin-bottom: 10px; }
-  .sk-input { padding: 10px 12px; font-size: 16px; }
-  
-  .find-btn { padding: 11px 16px; font-size: 13px; }
-  
-  .gj-card { margin: 8px 0; padding: 10px; }
-  .gj-title { font-size: 12px; }
-  .gj-company { font-size: 11px; }
-  
-  .r-tabs { padding: 0 8px; gap: 4px; }
-  .r-tab { padding: 5px 10px; font-size: 10px; }
-}
 </style>
 </head>
 <body>
@@ -2745,23 +2499,6 @@ function checkAdminRoute(){
   return false;
 }
 
-// ── SESSION RESTORE ON PAGE LOAD ─────────────────────
-function restoreSession(){
-  if(checkAdminRoute())return; // Don't restore if on admin route
-  const savedUser=gjson(S_USER,null);
-  const savedPlan=gjson(S_PLAN,null);
-  if(savedUser&&savedUser.phone){
-    currentUser=savedUser;
-    if(savedPlan&&savedPlan.plan&&new Date(savedPlan.expiresAt)>new Date()){
-      isPaid=true;prevUsed=true;
-    }else if(localStorage.getItem(S_PREV)==='1'){
-      prevUsed=true;
-    }
-    buildDash(savedUser,savedPlan||{});
-    goTo('dashView');
-  }
-}
-
 // ── FIX nextStep: email dup check ───────────────────
 
 // ── INIT ─────────────────────────────────────────────
@@ -2772,11 +2509,8 @@ function restoreSession(){
 
 // Check if user has toolkit access (₹99, ₹179, ₹599 plans)
 function hasToolkitAccess(){
-  // Super user always has access
-  if(isSuperUser(normP(currentUser.phone||'')))return true;
-  // Paid plans have access
   var plan=localStorage.getItem(S_PLAN)||'';
-  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Annual Plan'||plan==='Admin Access 🔑';
+  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Annual Plan';
 }
 
 function goToolkit(tool){
@@ -2789,10 +2523,6 @@ function goToolkit(tool){
     document.getElementById('atsResult').style.display='none';
     document.getElementById('atsUploadZone').style.display='block';
     document.getElementById('atsPasteText').value='';
-  }else if(tool==='resume'){
-    goTo('resumeView');
-    goStep(1);
-    buildTemplateGallery();
   }
 }
 
@@ -2801,37 +2531,21 @@ var atsResumeText='';
 
 function handleATSFile(input){
   var file=input.files[0];if(!file)return;
-  var statusEl=document.getElementById('atsFileStatus');
-  if(statusEl){statusEl.textContent='✅ '+file.name;statusEl.style.display='block';}
-  var uzBtn=document.querySelector('.auz-btn');
-  if(uzBtn){uzBtn.textContent='✅ '+file.name+' — Change File';}
   var ext=file.name.split('.').pop().toLowerCase();
-  var reader=new FileReader();
   if(ext==='pdf'){
+    // Use FileReader for basic text extraction from PDF
+    var reader=new FileReader();
     reader.onload=function(e){
-      var arr=new Uint8Array(e.target.result);
-      var raw='';
-      for(var i=0;i<arr.length;i++){raw+=String.fromCharCode(arr[i]);}
-      var stream=raw.match(/[ -~]{4,}/g);
-      var text=stream?stream.filter(function(s){return s.trim().length>3;}).join(' '):'';
-      atsResumeText=text||'';
-      var ta=document.getElementById('atsPasteText');
-      if(ta){
-        ta.value=text.length>100?text.slice(0,2000)+' ['+file.name+']':'[PDF: '+file.name+'] Paste resume text below for best results.';
-        ta.style.borderColor='var(--teal)';
-      }
+      // For PDF, we extract what we can from the binary
+      var text=extractTextFromPDF(e.target.result);
+      atsResumeText=text;
+      document.getElementById('atsPasteText').value=text.slice(0,500)+'... [File loaded: '+file.name+']';
     };
-    reader.onerror=function(){
-      var ta=document.getElementById('atsPasteText');
-      if(ta){ta.value='[Could not auto-read PDF. Paste your resume text below.]';}
-    };
-    reader.readAsArrayBuffer(file);
+    reader.readAsText(file);
   }else{
-    reader.onload=function(e){
-      atsResumeText=e.target.result||'';
-      var ta=document.getElementById('atsPasteText');
-      if(ta){ta.value='['+file.name+'] '+atsResumeText.slice(0,1500);}
-    };
+    // DOC/DOCX — read as text (basic extraction)
+    var reader=new FileReader();
+    reader.onload=function(e){atsResumeText=e.target.result;document.getElementById('atsPasteText').value='[File loaded: '+file.name+'] Paste your resume text below for best results.';};
     reader.readAsText(file);
   }
 }
@@ -2859,86 +2573,6 @@ function runATSCheck(){
   renderATSResult(result);
 }
 
-function scoreResume(text){
-  var t=text.toLowerCase();
-  var words=t.split(/\s+/);
-  var score=0;var issues=[];var good=[];var missing=[];var fixes=[];
-
-  // 1. Contact info (15 pts)
-  var emailFound=/[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/.test(t);
-  var phoneFound=/[\+]?[\d\-\(\)\s]{10,}/.test(t);
-  var linkedInFound=t.includes('linkedin');
-  var githubFound=t.includes('github');
-  var contactScore=0;
-  if(emailFound){contactScore+=5;good.push('Email address found');}else{missing.push('No email address detected');}
-  if(phoneFound){contactScore+=5;good.push('Phone number found');}else{missing.push('No phone number detected');}
-  if(linkedInFound){contactScore+=3;good.push('LinkedIn URL present');}else{fixes.push('Add your LinkedIn profile URL');}
-  if(githubFound){contactScore+=2;good.push('GitHub link present');}
-  score+=contactScore;
-
-  // 2. Sections (20 pts)
-  var secScore=0;
-  var hasExp=t.includes('experience')||t.includes('work history')||t.includes('employment');
-  var hasEdu=t.includes('education')||t.includes('degree')||t.includes('university')||t.includes('college');
-  var hasSkills=t.includes('skills')||t.includes('technologies')||t.includes('tools')||t.includes('competencies');
-  var hasSummary=t.includes('summary')||t.includes('objective')||t.includes('profile')||t.includes('about');
-  var hasCerts=t.includes('certification')||t.includes('certificate')||t.includes('certified');
-  var hasProjects=t.includes('project')||t.includes('portfolio');
-  if(hasExp){secScore+=6;good.push('Experience section found');}else{missing.push('No Experience section detected');}
-  if(hasEdu){secScore+=5;good.push('Education section found');}else{missing.push('No Education section detected');}
-  if(hasSkills){secScore+=5;good.push('Skills section found');}else{missing.push('Add a dedicated Skills section');}
-  if(hasSummary){secScore+=4;good.push('Professional summary present');}else{fixes.push('Add a 2-3 line professional summary at the top');}
-  if(hasCerts)good.push('Certifications section present');
-  if(hasProjects)good.push('Projects section present');
-  score+=secScore;
-
-  // 3. Content quality (30 pts)
-  var contentScore=0;
-  var actionCount=ACTION_VERBS.filter(function(v){return t.includes(v);}).length;
-  var weakCount=WEAK_PHRASES.filter(function(p){return t.includes(p);}).length;
-  var numbersFound=(text.match(/\d+[%\+\-]?|\₹[\d,]+/g)||[]).length;
-  var wordCount=words.length;
-  if(actionCount>=6){contentScore+=12;good.push('Strong action verbs used ('+actionCount+' found)');}
-  else if(actionCount>=3){contentScore+=7;fixes.push('Use more action verbs — found only '+actionCount+'. Add: led, built, achieved, delivered...');}
-  else{fixes.push('Very few action verbs. Replace "responsible for" with: led, built, developed, achieved');}
-  if(numbersFound>=5){contentScore+=10;good.push('Good use of numbers & metrics ('+numbersFound+' found)');}
-  else if(numbersFound>=2){contentScore+=5;fixes.push('Add more metrics — only '+numbersFound+' numbers found. E.g. "Led team of 8" or "Increased sales by 40%"');}
-  else{missing.push('No quantified achievements — add numbers and metrics to every bullet point');}
-  if(weakCount===0){contentScore+=8;good.push('No weak phrases detected');}
-  else{fixes.push('Remove "'+WEAK_PHRASES.filter(function(p){return t.includes(p);})[0]+'" — replace with strong action verbs');}
-  if(wordCount>=250&&wordCount<=800){contentScore+=0;good.push('Good resume length ('+wordCount+' words)');}
-  else if(wordCount<250){missing.push('Resume too short ('+wordCount+' words) — needs more detail');}
-  else{fixes.push('Resume may be too long ('+wordCount+' words) — aim for 400-700 words');}
-  score+=contentScore;
-
-  // 4. Formatting (20 pts)
-  var fmtScore=20; // start full, deduct
-  var hasTable=t.includes('<table')||t.includes('|---|');
-  var hasPhoto=t.includes('<img')||t.includes('photo')||t.includes('photograph');
-  var hasColumns=t.includes('column');
-  if(!hasTable){good.push('No tables detected (ATS-safe)');}else{fmtScore-=6;issues.push('Tables detected — ATS cannot read table content, use plain text');}
-  if(!hasPhoto){good.push('No photo detected (ATS-safe)');}else{fmtScore-=5;issues.push('Photo detected — remove photo from resume (causes ATS rejection)');}
-  score+=Math.max(0,fmtScore);
-
-  // 5. Keywords (15 pts)
-  var kwScore=0;
-  var skillTerms=text.match(/[A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+){0,2}/g)||[];
-  var uniqueSkills=new Set(skillTerms.filter(function(s){return s.length>3;})).size;
-  if(uniqueSkills>=15){kwScore=15;good.push('Rich keyword density ('+uniqueSkills+' unique terms)');}
-  else if(uniqueSkills>=8){kwScore=9;fixes.push('Expand skills section — add more specific technologies, tools, methodologies');}
-  else{kwScore=4;missing.push('Very few keywords — your skills section needs more specific terms');}
-  score+=kwScore;
-
-  // Clamp score
-  score=Math.min(100,Math.max(0,Math.round(score)));
-
-  var verdict='';var color='';
-  if(score>=80){verdict='Strong resume — will pass most ATS systems';color='#16a34a';}
-  else if(score>=55){verdict='Average resume — passes some ATS, needs improvement';color='#d97706';}
-  else{verdict='Weak resume — likely rejected by most ATS systems';color='#dc2626';}
-
-  return {score:score,verdict:verdict,color:color,good:good,missing:missing,fixes:fixes,issues:issues};
-}
 
 function resetATSCheck(){document.getElementById("atsResult").style.display="none";document.getElementById("atsUploadZone").style.display="block";}
 function renderATSResult(r){
@@ -2977,7 +2611,7 @@ function renderATSResult(r){
     +'<div class="ats-cta">'
     +'<div class="ats-cta-title">Now build a resume that beats ATS →</div>'
     +'<div style="font-size:12px;opacity:.8;">10 stunning templates · Download as PDF</div>'
-    +'<button class="ats-cta-btn" onclick="window.open(&quot;https://www.canva.com/resumes/templates/&quot;,&quot;_blank&quot;)">Build Resume on Canva →</button>'
+    +'<button class="ats-cta-btn" onclick="goToolkit(&quot;resume&quot;)">Build My Resume →</button>'
     +'</div>'
     +'<div style="text-align:center;margin-top:14px;">'
     +'<button onclick="resetATSCheck()" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;">← Check another resume</button>';
@@ -2992,135 +2626,13 @@ function renderATSResult(r){
 var rbData={};var rbTemplate=0;var rbInputMethod='';
 
 
-function showRBInput(method){
-  rbInputMethod=method;
-  document.querySelectorAll('.rb-opt').forEach(function(o){o.classList.remove('selected');});
-  event.currentTarget.classList.add('selected');
-  var area=document.getElementById('rb-input-area');
-  var html='';
-  if(method==='linkedin-pdf'){
-    html='<div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;font-size:12px;color:var(--soft);line-height:1.6;">'
-      +'<strong style="color:var(--ink);">How to get your LinkedIn PDF:</strong><br>'
-      +'1. Go to your LinkedIn profile<br>'
-      +'2. Click "More" → "Save to PDF"<br>'
-      +'3. Upload that PDF here</div>'
-      +'<input type="file" id="rbFileInput" accept=".pdf" onchange="loadRBFile(this)" style="display:none">'
-      +'<button onclick="triggerRBFile()" class="auz-btn">Upload LinkedIn PDF →</button>';
-      +'<div id="rbFileStatus" style="font-size:12px;color:var(--soft);margin-top:8px;"></div>';
-  }else if(method==='linkedin-text'){
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Copy your LinkedIn About + Experience section and paste here:</div>'
-      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbLinkedInText" placeholder="Paste your LinkedIn profile text here..."></textarea>';
-  }else if(method==='paste'){
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Paste any resume or profile text — formatted or unformatted:</div>'
-      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbPasteText" placeholder="Paste your resume text here..."></textarea>';
-  }else{
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Fill your details in the next step after choosing a template.</div>';
-  }
-  area.innerHTML=html;
-  area.style.display='block';
-  document.getElementById('rbNextBtn').style.display='inline-block';
-}
-
-function triggerRBFile(){var el=document.getElementById("rbFileInput");if(el)el.click();}
-function loadRBFile(input){
-  var file=input.files[0];if(!file)return;
-  document.getElementById('rbFileStatus').textContent='✅ '+file.name+' loaded';
-  var reader=new FileReader();
-  reader.onload=function(e){rbData.rawText=e.target.result;};
-  reader.readAsText(file);
-}
-
-function goToTemplates(){
-  // Save input data
-  if(rbInputMethod==='linkedin-text'){
-    var t=document.getElementById('rbLinkedInText');
-    if(t)rbData.rawText=t.value;
-  }else if(rbInputMethod==='paste'){
-    var t=document.getElementById('rbPasteText');
-    if(t)rbData.rawText=t.value;
-  }
-  if(rbInputMethod==='manual'||!rbData.rawText){
-    rbData.rawText='';
-  }else{
-    parseRawText(rbData.rawText);
-  }
-  goStep(2);
-}
-
-function parseRawText(text){
-  // Smart parse: extract name, email, phone, skills from raw text
-  var lines=text.split(/\n/).filter(function(l){return l.trim().length>0;});
-
-  rbData.name=rbData.name||(lines[0]||'').trim().slice(0,40);
-  var emailMatch=text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if(emailMatch)rbData.email=emailMatch[0];
-  var phoneMatch=text.match(/[\+]?[\d\-\s\(\)]{10,13}/);
-  if(phoneMatch)rbData.phone=phoneMatch[0].trim();
-  var liMatch=text.match(/linkedin\.com\/in\/[\w\-]+/i);
-  if(liMatch)rbData.linkedin='https://'+liMatch[0];
-  var ghMatch=text.match(/github\.com\/[\w\-]+/i);
-  if(ghMatch)rbData.github='https://'+ghMatch[0];
-  rbData.rawText=text;
-}
-
-// ── TEMPLATE DEFINITIONS ──────────────────────────────────────────
-var TEMPLATES=[
-  // Professional 5
-  {id:0,name:'Clarity',role:'All Roles',type:'Professional',accent:'#1e3a5f',bg:'#ffffff',sidebar:false,desc:'Single column, serif headings, ATS-safe'},
-  {id:1,name:'Executive',role:'Director / VP',type:'Professional',accent:'#0f1117',bg:'#ffffff',sidebar:false,desc:'One page, leadership-focused, minimal'},
-  {id:2,name:'Corporate',role:'IT / Finance',type:'Professional',accent:'#1d4ed8',bg:'#f8fafc',sidebar:true,desc:'Two column, navy accent, boardroom ready'},
-  {id:3,name:'Trust',role:'HR / Consulting',type:'Professional',accent:'#374151',bg:'#faf7f2',sidebar:false,desc:'Warm minimal, relationship-first layout'},
-  {id:4,name:'Scholar',role:'Fresher / Campus',type:'Professional',accent:'#059669',bg:'#ffffff',sidebar:false,desc:'Education-first, projects prominent'},
-  // Modern 5
-  {id:5,name:'Carbon',role:'Software Engineer',type:'Modern',accent:'#e8943a',bg:'#0f1117',sidebar:true,desc:'Dark sidebar, developer-focused, bold'},
-  {id:6,name:'Signal',role:'IT / Tech',type:'Modern',accent:'#e8943a',bg:'#faf7f2',sidebar:true,desc:'JobsSignal brand, teal/amber, modern'},
-  {id:7,name:'Impact',role:'Product Manager',type:'Modern',accent:'#7c3aed',bg:'#ffffff',sidebar:false,desc:'Metrics-first, achievement numbers bold'},
-  {id:8,name:'Spectrum',role:'Data / DevOps',type:'Modern',accent:'#0891b2',bg:'#f0f9ff',sidebar:false,desc:'Skills matrix, certifications bold'},
-  {id:9,name:'Vivid',role:'Design / Creative',type:'Modern',accent:'#e11d48',bg:'#fff1f2',sidebar:true,desc:'Color-blocked creative, stands out'}
-];
 
 
-function filterTemplates(type,btn){
-  document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
-  btn.classList.add('active');
-  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){
-    c.style.display=(type==='all'||c.dataset.type===type)?'block':'none';
-  });
-}
 
-function selectTemplate(id){
-  rbTemplate=id;
-  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){c.classList.remove('selected');});
-  var card=document.getElementById('tmpl-'+id);
-  if(card){card.classList.add('selected');card.scrollIntoView({behavior:'smooth',block:'nearest'});}
-  document.getElementById('tmplNextBtn').style.display='inline-block';
-}
 
-function renderTemplateThumbnail(t){
-  var s='<div style="background:'+t.bg+';height:100%;padding:12px;font-family:sans-serif;transform:scale(1);overflow:hidden;">';
-  if(t.sidebar){
-    s+='<div style="display:flex;height:100%;gap:0;">'
-      +'<div style="width:36%;background:'+t.accent+';padding:8px;">'
-      +'<div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.3);margin-bottom:6px;"></div>'
-      +'<div style="height:5px;background:rgba(255,255,255,.6);border-radius:2px;margin-bottom:3px;width:80%;"></div>'
-      +'<div style="height:3px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:10px;width:60%;"></div>'
-      +renderMiniLines(5,'rgba(255,255,255,.25)')
-      +'</div>'
-      +'<div style="flex:1;padding:8px;">'
-      +'<div style="height:6px;background:'+t.accent+';border-radius:2px;margin-bottom:6px;width:70%;"></div>'
-      +renderMiniLines(8,'#e5e7eb')
-      +'</div>'
-      +'</div>';
-  }else{
-    s+='<div style="border-bottom:3px solid '+t.accent+';padding-bottom:6px;margin-bottom:8px;">'
-      +'<div style="height:7px;background:'+t.accent+';border-radius:2px;margin-bottom:3px;width:50%;"></div>'
-      +'<div style="height:3px;background:#e5e7eb;border-radius:2px;width:70%;"></div>'
-      +'</div>'
-      +renderMiniLines(10,'#e5e7eb');
-  }
-  s+='</div>';
-  return s;
-}
+
+
+
 
 function renderMiniLines(n,color){
   var h='';
@@ -3147,17 +2659,8 @@ function previewResume(){
   goStep(4);
 }
 
-// ── PAGE LOAD — Initialize App ──────────────────────
-document.addEventListener('DOMContentLoaded',function(){
-  trackVisit();
-  restoreSession();
-  // Prevent horizontal scroll on mobile
-document.body.style.overflowX = 'hidden';
-document.documentElement.style.overflowX = 'hidden';
-window.addEventListener('orientationchange', function() {
-  document.body.style.overflowX = 'hidden';
-});
-});
+
+
 
 
 
@@ -3169,44 +2672,43 @@ window.addEventListener('orientationchange', function() {
 
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async>
-function toggleSbFilter(name,el){
-  el.classList.toggle('filter-on');
-  var on=el.classList.contains('filter-on');
-  showToast((on?'Filter ON':'Filter OFF')+': '+el.querySelector('span+span').innerText.replace('\n',' '),'amber');
-}
-function fmtINR(n){return '\u20b9'+Math.round(n).toLocaleString('en-IN');}
 function showToolkitTab(tab){
-  var ap=document.getElementById('atsUploadZone'),ar=document.getElementById('atsResult'),sp=document.getElementById('salaryToolsPanel');
-  var tb=document.getElementById('tk-ats-btn'),sb2=document.getElementById('tk-salary-btn'),tt=document.getElementById('tk-page-title');
-  var aOn='background:var(--amber);color:#fff;border:none;',aOff='background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);';
+  var az=document.getElementById('atsUploadZone'),ar=document.getElementById('atsResult'),
+      sp=document.getElementById('salaryToolsPanel'),
+      tb=document.getElementById('tk-ats-btn'),sb=document.getElementById('tk-salary-btn'),
+      tt=document.getElementById('tk-page-title');
   if(tab==='ats'){
-    if(ap)ap.style.display='block';if(sp)sp.style.display='none';
-    if(tt)tt.textContent='📊 ATS Score Checker';
-    if(tb)tb.style.cssText+=aOn;if(sb2)sb2.style.cssText+=aOff;
+    if(az)az.style.display='block';if(sp)sp.style.display='none';
+    if(tt)tt.textContent='ATS Score Checker';
+    if(tb){tb.style.background='var(--amber)';tb.style.border='none';}
+    if(sb){sb.style.background='rgba(255,255,255,.12)';sb.style.border='1px solid rgba(255,255,255,.2)';}
   }else{
-    if(ap)ap.style.display='none';if(ar)ar.style.display='none';if(sp)sp.style.display='block';
-    if(tt)tt.textContent='🧮 Salary Tools';
-    if(tb)tb.style.cssText+=aOff;if(sb2)sb2.style.cssText+=aOn;
+    if(az)az.style.display='none';if(ar)ar.style.display='none';if(sp)sp.style.display='block';
+    if(tt)tt.textContent='Salary Tools';
+    if(tb){tb.style.background='rgba(255,255,255,.12)';tb.style.border='1px solid rgba(255,255,255,.2)';}
+    if(sb){sb.style.background='var(--amber)';sb.style.border='none';}
   }
 }
+function fmtINR(n){return String.fromCharCode(8377)+Math.round(n).toLocaleString('en-IN');}
 function calcCTC(){
   var ctc=parseFloat((document.getElementById('ctc-input')||{}).value)||0;
   if(!ctc){showToast('Enter your CTC first','amber');return;}
-  var basic=ctc*0.4,hra=ctc*0.2,epf=basic*0.12,pt=2400,gratuity=ctc*0.05;
+  var basic=ctc*0.4,hra=ctc*0.2,epf=basic*0.12,gratuity=ctc*0.05,pt=2400;
   var gross=ctc-epf-gratuity;
-  var tds=(document.getElementById('ctc-regime')||{}).value==='old'?(gross>500000?(gross-500000)*0.1:0):(gross>700000?(gross-700000)*0.1:0);
+  var regime=(document.getElementById('ctc-regime')||{}).value||'new';
+  var tds=regime==='old'?(gross>500000?(gross-500000)*0.1:0):(gross>700000?(gross-700000)*0.1:0);
   var monthly=Math.round((gross-pt-tds)/12);
   var r=document.getElementById('ctc-result');if(!r)return;
   r.style.display='block';
   r.innerHTML='<table style="width:100%;font-size:12px;border-collapse:collapse;">'
-    +'<tr><td style="color:var(--soft);padding:3px 0;">Basic</td><td style="font-weight:700;text-align:right;">'+fmtINR(basic/12)+'/mo</td></tr>'
-    +'<tr><td style="color:var(--soft);padding:3px 0;">HRA</td><td style="font-weight:700;text-align:right;">'+fmtINR(hra/12)+'/mo</td></tr>'
-    +'<tr><td style="color:#ef4444;padding:3px 0;">Employee PF</td><td style="color:#ef4444;font-weight:700;text-align:right;">-'+fmtINR(epf/12)+'/mo</td></tr>'
-    +'<tr><td style="color:#ef4444;padding:3px 0;">Prof Tax</td><td style="color:#ef4444;font-weight:700;text-align:right;">-'+fmtINR(pt/12)+'/mo</td></tr>'
-    +'<tr><td style="color:#ef4444;padding:3px 0;">Est TDS</td><td style="color:#ef4444;font-weight:700;text-align:right;">-'+fmtINR(tds/12)+'/mo</td></tr>'
+    +'<tr><td style="padding:3px 0;color:var(--soft)">Basic/mo</td><td style="text-align:right;font-weight:700">'+fmtINR(basic/12)+'</td></tr>'
+    +'<tr><td style="padding:3px 0;color:var(--soft)">HRA/mo</td><td style="text-align:right;font-weight:700">'+fmtINR(hra/12)+'</td></tr>'
+    +'<tr><td style="padding:3px 0;color:#ef4444">PF deduction</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(epf/12)+'</td></tr>'
+    +'<tr><td style="padding:3px 0;color:#ef4444">Prof Tax</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(pt/12)+'</td></tr>'
+    +'<tr><td style="padding:3px 0;color:#ef4444">Est TDS</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(tds/12)+'</td></tr>'
     +'</table>'
-    +'<div style="margin-top:12px;padding-top:10px;border-top:2px solid var(--amber);font-size:22px;font-weight:800;">In-hand: '+fmtINR(monthly)+'/mo</div>'
-    +'<div style="font-size:11px;color:var(--soft);">Annual take-home: '+fmtINR(monthly*12)+'</div>';
+    +'<div style="margin-top:10px;padding-top:10px;border-top:2px solid var(--amber);font-size:20px;font-weight:800">In-hand: '+fmtINR(monthly)+'/mo</div>'
+    +'<div style="font-size:11px;color:var(--soft)">Annual: '+fmtINR(monthly*12)+'</div>';
 }
 function calcHike(){
   var cur=parseFloat((document.getElementById('hike-current')||{}).value)||0;
@@ -3215,26 +2717,25 @@ function calcHike(){
   var nCTC=cur*(1+pct/100),diff=nCTC-cur;
   var r=document.getElementById('hike-result');if(!r)return;
   r.style.display='block';
-  r.innerHTML='<div style="font-size:20px;font-weight:800;color:var(--teal);">Target: '+fmtINR(nCTC)+'</div>'
-    +'<div style="font-size:12px;color:var(--soft);margin-top:4px;">+'+fmtINR(diff)+'/yr | +'+fmtINR(diff/12)+'/mo</div>'
-    +'<div style="margin-top:12px;padding:10px;background:#fff;border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--soft);line-height:1.6;">'
-    +'<strong style="color:var(--ink);">Script:</strong> "Based on my '+pct+'% growth target and market benchmarks, I am expecting '+fmtINR(nCTC)+'. Open to discussing the package structure."'
+  r.innerHTML='<div style="font-size:20px;font-weight:800;color:var(--teal)">Target: '+fmtINR(nCTC)+'</div>'
+    +'<div style="font-size:12px;color:var(--soft);margin-top:4px">+'+fmtINR(diff)+'/yr = +'+fmtINR(diff/12)+'/mo</div>'
+    +'<div style="margin-top:10px;padding:10px;background:#fff;border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--soft);line-height:1.6">'
+    +'<b style="color:var(--ink)">Script:</b> "Based on my experience and market benchmarks, I am targeting a '+pct+'% hike. My expected CTC is '+fmtINR(nCTC)+'. Open to discussing the package."'
     +'</div>';
 }
-var CITY_INDEX={Hyderabad:1.0,Bengaluru:1.35,Mumbai:1.65,'Delhi NCR':1.4,Chennai:1.15,Pune:1.2,Kolkata:0.9};
+var CITY_IDX={'Hyderabad':1.0,'Bengaluru':1.35,'Mumbai':1.65,'Delhi NCR':1.4,'Chennai':1.15,'Pune':1.2,'Kolkata':0.9};
 function calcCity(){
   var ctc=parseFloat((document.getElementById('city-ctc')||{}).value)||0;
   var from=(document.getElementById('city-from')||{}).value||'Hyderabad';
   var to=(document.getElementById('city-to')||{}).value||'Mumbai';
   if(!ctc){showToast('Enter your CTC first','amber');return;}
-  var cf=CITY_INDEX[from]||1,ct=CITY_INDEX[to]||1;
-  var eq=Math.round(ctc*(ct/cf));
+  var cf=CITY_IDX[from]||1,ct=CITY_IDX[to]||1,eq=Math.round(ctc*(ct/cf));
   var r=document.getElementById('city-result');if(!r)return;
   r.style.display='block';
-  r.innerHTML='<div style="font-size:18px;font-weight:800;">'+fmtINR(ctc)+' in '+from+' = '+fmtINR(eq)+' in '+to+'</div>'
-    +'<div style="font-size:12px;color:var(--soft);margin-top:6px;line-height:1.6;">'
-    +(eq>ctc?'You need <strong>'+fmtINR(eq-ctc)+' more</strong> in '+to+' for same lifestyle.':'<strong>'+fmtINR(ctc-eq)+' less needed</strong> in '+to+' for same lifestyle.')
-    +'<br>Based on Indian metro cost-of-living index (rent, food, transport).</div>';
+  r.innerHTML='<div style="font-size:18px;font-weight:800">'+fmtINR(ctc)+' in '+from+' = '+fmtINR(eq)+' in '+to+'</div>'
+    +'<div style="font-size:12px;color:var(--soft);margin-top:6px;line-height:1.6">'
+    +(eq>ctc?'Need '+fmtINR(eq-ctc)+' more in '+to+' for same lifestyle.':'Save '+fmtINR(ctc-eq)+' in '+to+' vs '+from+'.')
+    +' Based on Indian metro cost-of-living index.</div>';
 }
 </script>
 
