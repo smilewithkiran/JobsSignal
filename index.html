@@ -453,7 +453,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
       <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>Priority support</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card"><div class="pc-name">Quarterly</div><div class="pc-price">₹179</div><div class="pc-per">60 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>ATS Checker + Salary Tools</li><li>40+ Indian cities</li><li>WFH + IT Park filters</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹179</button></div><div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>Priority support</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -1954,14 +1954,21 @@ function showUpgrade(){showLockedDash();}
 // ── LOGIN ────────────────────────────────────────────
 function isSuperUser(p){return (p||'').replace(/[^0-9]/g,'').slice(-10)==='9160075557';}
 function hasToolkitAccess(){
+  // Check in-memory user
   if(currentUser&&isSuperUser(currentUser.phone))return true;
+  // Check localStorage directly (survives page reload)
+  try{
+    var raw=localStorage.getItem('js_user');
+    if(raw){var u=JSON.parse(raw);if(u&&isSuperUser(u.phone))return true;}
+  }catch(_e){}
+  // Check plan
   var pl=localStorage.getItem('js_plan')||'';
   return['Monthly Plan','60 Days','Quarterly Plan','Annual Plan'].includes(pl);
 }
 async function doLogin(){
   const phone=(document.getElementById('li_phone').value||'').trim();
   const errEl=document.getElementById('loginErr');
-  errEl.style.display='none';
+  if(errEl)errEl.style.display='none';
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
@@ -2060,21 +2067,40 @@ function buildDash(user,pl){
   const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   setEl('dAv',init);setEl('dName',first);setEl('dFullName',user.name||first);
   setEl('dRole',user.skill||'Job Seeker');
-  setEl('dMeta',(user.skill||'')+(user.city?' · '+user.city:'')+(isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
+  var isAdmin=typeof isSuperUser==='function'&&isSuperUser(user.phone);
+  setEl('dMeta',(user.skill||'')+(user.city?' · '+user.city:'')+(isAdmin?' · Admin Access 🔑 ✅':isPaid?' · '+(pl.plan||'Paid')+' ✅':' · Free Plan'));
   setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
   if(isPaid||(typeof isSuperUser==='function'&&isSuperUser((currentUser||{}).phone)))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
 }
 function showFreeDash(){
-  const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
-  const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
-  const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
+  var pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
+  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  var up=document.getElementById('upgradePlans');if(up)up.style.display='none';
+  // Add lock icons to toolkit items for free users
+  var lockAts=document.getElementById('lock-ats');if(lockAts)lockAts.textContent='🔒';
+  var sbSal=document.getElementById('sb-salary');
+  if(sbSal){sbSal.style.opacity='0.5';}
+  var lockSal=document.querySelector('#sb-salary .sb-lock');
+  if(lockSal)lockSal.textContent='🔒';
 }
 function showPaidDash(){
-  const pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
-  const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
-  const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
+  var pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
+  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  var up=document.getElementById('upgradePlans');if(up)up.style.display='none';
+  // Remove all lock icons for paid/super users
+  document.querySelectorAll('.sb-lock').forEach(function(el){el.textContent='';});
+  // Show toolkit items fully
+  var sbAts=document.getElementById('sb-ats');
+  if(sbAts){sbAts.style.opacity='1';sbAts.style.pointerEvents='auto';}
+  var sbSal=document.getElementById('sb-salary');
+  if(sbSal){sbSal.style.opacity='1';sbSal.style.pointerEvents='auto';}
+  // Admin badge for super user
+  if(currentUser&&typeof isSuperUser==='function'&&isSuperUser(currentUser.phone)){
+    var role=document.getElementById('dRole');
+    if(role&&!role.textContent.includes('Admin'))role.textContent=(role.textContent||'')+'  · Admin 🔑';
+  }
 }
 function restoreDash(){
   var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
@@ -2624,6 +2650,16 @@ function hasToolkitAccess(){
 }
 
 function goToolkit(tool){
+  // Recover session if needed (after page reload in preview)
+  if(!currentUser){
+    try{
+      var raw=localStorage.getItem('js_user');
+      if(raw){
+        currentUser=JSON.parse(raw);
+        if(isSuperUser(currentUser.phone))isPaid=true;
+      }
+    }catch(_e){}
+  }
   if(!hasToolkitAccess()){
     showToast('Career Toolkit is available on ₹99, ₹179 or ₹599 plans. Tap Upgrade Plan to unlock.','amber');
     showUpgrade();return;
@@ -2633,11 +2669,6 @@ function goToolkit(tool){
     document.getElementById('atsResult').style.display='none';
     document.getElementById('atsUploadZone').style.display='block';
     document.getElementById('atsPasteText').value='';
-  }else if(tool==='resume'){
-    goTo('resumeView');
-    goStep(1);
-    buildTemplateGallery();
-  }
   }else if(tool==='salary'){
     goTo('atsView');
     setTimeout(function(){
