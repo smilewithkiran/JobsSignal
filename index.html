@@ -1897,35 +1897,66 @@ function showUpgrade(){showLockedDash();}
 
 // ── LOGIN ────────────────────────────────────────────
 async function doLogin(){
-  const phone=(document.getElementById('li_phone').value||'').trim();
+  const rawPhone=(document.getElementById('li_phone').value||'').trim();
   const errEl=document.getElementById('loginErr');
-  errEl.style.display='none';
-  if(!phone){showToast('Enter your mobile number','amber');return;}
-  const ep=normP(phone);
+  if(errEl)errEl.style.display='none';
+  if(!rawPhone){showToast('Enter your mobile number','amber');return;}
+  
+  // SUPER USER: check BEFORE normP — multiple formats handled
+  const digits=rawPhone.replace(/[^0-9]/g,'');
+  const last10=digits.slice(-10);
+  if(last10==='9160075557'){
+    try{
+      const su={name:'Kiran',phone:'9160075557',email:'kiran@jobssignal.in',
+                city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
+      isPaid=true;
+      currentUser=su;
+      try{sto(S_USER,su);}catch(e){}
+      buildDash(su,{});
+      goTo('dashView');
+      showToast('Welcome Kiran! 🎉','green');
+    }catch(e){
+      goTo('dashView');
+      showToast('Welcome Kiran! 🎉','green');
+    }
+    return;
+  }
+
+  const ep=normP(rawPhone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-  // Super user bypass — direct access
-  if(ep==='9160075557'){
-    const su={name:'Kiran',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
-    sto(S_USER,su);
-    enterDash(su);
-    return;
-  }
+
   // Check localStorage first (instant)
-  try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
-  // Check Firebase (cross-browser)
-  errEl.textContent='Checking database ⏳';errEl.style.display='block';
-  const data=await fbGetUser(ep);
-  if(data&&data.phone){
-    const user={name:data.name||'Job Seeker',phone:data.phone,email:data.email||'',city:data.city||'Hyderabad',skill:data.skill||'',prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
-    sto(S_USER,user);
-    if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;}
-    errEl.style.display='none';
-    enterDash(user);
-    return;
+  try{
+    const raw=gst(S_USER);
+    if(raw){
+      const u=JSON.parse(raw);
+      if(u&&normP(u.phone)===ep){enterDash(u);return;}
+    }
+  }catch(e){}
+
+  // Check Firebase
+  if(errEl){errEl.textContent='Checking database ⏳';errEl.style.display='block';}
+  try{
+    const data=await fbGetUser(ep);
+    if(data&&data.phone){
+      const user={name:data.name||'Job Seeker',phone:data.phone,email:data.email||'',
+                  city:data.city||'Hyderabad',skill:data.skill||'',
+                  prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
+      sto(S_USER,user);
+      if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){
+        sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;
+      }
+      if(errEl)errEl.style.display='none';
+      enterDash(user);
+      return;
+    }
+  }catch(e){}
+  if(errEl){
+    errEl.innerHTML='Mobile not registered. <button onclick="goTo(\'signupView\')" style="background:none;border:none;color:var(--amber);font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;">Sign up free →</button>';
+    errEl.style.display='block';
   }
-  errEl.innerHTML='Mobile not registered. <button onclick="goTo(\'signupView\')" style="background:none;border:none;color:var(--amber);font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;">Sign up free →</button>';
-  errEl.style.display='block';
 }
+
 
 // ── SIGNUP ───────────────────────────────────────────
 async 
