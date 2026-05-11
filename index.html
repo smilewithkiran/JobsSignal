@@ -119,7 +119,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 /* DASHBOARD */
 .dash-wrap{display:flex;height:100vh;margin-top:0 !important;padding-top:0 !important;overflow:hidden;width:100%;}
-.sidebar{width:152px;background:var(--ink);border-right:1px solid var(--border);padding:8px 0;overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar{width:152px;background:var(--ink);border-right:1px solid var(--border);padding:8px 0;overflow-y:auto;display:flex;flex-direction:column;position:relative;z-index:999;}
 .sb-brand{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.07);}
 .sb-wm{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#fff;}
 .sb-wm em{color:var(--amber);font-style:italic;font-weight:300;}
@@ -167,6 +167,11 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .r-title{font-family:'Fraunces',serif;font-size:15px;font-weight:800;color:var(--ink);}
 .r-sub{font-size:11px;color:var(--soft);margin-top:2px;}
 .r-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 16px;margin-top:10px;}
+.src-tabs{display:flex;flex-direction:row;gap:10px;margin-bottom:16px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.src-tab{flex:1;min-width:120px;padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;text-align:center;}
+.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
+.src-tab:not(.active):hover{border-color:var(--amber);color:var(--amber);}
+.src-pane{animation:fadeIn .3s ease;}
 .r-tab{padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--soft);border:none;background:transparent;border-bottom:2.5px solid transparent;font-family:'DM Sans',sans-serif;}
 .r-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
 .r-content{padding:16px;}
@@ -249,10 +254,10 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-item.locked{opacity:.6;cursor:pointer;}
 
 /* ── JOB RESULTS NEW DESIGN ── */
-.src-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 4px;}@media (min-width:480px){.src-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 4px;}}
-.src-tab{padding:6px 10px;border-radius:6px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;flex-shrink:0;min-width:fit-content;}@media (min-width:480px){.src-tab{padding:8px 14px;font-size:11px;}}@media (min-width:768px){.src-tab{padding:8px 16px;font-size:12px;}}@media (min-width:480px){.src-tab{padding:6px 10px;border-radius:6px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:10px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;flex-shrink:0;min-width:fit-content;}@media (min-width:480px){.src-tab{padding:8px 14px;font-size:11px;}}@media (min-width:768px){.src-tab{padding:8px 16px;font-size:12px;}}}
-.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
-.src-pane{animation:fadeIn .3s ease;}
+@media (min-width:480px){}
+}@media (min-width:768px){}@media (min-width:480px){}@media (min-width:768px){}}
+
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
 
 /* Google Jobs cards */
@@ -478,27 +483,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
           </ul>
         </div>
 
-        <!-- Resume Builder -->
-        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(232,148,58,.2);border-radius:16px;padding:32px;backdrop-filter:blur(10px);">
-          <div style="font-size:32px;margin-bottom:12px;">📄</div>
-          <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;">Resume Builder</h3>
-          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;">10 professional templates. Import from LinkedIn. Export as PDF. Build in minutes, not hours.</p>
-          <ul style="list-style:none;font-size:12px;color:rgba(255,255,255,.7);line-height:2;">
-            <li>✓ 10 professional templates</li>
-            <li>✓ LinkedIn PDF import</li>
-            <li>✓ Real-time preview</li>
-            <li>✓ One-click PDF export</li>
-            <li>✓ ATS-optimized designs</li>
-          </ul>
-        </div>
-      </div>
-
-      <div style="text-align:center;">
-        <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:18px;">✨ Available on ₹99, ₹179, and ₹599 plans</p>
-        <button class="btn-primary" onclick="goTo('signupView')" style="padding:14px 32px;font-size:15px;">Start Building Your Resume Free</button>
-      </div>
-    </div>
-  </section>
+        </section>
     <div class="eyebrow" style="text-align:center;">Pricing</div>
     <h2 style="text-align:center;">Less than a coffee.<br><em>More than a portal.</em></h2>
     <p class="sec-sub" style="text-align:center;max-width:380px;margin:0 auto 24px;">Start free. No card. Upgrade when ready.</p>
@@ -521,7 +506,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="sa-features">
       <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Real-time Recruiter Signals</div><div class="sa-feat-s">LinkedIn recruiter posts before they go viral</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Know how ATS-ready your resume is — free</div></div></div>
-      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder — 10 Templates</div><div class="sa-feat-s">Professional PDF resume in minutes</div></div></div>
+      <div class="sa-feat" style="display:none"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">Professional PDF resume in minutes</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live listings from Naukri, LinkedIn, Indeed</div></div></div>
     </div>
     <div class="sa-stats" style="margin-top:20px;">
@@ -554,7 +539,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="sa-features">
       <div class="sa-feat"><span class="sa-feat-icon">📡</span><div><div class="sa-feat-t">Recruiter Signal Finder</div><div class="sa-feat-s">5 smart search modes — Skill, Hashtag, Notice, Referral, Walk-in</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">📊</span><div><div class="sa-feat-t">ATS Score Checker</div><div class="sa-feat-s">Upload resume → instant ATS score + fix list</div></div></div>
-      <div class="sa-feat"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">10 stunning templates · LinkedIn PDF → ready resume</div></div></div>
+      <div class="sa-feat" style="display:none"><span class="sa-feat-icon">📄</span><div><div class="sa-feat-t">Resume Builder</div><div class="sa-feat-s">10 stunning templates · LinkedIn PDF → ready resume</div></div></div>
       <div class="sa-feat"><span class="sa-feat-icon">🔍</span><div><div class="sa-feat-t">Google Jobs + LinkedIn Jobs</div><div class="sa-feat-s">Live job listings from Naukri, LinkedIn, Indeed & more</div></div></div>
     </div>
     <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,.4);">1 free search · No card needed · Cancel anytime</div>
@@ -641,7 +626,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
-      <div class="sb-item" id="sb-resume" onclick="goToolkit('resume')"><span class="sb-icon">📄</span><span>Resume Builder</span><span class="sb-lock" id="lock-resume"></span></div>
+      
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Account</div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
@@ -771,71 +756,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 </div>
 
 <!-- RESUME BUILDER VIEW -->
-<div class="view" id="resumeView">
-  <div class="resume-wrap">
-    <div class="ats-header">
-      <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
-      <div class="ats-header-title">📄 Resume Builder</div>
-      <div class="ats-header-sub">Choose a template · Fill your details · Download PDF</div>
-    </div>
-    <div class="resume-body" id="resumeBody">
-      <!-- Step 1: Input method -->
-      <div class="rb-step" id="rbStep1">
-        <div class="rb-step-title">Step 1 — How do you want to start?</div>
-        <div class="rb-input-options">
-          <div class="rb-opt" onclick="showRBInput('linkedin-pdf')">
-            <div class="rb-opt-icon">📎</div>
-            <div class="rb-opt-title">LinkedIn PDF</div>
-            <div class="rb-opt-sub">Upload your LinkedIn profile PDF export</div>
-          </div>
-          <div class="rb-opt" onclick="showRBInput('linkedin-text')">
-            <div class="rb-opt-icon">📋</div>
-            <div class="rb-opt-title">Paste LinkedIn Text</div>
-            <div class="rb-opt-sub">Copy & paste your LinkedIn profile text</div>
-          </div>
-          <div class="rb-opt" onclick="showRBInput('manual')">
-            <div class="rb-opt-icon">✏️</div>
-            <div class="rb-opt-title">Fill Manually</div>
-            <div class="rb-opt-sub">Enter your details step by step</div>
-          </div>
-          <div class="rb-opt" onclick="showRBInput('paste')">
-            <div class="rb-opt-icon">📝</div>
-            <div class="rb-opt-title">Paste Any Text</div>
-            <div class="rb-opt-sub">Paste unformatted resume or profile</div>
-          </div>
-        </div>
-        <!-- Input areas (shown based on selection) -->
-        <div id="rb-input-area" style="display:none;margin-top:20px;"></div>
-        <button class="rb-next-btn" id="rbNextBtn" style="display:none;" onclick="goToTemplates()">Choose Template →</button>
-      </div>
-      <!-- Step 2: Template gallery (built in Phase 6) -->
-      <div class="rb-step" id="rbStep2" style="display:none;">
-        <div class="rb-step-title">Step 2 — Choose Your Template</div>
-        <div class="rb-template-gallery" id="rbTemplateGallery">
-          <!-- Templates injected by JS -->
-        </div>
-      </div>
-      <!-- Step 3: Form fill -->
-      <div class="rb-step" id="rbStep3" style="display:none;">
-        <div class="rb-step-title">Step 3 — Your Details</div>
-        <div id="rbFormWrap"></div>
-        <button class="rb-next-btn" onclick="previewResume()">Preview Resume →</button>
-      </div>
-      <!-- Step 4: Preview + Download -->
-      <div class="rb-step" id="rbStep4" style="display:none;">
-        <div class="rb-step-title">Step 4 — Preview & Download</div>
-        <div class="rb-preview-wrap">
-          <div class="rb-preview-panel" id="rbPreviewPanel"></div>
-          <div class="rb-download-panel">
-            <button class="rb-download-btn" onclick="downloadResumePDF()">⬇️ Download PDF</button>
-            <button class="rb-edit-btn" onclick="goStep(3)">← Edit Details</button>
-            <button class="rb-template-btn" onclick="goStep(2)">Change Template</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 
@@ -1967,40 +1888,31 @@ function goTo(viewId){
   var body=document.body;
   var dw=document.querySelector('.dash-wrap');
   if(viewId==='dashView'){
-    // Hide nav completely
-    if(nav){
-      nav.style.display='none';
-      nav.style.visibility='hidden';
-    }
-    // AGGRESSIVELY remove all padding when on dashboard
-    body.style.paddingTop='0 !important';
-    body.style.margin='0 !important';
-    document.documentElement.style.paddingTop='0 !important';
-    // Fix dash-wrap: no gap above logo
+    // Hide nav
+    if(nav){nav.style.display='none';nav.style.visibility='hidden';}
+    // BUG 2 FIX: use setProperty('important') — only way to override CSS rule via JS
+    body.style.setProperty('padding-top','0','important');
+    body.style.setProperty('margin-top','0','important');
+    body.style.setProperty('overflow','hidden','important');
+    document.documentElement.style.setProperty('padding-top','0','important');
+    // dash-wrap: full height, flush top
     if(dw){
-      dw.style.marginTop='0 !important';
+      dw.style.setProperty('margin-top','0','important');
+      dw.style.setProperty('padding-top','0','important');
       dw.style.height='100vh';
-      dw.style.paddingTop='0 !important';
-      dw.style.top='0 !important';
       dw.style.position='relative';
+      dw.style.top='0';
     }
-    // Force layout recalculation
-    document.body.style.overflow='hidden';
   }else{
-    // Show nav
-    if(nav){
-      nav.style.display='flex';
-      nav.style.visibility='visible';
-    }
-    // Restore body padding
-    body.style.paddingTop='58px';
-    document.documentElement.style.paddingTop='0';
-    // Restore normal layout
+    // Restore nav
+    if(nav){nav.style.display='flex';nav.style.visibility='visible';}
+    // Restore body padding for pages with fixed nav
+    body.style.setProperty('padding-top','58px','important');
+    body.style.setProperty('overflow','auto','important');
     if(dw){
       dw.style.marginTop='0';
       dw.style.height='calc(100vh - 58px)';
     }
-    document.body.style.overflow='auto';
   }
 }
 function goToSec(id){
@@ -2153,22 +2065,22 @@ function showLockedDash(){
   const up=document.getElementById('upgradePlans');if(up){
     up.style.display='block';
     up.style.pointerEvents='auto';
-    up.style.zIndex='50';
+    up.style.zIndex='1';
     up.style.position='relative';
-    // Scroll to show upgrade plans
     setTimeout(function(){
-      up.scrollIntoView({behavior:'smooth',block:'nearest'});
+      up.scrollIntoView({behavior:'smooth',block:'start'});
     },100);
   }
-  // Ensure entire sidebar remains fully clickable
-  const sb=document.querySelector('.sidebar');if(sb){
-    sb.style.pointerEvents='auto';
-    sb.style.zIndex='200';
-  }
-  const sbNav=document.querySelector('.sb-nav');if(sbNav){
-    sbNav.style.pointerEvents='auto';
-    sbNav.style.zIndex='200';
-  }
+  // CRITICAL: sidebar must stay fully interactive — always higher z-index
+  const sb=document.querySelector('.sidebar');
+  if(sb){sb.style.pointerEvents='auto';sb.style.zIndex='999';sb.style.position='relative';}
+  // Ensure all sb-items are clickable
+  document.querySelectorAll('.sb-item').forEach(function(el){
+    el.style.pointerEvents='auto';el.style.cursor='pointer';
+  });
+  // Ensure dash content area doesn't have invisible overlay
+  const dc=document.querySelector('.dash-content')||document.querySelector('.dash-right');
+  if(dc){dc.style.pointerEvents='auto';}
 }
 function doLogout(){
   localStorage.removeItem(S_USER);localStorage.removeItem(S_PREV);
@@ -2813,21 +2725,37 @@ var atsResumeText='';
 
 function handleATSFile(input){
   var file=input.files[0];if(!file)return;
+  var statusEl=document.getElementById('atsFileStatus');
+  if(statusEl){statusEl.textContent='✅ '+file.name;statusEl.style.display='block';}
+  var uzBtn=document.querySelector('.auz-btn');
+  if(uzBtn){uzBtn.textContent='✅ '+file.name+' — Change File';}
   var ext=file.name.split('.').pop().toLowerCase();
+  var reader=new FileReader();
   if(ext==='pdf'){
-    // Use FileReader for basic text extraction from PDF
-    var reader=new FileReader();
     reader.onload=function(e){
-      // For PDF, we extract what we can from the binary
-      var text=extractTextFromPDF(e.target.result);
-      atsResumeText=text;
-      document.getElementById('atsPasteText').value=text.slice(0,500)+'... [File loaded: '+file.name+']';
+      var arr=new Uint8Array(e.target.result);
+      var raw='';
+      for(var i=0;i<arr.length;i++){raw+=String.fromCharCode(arr[i]);}
+      var stream=raw.match(/[ -~]{4,}/g);
+      var text=stream?stream.filter(function(s){return s.trim().length>3;}).join(' '):'';
+      atsResumeText=text||'';
+      var ta=document.getElementById('atsPasteText');
+      if(ta){
+        ta.value=text.length>100?text.slice(0,2000)+' ['+file.name+']':'[PDF: '+file.name+'] Paste resume text below for best results.';
+        ta.style.borderColor='var(--teal)';
+      }
     };
-    reader.readAsText(file);
+    reader.onerror=function(){
+      var ta=document.getElementById('atsPasteText');
+      if(ta){ta.value='[Could not auto-read PDF. Paste your resume text below.]';}
+    };
+    reader.readAsArrayBuffer(file);
   }else{
-    // DOC/DOCX — read as text (basic extraction)
-    var reader=new FileReader();
-    reader.onload=function(e){atsResumeText=e.target.result;document.getElementById('atsPasteText').value='[File loaded: '+file.name+'] Paste your resume text below for best results.';};
+    reader.onload=function(e){
+      atsResumeText=e.target.result||'';
+      var ta=document.getElementById('atsPasteText');
+      if(ta){ta.value='['+file.name+'] '+atsResumeText.slice(0,1500);}
+    };
     reader.readAsText(file);
   }
 }
@@ -2973,7 +2901,7 @@ function renderATSResult(r){
     +'<div class="ats-cta">'
     +'<div class="ats-cta-title">Now build a resume that beats ATS →</div>'
     +'<div style="font-size:12px;opacity:.8;">10 stunning templates · Download as PDF</div>'
-    +'<button class="ats-cta-btn" onclick="goToolkit(&quot;resume&quot;)">Build My Resume →</button>'
+    +'<button class="ats-cta-btn" onclick="window.open(&quot;https://www.canva.com/resumes/templates/&quot;,&quot;_blank&quot;)">Build Resume on Canva →</button>'
     +'</div>'
     +'<div style="text-align:center;margin-top:14px;">'
     +'<button onclick="resetATSCheck()" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;">← Check another resume</button>';
@@ -2987,10 +2915,6 @@ function renderATSResult(r){
 // ══════════════════════════════════════════════════════════════════
 var rbData={};var rbTemplate=0;var rbInputMethod='';
 
-function goStep(n){
-  document.querySelectorAll('.rb-step').forEach(function(s){s.style.display='none';});
-  var s=document.getElementById('rbStep'+n);if(s)s.style.display='block';
-}
 
 function showRBInput(method){
   rbInputMethod=method;
@@ -3079,32 +3003,6 @@ var TEMPLATES=[
   {id:9,name:'Vivid',role:'Design / Creative',type:'Modern',accent:'#e11d48',bg:'#fff1f2',sidebar:true,desc:'Color-blocked creative, stands out'}
 ];
 
-function buildTemplateGallery(){
-  var gallery=document.getElementById('rbTemplateGallery');
-  if(!gallery)return;
-  var filterDiv=document.createElement('div');filterDiv.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;';
-  ['all','Professional','Modern'].forEach(function(type,idx){
-    var btn=document.createElement('button');btn.className='filter-pill'+(idx===0?' active':'');
-    btn.textContent=type==='all'?'All (10)':type==='Professional'?'Professional (5)':'Modern (5)';
-    btn.onclick=function(){filterTemplates(type,btn);};
-    filterDiv.appendChild(btn);
-  });
-  gallery.appendChild(filterDiv);
-  var html=''
-    +'<div class="rb-template-gallery" id="tmplGrid">';
-  TEMPLATES.forEach(function(t){
-    html+='<div class="rb-tmpl-card" data-type="'+t.type+'" onclick="selectTemplate('+t.id+')" id="tmpl-'+t.id+'">'
-      +'<div class="rb-tmpl-thumb">'+renderTemplateThumbnail(t)+'</div>'
-      +'<div class="rb-tmpl-info">'
-      +'<div class="rb-tmpl-name">'+t.name+'</div>'
-      +'<div class="rb-tmpl-role">'+t.role+'</div>'
-      +'<span class="rb-tmpl-badge '+(t.type==='Professional'?'badge-pro':'badge-modern')+'">'+t.type+'</span>'
-      +'</div></div>';
-  });
-  html+='</div><button class="rb-next-btn" id="tmplNextBtn" style="display:none;margin-top:20px;" onclick="goStep(3);buildResumeForm();">Fill Details →</button>';
-  var tmplGrid=document.createElement('div');tmplGrid.className='rb-template-gallery';tmplGrid.id='tmplGrid';tmplGrid.innerHTML=html;gallery.appendChild(tmplGrid);
-  var nb=document.createElement('button');nb.className='rb-next-btn';nb.id='tmplNextBtn';nb.style.display='none';nb.style.marginTop='20px';nb.textContent='Fill Details →';nb.onclick=function(){goStep(3);buildResumeForm();};gallery.appendChild(nb);
-}
 
 function filterTemplates(type,btn){
   document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
@@ -3157,111 +3055,8 @@ function renderMiniLines(n,color){
 }
 
 // ── RESUME FORM ───────────────────────────────────────────────────
-function buildResumeForm(){
-  var wrap=document.getElementById('rbFormWrap');if(!wrap)return;
-  var d=rbData;
-  wrap.innerHTML='';
-  var grid=document.createElement('div');
-  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;';
-  function addF(lbl,id,val,type,full){
-    var div=document.createElement('div');
-    if(full)div.style.gridColumn='1/-1';
-    var label=document.createElement('label');
-    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
-    label.textContent=lbl;
-    var inp=document.createElement('input');
-    inp.type=type||'text';inp.id='rb-'+id;inp.value=val||'';
-    inp.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff;box-sizing:border-box;';
-    div.appendChild(label);div.appendChild(inp);grid.appendChild(div);
-  }
-  function addTA(lbl,id,val,ph,rows,full){
-    var div=document.createElement('div');
-    div.style.gridColumn='1/-1';
-    var label=document.createElement('label');
-    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
-    label.textContent=lbl;
-    var ta=document.createElement('textarea');
-    ta.id='rb-'+id;ta.rows=rows||4;ta.placeholder=ph||'';ta.value=val||'';
-    ta.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;resize:vertical;box-sizing:border-box;';
-    div.appendChild(label);div.appendChild(ta);grid.appendChild(div);
-  }
-  addF('Full Name','name',d.name||currentUser.name||'','text',false);
-  addF('Email','email',d.email||currentUser.email||'','email',false);
-  addF('Phone','phone',d.phone||currentUser.phone||'','tel',false);
-  addF('City','city',d.city||currentUser.city||'','text',false);
-  addF('LinkedIn URL','linkedin',d.linkedin||'','url',false);
-  addF('GitHub URL','github',d.github||'','url',false);
-  addTA('Professional Summary','summary',d.summary||'','Write 2-3 lines about your expertise and key strengths...',3,true);
-  addTA('Work Experience','experience',d.experience||d.rawText||'','Company | Role | Duration - Key achievements...',7,true);
-  addF('Education','education',d.education||'','text',true);
-  addTA('Skills','skills',d.skills||'','React, Node.js, Python, AWS, SQL, Docker, Git...',3,true);
-  addTA('Projects','projects',d.projects||'','Project Name | Tech Stack | Description...',4,true);
-  addF('Certifications','certifications',d.certifications||'','text',true);
-  wrap.appendChild(grid);
-}
 
 
-function renderFullResume(d,t){
-  var sk=(d.skills||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
-  var accent=t.accent||'#1e3a5f'; var bg=t.bg||'#fff';
-  if(t.sidebar){
-    return '<div style="display:flex;height:100%;font-family:Georgia,serif;font-size:9px;line-height:1.5;">'
-      +'<div style="width:35%;background:'+accent+';color:#fff;padding:20px 14px;">'
-      +'<div style="font-size:16px;font-weight:800;margin-bottom:2px;">'+(d.name||'Your Name')+'</div>'
-      +'<div style="font-size:9px;opacity:.7;margin-bottom:14px;">'+(d.city||'')+'</div>'
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">CONTACT</div>'
-      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.email||'')+'</div>'
-      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.phone||'')+'</div>'
-      +(d.linkedin?'<div style="opacity:.7;font-size:7px;margin-bottom:12px;">'+d.linkedin+'</div>':'<div style="margin-bottom:12px;"></div>')
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">SKILLS</div>'
-      +sk.slice(0,10).map(function(s){return '<div style="background:rgba(255,255,255,.15);border-radius:3px;padding:2px 6px;margin-bottom:3px;font-size:8px;">'+s+'</div>';}).join('')
-      +'</div>'
-      +'<div style="flex:1;padding:20px 14px;background:'+bg+';">'
-      +(d.summary?'<div style="font-size:8px;color:#6b7280;margin-bottom:12px;line-height:1.6;font-style:italic;">'+d.summary+'</div>':'')
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EXPERIENCE</div>'
-      +'<div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,500)+'</div>'
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EDUCATION</div>'
-      +'<div style="font-size:8px;color:#374151;">'+(d.education||'')+'</div>'
-      +'</div></div>';
-  }else{
-    return '<div style="font-family:Georgia,serif;font-size:9px;line-height:1.6;padding:24px;background:'+bg+';">'
-      +'<div style="border-bottom:2.5px solid '+accent+';padding-bottom:10px;margin-bottom:12px;">'
-      +'<div style="font-size:18px;font-weight:800;color:'+accent+';">'+(d.name||'Your Name')+'</div>'
-      +'<div style="font-size:9px;color:#6b7280;margin-top:3px;">'+(d.email||'')+' · '+(d.phone||'')+' · '+(d.city||'')+(d.linkedin?' · '+d.linkedin:'')+'</div>'
-      +'</div>'
-      +(d.summary?'<div style="font-size:8px;color:#374151;margin-bottom:12px;line-height:1.7;font-style:italic;">'+d.summary+'</div>':'')
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EXPERIENCE</div>'
-      +'<div style="font-size:8px;color:#374151;line-height:1.7;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,600)+'</div>'
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">SKILLS</div>'
-      +'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">'
-      +sk.slice(0,12).map(function(s){return '<span style="background:'+accent+'22;color:'+accent+';border-radius:3px;padding:1px 6px;font-size:7px;font-weight:700;">'+s+'</span>';}).join('')
-      +'</div>'
-      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EDUCATION</div>'
-      +'<div style="font-size:8px;color:#374151;margin-bottom:10px;">'+(d.education||'')+'</div>'
-      +(d.projects?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">PROJECTS</div><div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:10px;">'+(d.projects||'').slice(0,300)+'</div>':'')
-      +(d.certifications?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">CERTIFICATIONS</div><div style="font-size:8px;color:#374151;">'+d.certifications+'</div>':'')
-      +'</div>';
-  }
-}
-
-function downloadResumePDF(){
-  if(typeof html2canvas==='undefined'){showToast('PDF library loading, try again...','amber');return;}
-  var panel=document.getElementById('rbPreviewPanel');
-  if(!panel){showToast('No resume to download','amber');return;}
-  var name=((rbData.name||'resume').replace(/\s+/g,'_'))+'_resume';
-  showToast('Generating PDF...','amber');
-  html2canvas(panel,{scale:2,useCORS:true,allowTaint:true}).then(function(canvas){
-    var imgData=canvas.toDataURL('image/png');
-    var pdf=new jspdf.jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-    var w=pdf.internal.pageSize.getWidth();
-    var h=(canvas.height*w)/canvas.width;
-    pdf.addImage(imgData,'PNG',0,0,w,h);
-    pdf.save(name+'.pdf');
-    showToast('Resume downloaded ✅','amber');
-  }).catch(function(e){
-    showToast('PDF generation failed. Try again.','amber');
-  });
-}
 
 function previewResume(){
   rbData=Object.assign(rbData,getRBFieldValues());
