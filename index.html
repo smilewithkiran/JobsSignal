@@ -648,7 +648,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
             <div id="modeDesc" style="font-size:11px;color:var(--soft);margin-top:2px;">Find exact recruiter posts for your skill in your city</div>
           </div>
         </div>
-        <div id="modePanelWrap"></div>
+        <div id="modePanelWrap"><div class="search-row"><div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="e.g. React, Python, SAP ABAP..." list="skillList" style="min-width:180px;padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;"></div><div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Noida</option><option>Gurgaon</option><option>Kochi</option><option>Coimbatore</option><option>Vizag</option><option>Jaipur</option></select></div><div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp"><option value="">Any experience</option><option value="fresher">Fresher</option><option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option><option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option></select></div><div class="sg"><label class="sg-label">Work Mode</label><select class="sg-select" id="sk_wfh"><option value="">All Modes</option><option value="remote">🏠 Remote</option><option value="hybrid">🏢 Hybrid</option><option value="office">🏬 In-Office</option></select></div><button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div><div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:rgba(232,148,58,.06);border-radius:7px;line-height:1.5;">💡 Results open LinkedIn. Comment within the first hour — 24h posts have the least competition.</div></div>
       </div>
 
       <!-- Results area (shown after search) -->
@@ -1869,6 +1869,7 @@ function goTo(viewId){
     document.body.style.setProperty('padding-top','0','important');
     document.body.style.setProperty('margin-top','0','important');
     if(dw){dw.style.setProperty('margin-top','0','important');dw.style.height='100vh';}
+    setTimeout(function(){if(typeof setMode==='function'){setMode(currentMode||'skill');}},10);
   }else{
     if(nav){nav.style.display='flex';nav.style.visibility='visible';}
     document.body.style.setProperty('padding-top','58px','important');
@@ -1963,7 +1964,7 @@ function buildDash(user,pl){
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
   if(isPaid||isSuperUser((currentUser||{}).phone))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
-  setTimeout(function(){setMode('skill');},50);
+  setMode('skill');
 }
 function showFreeDash(){
   const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
@@ -2536,10 +2537,13 @@ function goToolkit(tool){
     var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='📊 ATS Score Checker';
   }else if(tool==='salary'){
     goTo('atsView');
-    var az=document.getElementById('atsUploadZone');if(az)az.style.display='none';
-    var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
-    var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='block';
-    var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='🧮 Salary Tools';
+    setTimeout(function(){
+      var az=document.getElementById('atsUploadZone');if(az)az.style.display='none';
+      var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
+      var sp=document.getElementById('salaryToolsPanel');
+      if(sp){sp.style.display='block';sp.style.visibility='visible';sp.style.opacity='1';}
+      var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='🧮 Salary Tools';
+    },50);
   }
 }
 
