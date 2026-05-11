@@ -141,7 +141,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-usermeta{font-size:11px;color:var(--soft);}
 .sb-topbar-r{display:flex;align-items:center;gap:8px;}
 .btn-signout{padding:7px 13px;border-radius:7px;background:transparent;border:1.5px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-
+.btn-find{padding:8px 16px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .sb-content{flex:1;overflow-y:auto;padding:18px 22px;}
 .stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
 .sc{background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;text-align:center;}
@@ -157,7 +157,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .mode-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .search-panel{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:14px;}
 .search-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;}
-.sg{display:flex;flex-direction:column;gap:4px;}.sg-input{padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);min-width:180px;}
+.sg{display:flex;flex-direction:column;gap:4px;}
 .sg-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);}
 .sg-input,.sg-select{padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);}
 .sg-input:focus,.sg-select:focus{outline:none;border-color:var(--amber);}
@@ -249,10 +249,10 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-item.locked{opacity:.6;cursor:pointer;}
 
 /* ── JOB RESULTS NEW DESIGN ── */
-
-
-
-
+.src-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.src-tab{padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
+.src-pane{animation:fadeIn .3s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
 
 /* Google Jobs cards */
@@ -326,36 +326,36 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .ats-cta-btn{display:inline-block;margin-top:12px;padding:11px 24px;background:#fff;color:var(--amber);border-radius:8px;font-size:13px;font-weight:800;text-decoration:none;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
 
 /* ── RESUME BUILDER ── */
-
+.resume-wrap{height:100vh;overflow-y:auto;background:var(--cream);}
 .resume-body{max-width:900px;margin:0 auto;padding:32px 28px;}
-
-
-
+.rb-step-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:-.5px;}
+.rb-input-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+.rb-opt{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;}
 .rb-opt:hover{border-color:var(--amber);box-shadow:0 4px 20px rgba(232,148,58,.15);}
 .rb-opt.selected{border-color:var(--amber);background:#fff7ed;}
-
-
-
-
-
-
+.rb-opt-icon{font-size:28px;margin-bottom:8px;}
+.rb-opt-title{font-size:13px;font-weight:800;margin-bottom:4px;}
+.rb-opt-sub{font-size:10px;color:var(--soft);line-height:1.5;}
+.rb-next-btn{padding:12px 28px;background:var(--amber);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.rb-template-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.rb-tmpl-card{background:#fff;border-radius:14px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:all .2s;}
 .rb-tmpl-card:hover{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,148,58,.15);}
 .rb-tmpl-card.selected{border-color:var(--amber);}
-
-
-
-
-
+.rb-tmpl-thumb{height:200px;overflow:hidden;position:relative;}
+.rb-tmpl-info{padding:12px 14px;border-top:1px solid var(--border);}
+.rb-tmpl-name{font-size:12px;font-weight:800;color:var(--ink);}
+.rb-tmpl-role{font-size:10px;color:var(--soft);margin-top:2px;}
+.rb-tmpl-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;margin-top:4px;}
 .badge-pro{background:#eff6ff;color:#1d4ed8;}
 .badge-modern{background:#faf5ff;color:#7c3aed;}
-
-
-
-
-.rb-edit-btn,
+.rb-preview-wrap{display:grid;grid-template-columns:1fr 240px;gap:24px;}
+.rb-preview-panel{background:#fff;border-radius:14px;border:1.5px solid var(--border);min-height:600px;overflow:hidden;}
+.rb-download-panel{display:flex;flex-direction:column;gap:10px;}
+.rb-download-btn{padding:14px;background:linear-gradient(135deg,var(--amber),#d97706);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.rb-edit-btn,.rb-template-btn{padding:11px;background:#fff;border:1.5px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);}
 @media(max-width:700px){
   .ats-sections{grid-template-columns:1fr;}
-  
+  .rb-preview-wrap{grid-template-columns:1fr;}
 }
 
 /* ── Auth left panel features ── */
@@ -364,7 +364,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sa-feat-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
 .sa-feat-t{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
 .sa-feat-s{font-size:10px;color:rgba(255,255,255,.5);line-height:1.4;}
-.src-tabs{display:flex;gap:10px;margin-bottom:16px;}.src-tab{flex:1;min-width:130px;padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;text-align:center;}.src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}.src-pane{animation:fadeIn .3s ease;}
 </style>
 </head>
 <body>
@@ -392,7 +391,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <div class="hero">
     <div class="eyebrow">Real-time Recruiter Signals · India</div>
     <h1>Find recruiters<br>before the job<br>goes <em>live.</em></h1>
-    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from Adzuna, Jooble, Remotive &amp; Jobicy.</p>
+    <p>Every day, hundreds of recruiters post on LinkedIn hours before jobs appear on any portal. JobsSignal finds every signal instantly — plus live job listings from Google Jobs, Google Jobs, Google Jobs &amp; Google Jobs.</p>
 
     <!-- Professional hero image banner -->
     <div style="margin:28px auto 0;max-width:900px;border-radius:20px;overflow:hidden;height:320px;position:relative;box-shadow:0 20px 60px rgba(15,17,23,.14);">
@@ -425,7 +424,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <div class="steps">
       <div class="step"><div class="step-n">1</div><div><strong>Sign up free — 30 seconds.</strong><br><span style="font-size:13px;color:var(--soft);">Enter your name, mobile, skill and city. No password needed.</span></div></div>
       <div class="step"><div class="step-n">2</div><div><strong>Choose your search mode.</strong><br><span style="font-size:13px;color:var(--soft);">5 modes: Skill+City · Hashtag Hunt · Notice Period · Referral Radar · Walk-in Drives</span></div></div>
-      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Adzuna (100+ sources) show inside the app with salary &amp; Apply button.</span></div></div>
+      <div class="step"><div class="step-n">3</div><div><strong>See live results inside the app.</strong><br><span style="font-size:13px;color:var(--soft);">LinkedIn recruiter posts open instantly. Live job cards from Google Jobs (100+ sources) show inside the app with salary &amp; Apply button.</span></div></div>
     </div>
   </section>
 
@@ -439,7 +438,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <div class="mode-card"><div class="mode-icon">⏱️</div><div class="mode-name">Notice Period</div><div class="mode-desc">Recruiters looking for 30-day or immediate joiners.</div></div>
         <div class="mode-card"><div class="mode-icon">🤝</div><div class="mode-name">Referral Radar</div><div class="mode-desc">Find employees offering referrals at target companies.</div></div>
         <div class="mode-card"><div class="mode-icon">🚶</div><div class="mode-name">Walk-in Drives</div><div class="mode-desc">Live walk-in interview announcements this week.</div></div>
-        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Indeed + 100 sources inside the app. Salary, company, Apply button. Powered by Adzuna.</div></div>
+        <div class="mode-card" style="background:rgba(232,148,58,.1);border-color:rgba(232,148,58,.3);"><div class="mode-icon">💼</div><div class="mode-name mode-new">Live Job Listings NEW</div><div class="mode-desc" style="color:rgba(255,255,255,.6);">Real job cards from Indeed + 100 sources inside the app. Salary, company, Apply button. Powered by Google Jobs.</div></div>
       </div>
     </div>
   </section>
@@ -454,8 +453,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
       <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
-      <div class="price-card"><div class="pc-name">Quarterly</div><div class="pc-price">₹179</div><div class="pc-per">60 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes + filters</li><li>ATS Checker + Salary Tools</li><li>40+ Indian cities</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹179</button></div>
-      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
+      <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>Priority support</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
 </div>
@@ -544,7 +542,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
           <div style="font-size:13px;display:flex;flex-direction:column;gap:5px;">
             <div>✓ 1 free recruiter signal search</div>
             <div>✓ All 5 search modes</div>
-            <div>✓ Live Job Listings from Adzuna</div>
+            <div>✓ Live Job Listings from Google Jobs</div>
             <div>✓ No credit card needed</div>
           </div>
         </div>
@@ -586,11 +584,13 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-notice" onclick="setMode('notice',this)"><span class="sb-icon">⏱️</span><span>Notice Period</span></div>
       <div class="sb-item" id="mode-referral" onclick="setMode('referral',this)"><span class="sb-icon">🤝</span><span>Referral Radar</span></div>
       <div class="sb-item" id="mode-walkin" onclick="setMode('walkin',this)"><span class="sb-icon">🚶</span><span>Walk-in Drives</span></div>
+      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
+      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
       <div class="sb-item" id="sb-salary" onclick="goToolkit('salary')"><span class="sb-icon">🧮</span><span>Salary Tools</span></div>
-      
+      <div class="sb-item" id="sb-resume" onclick="goToolkit('resume')"><span class="sb-icon">📄</span><span>Salary Tools</span><span class="sb-lock" id="lock-resume"></span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Results</div>
       <div class="sb-item" onclick="document.querySelector('.r-tab').click()"><span class="sb-icon">📡</span><span>Recruiter Posts</span></div>
@@ -599,14 +599,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Account</div>
       <div class="sb-item" onclick="showUpgrade()"><span class="sb-icon">⬆️</span><span>Upgrade Plan</span></div>
-      <div style="height:1px;background:rgba(255,255,255,.1);margin:6px 0;"></div>
-      <div style="font-size:8px;padding:4px 8px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;">Smart Filters</div>
-      <div class="sb-item" id="filter-moonlight" onclick="this.classList.toggle('active');showToast(this.classList.contains('active')?'Moonlighting filter ON':'Moonlighting filter OFF','amber')">
-        <span class="sb-icon">🌙</span><span style="line-height:1.3;">Moonlighting<br>OK</span>
-      </div>
-      <div class="sb-item" id="filter-women" onclick="this.classList.toggle('active');showToast(this.classList.contains('active')?'Women Returns filter ON':'Women Returns filter OFF','amber')">
-        <span class="sb-icon">👩</span><span style="line-height:1.3;">Women<br>Returns</span>
-      </div>
     </div>
   </div><!-- /sidebar -->
 
@@ -648,7 +640,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
             <div id="modeDesc" style="font-size:11px;color:var(--soft);margin-top:2px;">Find exact recruiter posts for your skill in your city</div>
           </div>
         </div>
-        <div id="modePanelWrap"><div class="search-row"><div class="sg"><label class="sg-label">Skill / Job Title</label><input class="sg-input" id="sk_skill" placeholder="e.g. React, Python, SAP ABAP..." list="skillList" style="min-width:180px;padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;"></div><div class="sg"><label class="sg-label">City</label><select class="sg-select" id="sk_city"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Noida</option><option>Gurgaon</option><option>Kochi</option><option>Coimbatore</option><option>Vizag</option><option>Jaipur</option></select></div><div class="sg"><label class="sg-label">Experience</label><select class="sg-select" id="sk_exp"><option value="">Any experience</option><option value="fresher">Fresher</option><option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option><option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option></select></div><div class="sg"><label class="sg-label">Work Mode</label><select class="sg-select" id="sk_wfh"><option value="">All Modes</option><option value="remote">🏠 Remote</option><option value="hybrid">🏢 Hybrid</option><option value="office">🏬 In-Office</option></select></div><button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div><div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;background:rgba(232,148,58,.06);border-radius:7px;line-height:1.5;">💡 Results open LinkedIn. Comment within the first hour — 24h posts have the least competition.</div></div>
+        <div id="modePanelWrap"></div>
       </div>
 
       <!-- Results area (shown after search) -->
@@ -727,14 +719,82 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <textarea class="auz-paste" id="atsPasteText" placeholder="Paste your resume text or LinkedIn profile text here..."></textarea>
         <button class="auz-analyse-btn" onclick="runATSCheck()">📊 Check My ATS Score →</button>
       </div>
-      <div class="ats-result" id="atsResult" style="display:none;">
-    <div id="salaryToolsPanel" style="display:none;"><div class="ats-body"><div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">🧮 CTC Breakdown Calculator</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Enter CTC &#8594; exact monthly in-hand after PF, PT &amp; TDS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">ANNUAL CTC (&#8377;)</div><input id="ctc-input" type="number" placeholder="e.g. 1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TAX REGIME</div><select id="ctc-regime" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;box-sizing:border-box;"><option value="new">New Regime (2024)</option><option value="old">Old Regime</option></select></div></div><button onclick="calcCTC()" style="background:var(--amber);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Calculate Take-Home</button><div id="ctc-result" style="display:none;margin-top:12px;padding:14px;background:rgba(232,148,58,.08);border-radius:10px;font-size:13px;"></div></div><div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#128200; Hike % Negotiation</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Know your target number + get a negotiation script</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">CURRENT CTC (&#8377;)</div><input id="hike-current" type="number" placeholder="e.g. 800000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TARGET HIKE %</div><input id="hike-pct" type="number" placeholder="e.g. 30" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;"></div></div><button onclick="calcHike()" style="background:var(--teal);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Calculate My Target</button><div id="hike-result" style="display:none;margin-top:12px;padding:14px;background:rgba(26,107,107,.08);border-radius:10px;font-size:13px;"></div></div><div style="background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#127961; City Salary Comparison</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Same CTC &#8212; which city gives you more real value?</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;"><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">YOUR CTC</div><input id="city-ctc" type="number" placeholder="1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;font-family:inherit;box-sizing:border-box;"></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">FROM</div><select id="city-from" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div><div><div style="font-size:10px;font-weight:700;color:var(--soft);margin-bottom:4px;">TO</div><select id="city-to" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;"><option>Mumbai</option><option>Bengaluru</option><option>Hyderabad</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div></div><button onclick="calcCity()" style="background:var(--ink);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Compare Cities</button><div id="city-result" style="display:none;margin-top:12px;padding:14px;background:rgba(15,17,23,.05);border-radius:10px;font-size:13px;"></div></div></div></div>
+      <div class="ats-result" id="atsResult" style="display:none;"></div>
+    <div id="salaryToolsPanel" style="display:none;"><div class="ats-body">
+      <div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#9881; CTC Calculator</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">CTC &#8594; monthly take-home after PF &amp; TDS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><label style="font-size:10px;font-weight:700;color:var(--soft)">ANNUAL CTC</label><br><input id="ctc-input" type="number" placeholder="e.g. 1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;margin-top:4px"></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">TAX REGIME</label><br><select id="ctc-regime" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;box-sizing:border-box;margin-top:4px"><option value="new">New (2024)</option><option value="old">Old Regime</option></select></div></div><button onclick="calcCTC()" style="background:var(--amber);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit">Calculate Take-Home</button><div id="ctc-result" style="display:none;margin-top:12px;padding:14px;background:rgba(232,148,58,.08);border-radius:10px;font-size:13px"></div></div>
+      <div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#128200; Hike Negotiation</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Target number + negotiation script</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div><label style="font-size:10px;font-weight:700;color:var(--soft)">CURRENT CTC</label><br><input id="hike-current" type="number" placeholder="e.g. 800000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;margin-top:4px"></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">TARGET HIKE %</label><br><input id="hike-pct" type="number" placeholder="e.g. 30" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;box-sizing:border-box;margin-top:4px"></div></div><button onclick="calcHike()" style="background:var(--teal);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit">Calculate Target</button><div id="hike-result" style="display:none;margin-top:12px;padding:14px;background:rgba(26,107,107,.08);border-radius:10px;font-size:13px"></div></div>
+      <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#127961; City Salary Compare</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Same CTC &#8212; which city gives more value?</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;"><div><label style="font-size:10px;font-weight:700;color:var(--soft)">CTC</label><br><input id="city-ctc" type="number" placeholder="1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;font-family:inherit;box-sizing:border-box;margin-top:4px"></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">FROM</label><br><select id="city-from" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;margin-top:4px"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">TO</label><br><select id="city-to" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;margin-top:4px"><option>Mumbai</option><option>Bengaluru</option><option>Hyderabad</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div></div><button onclick="calcCity()" style="background:var(--ink);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit">Compare Cities</button><div id="city-result" style="display:none;margin-top:12px;padding:14px;background:rgba(15,17,23,.05);border-radius:10px;font-size:13px"></div></div>
+    </div></div>
     </div>
   </div>
 </div>
 
 <!-- RESUME BUILDER VIEW -->
-
+<div class="view" id="resumeView">
+  <div class="resume-wrap">
+    <div class="ats-header">
+      <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
+      <div class="ats-header-title">📄 Salary Tools</div>
+      <div class="ats-header-sub">Choose a template · Fill your details · Download PDF</div>
+    </div>
+    <div class="resume-body" id="resumeBody">
+      <!-- Step 1: Input method -->
+      <div class="rb-step" id="rbStep1">
+        <div class="rb-step-title">Step 1 — How do you want to start?</div>
+        <div class="rb-input-options">
+          <div class="rb-opt" onclick="showRBInput('linkedin-pdf')">
+            <div class="rb-opt-icon">📎</div>
+            <div class="rb-opt-title">LinkedIn PDF</div>
+            <div class="rb-opt-sub">Upload your LinkedIn profile PDF export</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('linkedin-text')">
+            <div class="rb-opt-icon">📋</div>
+            <div class="rb-opt-title">Paste LinkedIn Text</div>
+            <div class="rb-opt-sub">Copy & paste your LinkedIn profile text</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('manual')">
+            <div class="rb-opt-icon">✏️</div>
+            <div class="rb-opt-title">Fill Manually</div>
+            <div class="rb-opt-sub">Enter your details step by step</div>
+          </div>
+          <div class="rb-opt" onclick="showRBInput('paste')">
+            <div class="rb-opt-icon">📝</div>
+            <div class="rb-opt-title">Paste Any Text</div>
+            <div class="rb-opt-sub">Paste unformatted resume or profile</div>
+          </div>
+        </div>
+        <!-- Input areas (shown based on selection) -->
+        <div id="rb-input-area" style="display:none;margin-top:20px;"></div>
+        <button class="rb-next-btn" id="rbNextBtn" style="display:none;" onclick="goToTemplates()">Choose Template →</button>
+      </div>
+      <!-- Step 2: Template gallery (built in Phase 6) -->
+      <div class="rb-step" id="rbStep2" style="display:none;">
+        <div class="rb-step-title">Step 2 — Choose Your Template</div>
+        <div class="rb-template-gallery" id="rbTemplateGallery">
+          <!-- Templates injected by JS -->
+        </div>
+      </div>
+      <!-- Step 3: Form fill -->
+      <div class="rb-step" id="rbStep3" style="display:none;">
+        <div class="rb-step-title">Step 3 — Your Details</div>
+        <div id="rbFormWrap"></div>
+        <button class="rb-next-btn" onclick="previewResume()">Preview Resume →</button>
+      </div>
+      <!-- Step 4: Preview + Download -->
+      <div class="rb-step" id="rbStep4" style="display:none;">
+        <div class="rb-step-title">Step 4 — Preview & Download</div>
+        <div class="rb-preview-wrap">
+          <div class="rb-preview-panel" id="rbPreviewPanel"></div>
+          <div class="rb-download-panel">
+            <button class="rb-download-btn" onclick="downloadResumePDF()">⬇️ Download PDF</button>
+            <button class="rb-edit-btn" onclick="goStep(3)">← Edit Details</button>
+            <button class="rb-template-btn" onclick="goStep(2)">Change Template</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -812,9 +872,9 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 // TODO: REPLACE EXTERNAL JOB SOURCES
 // ─────────────────────────────────────────────────── 
 // CURRENT ISSUES:
-//   - Adzuna: Low Indian job volume, irrelevant results
-//   - Jooble: Opens new page (CORS blocked in browser)
-//   - Remotive/Jobicy: Remote-only, not India-focused
+//   - Google Jobs: Low Indian job volume, irrelevant results
+//   - Google Jobs: Opens new page (CORS blocked in browser)
+//   - Google Jobs/Google Jobs: Remote-only, not India-focused
 //
 // RECOMMENDED REPLACEMENT: JSearch API (RapidAPI)
 //   → Powered by Google Jobs data
@@ -933,9 +993,9 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //
 // ── BUG 4: JOB SOURCES CLEANUP ─────────────────────
 //   Remove completely:
-//     → Adzuna (irrelevant Indian jobs, broad search fails)
-//     → Jooble (CORS blocked, opens new page)
-//     → Remotive (remote-only, not India focused)
+//     → Google Jobs (irrelevant Indian jobs, broad search fails)
+//     → Google Jobs (CORS blocked, opens new page)
+//     → Google Jobs (remote-only, not India focused)
 //   Keep:
 //     → LinkedIn Posts (recruiter posts tab — working)
 //     → LinkedIn Jobs (redirect with skill+city+exp)
@@ -1104,7 +1164,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
 //   }
 //   Query params: query="{skill} {city}", num_pages=1
-//   Remove: Adzuna, Jooble, Remotive, Jobicy completely
+//   Remove: Google Jobs, Google Jobs, Google Jobs, Google Jobs completely
 //   Keep: LinkedIn Posts, LinkedIn Jobs, Google Jobs (JSearch)
 //   Final Job Listings tabs:
 //     → 🔍 Google Jobs (JSearch — live API results)
@@ -1170,7 +1230,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → Remove duplicate mode-tabs strip
 //     → Confirm results tab behavior
 //   Phase 2 — Job Sources:
-//     → Remove Adzuna, Jooble, Remotive, Jobicy
+//     → Remove Google Jobs, Google Jobs, Google Jobs, Google Jobs
 //     → Add JSearch (Google Jobs) with API key
 //     → Keep LinkedIn Posts + LinkedIn Jobs
 //   Phase 3 — ATS Checker:
@@ -1253,7 +1313,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     ₹49  / 7 days  → Signals only, NO Career Toolkit
 //     ₹99  / 30 days → Signals + ATS Checker + Salary Tools ✅
 //     ₹179 / 60 days → Signals ONLY (same as ₹49) — NOTE: confirm
-//     ₹599 / Annual  → Everything + ATS Checker + Salary Tools ✅
+//     ₹599 / Annual  → Everything + ATS + Salary Tools ✅
 //   Free users:
 //     → See Career Toolkit in sidebar (greyed/locked)
 //     → Clicking shows upgrade prompt
@@ -1338,8 +1398,8 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   ✅ Option A: ₹179 gets Career Toolkit too
 //   Final access matrix:
 //     ₹49  / 7 days   → Signals only (no Career Toolkit)
-//     ₹99  / 30 days  → Signals + ATS Checker + Salary Tools ✅
-//     ₹179 / 60 days  → Signals + ATS Checker + Salary Tools ✅
+//     ₹99  / 30 days  → Signals + ATS + Salary Tools ✅
+//     ₹179 / 60 days  → Signals + ATS + Salary Tools ✅
 //     ₹599 / Annual   → Everything ✅
 //   Free users:
 //     → Career Toolkit visible in sidebar but locked
@@ -1375,7 +1435,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   PHASE 2 — JOB SOURCES
 //     → Remove: fetchAdzuna, fetchJooble, fetchRemotive,
 //               fetchJobicy, switchSrc, buildJobsAll
-//     → Remove: Adzuna/Jooble/Remotive/Jobicy CSS
+//     → Remove: Google Jobs/Google Jobs/Google Jobs/Google Jobs CSS
 //     → Add: fetchGoogleJobs(skill, city, exp)
 //             using JSearch RapidAPI
 //             Key: 32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535
@@ -1439,7 +1499,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //
 //   PHASE 7 — LOGIN/SIGNUP LEFT PANEL UPDATE
 //     → New copy and feature pills on left side
-//     → Mention ATS Checker + Salary Tools
+//     → Mention ATS + Salary Tools
 //     → Keep form fields exactly same
 //
 //   PHASE 8 — LANDING PAGE UPDATES
@@ -1572,7 +1632,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     ✅ PDF Download
 //   ₹599 / Annual (Everything):
 //     ✅ All of above
-//     ✅ WhatsApp renewal reminders
+//     ✅ Priority support
 //     ✅ Best value — save ₹597 vs monthly
 //   Status: PENDING CODE
 //
@@ -1585,7 +1645,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → Divider before Results
 //   Keep:
 //     → Search Modes (5 items)
-//     → Career Toolkit (ATS Checker + Salary Tools)
+//     → Career Toolkit (ATS + Salary Tools)
 //     → Account (Upgrade Plan)
 //   Status: PENDING CODE
 //
@@ -1722,7 +1782,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //   Also update landing page SECTIONS:
 //     → How it Works section: add ATS + Resume steps
 //     → Search Modes section: update job sources
-//       (remove Adzuna/Jooble/Remotive refs)
+//       (remove Google Jobs/Google Jobs/Google Jobs refs)
 //     → New section: ATS Checker (after Search Modes)
 //     → New section: Salary Tools (after ATS)
 //     → vs Portals: add ATS + Resume rows to table
@@ -1755,8 +1815,8 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //       (Same as ₹99 but longer duration)
 //     ₹599 / Annual:
 //       ✅ Everything
-//       ✅ ATS Checker + Salary Tools
-//       ✅ WhatsApp renewal reminders
+//       ✅ ATS + Salary Tools
+//       ✅ Priority support
 //       ✅ Best value
 //   Status: PENDING FIX
 //
@@ -1769,7 +1829,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //           after search runs — redundant in sidebar
 //   Keep in sidebar:
 //     → Search Modes section (5 modes)
-//     → Career Toolkit section (ATS Checker + Salary Tools)
+//     → Career Toolkit section (ATS + Salary Tools)
 //     → Account section (Upgrade Plan)
 //   Remove entirely: Results section + divider
 //   Status: PENDING FIX
@@ -1814,7 +1874,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 
 
 const AZ_ID='7d0512c2', AZ_KEY='79b7781b37844979749df7d951561f02';
-const JOOBLE_KEY='9bb9b665-d6b3-4e51-8ff3-f1d83a9c9c94'; // Free Jooble key — replace if expired
+const JOOBLE_KEY='9bb9b665-d6b3-4e51-8ff3-f1d83a9c9c94'; // Free Google Jobs key — replace if expired
 const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
 // Use Firebase REST API — no SDK needed, works on all browsers
 const AZ_CITIES={'Hyderabad':'Hyderabad','Bengaluru':'Bangalore','Mumbai':'Mumbai','Pune':'Pune','Delhi NCR':'Delhi','Chennai':'Chennai','Kolkata':'Kolkata','Remote':'India'};
@@ -1865,15 +1925,11 @@ function goTo(viewId){
   var nav=document.getElementById('mainNav');
   var dw=document.querySelector('.dash-wrap');
   if(viewId==='dashView'){
-    if(nav){nav.style.display='none';nav.style.visibility='hidden';}
-    document.body.style.setProperty('padding-top','0','important');
-    document.body.style.setProperty('margin-top','0','important');
-    if(dw){dw.style.setProperty('margin-top','0','important');dw.style.height='100vh';}
-    setTimeout(function(){if(typeof setMode==='function'){setMode(currentMode||'skill');}},10);
+    if(nav)nav.style.display='none';
+    if(dw){dw.style.marginTop='0';dw.style.height='100vh';}
   }else{
-    if(nav){nav.style.display='flex';nav.style.visibility='visible';}
-    document.body.style.setProperty('padding-top','58px','important');
-    if(dw){dw.style.marginTop='0';dw.style.height='calc(100vh - 58px)';}
+    if(nav)nav.style.display='flex';
+    if(dw){dw.style.marginTop='58px';dw.style.height='calc(100vh - 58px)';}
   }
 }
 function goToSec(id){
@@ -1896,70 +1952,77 @@ function showRTab(tab,btn){
 function showUpgrade(){showLockedDash();}
 
 // ── LOGIN ────────────────────────────────────────────
+function isSuperUser(p){return (p||'').replace(/[^0-9]/g,'').slice(-10)==='9160075557';}
+function hasToolkitAccess(){
+  if(currentUser&&isSuperUser(currentUser.phone))return true;
+  var pl=localStorage.getItem('js_plan')||'';
+  return['Monthly Plan','60 Days','Quarterly Plan','Annual Plan'].includes(pl);
+}
 async function doLogin(){
-  const rawPhone=(document.getElementById('li_phone').value||'').trim();
+  const phone=(document.getElementById('li_phone').value||'').trim();
   const errEl=document.getElementById('loginErr');
-  if(errEl)errEl.style.display='none';
-  if(!rawPhone){showToast('Enter your mobile number','amber');return;}
-  
-  // SUPER USER: check BEFORE normP — multiple formats handled
-  const digits=rawPhone.replace(/[^0-9]/g,'');
-  const last10=digits.slice(-10);
-  if(last10==='9160075557'){
-    try{
-      const su={name:'Kiran',phone:'9160075557',email:'kiran@jobssignal.in',
-                city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
-      isPaid=true;
-      currentUser=su;
-      try{sto(S_USER,su);}catch(e){}
-      buildDash(su,{});
-      goTo('dashView');
-      showToast('Welcome Kiran! 🎉','green');
-    }catch(e){
-      goTo('dashView');
-      showToast('Welcome Kiran! 🎉','green');
-    }
+  errEl.style.display='none';
+  if(!phone){showToast('Enter your mobile number','amber');return;}
+  const ep=normP(phone);
+  if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
+  // SUPER USER DIRECT ACCESS
+  const _d=(phone||'').replace(/[^0-9]/g,'').slice(-10);
+  if(_d==='9160075557'){
+    const _su={name:'Kiran',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
+    isPaid=true;currentUser=_su;
+    try{localStorage.setItem('js_user',JSON.stringify(_su));}catch(_e){}
+    buildDash(_su,{});goTo('dashView');
+    showToast('Welcome Kiran! Admin 🔑','green');
     return;
   }
-
-  const ep=normP(rawPhone);
-  if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-
   // Check localStorage first (instant)
-  try{
-    const raw=gst(S_USER);
-    if(raw){
-      const u=JSON.parse(raw);
-      if(u&&normP(u.phone)===ep){enterDash(u);return;}
-    }
-  }catch(e){}
-
-  // Check Firebase
-  if(errEl){errEl.textContent='Checking database ⏳';errEl.style.display='block';}
-  try{
-    const data=await fbGetUser(ep);
-    if(data&&data.phone){
-      const user={name:data.name||'Job Seeker',phone:data.phone,email:data.email||'',
-                  city:data.city||'Hyderabad',skill:data.skill||'',
-                  prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
-      sto(S_USER,user);
-      if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){
-        sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;
-      }
-      if(errEl)errEl.style.display='none';
-      enterDash(user);
-      return;
-    }
-  }catch(e){}
-  if(errEl){
-    errEl.innerHTML='Mobile not registered. <button onclick="goTo(\'signupView\')" style="background:none;border:none;color:var(--amber);font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;">Sign up free →</button>';
-    errEl.style.display='block';
+  try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
+  // Check Firebase (cross-browser)
+  errEl.textContent='Checking database ⏳';errEl.style.display='block';
+  const data=await fbGetUser(ep);
+  if(data&&data.phone){
+    const user={name:data.name||'Job Seeker',phone:data.phone,email:data.email||'',city:data.city||'Hyderabad',skill:data.skill||'',prefLocs:data.prefLocs?data.prefLocs.split(',').filter(Boolean):[]};
+    sto(S_USER,user);
+    if(data.plan&&data.plan.expiresAt&&new Date(data.plan.expiresAt)>new Date()){sto(S_PLAN,data.plan);isPaid=true;prevUsed=true;}
+    errEl.style.display='none';
+    enterDash(user);
+    return;
   }
+  errEl.innerHTML='Mobile not registered. <button onclick="goTo(\'signupView\')" style="background:none;border:none;color:var(--amber);font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;">Sign up free →</button>';
+  errEl.style.display='block';
 }
 
-
 // ── SIGNUP ───────────────────────────────────────────
-async 
+async function nextStep(from){
+  const show=(id)=>{document.getElementById(id).style.display='block';};
+  const hide=(id)=>{document.getElementById(id).style.display='none';};
+  const sl=(n)=>{['sl1','sl2','sl3'].forEach(x=>hide(x));show('sl'+n);};
+  const dots=(n)=>{for(let i=1;i<=3;i++){const d=document.getElementById('sd'+i);if(d)d.className='step-dot'+(i<n?' done':i===n?' active':'');}};
+  if(from===1){
+    const n=(document.getElementById('s1n').value||'').trim();
+    const p=(document.getElementById('s1p').value||'').trim();
+    const e=(document.getElementById('s1e').value||'').trim();
+    const s=(document.getElementById('s1s').value||'').trim();
+    const c=(document.getElementById('s1c').value||'').trim();
+    const err=(id,msg)=>{const el=document.getElementById(id+'_m');if(el)el.textContent=msg;};
+    if(!n){err('s1n','Enter your full name');return;}
+    if(!p||p.replace(/\D/g,'').length<10){err('s1p','Enter valid 10-digit mobile');return;}
+    if(!e||!e.includes('@')){err('s1e','Enter valid email');return;}
+    if(!s){err('s1s','Enter your primary skill');return;}
+    if(!c){showToast('Please select your city','amber');return;}
+    var ep=normP(p);var exU=await fbGetUser(ep);
+    if(exU&&exU.phone){showToast('Mobile already registered — please log in','amber');return;}
+    var sb=document.querySelector('#step1 .sa-btn-amber');
+    if(sb){sb.textContent='Checking ⏳';sb.disabled=true;}
+    var exE=await fbEmailExists(e);
+    if(sb){sb.textContent='Continue → Step 2';sb.disabled=false;}
+    if(exE){showToast('Email already registered — please log in','amber');return;}
+    hide('step1');show('step2');sl(2);dots(2);
+  }else if(from===2){hide('step2');show('step3');sl(3);dots(3);}
+  else if(from===-1){hide('step2');show('step1');sl(1);dots(1);}
+  else if(from===-2){hide('step3');show('step2');sl(2);dots(2);}
+  window.scrollTo(0,0);
+}
 function pickPill(btn,gid){
   if(gid==='prefLocRow'){btn.classList.toggle('sel');return;}
   document.querySelectorAll('#'+gid+' .pill-btn').forEach(b=>b.classList.remove('sel'));
@@ -1987,7 +2050,7 @@ function enterDash(user){
   const pl=gjson(S_PLAN,{});
   if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
   if(gst(S_PREV)==='1')prevUsed=true;
-  if(isSuperUser(user.phone)){isPaid=true;}
+  if(typeof isSuperUser==='function'&&isSuperUser(user.phone))isPaid=true;
   buildDash(user,pl);goTo('dashView');
   showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
 }
@@ -2001,8 +2064,7 @@ function buildDash(user,pl){
   setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
-  if(isPaid||isSuperUser((currentUser||{}).phone))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
-  setMode('skill');
+  if(isPaid||(typeof isSuperUser==='function'&&isSuperUser((currentUser||{}).phone)))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
 }
 function showFreeDash(){
   const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
@@ -2014,8 +2076,15 @@ function showPaidDash(){
   const ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
   const up=document.getElementById('upgradePlans');if(up)up.style.display='none';
 }
-function restoreDash(){var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';var up=document.getElementById('upgradePlans');if(up)up.style.display='none';}
-function showLockedDash(){var ds=document.getElementById('dashSearch');if(ds)ds.style.display='none';var up=document.getElementById('upgradePlans');if(up){up.style.display='block';setTimeout(function(){up.scrollIntoView({behavior:'smooth',block:'start'});},150);}}
+function restoreDash(){
+  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
+  var up=document.getElementById('upgradePlans');if(up)up.style.display='none';
+}
+function showLockedDash(){
+  var ds=document.getElementById('dashSearch');if(ds)ds.style.display='none';
+  var up=document.getElementById('upgradePlans');
+  if(up){up.style.display='block';setTimeout(function(){up.scrollIntoView({behavior:'smooth'});},100);}
+}
 function doLogout(){
   localStorage.removeItem(S_USER);localStorage.removeItem(S_PREV);
   currentUser={};isPaid=false;prevUsed=false;
@@ -2091,7 +2160,7 @@ const MODES={
 let currentMode='skill';
 
 function setMode(mode,btn){
-  restoreDash();
+  if(typeof restoreDash==='function')restoreDash();
   currentMode=mode;
   document.querySelectorAll('.sb-item[id^="mode-"]').forEach(function(b){b.classList.remove('active');});
   if(btn){btn.classList.add('active');}else{var nb=document.getElementById('mode-'+mode);if(nb)nb.classList.add('active');}
@@ -2100,7 +2169,7 @@ function setMode(mode,btn){
   se('modeIcon',m.icon);se('modeTitle',m.title);se('modeDesc',m.desc);
   var wrap=document.getElementById('modePanelWrap');if(!wrap)return;
   var cu=currentUser||{};
-  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Aurangabad','Ranchi','Patna','Guwahati','Dehradun','Raipur','Vijayawada','Guntur','Warangal','Tirupati','Hubli','Surat','Vadodara','Kolhapur','Remote','Pan India'];
+  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Ranchi','Patna','Guwahati','Vijayawada','Guntur','Warangal','Tirupati','Surat','Vadodara','Remote','Pan India'];
   var cOpts=cities.map(function(c){return '<option'+(c===(cu.city||'Hyderabad')?' selected':'')+'>'+c+'</option>';}).join('');
   var eOpts='<option value="">Any experience</option><option value="fresher">Fresher</option>'
     +'<option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option>'
@@ -2121,9 +2190,7 @@ function setMode(mode,btn){
       +'<option value="30days">30 Days</option><option value="60days">60 Days</option>'
       +'<option value="serving">Serving Notice</option></select></div>';
   }
-  h+='<div class="sg"><label class="sg-label">Work Mode</label>'+'<select class="sg-select" id="sk_wfh"><option value="">All Modes</option>'+'<option value="remote">🏠 Remote</option><option value="hybrid">🏢 Hybrid</option>'+'<option value="office">🏬 In-Office</option></select></div>';
-if(mode==='skill'||mode==='notice'){h+='<div class="sg"><label class="sg-label">IT Park</label>'+'<select class="sg-select" id="sk_itpark"><option value="">All Areas</option>'+'<option>HITEC City</option><option>Gachibowli</option><option>Madhapur</option>'+'<option>Electronic City</option><option>Whitefield</option>'+'<option>Manyata Tech Park</option><option>OMR Chennai</option>'+'<option>Tidel Park</option><option>BKC Mumbai</option>'+'<option>Hinjewadi</option><option>Kharadi</option></select></div>';}
-h+='<button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div>';
+  h+='<button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div>';
   h+='<div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;'
     +'background:rgba(232,148,58,.06);border-radius:7px;line-height:1.5;">💡 '+m.hint+'</div>';
   wrap.innerHTML=h;
@@ -2294,7 +2361,7 @@ function runSearch(){
   // Update results panel header
   var se2=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
   se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
-  se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn + Adzuna + Jooble + Remotive + Jobicy');
+  se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn + Google Jobs + Google Jobs + Google Jobs + Google Jobs');
   document.getElementById('resultsArea').style.display='block';
 
   buildPosts(skill,city,u24,uWk,uMo);
@@ -2307,14 +2374,14 @@ function runSearch(){
 // ── JOB SOURCES ─────────────────────────────────────
 
 
-// Adzuna — title_only + what_and for STRICT matching
+// Google Jobs — title_only + what_and for STRICT matching
 // This prevents "Talent Acquisition" returning .Net/Java jobs
 
-// Jooble — aggregates Indian portals (Naukri, TimesJobs etc.)
+// Google Jobs — aggregates Indian portals (Naukri, TimesJobs etc.)
 
-// Remotive — remote tech jobs
+// Google Jobs — remote tech jobs
 
-// Jobicy — remote jobs board
+// Google Jobs — remote jobs board
 
 // ── ADMIN ────────────────────────────────────────────
 var DB=[];
@@ -2551,13 +2618,9 @@ function checkAdminRoute(){
 // ══════════════════════════════════════════════════════════════════
 
 // Check if user has toolkit access (₹99, ₹179, ₹599 plans)
-function isSuperUser(phone){
-  return phone==='9160075557';
-}
 function hasToolkitAccess(){
-  if(currentUser&&isSuperUser(currentUser.phone))return true;
   var plan=localStorage.getItem(S_PLAN)||'';
-  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Quarterly Plan'||plan==='Annual Plan';
+  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Annual Plan';
 }
 
 function goToolkit(tool){
@@ -2570,24 +2633,20 @@ function goToolkit(tool){
     document.getElementById('atsResult').style.display='none';
     document.getElementById('atsUploadZone').style.display='block';
     document.getElementById('atsPasteText').value='';
-    var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='none';
-    var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
-    var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='📊 ATS Score Checker';
+  }else if(tool==='resume'){
+    goTo('resumeView');
+    goStep(1);
+    buildTemplateGallery();
+  }
   }else if(tool==='salary'){
     goTo('atsView');
     setTimeout(function(){
       var az=document.getElementById('atsUploadZone');if(az)az.style.display='none';
       var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
-      var sp=document.getElementById('salaryToolsPanel');
-      if(sp){sp.style.display='block';sp.style.visibility='visible';sp.style.opacity='1';}
-      var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='🧮 Salary Tools';
-    },50);
+      var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='block';
+    },30);
   }
 }
-
-// ── ATS CHECKER — RULE BASED (No API) ─────────────────────────────
-var atsResumeText='';
-
 function handleATSFile(input){
   var file=input.files[0];if(!file)return;
   var ext=file.name.split('.').pop().toLowerCase();
@@ -2632,6 +2691,86 @@ function runATSCheck(){
   renderATSResult(result);
 }
 
+function scoreResume(text){
+  var t=text.toLowerCase();
+  var words=t.split(/\s+/);
+  var score=0;var issues=[];var good=[];var missing=[];var fixes=[];
+
+  // 1. Contact info (15 pts)
+  var emailFound=/[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/.test(t);
+  var phoneFound=/[\+]?[\d\-\(\)\s]{10,}/.test(t);
+  var linkedInFound=t.includes('linkedin');
+  var githubFound=t.includes('github');
+  var contactScore=0;
+  if(emailFound){contactScore+=5;good.push('Email address found');}else{missing.push('No email address detected');}
+  if(phoneFound){contactScore+=5;good.push('Phone number found');}else{missing.push('No phone number detected');}
+  if(linkedInFound){contactScore+=3;good.push('LinkedIn URL present');}else{fixes.push('Add your LinkedIn profile URL');}
+  if(githubFound){contactScore+=2;good.push('GitHub link present');}
+  score+=contactScore;
+
+  // 2. Sections (20 pts)
+  var secScore=0;
+  var hasExp=t.includes('experience')||t.includes('work history')||t.includes('employment');
+  var hasEdu=t.includes('education')||t.includes('degree')||t.includes('university')||t.includes('college');
+  var hasSkills=t.includes('skills')||t.includes('technologies')||t.includes('tools')||t.includes('competencies');
+  var hasSummary=t.includes('summary')||t.includes('objective')||t.includes('profile')||t.includes('about');
+  var hasCerts=t.includes('certification')||t.includes('certificate')||t.includes('certified');
+  var hasProjects=t.includes('project')||t.includes('portfolio');
+  if(hasExp){secScore+=6;good.push('Experience section found');}else{missing.push('No Experience section detected');}
+  if(hasEdu){secScore+=5;good.push('Education section found');}else{missing.push('No Education section detected');}
+  if(hasSkills){secScore+=5;good.push('Skills section found');}else{missing.push('Add a dedicated Skills section');}
+  if(hasSummary){secScore+=4;good.push('Professional summary present');}else{fixes.push('Add a 2-3 line professional summary at the top');}
+  if(hasCerts)good.push('Certifications section present');
+  if(hasProjects)good.push('Projects section present');
+  score+=secScore;
+
+  // 3. Content quality (30 pts)
+  var contentScore=0;
+  var actionCount=ACTION_VERBS.filter(function(v){return t.includes(v);}).length;
+  var weakCount=WEAK_PHRASES.filter(function(p){return t.includes(p);}).length;
+  var numbersFound=(text.match(/\d+[%\+\-]?|\₹[\d,]+/g)||[]).length;
+  var wordCount=words.length;
+  if(actionCount>=6){contentScore+=12;good.push('Strong action verbs used ('+actionCount+' found)');}
+  else if(actionCount>=3){contentScore+=7;fixes.push('Use more action verbs — found only '+actionCount+'. Add: led, built, achieved, delivered...');}
+  else{fixes.push('Very few action verbs. Replace "responsible for" with: led, built, developed, achieved');}
+  if(numbersFound>=5){contentScore+=10;good.push('Good use of numbers & metrics ('+numbersFound+' found)');}
+  else if(numbersFound>=2){contentScore+=5;fixes.push('Add more metrics — only '+numbersFound+' numbers found. E.g. "Led team of 8" or "Increased sales by 40%"');}
+  else{missing.push('No quantified achievements — add numbers and metrics to every bullet point');}
+  if(weakCount===0){contentScore+=8;good.push('No weak phrases detected');}
+  else{fixes.push('Remove "'+WEAK_PHRASES.filter(function(p){return t.includes(p);})[0]+'" — replace with strong action verbs');}
+  if(wordCount>=250&&wordCount<=800){contentScore+=0;good.push('Good resume length ('+wordCount+' words)');}
+  else if(wordCount<250){missing.push('Resume too short ('+wordCount+' words) — needs more detail');}
+  else{fixes.push('Resume may be too long ('+wordCount+' words) — aim for 400-700 words');}
+  score+=contentScore;
+
+  // 4. Formatting (20 pts)
+  var fmtScore=20; // start full, deduct
+  var hasTable=t.includes('<table')||t.includes('|---|');
+  var hasPhoto=t.includes('<img')||t.includes('photo')||t.includes('photograph');
+  var hasColumns=t.includes('column');
+  if(!hasTable){good.push('No tables detected (ATS-safe)');}else{fmtScore-=6;issues.push('Tables detected — ATS cannot read table content, use plain text');}
+  if(!hasPhoto){good.push('No photo detected (ATS-safe)');}else{fmtScore-=5;issues.push('Photo detected — remove photo from resume (causes ATS rejection)');}
+  score+=Math.max(0,fmtScore);
+
+  // 5. Keywords (15 pts)
+  var kwScore=0;
+  var skillTerms=text.match(/[A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+){0,2}/g)||[];
+  var uniqueSkills=new Set(skillTerms.filter(function(s){return s.length>3;})).size;
+  if(uniqueSkills>=15){kwScore=15;good.push('Rich keyword density ('+uniqueSkills+' unique terms)');}
+  else if(uniqueSkills>=8){kwScore=9;fixes.push('Expand skills section — add more specific technologies, tools, methodologies');}
+  else{kwScore=4;missing.push('Very few keywords — your skills section needs more specific terms');}
+  score+=kwScore;
+
+  // Clamp score
+  score=Math.min(100,Math.max(0,Math.round(score)));
+
+  var verdict='';var color='';
+  if(score>=80){verdict='Strong resume — will pass most ATS systems';color='#16a34a';}
+  else if(score>=55){verdict='Average resume — passes some ATS, needs improvement';color='#d97706';}
+  else{verdict='Weak resume — likely rejected by most ATS systems';color='#dc2626';}
+
+  return {score:score,verdict:verdict,color:color,good:good,missing:missing,fixes:fixes,issues:issues};
+}
 
 function resetATSCheck(){document.getElementById("atsResult").style.display="none";document.getElementById("atsUploadZone").style.display="block";}
 function renderATSResult(r){
@@ -2684,14 +2823,166 @@ function renderATSResult(r){
 // ══════════════════════════════════════════════════════════════════
 var rbData={};var rbTemplate=0;var rbInputMethod='';
 
+function goStep(n){
+  document.querySelectorAll('.rb-step').forEach(function(s){s.style.display='none';});
+  var s=document.getElementById('rbStep'+n);if(s)s.style.display='block';
+}
 
+function showRBInput(method){
+  rbInputMethod=method;
+  document.querySelectorAll('.rb-opt').forEach(function(o){o.classList.remove('selected');});
+  event.currentTarget.classList.add('selected');
+  var area=document.getElementById('rb-input-area');
+  var html='';
+  if(method==='linkedin-pdf'){
+    html='<div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;font-size:12px;color:var(--soft);line-height:1.6;">'
+      +'<strong style="color:var(--ink);">How to get your LinkedIn PDF:</strong><br>'
+      +'1. Go to your LinkedIn profile<br>'
+      +'2. Click "More" → "Save to PDF"<br>'
+      +'3. Upload that PDF here</div>'
+      +'<input type="file" id="rbFileInput" accept=".pdf" onchange="loadRBFile(this)" style="display:none">'
+      +'<button onclick="triggerRBFile()" class="auz-btn">Upload LinkedIn PDF →</button>';
+      +'<div id="rbFileStatus" style="font-size:12px;color:var(--soft);margin-top:8px;"></div>';
+  }else if(method==='linkedin-text'){
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Copy your LinkedIn About + Experience section and paste here:</div>'
+      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbLinkedInText" placeholder="Paste your LinkedIn profile text here..."></textarea>';
+  }else if(method==='paste'){
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Paste any resume or profile text — formatted or unformatted:</div>'
+      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbPasteText" placeholder="Paste your resume text here..."></textarea>';
+  }else{
+    html='<div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Fill your details in the next step after choosing a template.</div>';
+  }
+  area.innerHTML=html;
+  area.style.display='block';
+  document.getElementById('rbNextBtn').style.display='inline-block';
+}
 
+function triggerRBFile(){var el=document.getElementById("rbFileInput");if(el)el.click();}
+function loadRBFile(input){
+  var file=input.files[0];if(!file)return;
+  document.getElementById('rbFileStatus').textContent='✅ '+file.name+' loaded';
+  var reader=new FileReader();
+  reader.onload=function(e){rbData.rawText=e.target.result;};
+  reader.readAsText(file);
+}
 
+function goToTemplates(){
+  // Save input data
+  if(rbInputMethod==='linkedin-text'){
+    var t=document.getElementById('rbLinkedInText');
+    if(t)rbData.rawText=t.value;
+  }else if(rbInputMethod==='paste'){
+    var t=document.getElementById('rbPasteText');
+    if(t)rbData.rawText=t.value;
+  }
+  if(rbInputMethod==='manual'||!rbData.rawText){
+    rbData.rawText='';
+  }else{
+    parseRawText(rbData.rawText);
+  }
+  goStep(2);
+}
 
+function parseRawText(text){
+  // Smart parse: extract name, email, phone, skills from raw text
+  var lines=text.split(/\n/).filter(function(l){return l.trim().length>0;});
 
+  rbData.name=rbData.name||(lines[0]||'').trim().slice(0,40);
+  var emailMatch=text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if(emailMatch)rbData.email=emailMatch[0];
+  var phoneMatch=text.match(/[\+]?[\d\-\s\(\)]{10,13}/);
+  if(phoneMatch)rbData.phone=phoneMatch[0].trim();
+  var liMatch=text.match(/linkedin\.com\/in\/[\w\-]+/i);
+  if(liMatch)rbData.linkedin='https://'+liMatch[0];
+  var ghMatch=text.match(/github\.com\/[\w\-]+/i);
+  if(ghMatch)rbData.github='https://'+ghMatch[0];
+  rbData.rawText=text;
+}
 
+// ── TEMPLATE DEFINITIONS ──────────────────────────────────────────
+var TEMPLATES=[
+  // Professional 5
+  {id:0,name:'Clarity',role:'All Roles',type:'Professional',accent:'#1e3a5f',bg:'#ffffff',sidebar:false,desc:'Single column, serif headings, ATS-safe'},
+  {id:1,name:'Executive',role:'Director / VP',type:'Professional',accent:'#0f1117',bg:'#ffffff',sidebar:false,desc:'One page, leadership-focused, minimal'},
+  {id:2,name:'Corporate',role:'IT / Finance',type:'Professional',accent:'#1d4ed8',bg:'#f8fafc',sidebar:true,desc:'Two column, navy accent, boardroom ready'},
+  {id:3,name:'Trust',role:'HR / Consulting',type:'Professional',accent:'#374151',bg:'#faf7f2',sidebar:false,desc:'Warm minimal, relationship-first layout'},
+  {id:4,name:'Scholar',role:'Fresher / Campus',type:'Professional',accent:'#059669',bg:'#ffffff',sidebar:false,desc:'Education-first, projects prominent'},
+  // Modern 5
+  {id:5,name:'Carbon',role:'Software Engineer',type:'Modern',accent:'#e8943a',bg:'#0f1117',sidebar:true,desc:'Dark sidebar, developer-focused, bold'},
+  {id:6,name:'Signal',role:'IT / Tech',type:'Modern',accent:'#e8943a',bg:'#faf7f2',sidebar:true,desc:'JobsSignal brand, teal/amber, modern'},
+  {id:7,name:'Impact',role:'Product Manager',type:'Modern',accent:'#7c3aed',bg:'#ffffff',sidebar:false,desc:'Metrics-first, achievement numbers bold'},
+  {id:8,name:'Spectrum',role:'Data / DevOps',type:'Modern',accent:'#0891b2',bg:'#f0f9ff',sidebar:false,desc:'Skills matrix, certifications bold'},
+  {id:9,name:'Vivid',role:'Design / Creative',type:'Modern',accent:'#e11d48',bg:'#fff1f2',sidebar:true,desc:'Color-blocked creative, stands out'}
+];
 
+function buildTemplateGallery(){
+  var gallery=document.getElementById('rbTemplateGallery');
+  if(!gallery)return;
+  var filterDiv=document.createElement('div');filterDiv.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;';
+  ['all','Professional','Modern'].forEach(function(type,idx){
+    var btn=document.createElement('button');btn.className='filter-pill'+(idx===0?' active':'');
+    btn.textContent=type==='all'?'All (10)':type==='Professional'?'Professional (5)':'Modern (5)';
+    btn.onclick=function(){filterTemplates(type,btn);};
+    filterDiv.appendChild(btn);
+  });
+  gallery.appendChild(filterDiv);
+  var html=''
+    +'<div class="rb-template-gallery" id="tmplGrid">';
+  TEMPLATES.forEach(function(t){
+    html+='<div class="rb-tmpl-card" data-type="'+t.type+'" onclick="selectTemplate('+t.id+')" id="tmpl-'+t.id+'">'
+      +'<div class="rb-tmpl-thumb">'+renderTemplateThumbnail(t)+'</div>'
+      +'<div class="rb-tmpl-info">'
+      +'<div class="rb-tmpl-name">'+t.name+'</div>'
+      +'<div class="rb-tmpl-role">'+t.role+'</div>'
+      +'<span class="rb-tmpl-badge '+(t.type==='Professional'?'badge-pro':'badge-modern')+'">'+t.type+'</span>'
+      +'</div></div>';
+  });
+  html+='</div><button class="rb-next-btn" id="tmplNextBtn" style="display:none;margin-top:20px;" onclick="goStep(3);buildResumeForm();">Fill Details →</button>';
+  var tmplGrid=document.createElement('div');tmplGrid.className='rb-template-gallery';tmplGrid.id='tmplGrid';tmplGrid.innerHTML=html;gallery.appendChild(tmplGrid);
+  var nb=document.createElement('button');nb.className='rb-next-btn';nb.id='tmplNextBtn';nb.style.display='none';nb.style.marginTop='20px';nb.textContent='Fill Details →';nb.onclick=function(){goStep(3);buildResumeForm();};gallery.appendChild(nb);
+}
 
+function filterTemplates(type,btn){
+  document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){
+    c.style.display=(type==='all'||c.dataset.type===type)?'block':'none';
+  });
+}
+
+function selectTemplate(id){
+  rbTemplate=id;
+  document.querySelectorAll('.rb-tmpl-card').forEach(function(c){c.classList.remove('selected');});
+  var card=document.getElementById('tmpl-'+id);
+  if(card){card.classList.add('selected');card.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  document.getElementById('tmplNextBtn').style.display='inline-block';
+}
+
+function renderTemplateThumbnail(t){
+  var s='<div style="background:'+t.bg+';height:100%;padding:12px;font-family:sans-serif;transform:scale(1);overflow:hidden;">';
+  if(t.sidebar){
+    s+='<div style="display:flex;height:100%;gap:0;">'
+      +'<div style="width:36%;background:'+t.accent+';padding:8px;">'
+      +'<div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.3);margin-bottom:6px;"></div>'
+      +'<div style="height:5px;background:rgba(255,255,255,.6);border-radius:2px;margin-bottom:3px;width:80%;"></div>'
+      +'<div style="height:3px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:10px;width:60%;"></div>'
+      +renderMiniLines(5,'rgba(255,255,255,.25)')
+      +'</div>'
+      +'<div style="flex:1;padding:8px;">'
+      +'<div style="height:6px;background:'+t.accent+';border-radius:2px;margin-bottom:6px;width:70%;"></div>'
+      +renderMiniLines(8,'#e5e7eb')
+      +'</div>'
+      +'</div>';
+  }else{
+    s+='<div style="border-bottom:3px solid '+t.accent+';padding-bottom:6px;margin-bottom:8px;">'
+      +'<div style="height:7px;background:'+t.accent+';border-radius:2px;margin-bottom:3px;width:50%;"></div>'
+      +'<div style="height:3px;background:#e5e7eb;border-radius:2px;width:70%;"></div>'
+      +'</div>'
+      +renderMiniLines(10,'#e5e7eb');
+  }
+  s+='</div>';
+  return s;
+}
 
 function renderMiniLines(n,color){
   var h='';
@@ -2702,8 +2993,111 @@ function renderMiniLines(n,color){
 }
 
 // ── RESUME FORM ───────────────────────────────────────────────────
+function buildResumeForm(){
+  var wrap=document.getElementById('rbFormWrap');if(!wrap)return;
+  var d=rbData;
+  wrap.innerHTML='';
+  var grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;';
+  function addF(lbl,id,val,type,full){
+    var div=document.createElement('div');
+    if(full)div.style.gridColumn='1/-1';
+    var label=document.createElement('label');
+    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
+    label.textContent=lbl;
+    var inp=document.createElement('input');
+    inp.type=type||'text';inp.id='rb-'+id;inp.value=val||'';
+    inp.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff;box-sizing:border-box;';
+    div.appendChild(label);div.appendChild(inp);grid.appendChild(div);
+  }
+  function addTA(lbl,id,val,ph,rows,full){
+    var div=document.createElement('div');
+    div.style.gridColumn='1/-1';
+    var label=document.createElement('label');
+    label.style.cssText='font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);display:block;margin-bottom:5px;';
+    label.textContent=lbl;
+    var ta=document.createElement('textarea');
+    ta.id='rb-'+id;ta.rows=rows||4;ta.placeholder=ph||'';ta.value=val||'';
+    ta.style.cssText='width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;resize:vertical;box-sizing:border-box;';
+    div.appendChild(label);div.appendChild(ta);grid.appendChild(div);
+  }
+  addF('Full Name','name',d.name||currentUser.name||'','text',false);
+  addF('Email','email',d.email||currentUser.email||'','email',false);
+  addF('Phone','phone',d.phone||currentUser.phone||'','tel',false);
+  addF('City','city',d.city||currentUser.city||'','text',false);
+  addF('LinkedIn URL','linkedin',d.linkedin||'','url',false);
+  addF('GitHub URL','github',d.github||'','url',false);
+  addTA('Professional Summary','summary',d.summary||'','Write 2-3 lines about your expertise and key strengths...',3,true);
+  addTA('Work Experience','experience',d.experience||d.rawText||'','Company | Role | Duration - Key achievements...',7,true);
+  addF('Education','education',d.education||'','text',true);
+  addTA('Skills','skills',d.skills||'','React, Node.js, Python, AWS, SQL, Docker, Git...',3,true);
+  addTA('Projects','projects',d.projects||'','Project Name | Tech Stack | Description...',4,true);
+  addF('Certifications','certifications',d.certifications||'','text',true);
+  wrap.appendChild(grid);
+}
 
 
+function renderFullResume(d,t){
+  var sk=(d.skills||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var accent=t.accent||'#1e3a5f'; var bg=t.bg||'#fff';
+  if(t.sidebar){
+    return '<div style="display:flex;height:100%;font-family:Georgia,serif;font-size:9px;line-height:1.5;">'
+      +'<div style="width:35%;background:'+accent+';color:#fff;padding:20px 14px;">'
+      +'<div style="font-size:16px;font-weight:800;margin-bottom:2px;">'+(d.name||'Your Name')+'</div>'
+      +'<div style="font-size:9px;opacity:.7;margin-bottom:14px;">'+(d.city||'')+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">CONTACT</div>'
+      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.email||'')+'</div>'
+      +'<div style="opacity:.8;font-size:8px;margin-bottom:2px;">'+(d.phone||'')+'</div>'
+      +(d.linkedin?'<div style="opacity:.7;font-size:7px;margin-bottom:12px;">'+d.linkedin+'</div>':'<div style="margin-bottom:12px;"></div>')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.5;margin-bottom:6px;">SKILLS</div>'
+      +sk.slice(0,10).map(function(s){return '<div style="background:rgba(255,255,255,.15);border-radius:3px;padding:2px 6px;margin-bottom:3px;font-size:8px;">'+s+'</div>';}).join('')
+      +'</div>'
+      +'<div style="flex:1;padding:20px 14px;background:'+bg+';">'
+      +(d.summary?'<div style="font-size:8px;color:#6b7280;margin-bottom:12px;line-height:1.6;font-style:italic;">'+d.summary+'</div>':'')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EXPERIENCE</div>'
+      +'<div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,500)+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';border-bottom:1px solid '+accent+';padding-bottom:2px;margin-bottom:6px;">EDUCATION</div>'
+      +'<div style="font-size:8px;color:#374151;">'+(d.education||'')+'</div>'
+      +'</div></div>';
+  }else{
+    return '<div style="font-family:Georgia,serif;font-size:9px;line-height:1.6;padding:24px;background:'+bg+';">'
+      +'<div style="border-bottom:2.5px solid '+accent+';padding-bottom:10px;margin-bottom:12px;">'
+      +'<div style="font-size:18px;font-weight:800;color:'+accent+';">'+(d.name||'Your Name')+'</div>'
+      +'<div style="font-size:9px;color:#6b7280;margin-top:3px;">'+(d.email||'')+' · '+(d.phone||'')+' · '+(d.city||'')+(d.linkedin?' · '+d.linkedin:'')+'</div>'
+      +'</div>'
+      +(d.summary?'<div style="font-size:8px;color:#374151;margin-bottom:12px;line-height:1.7;font-style:italic;">'+d.summary+'</div>':'')
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EXPERIENCE</div>'
+      +'<div style="font-size:8px;color:#374151;line-height:1.7;white-space:pre-line;margin-bottom:12px;">'+(d.experience||'').slice(0,600)+'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">SKILLS</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">'
+      +sk.slice(0,12).map(function(s){return '<span style="background:'+accent+'22;color:'+accent+';border-radius:3px;padding:1px 6px;font-size:7px;font-weight:700;">'+s+'</span>';}).join('')
+      +'</div>'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">EDUCATION</div>'
+      +'<div style="font-size:8px;color:#374151;margin-bottom:10px;">'+(d.education||'')+'</div>'
+      +(d.projects?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">PROJECTS</div><div style="font-size:8px;color:#374151;line-height:1.6;white-space:pre-line;margin-bottom:10px;">'+(d.projects||'').slice(0,300)+'</div>':'')
+      +(d.certifications?'<div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+accent+';margin-bottom:5px;">CERTIFICATIONS</div><div style="font-size:8px;color:#374151;">'+d.certifications+'</div>':'')
+      +'</div>';
+  }
+}
+
+function downloadResumePDF(){
+  if(typeof html2canvas==='undefined'){showToast('PDF library loading, try again...','amber');return;}
+  var panel=document.getElementById('rbPreviewPanel');
+  if(!panel){showToast('No resume to download','amber');return;}
+  var name=((rbData.name||'resume').replace(/\s+/g,'_'))+'_resume';
+  showToast('Generating PDF...','amber');
+  html2canvas(panel,{scale:2,useCORS:true,allowTaint:true}).then(function(canvas){
+    var imgData=canvas.toDataURL('image/png');
+    var pdf=new jspdf.jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var w=pdf.internal.pageSize.getWidth();
+    var h=(canvas.height*w)/canvas.width;
+    pdf.addImage(imgData,'PNG',0,0,w,h);
+    pdf.save(name+'.pdf');
+    showToast('Resume downloaded ✅','amber');
+  }).catch(function(e){
+    showToast('PDF generation failed. Try again.','amber');
+  });
+}
 
 function previewResume(){
   rbData=Object.assign(rbData,getRBFieldValues());
@@ -2723,6 +3117,53 @@ function previewResume(){
 
 
 
+// ── SALARY TOOLS ─────────────────────────────────────────────────────────
+function fmtINR(n){return String.fromCharCode(8377)+Math.round(n).toLocaleString('en-IN');}
+function calcCTC(){
+  var ctc=parseFloat((document.getElementById('ctc-input')||{}).value)||0;
+  if(!ctc){showToast('Enter CTC','amber');return;}
+  var basic=ctc*0.4,epf=basic*0.12,pt=2400,gratuity=ctc*0.05;
+  var gross=ctc-epf-gratuity;
+  var tds=(document.getElementById('ctc-regime')||{}).value==='old'?(gross>500000?(gross-500000)*0.1:0):(gross>700000?(gross-700000)*0.1:0);
+  var monthly=Math.round((gross-pt-tds)/12);
+  var r=document.getElementById('ctc-result');if(!r)return;r.style.display='block';
+  r.innerHTML='<div style="font-size:11px;color:var(--soft)">PF: -'+fmtINR(epf/12)+' | Tax: -'+fmtINR(tds/12)+'</div><div style="font-size:20px;font-weight:800;margin-top:8px">In-hand: '+fmtINR(monthly)+'/mo</div><div style="font-size:11px;color:var(--soft)">Annual: '+fmtINR(monthly*12)+'</div>';
+}
+function calcHike(){
+  var cur=parseFloat((document.getElementById('hike-current')||{}).value)||0;
+  var pct=parseFloat((document.getElementById('hike-pct')||{}).value)||0;
+  if(!cur||!pct){showToast('Enter both values','amber');return;}
+  var nCTC=cur*(1+pct/100),diff=nCTC-cur;
+  var r=document.getElementById('hike-result');if(!r)return;r.style.display='block';
+  r.innerHTML='<div style="font-size:20px;font-weight:800;color:var(--teal)">Target: '+fmtINR(nCTC)+'</div><div style="font-size:12px;color:var(--soft);margin-top:4px">+'+fmtINR(diff)+'/yr | +'+fmtINR(diff/12)+'/mo</div><div style="margin-top:10px;padding:10px;background:#fff;border-radius:8px;border:1px solid var(--border);font-size:12px;line-height:1.6"><b>Script:</b> "Targeting '+pct+'% hike. Expected CTC: '+fmtINR(nCTC)+'."</div>';
+}
+var CITY_IDX={'Hyderabad':1.0,'Bengaluru':1.35,'Mumbai':1.65,'Delhi NCR':1.4,'Chennai':1.15,'Pune':1.2,'Kolkata':0.9};
+function calcCity(){
+  var ctc=parseFloat((document.getElementById('city-ctc')||{}).value)||0;
+  var from=(document.getElementById('city-from')||{}).value||'Hyderabad';
+  var to=(document.getElementById('city-to')||{}).value||'Mumbai';
+  if(!ctc){showToast('Enter CTC','amber');return;}
+  var eq=Math.round(ctc*(CITY_IDX[to]||1)/(CITY_IDX[from]||1));
+  var r=document.getElementById('city-result');if(!r)return;r.style.display='block';
+  r.innerHTML='<div style="font-size:18px;font-weight:800">'+fmtINR(ctc)+' in '+from+' = '+fmtINR(eq)+' in '+to+'</div><div style="font-size:12px;color:var(--soft);margin-top:6px">'+(eq>ctc?'Need '+fmtINR(eq-ctc)+' more in '+to:'Save '+fmtINR(ctc-eq)+' in '+to)+' for same lifestyle.</div>';
+}
+// ── RESTORE SESSION ────────────────────────────────────────────────────────
+function restoreSession(){
+  try{
+    var raw=localStorage.getItem('js_user');if(!raw)return;
+    var u=JSON.parse(raw);if(!u||!u.phone)return;
+    currentUser=u;
+    var plRaw=localStorage.getItem('js_plan');
+    var pl=plRaw?JSON.parse(plRaw):{};
+    if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
+    if(localStorage.getItem('js_preview_used')==='1')prevUsed=true;
+    if(typeof isSuperUser==='function'&&isSuperUser(u.phone))isPaid=true;
+    buildDash(u,pl);goTo('dashView');
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded',restoreSession);
+// ── GOTOOLS SALARY ──────────────────────────────────────────────────────────
+
 </script>
 
 
@@ -2730,64 +3171,7 @@ function previewResume(){
 
 
 <!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js" async>
-    if(sb){sb.style.background='rgba(255,255,255,.12)';sb.style.border='1px solid rgba(255,255,255,.2)';}
-  }else{
-    if(az)az.style.display='none';if(ar)ar.style.display='none';if(sp)sp.style.display='block';
-    if(tt)tt.textContent='Salary Tools';
-    if(tb){tb.style.background='rgba(255,255,255,.12)';tb.style.border='1px solid rgba(255,255,255,.2)';}
-    if(sb){sb.style.background='var(--amber)';sb.style.border='none';}
-  }
-}
-function fmtINR(n){return String.fromCharCode(8377)+Math.round(n).toLocaleString('en-IN');}
-function calcCTC(){
-  var ctc=parseFloat((document.getElementById('ctc-input')||{}).value)||0;
-  if(!ctc){showToast('Enter your CTC first','amber');return;}
-  var basic=ctc*0.4,hra=ctc*0.2,epf=basic*0.12,gratuity=ctc*0.05,pt=2400;
-  var gross=ctc-epf-gratuity;
-  var regime=(document.getElementById('ctc-regime')||{}).value||'new';
-  var tds=regime==='old'?(gross>500000?(gross-500000)*0.1:0):(gross>700000?(gross-700000)*0.1:0);
-  var monthly=Math.round((gross-pt-tds)/12);
-  var r=document.getElementById('ctc-result');if(!r)return;
-  r.style.display='block';
-  r.innerHTML='<table style="width:100%;font-size:12px;border-collapse:collapse;">'
-    +'<tr><td style="padding:3px 0;color:var(--soft)">Basic/mo</td><td style="text-align:right;font-weight:700">'+fmtINR(basic/12)+'</td></tr>'
-    +'<tr><td style="padding:3px 0;color:var(--soft)">HRA/mo</td><td style="text-align:right;font-weight:700">'+fmtINR(hra/12)+'</td></tr>'
-    +'<tr><td style="padding:3px 0;color:#ef4444">PF deduction</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(epf/12)+'</td></tr>'
-    +'<tr><td style="padding:3px 0;color:#ef4444">Prof Tax</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(pt/12)+'</td></tr>'
-    +'<tr><td style="padding:3px 0;color:#ef4444">Est TDS</td><td style="text-align:right;font-weight:700;color:#ef4444">-'+fmtINR(tds/12)+'</td></tr>'
-    +'</table>'
-    +'<div style="margin-top:10px;padding-top:10px;border-top:2px solid var(--amber);font-size:20px;font-weight:800">In-hand: '+fmtINR(monthly)+'/mo</div>'
-    +'<div style="font-size:11px;color:var(--soft)">Annual: '+fmtINR(monthly*12)+'</div>';
-}
-function calcHike(){
-  var cur=parseFloat((document.getElementById('hike-current')||{}).value)||0;
-  var pct=parseFloat((document.getElementById('hike-pct')||{}).value)||0;
-  if(!cur||!pct){showToast('Enter both values','amber');return;}
-  var nCTC=cur*(1+pct/100),diff=nCTC-cur;
-  var r=document.getElementById('hike-result');if(!r)return;
-  r.style.display='block';
-  r.innerHTML='<div style="font-size:20px;font-weight:800;color:var(--teal)">Target: '+fmtINR(nCTC)+'</div>'
-    +'<div style="font-size:12px;color:var(--soft);margin-top:4px">+'+fmtINR(diff)+'/yr = +'+fmtINR(diff/12)+'/mo</div>'
-    +'<div style="margin-top:10px;padding:10px;background:#fff;border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--soft);line-height:1.6">'
-    +'<b style="color:var(--ink)">Script:</b> "Based on my experience and market benchmarks, I am targeting a '+pct+'% hike. My expected CTC is '+fmtINR(nCTC)+'. Open to discussing the package."'
-    +'</div>';
-}
-var CITY_IDX={'Hyderabad':1.0,'Bengaluru':1.35,'Mumbai':1.65,'Delhi NCR':1.4,'Chennai':1.15,'Pune':1.2,'Kolkata':0.9};
-function calcCity(){
-  var ctc=parseFloat((document.getElementById('city-ctc')||{}).value)||0;
-  var from=(document.getElementById('city-from')||{}).value||'Hyderabad';
-  var to=(document.getElementById('city-to')||{}).value||'Mumbai';
-  if(!ctc){showToast('Enter your CTC first','amber');return;}
-  var cf=CITY_IDX[from]||1,ct=CITY_IDX[to]||1,eq=Math.round(ctc*(ct/cf));
-  var r=document.getElementById('city-result');if(!r)return;
-  r.style.display='block';
-  r.innerHTML='<div style="font-size:18px;font-weight:800">'+fmtINR(ctc)+' in '+from+' = '+fmtINR(eq)+' in '+to+'</div>'
-    +'<div style="font-size:12px;color:var(--soft);margin-top:6px;line-height:1.6">'
-    +(eq>ctc?'Need '+fmtINR(eq-ctc)+' more in '+to+' for same lifestyle.':'Save '+fmtINR(ctc-eq)+' in '+to+' vs '+from+'.')
-    +' Based on Indian metro cost-of-living index.</div>';
-}
-</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 </body>
 </html>
