@@ -157,7 +157,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .mode-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .search-panel{background:#fff;border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:14px;}
 .search-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;}
-.sg{display:flex;flex-direction:column;gap:4px;}
+.sg{display:flex;flex-direction:column;gap:4px;}.sg-input{padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);min-width:180px;}
 .sg-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--soft);}
 .sg-input,.sg-select{padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);}
 .sg-input:focus,.sg-select:focus{outline:none;border-color:var(--amber);}
@@ -589,6 +589,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
+      <div class="sb-item" id="sb-salary" onclick="goToolkit('salary')"><span class="sb-icon">🧮</span><span>Salary Tools</span></div>
       
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Results</div>
@@ -712,7 +713,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   <div class="ats-wrap">
     <div class="ats-header">
       <button class="ats-back" onclick="goTo('dashView')">← Back to Dashboard</button>
-      <div style="display:flex;gap:8px;margin-bottom:8px;"><button id="tk-ats-btn" onclick="showToolkitTab('ats')" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">📊 ATS Checker</button><button id="tk-salary-btn" onclick="showToolkitTab('salary')" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">🧮 Salary Tools</button></div><div class="ats-header-title" id="tk-page-title">📊 ATS Score Checker</div>
+      <div class="ats-header-title">📊 ATS Score Checker</div>
       <div class="ats-header-sub">Find out how recruiter-friendly your resume is — instantly</div>
     </div>
     <div class="ats-body" id="atsBody">
@@ -1962,6 +1963,7 @@ function buildDash(user,pl){
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
   if(isPaid||isSuperUser((currentUser||{}).phone))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
+  setTimeout(function(){setMode('skill');},50);
 }
 function showFreeDash(){
   const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
@@ -2529,6 +2531,15 @@ function goToolkit(tool){
     document.getElementById('atsResult').style.display='none';
     document.getElementById('atsUploadZone').style.display='block';
     document.getElementById('atsPasteText').value='';
+    var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='none';
+    var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
+    var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='📊 ATS Score Checker';
+  }else if(tool==='salary'){
+    goTo('atsView');
+    var az=document.getElementById('atsUploadZone');if(az)az.style.display='none';
+    var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
+    var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='block';
+    var tt=document.querySelector('.ats-header-title');if(tt)tt.textContent='🧮 Salary Tools';
   }
 }
 
@@ -2678,15 +2689,6 @@ function previewResume(){
 
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async>
-function showToolkitTab(tab){
-  var az=document.getElementById('atsUploadZone'),ar=document.getElementById('atsResult'),
-      sp=document.getElementById('salaryToolsPanel'),
-      tb=document.getElementById('tk-ats-btn'),sb=document.getElementById('tk-salary-btn'),
-      tt=document.getElementById('tk-page-title');
-  if(tab==='ats'){
-    if(az)az.style.display='block';if(sp)sp.style.display='none';
-    if(tt)tt.textContent='ATS Score Checker';
-    if(tb){tb.style.background='var(--amber)';tb.style.border='none';}
     if(sb){sb.style.background='rgba(255,255,255,.12)';sb.style.border='1px solid rgba(255,255,255,.2)';}
   }else{
     if(az)az.style.display='none';if(ar)ar.style.display='none';if(sp)sp.style.display='block';
