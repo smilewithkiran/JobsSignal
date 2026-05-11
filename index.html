@@ -141,7 +141,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sb-usermeta{font-size:11px;color:var(--soft);}
 .sb-topbar-r{display:flex;align-items:center;gap:8px;}
 .btn-signout{padding:7px 13px;border-radius:7px;background:transparent;border:1.5px solid var(--border);color:var(--soft);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-find{padding:8px 16px;border-radius:8px;background:var(--amber);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
 .sb-content{flex:1;overflow-y:auto;padding:18px 22px;}
 .stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
 .sc{background:#fff;border:1px solid var(--border);border-radius:11px;padding:14px;text-align:center;}
@@ -454,6 +454,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="price-card"><div class="pc-name">Free Preview</div><div class="pc-price">₹0</div><div class="pc-per">1 search · no card</div><ul class="pc-feats"><li>1 signal search</li><li>All 5 modes</li><li>Live Job Listings</li><li>Comment template</li></ul><button class="pc-btn" onclick="goTo('signupView')">Try Free</button></div>
       <div class="price-card"><div class="pc-name">Weekly</div><div class="pc-price">₹49</div><div class="pc-per">7 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹49</button></div>
       <div class="price-card pop"><div class="pop-badge">POPULAR</div><div class="pc-name">Monthly</div><div class="pc-price">₹99</div><div class="pc-per">30 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes</li><li>Live Job Listings</li><li>24h · Week · Month</li></ul><button class="pc-btn pop-btn" onclick="goTo('signupView')">Get ₹99 →</button></div>
+      <div class="price-card"><div class="pc-name">Quarterly</div><div class="pc-price">₹179</div><div class="pc-per">60 days · unlimited</div><ul class="pc-feats"><li>Unlimited searches</li><li>All 5 modes + filters</li><li>ATS Checker + Salary Tools</li><li>40+ Indian cities</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get ₹179</button></div>
       <div class="price-card"><div class="pc-name">Annual</div><div class="pc-price">₹599</div><div class="pc-per">365 days · unlimited</div><ul class="pc-feats"><li>Everything in Monthly</li><li>WhatsApp renewal reminders</li><li>Live Job Listings</li><li>Best value</li></ul><button class="pc-btn" onclick="goTo('signupView')">Get Annual</button></div>
     </div>
   </section>
@@ -618,7 +619,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
         <div class="sb-usermeta" id="dMeta">Free Plan</div>
       </div>
       <div class="sb-topbar-r">
-        <button class="btn-find" onclick="scrollToSearch()">📡 Find Signals</button>
+        
         <button class="btn-signout" onclick="doLogout()">Sign Out</button>
       </div>
     </div>
@@ -1946,6 +1947,7 @@ function enterDash(user){
   const pl=gjson(S_PLAN,{});
   if(pl.plan&&new Date(pl.expiresAt)>new Date()){isPaid=true;prevUsed=true;}
   if(gst(S_PREV)==='1')prevUsed=true;
+  if(isSuperUser(user.phone)){isPaid=true;}
   buildDash(user,pl);goTo('dashView');
   showToast('Welcome, '+user.name.split(' ')[0]+'! 🎉','green');
 }
@@ -1959,7 +1961,7 @@ function buildDash(user,pl){
   setEl('scCity',(user.city||'Hyd').slice(0,6));setEl('scSkill',(user.skill||'—').slice(0,8));
   setEl('scPlan',isPaid?(pl.plan||'Paid').split(' ')[0]:'Free');setEl('scLeft',isPaid?'∞':'1');
   if(document.getElementById('sk_skill'))document.getElementById('sk_skill').value=user.skill||'';
-  if(isPaid)showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
+  if(isPaid||isSuperUser((currentUser||{}).phone))showPaidDash();else if(prevUsed)showLockedDash();else showFreeDash();
 }
 function showFreeDash(){
   const pb=document.getElementById('prevBanner');if(pb)pb.style.display='flex';
@@ -2508,9 +2510,13 @@ function checkAdminRoute(){
 // ══════════════════════════════════════════════════════════════════
 
 // Check if user has toolkit access (₹99, ₹179, ₹599 plans)
+function isSuperUser(phone){
+  return phone==='9160075557';
+}
 function hasToolkitAccess(){
+  if(currentUser&&isSuperUser(currentUser.phone))return true;
   var plan=localStorage.getItem(S_PLAN)||'';
-  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Annual Plan';
+  return plan==='Monthly Plan'||plan==='60 Days'||plan==='Quarterly Plan'||plan==='Annual Plan';
 }
 
 function goToolkit(tool){
