@@ -1903,6 +1903,13 @@ async function doLogin(){
   if(!phone){showToast('Enter your mobile number','amber');return;}
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
+  // Super user bypass — direct access
+  if(ep==='9160075557'){
+    const su={name:'Kiran',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
+    sto(S_USER,su);
+    enterDash(su);
+    return;
+  }
   // Check localStorage first (instant)
   try{const raw=gst(S_USER);if(raw){const u=JSON.parse(raw);if(u&&normP(u.phone)===ep){enterDash(u);return;}}}catch(e){}
   // Check Firebase (cross-browser)
