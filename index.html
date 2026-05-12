@@ -385,6 +385,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .src-tab{font-size:11px !important;padding:9px 6px !important;}
   .sb-topbar{padding:0 10px !important;}
 }
+.city-pill{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin:3px 2px;display:inline-block;}.city-pill.active{background:var(--amber);color:#fff;border-color:var(--amber);}.city-sg .sg-label{display:block;margin-bottom:6px;}.city-pills{display:flex;flex-wrap:wrap;gap:4px;}
 </style>
 </head>
 <body>
@@ -605,6 +606,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-notice" onclick="setMode('notice',this)"><span class="sb-icon">⏱️</span><span>Notice Period</span></div>
       <div class="sb-item" id="mode-referral" onclick="setMode('referral',this)"><span class="sb-icon">🤝</span><span>Referral Radar</span></div>
       <div class="sb-item" id="mode-walkin" onclick="setMode('walkin',this)"><span class="sb-icon">🚶</span><span>Walk-in Drives</span></div>
+      <div class="sb-item" id="mode-moonlight" onclick="setMode('moonlight',this)"><span class="sb-icon">🌙</span><span>Moonlighting OK</span></div>
+      <div class="sb-item" id="mode-women" onclick="setMode('women',this)"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
       <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
@@ -747,6 +750,19 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid var(--border);"><div style="font-size:15px;font-weight:700;margin-bottom:4px;">&#127961; City Salary Compare</div><div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Same CTC &#8212; which city gives more value?</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;"><div><label style="font-size:10px;font-weight:700;color:var(--soft)">CTC</label><br><input id="city-ctc" type="number" placeholder="1200000" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:11px;font-family:inherit;box-sizing:border-box;margin-top:4px"></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">FROM</label><br><select id="city-from" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;margin-top:4px"><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div><div><label style="font-size:10px;font-weight:700;color:var(--soft)">TO</label><br><select id="city-to" style="width:100%;padding:9px;border:1.5px solid var(--border);border-radius:8px;font-size:10px;font-family:inherit;box-sizing:border-box;margin-top:4px"><option>Mumbai</option><option>Bengaluru</option><option>Hyderabad</option><option>Delhi NCR</option><option>Chennai</option><option>Pune</option><option>Kolkata</option></select></div></div><button onclick="calcCity()" style="background:var(--ink);color:#fff;border:none;padding:11px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit">Compare Cities</button><div id="city-result" style="display:none;margin-top:12px;padding:14px;background:rgba(15,17,23,.05);border-radius:10px;font-size:13px"></div></div>
     </div></div>
     </div>
+  </div>
+
+  <div id="adminDash" style="display:none;padding:24px;max-width:1000px;margin:0 auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:800;">&#128274; Admin Dashboard</div>
+      <button onclick="doAdminLogout()" style="background:#ef4444;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Logout</button>
+    </div>
+    <div id="adminPaySummary"></div>
+    <div style="margin-top:8px;margin-bottom:12px;">
+      <input id="adminSearch" type="text" placeholder="Search by phone or name..." oninput="filterAdminUsers(this.value)"
+        style="width:100%;max-width:300px;padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;">
+    </div>
+    <div id="adminUserList" style="overflow-x:auto;border-radius:12px;border:1px solid var(--border);"></div>
   </div>
 </div>
 
@@ -2149,7 +2165,11 @@ const MODES={
   referral:{icon:'🤝',title:'Referral Radar',desc:'Find employees offering live referrals right now',
     hint:'DM with your resume — referral applications have 5x higher callback rates.'},
   walkin:{icon:'🚶',title:'Walk-in Drives',desc:'Live walk-in drives in your city this week',
-    hint:'Show up with resume — no online application. High acceptance rate at drives.'}
+    hint:'Show up with resume — no online application. High acceptance rate at drives.'},
+  moonlight:{icon:'🌙',title:'Moonlighting OK',desc:'Companies that allow side projects & freelance work',
+    hint:'These companies have flexible moonlighting policies. Great for freelancers & startup builders.'},
+  women:{icon:'👩',title:'Women Returns',desc:'Returnship & career-gap friendly roles',
+    hint:'Companies with named returnship programmes — Infosys iRace, Accenture Recharge, TCS Rebegin & more.'}
 };
 let currentMode='skill';
 
@@ -2163,7 +2183,7 @@ function setMode(mode,btn){
   se('modeIcon',m.icon);se('modeTitle',m.title);se('modeDesc',m.desc);
   var wrap=document.getElementById('modePanelWrap');if(!wrap)return;
   var cu=currentUser||{};
-  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Ranchi','Patna','Guwahati','Vijayawada','Guntur','Warangal','Tirupati','Surat','Vadodara','Remote','Pan India'];
+  var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Ranchi','Patna','Guwahati','Vijayawada','Guntur','Warangal','Tirupati','Surat','Vadodara','Remote','India'];
   var cOpts=cities.map(function(c){return '<option'+(c===(cu.city||'Hyderabad')?' selected':'')+'>'+c+'</option>';}).join('');
   var eOpts='<option value="">Any experience</option><option value="fresher">Fresher</option>'
     +'<option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option>'
@@ -2173,8 +2193,19 @@ function setMode(mode,btn){
   h+='<div class="sg"><label class="sg-label">Skill / Job Title</label>'
     +'<input class="sg-input" id="sk_skill" placeholder="e.g. SAP ABAP, React, Talent Acquisition..." '
     +'list="skillList" value="'+(cu.skill||'')+'" style="min-width:180px;"></div>';
-  h+='<div class="sg"><label class="sg-label">City</label>'
-    +'<select class="sg-select" id="sk_city">'+cOpts+'</select></div>';
+  // Multi-city pill selector (max 3)
+  var selCities=window._selCities||(window._selCities=[cu.city||'Hyderabad']);
+  var quickCities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Noida','India'];
+  var pillsArr=[];
+  for(var _pi=0;_pi<quickCities.length;_pi++){
+    var _ct=quickCities[_pi];
+    var _sel=selCities.indexOf(_ct)>=0;
+    pillsArr.push('<button type="button" onclick="toggleCity(this)" class="city-pill'+(_sel?' active':'')+'" data-city="'+_ct+'">'+_ct+'</button>');
+  }
+  var pillsHTML=pillsArr.join('');
+  h+='<div class="sg city-sg"><label class="sg-label">City <span style="font-size:10px;color:var(--soft)">(up to 3)</span></label>'
+    +'<div class="city-pills" id="cityPills">'+pillsHTML+'</div>'
+    +'<select class="sg-select" id="sk_city" style="display:none">'+cOpts+'</select></div>';
   h+='<div class="sg"><label class="sg-label">Experience</label>'
     +'<select class="sg-select" id="sk_exp">'+eOpts+'</select></div>';
   if(mode==='notice'){
@@ -2183,6 +2214,11 @@ function setMode(mode,btn){
       +'<option value="">Any</option><option value="immediate">Immediate Joiner</option>'
       +'<option value="30days">30 Days</option><option value="60days">60 Days</option>'
       +'<option value="serving">Serving Notice</option></select></div>';
+  }
+  if(mode==='moonlight'||mode==='women'){
+    var _divLabel=mode==='moonlight'?'🌈 Diversity-friendly companies only':'🌈 Include PWD / LGBTQ+ inclusive roles';
+    h+='<div class="sg" style="align-self:center;"><label style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;">'
+      +'<input type="checkbox" id="sk_diversity" style="width:16px;height:16px;cursor:pointer;accent-color:var(--teal);">'+_divLabel+'</label></div>';
   }
   h+='<button class="btn-run" onclick="runSearch()">📡 Find Signals →</button></div>';
   h+='<div style="font-size:11px;color:var(--soft);margin-top:10px;padding:8px 12px;'
@@ -2214,7 +2250,15 @@ function fetchGoogleJobs(skill, city, exp, el){
       var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
       var src=j.job_publisher||'Google Jobs';
       var ename=(j.employer_name||'Co').charAt(0).toUpperCase();
-      var logo='<div style="width:36px;height:36px;background:var(--amber);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px;flex-shrink:0;">'+ename+'</div>';
+      var _logoUrl=j.employer_logo||'';
+      var _cbDomain=(j.employer_website||'').replace(/https?:\/\//,'').split('/')[0];
+      var _cbUrl=_cbDomain?'https://logo.clearbit.com/'+_cbDomain:'';
+      var _fallback='<div style="width:40px;height:40px;background:var(--amber);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:16px;flex-shrink:0;">'+ename+'</div>';
+      var logo=_logoUrl
+        ?'<img src="'+_logoUrl+'" width="40" height="40" style="border-radius:8px;object-fit:contain;background:#f5f5f5;" onerror="this.style.display=\'none\';this.insertAdjacentHTML(\'afterend\',\''+_fallback.replace(/'/g,"\'")+'\');">'
+        :(_cbUrl
+          ?'<img src="'+_cbUrl+'" width="40" height="40" style="border-radius:8px;object-fit:contain;background:#f5f5f5;" onerror="this.style.display=\'none\';this.insertAdjacentHTML(\'afterend\',\''+_fallback.replace(/'/g,"\'")+'\');">'
+          :_fallback);
       h+='<div class="gj-card">'
         +'<div class="gj-top">'
         +'<div class="gj-logo">'+logo+'</div>'
@@ -2231,7 +2275,6 @@ function fetchGoogleJobs(skill, city, exp, el){
         +'</div>'
         +(j.job_description?'<div class="gj-desc">'+(j.job_description||'').replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
         +'<div class="gj-footer">'
-        +'<a class="gj-apply" href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
         +(j.job_is_remote?'<span class="gj-remote">🌐 Remote</span>':'')
         +'</div>'
         +'</div>';
@@ -2294,10 +2337,30 @@ function buildLinkedInJobsUrl(skill,city,exp){
 // Exclusions prevent job-seeker posts from showing in recruiter search
 var EX=' -"open to work" -"actively looking" -"seeking opportunities" -"job seeker" -"#opentowork" -"new role"';
 
+
+function toggleCity(btn,city){
+  if(!city)city=btn.getAttribute('data-city')||btn.textContent;
+  if(!window._selCities)window._selCities=['Hyderabad'];
+  var idx=window._selCities.indexOf(city);
+  if(idx>=0){
+    if(window._selCities.length===1){showToast('Select at least 1 city','amber');return;}
+    window._selCities.splice(idx,1);
+    btn.classList.remove('active');
+  }else{
+    if(window._selCities.length>=3){showToast('Max 3 cities allowed','amber');return;}
+    window._selCities.push(city);
+    btn.classList.add('active');
+  }
+}
 function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
   var skill=(document.getElementById('sk_skill')||{value:''}).value.trim()||currentUser.skill||'Software Engineer';
-  var city=(document.getElementById('sk_city')||{value:'Hyderabad'}).value||currentUser.city||'Hyderabad';
+  // Get selected cities (multi-select)
+  var _cities=window._selCities&&window._selCities.length>0
+    ?window._selCities
+    :[(document.getElementById('sk_city')||{value:'Hyderabad'}).value||currentUser.city||'Hyderabad'];
+  var city=_cities[0];
+  var cityQ=_cities.length>1?'('+_cities.join(' OR ')+')':_cities[0];
   var expVal=(document.getElementById('sk_exp')||{value:''}).value||'';
   lastSkill=skill;lastCity=city;
   var enc=function(s){return encodeURIComponent(s);};
@@ -2310,7 +2373,7 @@ function runSearch(){
   var baseQ;
   if(currentMode==='hashtag'){
     // Hashtag mode: use hashtag operators
-    baseQ='"'+skill+'" "'+city+'" (#hiring OR #NowHiring OR #Recruiting OR #JobOpening OR #Vacancy)'+EX;
+    baseQ='"'+skill+'" '+cityQ+' (#hiring OR #NowHiring OR #Recruiting OR #JobOpening OR #Vacancy)'+EX;
   }else if(currentMode==='notice'){
     var nv=(document.getElementById('sk_notice')||{value:''}).value||'';
     var nm={
@@ -2321,12 +2384,20 @@ function runSearch(){
     };
     baseQ='"'+skill+'" "'+city+'" '+(nv&&nm[nv]?'('+nm[nv]+')':'("immediate joiner" OR "30 days" OR "60 days" OR "notice period")')+EX;
   }else if(currentMode==='referral'){
-    baseQ='"'+skill+'" "'+city+'" ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume" OR "refer a friend")'+EX;
+    baseQ='"'+skill+'" '+cityQ+' ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume" OR "refer a friend")'+EX;
   }else if(currentMode==='walkin'){
-    baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "drive" OR "direct interview" OR "walk in drive")'+EX;
+    baseQ='"'+skill+'" '+cityQ+' ("walk-in" OR "walkin" OR "walk in interview" OR "drive" OR "direct interview" OR "walk in drive")'+EX;
+  }else if(currentMode==='moonlight'){
+    var _div=(document.getElementById('sk_diversity')&&document.getElementById('sk_diversity').checked)
+      ?' ("diversity" OR "LGBTQ" OR "equal opportunity" OR "inclusive")':'';
+    baseQ='"'+skill+'" '+cityQ+' ("moonlighting" OR "side projects welcome" OR "no moonlighting clause" OR "flexible policy" OR "freelance allowed" OR "open source" OR "personal projects")'+_div+EX;
+  }else if(currentMode==='women'){
+    var _div2=(document.getElementById('sk_diversity')&&document.getElementById('sk_diversity').checked)
+      ?' ("diversity" OR "PWD" OR "LGBTQ inclusive" OR "equal opportunity")':'';
+    baseQ='"'+skill+'" '+cityQ+' ("returnship" OR "career gap" OR "women returners" OR "back to work" OR "career break" OR "rebegin" OR "irace" OR "recharge programme")'+_div2+EX;
   }else{
     // DEFAULT Skill+City — confirmed working, do not change
-    baseQ='"'+skill+'" "'+city+'" ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy" OR "looking for")'+EX;
+    baseQ='"'+skill+'" '+cityQ+' ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy" OR "looking for")'+EX;
   }
 
   var q=enc(baseQ);
@@ -2335,7 +2406,7 @@ function runSearch(){
   var uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
   var uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
   // LinkedIn Jobs (with f_E experience filter)
-  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
+  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(_cities.join(','));
   var j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
   var jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
   var jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
@@ -2349,7 +2420,7 @@ function runSearch(){
 
   // Update results panel header
   var se2=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-  se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
+  se2('rTitle','"'+skill+'" in '+_cities.join(' / ')+(expVal?' · '+expVal:''));
   se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn + Google Jobs + Google Jobs + Google Jobs + Google Jobs');
   document.getElementById('resultsArea').style.display='block';
 
@@ -2387,6 +2458,85 @@ function loadVisitorCount(){
   fetch(FB_DB+'/stats/visitors.json').then(function(r){return r.json();})
     .then(function(d){var el=document.getElementById('visitorCount');if(el)el.textContent=d?Object.keys(d).length:0;}).catch(function(){});
 }
+
+// ── ADMIN: renderAdminTable + deleteUser ──────────────────────────────────
+function renderAdminTable(data){
+  var el=document.getElementById('adminUserList');
+  if(!el)return;
+  if(!data||data.length===0){el.innerHTML='<p style="color:var(--soft);padding:20px;">No users registered yet.</p>';return;}
+  var html='<table style="width:100%;border-collapse:collapse;font-size:13px;">'
+    +'<thead><tr style="background:var(--ink);color:#fff;">'
+    +'<th style="padding:10px 12px;text-align:left;">Name</th>'
+    +'<th style="padding:10px 12px;text-align:left;">Phone</th>'
+    +'<th style="padding:10px 12px;text-align:left;">Plan</th>'
+    +'<th style="padding:10px 12px;text-align:left;">City</th>'
+    +'<th style="padding:10px 12px;text-align:center;">Action</th>'
+    +'</tr></thead><tbody>';
+  data.forEach(function(u,i){
+    var plan=u.plan?u.plan.plan||'No plan':'No plan';
+        var _delBtn='<button onclick="adminDelete(this)" data-phone="'+u.phone+'" style="background:#ef4444;color:#fff;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Del</button>';
+    var row='<tr style="border-bottom:1px solid var(--border);background:'+(i%2===0?'#fff':'#fafafa')+'">'
+      +'<td style="padding:10px 12px;">'+((u.name||'Unknown').slice(0,20))+'</td>'
+      +'<td style="padding:10px 12px;font-family:monospace;">'+u.phone+'</td>'
+      +'<td style="padding:10px 12px;"><span style="background:'+(plan==='No plan'?'#fee2e2':'#dcfce7')+';padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">'+plan+'</span></td>'
+      +'<td style="padding:10px 12px;">'+(u.city||'—')+'</td>'
+      +'<td style="padding:10px 12px;text-align:center;">'+_delBtn+'</td>'
+      +'</tr>';
+    html+=row;
+  });
+  html+='</tbody></table>';
+  el.innerHTML=html;
+}
+function renderPaymentSummary(){
+  var el=document.getElementById('adminPaySummary');if(!el)return;
+  var total=DB.length;
+  var paid=DB.filter(function(u){return u.plan&&u.plan.plan;}).length;
+  el.innerHTML='<div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;">'
+    +'<div style="background:var(--amber);color:#fff;padding:16px 24px;border-radius:12px;text-align:center;">'
+    +'<div style="font-size:28px;font-weight:800;">'+total+'</div><div style="font-size:12px;">Total Users</div></div>'
+    +'<div style="background:var(--teal);color:#fff;padding:16px 24px;border-radius:12px;text-align:center;">'
+    +'<div style="font-size:28px;font-weight:800;">'+paid+'</div><div style="font-size:12px;">Paid Users</div></div>'
+    +'<div style="background:var(--ink);color:#fff;padding:16px 24px;border-radius:12px;text-align:center;">'
+    +'<div style="font-size:28px;font-weight:800;">'+(total-paid)+'</div><div style="font-size:12px;">Free Users</div></div>'
+    +'</div>';
+}
+function adminDelete(btn){
+  var phone=btn.getAttribute('data-phone');
+  var name=btn.getAttribute('data-name')||'User';
+  confirmDeleteUser(phone,name);
+}
+function confirmDeleteUser(phone,name){
+  if(!confirm('Delete user '+name+' ('+phone+')? This cannot be undone.')){return;}
+  deleteUser(phone);
+}
+async function deleteUser(phone){
+  var normPhone=phone.replace(/[^0-9]/g,'').slice(-10);
+  try{
+    // Delete from users node
+    await fetch(FB_DB+'/users/'+normPhone+'.json',{method:'DELETE'});
+    // Delete from phones registry  
+    await fetch(FB_DB+'/phones/'+normPhone+'.json',{method:'DELETE'});
+    showToast('User '+phone+' deleted','green');
+    // Reload admin table
+    loadAdminDB(function(data){renderAdminTable(data);renderPaymentSummary();});
+  }catch(e){
+    showToast('Delete failed: '+e.message,'amber');
+  }
+}
+
+function doAdminLogout(){
+  localStorage.removeItem('js_admin_auth');
+  var _ld=document.getElementById('adminLoginDiv');if(_ld)_ld.style.display='flex';
+  var _dd=document.getElementById('adminDash');if(_dd)_dd.style.display='none';
+  goTo('adminLoginView');
+}
+function filterAdminUsers(q){
+  if(!q){renderAdminTable(DB);return;}
+  var f=DB.filter(function(u){
+    return (u.phone||'').includes(q)||(u.name||'').toLowerCase().includes(q.toLowerCase());
+  });
+  renderAdminTable(f);
+}
 function doAdminLogin(){
   const u=document.getElementById('admin_user')?.value.trim();
   const p=document.getElementById('admin_pass')?.value.trim();
@@ -2410,6 +2560,8 @@ function doAdminLogin(){
     localStorage.removeItem('js_admin_lock');
     localStorage.setItem('js_admin_auth','1');
     goTo('adminView');
+    var _ld=document.getElementById('adminLoginDiv');if(_ld)_ld.style.display='none';
+    var _dd=document.getElementById('adminDash');if(_dd)_dd.style.display='block';
     loadAdminDB(function(data){
       renderAdminTable(data);
       renderPaymentSummary();
