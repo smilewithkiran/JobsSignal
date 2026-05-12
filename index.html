@@ -2593,33 +2593,20 @@ function hasToolkitAccess(){
 }
 
 function goToolkit(tool){
-  var phone='';
-  if(currentUser&&currentUser.phone)phone=currentUser.phone;
-  if(!phone){
-    try{
-      var _raw=localStorage.getItem('js_user');
-      if(_raw){var _u=JSON.parse(_raw);currentUser=_u;phone=_u.phone||'';}
-    }catch(e){}
-  }
-  var last10=(phone||'').replace(/[^0-9]/g,'').slice(-10);
-  if(last10==='9160075557'){isPaid=true;}
-  if((localStorage.getItem('js_plan')||'').length>2){isPaid=true;}
-  if(!hasToolkitAccess()){
-    showToast('Available on paid plans. Tap Upgrade Plan.','amber');
-    showUpgrade();return;
-  }
+  // ALWAYS navigate to the tool — no click blocker
   if(tool==='ats'){
     goTo('atsView');
     var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
     var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
-    var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
     var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='none';
+    var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
   }else if(tool==='salary'){
     goTo('atsView');
     setTimeout(function(){
       var az2=document.getElementById('atsUploadZone');if(az2)az2.style.display='none';
       var ar2=document.getElementById('atsResult');if(ar2)ar2.style.display='none';
-      var sp2=document.getElementById('salaryToolsPanel');if(sp2)sp2.style.display='block';
+      var sp2=document.getElementById('salaryToolsPanel');
+      if(sp2)sp2.style.display='block';
     },50);
   }
 }
@@ -2658,10 +2645,33 @@ var WEAK_PHRASES=['responsible for','worked on','helped with','assisted in','was
 var REQUIRED_SECTIONS=['experience','education','skills','summary','objective','contact','email','phone'];
 var FORMATTING_WARNINGS=['<table','<img','background-color','text-box','shape'];
 
+function isPaidUser(){
+  if(isPaid)return true;
+  try{
+    var u=JSON.parse(localStorage.getItem('js_user')||'null');
+    if(u&&(u.phone||'').replace(/[^0-9]/g,'').slice(-10)==='9160075557')return true;
+    if(u&&u.plan)return true;
+  }catch(e){}
+  return(localStorage.getItem('js_plan')||'').length>2;
+}
 function runATSCheck(){
   var text=document.getElementById('atsPasteText').value.trim();
   if(atsResumeText&&atsResumeText.length>100)text=atsResumeText+' '+text;
   if(!text||text.length<80){showToast('Please paste your resume text or upload a file first.','amber');return;}
+  if(!isPaidUser()){
+    var r=document.getElementById('atsResult');
+    if(r){
+      r.style.display='block';
+      r.innerHTML='<div style="text-align:center;padding:32px 20px;">'
+        +'<div style="font-size:48px;margin-bottom:12px;">🔒</div>'
+        +'<div style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;">ATS Check is a Paid Feature</div>'
+        +'<div style="font-size:13px;color:var(--soft);margin-bottom:24px;line-height:1.6;">Upgrade to see your full ATS score,<br>keyword gaps, and fix suggestions.</div>'
+        +'<button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button>'
+        +'<div style="margin-top:12px;"><button onclick="goTo(&quot;dashView&quot;)" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;">← Back to Dashboard</button></div>'
+        +'</div>';
+    }
+    return;
+  }
   atsResumeText=text;
   var result=scoreResume(text);
   renderATSResult(result);
@@ -3096,6 +3106,7 @@ function previewResume(){
 // ── SALARY TOOLS ─────────────────────────────────────────────────────────
 function fmtINR(n){return String.fromCharCode(8377)+Math.round(n).toLocaleString('en-IN');}
 function calcCTC(){
+  if(!isPaidUser()){showToast('Upgrade to a paid plan to use Salary Tools','amber');return;}
   var ctc=parseFloat((document.getElementById('ctc-input')||{}).value)||0;
   if(!ctc){showToast('Enter CTC','amber');return;}
   var basic=ctc*0.4,epf=basic*0.12,pt=2400,gratuity=ctc*0.05;
@@ -3106,6 +3117,7 @@ function calcCTC(){
   r.innerHTML='<div style="font-size:11px;color:var(--soft)">PF: -'+fmtINR(epf/12)+' | Tax: -'+fmtINR(tds/12)+'</div><div style="font-size:20px;font-weight:800;margin-top:8px">In-hand: '+fmtINR(monthly)+'/mo</div><div style="font-size:11px;color:var(--soft)">Annual: '+fmtINR(monthly*12)+'</div>';
 }
 function calcHike(){
+  if(!isPaidUser()){showToast('Upgrade to a paid plan to use Salary Tools','amber');return;}
   var cur=parseFloat((document.getElementById('hike-current')||{}).value)||0;
   var pct=parseFloat((document.getElementById('hike-pct')||{}).value)||0;
   if(!cur||!pct){showToast('Enter both values','amber');return;}
@@ -3115,6 +3127,7 @@ function calcHike(){
 }
 var CITY_IDX={'Hyderabad':1.0,'Bengaluru':1.35,'Mumbai':1.65,'Delhi NCR':1.4,'Chennai':1.15,'Pune':1.2,'Kolkata':0.9};
 function calcCity(){
+  if(!isPaidUser()){showToast('Upgrade to a paid plan to use Salary Tools','amber');return;}
   var ctc=parseFloat((document.getElementById('city-ctc')||{}).value)||0;
   var from=(document.getElementById('city-from')||{}).value||'Hyderabad';
   var to=(document.getElementById('city-to')||{}).value||'Mumbai';
