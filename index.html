@@ -608,8 +608,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-walkin" onclick="setMode('walkin',this)"><span class="sb-icon">🚶</span><span>Walk-in Drives</span></div>
       <div class="sb-item" id="mode-moonlight" onclick="setMode('moonlight',this)"><span class="sb-icon">🌙</span><span>Moonlighting OK</span></div>
       <div class="sb-item" id="mode-women" onclick="setMode('women',this)"><span class="sb-icon">👩</span><span>Women Returns</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
@@ -2964,7 +2962,7 @@ function renderATSResult(r){
     +'</div>'
     +'<div class="ats-sections">'
     +'<div class="ats-section">'
-    '<div class="ats-sec-title" style="color:#16a34a;">&#x2705; Whats Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
+    +'<div class="ats-sec-title" style="color:#16a34a;">&#x2705; What\'s Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
     +goodHTML
     +'</div>'
     +'<div class="ats-section">'
