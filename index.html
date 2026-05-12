@@ -1949,6 +1949,11 @@ function goTo(viewId){
     document.body.style.setProperty('margin-top','0','important');
     document.body.style.overflow='hidden';
     if(dw){dw.style.marginTop='0';dw.style.height='100vh';dw.style.paddingTop='0';}
+  }else if(viewId==='atsView'){
+    if(nav){nav.style.display='none';nav.style.visibility='hidden';}
+    document.body.style.setProperty('padding-top','0','important');
+    document.body.style.overflow='';
+    if(dw){dw.style.marginTop='0';dw.style.height='100vh';}
   }else{
     if(nav){nav.style.display='flex';nav.style.visibility='visible';}
     document.body.style.setProperty('padding-top','58px','important');
@@ -2060,8 +2065,23 @@ function showLockedDash(){
   if(up){up.style.display='block';setTimeout(function(){up.scrollIntoView({behavior:'smooth'});},100);}
 }
 function doLogout(){
-  localStorage.removeItem(S_USER);localStorage.removeItem(S_PREV);
-  currentUser={};isPaid=false;prevUsed=false;
+  // Clear all user data
+  localStorage.removeItem(S_USER);
+  localStorage.removeItem(S_PREV);
+  localStorage.removeItem(S_PLAN);
+  currentUser={};isPaid=false;prevUsed=false;atsResumeText='';
+  // Clear ATS UI
+  var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
+  var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
+  // Clear search fields
+  var sk=document.getElementById('sk_skill');if(sk)sk.value='';
+  var rj=document.getElementById('rj');if(rj)rj.innerHTML='';
+  var rp=document.getElementById('rp');if(rp)rp.innerHTML='';
+  var resultsArea=document.getElementById('resultsArea');
+  if(resultsArea)resultsArea.style.display='none';
+  var _sk=document.getElementById('sk_skill');if(_sk)_sk.value='';
+  var _rj=document.getElementById('rj');if(_rj)_rj.innerHTML='';
+  var _ra=document.getElementById('resultsArea');if(_ra)_ra.style.display='none';
   goTo('landingView');showToast('Logged out','amber');
 }
 
@@ -2600,13 +2620,15 @@ function goToolkit(tool){
     var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
     var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='none';
     var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
+    var ht=document.querySelector('.ats-header-title');if(ht)ht.textContent='ATS Score Checker';
   }else if(tool==='salary'){
     goTo('atsView');
     setTimeout(function(){
       var az2=document.getElementById('atsUploadZone');if(az2)az2.style.display='none';
       var ar2=document.getElementById('atsResult');if(ar2)ar2.style.display='none';
-      var sp2=document.getElementById('salaryToolsPanel');
-      if(sp2)sp2.style.display='block';
+      var sp2=document.getElementById('salaryToolsPanel');if(sp2)sp2.style.display='block';
+      var ht=document.querySelector('.ats-header-title');
+      if(ht)ht.textContent='🧮 Salary Tools';
     },50);
   }
 }
@@ -2762,20 +2784,26 @@ function resetATSCheck(){document.getElementById("atsResult").style.display="non
 function renderATSResult(r){
   document.getElementById('atsUploadZone').style.display='none';
   var res=document.getElementById('atsResult');
+  if(!res)return;
   res.style.display='block';
-  var circumference=2*Math.PI*54;
-  var offset=circumference-(r.score/100)*circumference;
+  var circ=2*Math.PI*54;
+  var offset=circ-(r.score/100)*circ;
   var allFixes=r.issues.concat(r.missing).concat(r.fixes);
-
-  var goodHTML=r.good.map(function(g){return '<div class="ats-item"><span class="ats-dot">✅</span>'+g+'</div>';}).join('');
-  var fixHTML=allFixes.slice(0,8).map(function(f){return '<div class="ats-item"><span class="ats-dot">'+(r.missing.includes(f)?'❌':'⚠️')+'</span>'+f+'</div>';}).join('');
-
+  var goodHTML=r.good.map(function(g){
+    return '<div class="ats-item"><span class="ats-dot">&#x2705;</span>'+g+'</div>';
+  }).join('');
+  var fixHTML=allFixes.slice(0,8).map(function(f){
+    var icon=r.missing.includes(f)?'&#x274C;':'&#x26A0;&#xFE0F;';
+    return '<div class="ats-item"><span class="ats-dot">'+icon+'</span>'+f+'</div>';
+  }).join('');
   res.innerHTML=
     '<div class="ats-score-wrap">'
     +'<div class="ats-gauge">'
     +'<svg width="140" height="140" viewBox="0 0 140 140">'
     +'<circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="12"/>'
-    +'<circle cx="70" cy="70" r="54" fill="none" stroke="'+r.color+'" stroke-width="12" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'" stroke-linecap="round" style="transition:stroke-dashoffset 1s ease;"/>'
+    +'<circle cx="70" cy="70" r="54" fill="none" stroke="'+r.color+'" stroke-width="12"'
+    +' stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" stroke-linecap="round"'
+    +' style="transition:stroke-dashoffset 1s ease;"/>'
     +'</svg>'
     +'<div class="ats-score-num">'+r.score+'</div>'
     +'</div>'
@@ -2784,148 +2812,17 @@ function renderATSResult(r){
     +'</div>'
     +'<div class="ats-sections">'
     +'<div class="ats-section">'
-    +'<div class="ats-sec-title" style="color:#16a34a;">✅ Whats Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
+    '<div class="ats-sec-title" style="color:#16a34a;">&#x2705; Whats Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
     +goodHTML
     +'</div>'
     +'<div class="ats-section">'
-    +'<div class="ats-sec-title" style="color:#dc2626;">⚠️ Fix These <span class="ats-sec-score" style="color:#dc2626;">'+allFixes.length+'</span></div>'
+    +'<div class="ats-sec-title" style="color:#dc2626;">&#x26A0;&#xFE0F; Fix These <span class="ats-sec-score" style="color:#dc2626;">'+allFixes.length+'</span></div>'
     +fixHTML
     +'</div>'
     +'</div>'
-    +'<div class="ats-cta">'
-    +'<div class="ats-cta-title">Now build a resume that beats ATS →</div>'
-    +'<div style="font-size:12px;opacity:.8;">10 stunning templates · Download as PDF</div>'
-    +'<button class="ats-cta-btn" onclick="goToolkit(&quot;resume&quot;)">Build My Resume →</button>'
-    +'</div>'
-    +'<div style="text-align:center;margin-top:14px;">'
-    +'<button onclick="resetATSCheck()" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;">← Check another resume</button>';
+    +'<div style="margin-top:20px;text-align:center;">'
+    +'<button onclick="resetATSChecker()" style="background:var(--amber);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">&#128260; Check Another Resume</button>'
     +'</div>';
-
-  res.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-// ══════════════════════════════════════════════════════════════════
-// RESUME BUILDER
-// ══════════════════════════════════════════════════════════════════
-var rbData={};var rbTemplate=0;var rbInputMethod='';
-
-function goStep(n){
-  document.querySelectorAll('.rb-step').forEach(function(s){s.style.display='none';});
-  var s=document.getElementById('rbStep'+n);if(s)s.style.display='block';
-}
-
-function showRBInput(method){
-  rbInputMethod=method;
-  document.querySelectorAll('.rb-opt').forEach(function(o){o.classList.remove('selected');});
-  event.currentTarget.classList.add('selected');
-  var area=document.getElementById('rb-input-area');
-  var html='';
-  if(method==='linkedin-pdf'){
-    html='<div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;font-size:12px;color:var(--soft);line-height:1.6;">'
-      +'<strong style="color:var(--ink);">How to get your LinkedIn PDF:</strong><br>'
-      +'1. Go to your LinkedIn profile<br>'
-      +'2. Click "More" → "Save to PDF"<br>'
-      +'3. Upload that PDF here</div>'
-      +'<input type="file" id="rbFileInput" accept=".pdf" onchange="loadRBFile(this)" style="display:none">'
-      +'<button onclick="triggerRBFile()" class="auz-btn">Upload LinkedIn PDF →</button>';
-      +'<div id="rbFileStatus" style="font-size:12px;color:var(--soft);margin-top:8px;"></div>';
-  }else if(method==='linkedin-text'){
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Copy your LinkedIn About + Experience section and paste here:</div>'
-      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbLinkedInText" placeholder="Paste your LinkedIn profile text here..."></textarea>';
-  }else if(method==='paste'){
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:8px;">Paste any resume or profile text — formatted or unformatted:</div>'
-      +'<textarea style="width:100%;min-height:160px;padding:14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-family:sans-serif;resize:vertical;" id="rbPasteText" placeholder="Paste your resume text here..."></textarea>';
-  }else{
-    html='<div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Fill your details in the next step after choosing a template.</div>';
-  }
-  area.innerHTML=html;
-  area.style.display='block';
-  document.getElementById('rbNextBtn').style.display='inline-block';
-}
-
-function triggerRBFile(){var el=document.getElementById("rbFileInput");if(el)el.click();}
-function loadRBFile(input){
-  var file=input.files[0];if(!file)return;
-  document.getElementById('rbFileStatus').textContent='✅ '+file.name+' loaded';
-  var reader=new FileReader();
-  reader.onload=function(e){rbData.rawText=e.target.result;};
-  reader.readAsText(file);
-}
-
-function goToTemplates(){
-  // Save input data
-  if(rbInputMethod==='linkedin-text'){
-    var t=document.getElementById('rbLinkedInText');
-    if(t)rbData.rawText=t.value;
-  }else if(rbInputMethod==='paste'){
-    var t=document.getElementById('rbPasteText');
-    if(t)rbData.rawText=t.value;
-  }
-  if(rbInputMethod==='manual'||!rbData.rawText){
-    rbData.rawText='';
-  }else{
-    parseRawText(rbData.rawText);
-  }
-  goStep(2);
-}
-
-function parseRawText(text){
-  // Smart parse: extract name, email, phone, skills from raw text
-  var lines=text.split(/\n/).filter(function(l){return l.trim().length>0;});
-
-  rbData.name=rbData.name||(lines[0]||'').trim().slice(0,40);
-  var emailMatch=text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if(emailMatch)rbData.email=emailMatch[0];
-  var phoneMatch=text.match(/[\+]?[\d\-\s\(\)]{10,13}/);
-  if(phoneMatch)rbData.phone=phoneMatch[0].trim();
-  var liMatch=text.match(/linkedin\.com\/in\/[\w\-]+/i);
-  if(liMatch)rbData.linkedin='https://'+liMatch[0];
-  var ghMatch=text.match(/github\.com\/[\w\-]+/i);
-  if(ghMatch)rbData.github='https://'+ghMatch[0];
-  rbData.rawText=text;
-}
-
-// ── TEMPLATE DEFINITIONS ──────────────────────────────────────────
-var TEMPLATES=[
-  // Professional 5
-  {id:0,name:'Clarity',role:'All Roles',type:'Professional',accent:'#1e3a5f',bg:'#ffffff',sidebar:false,desc:'Single column, serif headings, ATS-safe'},
-  {id:1,name:'Executive',role:'Director / VP',type:'Professional',accent:'#0f1117',bg:'#ffffff',sidebar:false,desc:'One page, leadership-focused, minimal'},
-  {id:2,name:'Corporate',role:'IT / Finance',type:'Professional',accent:'#1d4ed8',bg:'#f8fafc',sidebar:true,desc:'Two column, navy accent, boardroom ready'},
-  {id:3,name:'Trust',role:'HR / Consulting',type:'Professional',accent:'#374151',bg:'#faf7f2',sidebar:false,desc:'Warm minimal, relationship-first layout'},
-  {id:4,name:'Scholar',role:'Fresher / Campus',type:'Professional',accent:'#059669',bg:'#ffffff',sidebar:false,desc:'Education-first, projects prominent'},
-  // Modern 5
-  {id:5,name:'Carbon',role:'Software Engineer',type:'Modern',accent:'#e8943a',bg:'#0f1117',sidebar:true,desc:'Dark sidebar, developer-focused, bold'},
-  {id:6,name:'Signal',role:'IT / Tech',type:'Modern',accent:'#e8943a',bg:'#faf7f2',sidebar:true,desc:'JobsSignal brand, teal/amber, modern'},
-  {id:7,name:'Impact',role:'Product Manager',type:'Modern',accent:'#7c3aed',bg:'#ffffff',sidebar:false,desc:'Metrics-first, achievement numbers bold'},
-  {id:8,name:'Spectrum',role:'Data / DevOps',type:'Modern',accent:'#0891b2',bg:'#f0f9ff',sidebar:false,desc:'Skills matrix, certifications bold'},
-  {id:9,name:'Vivid',role:'Design / Creative',type:'Modern',accent:'#e11d48',bg:'#fff1f2',sidebar:true,desc:'Color-blocked creative, stands out'}
-];
-
-function buildTemplateGallery(){
-  var gallery=document.getElementById('rbTemplateGallery');
-  if(!gallery)return;
-  var filterDiv=document.createElement('div');filterDiv.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;';
-  ['all','Professional','Modern'].forEach(function(type,idx){
-    var btn=document.createElement('button');btn.className='filter-pill'+(idx===0?' active':'');
-    btn.textContent=type==='all'?'All (10)':type==='Professional'?'Professional (5)':'Modern (5)';
-    btn.onclick=function(){filterTemplates(type,btn);};
-    filterDiv.appendChild(btn);
-  });
-  gallery.appendChild(filterDiv);
-  var html=''
-    +'<div class="rb-template-gallery" id="tmplGrid">';
-  TEMPLATES.forEach(function(t){
-    html+='<div class="rb-tmpl-card" data-type="'+t.type+'" onclick="selectTemplate('+t.id+')" id="tmpl-'+t.id+'">'
-      +'<div class="rb-tmpl-thumb">'+renderTemplateThumbnail(t)+'</div>'
-      +'<div class="rb-tmpl-info">'
-      +'<div class="rb-tmpl-name">'+t.name+'</div>'
-      +'<div class="rb-tmpl-role">'+t.role+'</div>'
-      +'<span class="rb-tmpl-badge '+(t.type==='Professional'?'badge-pro':'badge-modern')+'">'+t.type+'</span>'
-      +'</div></div>';
-  });
-  html+='</div><button class="rb-next-btn" id="tmplNextBtn" style="display:none;margin-top:20px;" onclick="goStep(3);buildResumeForm();">Fill Details →</button>';
-  var tmplGrid=document.createElement('div');tmplGrid.className='rb-template-gallery';tmplGrid.id='tmplGrid';tmplGrid.innerHTML=html;gallery.appendChild(tmplGrid);
-  var nb=document.createElement('button');nb.className='rb-next-btn';nb.id='tmplNextBtn';nb.style.display='none';nb.style.marginTop='20px';nb.textContent='Fill Details →';nb.onclick=function(){goStep(3);buildResumeForm();};gallery.appendChild(nb);
 }
 
 function filterTemplates(type,btn){
@@ -3203,7 +3100,16 @@ async function doLogin(){
 
 
 <!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" async>
+function resetATSChecker(){
+  var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
+  var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
+  var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
+  var fs=document.getElementById('atsFileStatus');if(fs){fs.textContent='';fs.style.display='none';}
+  atsResumeText='';
+  var uzBtn=document.querySelector('.auz-btn');if(uzBtn)uzBtn.textContent='Choose File →';
+}
+</script>
 
 </body>
 </html>
