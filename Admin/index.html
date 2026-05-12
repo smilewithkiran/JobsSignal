@@ -106,8 +106,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="search-bar"><input type="text" placeholder="Search by name, mobile, skill, city..." oninput="filterTable(this.value)" id="searchInput"></div>
       <div style="overflow-x:auto;">
         <table class="admin-table">
-          <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Skill</th><th>City</th><th>Email</th><th>Plan</th><th>Joined</th></tr></thead>
-          <tbody id="adminTbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:#6b7280;">Loading users from Firebase...</td></tr></tbody>
+          <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Skill</th><th>City</th><th>Email</th><th>Plan</th><th>Joined</th><th>Action</th></tr></thead>
+          <tbody id="adminTbody"><tr><td colspan="9" style="text-align:center;padding:32px;color:#6b7280;">Loading users from Firebase...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -173,44 +173,39 @@ function showDash(){
 async function loadUsers(){
   try{
     var r=await fetch(FB_DB+'/users.json');
-    if(!r.ok){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#dc2626;">Firebase error: '+r.status+'</td></tr>');return;}
+    if(!r.ok){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#dc2626;">Firebase error: '+r.status+'</td></tr>');return;}
     var data=await r.json();
-    if(!data){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#6b7280;">No users yet.</td></tr>');return;}
+    if(!data){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#6b7280;">No users yet.</td></tr>');return;}
     ALL_USERS=Object.values(data).filter(function(u){return u&&u.phone;});
     renderUsers(ALL_USERS);
     renderStats(ALL_USERS);
-  }catch(e){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#dc2626;">Error: '+e.message+'</td></tr>');}
+  }catch(e){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#dc2626;">Error: '+e.message+'</td></tr>');}
 }
 
 function renderStats(users){
   var paid=users.filter(function(u){return u.plan&&u.plan.plan&&new Date(u.plan.expiresAt)>new Date();});
   var today=new Date().toDateString();
   var todayCount=users.filter(function(u){return u.joinedAt&&new Date(u.joinedAt).toDateString()===today;});
-  var superUser=users.filter(function(u){return u.phone==='9160075557';});
-  var planAmt={'7 Days':49,'30 Days':99,'60 Days':179,'Annual':599,'Admin Access 🔑':0};
-  var rev=paid.reduce(function(s,u){
-    var amt=planAmt[(u.plan&&u.plan.plan)||'']||0;
-    return s+amt;
-  },0);
+  var planAmt={'7 Days':49,'30 Days':99,'60 Days':179,'Annual':599};
+  var rev=paid.reduce(function(s,u){return s+(planAmt[(u.plan&&u.plan.plan)||'']||0);},0);
   document.getElementById('statTotal').textContent=users.length;
   document.getElementById('statPaid').textContent=paid.length;
   document.getElementById('statRevenue').textContent='₹'+rev.toLocaleString('en-IN');
   document.getElementById('statToday').textContent=todayCount.length;
-  document.getElementById('userCount').textContent='('+users.length+' total'+(superUser.length?' + '+superUser.length+' super user':'')+')'
+  document.getElementById('userCount').textContent='('+users.length+' total)';
 }
 
 function renderUsers(users){
-  if(!users.length){setTbody('<tr><td colspan="8" style="text-align:center;padding:20px;color:#6b7280;">No users found.</td></tr>');return;}
+  if(!users.length){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#6b7280;">No users found.</td></tr>');return;}
   var now=new Date();
   var rows=users.map(function(u,i){
     var plan=u.plan||{};
     var hasPlan=plan.plan&&new Date(plan.expiresAt)>now;
     var isExp=plan.plan&&new Date(plan.expiresAt)<=now;
-    var isSuperUser=u.phone==='9160075557';
-    var badge=isSuperUser?'<span class="badge" style="background:#e8943a;color:#fff;">🔑 Admin</span>':hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
+    var badge=hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
     var joined=u.joinedAt?new Date(u.joinedAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
-    var planExpiry=plan.expiresAt?new Date(plan.expiresAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
-    return '<tr style="'+(isSuperUser?'background:rgba(232,148,58,.08);':'')+'"><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+(isSuperUser?'🔑 ':'')+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td></tr>';
+    var delBtn='<button onclick="deleteUser(this)" data-phone="'+esc(u.phone||'')+'" style="background:#ef4444;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete</button>';
+    return '<tr><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td><td>'+delBtn+'</td></tr>';
   });
   setTbody(rows.join(''));
 }
@@ -237,6 +232,25 @@ function exportCSV(){
 }
 
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function deleteUser(btn){
+  var phone=(btn.getAttribute('data-phone')||'').replace(/[^0-9]/g,'').slice(-10);
+  if(!phone){alert('Invalid phone');return;}
+  if(!confirm('Delete user with phone '+phone+'? This cannot be undone.')){return;}
+  btn.textContent='Deleting...';btn.disabled=true;
+  try{
+    await fetch(FB_DB+'/users/'+phone+'.json',{method:'DELETE'});
+    await fetch(FB_DB+'/phones/'+phone+'.json',{method:'DELETE'});
+    btn.closest('tr').remove();
+    // Update stats
+    ALL_USERS=ALL_USERS.filter(function(u){return (u.phone||'').replace(/[^0-9]/g,'').slice(-10)!==phone;});
+    renderStats(ALL_USERS);
+    alert('User deleted successfully.');
+  }catch(e){
+    btn.textContent='🗑 Delete';btn.disabled=false;
+    alert('Delete failed: '+e.message);
+  }
+}
 function setTbody(h){document.getElementById('adminTbody').innerHTML=h;}
 
 // Auto-login if session exists
