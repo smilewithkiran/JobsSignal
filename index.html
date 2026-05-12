@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%230f1117"/><circle cx="16" cy="16" r="3" fill="%23e8943a"/><line x1="16" y1="16" x2="22" y2="10" stroke="%23e8943a" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="16" r="9" fill="none" stroke="%23e8943a" stroke-width="1" opacity="0.5"/></svg>'>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>JobsSignal — Test</title>
+<title>JobsSignal — Find Jobs First</title>
 
 <!-- Firebase SDK FIRST — before our script -->
 
@@ -250,7 +250,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 /* ── JOB RESULTS NEW DESIGN ── */
 .src-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.src-tab{padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.src-tab{flex:1;padding:10px 14px;border-radius:10px;border:2px solid var(--border);background:#fff;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .src-tab.active{background:var(--amber);color:#fff;border-color:var(--amber);}
 .src-pane{animation:fadeIn .3s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
@@ -364,8 +364,39 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 .sa-feat-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
 .sa-feat-t{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
 .sa-feat-s{font-size:10px;color:rgba(255,255,255,.5);line-height:1.4;}
+
+@media(max-width:768px){
+  .top-nav{padding:0 12px;}
+  .nav-links{gap:6px;}
+  .btn-login,.btn-signup{padding:7px 12px !important;font-size:12px !important;}
+  .hero h1{font-size:clamp(28px,7vw,52px);}
+  .hero-sub{font-size:14px;}
+}
 @media(max-width:600px){
-  .dash-wrap{flex-direction:row;}
+  /* Dashboard */
+  .dash-wrap{flex-direction:row;height:100svh;overflow:hidden;}
+  .sidebar{width:52px !important;min-width:52px !important;flex-shrink:0;}
+  .sb-item span:not(.sb-icon){display:none !important;}
+  .sb-sec-label{display:none !important;}
+  .sb-brand span,.sb-brand-name{display:none !important;}
+  .sb-content{padding:10px 8px !important;}
+  .sb-main{flex:1;min-width:0;overflow:hidden;}
+  /* Search form */
+  .search-row{flex-direction:column !important;gap:8px !important;}
+  .sg{width:100% !important;}
+  .sg select,.sg input,.sg-select,.sg-input{width:100% !important;min-width:unset !important;font-size:14px;}
+  .btn-run{width:100% !important;padding:14px !important;}
+  /* Tabs */
+  .src-tabs{gap:6px;}
+  .src-tab{font-size:11px !important;padding:9px 8px !important;}
+  /* Nav */
+  .top-nav{padding:0 8px;}
+  .btn-login,.btn-signup{padding:6px 10px !important;font-size:11px !important;}
+  /* Search panel */
+  .search-panel{padding:14px !important;margin-bottom:10px;}
+  .mode-header{gap:8px;}
+  .sb-topbar{padding:0 10px !important;height:48px !important;}
+}
   .sidebar{width:56px;min-width:56px;}
   .sb-item span:not(.sb-icon){display:none;}
   .sb-sec-label{display:none;}
@@ -393,8 +424,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
     <button onclick="goToSec('modes')">Search Modes</button>
     <button onclick="goToSec('comparison')">vs Portals</button>
     <button onclick="goToSec('pricing')">Pricing</button>
-    <button class="btn-login" onclick="goTo('loginView')">Log In</button>
-    <button class="btn-signup" onclick="goTo('signupView')">Sign Up Free</button>
+    <button class="btn-login" onclick="goTo('loginView')">Login</button>
+    <button class="btn-signup" onclick="goTo('signupView')">Sign Up</button>
   </div>
 </nav>
 
@@ -1966,11 +1997,10 @@ function showUpgrade(){showLockedDash();}
 // ── LOGIN ────────────────────────────────────────────
 function isSuperUser(p){return (p||'').replace(/[^0-9]/g,'').slice(-10)==='9160075557';}
 function hasToolkitAccess(){
+  try{var _u=JSON.parse(localStorage.getItem('js_user')||'{}');if(_u&&isSuperUser(_u.phone))return true;}catch(_e){}
   if(currentUser&&isSuperUser(currentUser.phone))return true;
-  try{var r=localStorage.getItem('js_user');if(r){var u=JSON.parse(r);if(u&&isSuperUser(u.phone))return true;}}catch(_e){}
   if(isPaid)return true;
-  var pl=localStorage.getItem('js_plan')||'';
-  return pl.length>0;
+  return(localStorage.getItem('js_plan')||'').length>0;
 }
 function pickPill(btn,gid){
   if(gid==='prefLocRow'){btn.classList.toggle('sel');return;}
@@ -2172,24 +2202,18 @@ function fetchGoogleJobs(skill, city, exp, el){
   var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years experience)','5-8':'(5-8 years experience)','8+':'(8+ years OR senior OR lead)'};
   var expStr=expMap[exp]||'';
   var q=skill+' '+city+(expStr?' '+expStr:'');
-  fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=1&date_posted=all&country=in',{
+  fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=3&date_posted=all&country=in',{
     method:'GET',
     headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
   }).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(d){
-    var jobs=(d.data||[]).filter(function(j){
-      // Filter: must match skill in title or description
-      var t=(j.job_title||'').toLowerCase();
-      var desc=(j.job_description||'').toLowerCase();
-      var sk=skill.toLowerCase();
-      return t.includes(sk)||desc.includes(sk);
-    });
+    var jobs=(d.data||[]);
     if(!jobs.length){
       el.innerHTML='<div class="az-empty">No Google Jobs found for <strong>'+skill+'</strong> in <strong>'+city+'</strong>.<br><small>Try a shorter skill name — e.g. "React" instead of "React Developer"</small></div>';
       return;
     }
     var h='<div class="gj-count">'+jobs.length+' jobs found via Google Jobs</div>';
-    jobs.slice(0,12).forEach(function(j){
+    jobs.slice(0,20).forEach(function(j){
       var sal=j.job_min_salary&&j.job_max_salary?'₹'+Math.round(j.job_min_salary/100000)+'L–₹'+Math.round(j.job_max_salary/100000)+'L/yr':'';
       var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
       var src=j.job_publisher||'Google Jobs';
@@ -2237,7 +2261,7 @@ function buildJobsAll(skill,city,exp){
   cont.innerHTML='';
   var tabs=document.createElement('div');tabs.className='src-tabs';tabs.id='srcTabs';
   var gjTab=document.createElement('button');gjTab.className='src-tab active';gjTab.textContent='🔍 Google Jobs';
-  var ljTab=document.createElement('button');ljTab.className='src-tab';ljTab.textContent='🔗 LinkedIn Jobs';
+  var ljTab=document.createElement('button');ljTab.className='src-tab';ljTab.textContent='LinkedIn Jobs';
   var gjPane=document.createElement('div');gjPane.id='gj-pane';gjPane.className='src-pane';
   var ljPane=document.createElement('div');ljPane.id='lj-pane';ljPane.className='src-pane';ljPane.style.display='none';
   // LinkedIn pane content
@@ -2593,16 +2617,14 @@ function hasToolkitAccess(){
 }
 
 function goToolkit(tool){
-  // Recover session if needed (after page reload in preview)
-  if(!currentUser){
-    try{
-      var raw=localStorage.getItem('js_user');
-      if(raw){
-        currentUser=JSON.parse(raw);
-        if(isSuperUser(currentUser.phone))isPaid=true;
-      }
-    }catch(_e){}
-  }
+  // Always recover from localStorage to ensure fresh state
+  try{
+    var _raw=localStorage.getItem('js_user');
+    if(_raw){
+      var _u=JSON.parse(_raw);
+      if(_u&&_u.phone){currentUser=_u;if(isSuperUser(_u.phone)||localStorage.getItem('js_plan'))isPaid=true;}
+    }
+  }catch(_e){}
   if(!hasToolkitAccess()){
     showToast('Career Toolkit is available on ₹99, ₹179 or ₹599 plans. Tap Upgrade Plan to unlock.','amber');
     showUpgrade();return;
