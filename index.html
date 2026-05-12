@@ -1978,17 +1978,14 @@ function showUpgrade(){showLockedDash();}
 // ── LOGIN ────────────────────────────────────────────
 function isSuperUser(p){return (p||'').replace(/[^0-9]/g,'').slice(-10)==='9160075557';}
 function hasToolkitAccess(){
-  // Super user
-  try{var _u=JSON.parse(localStorage.getItem('js_user')||'null');
-    if(_u&&isSuperUser(_u.phone))return true;
-    // Check embedded plan in user object
-    if(_u&&_u.plan&&(_u.plan.plan||typeof _u.plan==='string'))return true;
-  }catch(_e){}
-  if(currentUser&&isSuperUser(currentUser.phone))return true;
+  var phone='';
+  if(currentUser&&currentUser.phone)phone=currentUser.phone;
+  if(!phone){try{var _u=JSON.parse(localStorage.getItem('js_user')||'{}');phone=_u.phone||'';}catch(e){}}
+  var last10=(phone||'').replace(/[^0-9]/g,'').slice(-10);
+  if(last10==='9160075557')return true;
   if(isPaid)return true;
-  // Any plan stored = access
-  var pl=localStorage.getItem('js_plan')||'';
-  return pl.length>2;
+  if((localStorage.getItem('js_plan')||'').length>2)return true;
+  return false;
 }
 function pickPill(btn,gid){
   if(gid==='prefLocRow'){btn.classList.toggle('sel');return;}
@@ -2049,18 +2046,9 @@ function showPaidDash(){
   var pb=document.getElementById('prevBanner');if(pb)pb.style.display='none';
   var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
   var up=document.getElementById('upgradePlans');if(up)up.style.display='none';
-  // Remove all lock icons for paid/super users
   document.querySelectorAll('.sb-lock').forEach(function(el){el.textContent='';});
-  // Show toolkit items fully
-  var sbAts=document.getElementById('sb-ats');
-  if(sbAts){sbAts.style.opacity='1';sbAts.style.pointerEvents='auto';}
-  var sbSal=document.getElementById('sb-salary');
-  if(sbSal){sbSal.style.opacity='1';sbSal.style.pointerEvents='auto';}
-  // Admin badge for super user
-  if(currentUser&&typeof isSuperUser==='function'&&isSuperUser(currentUser.phone)){
-    var role=document.getElementById('dRole');
-    if(role&&!role.textContent.includes('Admin'))role.textContent=(role.textContent||'')+'  · Admin 🔑';
-  }
+  var sa=document.getElementById('sb-ats');if(sa){sa.style.opacity='1';sa.style.pointerEvents='auto';}
+  var ss=document.getElementById('sb-salary');if(ss){ss.style.opacity='1';ss.style.pointerEvents='auto';}
 }
 function restoreDash(){
   var ds=document.getElementById('dashSearch');if(ds)ds.style.display='block';
@@ -2605,36 +2593,34 @@ function hasToolkitAccess(){
 }
 
 function goToolkit(tool){
-  // Force session recovery
-  try{
-    var _r=localStorage.getItem('js_user');
-    if(_r){
-      var _u=JSON.parse(_r);
-      if(_u&&_u.phone){
-        currentUser=_u;
-        var _pl=localStorage.getItem('js_plan')||'';
-        if(isSuperUser(_u.phone)||_pl.length>2){isPaid=true;}
-        // Check embedded plan
-        if(_u.plan&&(_u.plan.plan||typeof _u.plan==='string')){isPaid=true;}
-      }
-    }
-  }catch(_e){}
+  var phone='';
+  if(currentUser&&currentUser.phone)phone=currentUser.phone;
+  if(!phone){
+    try{
+      var _raw=localStorage.getItem('js_user');
+      if(_raw){var _u=JSON.parse(_raw);currentUser=_u;phone=_u.phone||'';}
+    }catch(e){}
+  }
+  var last10=(phone||'').replace(/[^0-9]/g,'').slice(-10);
+  if(last10==='9160075557'){isPaid=true;}
+  if((localStorage.getItem('js_plan')||'').length>2){isPaid=true;}
   if(!hasToolkitAccess()){
-    showToast('Career Toolkit is available on ₹99, ₹179 or ₹599 plans. Tap Upgrade Plan to unlock.','amber');
+    showToast('Available on paid plans. Tap Upgrade Plan.','amber');
     showUpgrade();return;
   }
   if(tool==='ats'){
     goTo('atsView');
-    document.getElementById('atsResult').style.display='none';
-    document.getElementById('atsUploadZone').style.display='block';
-    document.getElementById('atsPasteText').value='';
+    var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
+    var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
+    var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
+    var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='none';
   }else if(tool==='salary'){
     goTo('atsView');
     setTimeout(function(){
-      var az=document.getElementById('atsUploadZone');if(az)az.style.display='none';
-      var ar=document.getElementById('atsResult');if(ar)ar.style.display='none';
-      var sp=document.getElementById('salaryToolsPanel');if(sp)sp.style.display='block';
-    },30);
+      var az2=document.getElementById('atsUploadZone');if(az2)az2.style.display='none';
+      var ar2=document.getElementById('atsResult');if(ar2)ar2.style.display='none';
+      var sp2=document.getElementById('salaryToolsPanel');if(sp2)sp2.style.display='block';
+    },50);
   }
 }
 function handleATSFile(input){
