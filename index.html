@@ -3243,14 +3243,7 @@ async function doLogin(){
   }catch(_e){}
   if(errEl){errEl.textContent='Mobile not registered. Please sign up.';errEl.style.display='block';}
 }
-</script>
 
-
-
-
-
-<!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js" async>
 function resetATSChecker(){
   var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
   var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
@@ -3260,6 +3253,13 @@ function resetATSChecker(){
   var uzBtn=document.querySelector('.auz-btn');if(uzBtn)uzBtn.textContent='Choose File →';
 }
 </script>
+
+
+
+
+
+<!-- Razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 </body>
 </html>
