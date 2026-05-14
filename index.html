@@ -540,7 +540,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
           <div class="sa-field"><label class="sa-label">Full Name *</label><input class="sa-input" id="s1n" placeholder="Riya Desai"><div class="field-msg" id="s1n_m"></div></div>
           <div class="sa-field"><label class="sa-label">Mobile *</label><input class="sa-input" id="s1p" placeholder="98765 43210" maxlength="10" type="tel"><div class="field-msg" id="s1p_m"></div></div>
           <div class="sa-field"><label class="sa-label">Email *</label><input class="sa-input" id="s1e" placeholder="you@email.com"><div class="field-msg" id="s1e_m"></div></div>
-          <div class="sa-field"><label class="sa-label">Primary Skill *</label><input class="sa-input" id="s1s" placeholder="Talent Acquisition..." list="skillList"><div class="field-msg" id="s1s_m"></div></div>
+          <div class="sa-field"><label class="sa-label">Primary Skill *</label><input class="sa-input" id="s1s" placeholder="Talent Acquisition..."><div class="field-msg" id="s1s_m"></div></div>
         </div>
         <div class="sa-field"><label class="sa-label">City *</label><select class="sa-input" id="s1c"><option value="">Select city...</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Pune</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Remote</option></select><div class="field-msg" id="s1c_m"></div></div>
         <button class="sa-btn sa-btn-amber" onclick="nextStep(1)">Continue → Step 2</button>
@@ -820,12 +820,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
 
 
 
-<datalist id="skillList">
-  <option value="Talent Acquisition"><option value="HR Manager"><option value="Software Engineer">
-  <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
-  <option value="Data Scientist"><option value="Product Manager"><option value="DevOps Engineer">
-  <option value="Business Analyst"><option value="Sales Manager"><option value="Marketing Manager">
-</datalist>
+
 
 
 <div class="view" id="adminLoginView">
@@ -2178,7 +2173,7 @@ function setMode(mode,btn){
   var h='<div class="search-row">';
   h+='<div class="sg"><label class="sg-label">Skill / Job Title</label>'
     +'<input class="sg-input" id="sk_skill" placeholder="e.g. SAP ABAP, React, Talent Acquisition..." '
-    +'list="skillList" value="'+(cu.skill||'')+'" style="min-width:180px;"></div>';
+    +'value="'+(cu.skill||'')+'" style="min-width:180px;"></div>';
   h+='<div class="sg"><label class="sg-label">City</label>'
     +'<select class="sg-select" id="sk_city">'+cOpts+'</select></div>';
   if(mode!=='moonlight'&&mode!=='women'&&mode!=='fresher'){
@@ -2247,7 +2242,7 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
         +'<span class="gj-tag source">via '+src+'</span>'
         +'</div>'
         +(j.job_description?'<div class="gj-desc">'+(j.job_description||'').replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
-        +'<div class="gj-footer">'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
+        +'<div class="gj-footer">'
         +(j.job_is_remote?'<span class="gj-remote">🌐 Remote</span>':'')
         +'</div>'
         +'</a>';
@@ -2312,7 +2307,9 @@ var EX=' -"open to work" -"actively looking" -"seeking opportunities" -"job seek
 
 function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
-  var skill=(document.getElementById('sk_skill')||{value:''}).value.trim()||currentUser.skill||'Software Engineer';
+  var _skillEl=document.getElementById('sk_skill');
+  var skill=(_skillEl?_skillEl.value.trim():'')||currentUser.skill||'Software Engineer';
+  if(currentMode==='fresher'&&!skill)skill='Fresher';
   var city=(document.getElementById('sk_city')||{value:'Hyderabad'}).value||currentUser.city||'Hyderabad';
   var expVal=(document.getElementById('sk_exp')||{value:''}).value||'';
   lastSkill=skill;lastCity=city;
@@ -2690,123 +2687,135 @@ function isPaidUser(){
   }catch(e){}
   return(localStorage.getItem('js_plan')||'').length>2;
 }
-async function runATSCheck(){
+function runATSCheck(){
   var pasteText=(document.getElementById('atsPasteText')||{value:''}).value.trim();
-  var hasFile=atsFileData&&atsFileData.data;
   var hasText=atsResumeText&&atsResumeText.length>80&&!atsResumeText.startsWith('[PDF:');
-  if(!hasFile&&!hasText&&pasteText.length<80){showToast('Upload or paste your resume first','amber');return;}
+  var txt=pasteText||atsResumeText||'';
+  if(txt.length<80&&!atsFileData){showToast('Upload your resume file or paste resume text first','amber');return;}
   if(!isPaidUser()){
     var ru=document.getElementById('atsResult');
     if(ru){ru.style.display='block';ru.innerHTML='<div style="text-align:center;padding:32px"><div style="font-size:40px;margin-bottom:12px">🔒</div><div style="font-size:18px;font-weight:800;margin-bottom:8px">ATS Check is a Paid Feature</div><div style="font-size:13px;color:var(--soft);margin-bottom:20px">Upgrade to any plan to unlock</div><button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button></div>';}
     document.getElementById('atsUploadZone').style.display='none';return;
   }
-  atsResumeText=pasteText||atsResumeText;
-  document.getElementById('atsUploadZone').style.display='none';
-  var resEl=document.getElementById('atsResult');
-  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:48px 20px"><div style="font-size:36px;margin-bottom:16px">🤖</div><div style="font-size:16px;font-weight:800;margin-bottom:8px">AI Analysing Your Resume...</div><div style="font-size:13px;color:var(--soft)">Usually 5-10 seconds</div><div style="margin-top:20px;width:200px;height:4px;background:#e5e7eb;border-radius:2px;margin:20px auto 0"><div id="atsLB" style="width:0%;height:4px;background:var(--amber);border-radius:2px;transition:width 8s linear"></div></div></div>';}
-  setTimeout(function(){var lb=document.getElementById('atsLB');if(lb)lb.style.width='85%';},100);
-  var prompt='Analyse this resume for ATS compliance. Return ONLY a valid JSON object with NO markdown or extra text. Use exactly these keys: score(0-100 number), verdict(string: Excellent/Good/Average/Poor), color(hex: #16a34a if score>75 else #f59e0b if score>=50 else #dc2626), categories(object with keys: contact,structure,content,keywords,format,length - each has score(0-100),status(good/warning/bad),issues(string array)), critical(string array - most important fixes), improvements(string array), good(string array - what is working), skills(top 6 skills as string array), role(best fit job title string), location(city string or empty), experience(years as number 0 if fresher). Score each category: contact=email+phone+linkedin+location, structure=experience/education/skills sections present, content=action verbs+achievements+summary, keywords=skill density+industry terms, format=no tables+no photos+no special chars, length=ideal 400-700 words.';
-  try{
-    var body={model:'claude-sonnet-4-20250514',max_tokens:1500};
-    if(hasFile){
-      body.messages=[{role:'user',content:[{type:'document',source:{type:'base64',media_type:'application/pdf',data:atsFileData.data}},{type:'text',text:prompt}]}];
-    }else{
-      var txt=pasteText||atsResumeText;
-      body.messages=[{role:'user',content:prompt+'\n\nResume text:\n'+txt.slice(0,10000)}];
-    }
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    var data=await resp.json();
-    var raw=((data.content&&data.content[0]&&data.content[0].text)||'{}').replace(/```json|```/g,'').trim();
-    var result=JSON.parse(raw);
-    renderATSResult(result);
-    try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(_e){}
-  }catch(e){
-    if(!hasFile){var fb=scoreResume(pasteText||atsResumeText);renderATSResult(fb);showToast('AI unavailable - showing local analysis','amber');}
-    else{if(resEl)resEl.innerHTML='<div style="text-align:center;padding:32px"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-weight:700">Analysis failed - check internet</div><button onclick="resetATSChecker()" style="margin-top:16px;background:var(--amber);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Try Again</button></div>';}
+  // If PDF uploaded but no text extracted yet - show guidance
+  if(atsFileData&&txt.length<80){
+    showToast('PDF uploaded. Please also paste key sections of your resume below for best analysis','amber');
+    txt=atsFileData.name+' uploaded';
   }
+  document.getElementById('atsUploadZone').style.display='none';
+  var result=scoreResume(txt);
+  try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(_e){}
+  renderATSResult(result);
 }
+
 
 
 function scoreResume(text){
   var t=text.toLowerCase();
   var words=t.split(/\s+/);
-  var score=0;var issues=[];var good=[];var missing=[];var fixes=[];
+  var wc=words.length;
 
-  // 1. Contact info (15 pts)
-  var emailFound=/[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}/.test(t);
-  var phoneFound=/[\+]?[\d\-\(\)\s]{10,}/.test(t);
-  var linkedInFound=t.includes('linkedin');
-  var githubFound=t.includes('github');
-  var contactScore=0;
-  if(emailFound){contactScore+=5;good.push('Email address found');}else{missing.push('No email address detected');}
-  if(phoneFound){contactScore+=5;good.push('Phone number found');}else{missing.push('No phone number detected');}
-  if(linkedInFound){contactScore+=3;good.push('LinkedIn URL present');}else{fixes.push('Add your LinkedIn profile URL');}
-  if(githubFound){contactScore+=2;good.push('GitHub link present');}
-  score+=contactScore;
+  // Contact
+  var hasEmail=/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/.test(t);
+  var hasPhone=/(\+91[\s-]?)?[6-9]\d{9}|\d{3}[\s.-]\d{3}[\s.-]\d{4}/.test(t);
+  var hasLinkedin=/linkedin\.com\/in\//.test(t);
+  var hasLocation=/(hyderabad|bangalore|bengaluru|mumbai|delhi|chennai|pune|kolkata|noida|gurgaon|ahmedabad|india)/.test(t);
+  var contactScore=Math.round(((hasEmail?30:0)+(hasPhone?30:0)+(hasLinkedin?25:0)+(hasLocation?15:0)));
+  var contactIssues=[];
+  if(!hasEmail)contactIssues.push('No email address detected');
+  if(!hasPhone)contactIssues.push('No phone number found');
+  if(!hasLinkedin)contactIssues.push('Add your LinkedIn profile URL');
 
-  // 2. Sections (20 pts)
-  var secScore=0;
-  var hasExp=t.includes('experience')||t.includes('work history')||t.includes('employment');
-  var hasEdu=t.includes('education')||t.includes('degree')||t.includes('university')||t.includes('college');
-  var hasSkills=t.includes('skills')||t.includes('technologies')||t.includes('tools')||t.includes('competencies');
-  var hasSummary=t.includes('summary')||t.includes('objective')||t.includes('profile')||t.includes('about');
-  var hasCerts=t.includes('certification')||t.includes('certificate')||t.includes('certified');
-  var hasProjects=t.includes('project')||t.includes('portfolio');
-  if(hasExp){secScore+=6;good.push('Experience section found');}else{missing.push('No Experience section detected');}
-  if(hasEdu){secScore+=5;good.push('Education section found');}else{missing.push('No Education section detected');}
-  if(hasSkills){secScore+=5;good.push('Skills section found');}else{missing.push('Add a dedicated Skills section');}
-  if(hasSummary){secScore+=4;good.push('Professional summary present');}else{fixes.push('Add a 2-3 line professional summary at the top');}
-  if(hasCerts)good.push('Certifications section present');
-  if(hasProjects)good.push('Projects section present');
-  score+=secScore;
+  // Structure
+  var hasExp=/(experience|work history|employment|worked at|worked for|company|organisation|organization)/i.test(text);
+  var hasEdu=/(education|university|college|degree|bachelor|master|b\.tech|m\.tech|b\.e|mba|diploma|school)/i.test(text);
+  var hasSkills=/(skills|technologies|tools|expertise|proficiencies|technical skills)/i.test(text);
+  var hasSummary=/(summary|objective|profile|about me|career objective)/i.test(text);
+  var structScore=Math.round(((hasExp?35:0)+(hasEdu?30:0)+(hasSkills?25:0)+(hasSummary?10:0)));
+  var structIssues=[];
+  if(!hasExp)structIssues.push('No Experience section detected');
+  if(!hasEdu)structIssues.push('No Education section detected');
+  if(!hasSkills)structIssues.push('Add a dedicated Skills section');
 
-  // 3. Content quality (30 pts)
-  var contentScore=0;
-  var actionCount=ACTION_VERBS.filter(function(v){return t.includes(v);}).length;
-  var weakCount=WEAK_PHRASES.filter(function(p){return t.includes(p);}).length;
-  var numbersFound=(text.match(/\d+[%\+\-]?|\₹[\d,]+/g)||[]).length;
-  var wordCount=words.length;
-  if(actionCount>=6){contentScore+=12;good.push('Strong action verbs used ('+actionCount+' found)');}
-  else if(actionCount>=3){contentScore+=7;fixes.push('Use more action verbs — found only '+actionCount+'. Add: led, built, achieved, delivered...');}
-  else{fixes.push('Very few action verbs. Replace "responsible for" with: led, built, developed, achieved');}
-  if(numbersFound>=5){contentScore+=10;good.push('Good use of numbers & metrics ('+numbersFound+' found)');}
-  else if(numbersFound>=2){contentScore+=5;fixes.push('Add more metrics — only '+numbersFound+' numbers found. E.g. "Led team of 8" or "Increased sales by 40%"');}
-  else{missing.push('No quantified achievements — add numbers and metrics to every bullet point');}
-  if(weakCount===0){contentScore+=8;good.push('No weak phrases detected');}
-  else{fixes.push('Remove "'+WEAK_PHRASES.filter(function(p){return t.includes(p);})[0]+'" — replace with strong action verbs');}
-  if(wordCount>=250&&wordCount<=800){contentScore+=0;good.push('Good resume length ('+wordCount+' words)');}
-  else if(wordCount<250){missing.push('Resume too short ('+wordCount+' words) — needs more detail');}
-  else{fixes.push('Resume may be too long ('+wordCount+' words) — aim for 400-700 words');}
-  score+=contentScore;
+  // Content
+  var actionVerbs=['led','built','developed','designed','managed','created','implemented','achieved','delivered','launched','improved','increased','reduced','optimised','optimized','coordinated','established','collaborated','spearheaded','drove'];
+  var verbCount=actionVerbs.filter(function(v){return t.includes(v);}).length;
+  var hasNumbers=/\d+%|\d+\s*(cr|lakh|k|million|users|clients|team|employees|projects)/.test(t);
+  var contentScore=Math.round(Math.min(100,(verbCount*8)+(hasNumbers?30:0)+(hasSummary?20:0)));
+  var contentIssues=[];
+  if(verbCount<3)contentIssues.push('Very few action verbs — use: led, built, developed, achieved');
+  if(!hasNumbers)contentIssues.push('Add measurable achievements with numbers (%, INR, team size)');
+  if(!hasSummary)contentIssues.push('Add a 2-3 line professional summary at the top');
 
-  // 4. Formatting (20 pts)
-  var fmtScore=20; // start full, deduct
-  var hasTable=t.includes('<table')||t.includes('|---|');
-  var hasPhoto=t.includes('<img')||t.includes('photo')||t.includes('photograph');
-  var hasColumns=t.includes('column');
-  if(!hasTable){good.push('No tables detected (ATS-safe)');}else{fmtScore-=6;issues.push('Tables detected — ATS cannot read table content, use plain text');}
-  if(!hasPhoto){good.push('No photo detected (ATS-safe)');}else{fmtScore-=5;issues.push('Photo detected — remove photo from resume (causes ATS rejection)');}
-  score+=Math.max(0,fmtScore);
+  // Keywords
+  var unique=new Set(words.filter(function(w){return w.length>4;}));
+  var kwScore=Math.min(100,Math.round((unique.size/50)*100));
+  var kwIssues=kwScore<50?['Low keyword density — add more industry-specific terms']:[];
 
-  // 5. Keywords (15 pts)
-  var kwScore=0;
-  var skillTerms=text.match(/[A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+){0,2}/g)||[];
-  var uniqueSkills=new Set(skillTerms.filter(function(s){return s.length>3;})).size;
-  if(uniqueSkills>=15){kwScore=15;good.push('Rich keyword density ('+uniqueSkills+' unique terms)');}
-  else if(uniqueSkills>=8){kwScore=9;fixes.push('Expand skills section — add more specific technologies, tools, methodologies');}
-  else{kwScore=4;missing.push('Very few keywords — your skills section needs more specific terms');}
-  score+=kwScore;
+  // Format
+  var hasTables=/\|.*\|/.test(text);
+  var hasPhoto=/(photo|photograph|picture|image|passport size)/i.test(text);
+  var formatScore=100-(hasTables?30:0)-(hasPhoto?30:0);
+  var formatIssues=[];
+  if(hasTables)formatIssues.push('Remove tables — ATS systems cannot parse them');
+  if(hasPhoto)formatIssues.push('Remove photo — it causes ATS parsing issues');
 
-  // Clamp score
-  score=Math.min(100,Math.max(0,Math.round(score)));
+  // Length
+  var ideal=wc>=400&&wc<=700;
+  var lengthScore=ideal?100:wc<200?20:wc<400?60:wc<=1000?75:50;
+  var lengthIssues=[];
+  if(wc<200)lengthIssues.push('Resume too short ('+wc+' words) — aim for 400-700 words');
+  else if(wc>700)lengthIssues.push('Resume may be too long ('+wc+' words) — aim for 400-700 words');
 
-  var verdict='';var color='';
-  if(score>=80){verdict='Strong resume — will pass most ATS systems';color='#16a34a';}
-  else if(score>=55){verdict='Average resume — passes some ATS, needs improvement';color='#d97706';}
-  else{verdict='Weak resume — likely rejected by most ATS systems';color='#dc2626';}
+  // Overall score (weighted)
+  var overall=Math.round(contactScore*0.15+structScore*0.20+contentScore*0.25+kwScore*0.20+formatScore*0.10+lengthScore*0.10);
+  var color=overall>75?'#16a34a':overall>=50?'#f59e0b':'#dc2626';
+  var verdict=overall>75?'Excellent':overall>=65?'Good':overall>=50?'Average':'Needs Work';
 
-  return {score:score,verdict:verdict,color:color,good:good,missing:missing,fixes:fixes,issues:issues};
+  // Extract skills
+  var skillKw=['react','node','python','java','angular','vue','javascript','typescript','sql','mongodb','aws','azure','gcp','docker','kubernetes','spring','django','flutter','android','ios','machine learning','data science','devops','agile','scrum','hr','recruitment','talent acquisition','sales','marketing','finance','accounting','product management','ui/ux','figma','tableau','powerbi'];
+  var foundSkills=skillKw.filter(function(s){return t.includes(s);}).slice(0,6);
+  if(foundSkills.length===0)foundSkills=['Professional Skills'];
+
+  // Role suggestion
+  var roleMap=[['react','React Developer'],['node','Node.js Developer'],['python','Python Developer'],['java','Java Developer'],['data scien','Data Scientist'],['machine learning','ML Engineer'],['hr','HR Professional'],['talent acquisition','Talent Acquisition Specialist'],['sales','Sales Manager'],['marketing','Marketing Manager'],['product manag','Product Manager'],['devops','DevOps Engineer'],['android','Android Developer'],['flutter','Flutter Developer']];
+  var suggestedRole='Software Engineer';
+  for(var i=0;i<roleMap.length;i++){if(t.includes(roleMap[i][0])){suggestedRole=roleMap[i][1];break;}}
+
+  // Location
+  var locMap=[['hyderabad','Hyderabad'],['bangalore','Bengaluru'],['bengaluru','Bengaluru'],['mumbai','Mumbai'],['delhi','Delhi NCR'],['chennai','Chennai'],['pune','Pune'],['noida','Noida']];
+  var foundLoc='';
+  for(var j=0;j<locMap.length;j++){if(t.includes(locMap[j][0])){foundLoc=locMap[j][1];break;}}
+
+  // Build critical + improvements + good
+  var critical=contactIssues.concat(structIssues).slice(0,4);
+  var improvements=contentIssues.slice(0,3);
+  var good=[];
+  if(hasEmail)good.push('Email address found');
+  if(hasPhone)good.push('Phone number found');
+  if(hasLinkedin)good.push('LinkedIn URL present');
+  if(hasNumbers)good.push('Good use of numbers & metrics');
+  if(verbCount>=3)good.push('Uses strong action verbs');
+  if(!hasTables)good.push('No tables detected (ATS-safe)');
+  if(!hasPhoto)good.push('No photo detected (ATS-safe)');
+  if(unique.size>40)good.push('Rich keyword density ('+unique.size+' unique terms)');
+
+  return{
+    score:overall,verdict:verdict,color:color,
+    categories:{
+      contact:{score:contactScore,status:contactScore>=70?'good':contactScore>=40?'warning':'bad',issues:contactIssues},
+      structure:{score:structScore,status:structScore>=70?'good':structScore>=40?'warning':'bad',issues:structIssues},
+      content:{score:contentScore,status:contentScore>=70?'good':contentScore>=40?'warning':'bad',issues:contentIssues},
+      keywords:{score:kwScore,status:kwScore>=70?'good':kwScore>=40?'warning':'bad',issues:kwIssues},
+      format:{score:formatScore,status:formatScore>=70?'good':formatScore>=40?'warning':'bad',issues:formatIssues},
+      length:{score:lengthScore,status:lengthScore>=70?'good':lengthScore>=40?'warning':'bad',issues:lengthIssues}
+    },
+    critical:critical,improvements:improvements,good:good,
+    skills:foundSkills,role:suggestedRole,location:foundLoc,experience:0,
+    missing:[],fixes:improvements,issues:critical
+  };
 }
+
 
 function resetATSCheck(){document.getElementById("atsResult").style.display="none";document.getElementById("atsUploadZone").style.display="block";}
 function renderATSResult(r){
