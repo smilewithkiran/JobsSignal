@@ -385,7 +385,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .src-tab{font-size:11px !important;padding:9px 6px !important;}
   .sb-topbar{padding:0 10px !important;}
 }
-.city-pill{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin:3px 2px;display:inline-block;}.city-pill.active{background:var(--amber);color:#fff;border-color:var(--amber);}.city-sg .sg-label{display:block;margin-bottom:6px;}.city-pills{display:flex;flex-wrap:wrap;gap:4px;}
+
 </style>
 </head>
 <body>
@@ -609,8 +609,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-moonlight" onclick="setMode('moonlight',this)"><span class="sb-icon">🌙</span><span>Moonlighting OK</span></div>
       <div class="sb-item" id="mode-women" onclick="setMode('women',this)"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-item" id="mode-fresher" onclick="setMode('fresher',this)"><span class="sb-icon">🎓</span><span>Freshers / Intern</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
@@ -2168,7 +2166,7 @@ const MODES={
   women:{icon:'👩',title:'Women Returns',desc:'Returnship & career-gap friendly roles',
     hint:'Companies with named returnship programmes — Infosys iRace, Accenture Recharge, TCS Rebegin & more.'},
   fresher:{icon:'🎓',title:'Freshers / Intern',desc:'Entry-level, internships & campus drives for your stream',
-    hint:'First job? Find internships, trainee roles & campus drives. Reply fast — freshers roles fill within hours.'}
+    hint:'First job? Find internships, trainee roles & campus drives. Reply fast — fresher roles fill within hours.'}
 };
 let currentMode='skill';
 
@@ -2184,7 +2182,7 @@ function setMode(mode,btn){
   var cu=currentUser||{};
   var cities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Kolkata','Ahmedabad','Noida','Gurgaon','Kochi','Coimbatore','Vizag','Jaipur','Chandigarh','Nagpur','Indore','Bhopal','Lucknow','Bhubaneswar','Mysore','Thiruvananthapuram','Mangalore','Nashik','Ranchi','Patna','Guwahati','Vijayawada','Guntur','Warangal','Tirupati','Surat','Vadodara','Remote','India'];
   var cOpts=cities.map(function(c){return '<option'+(c===(cu.city||'Hyderabad')?' selected':'')+'>'+c+'</option>';}).join('');
-  var eOpts='<option value="">Any experience</option></option>'
+  var eOpts='<option value="">Any experience</option><option value="fresher">Fresher</option>'
     +'<option value="1-3">1–3 yrs</option><option value="3-7">3–7 yrs</option>'
     +'<option value="7-10">7–10 yrs</option><option value="10-15">10–15 yrs</option>'
     +'<option value="15+">15+ yrs</option>';
@@ -2193,20 +2191,12 @@ function setMode(mode,btn){
     +'<input class="sg-input" id="sk_skill" placeholder="e.g. SAP ABAP, React, Talent Acquisition..." '
     +'list="skillList" value="'+(cu.skill||'')+'" style="min-width:180px;"></div>';
   // Multi-city pill selector (max 3)
-  var selCities=window._selCities||(window._selCities=[cu.city||'Hyderabad']);
-  var quickCities=['Hyderabad','Bengaluru','Mumbai','Delhi NCR','Chennai','Pune','Noida','India'];
-  var pillsArr=[];
-  for(var _pi=0;_pi<quickCities.length;_pi++){
-    var _ct=quickCities[_pi];
-    var _sel=selCities.indexOf(_ct)>=0;
-    pillsArr.push('<button type="button" onclick="toggleCity(this)" class="city-pill'+(_sel?' active':'')+'" data-city="'+_ct+'">'+_ct+'</button>');
+  h+='<div class="sg"><label class="sg-label">City</label>'
+    +'<select class="sg-select" id="sk_city">'+cOpts+'</select></div>';
+    if(mode==='skill'||mode==='notice'||mode==='referral'||mode==='walkin'){
+    h+='<div class="sg"><label class="sg-label">Experience</label>'
+      +'<select class="sg-select" id="sk_exp">'+eOpts+'</select></div>';
   }
-  var pillsHTML=pillsArr.join('');
-  h+='<div class="sg city-sg"><label class="sg-label">City <span style="font-size:10px;color:var(--soft)">(up to 3)</span></label>'
-    +'<div class="city-pills" id="cityPills">'+pillsHTML+'</div>'
-    +'<select class="sg-select" id="sk_city" style="display:none">'+cOpts+'</select></div>';
-  h+='<div class="sg"><label class="sg-label">Experience</label>'
-    +'<select class="sg-select" id="sk_exp">'+eOpts+'</select></div>';
   if(mode==='notice'){
     h+='<div class="sg"><label class="sg-label">Notice Period</label>'
       +'<select class="sg-select" id="sk_notice">'
@@ -2228,15 +2218,12 @@ function setMode(mode,btn){
 
 
 // ── GOOGLE JOBS via JSearch RapidAPI ─────────────────────────────────────────
-function fetchGoogleJobs(skill,city,exp,el,mode){
+function fetchGoogleJobs(skill, city, exp, el){
   el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Searching Google Jobs for '+skill+' in '+city+'...</div>';
   var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years experience)','5-8':'(5-8 years experience)','8+':'(8+ years OR senior OR lead)'};
   var expStr=expMap[exp]||'';
-  var _modeExtra='';
-  if(mode==='moonlight')_modeExtra=' freelance remote startup flexible';
-  if(mode==='women')_modeExtra=' women returnship career-break maternity';
-  if(mode==='fresher')_modeExtra=' fresher intern internship entry-level trainee';
-  var q=skill+' '+city+(expStr?' '+expStr:'');+_modeExtra;
+  var _mx='';if(mode==='moonlight')_mx=' freelance remote startup';if(mode==='women')_mx=' returnship women career-break';if(mode==='fresher')_mx=' fresher intern entry-level';if(mode==='walkin')_mx=' walk-in interview drive';
+  var q=skill+' '+city+(expStr?' '+expStr:'')+_mx;
   fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=3&date_posted=all&country=in',{
     method:'GET',
     headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
@@ -2297,7 +2284,7 @@ function timeSince(dateStr){
 }
 
 // ── NEW buildJobsAll — Google Jobs + LinkedIn Jobs only ───────────────────────
-function buildJobsAll(skill,city,exp){
+function buildJobsAll(skill,city,exp,mode){
   var cont=document.getElementById('rj');if(!cont)return;
   // Build tabs and panes using DOM — no inline onclick quote conflicts
   cont.innerHTML='';
@@ -2325,7 +2312,7 @@ function buildJobsAll(skill,city,exp){
   };
   tabs.appendChild(gjTab);tabs.appendChild(ljTab);
   cont.appendChild(tabs);cont.appendChild(gjPane);cont.appendChild(ljPane);
-  fetchGoogleJobs(skill,city,exp,gjPane);
+  fetchGoogleJobs(skill,city,exp,gjPane,mode);
 }
 
 function buildLinkedInJobsUrl(skill,city,exp){
@@ -2339,35 +2326,15 @@ function buildLinkedInJobsUrl(skill,city,exp){
 // ── SEARCH (LOCKED QUERIES — DO NOT MODIFY) ────────
 // Exclusions prevent job-seeker posts from showing in recruiter search
 var EX=' -"open to work" -"actively looking" -"seeking opportunities" -"job seeker" -"#opentowork" -"new role"';
-
-
-function toggleCity(btn,city){
-  if(!city)city=btn.getAttribute('data-city')||btn.textContent;
-  if(!window._selCities)window._selCities=['Hyderabad'];
-  var idx=window._selCities.indexOf(city);
-  if(idx>=0){
-    if(window._selCities.length===1){showToast('Select at least 1 city','amber');return;}
-    window._selCities.splice(idx,1);
-    btn.classList.remove('active');
-  }else{
-    if(window._selCities.length>=3){showToast('Max 3 cities allowed','amber');return;}
-    window._selCities.push(city);
-    btn.classList.add('active');
-  }
-}
 function runSearch(){
   if(!isPaid&&prevUsed){showLockedDash();return;}
   var skill=(document.getElementById('sk_skill')||{value:''}).value.trim()||currentUser.skill||'Software Engineer';
-  // Get selected cities (multi-select)
-  var _cities=window._selCities&&window._selCities.length>0
-    ?window._selCities
-    :[(document.getElementById('sk_city')||{value:'Hyderabad'}).value||currentUser.city||'Hyderabad'];
-  var city=_cities[0];
-  var cityQ=_cities.length>1?'('+_cities.join(' OR ')+')':_cities[0];
+  var city=(document.getElementById('sk_city')||{value:''}).value||currentUser.city||'Hyderabad';
+  var cityQ=city;
   var expVal=(document.getElementById('sk_exp')||{value:''}).value||'';
   lastSkill=skill;lastCity=city;
   var enc=function(s){return encodeURIComponent(s);};
-  var _dateFilter='&datePosted=%22past-month%22';
+  var _dateFilter='';
 
   // LinkedIn f_E codes (experience filter for Jobs URLs ONLY — never in keyword query)
   var expFE={fresher:'2','1-3':'2,3','3-7':'3,4','7-10':'4','10-15':'4,5','15+':'5,6'};
@@ -2390,16 +2357,12 @@ function runSearch(){
   }else if(currentMode==='referral'){
     baseQ='"'+skill+'" '+cityQ+' ("referral" OR "refer" OR "DM me" OR "dm your resume" OR "share your resume" OR "refer a friend")'+EX;
   }else if(currentMode==='walkin'){
-    baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in interview" OR "walkin drive" OR "direct interview" OR "come directly" OR "drop your cv" OR "interview on the spot")'+EX;
+    baseQ='"'+skill+'" "'+city+'" ("walk-in" OR "walkin" OR "walk in drive" OR "direct interview" OR "come directly" OR "drop your cv" OR "interview on the spot")'+EX;
     _dateFilter='&datePosted=%22past-week%22';
   }else if(currentMode==='moonlight'){
-    var _div=(document.getElementById('sk_diversity')&&document.getElementById('sk_diversity').checked)?' ("inclusive" OR "diversity")':'';
-    baseQ='"'+skill+'" "'+city+'" (freelance OR startup OR "part time" OR "hourly" OR "contract" OR remote OR "flexible timing" OR "side project" OR "independent consultant")'+_div+EX;
+    baseQ='"'+skill+'" "'+city+'" (freelance OR startup OR "part time" OR "hourly" OR "contract" OR remote OR "flexible timing" OR "side project" OR "independent consultant")'+EX;
   }else if(currentMode==='women'){
-    var _div2=(document.getElementById('sk_diversity')&&document.getElementById('sk_diversity').checked)?' ("PWD" OR "disability")':'';
-    baseQ='"'+skill+'" "'+city+'" ("female candidates" OR "lady candidates" OR "women only" OR "returnship" OR "return to work" OR "career break" OR "maternity" OR "iRace" OR "Rebegin" OR "Recharge" OR remote)'+_div2+EX;
-  }else if(currentMode==='fresher'){
-    baseQ='"'+skill+'" "'+city+'" (fresher OR intern OR internship OR "campus drive" OR "entry level" OR "0-1 years" OR trainee OR graduate OR "freshers drive")'+EX;
+    baseQ='"'+skill+'" "'+city+'" ("female candidates" OR "lady candidates" OR "women only" OR returnship OR "return to work" OR "career break" OR "iRace" OR "Rebegin" OR "Recharge" OR remote OR "maternity friendly")'+EX;
   }else{
     // DEFAULT Skill+City — confirmed working, do not change
     baseQ='"'+skill+'" '+cityQ+' ("hiring" OR "we are looking" OR "opening" OR "urgent" OR "vacancy" OR "looking for")'+EX;
@@ -2407,12 +2370,12 @@ function runSearch(){
 
   var q=enc(baseQ);
   // LinkedIn content (recruiter posts)
-  var u24='https://www.linkedin.com/search/results/content/?keywords='+q+_dateFilter+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
+  var u24='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-24h%22&sortBy=%22date_posted%22';
   var uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
   var uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
   // LinkedIn Jobs (with f_E experience filter)
-  var _expFilter=currentMode==='fresher'?'&f_E=1%2C2':'';
-  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(currentMode==='fresher'?skill+' intern fresher':skill)+'&location='+enc(city)+_expFilter;
+  var _ef=currentMode==='fresher'?'&f_E=1%2C2':'';
+  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(currentMode==='fresher'?skill+' intern fresher':skill)+'&location='+enc(city)+_ef;
   var j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
   var jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
   var jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
@@ -2426,12 +2389,12 @@ function runSearch(){
 
   // Update results panel header
   var se2=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-  se2('rTitle','"'+skill+'" in '+_cities.join(' / ')+(expVal?' · '+expVal:''));
+  se2('rTitle','"'+skill+'" in '+city+(expVal?' · '+expVal:''));
   se2('rSub',(MODES[currentMode]||{title:'Search'}).title+' · LinkedIn + Google Jobs + Google Jobs + Google Jobs + Google Jobs');
   document.getElementById('resultsArea').style.display='block';
 
   buildPosts(skill,city,u24,uWk,uMo);
-  buildJobsAll(skill,city,expVal);
+  buildJobsAll(skill,city,expVal,currentMode);
   buildPeople(skill,city,pUrl);
   document.getElementById('resultsArea').scrollIntoView({behavior:'smooth',block:'nearest'});
   if(!isPaid)setTimeout(function(){showLockedDash();},25000);
@@ -2835,76 +2798,53 @@ function isPaidUser(){
   return(localStorage.getItem('js_plan')||'').length>2;
 }
 async function runATSCheck(){
+  var text=(document.getElementById('atsPasteText')||{value:''}).value.trim();
+  if(atsResumeText&&atsResumeText.length>100)text=atsResumeText+' '+text;
+  if(!text||text.length<80){showToast('Paste your resume text or upload a file first','amber');return;}
+  if(!isPaidUser()){
+    var ru=document.getElementById('atsResult');
+    if(ru){ru.style.display='block';ru.innerHTML='<div style="text-align:center;padding:32px;"><div style="font-size:40px;margin-bottom:12px;">🔒</div><div style="font-size:18px;font-weight:800;margin-bottom:8px;">ATS Check is a Paid Feature</div><div style="font-size:13px;color:var(--soft);margin-bottom:20px;">Upgrade to any plan to unlock</div><button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button></div>';}
+    document.getElementById('atsUploadZone').style.display='none';
+    return;
+  }
+  atsResumeText=text;
+  var resEl=document.getElementById('atsResult');
+  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:40px;"><div style="font-size:28px;margin-bottom:10px;">🤖</div><div style="font-size:15px;font-weight:700;">Analysing with AI...</div><div style="font-size:12px;color:var(--soft);margin-top:6px;">Usually 5-10 seconds</div></div>';}
+  document.getElementById('atsUploadZone').style.display='none';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:'Analyse this resume for ATS compliance. Return ONLY valid JSON (no markdown) with keys: score(0-100), verdict(string), color(hex: green #16a34a if >70, amber #f59e0b if 50-70, red #dc2626 if <50), good(array of strings max 8), issues(array max 6), fixes(array max 4), skills(top skills array max 8), role(suggested job role), location(city or empty string), experience(years as number).\n\nResume:\n'+text.slice(0,8000)}]})});
+    var data=await resp.json();
+    var raw=((data.content&&data.content[0]&&data.content[0].text)||'{}').replace(/```json|```/g,'').trim();
+    var result=JSON.parse(raw);
+    renderATSResult(result);
+    if(result.skills&&result.skills.length>0){var _sk=result.skills[0];var _loc=result.location||currentUser.city||'Hyderabad';setTimeout(function(){showATSJobs(_sk,_loc);},600);}
+  }catch(e){var fallback=scoreResume(text);renderATSResult(fallback);showToast('AI unavailable — showing local score','amber');}
+}
+function showATSJobs(skill,city){
+  var resEl=document.getElementById('atsResult');if(!resEl)return;
+  if(document.getElementById('atsJobsSec'))return;
+  resEl.insertAdjacentHTML('afterend','<div id="atsJobsSec" style="margin-top:16px;"><div style="font-size:15px;font-weight:800;margin-bottom:10px;">🔍 Jobs matching your resume</div><div id="atsJobsWrap" style="font-size:13px;color:var(--soft)">Loading jobs for '+skill+' in '+city+'...</div></div>');
+  var wrap=document.getElementById('atsJobsWrap');
+  if(wrap)fetchGoogleJobs(skill,city,'',wrap,'skill');
+}
+
   var text=document.getElementById('atsPasteText').value.trim();
   if(atsResumeText&&atsResumeText.length>100)text=atsResumeText+' '+text;
   if(!text||text.length<80){showToast('Please paste your resume text or upload a file first.','amber');return;}
   if(!isPaidUser()){
-    var ru=document.getElementById('atsResult');
-    if(ru){
-      ru.style.display='block';
-      ru.innerHTML='<div style="text-align:center;padding:32px 20px;"><div style="font-size:48px;margin-bottom:12px;">🔒</div>'
+    var r=document.getElementById('atsResult');
+    if(r){
+      r.style.display='block';
+      r.innerHTML='<div style="text-align:center;padding:32px 20px;">'
+        +'<div style="font-size:48px;margin-bottom:12px;">🔒</div>'
         +'<div style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;">ATS Check is a Paid Feature</div>'
         +'<div style="font-size:13px;color:var(--soft);margin-bottom:24px;line-height:1.6;">Upgrade to see your full ATS score,<br>keyword gaps, and fix suggestions.</div>'
         +'<button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button>'
-        +'<div style="margin-top:12px;"><button onclick="goTo(&quot;dashView&quot;)" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;">← Back</button></div></div>';
+        +'<div style="margin-top:12px;"><button onclick="goTo(&quot;dashView&quot;)" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;">← Back to Dashboard</button></div>'
+        +'</div>';
     }
     return;
   }
-  atsResumeText=text;
-  // Show loading
-  var resEl=document.getElementById('atsResult');
-  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:40px;"><div style="font-size:32px;margin-bottom:12px;">🤖</div><div style="font-size:16px;font-weight:700;">Analysing your resume with AI...</div><div style="font-size:12px;color:var(--soft);margin-top:8px;">Usually takes 5-10 seconds</div></div>';}
-  document.getElementById('atsUploadZone').style.display='none';
-  try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:'Analyse this resume for ATS compliance. Return ONLY a JSON object (no markdown, no extra text) with these exact keys:\n- score: number 0-100\n- verdict: string (e.g. "Strong", "Needs Work", "Good")\n- color: hex color (#16a34a green if >70, #f59e0b amber if 50-70, #dc2626 red if <50)\n- good: array of strings (what is good, max 8)\n- issues: array of strings (critical fixes needed, max 6)\n- fixes: array of strings (suggestions, max 4)\n- skills: array of top skills found (max 8)\n- role: suggested job role string\n- location: city if found, else empty string\n- experience: years of experience as number, 0 if fresher\n\nResume text:\n'+text.slice(0,8000)}]
-      })
-    });
-    var data=await resp.json();
-    var raw=(data.content&&data.content[0]&&data.content[0].text)||'{}';
-    raw=raw.replace(/```json|```/g,'').trim();
-    var result=JSON.parse(raw);
-    renderATSResult(result);
-    // Show matching jobs after ATS
-    if(result.skills&&result.skills.length>0){
-      var topSkill=result.skills[0];
-      var loc=result.location||currentUser.city||'Hyderabad';
-      setTimeout(function(){showATSJobs(topSkill,loc,result.role);},500);
-    }
-  }catch(e){
-    // Fallback to local scorer
-    var fallback=scoreResume(text);
-    renderATSResult(fallback);
-    showToast('AI analysis unavailable — showing local score','amber');
-  }
-}
-
-function showATSJobs(skill,city,role){
-  var resEl=document.getElementById('atsResult');
-  if(!resEl)return;
-  var jobsDiv=document.getElementById('atsJobsSection');
-  if(!jobsDiv){
-    resEl.insertAdjacentHTML('afterend',
-      '<div id="atsJobsSection" style="margin-top:20px;">'
-      +'<div style="font-size:16px;font-weight:800;margin-bottom:12px;padding:0 4px;">🔍 Jobs Matching Your Resume</div>'
-      +'<div id="atsJobsWrap"></div></div>'
-    );
-    jobsDiv=document.getElementById('atsJobsSection');
-  }
-  var wrap=document.getElementById('atsJobsWrap');
-  if(wrap)wrap.innerHTML='<div style="padding:16px;text-align:center;color:var(--soft);font-size:13px;">Finding jobs for '+skill+' in '+city+'...</div>';
-  // Use existing buildJobsAll
-  var tmpWrap=document.createElement('div');
-  tmpWrap.id='rj_ats';
-  if(wrap)wrap.appendChild(tmpWrap);
-  fetchGoogleJobs(skill,city,'',tmpWrap,'skill');
-}
-
 
 function scoreResume(text){
   var t=text.toLowerCase();
@@ -3275,15 +3215,7 @@ async function doLogin(){
   const ep=normP(phone);
   if(ep.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
   const _d=phone.replace(/[^0-9]/g,'').slice(-10);
-  // Check if blocked
-  try{
-    const _blk=await fetch(FB_DB+'/blocked/'+_d+'.json');
-    const _bd=await _blk.json();
-    if(_bd&&_bd.phone){
-      if(errEl){errEl.textContent='This number has been blocked. Contact support.';errEl.style.display='block';}
-      return;
-    }
-  }catch(_be){}
+  try{const _br=await fetch(FB_DB+'/blocked/'+_d+'.json');const _bd=await _br.json();if(_bd&&_bd.phone){if(errEl){errEl.textContent='This number is blocked.';errEl.style.display='block';}return;}}catch(_be){}
   if(_d==='9160075557'){
     const _su={name:'Kiran',phone:'9160075557',email:'',city:'Hyderabad',skill:'Talent Acquisition',prefLocs:[]};
     isPaid=true;currentUser=_su;
@@ -3313,10 +3245,7 @@ async function doLogin(){
 function nextStep(dir){
   var ids=['step1','step2','step3'];
   var cur=0;
-  for(var i=0;i<ids.length;i++){
-    var el=document.getElementById(ids[i]);
-    if(el&&el.style.display!=='none'){cur=i;break;}
-  }
+  for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.style.display!=='none'){cur=i;break;}}
   if(dir>0&&cur===0){
     var n=((document.getElementById('s1n')||{}).value||(document.getElementById('s1n_m')||{}).value||'').trim();
     var p=((document.getElementById('s1p')||{}).value||(document.getElementById('s1p_m')||{}).value||'').trim();
@@ -3327,21 +3256,14 @@ function nextStep(dir){
   }
   var nxt=cur+dir;
   if(nxt<0||nxt>=ids.length)return;
-  ids.forEach(function(id,i){
-    var el=document.getElementById(id);
-    if(el)el.style.display=i===nxt?'block':'none';
-  });
-  document.querySelectorAll('.step-dot').forEach(function(d,i){
-    d.classList.toggle('active',i===nxt);
-  });
+  ids.forEach(function(id,i){var el=document.getElementById(id);if(el)el.style.display=i===nxt?'block':'none';});
+  document.querySelectorAll('.step-dot').forEach(function(d,i){d.classList.toggle('active',i===nxt);});
   window.scrollTo(0,0);
 }
-
 function resetATSChecker(){
   var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
   var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
   var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
-  var fs=document.getElementById('atsFileStatus');if(fs){fs.textContent='';fs.style.display='none';}
   atsResumeText='';
 }
 </script>
