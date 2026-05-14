@@ -378,12 +378,13 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .sb-sec-label{font-size:7px !important;padding:5px 8px 2px !important;}
   .sb-brand-name{display:none !important;}
   .sb-content{padding:10px 8px !important;}
+  .sb-main{flex:1;min-width:0;overflow:hidden;}
   .search-row{flex-direction:column !important;gap:8px !important;}
   .sg{width:100% !important;}
-  .sg select,.sg input,.sg-select,.sg-input{width:100% !important;min-width:unset !important;}
+  .sg select,.sg input{width:100% !important;min-width:unset !important;}
   .btn-run{width:100% !important;}
-  .src-tab{font-size:11px !important;padding:9px 6px !important;}
-  .sb-topbar{padding:0 10px !important;}
+  .src-tab{font-size:11px !important;padding:8px 6px !important;}
+  .search-panel{padding:12px !important;}
 }
 </style>
 </head>
@@ -608,6 +609,8 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-moonlight" onclick="setMode('moonlight',this)"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
       <div class="sb-item" id="mode-women" onclick="setMode('women',this)"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-item" id="mode-fresher" onclick="setMode('fresher',this)"><span class="sb-icon">🎓</span><span>Freshers / Intern</span></div>
+      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
+      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
@@ -1454,7 +1457,7 @@ const S_USER='js_user', S_PLAN='js_plan', S_PREV='js_preview_used', S_REG='js_re
 //     → Remove: fetchAdzuna, fetchJooble, fetchRemotive,
 //               fetchJobicy, switchSrc, buildJobsAll
 //     → Remove: Google Jobs/Google Jobs/Google Jobs/Google Jobs CSS
-//     → Add: fetchGoogleJobs(skill,city,exp,gjPane,mode)
+//     → Add: fetchGoogleJobs(skill, city, exp)
 //             using JSearch RapidAPI
 //             Key: 32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535
 //             Host: jsearch.p.rapidapi.com
@@ -2147,11 +2150,11 @@ const MODES={
     hint:'DM with your resume — referral applications have 5x higher callback rates.'},
   walkin:{icon:'🚶',title:'Walk-in Drives',desc:'Live walk-in drives in your city this week',
     hint:'Show up with resume — no online application. High acceptance rate at drives.'},
-  moonlight:{icon:'🌙',title:'Moonlighting',desc:'Freelance & startup-friendly companies with flexible policies',
-    hint:'Targets companies where freelancing and side projects are welcome.'},
+  moonlight:{icon:'🌙',title:'Moonlighting',desc:'Freelance & startup companies with flexible moonlighting policies',
+    hint:'Targets companies where side projects and freelance work are welcome.'},
   women:{icon:'👩',title:'Women Returns',desc:'Returnship & career-gap friendly roles across India',
     hint:'Includes iRace (Infosys), Rebegin (TCS), Recharge (Accenture) and similar programmes.'},
-  fresher:{icon:'🎓',title:'Freshers / Intern',desc:'Entry-level roles, internships & campus drives',
+  fresher:{icon:'🎓',title:'Freshers / Intern',desc:'Internships, entry-level & campus drives for your stream',
     hint:'First job? Find internships, trainee roles and campus drives — apply fast!'}
 };
 let currentMode='skill';
@@ -2203,8 +2206,8 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
   var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years experience)','5-8':'(5-8 years experience)','8+':'(8+ years OR senior OR lead)'};
   var expStr=expMap[exp]||'';
   var _mx='';
-  if(mode==='fresher')_mx=' fresher intern internship entry-level trainee';
-  if(mode==='moonlight')_mx=' freelance remote startup flexible contract';
+  if(mode==='fresher')_mx=' fresher intern internship entry-level';
+  if(mode==='moonlight')_mx=' freelance remote startup flexible';
   if(mode==='women')_mx=' returnship women career-break maternity';
   if(mode==='walkin')_mx=' walk-in drive interview';
   var q=skill+' '+city+(expStr?' '+expStr:'')+_mx;
@@ -2223,9 +2226,13 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
       var sal=j.job_min_salary&&j.job_max_salary?'₹'+Math.round(j.job_min_salary/100000)+'L–₹'+Math.round(j.job_max_salary/100000)+'L/yr':'';
       var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
       var src=j.job_publisher||'Google Jobs';
-      var ename=(j.employer_name||'Co').charAt(0).toUpperCase();
-      var logo='<div style="width:36px;height:36px;background:var(--amber);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px;flex-shrink:0;">'+ename+'</div>';
-      h+='<div class="gj-card">'
+      var _en=(j.employer_name||'Co').charAt(0).toUpperCase();
+      var _badge='<div class="gj-badge">'+_en+'</div>';
+      var logo=j.employer_logo
+        ?'<img src="'+j.employer_logo+'" class="gj-logo-img" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'+_badge.replace('class="gj-badge"','class="gj-badge" style="display:none"')
+        :_badge;
+      var _cu=j.job_apply_link||j.job_google_link||'#';
+        h+='<a class="gj-card" href="'+_cu+'" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;">'
         +'<div class="gj-top">'
         +'<div class="gj-logo">'+logo+'</div>'
         +'<div class="gj-info">'
@@ -2240,11 +2247,10 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
         +'<span class="gj-tag source">via '+src+'</span>'
         +'</div>'
         +(j.job_description?'<div class="gj-desc">'+(j.job_description||'').replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
-        +'<div class="gj-footer">'
-        +'<a class="gj-apply" href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
+        +'<div class="gj-footer">'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">Apply Now →</a>'
         +(j.job_is_remote?'<span class="gj-remote">🌐 Remote</span>':'')
         +'</div>'
-        +'</div>';
+        +'</a>';
     });
     el.innerHTML=h;
   }).catch(function(e){
@@ -2345,7 +2351,8 @@ function runSearch(){
   var uWk='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-week%22&sortBy=%22date_posted%22';
   var uMo='https://www.linkedin.com/search/results/content/?keywords='+q+'&datePosted=%22past-month%22&sortBy=%22date_posted%22';
   // LinkedIn Jobs (with f_E experience filter)
-  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(skill)+'&location='+enc(city);
+  var _ef=currentMode==='fresher'?'&f_E=1%2C2':'';
+  var jb='https://www.linkedin.com/jobs/search/?keywords='+enc(currentMode==='fresher'?skill+' intern fresher':skill)+'&location='+enc(city)+_ef;
   var j24=jb+'&f_TPR=r86400&sortBy=DD'+fE;
   var jWk=jb+'&f_TPR=r604800&sortBy=DD'+fE;
   var jMo=jb+'&f_TPR=r2592000&sortBy=DD'+fE;
@@ -2643,25 +2650,22 @@ function goToolkit(tool){
   }
 }
 function handleATSFile(input){
-  var file=input.files[0];if(!file)return;
-  var ext=file.name.split('.').pop().toLowerCase();
-  if(ext==='pdf'){
-    // Use FileReader for basic text extraction from PDF
-    var reader=new FileReader();
-    reader.onload=function(e){
-      // For PDF, we extract what we can from the binary
-      var text=extractTextFromPDF(e.target.result);
-      atsResumeText=text;
-      document.getElementById('atsPasteText').value=text.slice(0,500)+'... [File loaded: '+file.name+']';
-    };
-    reader.readAsText(file);
-  }else{
-    // DOC/DOCX — read as text (basic extraction)
-    var reader=new FileReader();
-    reader.onload=function(e){atsResumeText=e.target.result;document.getElementById('atsPasteText').value='[File loaded: '+file.name+'] Paste your resume text below for best results.';};
-    reader.readAsText(file);
-  }
+  var file=input.files&&input.files[0];if(!file)return;
+  var btn=document.querySelector('.auz-btn');
+  if(btn)btn.textContent=file.name.slice(0,22)+'...';
+  var ext=(file.name.split('.').pop()||'').toLowerCase();
+  var reader=new FileReader();
+  reader.onload=function(e){
+    if(ext==='pdf'){
+      atsFileData={type:'pdf',name:file.name,data:e.target.result.split(',')[1]};
+      atsResumeText='[PDF: '+file.name+']';
+    }else{
+      atsResumeText=e.target.result;atsFileData=null;
+    }
+  };
+  if(ext==='pdf')reader.readAsDataURL(file);else reader.readAsText(file);
 }
+
 
 function extractTextFromPDF(raw){
   // Basic text extraction — get readable strings from PDF binary
@@ -2686,28 +2690,42 @@ function isPaidUser(){
   }catch(e){}
   return(localStorage.getItem('js_plan')||'').length>2;
 }
-function runATSCheck(){
-  var text=document.getElementById('atsPasteText').value.trim();
-  if(atsResumeText&&atsResumeText.length>100)text=atsResumeText+' '+text;
-  if(!text||text.length<80){showToast('Please paste your resume text or upload a file first.','amber');return;}
+async function runATSCheck(){
+  var pasteText=(document.getElementById('atsPasteText')||{value:''}).value.trim();
+  var hasFile=atsFileData&&atsFileData.data;
+  var hasText=atsResumeText&&atsResumeText.length>80&&!atsResumeText.startsWith('[PDF:');
+  if(!hasFile&&!hasText&&pasteText.length<80){showToast('Upload or paste your resume first','amber');return;}
   if(!isPaidUser()){
-    var r=document.getElementById('atsResult');
-    if(r){
-      r.style.display='block';
-      r.innerHTML='<div style="text-align:center;padding:32px 20px;">'
-        +'<div style="font-size:48px;margin-bottom:12px;">🔒</div>'
-        +'<div style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px;">ATS Check is a Paid Feature</div>'
-        +'<div style="font-size:13px;color:var(--soft);margin-bottom:24px;line-height:1.6;">Upgrade to see your full ATS score,<br>keyword gaps, and fix suggestions.</div>'
-        +'<button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button>'
-        +'<div style="margin-top:12px;"><button onclick="goTo(&quot;dashView&quot;)" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;">← Back to Dashboard</button></div>'
-        +'</div>';
-    }
-    return;
+    var ru=document.getElementById('atsResult');
+    if(ru){ru.style.display='block';ru.innerHTML='<div style="text-align:center;padding:32px"><div style="font-size:40px;margin-bottom:12px">🔒</div><div style="font-size:18px;font-weight:800;margin-bottom:8px">ATS Check is a Paid Feature</div><div style="font-size:13px;color:var(--soft);margin-bottom:20px">Upgrade to any plan to unlock</div><button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button></div>';}
+    document.getElementById('atsUploadZone').style.display='none';return;
   }
-  atsResumeText=text;
-  var result=scoreResume(text);
-  renderATSResult(result);
+  atsResumeText=pasteText||atsResumeText;
+  document.getElementById('atsUploadZone').style.display='none';
+  var resEl=document.getElementById('atsResult');
+  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:48px 20px"><div style="font-size:36px;margin-bottom:16px">🤖</div><div style="font-size:16px;font-weight:800;margin-bottom:8px">AI Analysing Your Resume...</div><div style="font-size:13px;color:var(--soft)">Usually 5-10 seconds</div><div style="margin-top:20px;width:200px;height:4px;background:#e5e7eb;border-radius:2px;margin:20px auto 0"><div id="atsLB" style="width:0%;height:4px;background:var(--amber);border-radius:2px;transition:width 8s linear"></div></div></div>';}
+  setTimeout(function(){var lb=document.getElementById('atsLB');if(lb)lb.style.width='85%';},100);
+  var prompt='Analyse this resume for ATS compliance. Return ONLY a valid JSON object with NO markdown or extra text. Use exactly these keys: score(0-100 number), verdict(string: Excellent/Good/Average/Poor), color(hex: #16a34a if score>75 else #f59e0b if score>=50 else #dc2626), categories(object with keys: contact,structure,content,keywords,format,length - each has score(0-100),status(good/warning/bad),issues(string array)), critical(string array - most important fixes), improvements(string array), good(string array - what is working), skills(top 6 skills as string array), role(best fit job title string), location(city string or empty), experience(years as number 0 if fresher). Score each category: contact=email+phone+linkedin+location, structure=experience/education/skills sections present, content=action verbs+achievements+summary, keywords=skill density+industry terms, format=no tables+no photos+no special chars, length=ideal 400-700 words.';
+  try{
+    var body={model:'claude-sonnet-4-20250514',max_tokens:1500};
+    if(hasFile){
+      body.messages=[{role:'user',content:[{type:'document',source:{type:'base64',media_type:'application/pdf',data:atsFileData.data}},{type:'text',text:prompt}]}];
+    }else{
+      var txt=pasteText||atsResumeText;
+      body.messages=[{role:'user',content:prompt+'\n\nResume text:\n'+txt.slice(0,10000)}];
+    }
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    var data=await resp.json();
+    var raw=((data.content&&data.content[0]&&data.content[0].text)||'{}').replace(/```json|```/g,'').trim();
+    var result=JSON.parse(raw);
+    renderATSResult(result);
+    try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(_e){}
+  }catch(e){
+    if(!hasFile){var fb=scoreResume(pasteText||atsResumeText);renderATSResult(fb);showToast('AI unavailable - showing local analysis','amber');}
+    else{if(resEl)resEl.innerHTML='<div style="text-align:center;padding:32px"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-weight:700">Analysis failed - check internet</div><button onclick="resetATSChecker()" style="margin-top:16px;background:var(--amber);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Try Again</button></div>';}
+  }
 }
+
 
 function scoreResume(text){
   var t=text.toLowerCase();
@@ -2793,50 +2811,76 @@ function scoreResume(text){
 function resetATSCheck(){document.getElementById("atsResult").style.display="none";document.getElementById("atsUploadZone").style.display="block";}
 function renderATSResult(r){
   document.getElementById('atsUploadZone').style.display='none';
-  var res=document.getElementById('atsResult');
-  if(!res)return;
+  var res=document.getElementById('atsResult');if(!res)return;
   res.style.display='block';
-  var circ=2*Math.PI*54;
-  var offset=circ-(r.score/100)*circ;
-  var allFixes=r.issues.concat(r.missing).concat(r.fixes);
-  var goodHTML=r.good.map(function(g){
-    return '<div class="ats-item"><span class="ats-dot">&#x2705;</span>'+g+'</div>';
-  }).join('');
-  var fixHTML=allFixes.slice(0,8).map(function(f){
-    var icon=r.missing.includes(f)?'&#x274C;':'&#x26A0;&#xFE0F;';
-    return '<div class="ats-item"><span class="ats-dot">'+icon+'</span>'+f+'</div>';
-  }).join('');
+  var circ=2*Math.PI*54;var offset=circ-((r.score||0)/100)*circ;
+  var score=r.score||0;var color=r.color||(score>75?'#16a34a':score>=50?'#f59e0b':'#dc2626');
+  var cats=[
+    {key:'contact',icon:'📧',label:'Contact'},
+    {key:'structure',icon:'📋',label:'Structure'},
+    {key:'content',icon:'💼',label:'Content'},
+    {key:'keywords',icon:'🔑',label:'Keywords'},
+    {key:'format',icon:'📝',label:'Format'},
+    {key:'length',icon:'📏',label:'Length'}
+  ];
+  var rc=r.categories||{};
+  var catHTML='';
+  cats.forEach(function(cat){
+    var cd=rc[cat.key]||{score:0,status:'bad'};
+    var cs=cd.score||0;
+    var cc=cd.status==='good'?'#16a34a':cd.status==='warning'?'#f59e0b':'#dc2626';
+    var ci=cd.status==='good'?'✅':cd.status==='warning'?'⚠️':'❌';
+    catHTML+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
+      +'<div style="width:100px;font-size:11px;font-weight:600;flex-shrink:0;">'+cat.icon+' '+cat.label+'</div>'
+      +'<div style="flex:1;height:6px;background:#e5e7eb;border-radius:3px;">'
+      +'<div style="height:6px;width:'+cs+'%;background:'+cc+';border-radius:3px;transition:width .8s ease;"></div>'
+      +'</div>'
+      +'<div style="width:40px;font-size:11px;font-weight:700;color:'+cc+';text-align:right;flex-shrink:0;">'+ci+' '+cs+'%</div>'
+      +'</div>';
+  });
+  function mkList(arr,icon){
+    if(!arr||!arr.length)return '<div style="font-size:12px;color:var(--soft);padding:6px 0;">None ✅</div>';
+    return arr.map(function(x){return '<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:12px;line-height:1.5;"><span style="flex-shrink:0;">'+icon+'</span><span>'+x+'</span></div>';}).join('');
+  }
+  var skills=r.skills||[];
+  var skillPills=skills.map(function(s){return '<span style="background:rgba(26,107,107,.08);color:var(--teal);border:1px solid rgba(26,107,107,.2);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;">'+s+'</span>';}).join(' ');
   res.innerHTML=
-    '<div class="ats-score-wrap">'
-    +'<div class="ats-gauge">'
-    +'<svg width="140" height="140" viewBox="0 0 140 140">'
+    '<div style="background:var(--ink);border-radius:16px 16px 0 0;padding:24px;text-align:center;color:#fff;">'
+    +'<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;opacity:.4;margin-bottom:16px;">🤖 AI RESUME ANALYSIS</div>'
+    +'<div style="display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">'
+    +'<div style="position:relative;width:140px;height:140px;"><svg width="140" height="140" viewBox="0 0 140 140" style="transform:rotate(-90deg)">'
     +'<circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="12"/>'
-    +'<circle cx="70" cy="70" r="54" fill="none" stroke="'+r.color+'" stroke-width="12"'
-    +' stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" stroke-linecap="round"'
-    +' style="transition:stroke-dashoffset 1s ease;"/>'
-    +'</svg>'
-    +'<div class="ats-score-num">'+r.score+'</div>'
-    +'</div>'
-    +'<div class="ats-score-label">ATS Score / 100</div>'
-    +'<div class="ats-verdict" style="color:'+r.color+'">'+r.verdict+'</div>'
-    +'</div>'
-    +'<div class="ats-sections">'
-    +'<div class="ats-section">'
-    +'<div class="ats-sec-title" style="color:#16a34a;">&#x2705; What\'s Good <span class="ats-sec-score" style="color:#16a34a;">'+r.good.length+'</span></div>'
-    +goodHTML
-    +'</div>'
-    +'<div class="ats-section">'
-    +'<div class="ats-sec-title" style="color:#dc2626;">&#x26A0;&#xFE0F; Fix These <span class="ats-sec-score" style="color:#dc2626;">'+allFixes.length+'</span></div>'
-    +fixHTML
-    +'</div>'
-    +'</div>'
-    +'<div style="margin-top:20px;text-align:center;">'
-    +'<button onclick="resetATSChecker()" style="background:var(--amber);color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">&#128260; Check Another Resume</button>'
-    +'<div style="margin-top:12px;">'
-    +'<button onclick="showJobsForResume()" style="background:var(--teal);color:#fff;border:none;padding:11px 24px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">&#128269; Find Relevant Jobs</button>'
-    +'</div>'
+    +'<circle cx="70" cy="70" r="54" fill="none" stroke="'+color+'" stroke-width="12" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s ease;"/>'
+    +'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">'
+    +'<div style="font-size:34px;font-weight:900;color:'+color+';">'+score+'</div>'
+    +'<div style="font-size:10px;opacity:.5;">/ 100</div></div></div>'
+    +'<div style="text-align:left;">'
+    +'<div style="font-size:26px;font-weight:900;color:'+color+';">'+(r.verdict||'')+'</div>'
+    +'<div style="font-size:11px;opacity:.5;margin-top:2px;">ATS Compatibility Score</div>'
+    +(r.role?'<div style="margin-top:10px;font-size:12px;background:rgba(255,255,255,.08);padding:5px 12px;border-radius:6px;">🎯 Best fit: '+r.role+'</div>':'')
+    +(r.experience?'<div style="margin-top:6px;font-size:12px;opacity:.6;">📅 Experience: ~'+r.experience+' year'+(r.experience>1?'s':'')+'</div>':'')
+    +'</div></div></div>'
+    +'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:18px 20px;">'
+    +'<div style="font-size:10px;font-weight:800;letter-spacing:1px;color:var(--soft);margin-bottom:14px;">CATEGORY BREAKDOWN</div>'
+    +catHTML+'</div>'
+    +'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:16px 20px;">'
+    +'<div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#dc2626;margin-bottom:8px;">❌ CRITICAL — FIX THESE FIRST</div>'
+    +mkList(r.critical,'❌')+'</div>'
+    +'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:16px 20px;">'
+    +'<div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#f59e0b;margin-bottom:8px;">⚠️ IMPROVEMENTS</div>'
+    +mkList(r.improvements,'⚠️')+'</div>'
+    +'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:16px 20px;">'
+    +'<div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#16a34a;margin-bottom:8px;">✅ WHATS WORKING</div>'
+    +mkList(r.good,'✅')+'</div>'
+    +(skills.length?'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:16px 20px;">'
+    +'<div style="font-size:10px;font-weight:800;letter-spacing:1px;color:var(--soft);margin-bottom:10px;">🔑 TOP SKILLS FOUND</div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:6px;">'+skillPills+'</div></div>':'')
+    +'<div style="background:#fff;border:1px solid var(--border);border-top:none;padding:16px 20px;border-radius:0 0 16px 16px;display:flex;gap:10px;flex-wrap:wrap;">'
+    +'<button onclick="showJobsForResume()" style="flex:1;min-width:140px;background:var(--teal);color:#fff;border:none;padding:13px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">🔍 Find Relevant Jobs</button>'
+    +'<button onclick="resetATSChecker()" style="flex:1;min-width:140px;background:var(--amber);color:#fff;border:none;padding:13px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">🔄 Check Another</button>'
     +'</div>';
 }
+
 
 function filterTemplates(type,btn){
   document.querySelectorAll('.filter-pill').forEach(function(p){p.classList.remove('active');});
@@ -3107,9 +3151,38 @@ async function doLogin(){
   if(errEl){errEl.textContent='Mobile not registered. Please sign up.';errEl.style.display='block';}
 }
 
+
+function showJobsForResume(){
+  var cached=null;
+  try{var cs=localStorage.getItem('js_ats_last');if(cs)cached=JSON.parse(cs);}catch(e){}
+  var skill=(cached&&cached.result&&cached.result.role)
+    ||(cached&&cached.result&&cached.result.skills&&cached.result.skills[0])
+    ||(currentUser&&currentUser.skill)||'Software Developer';
+  var city=(cached&&cached.result&&cached.result.location)
+    ||(currentUser&&currentUser.city)||'Hyderabad';
+  var resEl=document.getElementById('atsResult');if(!resEl)return;
+  var old=document.getElementById('atsJobsSec');if(old)old.remove();
+  resEl.insertAdjacentHTML('afterend',
+    '<div id="atsJobsSec" style="margin-top:16px;padding:0 4px;">'
+    +'<div style="font-size:15px;font-weight:800;margin-bottom:4px;">🔍 Jobs for <span style="color:var(--teal);">'+skill+'</span> in <span style="color:var(--amber);">'+city+'</span></div>'
+    +'<div style="font-size:12px;color:var(--soft);margin-bottom:12px;">Based on your resume analysis</div>'
+    +'<div id="atsJobsWrap" style="min-height:80px;"></div></div>'
+  );
+  fetchGoogleJobs(skill,city,'',document.getElementById('atsJobsWrap'),'skill');
+}
+function resetATSChecker(){
+  var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
+  var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
+  var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
+  var jb=document.getElementById('atsJobsSec');if(jb)jb.remove();
+  atsResumeText='';atsFileData=null;
+  var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
+}
+
+
+
 function nextStep(dir){
-  var ids=['step1','step2','step3'];
-  var cur=0;
+  var ids=['step1','step2','step3'];var cur=0;
   for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.style.display!=='none'){cur=i;break;}}
   if(dir>0&&cur===0){
     var n=((document.getElementById('s1n')||{}).value||(document.getElementById('s1n_m')||{}).value||'').trim();
@@ -3124,23 +3197,7 @@ function nextStep(dir){
   document.querySelectorAll('.step-dot').forEach(function(d,i){d.classList.toggle('active',i===nxt);});
   window.scrollTo(0,0);
 }
-function resetATSChecker(){
-  var ar=document.getElementById('atsResult');if(ar){ar.style.display='none';ar.innerHTML='';}
-  var az=document.getElementById('atsUploadZone');if(az)az.style.display='block';
-  var pt=document.getElementById('atsPasteText');if(pt)pt.value='';
-  atsResumeText='';
-}
 
-function showJobsForResume(){
-  var skill=currentUser&&currentUser.skill?currentUser.skill:'Software Engineer';
-  var city=currentUser&&currentUser.city?currentUser.city:'Hyderabad';
-  goTo('dashView');
-  setTimeout(function(){
-    var el=document.getElementById('sk_skill');if(el)el.value=skill;
-    setMode('skill',document.getElementById('mode-skill'));
-    setTimeout(function(){runSearch();},300);
-  },200);
-}
 </script>
 
 
