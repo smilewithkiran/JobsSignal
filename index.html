@@ -387,6 +387,7 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
   .search-panel{padding:12px !important;}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
 
@@ -609,8 +610,6 @@ section h2 em{color:var(--amber);font-style:italic;font-weight:300;}
       <div class="sb-item" id="mode-moonlight" onclick="setMode('moonlight',this)"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
       <div class="sb-item" id="mode-women" onclick="setMode('women',this)"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-item" id="mode-fresher" onclick="setMode('fresher',this)"><span class="sb-icon">🎓</span><span>Freshers / Intern</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Moonlighting filter '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">🌙</span><span>Moonlighting</span></div>
-      <div class="sb-item" onclick="this.classList.toggle('active');showToast('Women Returns '+( this.classList.contains('active')?'ON':'OFF'),'amber')"><span class="sb-icon">👩</span><span>Women Returns</span></div>
       <div class="sb-divider"></div>
       <div class="sb-sec-label">Career Toolkit</div>
       <div class="sb-item" id="sb-ats" onclick="goToolkit('ats')"><span class="sb-icon">📊</span><span>ATS Checker</span><span class="sb-lock" id="lock-ats"></span></div>
@@ -2231,7 +2230,7 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
         +'<div class="gj-top">'
         +'<div class="gj-logo">'+logo+'</div>'
         +'<div class="gj-info">'
-        +'<div class="gj-title"><a href="'+(j.job_apply_link||'#')+'" target="_blank" rel="noopener">'+(j.job_title||'Job Opening')+'</a></div>'
+        +'<div class="gj-title">'+(j.job_title||'Job Opening')+'</div>'
         +'<div class="gj-company">'+(j.employer_name||'Company')+' &nbsp;·&nbsp; '+(j.job_city||city)+', '+(j.job_state||'India')+'</div>'
         +'</div>'
         +'</div>'
@@ -2493,6 +2492,7 @@ function exportAllCSV(){
   .footer{padding:14px 28px;background:#f8faff;border-top:1px solid #e4eaf0;font-size:11px;color:#8896a7;text-align:center;}
   @media print{body{padding:0;background:white;}.wrap{box-shadow:none;border-radius:0;max-width:100%;}}
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -2649,20 +2649,64 @@ function goToolkit(tool){
 function handleATSFile(input){
   var file=input.files&&input.files[0];if(!file)return;
   var btn=document.querySelector('.auz-btn');
-  if(btn)btn.textContent=file.name.slice(0,22)+'...';
+  var ta=document.getElementById('atsPasteText');
   var ext=(file.name.split('.').pop()||'').toLowerCase();
+  if(btn)btn.textContent='Extracting: '+file.name.slice(0,18)+'...';
+  if(ta)ta.value='Extracting text from PDF, please wait...';
   var reader=new FileReader();
   reader.onload=function(e){
     if(ext==='pdf'){
-      atsFileData={type:'pdf',name:file.name,data:e.target.result.split(',')[1]};
-      atsResumeText='[PDF: '+file.name+']';
+      var base64=e.target.result.split(',')[1];
+      var pdfjsLib=window['pdfjs-dist/build/pdf'];
+      if(pdfjsLib){
+        try{
+          pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          var bin=atob(base64);
+          var bytes=new Uint8Array(bin.length);
+          for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+          pdfjsLib.getDocument({data:bytes}).promise.then(function(pdf){
+            var pp=[];
+            for(var p=1;p<=pdf.numPages;p++){
+              pp.push(pdf.getPage(p).then(function(pg){
+                return pg.getTextContent().then(function(tc){
+                  return tc.items.map(function(it){return it.str;}).join(' ');
+                });
+              }));
+            }
+            return Promise.all(pp);
+          }).then(function(texts){
+            var extracted=texts.join('\n');
+            atsResumeText=extracted;
+            if(ta){ta.value=extracted;}
+            if(btn)btn.textContent='✅ Text extracted: '+file.name.slice(0,16);
+            showToast('Text extracted — review below and click Check Score','green');
+          }).catch(function(){
+            if(ta)ta.value='';
+            atsResumeText='';
+            if(btn)btn.textContent=file.name.slice(0,22);
+            showToast('Could not auto-extract PDF — please paste resume text below','amber');
+          });
+        }catch(err){
+          if(ta)ta.value='';
+          atsResumeText='';
+          if(btn)btn.textContent=file.name.slice(0,22);
+          showToast('Please paste your resume text in the box below','amber');
+        }
+      }else{
+        if(ta)ta.value='';
+        atsResumeText='';
+        if(btn)btn.textContent=file.name.slice(0,22);
+        showToast('Please paste your resume text in the box below','amber');
+      }
     }else{
-      atsResumeText=e.target.result;atsFileData=null;
+      var txt=e.target.result;
+      atsResumeText=txt;
+      if(ta)ta.value=txt;
+      if(btn)btn.textContent='✅ Loaded: '+file.name.slice(0,18);
     }
   };
   if(ext==='pdf')reader.readAsDataURL(file);else reader.readAsText(file);
 }
-
 
 function extractTextFromPDF(raw){
   // Basic text extraction — get readable strings from PDF binary
@@ -2688,27 +2732,26 @@ function isPaidUser(){
   return(localStorage.getItem('js_plan')||'').length>2;
 }
 function runATSCheck(){
-  var pasteText=(document.getElementById('atsPasteText')||{value:''}).value.trim();
-  var hasText=atsResumeText&&atsResumeText.length>80&&!atsResumeText.startsWith('[PDF:');
-  var txt=pasteText||atsResumeText||'';
-  if(txt.length<80&&!atsFileData){showToast('Upload your resume file or paste resume text first','amber');return;}
+  var ta=document.getElementById('atsPasteText');
+  var txt=(ta?ta.value.trim():'')||atsResumeText||'';
+  if(!txt||txt.length<50||txt.indexOf('Extracting text')===0){
+    if(txt.indexOf('Extracting text')===0){
+      showToast('PDF still extracting, please wait a moment...','amber');
+    }else{
+      showToast('Upload your resume or paste resume text below first','amber');
+    }
+    return;
+  }
   if(!isPaidUser()){
     var ru=document.getElementById('atsResult');
     if(ru){ru.style.display='block';ru.innerHTML='<div style="text-align:center;padding:32px"><div style="font-size:40px;margin-bottom:12px">🔒</div><div style="font-size:18px;font-weight:800;margin-bottom:8px">ATS Check is a Paid Feature</div><div style="font-size:13px;color:var(--soft);margin-bottom:20px">Upgrade to any plan to unlock</div><button onclick="goTo(&quot;dashView&quot;);showUpgrade();" style="background:var(--amber);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Upgrade Plan →</button></div>';}
     document.getElementById('atsUploadZone').style.display='none';return;
-  }
-  // If PDF uploaded but no text extracted yet - show guidance
-  if(atsFileData&&txt.length<80){
-    showToast('PDF uploaded. Please also paste key sections of your resume below for best analysis','amber');
-    txt=atsFileData.name+' uploaded';
   }
   document.getElementById('atsUploadZone').style.display='none';
   var result=scoreResume(txt);
   try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(_e){}
   renderATSResult(result);
 }
-
-
 
 function scoreResume(text){
   var t=text.toLowerCase();
@@ -2773,12 +2816,24 @@ function scoreResume(text){
   var verdict=overall>75?'Excellent':overall>=65?'Good':overall>=50?'Average':'Needs Work';
 
   // Extract skills
-  var skillKw=['react','node','python','java','angular','vue','javascript','typescript','sql','mongodb','aws','azure','gcp','docker','kubernetes','spring','django','flutter','android','ios','machine learning','data science','devops','agile','scrum','hr','recruitment','talent acquisition','sales','marketing','finance','accounting','product management','ui/ux','figma','tableau','powerbi'];
+  var skillKw=['python','selenium','cypress','robot framework','pytest','automation testing','qa','sdet','jenkins','jira','postman','api testing','react','node','java','angular','javascript','typescript','sql','mongodb','aws','azure','docker','kubernetes','devops','talent acquisition','recruitment','hr','it staffing','data science','machine learning','product management','sales','marketing','figma','tableau','powerbi'];
   var foundSkills=skillKw.filter(function(s){return t.includes(s);}).slice(0,6);
   if(foundSkills.length===0)foundSkills=['Professional Skills'];
 
   // Role suggestion
-  var roleMap=[['react','React Developer'],['node','Node.js Developer'],['python','Python Developer'],['java','Java Developer'],['data scien','Data Scientist'],['machine learning','ML Engineer'],['hr','HR Professional'],['talent acquisition','Talent Acquisition Specialist'],['sales','Sales Manager'],['marketing','Marketing Manager'],['product manag','Product Manager'],['devops','DevOps Engineer'],['android','Android Developer'],['flutter','Flutter Developer']];
+  var roleMap=[
+    ['qa automation','QA Automation Engineer'],['automation engineer','QA Automation Engineer'],
+    ['sdet','SDET Engineer'],['quality assurance','QA Engineer'],
+    ['test automation','Test Automation Engineer'],['selenium','Test Automation Engineer'],
+    ['talent acquisition','Talent Acquisition Specialist'],['vp delivery','VP Delivery'],
+    ['delivery head','Delivery Head'],['it staffing','IT Staffing Manager'],
+    ['recruitment','Recruitment Manager'],['hr manager','HR Manager'],
+    ['data scien','Data Scientist'],['machine learning','ML Engineer'],
+    ['react','React Developer'],['node','Node.js Developer'],['python','Python Developer'],
+    ['java','Java Developer'],['devops','DevOps Engineer'],['product manag','Product Manager'],
+    ['android','Android Developer'],['flutter','Flutter Developer'],
+    ['sales','Sales Manager'],['marketing','Marketing Manager'],['hr','HR Professional']
+  ];
   var suggestedRole='Software Engineer';
   for(var i=0;i<roleMap.length;i++){if(t.includes(roleMap[i][0])){suggestedRole=roleMap[i][1];break;}}
 
