@@ -204,8 +204,10 @@ function renderUsers(users){
     var isExp=plan.plan&&new Date(plan.expiresAt)<=now;
     var badge=hasPlan?'<span class="badge badge-paid">'+plan.plan+'</span>':isExp?'<span class="badge badge-exp">Expired</span>':'<span class="badge badge-free">Free</span>';
     var joined=u.joinedAt?new Date(u.joinedAt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}):'—';
-    var delBtn='<button onclick="deleteUser(this)" data-phone="'+esc(u.phone||'')+'" style="background:#ef4444;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete</button>';
-    return '<tr><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td><td>'+delBtn+'</td></tr>';
+    var isBlocked=u.blocked||false;
+    var delBtn='<button onclick="deleteUser(this)" data-phone="'+esc(u.phone||'')+'" style="background:#ef4444;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">Delete</button>';
+    var blkBtn='<button onclick="toggleBlock(this)" data-phone="'+esc(u.phone||'')+'" data-blocked="'+isBlocked+'" style="background:'+( isBlocked?'#16a34a':'#6b7280')+';color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;">'+(isBlocked?'Unblock':'Block')+'</button>';
+    return '<tr style="background:'+(isBlocked?'#fef2f2':'')+'"><td style="color:#9ca3af;">'+(i+1)+'</td><td style="font-weight:600;">'+esc(u.name||'—')+'</td><td>'+esc(u.phone||'—')+'</td><td>'+esc(u.skill||'—')+'</td><td>'+esc(u.city||'—')+'</td><td style="font-size:11px;color:#6b7280;">'+esc(u.email||'—')+'</td><td>'+badge+'</td><td style="font-size:11px;color:#6b7280;">'+joined+'</td><td>'+delBtn+'</td><td>'+blkBtn+'</td></tr>';
   });
   setTbody(rows.join(''));
 }
@@ -251,6 +253,31 @@ async function blockUser(btn){
     btn.disabled=false;
     alert((action==='block'?'User blocked':'User unblocked')+' successfully.');
   }catch(e){btn.disabled=false;btn.textContent=action==='block'?'Block':'Unblock';alert('Failed: '+e.message);}
+}
+
+async function toggleBlock(btn){
+  var phone=(btn.getAttribute('data-phone')||'').replace(/[^0-9]/g,'').slice(-10);
+  var isBlocked=btn.getAttribute('data-blocked')==='true';
+  var action=isBlocked?'unblock':'block';
+  if(!confirm((action==='block'?'Block':'Unblock')+' '+phone+'?\n'+(action==='block'?'User will not be able to login.':'User can login again.'))){return;}
+  btn.disabled=true;btn.textContent='...';
+  try{
+    if(action==='block'){
+      await fetch(FB_DB+'/blocked/'+phone+'.json',{
+        method:'PUT',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({phone:phone,blockedAt:new Date().toISOString()})
+      });
+      btn.textContent='Unblock';btn.style.background='#16a34a';
+      btn.setAttribute('data-blocked','true');
+      btn.closest('tr').style.background='#fef2f2';
+    }else{
+      await fetch(FB_DB+'/blocked/'+phone+'.json',{method:'DELETE'});
+      btn.textContent='Block';btn.style.background='#6b7280';
+      btn.setAttribute('data-blocked','false');
+      btn.closest('tr').style.background='';
+    }
+    btn.disabled=false;
+  }catch(e){alert('Failed: '+e.message);btn.disabled=false;}
 }
 async function deleteUser(btn){
   var phone=(btn.getAttribute('data-phone')||'').replace(/[^0-9]/g,'').slice(-10);
