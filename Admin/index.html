@@ -106,8 +106,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="search-bar"><input type="text" placeholder="Search by name, mobile, skill, city..." oninput="filterTable(this.value)" id="searchInput"></div>
       <div style="overflow-x:auto;">
         <table class="admin-table">
-          <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Skill</th><th>City</th><th>Email</th><th>Plan</th><th>Joined</th><th>Action</th></tr></thead>
-          <tbody id="adminTbody"><tr><td colspan="9" style="text-align:center;padding:32px;color:#6b7280;">Loading users from Firebase...</td></tr></tbody>
+          <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Skill</th><th>City</th><th>Email</th><th>Plan</th><th>Joined</th><th style="text-align:center;">Delete</th><th style="text-align:center;">Block</th></tr></thead>
+          <tbody id="adminTbody"><tr><td colspan="10" style="text-align:center;padding:32px;color:#6b7280;">Loading users from Firebase...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -173,13 +173,13 @@ function showDash(){
 async function loadUsers(){
   try{
     var r=await fetch(FB_DB+'/users.json');
-    if(!r.ok){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#dc2626;">Firebase error: '+r.status+'</td></tr>');return;}
+    if(!r.ok){setTbody('<tr><td colspan="10" style="text-align:center;padding:20px;color:#dc2626;">Firebase error: '+r.status+'</td></tr>');return;}
     var data=await r.json();
-    if(!data){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#6b7280;">No users yet.</td></tr>');return;}
+    if(!data){setTbody('<tr><td colspan="10" style="text-align:center;padding:20px;color:#6b7280;">No users yet.</td></tr>');return;}
     ALL_USERS=Object.values(data).filter(function(u){return u&&u.phone;});
     renderUsers(ALL_USERS);
     renderStats(ALL_USERS);
-  }catch(e){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#dc2626;">Error: '+e.message+'</td></tr>');}
+  }catch(e){setTbody('<tr><td colspan="10" style="text-align:center;padding:20px;color:#dc2626;">Error: '+e.message+'</td></tr>');}
 }
 
 function renderStats(users){
@@ -196,7 +196,7 @@ function renderStats(users){
 }
 
 function renderUsers(users){
-  if(!users.length){setTbody('<tr><td colspan="9" style="text-align:center;padding:20px;color:#6b7280;">No users found.</td></tr>');return;}
+  if(!users.length){setTbody('<tr><td colspan="10" style="text-align:center;padding:20px;color:#6b7280;">No users found.</td></tr>');return;}
   var now=new Date();
   var rows=users.map(function(u,i){
     var plan=u.plan||{};
@@ -233,6 +233,25 @@ function exportCSV(){
 
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
+
+async function blockUser(btn){
+  var phone=(btn.getAttribute('data-phone')||'').replace(/[^0-9]/g,'').slice(-10);
+  if(!phone){alert('Invalid phone');return;}
+  var action=btn.getAttribute('data-blocked')==='true'?'unblock':'block';
+  if(!confirm((action==='block'?'Block':'Unblock')+' user '+phone+'? '+(action==='block'?'They cannot login anymore.':'They can login again.'))){return;}
+  btn.textContent='Working...';btn.disabled=true;
+  try{
+    if(action==='block'){
+      await fetch(FB_DB+'/blocked/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,blockedAt:new Date().toISOString()})});
+      btn.textContent='Unblock';btn.setAttribute('data-blocked','true');btn.style.background='#f59e0b';
+    }else{
+      await fetch(FB_DB+'/blocked/'+phone+'.json',{method:'DELETE'});
+      btn.textContent='Block';btn.setAttribute('data-blocked','false');btn.style.background='#6b7280';
+    }
+    btn.disabled=false;
+    alert((action==='block'?'User blocked':'User unblocked')+' successfully.');
+  }catch(e){btn.disabled=false;btn.textContent=action==='block'?'Block':'Unblock';alert('Failed: '+e.message);}
+}
 async function deleteUser(btn){
   var phone=(btn.getAttribute('data-phone')||'').replace(/[^0-9]/g,'').slice(-10);
   if(!phone){alert('Invalid phone');return;}
