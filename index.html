@@ -563,6 +563,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 <div class="view" id="loginView">
   <div class="auth-wrap">
     <div class="auth-left">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Professional" style="width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--blue);margin-bottom:30px;">
       <div class="al-logo" onclick="goTo('landingView')"><span>Jobs</span>Signal</div>
       <div class="al-h">Your complete<br>career toolkit.</div>
       <div class="al-sub">ATS Checker · Walk-in Finder · Salary Tools · Moonlighting Checker · Women Returnship — all in one place.</div>
@@ -593,6 +594,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 <div class="view" id="signupView">
   <div class="auth-wrap">
     <div class="auth-left">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop" alt="Professional" style="width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--blue);margin-bottom:30px;">
       <div class="al-logo" onclick="goTo('landingView')"><span>Jobs</span>Signal</div>
       <div class="al-h">Join 2,400+<br>job seekers.</div>
       <div class="al-sub">ATS Checker · Walk-in Finder · Salary Tools · Moonlighting · Women Returnship. Start for free in 30 seconds.</div>
@@ -610,7 +612,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
         <div id="signupStep1">
           <div class="form-group">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-input" id="su_name" placeholder="Kiran Manepalli">
+            <input type="text" class="form-input" id="su_name" placeholder="Enter your name">
           </div>
           <div class="form-group">
             <label class="form-label">Mobile Number</label>
@@ -806,7 +808,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
   <option value="React Developer"><option value="Java Developer"><option value="Python Developer">
   <option value="Software Engineer"><option value="Data Scientist"><option value="DevOps Engineer">
   <option value="Product Manager"><option value="Business Analyst"><option value="HR Manager">
-  <option value="Talent Acquisition"><option value="Sales Manager"><option value="Marketing Manager">
+  <option value="DevOps Engineer"><option value="QA Engineer"><option value="Sales Manager"><option value="Marketing Manager">
   <option value="Full Stack Developer"><option value="Node.js Developer"><option value="Angular Developer">
 </datalist>
 
@@ -817,6 +819,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 <button class="float-upgrade" id="floatUpgrade" onclick="showUpgrade()">⬆ Upgrade · ₹99/mo</button>
 
 <!-- Razorpay -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -833,6 +836,11 @@ const RZP_KEY='rzp_live_STQSX6OgVKJ1cm';
 const JSEARCH_KEY='32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535';
 const JSEARCH_URL='https://jsearch.p.rapidapi.com/search';
 const LI_EXP={'0-1':'1','1-3':'2','3-5':'3','5-8':'4','8+':'5'};
+
+// ── PDF.JS SETUP FOR TEXT EXTRACTION ─────────────
+if(typeof pdfjsLib!=='undefined'){
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
 
 // ── STATE ────────────────────────────────────────
 let currentUser={}, isPaid=false, lastATSData={};
@@ -923,7 +931,7 @@ function doLogin(){
   if(phone.length!==10||isNaN(phone)){showToast('Enter valid 10-digit number','red');return;}
   // Super user
   if(phone===SUPER_PHONE){
-    currentUser={name:'Kiran',phone:SUPER_PHONE,skill:'Talent Acquisition',city:'Hyderabad',exp:'8+'};
+    currentUser={name:'Kiran',phone:SUPER_PHONE,skill:'Full Stack Developer',city:'Hyderabad',exp:'8+'};
     isPaid=true;
     localStorage.setItem(S_USER,JSON.stringify(currentUser));
     localStorage.setItem(S_PLAN,'Monthly Plan');
@@ -1087,17 +1095,42 @@ function handleATSFile(inp){if(inp.files[0])readFile(inp.files[0],'atsPasteText'
 function handleATSFile2(inp){if(inp.files[0])readFile(inp.files[0],'atsPasteText2');}
 
 function readFile(file,pasteId){
-  const r=new FileReader();
-  r.onload=function(e){
-    const text=e.target.result;
-    // Basic text extraction
-    const cleaned=text.replace(/[^\x20-\x7E\n\r\t]/g,' ').replace(/\s+/g,' ').trim();
-    atsResumeText=cleaned.length>100?cleaned:'';
-    const el=document.getElementById(pasteId);
-    if(el)el.value='['+file.name+' loaded] '+(cleaned.slice(0,200)||'Paste text below for best results');
-    showToast('File loaded: '+file.name,'green');
-  };
-  r.readAsText(file);
+  if(file.type==='application/pdf'){
+    // Handle PDF with PDF.js
+    const reader=new FileReader();
+    reader.onload=async function(e){
+      try{
+        const pdf=await pdfjsLib.getDocument({data:e.target.result}).promise;
+        let fullText='';
+        for(let i=1;i<=pdf.numPages;i++){
+          const page=await pdf.getPage(i);
+          const textContent=await page.getTextContent();
+          const pageText=textContent.items.map(item=>item.str).join(' ');
+          fullText+=pageText+' ';
+        }
+        atsResumeText=fullText.trim();
+        const el=document.getElementById(pasteId);
+        if(el)el.value='[PDF '+pdf.numPages+' pages loaded - text extracted] '+(fullText.slice(0,100)||'');
+        showToast('PDF loaded: '+file.name+' ('+pdf.numPages+' pages)','green');
+      }catch(err){
+        showToast('PDF extraction failed - please paste text instead','red');
+        console.error('PDF.js error:',err);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }else{
+    // Handle other text files
+    const r=new FileReader();
+    r.onload=function(e){
+      const text=e.target.result;
+      const cleaned=text.replace(/[^\x20-\x7E\n\r\t]/g,' ').replace(/\s+/g,' ').trim();
+      atsResumeText=cleaned.length>100?cleaned:'';
+      const el=document.getElementById(pasteId);
+      if(el)el.value='['+file.name+' loaded] '+(cleaned.slice(0,200)||'Paste text below for best results');
+      showToast('File loaded: '+file.name,'green');
+    };
+    r.readAsText(file);
+  }
 }
 
 function runATS(){
@@ -1145,7 +1178,7 @@ function extractProfile(text){
   const github=ghMatch?'https://'+ghMatch[0]:'';
   
   // Skills — job titles and tech skills
-  const SKILLS=['React','Node.js','Python','Java','JavaScript','TypeScript','Angular','Vue','AWS','Azure','GCP','Docker','Kubernetes','SQL','MongoDB','PostgreSQL','Django','Spring Boot','Machine Learning','Data Science','DevOps','Product Manager','Talent Acquisition','HR','Business Analyst','Sales','Marketing','Full Stack','Backend','Frontend','iOS','Android','Flutter','Data Engineer','Cloud','Salesforce','SAP'];
+  const SKILLS=['React','Node.js','Python','Java','JavaScript','TypeScript','Angular','Vue','AWS','Azure','GCP','Docker','Kubernetes','SQL','MongoDB','PostgreSQL','Django','Spring Boot','Machine Learning','Data Science','DevOps','Product Manager','HR','Business Analyst','Sales','Marketing','Full Stack','Backend','Frontend','iOS','Android','Flutter','Data Engineer','Cloud','Salesforce','SAP'];
   const foundSkills=SKILLS.filter(s=>t.includes(s.toLowerCase()));
   
   // Primary skill/role — from first lines or objective/summary
