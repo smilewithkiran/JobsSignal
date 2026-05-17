@@ -560,96 +560,148 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 </div><!-- /landingView -->
 
 <!-- ══ LOGIN VIEW ══ -->
-<div class="view" id="loginView">
-  <div class="auth-wrap">
-    <div class="auth-left">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Professional" style="width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--blue);margin-bottom:30px;">
-      <div class="al-logo" onclick="goTo('landingView')"><span>Jobs</span>Signal</div>
-      <div class="al-h">Your complete<br>career toolkit.</div>
-      <div class="al-sub">ATS Checker · Walk-in Finder · Salary Tools · Moonlighting Checker · Women Returnship — all in one place.</div>
-      <div class="al-feats">
-        <div class="al-feat"><div class="al-feat-icon">📊</div><div><div class="al-feat-title">ATS Score Checker</div><div class="al-feat-sub">Upload CV → instant score + matching jobs — always free</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">🔍</div><div><div class="al-feat-title">Google Jobs + LinkedIn</div><div class="al-feat-sub">Auto-matched from your CV — no manual search</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">🚶</div><div><div class="al-feat-title">Walk-in Finder</div><div class="al-feat-sub">Live walk-in drives by skill + city + experience</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">💰</div><div><div class="al-feat-title">Salary Tools</div><div class="al-feat-sub">Range finder + offer letter analyser</div></div></div>
+<div class="view" id="loginView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <!-- LEFT: PROFESSIONAL IMAGE -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop" alt="Professional" style="width:100%;max-width:350px;border-radius:12px;object-fit:cover;box-shadow:0 20px 60px rgba(56,189,248,0.2);">
+      <div style="margin-top:30px;text-align:center;">
+        <div style="color:#38bdf8;font-size:32px;font-weight:700;font-family:'Sora',sans-serif;margin-bottom:8px;">JobsSignal</div>
+        <div style="color:#94a3b8;font-size:13px;font-family:'DM Sans',sans-serif;">Grow your career, smarter.</div>
       </div>
     </div>
-    <div class="auth-right">
-      <div class="auth-form">
-        <h2>Welcome back.</h2>
-        <div class="auth-sub">Enter your mobile number to sign in.</div>
-        <div class="form-group">
-          <label class="form-label">Mobile Number</label>
-          <input type="tel" class="form-input" id="loginPhone" placeholder="9xxxxxxxxx" maxlength="10">
+    
+    <!-- RIGHT: LOGIN FORM -->
+    <div style="background:#0e1625;border-radius:16px;padding:40px;border:1px solid rgba(56,189,248,0.1);">
+      <div style="text-align:center;margin-bottom:32px;">
+        <h2 style="color:#f1f5f9;font-size:28px;font-weight:700;margin:0;margin-bottom:8px;font-family:'Sora',sans-serif;">Welcome back</h2>
+        <p style="color:#64748b;font-size:14px;margin:0;font-family:'DM Sans',sans-serif;">Sign in to continue</p>
+      </div>
+      
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Mobile Number</label>
+          <input type="tel" class="form-input" id="loginPhone" placeholder="9xxxxxxxxx" maxlength="10" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
         </div>
-        <button class="submit-btn" onclick="doLogin()">Continue →</button>
-        <div class="auth-switch">Don't have an account? <a onclick="goTo('signupView')">Sign up free</a></div>
-        <div class="auth-switch" style="margin-top:10px;"><a onclick="goTo('landingView')">← Back to home</a></div>
+        
+        <button class="submit-btn" onclick="doLogin()" style="background:#38bdf8;color:#080c14;padding:12px;border-radius:8px;border:none;font-weight:600;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;transition:all 0.3s;margin-top:8px;">Continue →</button>
+      </div>
+      
+      <div style="text-align:center;margin-top:24px;">
+        <p style="color:#64748b;font-size:13px;margin:0;font-family:'DM Sans',sans-serif;">
+          Don't have an account? 
+          <a onclick="goTo('signupView')" style="color:#38bdf8;text-decoration:none;cursor:pointer;font-weight:600;">Sign up free</a>
+        </p>
       </div>
     </div>
   </div>
+  
+  <style>
+    @media(max-width:768px) {
+      div[style*="grid-template-columns"] {
+        grid-template-columns:1fr !important;
+        gap:24px !important;
+      }
+      div[style*="justify-content:center"] {
+        order:2;
+      }
+    }
+  </style>
 </div>
 
 <!-- ══ SIGNUP VIEW ══ -->
-<div class="view" id="signupView">
-  <div class="auth-wrap">
-    <div class="auth-left">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop" alt="Professional" style="width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--blue);margin-bottom:30px;">
-      <div class="al-logo" onclick="goTo('landingView')"><span>Jobs</span>Signal</div>
-      <div class="al-h">Join 2,400+<br>job seekers.</div>
-      <div class="al-sub">ATS Checker · Walk-in Finder · Salary Tools · Moonlighting · Women Returnship. Start for free in 30 seconds.</div>
-      <div class="al-feats">
-        <div class="al-feat"><div class="al-feat-icon">📊</div><div><div class="al-feat-title">ATS Score Checker</div><div class="al-feat-sub">Unlimited free score — no card needed</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">🔍</div><div><div class="al-feat-title">Google Jobs + LinkedIn</div><div class="al-feat-sub">Auto-matched jobs from your CV</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">🚶</div><div><div class="al-feat-title">Walk-in Finder</div><div class="al-feat-sub">Live walk-in drives in your city</div></div></div>
-        <div class="al-feat"><div class="al-feat-icon">👩</div><div><div class="al-feat-title">Women Returnship</div><div class="al-feat-sub">Always free — returnship programmes + tips</div></div></div>
+<div class="view" id="signupView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <!-- LEFT: PROFESSIONAL IMAGE -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop" alt="Career Growth" style="width:100%;max-width:350px;border-radius:12px;object-fit:cover;box-shadow:0 20px 60px rgba(56,189,248,0.2);">
+      <div style="margin-top:30px;text-align:center;">
+        <div style="color:#38bdf8;font-size:32px;font-weight:700;font-family:'Sora',sans-serif;margin-bottom:8px;">JobsSignal</div>
+        <div style="color:#94a3b8;font-size:13px;font-family:'DM Sans',sans-serif;">Join 2,400+ job seekers</div>
       </div>
     </div>
-    <div class="auth-right">
-      <div class="auth-form">
-        <h2>Create account.</h2>
-        <div class="auth-sub">Free forever. No card needed.</div>
-        <div id="signupStep1">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-input" id="su_name" placeholder="Enter your name">
+    
+    <!-- RIGHT: SIGNUP FORM -->
+    <div style="background:#0e1625;border-radius:16px;padding:40px;border:1px solid rgba(56,189,248,0.1);">
+      <div style="text-align:center;margin-bottom:32px;">
+        <h2 style="color:#f1f5f9;font-size:28px;font-weight:700;margin:0;margin-bottom:8px;font-family:'Sora',sans-serif;">Create account</h2>
+        <p style="color:#64748b;font-size:14px;margin:0;font-family:'DM Sans',sans-serif;">Free forever. No card needed.</p>
+      </div>
+      
+      <div id="signupStep1">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Full Name</label>
+            <input type="text" class="form-input" id="su_name" placeholder="Your name" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
           </div>
-          <div class="form-group">
-            <label class="form-label">Mobile Number</label>
-            <input type="tel" class="form-input" id="su_phone" placeholder="9xxxxxxxxx" maxlength="10">
+          
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Mobile Number</label>
+            <input type="tel" class="form-input" id="su_phone" placeholder="9xxxxxxxxx" maxlength="10" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
           </div>
-          <div class="form-group">
-            <label class="form-label">Email (optional)</label>
-            <input type="email" class="form-input" id="su_email" placeholder="you@email.com">
+          
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Email (optional)</label>
+            <input type="email" class="form-input" id="su_email" placeholder="you@email.com" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
           </div>
-          <button class="submit-btn" onclick="nextSignupStep()">Continue →</button>
+          
+          <button class="submit-btn" onclick="nextSignupStep()" style="background:#38bdf8;color:#080c14;padding:12px;border-radius:8px;border:none;font-weight:600;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;transition:all 0.3s;margin-top:8px;">Continue →</button>
         </div>
-        <div id="signupStep2" style="display:none;">
-          <div class="form-group">
-            <label class="form-label">Primary Skill / Role</label>
-            <input type="text" class="form-input" id="su_skill" placeholder="React Developer" list="skillList">
+      </div>
+      
+      <div id="signupStep2" style="display:none;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Primary Skill / Role</label>
+            <input type="text" class="form-input" id="su_skill" placeholder="React Developer" list="skillList" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
           </div>
-          <div class="form-group">
-            <label class="form-label">City</label>
-            <input type="text" class="form-input" id="su_city" placeholder="Hyderabad">
+          
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">City</label>
+            <input type="text" class="form-input" id="su_city" placeholder="Hyderabad" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;">
           </div>
-          <div class="form-group">
-            <label class="form-label">Experience</label>
-            <select class="form-select" id="su_exp">
-              <option value="0-1">0–1 year (Fresher)</option>
+          
+          <div>
+            <label style="display:block;color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:8px;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Experience</label>
+            <select class="form-select" id="su_exp" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#f1f5f9;font-family:'DM Sans',sans-serif;font-size:14px;box-sizing:border-box;cursor:pointer;">
+              <option value="fresher">Fresher (0–1 year)</option>
+              <option value="intern">Intern (0–6 months)</option>
               <option value="1-3">1–3 years</option>
               <option value="3-5" selected>3–5 years</option>
-              <option value="5-8">5–8 years</option>
-              <option value="8+">8+ years (Senior)</option>
+              <option value="5-7">5–7 years</option>
+              <option value="7-10">7–10 years</option>
+              <option value="10-15">10–15 years</option>
+              <option value="15-20">15–20 years</option>
+              <option value="20plus">20+ years</option>
             </select>
           </div>
-          <button class="submit-btn" onclick="doSignup()">Create Account →</button>
-          <div class="auth-switch" style="margin-top:10px;"><a onclick="showStep1()">← Back</a></div>
+          
+          <button class="submit-btn" onclick="doSignup()" style="background:#38bdf8;color:#080c14;padding:12px;border-radius:8px;border:none;font-weight:600;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;transition:all 0.3s;margin-top:8px;">Create Account →</button>
+          
+          <button onclick="showStep1()" style="background:none;border:1px solid #334155;color:#38bdf8;padding:10px;border-radius:8px;font-weight:600;font-size:13px;font-family:'Sora',sans-serif;cursor:pointer;transition:all 0.3s;">← Back</button>
         </div>
-        <div class="auth-switch" style="margin-top:16px;">Already have an account? <a onclick="goTo('loginView')">Log in</a></div>
+      </div>
+      
+      <div style="text-align:center;margin-top:24px;">
+        <p style="color:#64748b;font-size:13px;margin:0;font-family:'DM Sans',sans-serif;">
+          Already have an account? 
+          <a onclick="goTo('loginView')" style="color:#38bdf8;text-decoration:none;cursor:pointer;font-weight:600;">Log in</a>
+        </p>
       </div>
     </div>
   </div>
+  
+  <style>
+    @media(max-width:768px) {
+      div[style*="grid-template-columns"] {
+        grid-template-columns:1fr !important;
+        gap:24px !important;
+      }
+      div[style*="justify-content:center"] {
+        order:2;
+      }
+    }
+  </style>
 </div>
 
 <!-- ══ DASHBOARD VIEW ══ -->
@@ -887,6 +939,10 @@ function timeSince(dateStr){
 
 function enc(s){return encodeURIComponent(s||'');}
 
+// History management for back button (no pushState in sandbox)
+let viewHistory=['landingView'];
+let currentViewIndex=0;
+
 function goTo(viewId){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const v=document.getElementById(viewId);
@@ -902,14 +958,41 @@ function goTo(viewId){
   if(dashBtn){
     dashBtn.style.display=(viewId==='atsView'&&currentUser.phone)?'flex':'none';
   }
+  
+  // Update history for back button support (without pushState due to sandbox)
+  if(viewHistory[currentViewIndex]!==viewId){
+    viewHistory.splice(currentViewIndex+1);
+    viewHistory.push(viewId);
+    currentViewIndex=viewHistory.length-1;
+  }
 }
 
+// Add manual back button support via keyboard shortcut
+document.addEventListener('keydown',function(e){
+  if(e.altKey&&e.key==='ArrowLeft'&&currentViewIndex>0){
+    currentViewIndex--;
+    goTo(viewHistory[currentViewIndex]);
+  }
+});
+
 function scrollTo(id){
-  const el=document.getElementById(id);
-  if(el){
+  // Ensure we're on landing page
+  const landingView=document.getElementById('landingView');
+  if(landingView.style.display==='none'||landingView.className.includes('hidden')){
+    goTo('landingView');
     setTimeout(()=>{
+      const el=document.getElementById(id);
+      if(el){
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+        window.scrollTo({top:el.offsetTop-80,behavior:'smooth'});
+      }
+    }, 300);
+  }else{
+    const el=document.getElementById(id);
+    if(el){
       el.scrollIntoView({behavior:'smooth',block:'start'});
-    }, 100);
+      window.scrollTo({top:el.offsetTop-80,behavior:'smooth'});
+    }
   }
 }
 
@@ -1403,109 +1486,48 @@ function renderATSResult(r,p){
       <div class="sc-bar-score">${b.score}/${b.max}</div>
     </div>`;
   }).join('');
-  
-  // City detection
-  const city=p.city||(currentUser.city)||'';
-  const cityInput=!city?`<div class="pc-city" style="margin-top:10px;">
-    <span class="pc-city-lbl">City for job search:</span>
-    <input type="text" id="atsCity" class="tf-input" style="padding:5px 10px;font-size:11px;border-radius:6px;margin-left:4px;width:140px;" placeholder="Enter city" value="">
-  </div>`:`<div class="pc-city" style="margin-top:10px;">
-    <span class="pc-city-lbl">Looking for jobs in:</span>
-    <select class="pc-city-sel" id="atsCity" style="margin-left:4px;">
-      <option value="${city}" selected>${city}</option>
-      <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-      <option>Pune</option><option>Chennai</option><option>Delhi/NCR</option><option>Remote</option>
-    </select>
-  </div>`;
-  
-  const profileChips=[
-    p.primaryRole?`<span class="pc-chip hi">${p.primaryRole}</span>`:'',
-    p.yoe?`<span class="pc-chip">${p.yoe}</span>`:'',
-    p.education?`<span class="pc-chip">${p.education}</span>`:'',
-    p.companyCount>0?`<span class="pc-chip">${p.companyCount} Compan${p.companyCount===1?'y':'ies'}</span>`:'',
-    ...p.foundCerts.slice(0,2).map(c=>`<span class="pc-chip">${c}</span>`),
-    p.foundSkills.slice(0,4).map(s=>`<span class="pc-chip">${s}</span>`).join(''),
-  ].filter(Boolean).join('');
-  
-  const paidJobsHTML=isPaid?`
-    <div class="job-btns-wrap">
-      <div class="job-btns-label">Matching jobs for ${p.primaryRole||'your role'} · ${city||'your city'}</div>
-      <div class="job-3btns">
-        <div class="j3b j3b-google" onclick="fetchATSJobs('google')">
-          <span class="j3b-icon">🔍</span>
-          <span class="j3b-name">Google Jobs</span>
-          <span class="j3b-desc">Live listings from Naukri, LinkedIn, Indeed</span>
-        </div>
-        <div class="j3b j3b-posts" onclick="fetchATSJobs('posts')">
-          <span class="j3b-icon">📡</span>
-          <span class="j3b-name">LinkedIn Posts</span>
-          <span class="j3b-desc">Recruiter posts · #hiring · Notice · Referrals</span>
-        </div>
-        <div class="j3b j3b-linkedin" onclick="fetchATSJobs('linkedin')">
-          <span class="j3b-icon">🔗</span>
-          <span class="j3b-name">LinkedIn Jobs</span>
-          <span class="j3b-desc">Pre-filtered by role, city, experience</span>
-        </div>
-      </div>
-    </div>
-    <div id="atsJobResults"></div>`
-  :`<div class="locked-overlay">
-    <div class="lo-icon">🔍</div>
-    <div class="lo-title">Find matching jobs from your CV</div>
-    <div class="lo-sub">Your score is ready. Upgrade to ₹99/month to automatically find Google Jobs, LinkedIn recruiter posts and LinkedIn Jobs matched to your profile — no manual search needed.</div>
-    <button class="lo-btn" onclick="showUpgrade()">Upgrade ₹99/month →</button>
-  </div>`;
-  
+
   return`
-  <!-- Profile Summary -->
-  <div class="profile-card">
-    <div class="pc-av">${(p.name||currentUser.name||'CV').slice(0,2).toUpperCase()}</div>
-    <div class="pc-info">
-      <div class="pc-name">${p.name||currentUser.name||'Your Profile'}</div>
-      <div class="pc-chips">${profileChips||'<span class="pc-chip">Profile extracted</span>'}</div>
-      ${cityInput}
-    </div>
-  </div>
-  
-  <!-- Score Card -->
-  <div class="score-card">
-    <div class="sc-top">
-      <div class="gauge-wrap">
-        <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle class="gauge-track" cx="60" cy="60" r="54"/>
-          <circle class="gauge-fill" cx="60" cy="60" r="54" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}"/>
+  <!-- STUNNING ATS RESULT CARD -->
+  <div class="score-card" style="background:linear-gradient(135deg, rgba(56,189,248,0.05) 0%, rgba(14,22,37,0.5) 100%);border:2px solid #38bdf8;border-radius:20px;padding:40px;margin:20px 0;box-shadow:0 20px 60px rgba(56,189,248,0.1);">
+    <div class="sc-top" style="display:flex;gap:40px;align-items:flex-start;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid rgba(56,189,248,0.2);">
+      <div class="gauge-wrap" style="flex-shrink:0;">
+        <svg width="140" height="140" viewBox="0 0 120 120" style="filter:drop-shadow(0 8px 24px rgba(56,189,248,0.2));">
+          <circle class="gauge-track" cx="60" cy="60" r="54" style="fill:none;stroke:#1e293b;stroke-width:8;"/>
+          <circle class="gauge-fill" cx="60" cy="60" r="54" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" style="fill:none;stroke:${barColor};stroke-width:8;"/>
         </svg>
-        <div class="gauge-center">
-          <span class="gauge-num">0</span>
-          <span class="gauge-denom">/100</span>
+        <div class="gauge-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+          <span class="gauge-num" style="font-size:48px;font-weight:800;color:#f1f5f9;display:block;">${r.score}</span>
+          <span class="gauge-denom" style="font-size:12px;color:#64748b;display:block;margin-top:4px;">/100</span>
         </div>
       </div>
-      <div class="sc-info">
-        <div class="sc-verdict" style="color:${r.color};">${r.emoji} ${r.verdict}</div>
-        <div class="sc-desc">Your resume passes ${r.score>=80?'9-10':r.score>=60?'7-8':r.score>=40?'4-6':'1-3'} out of 10 ATS systems as-is.${r.fixes.length>0?' Fix the issues below to improve your score.':' Great work!'}</div>
-        <div class="sc-bars">${barsHTML}</div>
+      <div class="sc-info" style="flex:1;">
+        <div class="sc-verdict" style="color:${r.color};font-size:24px;font-weight:700;margin-bottom:12px;font-family:'Sora',sans-serif;">${r.emoji} ${r.verdict}</div>
+        <div class="sc-desc" style="font-size:14px;color:#cbd5e1;margin-bottom:24px;line-height:1.6;font-family:'DM Sans',sans-serif;">Your resume passes ${r.score>=80?'9-10':r.score>=60?'7-8':r.score>=40?'4-6':'1-3'} out of 10 ATS systems as-is.${r.fixes.length>0?' Fix the issues below to improve your score.':' Great work!'}</div>
+        <div class="sc-bars" style="display:flex;flex-direction:column;gap:12px;">${barsHTML}</div>
       </div>
     </div>
-    <div class="sc-body">
+    <div class="sc-body" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;">
       <div class="sc-sections">
-        <div class="sc-sec">
-          <div class="sc-sec-label ssl-good">✅ What's Working (${r.good.length})</div>
-          ${goodHTML}
+        <div class="sc-sec" style="background:rgba(74,222,128,0.1);border-left:4px solid #4ade80;padding:16px;border-radius:8px;">
+          <div class="sc-sec-label ssl-good" style="font-weight:700;color:#4ade80;margin-bottom:12px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">✅ What's Working (${r.good.length})</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">${goodHTML}</div>
         </div>
-        <div class="sc-sec">
-          <div class="sc-sec-label ssl-fix">⚠️ Fix These (${r.fixes.length})</div>
-          ${fixHTML}
+      </div>
+      <div class="sc-sections">
+        <div class="sc-sec" style="background:rgba(249,115,22,0.1);border-left:4px solid #f97316;padding:16px;border-radius:8px;">
+          <div class="sc-sec-label ssl-fix" style="font-weight:700;color:#f97316;margin-bottom:12px;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">⚠️ Fix These (${r.fixes.length})</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">${fixHTML}</div>
         </div>
       </div>
     </div>
   </div>
   
-  ${paidJobsHTML}
-  
-  <div style="text-align:center;margin-top:16px;">
-    <button onclick="resetATS()" style="background:none;border:none;color:var(--grey);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">← Check another resume</button>
+  <div style="text-align:center;margin-top:24px;">
+    <button onclick="resetATS()" style="background:linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);color:#080c14;padding:12px 32px;border:none;border-radius:8px;font-weight:600;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(56,189,248,0.3);">🔄 Check Another Resume</button>
   </div>`;
 }
+
 
 function resetATS(){
   atsResumeText='';
