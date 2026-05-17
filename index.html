@@ -382,7 +382,12 @@ img{max-width:100%;display:block;}
 
   <!-- Nav -->
   <nav class="top-nav">
-    <div class="nav-logo" onclick="scrollTo(0,0)" style="cursor:pointer">Jobs<span>Signal</span></div>
+    <div class="nav-logo" onclick="goTo('landingView')" style="cursor:pointer"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
+  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
+  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
+  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+</svg>Jobs<span>Signal</span></div>
     <div class="nav-links">
       <button class="nav-btn outline" onclick="goTo('loginView')">Log In</button>
       <button class="nav-btn solid" onclick="goTo('signupView')">Sign Up Free</button>
@@ -391,106 +396,108 @@ img{max-width:100%;display:block;}
 
   <div class="landing">
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-badge">🇮🇳 Made for Indian Job Seekers</div>
-      <h1>India's <span>Smartest</span> CV Analyser<br>+ Job Finder</h1>
-      <p class="hero-sub">ATS score · Walk-in drives · Women returnship · Moonlighting · Salary tools — all in one place</p>
-      <div class="hero-ctas">
-        <button class="btn-primary" onclick="goTo('atsTabDirect')">📊 Check My Resume Free →</button>
-        <button class="btn-secondary" onclick="goTo('signupView')">Get Started Free →</button>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>14,000+</strong><span>Resumes Analysed</span></div>
-        <div class="hero-stat"><strong>40+</strong><span>Cities Covered</span></div>
-        <div class="hero-stat"><strong>6</strong><span>Return Programmes</span></div>
-        <div class="hero-stat"><strong>₹99</strong><span>Full Access / Month</span></div>
+    <!-- SECTION 1: HERO ────────────────────────── -->
+    <section class="hero" style="padding:60px 24px 56px;min-height:90vh;display:flex;align-items:center;">
+      <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;">
+
+        <!-- Left: copy -->
+        <div>
+          <div class="hero-badge">🇮🇳 Made for Indian Job Seekers</div>
+          <h1 style="font-size:clamp(34px,4vw,54px);line-height:1.1;margin-bottom:16px;">
+            India's <span>Smartest</span><br>CV Analyser<br>+ Job Finder
+          </h1>
+          <p class="hero-sub" style="margin-bottom:28px;">ATS score · Walk-in drives · Women returnship · Moonlighting · Salary tools — all in one lightweight app</p>
+          <div class="hero-ctas" style="margin-bottom:36px;">
+            <button class="btn-primary" onclick="goTo('atsTabDirect')">📊 Check My Resume Free →</button>
+            <button class="btn-secondary" onclick="goTo('signupView')">Get Started Free →</button>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>14,000+</strong><span>Resumes Analysed</span></div>
+            <div class="hero-stat"><strong>40+</strong><span>Cities</span></div>
+            <div class="hero-stat"><strong>6</strong><span>Return Programmes</span></div>
+            <div class="hero-stat"><strong>₹99</strong><span>Full Access</span></div>
+          </div>
+        </div>
+
+        <!-- Right: tool cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">📊</div>
+            <div class="tool-name">ATS Checker</div>
+            <div class="tool-desc">Score resume · 6 categories · AI enhance</div>
+            <span class="tool-badge free">Free</span>
+          </div>
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">🚶</div>
+            <div class="tool-name">Walk-in Finder</div>
+            <div class="tool-desc">Live drives · by skill, city &amp; locality</div>
+            <span class="tool-badge paid">₹99</span>
+          </div>
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">🌙</div>
+            <div class="tool-name">Moonlighting</div>
+            <div class="tool-desc">Contract check · Find gig jobs</div>
+            <span class="tool-badge paid">₹99</span>
+          </div>
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">💰</div>
+            <div class="tool-name">Salary Tools</div>
+            <div class="tool-desc">CTC · Hike · City compare · Offer check</div>
+            <span class="tool-badge paid">₹99</span>
+          </div>
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">👩</div>
+            <div class="tool-name">Women Returns</div>
+            <div class="tool-desc">6 programmes · TCS · Infosys · Accenture</div>
+            <span class="tool-badge free">Free</span>
+          </div>
+          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
+            <div class="tool-icon">🎓</div>
+            <div class="tool-name">Freshers</div>
+            <div class="tool-desc">Campus drives · Internships · Entry jobs</div>
+            <span class="tool-badge paid">₹99</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Tools -->
-    <div class="section">
-      <div class="section-label">What You Get</div>
-      <h2 class="section-title serif">5 Powerful Career Tools</h2>
-      <p class="section-sub">Everything an Indian job seeker needs — in one lightweight app</p>
-      <div class="tools-grid">
-        <div class="tool-card" onclick="goTo('signupView')">
-          <div class="tool-icon">📊</div>
-          <div class="tool-name">ATS Checker</div>
-          <div class="tool-desc">Score your resume on 6 parameters. See exactly what to fix to get past ATS filters used by Infosys, TCS, Wipro and global MNCs.</div>
-          <span class="tool-badge free">Free</span>
-        </div>
-        <div class="tool-card" onclick="goTo('signupView')">
-          <div class="tool-icon">🚶</div>
-          <div class="tool-name">Walk-in Finder</div>
-          <div class="tool-desc">Find live walk-in drives in your city today. Filter by skill, experience and locality. No appointment needed.</div>
-          <span class="tool-badge paid">₹99/month</span>
-        </div>
-        <div class="tool-card" onclick="goTo('signupView')">
-          <div class="tool-icon">🌙</div>
-          <div class="tool-name">Moonlighting Checker</div>
-          <div class="tool-desc">Upload your employment contract. We tell you if moonlighting is allowed, risky, or a hard no — then show you gig opportunities.</div>
-          <span class="tool-badge paid">₹99/month</span>
-        </div>
-        <div class="tool-card" onclick="goTo('signupView')">
-          <div class="tool-icon">💰</div>
-          <div class="tool-name">Salary Tools</div>
-          <div class="tool-desc">See live salary ranges from real job postings. Analyse your offer letter for bonds, non-compete clauses and variable pay traps.</div>
-          <span class="tool-badge paid">₹99/month</span>
-        </div>
-        <div class="tool-card full" onclick="goTo('signupView')">
-          <div class="tool-icon">👩</div>
-          <div class="tool-name">Women Returnship</div>
-          <div class="tool-desc">Returning to work after a career break? Access 6 active returnship programmes from India's top companies — plus a curated job search.</div>
-          <div class="tool-progs">
-            <span class="tool-prog">TCS Rebegin</span>
-            <span class="tool-prog">Infosys iRace</span>
-            <span class="tool-prog">Accenture Recharge</span>
-            <span class="tool-prog">Wipro</span>
-            <span class="tool-prog">IBM</span>
-            <span class="tool-prog">Goldman Sachs</span>
-          </div>
-          <span class="tool-badge light">Free Access</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- How it works -->
+    <!-- SECTION 2: HOW IT WORKS ─────────────────── -->
     <div class="how-section">
       <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
-        <div class="section-label" style="color:var(--amber)">How It Works</div>
-        <h2 class="section-title serif" style="color:#fff">4 Steps to Your Next Job</h2>
-        <p class="section-sub">From resume to offer — JobsSignal guides every step</p>
+        <div style="text-align:center;margin-bottom:40px;">
+          <div class="section-label" style="color:var(--amber)">How It Works</div>
+          <h2 class="section-title serif" style="color:#fff">4 Steps to Your Next Job</h2>
+        </div>
         <div class="steps">
           <div class="step">
             <div class="step-num">1</div>
             <div class="step-title">Upload Resume</div>
-            <div class="step-desc">Drop your PDF or paste resume text — LinkedIn exports work great too</div>
+            <div class="step-desc">Drop your PDF or paste resume text — LinkedIn exports work great</div>
           </div>
           <div class="step">
             <div class="step-num">2</div>
             <div class="step-title">Get ATS Score</div>
-            <div class="step-desc">AI analyses 6 key areas and tells you exactly what to fix</div>
+            <div class="step-desc">6-category AI analysis with actionable fixes</div>
           </div>
           <div class="step">
             <div class="step-num">3</div>
             <div class="step-title">See Matching Jobs</div>
-            <div class="step-desc">Google Jobs + LinkedIn tailored to your profile, skill and city</div>
+            <div class="step-desc">Google Jobs + LinkedIn tailored to your profile &amp; city</div>
           </div>
           <div class="step">
             <div class="step-num">4</div>
             <div class="step-title">Apply &amp; Track</div>
-            <div class="step-desc">Walk-in drives, returnship programmes and freelance gigs all in one place</div>
+            <div class="step-desc">Walk-ins, returnship programmes &amp; freelance gigs</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Pricing -->
-    <div class="section" style="text-align:center">
+    <!-- SECTION 3: PRICING ──────────────────────── -->
+    <div class="section" style="text-align:center;">
       <div class="section-label">Pricing</div>
       <h2 class="section-title serif">Simple, Honest Pricing</h2>
-      <p class="section-sub" style="margin:0 auto 40px">No hidden fees. No long-term lock-in.</p>
+      <p class="section-sub" style="margin:0 auto 40px">No hidden fees · No auto-renewal · 30-day access</p>
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-name">Free</div>
@@ -503,7 +510,8 @@ img{max-width:100%;display:block;}
             <li><span class="lck">✕</span> Google Jobs + LinkedIn Jobs</li>
             <li><span class="lck">✕</span> Walk-in Finder</li>
             <li><span class="lck">✕</span> Moonlighting Checker</li>
-            <li><span class="lck">✕</span> Salary Tools</li>
+            <li><span class="lck">✕</span> Salary Tools + CTC Calc</li>
+            <li><span class="lck">✕</span> Freshers Job Search</li>
           </ul>
           <button class="btn-price free" onclick="goTo('signupView')">Sign Up Free</button>
         </div>
@@ -514,11 +522,12 @@ img{max-width:100%;display:block;}
           <div class="price-period">30-day access · One-time payment</div>
           <ul class="price-features">
             <li><span class="chk">✓</span> Everything in Free</li>
-            <li><span class="chk">✓</span> Google Jobs from ATS</li>
-            <li><span class="chk">✓</span> LinkedIn Jobs + Posts</li>
-            <li><span class="chk">✓</span> Walk-in Finder (all cities)</li>
-            <li><span class="chk">✓</span> Moonlighting Contract Check</li>
-            <li><span class="chk">✓</span> Salary Range + Offer Analyser</li>
+            <li><span class="chk">✓</span> Google Jobs + LinkedIn Jobs &amp; Posts</li>
+            <li><span class="chk">✓</span> Walk-in Finder (all cities + locality)</li>
+            <li><span class="chk">✓</span> Moonlighting contract checker</li>
+            <li><span class="chk">✓</span> CTC Calc · Hike · City Compare</li>
+            <li><span class="chk">✓</span> Offer Letter Analyser</li>
+            <li><span class="chk">✓</span> Freshers Jobs (Google + LinkedIn)</li>
             <li><span class="chk">✓</span> Women Returnship Job Search</li>
           </ul>
           <button class="btn-price paid" onclick="goTo('signupView');showUpgradeModal()">Get Full Access →</button>
@@ -528,16 +537,23 @@ img{max-width:100%;display:block;}
 
     <!-- Footer -->
     <footer class="footer">
-      <div>© 2025 JobsSignal · Hyderabad · <a onclick="goTo('loginView')">Login</a> · <a onclick="goTo('signupView')">Sign Up</a></div>
+      <div>© 2025 JobsSignal · Hyderabad · <a onclick="goTo('loginView')" style="cursor:pointer">Login</a> · <a onclick="goTo('signupView')" style="cursor:pointer">Sign Up</a></div>
     </footer>
+
   </div>
 </div>
 
 <!-- ═══ LOGIN VIEW ═══════════════════════════════════════════════ -->
-<div class="view" id="loginView">
+<div class="view" id="loginView" style="position:relative;">
   <div class="auth-wrap">
+    <div style="position:absolute;top:16px;left:16px;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
     <div class="auth-card">
-      <div class="auth-logo">Jobs<span>Signal</span></div>
+      <div class="auth-logo" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
+  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
+  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
+  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+</svg>Jobs<span>Signal</span></div>
       <div class="auth-sub">India's smartest job finder</div>
       <div class="auth-title">Welcome back</div>
       <p style="font-size:13px;color:var(--soft);text-align:center;margin:4px 0 24px">Enter your registered mobile number</p>
@@ -553,10 +569,16 @@ img{max-width:100%;display:block;}
 </div>
 
 <!-- ═══ SIGNUP VIEW ══════════════════════════════════════════════ -->
-<div class="view" id="signupView">
+<div class="view" id="signupView" style="position:relative;">
+  <div style="position:absolute;top:16px;left:16px;z-index:10;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
   <div class="auth-wrap">
     <div class="auth-card">
-      <div class="auth-logo">Jobs<span>Signal</span></div>
+      <div class="auth-logo" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
+  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
+  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
+  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+</svg>Jobs<span>Signal</span></div>
       <div class="auth-sub">Create your free account</div>
       <div class="step-dots">
         <div class="step-dot active" id="sdot0"></div>
@@ -573,6 +595,8 @@ img{max-width:100%;display:block;}
           <input type="tel" id="su_phone" maxlength="10" placeholder="10-digit mobile" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
         <div class="field"><label>Skill / Job Title *</label>
           <input type="text" id="su_skill" placeholder="e.g. React Developer, HR Manager"></div>
+        <div class="field"><label>Email Address</label>
+          <input type="email" id="su_email" placeholder="yourname@gmail.com"></div>
         <button class="btn-auth" onclick="suNext(1)">Continue →</button>
         <div class="auth-switch">Have an account? <a onclick="goTo('loginView')">Log in</a></div>
       </div>
@@ -593,12 +617,15 @@ img{max-width:100%;display:block;}
             <option value="0-1">Fresher / 0-1 yr</option>
             <option value="1-3">1-3 years</option>
             <option value="3-5">3-5 years</option>
-            <option value="5-8">5-8 years</option>
-            <option value="8+">8+ years</option>
+            <option value="5-7">5-7 years</option>
+            <option value="7-10">7-10 years</option>
+            <option value="10-12">10-12 years</option>
+            <option value="13-15">13-15 years</option>
+            <option value="15+">15+ years</option>
           </select></div>
         <div style="display:flex;gap:10px;">
           <button class="btn-auth" style="background:var(--cream);color:var(--ink);border:2px solid var(--border);flex:1" onclick="suNext(-1)">← Back</button>
-          <button class="btn-auth" style="flex:2" onclick="suNext(2)">Continue →</button>
+          <button class="btn-auth" style="flex:2" onclick="suNext(1)">Continue →</button>
         </div>
       </div>
 
@@ -643,7 +670,12 @@ img{max-width:100%;display:block;}
 
   <!-- Top bar -->
   <div class="dash-top">
-    <div class="dash-logo" onclick="switchTab('home')">Jobs<span>Signal</span></div>
+    <div class="dash-logo" onclick="switchTab('home')" style="display:flex;align-items:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
+  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
+  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
+  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+</svg>Jobs<span>Signal</span></div>
     <div class="dash-top-right">
       <span class="dash-user" id="dashUserName"></span>
       <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('/admin/','_blank')">🔑 Admin</span>
@@ -660,6 +692,7 @@ img{max-width:100%;display:block;}
     <button class="tab-btn" data-tab="salary" onclick="switchTab('salary')">💰 Salary</button>
     <button class="tab-btn" data-tab="moonlight" onclick="switchTab('moonlight')">🌙 Moonlighting</button>
     <button class="tab-btn" data-tab="women" onclick="switchTab('women')">👩 Women</button>
+    <button class="tab-btn" data-tab="fresher" onclick="switchTab('fresher')">🎓 Freshers</button>
   </div>
 
   <!-- ── HOME TAB ────────────────────────────────────── -->
@@ -843,9 +876,14 @@ img{max-width:100%;display:block;}
           <label>Experience</label>
           <select id="wi_exp">
             <option value="">Any</option>
-            <option value="0-1">0-1 yr</option><option value="1-3">1-3 yrs</option>
-            <option value="3-5">3-5 yrs</option><option value="5-8">5-8 yrs</option>
-            <option value="8+">8+ yrs</option>
+            <option value="0-1">Fresher/0-1</option>
+            <option value="1-3">1-3 yrs</option>
+            <option value="3-5">3-5 yrs</option>
+            <option value="5-7">5-7 yrs</option>
+            <option value="7-10">7-10 yrs</option>
+            <option value="10-12">10-12 yrs</option>
+            <option value="13-15">13-15 yrs</option>
+            <option value="15+">15+ yrs</option>
           </select>
         </div>
         <div class="form-group">
@@ -860,12 +898,67 @@ img{max-width:100%;display:block;}
 
   <!-- ── SALARY TAB ──────────────────────────────────── -->
   <div class="tab-panel" id="tab-salary">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">💰 Salary Tools</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Live salary data + offer letter analyser</p>
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">💰 Salary Tools</h2>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Live salary data · CTC calculator · Hike negotiation · Offer analyser</p>
 
-    <!-- Salary Range -->
+    <!-- CTC Calculator -->
+    <div class="search-form" style="margin-bottom:16px">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:4px">⚙️ CTC Calculator</h3>
+      <p style="font-size:12px;color:var(--soft);margin-bottom:14px">CTC → monthly take-home after PF &amp; TDS</p>
+      <div class="form-row">
+        <div class="form-group"><label>Annual CTC (₹)</label>
+          <input type="number" id="ctc_amount" placeholder="e.g. 1200000"></div>
+        <div class="form-group"><label>Tax Regime</label>
+          <select id="ctc_regime">
+            <option value="new">New (2024)</option>
+            <option value="old">Old Regime</option>
+          </select></div>
+      </div>
+      <button class="btn-search" onclick="calcCTC()">⚙️ Calculate Take-Home →</button>
+      <div id="ctcResult"></div>
+    </div>
+
+    <!-- Hike Negotiation -->
+    <div class="search-form" style="margin-bottom:16px">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:4px">📈 Hike Negotiation</h3>
+      <p style="font-size:12px;color:var(--soft);margin-bottom:14px">Target number + negotiation script</p>
+      <div class="form-row">
+        <div class="form-group"><label>Current CTC (₹)</label>
+          <input type="number" id="hike_current" placeholder="e.g. 800000"></div>
+        <div class="form-group"><label>Target Hike %</label>
+          <input type="number" id="hike_pct" placeholder="e.g. 30" min="1" max="200"></div>
+      </div>
+      <button class="btn-search" onclick="calcHike()">📈 Calculate Target →</button>
+      <div id="hikeResult"></div>
+    </div>
+
+    <!-- City Salary Compare -->
+    <div class="search-form" style="margin-bottom:16px">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:4px">🏙️ City Salary Compare</h3>
+      <p style="font-size:12px;color:var(--soft);margin-bottom:14px">Same CTC — which city gives more value?</p>
+      <div class="form-row">
+        <div class="form-group"><label>CTC (₹)</label>
+          <input type="number" id="city_ctc" placeholder="e.g. 1200000"></div>
+        <div class="form-group"><label>From</label>
+          <select id="city_from">
+            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
+            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
+            <option>Noida</option><option>Gurgaon</option>
+          </select></div>
+        <div class="form-group"><label>To</label>
+          <select id="city_to">
+            <option>Mumbai</option><option>Hyderabad</option><option>Bengaluru</option>
+            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
+            <option>Noida</option><option>Gurgaon</option>
+          </select></div>
+      </div>
+      <button class="btn-search" onclick="calcCityCompare()">🏙️ Compare Cities →</button>
+      <div id="cityResult"></div>
+    </div>
+
+    <!-- Live Salary Range -->
     <div class="search-form">
-      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">📊 Live Salary Range</h3>
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">📊 Live Salary Range from Job Postings</h3>
       <div class="form-row">
         <div class="form-group"><label>Skill / Role *</label>
           <input type="text" id="sal_skill" placeholder="e.g. React Developer"></div>
@@ -878,21 +971,26 @@ img{max-width:100%;display:block;}
         <div class="form-group"><label>Experience</label>
           <select id="sal_exp">
             <option value="">Any</option>
-            <option value="0-1">0-1 yr</option><option value="1-3">1-3 yrs</option>
-            <option value="3-5">3-5 yrs</option><option value="5-8">5-8 yrs</option>
-            <option value="8+">8+ yrs</option>
+            <option value="0-1">Fresher/0-1</option>
+            <option value="1-3">1-3 yrs</option>
+            <option value="3-5">3-5 yrs</option>
+            <option value="5-7">5-7 yrs</option>
+            <option value="7-10">7-10 yrs</option>
+            <option value="10-12">10-12 yrs</option>
+            <option value="13-15">13-15 yrs</option>
+            <option value="15+">15+ yrs</option>
           </select></div>
       </div>
       <button class="btn-search" onclick="runSalaryRange()">🔍 Get Salary Range →</button>
     </div>
     <div id="salaryRangeResult"></div>
 
-    <!-- Offer Analyser (paid) -->
-    <div id="offerSection" style="margin-top:24px">
+    <!-- Offer Analyser -->
+    <div id="offerSection" style="margin-top:16px">
       <div class="search-form">
         <h3 style="font-size:14px;font-weight:800;margin-bottom:4px">📋 Offer Letter Analyser</h3>
-        <p style="font-size:12px;color:var(--soft);margin-bottom:14px">Paste your offer letter text — we flag bonds, non-compete, variable pay and more</p>
-        <textarea class="ats-paste" id="offerText" placeholder="Paste your offer letter text here...&#10;&#10;We look for: bond period, non-compete clauses, notice period, variable pay, IP ownership..." style="min-height:120px"></textarea>
+        <p style="font-size:12px;color:var(--soft);margin-bottom:14px">Paste your offer — we flag bonds, non-compete, variable pay</p>
+        <textarea class="ats-paste" id="offerText" placeholder="Paste offer letter text here..." style="min-height:100px"></textarea>
         <button class="btn-search" onclick="runOfferAnalysis()" id="offerBtn">📋 Analyse Offer →</button>
       </div>
       <div id="offerResult"></div>
@@ -1022,6 +1120,51 @@ img{max-width:100%;display:block;}
     <div id="womenResults"></div>
   </div>
 
+
+  <!-- ── FRESHERS TAB ─────────────────────────────── -->
+  <div class="tab-panel" id="tab-fresher">
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🎓 Freshers &amp; Interns</h2>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Campus drives · Internships · Entry-level openings</p>
+    <div id="fresherLocked" style="display:none">
+      <div class="jobs-locked">
+        <div class="jobs-locked-icon">🔒</div>
+        <h3>Freshers Jobs is a Paid Feature</h3>
+        <p>Upgrade to ₹99/month to search internships, campus drives and entry-level jobs across Google Jobs and LinkedIn.</p>
+        <button class="btn-primary" onclick="showUpgradeModal()">Upgrade ₹99 → Find Fresher Jobs</button>
+      </div>
+    </div>
+    <div id="fresherContent" style="display:none">
+      <div class="search-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Skill / Stream *</label>
+            <input type="text" id="fr_skill" placeholder="e.g. Computer Science, Marketing, MBA">
+          </div>
+          <div class="form-group">
+            <label>City *</label>
+            <select id="fr_city">
+              <option value="">Select city</option>
+              <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
+              <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
+              <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
+              <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
+              <option>India</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-search" onclick="runFresherSearch()">🎓 Find Fresher Jobs →</button>
+      </div>
+      <div id="fresherJobTabs" style="display:none;margin-top:16px">
+        <div class="jobs-tabs">
+          <button class="jobs-tab-btn active" id="fjt-google" onclick="showFresherTab('google')">🔍 Google Jobs</button>
+          <button class="jobs-tab-btn" onclick="openFresherLinkedIn()">💼 LinkedIn Jobs ↗</button>
+          <button class="jobs-tab-btn" onclick="openFresherPosts()">📝 LinkedIn Posts ↗</button>
+        </div>
+        <div id="fresherResults"></div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end dash-wrap -->
 
 <script>
@@ -1046,26 +1189,72 @@ function showToast(msg,type){
 }
 
 // ── VIEW NAV ──────────────────────────────────────────────────────
+function showView(id){
+  // Handle special ATS from landing (no login needed)
+  if(id==='atsPublic'){
+    atsPublicMode=true;
+    document.querySelectorAll('.view,.dash-wrap').forEach(function(v){v.classList.remove('active');});
+    var dashEl=document.getElementById('dashView');
+    if(dashEl)dashEl.classList.add('active');
+    switchTab('ats',true);
+    var topUp=document.getElementById('topUpgradeBtn');if(topUp)topUp.style.display='inline-block';
+    var lu=document.getElementById('dashUserName');if(lu)lu.textContent='';
+    return;
+  }
+  document.querySelectorAll('.view,.dash-wrap').forEach(function(v){v.classList.remove('active');});
+  if(id==='dashView'){
+    var dashEl2=document.getElementById('dashView');
+    if(dashEl2)dashEl2.classList.add('active');
+  }else{
+    var el=document.getElementById(id);
+    if(el)el.classList.add('active');
+  }
+  window.scrollTo(0,0);
+}
 function goTo(id){
   if(id==='atsTabDirect'){
     if(currentUser){switchTab('ats');return;}
-    goTo('signupView');return;
+    history.pushState({view:'atsPublic'},'','#ats');
+    showView('atsPublic');return;
   }
-  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
-  var el=document.getElementById(id);
-  if(el){el.classList.add('active');}
-  window.scrollTo(0,0);
+  var hashId=id==='dashView'?'dashboard':id;
+  history.pushState({view:id},'','#'+hashId);
+  showView(id);
 }
+window.addEventListener('popstate',function(e){
+  var hash=window.location.hash.replace('#','');
+  if(!hash){showView('landingView');return;}
+  if(hash==='dashboard'||hash.startsWith('dashboard-')){
+    if(currentUser){
+      showView('dashView');
+      var tab=hash.replace('dashboard-','');
+      if(tab&&tab!=='dashboard')switchTab(tab,true);
+    }else{showView('landingView');}
+  }else if(hash==='ats'){
+    showView('atsPublic');
+  }else{
+    var viewId=hash.endsWith('View')?hash:hash+'View';
+    if(document.getElementById(viewId))showView(viewId);
+    else if(document.getElementById(hash))showView(hash);
+    else showView('landingView');
+  }
+});
 
 // ── TAB SWITCHER ──────────────────────────────────────────────────
-function switchTab(tab){
-  goTo('dashView');
+function switchTab(tab,skipHistory){
+  if(!skipHistory){
+    history.pushState({view:'dashView',tab:tab},'','#dashboard-'+tab);
+  }
+  var dashEl=document.getElementById('dashView');
+  if(dashEl)dashEl.classList.add('active');
+  document.querySelectorAll('.view').forEach(function(v){if(v.id!=='dashView')v.classList.remove('active');});
   document.querySelectorAll('.tab-btn').forEach(function(b){
     b.classList.toggle('active',b.getAttribute('data-tab')===tab);
   });
   document.querySelectorAll('.tab-panel').forEach(function(p){
     p.classList.toggle('active',p.id==='tab-'+tab);
   });
+  if(tab==='fresher')initFresherTab();
   window.scrollTo(0,0);
 }
 
@@ -1101,7 +1290,7 @@ async function doLogin(){
   }catch(e){showToast('Login failed. Check internet.','amber');}
 }
 
-function suNext(dir){
+async function suNext(dir){
   var errEl=document.getElementById('suErr');if(errEl)errEl.style.display='none';
   var steps=['sstep0','sstep1','sstep2'];
   var cur=steps.findIndex(function(s){var el=document.getElementById(s);return el&&el.classList.contains('active');});
@@ -1112,6 +1301,18 @@ function suNext(dir){
     if(!n){showToast('Enter your name','amber');return;}
     if(p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
     if(!s){showToast('Enter your skill / job title','amber');return;}
+    // Check already registered
+    var phone10=p.slice(-10);
+    try{
+      var chk=await fetch(FB_DB+'/phones/'+phone10+'.json');
+      var chkd=await chk.json();
+      if(chkd&&chkd.phone){
+        var errEl=document.getElementById('suErr');
+        if(errEl){errEl.textContent='This number is already registered. Please log in instead.';errEl.style.display='block';}
+        showToast('Already registered — please log in','amber');
+        return;
+      }
+    }catch(_ce){}
   }
   if(dir>0&&cur===1){
     var city=(document.getElementById('su_city')||{value:''}).value;
@@ -1132,15 +1333,17 @@ async function doSignup(){
   var name=(document.getElementById('su_name')||{value:''}).value.trim();
   var phone=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
   var skill=(document.getElementById('su_skill')||{value:''}).value.trim();
+  var email=(document.getElementById('su_email')||{value:''}).value.trim();
   var city=(document.getElementById('su_city')||{value:''}).value;
   var exp=(document.getElementById('su_exp')||{value:''}).value;
   if(!phone||phone.length<10){showToast('Invalid phone','amber');return;}
-  var user={phone:phone,name:name,skill:skill,city:city,exp:exp,createdAt:new Date().toISOString()};
+  var user={phone:phone,name:name,skill:skill,email:email,city:city,exp:exp,createdAt:new Date().toISOString()};
   try{
     await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
     await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
   }catch(e){}
   localStorage.setItem(S_USER,JSON.stringify(user));
+  atsPublicMode=false;
   enterDash(user,false);
 }
 
@@ -1172,7 +1375,7 @@ function buildDash(user,paid){
   var gr=document.getElementById('homeGreet');
   if(gr)gr.textContent='Hi '+((user.name||'').split(' ')[0]||'there')+' 👋';
   // Tool tiles - lock state
-  var locks=['walkin','salary','moonlight'];
+  var locks=['walkin','salary','moonlight','fresher'];
   locks.forEach(function(k){
     var tile=document.getElementById('tt-'+k);
     var lck=document.getElementById('tl-'+k);
@@ -1198,18 +1401,37 @@ function doLogout(){
 
 // ── SESSION RESTORE ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
+  // Track visitor
+  try{fetch(FB_DB+'/stats/visitors.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now()})});}catch(e){}
+  // Restore session
   try{
-    var raw=localStorage.getItem(S_USER);if(!raw)return;
+    var raw=localStorage.getItem(S_USER);
+    var hash=window.location.hash.replace('#','');
+    if(!raw){
+      if(hash==='ats'){showView('atsPublic');return;}
+      if(hash&&hash!=='landingView'&&hash!=='dashboard'){
+        var vId=hash.endsWith('View')?hash:hash+'View';
+        if(document.getElementById(vId)){showView(vId);return;}
+      }
+      return;
+    }
     var user=JSON.parse(raw);if(!user||!user.phone)return;
     currentUser=user;
     var plRaw=localStorage.getItem(S_PLAN);var paid=false;
     if(plRaw){var pl=JSON.parse(plRaw);if(pl&&pl.expiry)paid=new Date(pl.expiry)>new Date();}
     if(user.phone.slice(-10)===SUPER)paid=true;
-    isPaid=paid;
-    buildDash(user,paid);
-    goTo('dashView');
-    switchTab('home');
-  }catch(e){}
+    isPaid=paid;buildDash(user,paid);
+    // Restore hash position
+    if(hash.startsWith('dashboard-')){
+      showView('dashView');
+      var tabName=hash.replace('dashboard-','');
+      if(tabName)switchTab(tabName,true);
+    }else if(hash==='ats'){
+      showView('atsPublic');
+    }else{
+      showView('dashView');switchTab('home',true);
+    }
+  }catch(e){showView('landingView');}
 });
 
 // ── PAYMENT ───────────────────────────────────────────────────────
@@ -1533,10 +1755,19 @@ async function enhanceWithAI(){
 }
 
 // ── ATS: JOBS ─────────────────────────────────────────────────────
+var atsPublicMode=false;
 function showJobsTab(tab){
   document.getElementById('jt-google').classList.toggle('active',tab==='google');
   document.getElementById('atsGoogleJobs').style.display=tab==='google'?'block':'none';
-  if(tab==='google'&&isPaidUser()){
+  var locked=document.getElementById('atsJobsLocked');
+  // Public mode (from landing) OR not paid → show upgrade
+  if(atsPublicMode||!isPaidUser()){
+    if(locked)locked.style.display='block';
+    document.getElementById('atsGoogleJobs').style.display='none';
+    return;
+  }
+  if(locked)locked.style.display='none';
+  if(tab==='google'){
     var r=atsLastResult;
     var skill=(r&&r.role)||((currentUser&&currentUser.skill)||'Software Engineer');
     var city=(r&&r.location)||(currentUser&&currentUser.city)||'Hyderabad';
@@ -1583,7 +1814,7 @@ function catTags(j){
 
 function fetchGoogleJobs(skill,city,exp,el,mode){
   el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Finding jobs for '+skill+' in '+city+'...</div>';
-  var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years)','5-8':'(5-8 years)','8+':'(8+ years OR senior OR lead)'};
+  var expMap={'0-1':'(fresher OR entry level OR 0-1 years)','1-3':'(1-3 years experience)','3-5':'(3-5 years experience)','5-7':'(5-7 years experience)','7-10':'(7-10 years experience)','10-12':'(10-12 years experience OR principal OR staff)','13-15':'(13-15 years OR director OR head)','15+':'(15+ years OR VP OR director OR CXO OR head of)'};
   var expStr=expMap[exp]||'';
   var modeKw='';
   if(mode==='walkin')modeKw=' walk-in drive interview';
@@ -1862,6 +2093,130 @@ function runWomenSearch(){
   },500);
 }
 
+
+// ── SALARY CALCULATORS ──────────────────────────────
+function calcCTC(){
+  var ctc=parseFloat(document.getElementById('ctc_amount').value)||0;
+  var regime=document.getElementById('ctc_regime').value;
+  if(!ctc||ctc<100000){showToast('Enter annual CTC (minimum ₹1 lakh)','amber');return;}
+  var pf=Math.min(ctc*0.12,21600); // Employee PF capped at 21600/yr
+  var taxable=ctc-pf;
+  var tax=0;
+  if(regime==='new'){
+    // New regime 2024 slabs (after ₹75k std deduction)
+    taxable=taxable-75000;
+    if(taxable<0)taxable=0;
+    if(taxable<=300000)tax=0;
+    else if(taxable<=700000)tax=(taxable-300000)*0.05;
+    else if(taxable<=1000000)tax=20000+(taxable-700000)*0.10;
+    else if(taxable<=1200000)tax=50000+(taxable-1000000)*0.15;
+    else if(taxable<=1500000)tax=80000+(taxable-1200000)*0.20;
+    else tax=140000+(taxable-1500000)*0.30;
+  }else{
+    // Old regime (standard deduction 50k)
+    taxable=taxable-50000;if(taxable<0)taxable=0;
+    if(taxable<=250000)tax=0;
+    else if(taxable<=500000)tax=(taxable-250000)*0.05;
+    else if(taxable<=1000000)tax=12500+(taxable-500000)*0.20;
+    else tax=112500+(taxable-1000000)*0.30;
+  }
+  var cess=tax*0.04;
+  var totalTax=Math.round(tax+cess);
+  var monthlyNet=Math.round((ctc-pf-totalTax)/12);
+  var monthlyPF=Math.round(pf/12);
+  var el=document.getElementById('ctcResult');
+  if(!el)return;
+  el.innerHTML='<div style="background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);border-radius:10px;padding:16px;margin-top:12px">'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center">'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Monthly Take-Home</div><div style="font-size:22px;font-weight:800;color:var(--teal)">₹'+monthlyNet.toLocaleString('en-IN')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Monthly PF (employer)</div><div style="font-size:22px;font-weight:800">₹'+monthlyPF.toLocaleString('en-IN')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Annual Tax ('+regime+' regime)</div><div style="font-size:22px;font-weight:800;color:var(--red)">₹'+totalTax.toLocaleString('en-IN')+'</div></div>'
+    +'</div>'
+    +'<div style="font-size:10px;color:var(--soft);margin-top:10px;text-align:center">Estimate only · actual deductions may vary by employer</div>'
+    +'</div>';
+}
+
+function calcHike(){
+  var cur=parseFloat(document.getElementById('hike_current').value)||0;
+  var pct=parseFloat(document.getElementById('hike_pct').value)||0;
+  if(!cur||cur<100000){showToast('Enter current CTC (minimum ₹1 lakh)','amber');return;}
+  if(!pct||pct<1){showToast('Enter target hike %','amber');return;}
+  var target=Math.round(cur*(1+pct/100));
+  var inc=target-cur;
+  var el=document.getElementById('hikeResult');if(!el)return;
+  el.innerHTML='<div style="background:var(--amber-pale);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:16px;margin-top:12px">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;margin-bottom:14px">'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Target CTC</div><div style="font-size:20px;font-weight:800;color:var(--amber)">₹'+target.toLocaleString('en-IN')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Increase</div><div style="font-size:20px;font-weight:800">₹'+inc.toLocaleString('en-IN')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--soft);margin-bottom:4px">Monthly gain</div><div style="font-size:20px;font-weight:800;color:var(--green)">₹'+Math.round(inc/12).toLocaleString('en-IN')+'</div></div>'
+    +'</div>'
+    +'<div style="background:#fff;border-radius:8px;padding:12px;border:1px solid var(--border)">'
+    +'<div style="font-size:11px;font-weight:800;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Negotiation Script</div>'
+    +'<div style="font-size:12px;line-height:1.7;color:var(--ink)">'
+    +'"Based on my '+pct+'% growth and market benchmarks, I am targeting ₹'+target.toLocaleString('en-IN')+' — an increase of ₹'+inc.toLocaleString('en-IN')+' over my current CTC. I believe this reflects my contributions and aligns with industry standards for my role."'
+    +'</div></div></div>';
+}
+
+function calcCityCompare(){
+  var ctc=parseFloat(document.getElementById('city_ctc').value)||0;
+  var from=document.getElementById('city_from').value;
+  var to=document.getElementById('city_to').value;
+  if(!ctc){showToast('Enter your CTC','amber');return;}
+  if(from===to){showToast('Select different cities','amber');return;}
+  // Cost of living index (Hyderabad=100 baseline)
+  var col={'Hyderabad':100,'Bengaluru':118,'Mumbai':145,'Delhi NCR':125,'Chennai':105,'Pune':112,'Noida':120,'Gurgaon':130};
+  var fromIdx=col[from]||100;
+  var toIdx=col[to]||100;
+  var adjustedCTC=Math.round(ctc*(toIdx/fromIdx));
+  var diff=adjustedCTC-ctc;
+  var better=fromIdx>toIdx?from:to;
+  var el=document.getElementById('cityResult');if(!el)return;
+  el.innerHTML='<div style="background:rgba(22,163,74,.05);border:1px solid rgba(22,163,74,.2);border-radius:10px;padding:16px;margin-top:12px">'
+    +'<div style="text-align:center;margin-bottom:12px">'
+    +'<div style="font-size:13px;color:var(--soft);margin-bottom:4px">₹'+ctc.toLocaleString('en-IN')+' CTC in '+from+' = equivalent to</div>'
+    +'<div style="font-size:28px;font-weight:900;color:var(--green)">₹'+adjustedCTC.toLocaleString('en-IN')+'</div>'
+    +'<div style="font-size:13px;color:var(--soft);margin-top:4px">in '+to+' (cost of living adjusted)</div>'
+    +'</div>'
+    +'<div style="background:#fff;border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center">'
+    +'<div style="font-size:13px;font-weight:700;color:var(--ink)">'+better+' gives '+(diff<0?Math.abs(diff):diff).toLocaleString('en-IN')+' more purchasing power</div>'
+    +'<div style="font-size:11px;color:var(--soft);margin-top:4px">Based on rent, transport, food &amp; lifestyle costs</div>'
+    +'</div></div>';
+}
+
+// ── FRESHERS JOBS ────────────────────────────────────
+function initFresherTab(){
+  var locked=document.getElementById('fresherLocked');
+  var content=document.getElementById('fresherContent');
+  if(isPaidUser()){
+    if(locked)locked.style.display='none';
+    if(content)content.style.display='block';
+  }else{
+    if(locked)locked.style.display='block';
+    if(content)content.style.display='none';
+  }
+}
+function runFresherSearch(){
+  if(!isPaidUser()){showUpgradeModal();return;}
+  var skill=(document.getElementById('fr_skill')||{value:''}).value.trim();
+  var city=(document.getElementById('fr_city')||{value:''}).value;
+  if(!skill||!city){showToast('Enter skill and city','amber');return;}
+  var jt=document.getElementById('fresherJobTabs');if(jt)jt.style.display='block';
+  var el=document.getElementById('fresherResults');if(!el)return;
+  fetchGoogleJobs(skill,city,'0-1',el,'fresher');
+  window._fresherSkill=skill;window._fresherCity=city;
+}
+function showFresherTab(tab){
+  document.getElementById('fjt-google').classList.toggle('active',tab==='google');
+}
+function openFresherLinkedIn(){
+  var s=window._fresherSkill||'intern';var c=window._fresherCity||'India';
+  window.open('https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(s+' intern fresher')+'&location='+encodeURIComponent(c)+'&f_E=1%2C2','_blank');
+}
+function openFresherPosts(){
+  var s=window._fresherSkill||'intern';
+  var q=s+' fresher intern campus hiring';
+  window.open('https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(q)+'&datePosted=%22past-month%22','_blank');
+}
 </script>
 
 <!-- Razorpay -->
