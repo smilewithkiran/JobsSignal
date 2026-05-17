@@ -1143,10 +1143,24 @@ function readFile(file,pasteId){
 }
 
 function runATS(){
-  const text=document.getElementById('atsPasteText').value.trim();
-  if(atsResumeText.length>100)performATS(atsResumeText+' '+text,'atsResultSection');
-  else if(text.length>80)performATS(text,'atsResultSection');
-  else showToast('Please paste your resume text or upload a file','red');
+  const textarea=document.getElementById('atsPasteText');
+  const pastedText=(textarea&&textarea.value)?textarea.value.trim():'';
+  const fullText=(atsResumeText+' '+pastedText).trim();
+  
+  if(fullText.length<80){
+    showToast('Please paste at least 80 characters of resume text','red');
+    return;
+  }
+  
+  // Show result section
+  const resultEl=document.getElementById('atsResultSection');
+  if(!resultEl){
+    showToast('Error: Result section not found','red');
+    return;
+  }
+  
+  // Call analysis
+  performATS(fullText,'atsResultSection');
 }
 
 function runATS2(){
@@ -1324,6 +1338,9 @@ function scoreResume(text,profile){
 function performATS(text,resultId){
   const resEl=document.getElementById(resultId);
   if(!resEl)return;
+  
+  // SHOW the result section (it has display:none by default)
+  resEl.style.display='block';
   
   // Show loading
   resEl.innerHTML='<div class="rp-loading"><div class="spinner"></div> Analysing your CV...</div>';
