@@ -560,7 +560,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 </div><!-- /landingView -->
 
 <!-- ══ LOGIN VIEW ══ -->
-<div class="view" id="loginView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+<div class="view" id="loginView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;">
+  <button onclick="goBack()" style="position:absolute;top:20px;left:20px;background:none;border:none;color:#38bdf8;font-size:24px;cursor:pointer;padding:8px;z-index:10;">←</button>
   <div style="max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
     <!-- LEFT: PROFESSIONAL IMAGE -->
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
@@ -610,7 +611,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 </div>
 
 <!-- ══ SIGNUP VIEW ══ -->
-<div class="view" id="signupView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+<div class="view" id="signupView" style="background:linear-gradient(135deg, #080c14 0%, #0e1625 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;">
+  <button onclick="goBack()" style="position:absolute;top:20px;left:20px;background:none;border:none;color:#38bdf8;font-size:24px;cursor:pointer;padding:8px;z-index:10;">←</button>
   <div style="max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
     <!-- LEFT: PROFESSIONAL IMAGE -->
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
@@ -792,6 +794,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 <div class="view" id="atsView">
   <div class="dash-topbar">
     <div style="display:flex;align-items:center;gap:16px;">
+      <button class="btn-ghost" onclick="goBack()" style="font-size:18px;padding:8px 12px;min-width:auto;">←</button>
       <div class="nav-logo" onclick="goTo('landingView')" style="margin-right:8px;">
         <div class="logo-pulse"></div>
         <div class="logo-text" style="font-size:15px;"><span class="j">Jobs</span><span class="s">Signal</span></div>
@@ -967,33 +970,49 @@ function goTo(viewId){
   }
 }
 
-// Add manual back button support via keyboard shortcut
-document.addEventListener('keydown',function(e){
-  if(e.altKey&&e.key==='ArrowLeft'&&currentViewIndex>0){
+// Improved back button support
+function goBack(){
+  if(currentViewIndex>0){
+    currentViewIndex--;
+    const prevView=viewHistory[currentViewIndex];
+    goTo(prevView);
+  }else{
+    // If at start of history, go to landing
+    goTo('landingView');
+  }
+}
+
+// Listen for browser back button (via hash change)
+window.addEventListener('hashchange',function(){
+  if(currentViewIndex>0){
     currentViewIndex--;
     goTo(viewHistory[currentViewIndex]);
   }
 });
 
+// Keyboard shortcut for back (Alt+Left)
+document.addEventListener('keydown',function(e){
+  if(e.altKey&&e.key==='ArrowLeft'){
+    goBack();
+  }
+});
+
 function scrollTo(id){
-  // Ensure we're on landing page
+  // Make sure landing view is visible
   const landingView=document.getElementById('landingView');
-  if(landingView.style.display==='none'||landingView.className.includes('hidden')){
+  if(landingView&&!landingView.classList.contains('active')){
     goTo('landingView');
-    setTimeout(()=>{
-      const el=document.getElementById(id);
-      if(el){
-        el.scrollIntoView({behavior:'smooth',block:'start'});
-        window.scrollTo({top:el.offsetTop-80,behavior:'smooth'});
-      }
-    }, 300);
-  }else{
+  }
+  
+  // Wait a moment then scroll
+  setTimeout(()=>{
     const el=document.getElementById(id);
     if(el){
-      el.scrollIntoView({behavior:'smooth',block:'start'});
-      window.scrollTo({top:el.offsetTop-80,behavior:'smooth'});
+      const yOffset=-100;
+      const y=el.getBoundingClientRect().top+window.scrollY+yOffset;
+      window.scrollTo({top:y,behavior:'smooth'});
     }
-  }
+  }, 100);
 }
 
 function navToTool(tool){
@@ -1130,20 +1149,11 @@ function showDashHome(){
 }
 
 function goTool(tool){
-  if(!currentUser.phone&&tool!=='ats'){goTo('loginView');return;}
+  if(!currentUser.phone&&tool!=='ats'&&tool!=='women'){goTo('loginView');return;}
   if(!isPaid&&tool!=='ats'&&tool!=='women'){showUpgrade();return;}
-  // Render tool in dash or switch to ATS view
+  // Always go to full view for better UX
   if(tool==='ats'){
-    if(currentUser.phone){
-      // Render ATS inside dash
-      document.getElementById('dashHomeScreen').style.display='none';
-      const ts=document.getElementById('dashToolScreen');
-      ts.style.display='block';
-      ts.innerHTML=buildATSView();
-      document.querySelectorAll('.d-tab').forEach((t,i)=>{t.classList.toggle('active',i===1);});
-    }else{
-      goTo('atsView');
-    }
+    goTo('atsView');
     return;
   }
   document.getElementById('dashHomeScreen').style.display='none';
