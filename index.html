@@ -389,7 +389,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
 .lo-btn{padding:12px 28px;background:var(--blue-btn);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
 @media(max-width:768px){
-  .nav-links,.nav-actions .btn-ghost{display:none;}
+  .nav-actions .btn-ghost{display:none;}
   .hero h1{font-size:42px;}
   .tools-grid,.home-tools,.tf-grid,.sc-sections,.mr-row,.job-3btns,.plans-row{grid-template-columns:1fr;}
   .how-steps{grid-template-columns:1fr 1fr;}
@@ -745,7 +745,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);ov
         <div class="logo-text" style="font-size:15px;"><span class="j">Jobs</span><span class="s">Signal</span></div>
       </div>
       <div class="dash-tabs">
-        <div class="d-tab" onclick="goTo('dashView')">← Dashboard</div>
+        <div class="d-tab" id="atsDashBtn" style="display:none;" onclick="goTo('dashView')">← Dashboard</div>
         <div class="d-tab active">📊 ATS Checker</div>
       </div>
     </div>
@@ -897,11 +897,20 @@ function goTo(viewId){
   // Floating upgrade
   const fu=document.getElementById('floatUpgrade');
   if(fu)fu.classList.toggle('visible', viewId!=='landingView'&&!isPaid&&currentUser.phone);
+  // Show Dashboard button only if logged in
+  const dashBtn=document.getElementById('atsDashBtn');
+  if(dashBtn){
+    dashBtn.style.display=(viewId==='atsView'&&currentUser.phone)?'flex':'none';
+  }
 }
 
 function scrollTo(id){
   const el=document.getElementById(id);
-  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  if(el){
+    setTimeout(()=>{
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    }, 100);
+  }
 }
 
 function navToTool(tool){
