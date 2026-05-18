@@ -189,11 +189,11 @@ img{max-width:100%;display:block;}
 .home-welcome{margin-bottom:24px;}
 .home-welcome h2{font-size:22px;font-weight:800;margin-bottom:4px;}
 .home-welcome p{font-size:13px;color:var(--soft);}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
-.tool-tile{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .18s;position:relative;}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.tool-tile{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .18s;position:relative;}
 .tool-tile:hover:not(.locked){border-color:var(--amber);transform:translateY(-1px);}
 .tool-tile.locked{opacity:.55;cursor:not-allowed;}
-.tool-tile .tt-icon{font-size:26px;margin-bottom:10px;}
+.tool-tile .tt-icon{font-size:22px;margin-bottom:7px;}
 .tool-tile .tt-name{font-size:14px;font-weight:700;margin-bottom:4px;}
 .tool-tile .tt-desc{font-size:11px;color:var(--soft);line-height:1.4;}
 .tool-tile .tt-free{font-size:10px;font-weight:700;color:var(--green);background:rgba(22,163,74,.1);padding:2px 7px;border-radius:6px;display:inline-block;margin-top:8px;}
@@ -724,19 +724,16 @@ img{max-width:100%;display:block;}
   </div>
 
   <!-- ── HOME TAB ────────────────────────────────────── -->
-  <div class="tab-panel active" id="tab-home">
-    <div class="home-welcome" style="margin-bottom:14px;">
-      <h2 id="homeGreet" style="font-size:18px;">Hi there 👋</h2>
-      <p style="font-size:12px;">What are you looking for today?</p>
+  <div class="tab-panel active" id="tab-home" style="padding-top:12px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <h2 id="homeGreet" style="font-size:16px;font-weight:800;">Hi there 👋</h2>
+      <span style="font-size:11px;color:var(--soft);">What are you looking for?</span>
     </div>
 
     <!-- Upgrade banner (free users) -->
-    <div class="upgrade-banner" id="upgradeBanner" style="display:none;padding:14px 16px;margin-bottom:14px;">
-      <div>
-        <h3 style="font-size:13px;">Unlock All Career Tools</h3>
-        <p style="font-size:11px;">Walk-ins · Salary · Moonlighting · Jobs</p>
-      </div>
-      <button class="btn-upgrade-banner" style="padding:8px 14px;font-size:12px;" onclick="showUpgradeModal()">Upgrade ₹99 →</button>
+    <div id="upgradeBanner" style="display:none;background:linear-gradient(135deg,var(--teal) 0%,#0d4040 100%);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:10px;display:none;align-items:center;justify-content:space-between;gap:8px;">
+      <div style="font-size:12px;color:#fff;font-weight:700;">🔒 Unlock all tools</div>
+      <button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;">Upgrade ₹99</button>
     </div>
 
     <!-- Tool grid -->
@@ -1077,8 +1074,8 @@ img{max-width:100%;display:block;}
     <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
       <label style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Filter by Company Programme</label>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <select id="progFilter" onchange="filterProgs(this.value)" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
-          <option value="all">All Companies (12)</option>
+        <select id="progFilter" onchange="onProgSelect(this.value)" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
+          <option value="all">All Companies (12) — select to filter &amp; find jobs</option>
           <option value="TCS">TCS — Rebegin</option>
           <option value="Infosys">Infosys — Restart</option>
           <option value="Accenture">Accenture — Recharge</option>
@@ -1092,7 +1089,7 @@ img{max-width:100%;display:block;}
           <option value="Microsoft">Microsoft — JUMP</option>
           <option value="Dell">Dell — Reconnect</option>
         </select>
-        <button onclick="findProgJobs(document.getElementById('progFilter').value==='all'?'returnship women India':document.getElementById('progFilter').value+' returnship women')" style="background:var(--teal);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;">Find Jobs →</button>
+        <div style="font-size:11px;color:var(--soft);padding:0 4px;">Select company → auto-finds jobs</div>
       </div>
     </div>
 
@@ -1759,9 +1756,61 @@ function scoreResume(text){
   var skills=skillKw.filter(function(s){return t.includes(s);}).slice(0,8);
   if(skills.length===0)skills=['Professional Skills'];
   // Role
-  var roleMap=[['qa automation','QA Automation Engineer'],['automation engineer','QA Automation Engineer'],['sdet','SDET Engineer'],['quality assurance','QA Engineer'],['selenium','Test Automation Engineer'],['talent acquisition','Talent Acquisition Specialist'],['vp delivery','VP Delivery'],['delivery head','Delivery Head'],['it staffing','IT Staffing Manager'],['data scien','Data Scientist'],['machine learning','ML Engineer'],['react','React Developer'],['node.js','Node.js Developer'],['python','Python Developer'],['java developer','Java Developer'],['devops','DevOps Engineer'],['android','Android Developer'],['flutter','Flutter Developer'],['product manag','Product Manager'],['sales','Sales Manager'],['marketing','Marketing Manager'],['hr manager','HR Manager']];
-  var role='Software Engineer';
-  for(var i=0;i<roleMap.length;i++){if(t.includes(roleMap[i][0])){role=roleMap[i][1];break;}}
+  // Role detection: SPECIFIC before GENERIC. DevOps as tool ≠ DevOps role.
+  var roleMap=[
+    // UI / Frontend
+    ['ui developer','UI Developer'],['ui/ux developer','UI/UX Developer'],
+    ['frontend developer','Frontend Developer'],['front-end developer','Frontend Developer'],
+    ['front end developer','Frontend Developer'],['full stack developer','Full Stack Developer'],
+    // Digital / CX leadership
+    ['digital experience operations','Digital Experience Operations Leader'],
+    ['customer experience operations','CX Operations Manager'],
+    ['digital experience','Digital Experience Manager'],
+    ['customer experience manager','Customer Experience Manager'],
+    ['digital marketing operations','Digital Marketing Manager'],
+    ['web experience manager','Web Experience Manager'],
+    // Leadership
+    ['assistant director','Assistant Director'],['associate director','Associate Director'],
+    ['vp delivery','VP Delivery'],['delivery head','Delivery Head'],
+    ['senior manager','Senior Manager'],
+    // QA / Testing (before generic selenium/automation)
+    ['qa automation','QA Automation Engineer'],['test automation','Test Automation Engineer'],
+    ['automation engineer','Automation Engineer'],['sdet','SDET Engineer'],
+    ['quality assurance','QA Engineer'],['selenium','Test Automation Engineer'],
+    // Specific tech roles with "developer" keyword
+    ['angular developer','Angular Developer'],['angular js developer','Angular Developer'],
+    ['react js developer','React JS Developer'],['react developer','React Developer'],
+    ['node.js developer','Node.js Developer'],['python developer','Python Developer'],
+    ['java developer','Java Developer'],['android developer','Android Developer'],
+    ['flutter developer','Flutter Developer'],['ios developer','iOS Developer'],
+    // DevOps ONLY as explicit job role (not Azure DevOps tool)
+    ['devops engineer','DevOps Engineer'],['devops lead','DevOps Lead'],
+    // Data / AI
+    ['data scientist','Data Scientist'],['data analyst','Data Analyst'],
+    ['machine learning engineer','ML Engineer'],['machine learning','ML Engineer'],
+    ['data scien','Data Scientist'],
+    // Product / Management
+    ['product manager','Product Manager'],['product management','Product Manager'],
+    ['project manager','Project Manager'],
+    // HR / TA
+    ['talent acquisition','Talent Acquisition Specialist'],
+    ['it staffing','IT Staffing Specialist'],['hr manager','HR Manager'],
+    // Marketing / Content
+    ['digital marketing','Digital Marketing Manager'],
+    ['content strateg','Content Strategist'],['seo manager','SEO Manager'],
+    ['sales manager','Sales Manager'],['marketing manager','Marketing Manager'],
+    // Generic tech fallbacks — LAST (only if no specific role found above)
+    ['python','Python Developer'],['angular','Angular Developer'],
+    ['react','React Developer'],['java','Java Developer'],
+    ['node','Node.js Developer'],['sql','Database Developer']
+  ];
+  var role='Software Professional';
+  for(var i=0;i<roleMap.length;i++){
+    var kw=roleMap[i][0];
+    // Skip 'devops' standalone if it's clearly a tool context (azure devops, etc)
+    if(kw==='devops'&&(t.includes('azure devops')||t.includes('devops tools')||t.includes('devops platform'))){continue;}
+    if(t.includes(kw)){role=roleMap[i][1];break;}
+  }
   // Location
   var locMap=[['hyderabad','Hyderabad'],['bangalore','Bengaluru'],['bengaluru','Bengaluru'],['mumbai','Mumbai'],['delhi','Delhi NCR'],['chennai','Chennai'],['pune','Pune'],['noida','Noida'],['gurgaon','Gurgaon'],['kolkata','Kolkata']];
   var loc='';for(var j=0;j<locMap.length;j++){if(t.includes(locMap[j][0])){loc=locMap[j][1];break;}}
@@ -2068,10 +2117,14 @@ function runWalkIn(){
   fetchGoogleJobs(q,city,exp,el,'walkin');
   // LinkedIn links
   var lq=encodeURIComponent('"'+skill+'" "walk-in" OR "walkin" '+city+(area?' '+area:''));
-  el.insertAdjacentHTML('afterend','<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">'
-    +'<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city)+'" target="_blank" class="prog-btn jobs">💼 LinkedIn Jobs ↗</a>'
-    +'<a href="https://www.linkedin.com/search/results/content/?keywords='+lq+'&datePosted=%22past-week%22" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>'
-    +'</div>');
+  // Remove old LinkedIn buttons before adding new ones
+  var oldBtns=el.nextElementSibling;
+  if(oldBtns&&oldBtns.classList.contains('li-btn-row'))oldBtns.remove();
+  var btnDiv=document.createElement('div');
+  btnDiv.className='li-btn-row';btnDiv.style.cssText='display:flex;gap:8px;margin-top:10px;flex-wrap:wrap';
+  btnDiv.innerHTML='<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city)+'" target="_blank" class="prog-btn jobs">💼 LinkedIn Jobs ↗</a>'
+    +'<a href="https://www.linkedin.com/search/results/content/?keywords='+lq+'&datePosted=%22past-week%22" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>';
+  el.insertAdjacentElement('afterend',btnDiv);
 }
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
@@ -2300,15 +2353,13 @@ function runWomenSearch(){
   if(!skill){showToast('Enter a skill or role','amber');return;}
   var el=document.getElementById('womenResults');if(!el)return;
   fetchGoogleJobs(skill+' returnship women',city,exp,el,'women');
-  // LinkedIn links
-  var lq=encodeURIComponent('"'+skill+'" returnship OR "women returner" OR "career break" '+city);
-  setTimeout(function(){
-    if(el.nextElementSibling&&el.nextElementSibling.className==='prog-btns')return;
-    el.insertAdjacentHTML('afterend','<div class="prog-btns" style="margin-top:10px">'
-      +'<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women')+'" target="_blank" class="prog-btn apply">💼 LinkedIn Jobs ↗</a>'
-      +'<a href="https://www.linkedin.com/search/results/content/?keywords='+lq+'" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>'
-      +'</div>');
-  },500);
+  // LinkedIn links — remove old before adding new
+  var _oldWr=document.getElementById('wrLiLinks');if(_oldWr)_oldWr.remove();
+  var _wDiv=document.createElement('div');_wDiv.id='wrLiLinks';
+  _wDiv.style.cssText='display:flex;gap:8px;margin-top:10px;flex-wrap:wrap';
+  _wDiv.innerHTML='<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women')+'" target="_blank" class="prog-btn apply">💼 LinkedIn Jobs ↗</a>'
+    +'<a href="https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>';
+  el.insertAdjacentElement('afterend',_wDiv);
 }
 
 
@@ -2550,6 +2601,19 @@ function filterProgs(co){
   document.querySelectorAll('.prog-card').forEach(function(card){
     card.style.display=(co==='all'||card.getAttribute('data-co')===co)?'block':'none';
   });
+}
+function onProgSelect(co){
+  filterProgs(co);
+  if(co!=='all'){
+    // Auto find jobs for selected company
+    if(!isPaidUser()){showUpgradeModal();return;}
+    var q=co+' returnship women India jobs';
+    var el=document.getElementById('womenResults');
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+      fetchGoogleJobs(q,'India','',el,'women');
+    }
+  }
 }
 </script>
 
