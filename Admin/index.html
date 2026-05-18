@@ -128,6 +128,84 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
+// ── STATS ─────────────────────────────────────────────
+var statsData={visitors:0,free:0,paid:0};
+
+async function loadStats(){
+  try{
+    // Visitor count
+    var vr=await fetch(FB_DB+'/stats/visitors.json');
+    var vd=await vr.json();
+    statsData.visitors=vd?Object.keys(vd).length:0;
+    // Users
+    var ur=await fetch(FB_DB+'/users.json');
+    var ud=await ur.json();
+    var users=ud?Object.keys(ud).length:0;
+    // Plans (paid)
+    var pr=await fetch(FB_DB+'/plans.json');
+    var pd=await pr.json();
+    var paidCount=0;var paidUsers=[];
+    if(pd){
+      Object.entries(pd).forEach(function(e){
+        var plan=e[1];
+        var now=new Date();var exp=plan&&plan.expiry?new Date(plan.expiry):null;if(exp&&exp>now){
+          paidCount++;
+          var phone=e[0];
+          var userInfo=(ud&&ud[phone])||{};
+          paidUsers.push({phone:phone,name:userInfo.name||'—',email:userInfo.email||'—',expiry:plan.expiry,txnId:plan.txnId||'—'});
+        }
+      });
+    }
+    statsData.free=users-paidCount;
+    statsData.paid=paidCount;
+    renderStats(paidUsers);
+  }catch(e){console.error('Stats load error',e);}
+}
+
+function renderStats(paidUsers){
+  var el=document.getElementById('statsCards');
+  if(el)el.innerHTML=
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px">'
+    +'<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;text-align:center">'
+    +'<div style="font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Website Visitors</div>'
+    +'<div style="font-size:32px;font-weight:900;color:#0f1117">'+statsData.visitors+'</div></div>'
+    +'<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;text-align:center">'
+    +'<div style="font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Free Users</div>'
+    +'<div style="font-size:32px;font-weight:900;color:#1a6b6b">'+statsData.free+'</div></div>'
+    +'<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;text-align:center">'
+    +'<div style="font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Paid Users</div>'
+    +'<div style="font-size:32px;font-weight:900;color:#e8943a">'+statsData.paid+'</div></div>'
+    +'</div>';
+
+  // Paid users table
+  var pt=document.getElementById('paidTable');
+  if(!pt)return;
+  if(!paidUsers.length){pt.innerHTML='<div style="text-align:center;padding:20px;color:#6b7280;font-size:13px">No active paid users</div>';return;}
+  pt.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:12px">'
+    +'<thead><tr style="background:#f9fafb">'
+    +'<th style="padding:10px;text-align:left;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">#</th>'
+    +'<th style="padding:10px;text-align:left;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Name</th>'
+    +'<th style="padding:10px;text-align:left;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Phone</th>'
+    +'<th style="padding:10px;text-align:left;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Email</th>'
+    +'<th style="padding:10px;text-align:left;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Expires</th>'
+    +'<th style="padding:10px;text-align:center;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Delete</th>'
+    +'<th style="padding:10px;text-align:center;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb">Block</th>'
+    +'</tr></thead><tbody>'
+    +paidUsers.map(function(u,i){
+      var exp=u.expiry?new Date(u.expiry).toLocaleDateString('en-IN'):'—';
+      return '<tr style="border-bottom:1px solid #f3f4f6">'
+        +'<td style="padding:10px;color:#9ca3af">'+(i+1)+'</td>'
+        +'<td style="padding:10px;font-weight:600">'+esc(u.name)+'</td>'
+        +'<td style="padding:10px">'+esc(u.phone)+'</td>'
+        +'<td style="padding:10px;color:#6b7280">'+esc(u.email)+'</td>'
+        +'<td style="padding:10px;color:#6b7280">'+exp+'</td>'
+        +'<td style="padding:10px;text-align:center"><button onclick="deleteUser(this)" data-phone="'+esc(u.phone)+'" style="background:#ef4444;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">Delete</button></td>'
+        +'<td style="padding:10px;text-align:center"><button onclick="toggleBlock(this)" data-phone="'+esc(u.phone)+'" data-blocked="false" style="background:#6b7280;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">Block</button></td>'
+        +'</tr>';
+    }).join('')
+    +'</tbody></table>';
+}
+
 const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
 const ADMIN_USER='admin', ADMIN_PASS='admin@123';
 const AUTH_KEY='js_admin_auth_v2';
