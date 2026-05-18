@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <style>
 /* ═══ RESET + TOKENS ═══════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -362,7 +363,27 @@ img{max-width:100%;display:block;}
   .tools-grid{grid-template-columns:1fr;}
   .pricing-grid{grid-template-columns:1fr;}
   .form-row{flex-direction:column;}
-  .hero-stats{gap:20px;}
+  .hero-stats{gap:16px;}
+  .hero-grid{grid-template-columns:1fr !important;gap:24px !important;}
+  .hero-grid>div:last-child{grid-template-columns:1fr 1fr !important;gap:8px !important;}
+  .hero h1{font-size:32px !important;}
+  .hero-ctas{flex-direction:column;}
+  .hero-ctas .btn-primary,.hero-ctas .btn-secondary{width:100%;text-align:center;}
+  .tool-card{padding:16px !important;}
+  .tool-name{font-size:14px !important;}
+  .tool-desc{font-size:11px !important;}
+  .tab-btn{padding:10px 10px;font-size:11px;}
+  .dash-user{display:none;}
+  .salary-labels{grid-template-columns:repeat(3,1fr);}
+  .ats-cat-label{width:70px !important;font-size:10px !important;}
+}
+@media(max-width:480px){
+  .hero-grid>div:last-child{grid-template-columns:1fr !important;}
+  .tool-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:28px !important;}
+  .hero-stats{flex-wrap:wrap;justify-content:center;gap:12px;}
+  .tab-btn{padding:8px 8px;font-size:10px;}
+  .ats-actions{flex-direction:column;}
 }
 @media(max-width:480px){
   .tool-grid{grid-template-columns:1fr 1fr;}
@@ -382,12 +403,7 @@ img{max-width:100%;display:block;}
 
   <!-- Nav -->
   <nav class="top-nav">
-    <div class="nav-logo" onclick="goTo('landingView')" style="cursor:pointer"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
-  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
-  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
-  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>Jobs<span>Signal</span></div>
+    <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
     <div class="nav-links">
       <button class="nav-btn outline" onclick="goTo('loginView')">Log In</button>
       <button class="nav-btn solid" onclick="goTo('signupView')">Sign Up Free</button>
@@ -398,7 +414,7 @@ img{max-width:100%;display:block;}
 
     <!-- SECTION 1: HERO ────────────────────────── -->
     <section class="hero" style="padding:60px 24px 56px;min-height:90vh;display:flex;align-items:center;">
-      <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;">
+      <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;" class="hero-grid">
 
         <!-- Left: copy -->
         <div>
@@ -548,12 +564,7 @@ img{max-width:100%;display:block;}
   <div class="auth-wrap">
     <div style="position:absolute;top:16px;left:16px;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
     <div class="auth-card">
-      <div class="auth-logo" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
-  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
-  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
-  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>Jobs<span>Signal</span></div>
+      <div class="auth-logo"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.5"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg></div>
       <div class="auth-sub">India's smartest job finder</div>
       <div class="auth-title">Welcome back</div>
       <p style="font-size:13px;color:var(--soft);text-align:center;margin:4px 0 24px">Enter your registered mobile number</p>
@@ -573,12 +584,7 @@ img{max-width:100%;display:block;}
   <div style="position:absolute;top:16px;left:16px;z-index:10;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
   <div class="auth-wrap">
     <div class="auth-card">
-      <div class="auth-logo" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
-  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
-  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
-  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>Jobs<span>Signal</span></div>
+      <div class="auth-logo"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.5"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg></div>
       <div class="auth-sub">Create your free account</div>
       <div class="step-dots">
         <div class="step-dot active" id="sdot0"></div>
@@ -670,12 +676,7 @@ img{max-width:100%;display:block;}
 
   <!-- Top bar -->
   <div class="dash-top">
-    <div class="dash-logo" onclick="switchTab('home')" style="display:flex;align-items:center;gap:8px;"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle cx="14" cy="14" r="13" fill="#e8943a"/>
-  <circle cx="14" cy="14" r="7" stroke="#fff" stroke-width="2" fill="none"/>
-  <circle cx="14" cy="14" r="2.5" fill="#fff"/>
-  <line x1="19" y1="9" x2="23" y2="5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>Jobs<span>Signal</span></div>
+    <div <div onclick="switchTab('home')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#ffffff">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
     <div class="dash-top-right">
       <span class="dash-user" id="dashUserName"></span>
       <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('/admin/','_blank')">🔑 Admin</span>
@@ -740,8 +741,14 @@ img{max-width:100%;display:block;}
       <div class="tool-tile" onclick="switchTab('women')">
         <div class="tt-icon">👩</div>
         <div class="tt-name">Women Returnship</div>
-        <div class="tt-desc">6 programmes + Jobs</div>
-        <span class="tt-free">Free</span>
+        <div class="tt-desc">6 programmes (Free) + Jobs (Paid)</div>
+        <span class="tt-free">Partial Free</span>
+      </div>
+      <div class="tool-tile" id="tt-fresher" onclick="tileClick('fresher')">
+        <div class="tt-lock" id="tl-fresher">🔒</div>
+        <div class="tt-icon">🎓</div>
+        <div class="tt-name">Freshers</div>
+        <div class="tt-desc">Campus drives · Internships</div>
       </div>
     </div>
 
@@ -900,6 +907,7 @@ img{max-width:100%;display:block;}
   <div class="tab-panel" id="tab-salary">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">💰 Salary Tools</h2>
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Live salary data · CTC calculator · Hike negotiation · Offer analyser</p>
+    <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Upgrade to ₹99/month to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
 
     <!-- CTC Calculator -->
     <div class="search-form" style="margin-bottom:16px">
@@ -1218,7 +1226,7 @@ function goTo(id){
     showView('atsPublic');return;
   }
   var hashId=id==='dashView'?'dashboard':id;
-  history.pushState({view:id},'','#'+hashId);
+  try{history.pushState({view:id},'','#'+hashId);}catch(_e){}
   showView(id);
 }
 window.addEventListener('popstate',function(e){
@@ -1243,7 +1251,7 @@ window.addEventListener('popstate',function(e){
 // ── TAB SWITCHER ──────────────────────────────────────────────────
 function switchTab(tab,skipHistory){
   if(!skipHistory){
-    history.pushState({view:'dashView',tab:tab},'','#dashboard-'+tab);
+    try{history.pushState({view:'dashView',tab:tab},'','#dashboard-'+tab);}catch(_e){}
   }
   var dashEl=document.getElementById('dashView');
   if(dashEl)dashEl.classList.add('active');
@@ -1301,13 +1309,17 @@ async function suNext(dir){
     if(!n){showToast('Enter your name','amber');return;}
     if(p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
     if(!s){showToast('Enter your skill / job title','amber');return;}
-    // Check already registered
+    // Block superuser number + check already registered
     var phone10=p.slice(-10);
+    var errEl=document.getElementById('suErr');
+    if(phone10===SUPER){
+      if(errEl){errEl.textContent='This number cannot be used for registration. Please use a different number.';errEl.style.display='block';}
+      showToast('Use a different number','amber');return;
+    }
     try{
       var chk=await fetch(FB_DB+'/phones/'+phone10+'.json');
       var chkd=await chk.json();
       if(chkd&&chkd.phone){
-        var errEl=document.getElementById('suErr');
         if(errEl){errEl.textContent='This number is already registered. Please log in instead.';errEl.style.display='block';}
         showToast('Already registered — please log in','amber');
         return;
@@ -1376,6 +1388,7 @@ function buildDash(user,paid){
   if(gr)gr.textContent='Hi '+((user.name||'').split(' ')[0]||'there')+' 👋';
   // Tool tiles - lock state
   var locks=['walkin','salary','moonlight','fresher'];
+  var slb=document.getElementById('salaryLockBanner');if(slb)slb.style.display=isPaidUser()?'none':'flex';
   locks.forEach(function(k){
     var tile=document.getElementById('tt-'+k);
     var lck=document.getElementById('tl-'+k);
@@ -1406,7 +1419,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // Restore session
   try{
     var raw=localStorage.getItem(S_USER);
-    var hash=window.location.hash.replace('#','');
+    var hash='';try{hash=window.location.hash.replace('#','');}catch(_he){}
     if(!raw){
       if(hash==='ats'){showView('atsPublic');return;}
       if(hash&&hash!=='landingView'&&hash!=='dashboard'){
@@ -1521,6 +1534,24 @@ function handleATSFile(input){
         if(st)st.textContent='PDF.js not loaded — paste text below';
         showToast('Paste resume text below','amber');
       }
+    }else if(ext==='docx'){
+      // Use mammoth.js for DOCX parsing
+      if(typeof mammoth!=='undefined'){
+        mammoth.extractRawText({arrayBuffer:e.target.result})
+          .then(function(result){
+            var txt=result.value||'';
+            atsResumeText=txt;
+            if(ta)ta.value=txt;
+            if(st){st.textContent='✅ DOCX parsed: '+file.name.slice(0,25);st.style.display='block';}
+            showToast('DOCX text extracted — click Check Score','green');
+          }).catch(function(){
+            if(st)st.textContent='DOCX parse failed — paste text below';
+            showToast('Could not read DOCX — paste resume text below','amber');
+          });
+      }else{
+        if(st)st.textContent='Paste resume text below';
+        showToast('Please paste your resume text in the box below','amber');
+      }
     }else{
       var txt=e.target.result;
       atsResumeText=txt;
@@ -1528,7 +1559,7 @@ function handleATSFile(input){
       if(st){st.textContent='✅ File loaded: '+file.name.slice(0,25);st.style.display='block';}
     }
   };
-  if(ext==='pdf')reader.readAsDataURL(file);else reader.readAsText(file);
+  if(ext==='pdf')reader.readAsDataURL(file);else if(ext==='docx')reader.readAsArrayBuffer(file);else reader.readAsText(file);
 }
 
 // ── ATS: SCORING ─────────────────────────────────────────────────
@@ -1822,44 +1853,71 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
   else if(mode==='moonlight')modeKw=' freelance remote startup flexible';
   else if(mode==='fresher')modeKw=' fresher intern entry-level';
   var q='"'+skill+'" '+city+(expStr?' '+expStr:'')+modeKw;
+  // 2-hour localStorage cache — saves API quota
+  var CACHE_TTL=2*60*60*1000; // 2 hours in ms
+  var cacheKey='js_gjcache_'+encodeURIComponent(q.slice(0,40)+'_'+mode).replace(/[^a-zA-Z0-9_]/g,'').slice(0,60);
+  try{
+    var cached=localStorage.getItem(cacheKey);
+    if(cached){
+      var cdata=JSON.parse(cached);
+      var age=Date.now()-(cdata.ts||0);
+      if(age<CACHE_TTL&&cdata.data&&cdata.data.length>0){
+        var cachedJobs=cdata.data;
+        var minsLeft=Math.round((CACHE_TTL-age)/60000);
+        var refreshBtn='<button onclick="clearAllJobCache()" style="background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;font-size:10px;color:var(--soft);cursor:pointer;">↻ Refresh</button>';
+        el.innerHTML='<div class="gj-count" style="display:flex;justify-content:space-between;align-items:center;"><span>'+cachedJobs.length+' jobs (cached · '+minsLeft+'min left)</span>'+refreshBtn+'</div>';
+        // Apply client filters + render cached results
+        renderJobCards(cachedJobs,el,mode);
+        return;
+      }
+    }
+  }catch(_ce){}
   fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=2&date_posted=all&country=in',{
     headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
   }).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(data){
     var jobs=data.data||[];
+    try{localStorage.setItem(cacheKey,JSON.stringify({data:jobs,ts:Date.now()}));}catch(_e){}
     if(!jobs.length){
       el.innerHTML='<div class="az-empty">No jobs found for <strong>'+skill+'</strong> in <strong>'+city+'</strong>.<br><small>Try a shorter skill name or different city.</small></div>';
       return;
     }
+    // Filter for fresher mode: remove senior/experienced roles
+    if(mode==='fresher'){
+      jobs=jobs.filter(function(j){
+        var t=(j.job_title||'').toLowerCase();
+        var d=(j.job_description||'').toLowerCase().slice(0,200);
+        var isSenior=/senior|lead|manager|architect|principal|head|director|vp |5\+|6\+|7\+|8\+|10\+|12\+/.test(t);
+        return !isSenior;
+      });
+    }
+    // Filter for women mode: boost relevancy
+    if(mode==='women'){
+      var femaleJobs=jobs.filter(function(j){
+        var t=((j.job_title||'')+(j.job_description||'')).toLowerCase();
+        return /women|female|returnship|career break|maternity|flexible|remote/.test(t);
+      });
+      if(femaleJobs.length>=3)jobs=femaleJobs;
+    }
     var h='<div class="gj-count">'+jobs.length+' jobs via Google Jobs</div>';
-    jobs.slice(0,20).forEach(function(j){
-      var en=(j.employer_name||'Co').charAt(0).toUpperCase();
-      var badge='<div class="gj-badge">'+en+'</div>';
-      var logo=j.employer_logo
-        ?'<img src="'+j.employer_logo+'" class="gj-logo-img" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'+badge.replace('class="gj-badge"','class="gj-badge" style="display:none"')
-        :badge;
-      var url=j.job_apply_link||j.job_google_link||'#';
-      var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
-      var sal=j.job_min_salary&&j.job_max_salary?'₹'+Math.round(j.job_min_salary/100000)+'L–'+Math.round(j.job_max_salary/100000)+'L':'';
-      var ct=catTags(j);
-      h+='<a class="gj-card" href="'+url+'" target="_blank" rel="noopener">'
-        +'<div class="gj-top"><div class="gj-logo">'+logo+'</div>'
-        +'<div class="gj-info"><div class="gj-title">'+(j.job_title||'Job Opening')+'</div>'
-        +'<div class="gj-company">'+(j.employer_name||'')+'&nbsp;·&nbsp;'+(j.job_city||city)+', '+(j.job_state||'India')+'</div>'
-        +'</div></div>'
-        +'<div class="gj-tags">'
-        +(j.job_employment_type?'<span class="gj-tag type">'+j.job_employment_type+'</span>':'')
-        +(posted?'<span class="gj-tag time">'+posted+'</span>':'')
-        +(sal?'<span class="gj-tag salary">'+sal+'</span>':'')
-        +'<span class="gj-tag source">via '+(j.job_publisher||'Google')+'</span>'
-        +'</div>'
-        +(ct?'<div class="gj-cat-tags">'+ct+'</div>':'')
-        +(j.job_description?'<div class="gj-desc">'+j.job_description.replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
-        +'</a>';
-    });
-    el.innerHTML=h;
+    // renderJobCards handles card display
   }).catch(function(e){
-    el.innerHTML='<div class="az-empty">Search failed: '+e+'<br><a href="https://www.google.com/search?q='+encodeURIComponent(skill+' jobs '+city)+'" target="_blank" style="color:var(--amber);font-weight:700">Try on Google ↗</a></div>';
+    var is429=String(e).includes('429')||String(e).includes('Too Many');
+    var msg=is429
+      ?'⏳ Search quota reached — try again in a minute'
+      :'Search unavailable — try these directly:';
+    var gg='https://www.google.com/search?q='+encodeURIComponent('"'+skill+'" jobs '+city+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
+    var lj='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city);
+    var nk='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/ /g,'-'));
+    el.innerHTML='<div class="az-empty" style="text-align:center;padding:24px">'
+      +'<div style="font-size:24px;margin-bottom:10px">'+(is429?'⏳':'⚠️')+'</div>'
+      +'<div style="font-weight:700;margin-bottom:6px">'+msg+'</div>'
+      +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px">'
+      +'<a href="'+gg+'" target="_blank" style="background:var(--amber);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Google Jobs ↗</a>'
+      +'<a href="'+lj+'" target="_blank" style="background:#0077b5;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">💼 LinkedIn Jobs ↗</a>'
+      +'<a href="https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' hiring')+'&datePosted=%22past-week%22" target="_blank" style="background:#0a66c2;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">📝 LinkedIn Posts ↗</a>'
+      +'<a href="'+nk+'" target="_blank" style="background:#ff7555;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Naukri ↗</a>'
+      +'</div></div>';
   });
 }
 
@@ -1884,6 +1942,7 @@ function runWalkIn(){
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
 function runSalaryRange(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('sal_skill')||{value:''}).value.trim();
   var city=(document.getElementById('sal_city')||{value:''}).value;
   var exp=(document.getElementById('sal_exp')||{value:''}).value;
@@ -1891,6 +1950,27 @@ function runSalaryRange(){
   var el=document.getElementById('salaryRangeResult');if(!el)return;
   el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching salary data...</div>';
   var q='"'+skill+'" '+(city||'India')+' salary';
+  // 2-hour localStorage cache — saves API quota
+  var CACHE_TTL=2*60*60*1000; // 2 hours in ms
+  var cacheKey='js_gjcache_'+encodeURIComponent(q.slice(0,40)+'_'+mode).replace(/[^a-zA-Z0-9_]/g,'').slice(0,60);
+  try{
+    var cached=localStorage.getItem(cacheKey);
+    if(cached){
+      var cdata=JSON.parse(cached);
+      var age=Date.now()-(cdata.ts||0);
+      if(age<CACHE_TTL&&cdata.data&&cdata.data.length>0){
+        var cachedJobs=cdata.data;
+        var minsLeft=Math.round((CACHE_TTL-age)/60000);
+        el.innerHTML='<div class="gj-count" style="display:flex;justify-content:space-between;align-items:center;">'
+          +'<span>'+cachedJobs.length+' jobs (cached · refreshes in '+minsLeft+'min)</span>'
+          +"<button onclick=\"clearAllJobCache()\" style=\"font-size:10px;background:none;border:1px solid #e5e1d8;border-radius:5px;padding:1px 7px;color:#6b7280;cursor:pointer\">Refresh</button>"
+          +'</div>';
+        // Apply client filters + render cached results
+        renderJobCards(cachedJobs,el,mode);
+        return;
+      }
+    }
+  }catch(_ce){}
   fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=2&date_posted=all&country=in',{
     headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
   }).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
@@ -2005,6 +2085,7 @@ async function enhanceOfferWithAI(){
 
 // ── MOONLIGHTING ──────────────────────────────────────────────────
 function runContractAnalysis(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('contractText')||{value:''}).value.trim();
   if(txt.length<30){showToast('Paste your employment contract text first','amber');return;}
   var t=txt.toLowerCase();
@@ -2068,6 +2149,7 @@ function runMoonJobs(){
 
 // ── WOMEN RETURNSHIP ──────────────────────────────────────────────
 function findProgJobs(query){
+  if(!isPaidUser()){showUpgradeModal();return;}
   switchTab('women');
   var el=document.getElementById('womenResults');if(!el)return;
   var city=(currentUser&&currentUser.city)||'India';
@@ -2076,6 +2158,7 @@ function findProgJobs(query){
 }
 
 function runWomenSearch(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('wr_skill')||{value:''}).value.trim();
   var city=(document.getElementById('wr_city')||{value:''}).value||'India';
   var exp=(document.getElementById('wr_exp')||{value:''}).value;
@@ -2096,6 +2179,7 @@ function runWomenSearch(){
 
 // ── SALARY CALCULATORS ──────────────────────────────
 function calcCTC(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var ctc=parseFloat(document.getElementById('ctc_amount').value)||0;
   var regime=document.getElementById('ctc_regime').value;
   if(!ctc||ctc<100000){showToast('Enter annual CTC (minimum ₹1 lakh)','amber');return;}
@@ -2137,6 +2221,7 @@ function calcCTC(){
 }
 
 function calcHike(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var cur=parseFloat(document.getElementById('hike_current').value)||0;
   var pct=parseFloat(document.getElementById('hike_pct').value)||0;
   if(!cur||cur<100000){showToast('Enter current CTC (minimum ₹1 lakh)','amber');return;}
@@ -2158,6 +2243,7 @@ function calcHike(){
 }
 
 function calcCityCompare(){
+  if(!isPaidUser()){showUpgradeModal();return;}
   var ctc=parseFloat(document.getElementById('city_ctc').value)||0;
   var from=document.getElementById('city_from').value;
   var to=document.getElementById('city_to').value;
@@ -2216,6 +2302,79 @@ function openFresherPosts(){
   var s=window._fresherSkill||'intern';
   var q=s+' fresher intern campus hiring';
   window.open('https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(q)+'&datePosted=%22past-month%22','_blank');
+}
+
+// ── JOB CACHE HELPERS ────────────────────────────────────
+function clearJobCache(key,btn){
+  try{localStorage.removeItem(key);}catch(e){}
+  if(btn){
+    var card=btn.closest('.gj-count');
+    if(card)card.innerHTML='<span>Refreshing...</span>';
+    // Re-trigger search
+    var tabPanel=btn.closest('.tab-panel');
+    var searchBtn=tabPanel?tabPanel.querySelector('.btn-search'):null;
+    if(searchBtn)searchBtn.click();
+  }
+}
+
+function clearAllJobCache(){
+  var keys=[];
+  try{for(var k in localStorage){if(k.startsWith('js_gjcache_'))keys.push(k);}
+  keys.forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+  showToast('Cache cleared — next search fetches fresh results','green');
+}
+
+function renderJobCards(jobs,el,mode){
+  // Client-side filters
+  if(mode==='fresher'){
+    jobs=jobs.filter(function(j){
+      var t=(j.job_title||'').toLowerCase();
+      return !/\b(senior|lead|manager|architect|principal|head|director|vp)\b|[5-9][0-9]\+\s*yr|1[0-9]\+/.test(t);
+    });
+  }
+  if(mode==='women'){
+    var rel=jobs.filter(function(j){
+      var txt=((j.job_title||'')+(j.job_description||'').slice(0,300)).toLowerCase();
+      return /women|female|returnship|career.?break|maternity|irace|rebegin|recharge|flexible/.test(txt);
+    });
+    if(rel.length>=3)jobs=rel;
+  }
+  if(!jobs.length){
+    var gq=el.querySelector('.gj-count');
+    var msg='<div class="az-empty" style="padding:16px;text-align:center">No relevant jobs found.<br><small style="color:var(--soft)">Try different keywords or city</small></div>';
+    if(gq)gq.insertAdjacentHTML('afterend',msg);else el.innerHTML+=msg;
+    return;
+  }
+  // Update count
+  var gq2=el.querySelector('.gj-count span, .gj-count');
+  if(gq2&&gq2.tagName==='SPAN')gq2.textContent=jobs.length+' jobs via Google Jobs';
+  var h='';
+  jobs.slice(0,20).forEach(function(j){
+    var en=(j.employer_name||'Co').charAt(0).toUpperCase();
+    var badge='<div class="gj-badge">'+en+'</div>';
+    var logo=j.employer_logo
+      ?'<img src="'+j.employer_logo+'" class="gj-logo-img" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'+badge.replace('class="gj-badge"','class="gj-badge" style="display:none"')
+      :badge;
+    var url=j.job_apply_link||j.job_google_link||'#';
+    var posted=j.job_posted_at_datetime_utc?timeSince(j.job_posted_at_datetime_utc):'';
+    var sal=j.job_min_salary&&j.job_max_salary?'₹'+Math.round(j.job_min_salary/100000)+'L–'+Math.round(j.job_max_salary/100000)+'L':'';
+    var ct=catTags(j);
+    h+='<a class="gj-card" href="'+url+'" target="_blank" rel="noopener">'
+      +'<div class="gj-top"><div class="gj-logo">'+logo+'</div>'
+      +'<div class="gj-info"><div class="gj-title">'+(j.job_title||'Job Opening')+'</div>'
+      +'<div class="gj-company">'+(j.employer_name||'')
+      +(j.job_city?'&nbsp;·&nbsp;'+j.job_city+', '+(j.job_state||'India'):'')
+      +'</div></div></div>'
+      +'<div class="gj-tags">'
+      +(j.job_employment_type?'<span class="gj-tag type">'+j.job_employment_type+'</span>':'')
+      +(posted?'<span class="gj-tag time">'+posted+'</span>':'')
+      +(sal?'<span class="gj-tag salary">'+sal+'</span>':'')
+      +'</div>'
+      +(ct?'<div class="gj-cat-tags">'+ct+'</div>':'')
+      +(j.job_description?'<div class="gj-desc">'+j.job_description.replace(/<[^>]+>/g,'').slice(0,120)+'...</div>':'')
+      +'</a>';
+  });
+  el.insertAdjacentHTML('beforeend',h);
 }
 </script>
 
