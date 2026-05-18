@@ -189,8 +189,8 @@ img{max-width:100%;display:block;}
 .home-welcome{margin-bottom:24px;}
 .home-welcome h2{font-size:22px;font-weight:800;margin-bottom:4px;}
 .home-welcome p{font-size:13px;color:var(--soft);}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
-.tool-tile{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .18s;position:relative;}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.tool-tile{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .18s;position:relative;}
 .tool-tile:hover:not(.locked){border-color:var(--amber);transform:translateY(-1px);}
 .tool-tile.locked{opacity:.55;cursor:not-allowed;}
 .tool-tile .tt-icon{font-size:26px;margin-bottom:10px;}
@@ -357,39 +357,66 @@ img{max-width:100%;display:block;}
 
 /* ═══ RESPONSIVE ═══════════════════════════════════════════════════ */
 @media(max-width:768px){
-  .steps{grid-template-columns:1fr 1fr;}.step::after{display:none;}
-  .tool-grid{grid-template-columns:repeat(2,1fr);}
-  .prog-grid{grid-template-columns:1fr;}
-  .tools-grid{grid-template-columns:1fr;}
+  /* Hero */
+  .hero-grid{grid-template-columns:1fr !important;gap:20px !important;}
+  .hero-grid>div:last-child{grid-template-columns:repeat(3,1fr) !important;gap:8px !important;}
+  .hero h1{font-size:28px !important;line-height:1.2 !important;}
+  .hero-ctas{flex-direction:column;gap:8px;}
+  .hero-ctas .btn-primary,.hero-ctas .btn-secondary{width:100%;text-align:center;padding:12px;}
+  .hero-stats{gap:12px;justify-content:center;flex-wrap:wrap;}
+  .hero-stat strong{font-size:18px;}
+  /* Dashboard */
+  .tab-bar{padding:0 8px;}
+  .tab-btn{padding:10px 8px;font-size:11px;}
+  .tab-panel{padding:14px;}
+  .dash-top{padding:0 12px;}
+  .dash-user{display:none;}
+  /* Home tool grid — 3 cols compact */
+  .tool-grid{grid-template-columns:repeat(3,1fr) !important;gap:8px;}
+  .tool-tile{padding:12px !important;}
+  .tt-icon{font-size:20px !important;margin-bottom:6px !important;}
+  .tt-name{font-size:11px !important;}
+  .tt-desc{font-size:9px !important;display:none;}
+  .tt-free{font-size:8px !important;}
+  .tt-lock{font-size:12px !important;}
+  /* Forms */
+  .form-row{flex-direction:column;gap:8px;}
+  .search-form{padding:16px;}
+  /* Pricing */
   .pricing-grid{grid-template-columns:1fr;}
-  .form-row{flex-direction:column;}
-  .hero-stats{gap:16px;}
-  .hero-grid{grid-template-columns:1fr !important;gap:24px !important;}
-  .hero-grid>div:last-child{grid-template-columns:1fr 1fr !important;gap:8px !important;}
-  .hero h1{font-size:32px !important;}
-  .hero-ctas{flex-direction:column;}
-  .hero-ctas .btn-primary,.hero-ctas .btn-secondary{width:100%;text-align:center;}
-  .tool-card{padding:16px !important;}
-  .tool-name{font-size:14px !important;}
-  .tool-desc{font-size:11px !important;}
-  .tab-btn{padding:10px 10px;font-size:11px;}
-  .dash-user{display:none;}
+  /* Programme cards */
+  .prog-grid{grid-template-columns:1fr;}
+  /* Steps */
+  .steps{grid-template-columns:1fr 1fr;}.step::after{display:none;}
+  .hero-stats{gap:12px;}
+  /* Salary labels */
   .salary-labels{grid-template-columns:repeat(3,1fr);}
-  .ats-cat-label{width:70px !important;font-size:10px !important;}
+  /* ATS */
+  .ats-cat-label{width:60px !important;font-size:9px !important;}
+  .ats-actions{flex-direction:column;}
+  /* Tools grid landing */
+  .tools-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  /* upgrade banner */
+  .upgrade-banner{flex-direction:column;gap:10px;}
 }
 @media(max-width:480px){
-  .hero-grid>div:last-child{grid-template-columns:1fr !important;}
-  .tool-grid{grid-template-columns:1fr 1fr;}
-  .hero h1{font-size:28px !important;}
-  .hero-stats{flex-wrap:wrap;justify-content:center;gap:12px;}
-  .tab-btn{padding:8px 8px;font-size:10px;}
-  .ats-actions{flex-direction:column;}
-}
-@media(max-width:480px){
-  .tool-grid{grid-template-columns:1fr 1fr;}
-  .ats-actions{flex-direction:column;}
-  .dash-user{display:none;}
-  .tab-btn{padding:12px 12px;font-size:12px;}
+  .hero h1{font-size:24px !important;}
+  .hero-grid>div:last-child{grid-template-columns:repeat(2,1fr) !important;}
+  .tool-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .tt-name{font-size:10px !important;}
+  .tab-btn{padding:8px 6px;font-size:9px;}
+  .tools-grid{grid-template-columns:1fr;}
+  .btn-primary,.btn-secondary{font-size:13px;padding:11px 18px;}
+  .dash-top{height:48px;}
+  .dash-logo{font-size:15px;}
+  .hero-badge{font-size:10px;}
+  .hero-stats{gap:8px;}
+  .hero-stat strong{font-size:16px;}
+  /* Make tool cards super compact - 3x2 grid for 6 tools */
+  .tool-grid{grid-template-columns:repeat(3,1fr) !important;gap:6px;}
+  .tool-tile{padding:10px !important;}
+  .tt-desc{display:none !important;}
 }
 </style>
 </head>
@@ -698,18 +725,18 @@ img{max-width:100%;display:block;}
 
   <!-- ── HOME TAB ────────────────────────────────────── -->
   <div class="tab-panel active" id="tab-home">
-    <div class="home-welcome">
-      <h2 id="homeGreet">Hi there 👋</h2>
-      <p>What are you looking for today?</p>
+    <div class="home-welcome" style="margin-bottom:14px;">
+      <h2 id="homeGreet" style="font-size:18px;">Hi there 👋</h2>
+      <p style="font-size:12px;">What are you looking for today?</p>
     </div>
 
     <!-- Upgrade banner (free users) -->
-    <div class="upgrade-banner" id="upgradeBanner" style="display:none">
+    <div class="upgrade-banner" id="upgradeBanner" style="display:none;padding:14px 16px;margin-bottom:14px;">
       <div>
-        <h3>Unlock All 5 Career Tools</h3>
-        <p>Walk-ins · Salary · Moonlighting · Job matches from ATS</p>
+        <h3 style="font-size:13px;">Unlock All Career Tools</h3>
+        <p style="font-size:11px;">Walk-ins · Salary · Moonlighting · Jobs</p>
       </div>
-      <button class="btn-upgrade-banner" onclick="showUpgradeModal()">Upgrade ₹99 →</button>
+      <button class="btn-upgrade-banner" style="padding:8px 14px;font-size:12px;" onclick="showUpgradeModal()">Upgrade ₹99 →</button>
     </div>
 
     <!-- Tool grid -->
@@ -1046,59 +1073,137 @@ img{max-width:100%;display:block;}
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">6 active returnship programmes + curated job search</p>
 
     <!-- Programme cards -->
+        <!-- Company filter dropdown -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
+      <label style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Filter by Company Programme</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <select id="progFilter" onchange="filterProgs(this.value)" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
+          <option value="all">All Companies (12)</option>
+          <option value="TCS">TCS — Rebegin</option>
+          <option value="Infosys">Infosys — Restart</option>
+          <option value="Accenture">Accenture — Recharge</option>
+          <option value="Wipro">Wipro — ReachOut</option>
+          <option value="IBM">IBM — Career Restart</option>
+          <option value="Goldman Sachs">Goldman Sachs — Returnship</option>
+          <option value="Amazon">Amazon — Re-Kindle</option>
+          <option value="HCLTech">HCLTech — Returnship</option>
+          <option value="Deloitte">Deloitte — Encore</option>
+          <option value="SAP">SAP — Career Restart</option>
+          <option value="Microsoft">Microsoft — JUMP</option>
+          <option value="Dell">Dell — Reconnect</option>
+        </select>
+        <button onclick="findProgJobs(document.getElementById('progFilter').value==='all'?'returnship women India':document.getElementById('progFilter').value+' returnship women')" style="background:var(--teal);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;">Find Jobs →</button>
+      </div>
+    </div>
+
+    <!-- Programme cards grid -->
     <div class="prog-grid" id="progGrid">
-      <div class="prog-card">
+      <div class="prog-card" data-co="TCS">
         <div class="prog-company">TCS</div>
         <div class="prog-name">Rebegin Programme</div>
-        <div class="prog-desc">Restart your IT career with TCS. For women with 2-8 years of prior experience after a career break of 1+ years.</div>
+        <div class="prog-desc">2-8 years experience, career break of 1+ year. 120+ openings. Customised onboarding + mentoring.</div>
         <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.tcs.com/careers/rebegin','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('TCS returnship Rebegin women')">Find Jobs</button>
+          <button class="prog-btn apply" onclick="window.open('https://www.tcs.com/careers/india/rebegin','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('TCS Rebegin returnship women')">Find Jobs</button>
         </div>
       </div>
-      <div class="prog-card">
+      <div class="prog-card" data-co="Infosys">
         <div class="prog-company">Infosys</div>
-        <div class="prog-name">iRace Programme</div>
-        <div class="prog-desc">Infosys Return and Career Enhancement — for experienced women returning after a break of 18+ months.</div>
+        <div class="prog-name">Restart with Infosys</div>
+        <div class="prog-desc">For experienced women professionals on a break. Re-enter business world with reskilling + mentorship support.</div>
         <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.infosys.com/careers/irace.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Infosys iRace returnship women')">Find Jobs</button>
+          <button class="prog-btn apply" onclick="window.open('https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Infosys Restart returnship women')">Find Jobs</button>
         </div>
       </div>
-      <div class="prog-card">
+      <div class="prog-card" data-co="Accenture">
         <div class="prog-company">Accenture</div>
         <div class="prog-name">Recharge Programme</div>
-        <div class="prog-desc">Return to work with Accenture after a career break. Flexible roles with reskilling support.</div>
+        <div class="prog-desc">Return to work with reskilling support. Flexible roles for women who have taken a career break.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.accenture.com/in-en/careers/explore-careers/women-returnship','_blank')">Apply Now ↗</button>
           <button class="prog-btn jobs" onclick="findProgJobs('Accenture Recharge returnship women')">Find Jobs</button>
         </div>
       </div>
-      <div class="prog-card">
+      <div class="prog-card" data-co="Amazon">
+        <div class="prog-company">Amazon</div>
+        <div class="prog-name">Re-Kindle Programme</div>
+        <div class="prog-desc">16-week paid internship with full-time offer possibility. Mentorship + flexible working for women returnees.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://www.amazon.jobs/en/landing_pages/returnship','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Amazon Re-Kindle returnship women')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="HCLTech">
+        <div class="prog-company">HCLTech</div>
+        <div class="prog-name">Returnship Programme</div>
+        <div class="prog-desc">Supports women pursuing both personal and professional goals. Career break re-entry with training.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://www.hcltech.com/careers','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('HCLTech returnship women career restart')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="Wipro">
         <div class="prog-company">Wipro</div>
         <div class="prog-name">ReachOut Programme</div>
-        <div class="prog-desc">Wipro's returnship initiative for women who have taken a career break of 1+ years.</div>
+        <div class="prog-desc">Career break of 1+ year. Structured return with project exposure and leadership mentoring.</div>
         <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://careers.wipro.com/returnship','_blank')">Apply Now ↗</button>
+          <button class="prog-btn apply" onclick="window.open('https://careers.wipro.com','_blank')">Apply Now ↗</button>
           <button class="prog-btn jobs" onclick="findProgJobs('Wipro ReachOut returnship women')">Find Jobs</button>
         </div>
       </div>
-      <div class="prog-card">
+      <div class="prog-card" data-co="IBM">
         <div class="prog-company">IBM</div>
-        <div class="prog-name">Back-to-Tech Programme</div>
-        <div class="prog-desc">IBM's programme for experienced women professionals returning to technology roles after a career gap.</div>
+        <div class="prog-name">Career Restart</div>
+        <div class="prog-desc">For professionals with 2+ year career break. Technology roles with reskilling support in India.</div>
         <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.ibm.com/in-en/employment/backtotech.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('IBM Back to Tech returnship women')">Find Jobs</button>
+          <button class="prog-btn apply" onclick="window.open('https://www.ibm.com/in-en/employment','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('IBM Career Restart returnship women India')">Find Jobs</button>
         </div>
       </div>
-      <div class="prog-card">
+      <div class="prog-card" data-co="Deloitte">
+        <div class="prog-company">Deloitte</div>
+        <div class="prog-name">Encore Programme</div>
+        <div class="prog-desc">16-week program for 2+ year career break. Paid internship with full-time offer at end.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://www2.deloitte.com/us/en/pages/careers/articles/join-deloitte-encore-program.html','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Deloitte Encore returnship women India')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="SAP">
+        <div class="prog-company">SAP</div>
+        <div class="prog-name">Career Restart</div>
+        <div class="prog-desc">3-month paid internship for women with 2+ year break. Full-time offer possible at end of programme.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('SAP Career Restart returnship women')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="Goldman Sachs">
         <div class="prog-company">Goldman Sachs</div>
         <div class="prog-name">Returnship Programme</div>
-        <div class="prog-desc">Goldman Sachs returnship for professionals returning after a career break of 2+ years. Bengaluru &amp; Hyderabad.</div>
+        <div class="prog-desc">For 2+ year career break professionals. Based in Bengaluru &amp; Hyderabad. Finance + Tech roles.</div>
         <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.goldmansachs.com/careers/students/programs/returnship.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Goldman Sachs returnship women India')">Find Jobs</button>
+          <button class="prog-btn apply" onclick="window.open('https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Goldman Sachs returnship India women')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="Microsoft">
+        <div class="prog-company">Microsoft</div>
+        <div class="prog-name">JUMP Programme</div>
+        <div class="prog-desc">Jumpstart Your Return — structured mentorship and project-based work for women returning to tech.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://careers.microsoft.com/v2/global/en/returntomicrosoft','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Microsoft JUMP returnship women India')">Find Jobs</button>
+        </div>
+      </div>
+      <div class="prog-card" data-co="Dell">
+        <div class="prog-company">Dell Technologies</div>
+        <div class="prog-name">Reconnect Programme</div>
+        <div class="prog-desc">Re-entry programme for professionals with career gaps. Technology and business roles across India.</div>
+        <div class="prog-btns">
+          <button class="prog-btn apply" onclick="window.open('https://jobs.dell.com','_blank')">Apply Now ↗</button>
+          <button class="prog-btn jobs" onclick="findProgJobs('Dell Reconnect returnship women India')">Find Jobs</button>
         </div>
       </div>
     </div>
@@ -1201,6 +1306,16 @@ function showView(id){
   // Handle special ATS from landing (no login needed)
   if(id==='atsPublic'){
     atsPublicMode=true;
+    // Always reset ATS when coming from landing
+    atsResumeText='';atsFileData=null;atsLastResult=null;
+    try{localStorage.removeItem('js_ats_last');}catch(e){}
+    var res=document.getElementById('atsResult');if(res){res.style.display='none';res.innerHTML='';}
+    var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
+    var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
+    var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
+    var js2=document.getElementById('atsJobsSection');if(js2)js2.style.display='none';
+    var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
+    var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
     document.querySelectorAll('.view,.dash-wrap').forEach(function(v){v.classList.remove('active');});
     var dashEl=document.getElementById('dashView');
     if(dashEl)dashEl.classList.add('active');
@@ -1406,9 +1521,23 @@ function tileClick(tool){
 }
 
 function doLogout(){
-  currentUser=null;isPaid=false;
+  currentUser=null;isPaid=false;atsPublicMode=false;
   localStorage.removeItem(S_USER);localStorage.removeItem(S_PLAN);
+  // Clear all ATS & job cache data
   atsResumeText='';atsFileData=null;atsLastResult=null;
+  try{localStorage.removeItem('js_ats_last');}catch(e){}
+  try{
+    var keys=Object.keys(localStorage).filter(function(k){return k.startsWith('js_gjcache_');});
+    keys.forEach(function(k){localStorage.removeItem(k);});
+  }catch(e){}
+  // Reset ATS UI
+  var res=document.getElementById('atsResult');if(res){res.style.display='none';res.innerHTML='';}
+  var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
+  var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
+  var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
+  var js=document.getElementById('atsJobsSection');if(js)js.style.display='none';
+  var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
+  var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
   goTo('landingView');
 }
 
@@ -1812,8 +1941,9 @@ function showJobsTab(tab){
 function openLinkedInJobs(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var r=atsLastResult;
-  var skill=(r&&r.role)||((currentUser&&currentUser.skill)||'Software Engineer');
-  var city=(r&&r.location)||(currentUser&&currentUser.city)||'Hyderabad';
+  var skill=(r&&r.role)||(r&&r.skills&&r.skills[0])||lastSearchedSkill;
+  var city=(r&&r.location)||lastSearchedCity||(currentUser&&currentUser.city)||'Hyderabad';
+  if(!skill){showToast('Check your ATS score first to find matching jobs','amber');return;}
   window.open('https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city),'_blank');
 }
 function openLinkedInPosts(){
@@ -1906,7 +2036,9 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
     var msg=is429
       ?'⏳ Search quota reached — try again in a minute'
       :'Search unavailable — try these directly:';
-    var gg='https://www.google.com/search?q='+encodeURIComponent('"'+skill+'" jobs '+city+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
+    var _fSkill=skill||lastSearchedSkill||'jobs';
+var _fCity=city||lastSearchedCity||'India';
+var gg='https://www.google.com/search?q='+encodeURIComponent('"'+_fSkill+'" jobs '+_fCity+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
     var lj='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city);
     var nk='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/ /g,'-'));
     el.innerHTML='<div class="az-empty" style="text-align:center;padding:24px">'
@@ -1926,6 +2058,8 @@ function runWalkIn(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('wi_skill')||{value:''}).value.trim();
   var city=(document.getElementById('wi_city')||{value:''}).value;
+  if(skill)lastSearchedSkill=skill;
+  if(city)lastSearchedCity=city;
   var exp=(document.getElementById('wi_exp')||{value:''}).value;
   var area=(document.getElementById('wi_area')||{value:''}).value.trim();
   if(!skill||!city){showToast('Enter skill and city','amber');return;}
@@ -2160,6 +2294,7 @@ function findProgJobs(query){
 function runWomenSearch(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('wr_skill')||{value:''}).value.trim();
+  if(skill)lastSearchedSkill=skill;
   var city=(document.getElementById('wr_city')||{value:''}).value||'India';
   var exp=(document.getElementById('wr_exp')||{value:''}).value;
   if(!skill){showToast('Enter a skill or role','amber');return;}
@@ -2285,6 +2420,8 @@ function runFresherSearch(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('fr_skill')||{value:''}).value.trim();
   var city=(document.getElementById('fr_city')||{value:''}).value;
+  if(skill)lastSearchedSkill=skill;
+  if(city)lastSearchedCity=city;
   if(!skill||!city){showToast('Enter skill and city','amber');return;}
   var jt=document.getElementById('fresherJobTabs');if(jt)jt.style.display='block';
   var el=document.getElementById('fresherResults');if(!el)return;
@@ -2375,6 +2512,44 @@ function renderJobCards(jobs,el,mode){
       +'</a>';
   });
   el.insertAdjacentHTML('beforeend',h);
+}
+
+// ── LAST SEARCHED SKILL TRACKING ─────────────────────
+// Always use the skill that was actually searched, not profile skill
+var lastSearchedSkill='';
+var lastSearchedCity='';
+
+function getSearchSkill(formSkillId){
+  var el=document.getElementById(formSkillId);
+  var s=el?el.value.trim():'';
+  if(s){lastSearchedSkill=s;return s;}
+  // Use ATS-extracted skill if available (NOT profile skill)
+  try{
+    var cached=localStorage.getItem('js_ats_last');
+    if(cached){
+      var r=JSON.parse(cached).result;
+      if(r&&r.role){lastSearchedSkill=r.role;return r.role;}
+      if(r&&r.skills&&r.skills[0]){lastSearchedSkill=r.skills[0];return r.skills[0];}
+    }
+  }catch(e){}
+  // Last resort: lastSearchedSkill (from previous form search)
+  if(lastSearchedSkill)return lastSearchedSkill;
+  // Do NOT fall back to currentUser.skill (would show TA for everyone)
+  showToast('Please enter your skill / role first','amber');
+  return null;
+}
+function getSearchCity(formCityId){
+  var el=document.getElementById(formCityId);
+  var s=el?el.value.trim():'';
+  if(s){lastSearchedCity=s;return s;}
+  if(lastSearchedCity)return lastSearchedCity;
+  return (currentUser&&currentUser.city)||'Hyderabad';
+}
+
+function filterProgs(co){
+  document.querySelectorAll('.prog-card').forEach(function(card){
+    card.style.display=(co==='all'||card.getAttribute('data-co')===co)?'block':'none';
+  });
 }
 </script>
 
