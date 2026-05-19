@@ -1298,6 +1298,7 @@ img{max-width:100%;display:block;}
 </div><!-- end dash-wrap -->
 
 <script>
+
 // IFRAME SAFETY: disable history API when inside Claude preview or iframe
 var IN_IFRAME=false;
 try{IN_IFRAME=(window.self!==window.top);}catch(_if){IN_IFRAME=true;}
@@ -1332,6 +1333,11 @@ function showView(id){
     atsPublicMode=true;
     // Always reset ATS when coming from landing
     atsResumeText='';atsFileData=null;atsLastResult=null;
+    // Hide dashboard chrome — user is NOT logged in
+    var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
+    var dub=document.getElementById('topUpgradeBtn');if(dub){dub.textContent='Sign Up to Save Progress';dub.onclick=function(){goTo('signupView');};}
+    var dun=document.getElementById('dashUserName');if(dun)dun.textContent='';
+    var fab=document.getElementById('fabUpgrade');if(fab)fab.style.display='none';
     try{localStorage.removeItem('js_ats_last');}catch(e){}
     var res=document.getElementById('atsResult');if(res){res.style.display='none';}
     var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
@@ -1739,15 +1745,23 @@ function runATSCheck(){
 function scoreResume(text){
   var t=text.toLowerCase();var words=t.split(/\s+/);var wc=words.length;
   // Contact
-  var hasEmail=/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/.test(t);
+  // Robust email detection — handles PDF extraction spacing artifacts
+  var _tNoSpace=t.replace(/\s+/g,''); // remove all whitespace for spacing-artifact check
+  var emailMatches=t.match(/[a-z0-9][a-z0-9._%+\-]*@[a-z0-9][a-z0-9.\-]*\.[a-z]{2,}/g)||[];
+  var emailMatchesNS=_tNoSpace.match(/[a-z0-9][a-z0-9._%+\-]*@[a-z0-9][a-z0-9.\-]*\.[a-z]{2,}/g)||[];
+  var allEmails=emailMatches.concat(emailMatchesNS);
+  var hasEmail=allEmails.some(function(e){return e.length>6&&e.includes('.')&&e.includes('@');});
+  // Also detect "email:" label as strong indicator
+  if(!hasEmail)hasEmail=/email\s*[:=]\s*[a-z0-9]/i.test(t)||/gmail|yahoo|outlook|hotmail/.test(t);
   var hasPhone=/(\+91[\s-]?)?[6-9]\d{9}|\d{10}/.test(t.replace(/\s/g,''));
-  var hasLinkedin=/linkedin\.com\/in\//.test(t);
+  // LinkedIn: match full URL OR just "linkedin" as a word (PDF hyperlinks show as just "LinkedIn")
+  var hasLinkedin=/linkedin\.com\/in\//.test(t)||/\blinkedin\b/.test(t);
   var hasLoc=/(hyderabad|bangalore|bengaluru|mumbai|delhi|chennai|pune|kolkata|noida|gurgaon|ahmedabad|india|remote)/.test(t);
   var cScore=Math.round((hasEmail?30:0)+(hasPhone?30:0)+(hasLinkedin?25:0)+(hasLoc?15:0));
   var cIssues=[];
   if(!hasEmail)cIssues.push('No email address detected — add to header');
   if(!hasPhone)cIssues.push('No phone number found');
-  if(!hasLinkedin)cIssues.push('Add your LinkedIn profile URL (linkedin.com/in/yourname)');
+  if(!hasLinkedin)cIssues.push('Add clickable LinkedIn URL: linkedin.com/in/yourname (hyperlinks in PDF may not be detected by ATS)');
   // Structure
   var hasExp=/(experience|employment|work history|worked at|worked for|company|organisation|organization)/i.test(text);
   var hasEdu=/(education|university|college|degree|b\.tech|m\.tech|b\.e|mba|diploma|school|10th|12th)/i.test(text);
@@ -2117,21 +2131,17 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
     // renderJobCards handles card display
   }).catch(function(e){
     var is429=String(e).includes('429')||String(e).includes('Too Many');
-    var msg=is429
-      ?'⏳ Search quota reached — try again in a minute'
-      :'Search unavailable — try these directly:';
+    var msg=is429?'Search quota reached — use links below':'Search unavailable — try these:';
     var _fSkill=skill||lastSearchedSkill||'jobs';
-var _fCity=city||lastSearchedCity||'India';
-var gg='https://www.google.com/search?q='+encodeURIComponent('"'+_fSkill+'" jobs '+_fCity+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
-    var lj='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city);
-    var nk='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/ /g,'-'));
-    el.innerHTML='<div class="az-empty" style="text-align:center;padding:24px">'
-      +'<div style="font-size:24px;margin-bottom:10px">'+(is429?'⏳':'⚠️')+'</div>'
-      +'<div style="font-weight:700;margin-bottom:6px">'+msg+'</div>'
-      +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px">'
+    var _fCity=city||lastSearchedCity||'India';
+    var gg='https://www.google.com/search?q='+encodeURIComponent('"'+_fSkill+'" jobs '+_fCity+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
+    var nk='https://www.naukri.com/'+encodeURIComponent(_fSkill.toLowerCase().replace(/ /g,'-'))+'-jobs-in-'+encodeURIComponent(_fCity.toLowerCase().replace(/ /g,'-'));
+    el.innerHTML='<div class="az-empty" style="text-align:center;padding:20px">'
+      +'<div style="font-size:28px;margin-bottom:8px">'+(is429?'⏳':'⚠️')+'</div>'
+      +'<div style="font-weight:700;margin-bottom:4px">'+msg+'</div>'
+      +'<div style="font-size:11px;color:var(--soft);margin-bottom:12px">Use the LinkedIn buttons in the tab bar above ↑</div>'
+      +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
       +'<a href="'+gg+'" target="_blank" style="background:var(--amber);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Google Jobs ↗</a>'
-      +'<a href="'+lj+'" target="_blank" style="background:#0077b5;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">💼 LinkedIn Jobs ↗</a>'
-      +'<a href="https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' hiring')+'&datePosted=%22past-week%22" target="_blank" style="background:#0a66c2;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">📝 LinkedIn Posts ↗</a>'
       +'<a href="'+nk+'" target="_blank" style="background:#ff7555;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Naukri ↗</a>'
       +'</div></div>';
   });
@@ -2654,6 +2664,7 @@ function onProgSelect(co){
     sec.scrollIntoView({behavior:'smooth',block:'start'});
   }
 }
+
 </script>
 
 <!-- Razorpay -->
