@@ -146,6 +146,17 @@ img{max-width:100%;display:block;}
 
 /* Footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:24px;font-size:12px;}
+@keyframes atsBlink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.ats-demo-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:all .25s;box-shadow:var(--shadow);}
+.ats-demo-card:hover{border-color:var(--amber);box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+.ats-demo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ats-demo-score-row{display:flex;align-items:center;gap:14px;background:var(--teal-pale);border:1px solid rgba(26,107,107,.15);border-radius:10px;padding:12px;margin-bottom:12px;}
+.ats-demo-ring{position:relative;width:80px;height:80px;flex-shrink:0;}
+.ats-demo-ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.ats-demo-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:10px;font-weight:600;color:var(--soft);}
+.ats-demo-bar-row>span:first-child{width:80px;flex-shrink:0;font-size:10px;}
+.ats-demo-bar-wrap{flex:1;height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;}
+.ats-demo-bar{height:100%;border-radius:3px;transition:width .6s ease;}
 .footer a{color:rgba(255,255,255,.5);}
 .footer a:hover{color:rgba(255,255,255,.8);}
 
@@ -480,43 +491,59 @@ img{max-width:100%;display:block;}
           </div>
         </div>
 
-        <!-- Right: tool cards -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">📊</div>
-            <div class="tool-name">ATS Checker</div>
-            <div class="tool-desc">Score resume · 6 categories · AI enhance</div>
-            <span class="tool-badge free">Free</span>
+        <!-- Right: ATS Live Demo Widget -->
+        <div class="ats-demo-card" onclick="goTo('atsTabDirect')" style="cursor:pointer;" title="Click to check your own resume">
+          <div class="ats-demo-header">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:8px;height:8px;background:var(--green);border-radius:50%;animation:atsBlink 2s infinite;"></div>
+              <span style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:1px;">AI Resume Analysis</span>
+            </div>
+            <span style="font-size:10px;font-weight:700;background:rgba(22,163,74,.1);color:var(--green);padding:3px 9px;border-radius:8px;">Free for all</span>
           </div>
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">🚶</div>
-            <div class="tool-name">Walk-in Finder</div>
-            <div class="tool-desc">Live drives · by skill, city &amp; locality</div>
-            <span class="tool-badge paid">₹99</span>
+          <!-- Score row -->
+          <div class="ats-demo-score-row">
+            <div class="ats-demo-ring">
+              <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(26,107,107,.15)" stroke-width="7"/>
+                <circle cx="40" cy="40" r="32" fill="none" stroke="var(--teal)" stroke-width="7"
+                  stroke-dasharray="201" stroke-dashoffset="52" stroke-linecap="round"
+                  style="transform:rotate(-90deg);transform-origin:50% 50%;"/>
+              </svg>
+              <div class="ats-demo-ring-text">
+                <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--teal);line-height:1;">74</div>
+                <div style="font-size:8px;color:var(--soft);">/100</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:3px;">Good Score</div>
+              <div style="font-size:11px;color:var(--soft);margin-bottom:6px;">ATS Compatible · 6 categories</div>
+              <div style="font-size:10px;font-weight:700;background:var(--teal-pale);color:var(--teal);padding:3px 9px;border-radius:8px;display:inline-block;">🎯 UI Developer</div>
+            </div>
           </div>
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">🌙</div>
-            <div class="tool-name">Moonlighting</div>
-            <div class="tool-desc">Contract check · Find gig jobs</div>
-            <span class="tool-badge paid">₹99</span>
+          <!-- Category bars -->
+          <div style="margin-bottom:10px;">
+            <div class="ats-demo-bar-row"><span>📧 Contact</span><div class="ats-demo-bar-wrap"><div class="ats-demo-bar" style="width:90%;background:var(--green);"></div></div><span style="color:var(--green);font-size:10px;font-weight:700;">90%</span></div>
+            <div class="ats-demo-bar-row"><span>📋 Structure</span><div class="ats-demo-bar-wrap"><div class="ats-demo-bar" style="width:80%;background:var(--green);"></div></div><span style="color:var(--green);font-size:10px;font-weight:700;">80%</span></div>
+            <div class="ats-demo-bar-row"><span>💼 Content</span><div class="ats-demo-bar-wrap"><div class="ats-demo-bar" style="width:65%;background:var(--orange);"></div></div><span style="color:var(--orange);font-size:10px;font-weight:700;">65%</span></div>
+            <div class="ats-demo-bar-row"><span>🔑 Keywords</span><div class="ats-demo-bar-wrap"><div class="ats-demo-bar" style="width:70%;background:var(--orange);"></div></div><span style="color:var(--orange);font-size:10px;font-weight:700;">70%</span></div>
+            <div class="ats-demo-bar-row"><span>📝 Format</span><div class="ats-demo-bar-wrap"><div class="ats-demo-bar" style="width:95%;background:var(--green);"></div></div><span style="color:var(--green);font-size:10px;font-weight:700;">95%</span></div>
           </div>
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">💰</div>
-            <div class="tool-name">Salary Tools</div>
-            <div class="tool-desc">CTC · Hike · City compare · Offer check</div>
-            <span class="tool-badge paid">₹99</span>
+          <!-- Critical issues -->
+          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;margin-bottom:12px;">
+            <div style="font-size:9px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Fix these to score 90+</div>
+            <div style="font-size:10px;color:#7f1d1d;display:flex;gap:5px;margin-bottom:3px;"><span>✕</span>Add measurable results (₹ revenue, % improvement)</div>
+            <div style="font-size:10px;color:#7f1d1d;display:flex;gap:5px;"><span style="color:var(--orange);">⚠</span>Add LinkedIn URL to header</div>
           </div>
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">👩</div>
-            <div class="tool-name">Women Returns</div>
-            <div class="tool-desc">6 programmes · TCS · Infosys · Accenture</div>
-            <span class="tool-badge free">Free</span>
+          <!-- Skills pills -->
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;">
+            <span style="font-size:10px;font-weight:700;background:var(--teal-pale);color:var(--teal);border:1px solid rgba(26,107,107,.2);padding:3px 9px;border-radius:10px;">React</span>
+            <span style="font-size:10px;font-weight:700;background:var(--teal-pale);color:var(--teal);border:1px solid rgba(26,107,107,.2);padding:3px 9px;border-radius:10px;">Angular</span>
+            <span style="font-size:10px;font-weight:700;background:var(--teal-pale);color:var(--teal);border:1px solid rgba(26,107,107,.2);padding:3px 9px;border-radius:10px;">JavaScript</span>
+            <span style="font-size:10px;font-weight:700;background:var(--teal-pale);color:var(--teal);border:1px solid rgba(26,107,107,.2);padding:3px 9px;border-radius:10px;">Node.js</span>
           </div>
-          <div class="tool-card" onclick="goTo('signupView')" style="cursor:pointer;">
-            <div class="tool-icon">🎓</div>
-            <div class="tool-name">Freshers</div>
-            <div class="tool-desc">Campus drives · Internships · Entry jobs</div>
-            <span class="tool-badge paid">₹99</span>
+          <!-- CTA -->
+          <div style="background:var(--amber);border-radius:8px;padding:11px;text-align:center;font-size:13px;font-weight:700;color:#fff;">
+            📊 Check My Resume Free — It's Instant →
           </div>
         </div>
       </div>
@@ -796,6 +823,12 @@ img{max-width:100%;display:block;}
         <div class="tt-icon">🎓</div>
         <div class="tt-name">Freshers</div>
         <div class="tt-desc">Campus drives · Internships</div>
+      </div>
+      <div class="tool-tile" id="tt-portals" onclick="tileClick('portals')">
+        <div class="tt-lock" id="tl-portals">🔒</div>
+        <div class="tt-icon">🌐</div>
+        <div class="tt-name">Job Portals</div>
+        <div class="tt-desc">Naukri · Foundit · 10 more</div>
       </div>
     </div>
 
@@ -1095,7 +1128,7 @@ img{max-width:100%;display:block;}
   <!-- ── WOMEN RETURNSHIP TAB ────────────────────────── -->
   <div class="tab-panel" id="tab-women">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">👩 Women Returnship</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes — select company to find their jobs</p>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Select company below → opens official page</p>
 
     <!-- Programme cards -->
         <!-- Company filter dropdown -->
@@ -1103,7 +1136,7 @@ img{max-width:100%;display:block;}
       <label style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Filter by Company Programme</label>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
         <select id="progFilter" onchange="onProgSelect(this.value)" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
-          <option value="all">All Companies (12) — select to filter &amp; find jobs</option>
+          <option value="all">Select company → opens official returnship page</option>
           <option value="TCS">TCS — Rebegin</option>
           <option value="Infosys">Infosys — Restart</option>
           <option value="Accenture">Accenture — Recharge</option>
@@ -1117,12 +1150,12 @@ img{max-width:100%;display:block;}
           <option value="Microsoft">Microsoft — JUMP</option>
           <option value="Dell">Dell — Reconnect</option>
         </select>
-        <div style="font-size:11px;color:var(--soft);padding:0 4px;">↑ Select a company to open its jobs on LinkedIn</div>
+        <div style="font-size:11px;color:var(--soft);padding:0 4px;">🔗 Opens official company page · Free for all users</div>
       </div>
     </div>
 
     <!-- Programme cards grid -->
-    <div class="prog-grid" id="progGrid">
+    <div class="prog-grid" id="progGrid" style="display:none;">
       <div class="prog-card" data-co="TCS">
         <div class="prog-company">TCS</div>
         <div class="prog-name">Rebegin Programme</div>
@@ -2746,26 +2779,40 @@ function filterProgs(co){
   });
 }
 function showAllProgCards(){
-  // Ensure all 12 cards are visible
-  document.querySelectorAll('.prog-card').forEach(function(card){
-    card.style.display='block';
-  });
+  // Cards intentionally hidden — dropdown is the interface
+  // Uncomment below to show cards: document.querySelectorAll('.prog-card').forEach(function(card){card.style.display='block';});
 }
 function onProgSelect(co){
-  // NO filterProgs — cards always show all 12, dropdown just triggers job search
   if(co==='all')return;
-  if(!isPaidUser()){showUpgradeModal();return;}
-  // Open LinkedIn Jobs for this company directly in ONE new tab
-  var ljUrl='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(co+' returnship women India')+'&f_TPR=r2592000';
-  window.open(ljUrl,'_blank');
-  showToast('Opening '+co+' jobs on LinkedIn...','green');
-  // Reset dropdown back to "All Companies" after 1 second
+  // ALL users (free + paid) can open official returnship pages — no paywall
+  var url=PROG_URLS[co];
+  if(url){
+    window.open(url,'_blank');
+    showToast('Opening '+co+' returnship programme...','green');
+  }
+  // Reset dropdown after 800ms
   setTimeout(function(){
     var sel=document.getElementById('progFilter');
     if(sel)sel.value='all';
-  },1000);
+  },800);
 }
 
+
+// ── WOMEN RETURNSHIP OFFICIAL URLs ──────────────────
+var PROG_URLS={
+  'TCS':'https://www.tcs.com/careers/india/rebegin',
+  'Infosys':'https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html',
+  'Accenture':'https://www.accenture.com/in-en/careers/explore-careers/women-returnship',
+  'Wipro':'https://careers.wipro.com/careers-home/returners',
+  'IBM':'https://www.ibm.com/in-en/employment',
+  'Goldman Sachs':'https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html',
+  'Amazon':'https://www.amazon.jobs/en/landing_pages/returnship',
+  'HCLTech':'https://www.hcltech.com/careers',
+  'Deloitte':'https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html',
+  'SAP':'https://jobs.sap.com/go/SAP-Returnship-Program/5365101/',
+  'Microsoft':'https://careers.microsoft.com/v2/global/en/returntomicrosoft',
+  'Dell':'https://jobs.dell.com/returntodell'
+};
 
 // ── ADZUNA + JOB PORTALS ─────────────────────────
 function initPortalsTab(){
