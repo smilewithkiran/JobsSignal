@@ -688,7 +688,7 @@ img{max-width:100%;display:block;}
           <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
           <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
           <option>Ahmedabad</option><option>Jaipur</option><option>Chandigarh</option>
-          <option>Kochi</option><option>India</option>
+          <option>Kochi</option><option>Vijayawada</option><option>Visakhapatnam</option><option>Warangal</option><option>Tirupati</option><option>Coimbatore</option><option>Madurai</option><option>Trichy</option><option>Mysuru</option><option>Mangaluru</option><option>Surat</option><option>Vadodara</option><option>Rajkot</option><option>Indore</option><option>Bhopal</option><option>Nagpur</option><option>Lucknow</option><option>Kanpur</option><option>Patna</option><option>Bhubaneswar</option><option>India</option>
           </select></div>
         <div class="field"><label>Experience</label>
           <select id="su_exp">
@@ -915,18 +915,42 @@ img{max-width:100%;display:block;}
 
       <div class="ats-sections" id="atsSections"></div>
 
+      <!-- Signal Letter Section -->
+      <div id="signalLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
+        <div style="font-size:13px;font-weight:800;margin-bottom:4px;">📡 Signal Letter</div>
+        <p style="font-size:12px;color:var(--soft);margin-bottom:12px;">Generate a tailored cover letter from your resume in 10 seconds</p>
+        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:160px;">
+            <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px;">Job Title / Company (optional)</label>
+            <input type="text" id="slJobTitle" placeholder="e.g. React Developer at Infosys" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+          </div>
+          <div style="flex:0 0 auto;align-self:flex-end;">
+            <select id="slTone" style="padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);outline:none;">
+              <option value="professional">Professional</option>
+              <option value="confident">Confident</option>
+              <option value="warm">Warm</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="generateSignalLetter()" style="width:100%;padding:11px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px;">📡 Generate Signal Letter →</button>
+        <div id="signalLetterResult"></div>
+      </div>
+
       <div class="ats-actions">
-        <button class="ats-action-btn ai" onclick="enhanceWithAI()">🤖 Enhance with AI</button>
+        
         <button class="ats-action-btn reset" onclick="resetATS()">🔄 Check Another</button>
       </div>
     </div>
 
     <!-- Jobs section -->
     <div id="atsJobsSection" style="display:none;margin-top:20px">
-      <div class="jobs-tabs">
-        <button class="jobs-tab-btn active" id="jt-google" onclick="showJobsTab('google')">🔍 Google Jobs</button>
-        <a class="ext-job-btn ljobs" id="jt-linkedin" onclick="openLinkedInJobs();return false;" href="#">💼 LinkedIn Jobs ↗</a>
-        <a class="ext-job-btn lposts" id="jt-posts" onclick="openLinkedInPosts();return false;" href="#">📝 LinkedIn Posts ↗</a>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-right:4px;">Search on:</div>
+        <button class="ext-job-btn gjobs" id="jt-google" onclick="showJobsTab('google')" style="font-size:11px;">🔍 Google Jobs</button>
+        <a class="ext-job-btn naukri" id="jt-naukri" href="#" onclick="openATSNaukri();return false;" style="font-size:11px;">Naukri ↗</a>
+        <a class="ext-job-btn ljobs" id="jt-linkedin" onclick="openLinkedInJobs();return false;" href="#" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
+        <a class="ext-job-btn lposts" id="jt-posts" onclick="openLinkedInPosts();return false;" href="#" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
+        <a class="ext-job-btn naukri" id="jt-naukri" onclick="openATSNaukri();return false;" href="#" style="font-size:11px;">Naukri ↗</a>
       </div>
       <div id="atsGoogleJobs"></div>
       <div class="jobs-locked" id="atsJobsLocked" style="display:none">
@@ -955,8 +979,65 @@ img{max-width:100%;display:block;}
             <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
             <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
             <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-            <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
-          </select>
+            <option>Ahmedabad</option><option>Jaipur</option><option>Vijayawada</option>
+            <option>Visakhapatnam</option>
+            <option>Warangal</option>
+            <option>Tirupati</option>
+            <option>Coimbatore</option>
+            <option>Madurai</option>
+            <option>Trichy</option>
+            <option>Mysuru</option>
+            <option>Mangaluru</option>
+            <option>Surat</option>
+            <option>Vadodara</option>
+            <option>Rajkot</option>
+            <option>Indore</option>
+            <option>Bhopal</option>
+            <option>Nagpur</option>
+            <option>Lucknow</option>
+            <option>Kanpur</option>
+            <option>Patna</option>
+            <option>Bhubaneswar</option>
+                          <option>Agra</option>
+              <option>Varanasi</option>
+              <option>Meerut</option>
+              <option>Allahabad</option>
+              <option>Amritsar</option>
+              <option>Jalandhar</option>
+              <option>Ludhiana</option>
+              <option>Chandigarh</option>
+              <option>Dehradun</option>
+              <option>Jodhpur</option>
+              <option>Udaipur</option>
+              <option>Kota</option>
+              <option>Raipur</option>
+              <option>Guwahati</option>
+              <option>Ranchi</option>
+              <option>Bhubaneswar</option>
+              <option>Visakhapatnam</option>
+              <option>Vijayawada</option>
+              <option>Warangal</option>
+              <option>Tirupati</option>
+              <option>Mysuru</option>
+              <option>Mangaluru</option>
+              <option>Coimbatore</option>
+              <option>Madurai</option>
+              <option>Trichy</option>
+              <option>Thiruvananthapuram</option>
+              <option>Kochi</option>
+              <option>Surat</option>
+              <option>Vadodara</option>
+              <option>Rajkot</option>
+              <option>Nashik</option>
+              <option>Nagpur</option>
+              <option>Aurangabad</option>
+              <option>Indore</option>
+              <option>Bhopal</option>
+              <option>Jabalpur</option>
+              <option>Lucknow</option>
+              <option>Kanpur</option>
+              <option>Patna</option>
+            </select>
         </div>
       </div>
       <div class="form-row">
@@ -982,9 +1063,11 @@ img{max-width:100%;display:block;}
       <button class="btn-search" onclick="runWalkIn()">🚶 Find Walk-in Drives →</button>
     </div>
     <div id="wiResults"></div>
-      <div id="wiLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;">
-        <a id="wi-lj" href="#" target="_blank" class="ext-job-btn ljobs">💼 LinkedIn Jobs ↗</a>
-        <a id="wi-lp" href="#" target="_blank" class="ext-job-btn lposts">📝 LinkedIn Posts ↗</a>
+      <div id="wiLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
+        <span style="font-size:11px;font-weight:700;color:var(--soft);">Also search:</span>
+        <a id="wi-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
+        <a id="wi-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
+        <a id="wi-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px;">Naukri ↗</a>
       </div>
   </div>
 
@@ -1289,9 +1372,11 @@ img{max-width:100%;display:block;}
       <button class="btn-search" onclick="runWomenSearch()">👩 Find Women-Friendly Jobs →</button>
     </div>
     <div id="womenResults"></div>
-      <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;">
-        <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs">💼 LinkedIn Jobs ↗</a>
-        <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts">📝 LinkedIn Posts ↗</a>
+      <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
+        <span style="font-size:11px;font-weight:700;color:var(--soft);">Also search:</span>
+        <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
+        <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
+        <a id="wr-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px;">Naukri ↗</a>
       </div>
   </div>
 
@@ -1330,10 +1415,12 @@ img{max-width:100%;display:block;}
         <button class="btn-search" onclick="runFresherSearch()">🎓 Find Fresher Jobs →</button>
       </div>
       <div id="fresherJobTabs" style="display:none;margin-top:16px">
-        <div class="jobs-tabs">
-          <button class="jobs-tab-btn active" id="fjt-google" onclick="showFresherTab('google')">🔍 Google Jobs</button>
-          <a class="ext-job-btn ljobs" onclick="openFresherLinkedIn();return false;" href="#">💼 LinkedIn Jobs ↗</a>
-          <a class="ext-job-btn lposts" onclick="openFresherPosts();return false;" href="#">📝 LinkedIn Posts ↗</a>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">
+          <span style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;">Search on:</span>
+          <button class="ext-job-btn gjobs" id="fjt-google" onclick="showFresherTab('google')" style="font-size:11px;">🔍 Google Jobs</button>
+          <a class="ext-job-btn ljobs" onclick="openFresherLinkedIn();return false;" href="#" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
+          <a class="ext-job-btn lposts" onclick="openFresherPosts();return false;" href="#" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
+          <a class="ext-job-btn naukri" href="#" onclick="openFresherNaukri();return false;" style="font-size:11px;">Naukri ↗</a>
         </div>
         <div id="fresherResults"></div>
       </div>
@@ -1867,12 +1954,38 @@ function runATSCheck(){
   var ta=document.getElementById('atsPasteText');
   var txt=(ta?ta.value.trim():'')||atsResumeText||'';
   if(!txt||txt.length<50){showToast('Upload resume or paste text first','amber');return;}
-  if(txt.indexOf('Loading:')===0||txt.indexOf('Extracting')===0){showToast('Please wait for extraction to complete','amber');return;}
+  if(txt.indexOf('Loading:')===0||txt.indexOf('Extracting')===0){showToast('Please wait for extraction','amber');return;}
+  // Step 1: Local scoring (instant)
   var result=scoreResume(txt);
   atsLastResult=result;
   try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(e){}
   renderATSResult(result);
   document.getElementById('atsUploadZone').style.display='none';
+  // Step 2: Auto AI enhancement (no button needed)
+  autoEnhanceATS(txt);
+}
+async function autoEnhanceATS(txt){
+  var verdEl=document.getElementById('atsVerdict');
+  var origVerdict=verdEl?verdEl.textContent:'';
+  if(verdEl)verdEl.textContent=origVerdict+' · AI analysing...';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
+        messages:[{role:'user',content:'Analyse this resume for ATS (Indian job market). Return ONLY JSON: {score,verdict,color,categories:{contact:{score,status},structure:{score,status},content:{score,status},keywords:{score,status},format:{score,status},length:{score,status}},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each. color: #16a34a/>75, #f59e0b/50-75, #dc2626/<50.\n\n'+txt.slice(0,8000)}]})
+    });
+    var data=await resp.json();
+    var raw=((data.content&&data.content[0]&&data.content[0].text)||'').replace(/```json|```/g,'').trim();
+    if(raw&&raw.startsWith('{')){
+      var aiResult=JSON.parse(raw);
+      atsLastResult=aiResult;
+      try{localStorage.setItem('js_ats_last',JSON.stringify({result:aiResult,ts:Date.now()}));}catch(e){}
+      renderATSResult(aiResult);
+      showToast('AI analysis complete','green');
+    }
+  }catch(e){
+    if(verdEl)verdEl.textContent=origVerdict; // restore if AI fails
+  }
 }
 
 function scoreResume(text){
@@ -2108,6 +2221,9 @@ function renderATSResult(r){
   if(jobSec)jobSec.style.display='block';
   if(jobLocked)jobLocked.style.display=isPaidUser()?'none':'block';
   if(isPaidUser()){showJobsTab('google');}
+  // Show Signal Letter section after scoring
+  var slSec=document.getElementById('signalLetterSection');
+  if(slSec)slSec.style.display='block';
   res.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -2168,6 +2284,16 @@ function showJobsTab(tab){
       fetchGoogleJobs(skill,city,'',jWrap,'ats');
     }
   }
+}
+function openATSNaukri(){
+  if(!isPaidUser()){showUpgradeModal();return;}
+  var aq=getATSJobQuery();
+  var skill=aq?aq.skill:(lastSearchedSkill||'');
+  var city=aq?aq.city:(lastSearchedCity||(currentUser&&currentUser.city)||'India');
+  if(!skill){showToast('Check your ATS score first','amber');return;}
+  var sl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  var cl=city.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace('delhi-ncr','delhi');
+  window.open('https://www.naukri.com/'+sl+'-jobs-in-'+cl,'_blank');
 }
 function openLinkedInJobs(){
   if(!isPaidUser()){showUpgradeModal();return;}
@@ -2296,11 +2422,16 @@ function runWalkIn(){
   // LinkedIn links
   var lq=encodeURIComponent('"'+skill+'" "walk-in" OR "walkin" '+city+(area?' '+area:''));
   // Update static LinkedIn links with actual search terms
+  var wiNK=document.getElementById('wi-nk');
   var wiLJ=document.getElementById('wi-lj');var wiLP=document.getElementById('wi-lp');
+  var sl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  var cl=city.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace('delhi-ncr','delhi');
+  if(wiNK)wiNK.href='https://www.naukri.com/'+sl+'-jobs-in-'+cl;
   if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city);
   if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin '+city)+'&datePosted=%22past-week%22';
   var wiLinks=document.getElementById('wiLinkedInLinks');
   if(wiLinks)wiLinks.style.display='flex';
+  var wiNk=document.getElementById('wi-nk');if(wiNk)wiNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/\s+/g,'-'));
 }
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
@@ -2311,57 +2442,66 @@ function runSalaryRange(){
   var exp=(document.getElementById('sal_exp')||{value:''}).value;
   if(!skill){showToast('Enter a skill or role','amber');return;}
   var el=document.getElementById('salaryRangeResult');if(!el)return;
-  el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching salary data...</div>';
-  var q='"'+skill+'" '+(city||'India')+' salary';
-  // 2-hour localStorage cache — saves API quota
-  var CACHE_TTL=2*60*60*1000; // 2 hours in ms
-  var cacheKey='js_gjcache_'+encodeURIComponent(q.slice(0,40)+'_'+mode).replace(/[^a-zA-Z0-9_]/g,'').slice(0,60);
-  try{
-    var cached=localStorage.getItem(cacheKey);
-    if(cached){
-      var cdata=JSON.parse(cached);
-      var age=Date.now()-(cdata.ts||0);
-      if(age<CACHE_TTL&&cdata.data&&cdata.data.length>0){
-        var cachedJobs=cdata.data;
-        var minsLeft=Math.round((CACHE_TTL-age)/60000);
-        el.innerHTML='<div class="gj-count" style="display:flex;justify-content:space-between;align-items:center;">'
-          +'<span>'+cachedJobs.length+' jobs (cached · refreshes in '+minsLeft+'min)</span>'
-          +"<button onclick=\"clearAllJobCache()\" style=\"font-size:10px;background:none;border:1px solid #e5e1d8;border-radius:5px;padding:1px 7px;color:#6b7280;cursor:pointer\">Refresh</button>"
-          +'</div>';
-        // Apply client filters + render cached results
-        renderJobCards(cachedJobs,el,mode);
-        return;
-      }
-    }
-  }catch(_ce){}
-  fetch(JSEARCH_URL+'?query='+encodeURIComponent(q)+'&num_pages=2&date_posted=all&country=in',{
-    headers:{'X-RapidAPI-Key':JSEARCH_KEY,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}
-  }).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+  el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching live salary data...</div>';
+  var q=buildJobQuery(skill,exp);
+  var cityAz=(city||'India').replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
+  var url='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&results_per_page=20&what='+encodeURIComponent(q)+'&where='+encodeURIComponent(cityAz)+'&sort_by=salary&content-type=application/json';
+  fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(data){
-    var jobs=(data.data||[]).filter(function(j){return j.job_min_salary&&j.job_max_salary;});
-    if(!jobs.length){
-      el.innerHTML='<div class="az-empty">No salary data found for <strong>'+skill+'</strong>.<br><small>Try a more common job title.</small></div>';
+    var jobs=(data.results||[]).filter(function(j){return j.salary_min&&j.salary_max&&j.salary_min>0;});
+    var minSal,maxSal,medSal,count;
+    if(jobs.length){
+      var mins=jobs.map(function(j){return j.salary_min;});
+      var maxs=jobs.map(function(j){return j.salary_max;});
+      minSal=Math.round(Math.min.apply(null,mins)/100000);
+      maxSal=Math.round(Math.max.apply(null,maxs)/100000);
+      medSal=Math.round((mins.concat(maxs).reduce(function(s,v){return s+v;},0)/(mins.length+maxs.length))/100000);
+      count=jobs.length;
+    }else if(data.mean){
+      var m=Math.round(data.mean/100000);
+      minSal=Math.round(m*0.7);maxSal=Math.round(m*1.4);medSal=m;count='Adzuna';
+    }else{
+      el.innerHTML='<div class="az-empty" style="text-align:center"><div style="font-size:32px;margin-bottom:10px">💰</div><strong>No salary data found for '+skill+'</strong><br><br><small style="color:var(--soft)">Try: React Developer · Data Analyst · Product Manager<br>Or check Glassdoor for this role</small><br><br><a href="https://www.glassdoor.co.in/Salaries/'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-salary-SRCH_KO0,'+skill.length+'.htm" target="_blank" class="btn-search" style="display:inline-block;margin-top:8px;padding:8px 16px;font-size:12px;">Check on Glassdoor ↗</a></div>';
       return;
     }
-    var mins=jobs.map(function(j){return j.job_min_salary;});
-    var maxs=jobs.map(function(j){return j.job_max_salary;});
-    var avg=function(a){return a.reduce(function(s,v){return s+v;},0)/a.length;};
-    var minSal=Math.round(Math.min.apply(null,mins)/100000);
-    var maxSal=Math.round(Math.max.apply(null,maxs)/100000);
-    var medSal=Math.round(avg(mins.concat(maxs))/100000);
-    el.innerHTML='<div class="salary-range-card">'
-      +'<h3>Salary Range for '+skill+(city?' in '+city:'')+'</h3>'
-      +'<div style="font-size:11px;color:var(--soft);margin-bottom:16px">Based on '+jobs.length+' live job postings</div>'
+    el.innerHTML='<div class="salary-range-card"><h3>Salary Range: '+skill+(city?' · '+city:'')+'</h3>'
+      +'<div style="font-size:11px;color:var(--soft);margin-bottom:16px">Based on '+count+' live job postings · Powered by Adzuna India</div>'
       +'<div class="salary-labels">'
-      +'<div class="salary-label"><strong>₹'+minSal+'L</strong><span>Minimum</span></div>'
-      +'<div class="salary-label"><strong style="color:var(--teal)">₹'+medSal+'L</strong><span>Average</span></div>'
-      +'<div class="salary-label"><strong style="color:var(--amber)">₹'+maxSal+'L</strong><span>Maximum</span></div>'
+      +'<div class="salary-label"><strong>'+'₹'+minSal+'L</strong><span>Minimum</span></div>'
+      +'<div class="salary-label"><strong style="color:var(--teal)">'+'₹'+medSal+'L</strong><span>Average</span></div>'
+      +'<div class="salary-label"><strong style="color:var(--amber)">'+'₹'+maxSal+'L</strong><span>Maximum</span></div>'
       +'</div></div>';
   }).catch(function(){
-    el.innerHTML='<div class="az-empty">Could not fetch salary data. Check internet.</div>';
+    aiSalaryEstimate(skill,city||'India',exp,el);
   });
 }
-
+async function aiSalaryEstimate(skill,city,exp,el){
+  el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Getting AI salary estimate for '+skill+'...</div>';
+  try{
+    var prompt='Give salary ranges for "'+skill+'" in '+city+', India'+(exp?' with '+exp+' years experience':'')+'. Return ONLY JSON: {"min":X,"median":Y,"max":Z,"currency":"LPA","insights":"2 sentence market insight","fresher":A,"senior":B} where values are in Lakhs Per Annum (LPA). No explanation, JSON only.';
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,
+        messages:[{role:'user',content:prompt}]})
+    });
+    var data=await resp.json();
+    var raw=((data.content&&data.content[0]&&data.content[0].text)||'').replace(/```json|```/g,'').trim();
+    var d=JSON.parse(raw);
+    el.innerHTML='<div class="salary-range-card">'
+      +'<h3>Salary Range: '+skill+' · '+city+'</h3>'
+      +'<div style="font-size:11px;color:var(--soft);margin-bottom:16px">AI estimated · Based on Indian market data · '+new Date().toLocaleDateString('en-IN',{month:'short',year:'numeric'})+'</div>'
+      +'<div class="salary-labels">'
+      +'<div class="salary-label"><strong>₹'+d.min+'L</strong><span>Minimum</span></div>'
+      +'<div class="salary-label"><strong style="color:var(--teal)">₹'+d.median+'L</strong><span>Average</span></div>'
+      +'<div class="salary-label"><strong style="color:var(--amber)">₹'+d.max+'L</strong><span>Maximum</span></div>'
+      +'</div>'
+      +(d.insights?'<div style="margin-top:14px;padding:12px;background:var(--cream);border-radius:8px;font-size:12px;color:var(--soft);">💡 '+d.insights+'</div>':'')
+      +(d.fresher?'<div style="margin-top:8px;display:flex;gap:10px;font-size:11px;color:var(--soft);"><span>Fresher: ₹'+d.fresher+'L</span><span>Senior (7+ yrs): ₹'+d.senior+'L</span></div>':'')
+      +'</div>';
+  }catch(e){
+    el.innerHTML='<div class="az-empty" style="text-align:center"><div style="font-size:28px;margin-bottom:8px">⚠️</div>Unable to estimate salary. Please try again.</div>';
+  }
+}
 function runOfferAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('offerText')||{value:''}).value.trim();
@@ -2530,11 +2670,15 @@ function runWomenSearch(){
   var el=document.getElementById('womenResults');if(!el)return;
   fetchGoogleJobs(skill+' returnship women',city,exp,el,'women');
   // Update static LinkedIn links
+  var wrNK=document.getElementById('wr-nk');
   var wrLJ=document.getElementById('wr-lj');var wrLP=document.getElementById('wr-lp');
+  var _wsl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  if(wrNK)wrNK.href='https://www.naukri.com/returnship-jobs?q='+encodeURIComponent(skill);
   if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women');
   if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22';
   var wrLinks=document.getElementById('wrLinkedInLinks');
   if(wrLinks)wrLinks.style.display='flex';
+  var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-returnship-jobs';
 }
 
 
@@ -2891,9 +3035,11 @@ function fetchAdzunaJobs(skill,city,exp,el){
         var posted=j.created?timeSince(j.created):'';
         var url=j.redirect_url||'#';
         var en=co.charAt(0).toUpperCase();
+        var coDomain=co.toLowerCase().replace(/pvt\.?\s*ltd\.?|inc\.?|llc|corp\.?/gi,'').replace(/\s+/g,'').replace(/[^a-z0-9]/g,'')+'.com';
+        var logoHtml='<img src="https://logo.clearbit.com/'+coDomain+'" width="28" height="28" style="border-radius:5px;object-fit:contain;background:#fff;padding:2px;" onerror="this.outerHTML=\'<div class=\"gj-badge\" style=\"background:var(--teal);\">'+en+'</div>\'">';
         h+='<a class="gj-card" href="'+url+'" target="_blank" rel="noopener">'
           +'<div class="gj-top">'
-          +'<div class="gj-badge" style="background:var(--teal);">'+en+'</div>'
+          +logoHtml
           +'<div class="gj-info">'
           +'<div class="gj-title">'+(j.title||'Job Opening')+'</div>'
           +'<div class="gj-company">'+co+' &nbsp;·&nbsp; '+loc+'</div>'
@@ -2925,8 +3071,8 @@ function buildPortalLinks(skill,city,exp){
     {n:'Indeed',ic:'📋',url:'https://in.indeed.com/jobs?q='+s+'&l='+cu},
     {n:'Shine',ic:'⭐',url:'https://www.shine.com/job-search/'+sl+'-jobs-in-'+cl},
     {n:'ApnaJobs',ic:'👔',url:'https://apnajobs.in/jobs?q='+s+'&location='+cu},
-    {n:'Glassdoor',ic:'🏢',url:'https://www.glassdoor.co.in/Jobs/'+encodeURIComponent(skill+'-jobs-SRCH_KO0,'+skill.length)+'.htm'},
-    {n:'Instahyre',ic:'⚡',url:'https://www.instahyre.com/search-jobs/?q='+s+'&location='+cu},
+    {n:'Glassdoor',ic:'🏢',url:'https://www.glassdoor.co.in/Job/india-'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-jobs-SRCH_IL.0,5_IN115_KO6,'+(6+skill.length)+'.htm'},
+    {n:'Instahyre',ic:'⚡',url:'https://www.instahyre.com/candidate/jobs/?title='+s+'&location='+cu},
     {n:'Hirist',ic:'💻',url:'https://www.hirist.tech/search?query='+s+'&location='+cu},
     {n:'TimesJobs',ic:'⏰',url:'https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords='+s+'&txtLocation='+cu},
     {n:'SimplyHired',ic:'🎯',url:'https://www.simplyhired.co.in/search?q='+s+'&l='+cu},
@@ -2950,6 +3096,55 @@ function getATSJobQuery(){
   var query=role;
   if(skills.length)query+=' '+skills.join(' ');
   return {skill:query.trim(),city:r.location||lastSearchedCity||(currentUser&&currentUser.city)||'India'};
+}
+
+function openATSNaukri(){
+  if(!isPaidUser()){showUpgradeModal();return;}
+  var aq=getATSJobQuery();
+  var skill=aq?aq.skill:(lastSearchedSkill||'');
+  if(!skill){showToast('Check your ATS score first','amber');return;}
+  window.open('https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs','_blank');
+}
+function openFresherNaukri(){
+  var s=window._fresherSkill||'fresher';
+  window.open('https://www.naukri.com/fresher-'+encodeURIComponent(s.toLowerCase().replace(/\s+/g,'-'))+'-jobs','_blank');
+}
+
+async function generateSignalLetter(){
+  var ta=document.getElementById('atsPasteText');
+  var resumeTxt=(ta?ta.value.trim():'')||atsResumeText||'';
+  if(resumeTxt.length<50){showToast('Please check your ATS score first','amber');return;}
+  var jobTitle=(document.getElementById('slJobTitle')||{value:''}).value.trim();
+  var tone=(document.getElementById('slTone')||{value:'professional'}).value;
+  var result=atsLastResult;
+  var role=result?result.role:'';var skills=result?(result.skills||[]).slice(0,4).join(', '):'';
+  var resEl=document.getElementById('signalLetterResult');
+  if(!resEl)return;
+  resEl.innerHTML='<div class="az-loading"><div class="az-spinner" style="border-top-color:var(--teal)"></div>Generating your Signal Letter...</div>';
+  var prompt='Write a '+tone+' cover letter. '+(jobTitle?'Applying for: '+jobTitle+'. ':'')+' Role: '+role+'. Key skills: '+skills+'. Three concise paragraphs, max 180 words. Start with Dear Hiring Manager, end with Yours sincerely. Resume data below. Resume: '+resumeTxt.slice(0,2500);
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
+    });
+    var data=await resp.json();
+    var letter=((data.content&&data.content[0]&&data.content[0].text)||'').trim();
+    if(!letter){resEl.innerHTML='<div class="az-empty">Could not generate letter. Try again.</div>';return;}
+    resEl.innerHTML='<div style="background:var(--cream);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;">'
+      +'<div style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">YOUR SIGNAL LETTER · '+(jobTitle||role||'General Application').toUpperCase()+'</div>'
+      +'<div style="font-size:13px;line-height:1.75;color:var(--ink);white-space:pre-wrap;">'+letter+'</div>'
+      +'</div>'
+      +'<div style="display:flex;gap:8px;">'
+      +'<button onclick="navigator.clipboard.writeText(document.getElementById(\'slLetterText\').textContent)" style="flex:1;padding:9px;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">📋 Copy</button>'
+      +'<button onclick="generateSignalLetter()" style="flex:1;padding:9px;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">↻ Regenerate</button>'
+      +'</div>';
+    // Store text for copy
+    var hidden=document.createElement('div');hidden.id='slLetterText';hidden.style.display='none';hidden.textContent=letter;
+    resEl.appendChild(hidden);
+    showToast('Signal Letter ready — copy and customise!','green');
+  }catch(e){
+    resEl.innerHTML='<div class="az-empty">AI not available right now. Try again in a moment.</div>';
+  }
 }
 </script>
 
