@@ -1509,6 +1509,14 @@ const RZP_KEY='rzp_live_STQSX6OgVKJ1cm';
 const SUPER='9160075557';
 const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
+// Anthropic API key — add your key from console.anthropic.com
+// Leave empty to use Claude preview auto-auth (works in Claude.ai only)
+const ANTHROPIC_KEY='';
+function anthropicHeaders(){
+  var h={'Content-Type':'application/json'};
+  if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
+  return h;
+}
 const S_USER='js_user';const S_PLAN='js_plan';const S_REG='js_reg';
 
 // ── STATE ─────────────────────────────────────────────────────────
@@ -1794,7 +1802,7 @@ function doLogout(){
 // ── SESSION RESTORE ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
   // Track visitor
-  try{fetch(FB_DB+'/stats/visitors.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now()})});}catch(e){}
+  try{fetch(FB_DB+'/stats/visitors.json',{method:'POST',headers:anthropicHeaders(),body:JSON.stringify({ts:Date.now()})});}catch(e){}
   // Restore session
   try{
     var raw=localStorage.getItem(S_USER);
@@ -1970,7 +1978,7 @@ async function autoEnhanceATS(txt){
   if(verdEl)verdEl.textContent=origVerdict+' · AI analysing...';
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
         messages:[{role:'user',content:'Analyse this resume for ATS (Indian job market). Return ONLY JSON: {score,verdict,color,categories:{contact:{score,status},structure:{score,status},content:{score,status},keywords:{score,status},format:{score,status},length:{score,status}},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each. color: #16a34a/>75, #f59e0b/50-75, #dc2626/<50.\n\n'+txt.slice(0,8000)}]})
     });
@@ -1985,6 +1993,7 @@ async function autoEnhanceATS(txt){
     }
   }catch(e){
     if(verdEl)verdEl.textContent=origVerdict; // restore if AI fails
+    // Silently fail — local score still shows
   }
 }
 
@@ -2245,7 +2254,7 @@ async function enhanceWithAI(){
   showToast('🤖 Enhancing with AI...','');
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
         messages:[{role:'user',content:'Analyse this resume for ATS. Return ONLY valid JSON (no markdown): {score,verdict,color,categories:{contact,structure,content,keywords,format,length (each:{score,status})},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each category. color: #16a34a if >75, #f59e0b if 50-75, #dc2626 if <50.\n\nResume:\n'+txt.slice(0,8000)}]})
     });
@@ -2390,19 +2399,11 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
     // renderJobCards handles card display
   }).catch(function(e){
     var is429=String(e).includes('429')||String(e).includes('Too Many');
-    var msg=is429?'Search quota reached — use links below':'Search unavailable — try these:';
-    var _fSkill=skill||lastSearchedSkill||'jobs';
-    var _fCity=city||lastSearchedCity||'India';
-    var gg='https://www.google.com/search?q='+encodeURIComponent('"'+_fSkill+'" jobs '+_fCity+(mode==='walkin'?' walk-in':'')+(mode==='fresher'?' fresher intern':'')+(mode==='women'?' returnship women':''));
-    var nk='https://www.naukri.com/'+encodeURIComponent(_fSkill.toLowerCase().replace(/ /g,'-'))+'-jobs-in-'+encodeURIComponent(_fCity.toLowerCase().replace(/ /g,'-'));
-    el.innerHTML='<div class="az-empty" style="text-align:center;padding:20px">'
+    el.innerHTML='<div class="az-empty" style="text-align:center;padding:24px">'
       +'<div style="font-size:28px;margin-bottom:8px">'+(is429?'⏳':'⚠️')+'</div>'
-      +'<div style="font-weight:700;margin-bottom:4px">'+msg+'</div>'
-      +'<div style="font-size:11px;color:var(--soft);margin-bottom:12px">Use the LinkedIn buttons in the tab bar above ↑</div>'
-      +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
-      +'<a href="'+gg+'" target="_blank" style="background:var(--amber);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Google Jobs ↗</a>'
-      +'<a href="'+nk+'" target="_blank" style="background:#ff7555;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">Naukri ↗</a>'
-      +'</div></div>';
+      +'<div style="font-weight:700;margin-bottom:6px">'+(is429?'Search quota reached':'Search unavailable')+'</div>'
+      +'<div style="font-size:12px;color:var(--soft)">Use the buttons above ↑ to search directly</div>'
+      +'</div>';
   });
 }
 
@@ -2480,7 +2481,7 @@ async function aiSalaryEstimate(skill,city,exp,el){
   try{
     var prompt='Give salary ranges for "'+skill+'" in '+city+', India'+(exp?' with '+exp+' years experience':'')+'. Return ONLY JSON: {"min":X,"median":Y,"max":Z,"currency":"LPA","insights":"2 sentence market insight","fresher":A,"senior":B} where values are in Lakhs Per Annum (LPA). No explanation, JSON only.';
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,
         messages:[{role:'user',content:prompt}]})
     });
@@ -2574,7 +2575,7 @@ async function enhanceOfferWithAI(){
   showToast('🤖 AI analysing offer letter...','');
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,
         messages:[{role:'user',content:'Analyse this Indian employment offer letter. List the top 5 concerns about: bond period, non-compete, variable pay, IP ownership, notice period, moonlighting restrictions. Be specific and practical. Keep each point under 20 words.\n\nOffer letter:\n'+txt.slice(0,5000)}]})
     });
@@ -2628,7 +2629,7 @@ async function enhanceContractWithAI(){
   showToast('🤖 AI analysing contract...','');
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
         messages:[{role:'user',content:'Analyse this employment contract for moonlighting/dual employment restrictions. Give a clear verdict: Can Do / Risky / Cannot. List the relevant clauses. Be specific and practical. Under 150 words total.\n\nContract:\n'+txt.slice(0,4000)}]})
     });
@@ -3124,7 +3125,7 @@ async function generateSignalLetter(){
   var prompt='Write a '+tone+' cover letter. '+(jobTitle?'Applying for: '+jobTitle+'. ':'')+' Role: '+role+'. Key skills: '+skills+'. Three concise paragraphs, max 180 words. Start with Dear Hiring Manager, end with Yours sincerely. Resume data below. Resume: '+resumeTxt.slice(0,2500);
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
     });
     var data=await resp.json();
@@ -3143,7 +3144,8 @@ async function generateSignalLetter(){
     resEl.appendChild(hidden);
     showToast('Signal Letter ready — copy and customise!','green');
   }catch(e){
-    resEl.innerHTML='<div class="az-empty">AI not available right now. Try again in a moment.</div>';
+    var keyMsg=ANTHROPIC_KEY?'':'<br><small>To enable AI on your deployed site, add your API key from <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></small>';
+    resEl.innerHTML='<div class="az-empty" style="text-align:center;padding:20px"><div style="font-size:24px;margin-bottom:8px">⚠️</div><strong>AI temporarily unavailable</strong><br><small style="color:var(--soft)">Try again in a moment</small>'+keyMsg+'</div>';
   }
 }
 </script>
