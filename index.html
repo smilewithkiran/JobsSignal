@@ -1117,7 +1117,7 @@ img{max-width:100%;display:block;}
           <option value="Microsoft">Microsoft — JUMP</option>
           <option value="Dell">Dell — Reconnect</option>
         </select>
-        <div style="font-size:11px;color:var(--soft);padding:0 4px;">Select company → auto-finds jobs</div>
+        <div style="font-size:11px;color:var(--soft);padding:0 4px;">↑ Select a company to open its jobs on LinkedIn</div>
       </div>
     </div>
 
@@ -1486,6 +1486,7 @@ function switchTab(tab,skipHistory){
     p.classList.toggle('active',p.id==='tab-'+tab);
   });
   if(tab==='fresher')initFresherTab();
+  if(tab==='women')showAllProgCards();
   if(tab==='portals')initPortalsTab();
   window.scrollTo(0,0);
 }
@@ -2739,22 +2740,30 @@ function getSearchCity(formCityId){
 }
 
 function filterProgs(co){
+  // Only called explicitly (not from dropdown) — dropdown uses onProgSelect instead
   document.querySelectorAll('.prog-card').forEach(function(card){
     card.style.display=(co==='all'||card.getAttribute('data-co')===co)?'block':'none';
   });
 }
+function showAllProgCards(){
+  // Ensure all 12 cards are visible
+  document.querySelectorAll('.prog-card').forEach(function(card){
+    card.style.display='block';
+  });
+}
 function onProgSelect(co){
-  filterProgs(co);
+  // NO filterProgs — cards always show all 12, dropdown just triggers job search
   if(co==='all')return;
   if(!isPaidUser()){showUpgradeModal();return;}
-  // Open company returnship jobs directly in new tab (Google Jobs search)
-  var q=co+' returnship women jobs India 2024 2025';
-  var ggUrl='https://www.google.com/search?q='+encodeURIComponent(q)+'&ibp=htl;jobs';
-  window.open(ggUrl,'_blank');
-  // Also open LinkedIn Jobs for this company in another tab
-  var ljUrl='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(co+' returnship women');
-  setTimeout(function(){window.open(ljUrl,'_blank');},300);
-  showToast('Opening '+co+' jobs in new tabs...','green');
+  // Open LinkedIn Jobs for this company directly in ONE new tab
+  var ljUrl='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(co+' returnship women India')+'&f_TPR=r2592000';
+  window.open(ljUrl,'_blank');
+  showToast('Opening '+co+' jobs on LinkedIn...','green');
+  // Reset dropdown back to "All Companies" after 1 second
+  setTimeout(function(){
+    var sel=document.getElementById('progFilter');
+    if(sel)sel.value='all';
+  },1000);
 }
 
 
