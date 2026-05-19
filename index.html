@@ -925,6 +925,10 @@ img{max-width:100%;display:block;}
       <button class="btn-search" onclick="runWalkIn()">🚶 Find Walk-in Drives →</button>
     </div>
     <div id="wiResults"></div>
+      <div id="wiLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <a id="wi-lj" href="#" target="_blank" class="prog-btn jobs">💼 LinkedIn Jobs ↗</a>
+        <a id="wi-lp" href="#" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>
+      </div>
   </div>
 
   <!-- ── SALARY TAB ──────────────────────────────────── -->
@@ -1101,7 +1105,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">2-8 years experience, career break of 1+ year. 120+ openings. Customised onboarding + mentoring.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.tcs.com/careers/india/rebegin','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('TCS Rebegin returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Infosys">
@@ -1110,7 +1114,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">For experienced women professionals on a break. Re-enter business world with reskilling + mentorship support.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Infosys Restart returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Accenture">
@@ -1119,7 +1123,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">Return to work with reskilling support. Flexible roles for women who have taken a career break.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.accenture.com/in-en/careers/explore-careers/women-returnship','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Accenture Recharge returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Amazon">
@@ -1128,7 +1132,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">16-week paid internship with full-time offer possibility. Mentorship + flexible working for women returnees.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.amazon.jobs/en/landing_pages/returnship','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Amazon Re-Kindle returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="HCLTech">
@@ -1137,7 +1141,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">Supports women pursuing both personal and professional goals. Career break re-entry with training.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.hcltech.com/careers','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('HCLTech returnship women career restart')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Wipro">
@@ -1146,7 +1150,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">Career break of 1+ year. Structured return with project exposure and leadership mentoring.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://careers.wipro.com','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Wipro ReachOut returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="IBM">
@@ -1155,7 +1159,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">For professionals with 2+ year career break. Technology roles with reskilling support in India.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.ibm.com/in-en/employment','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('IBM Career Restart returnship women India')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Deloitte">
@@ -1164,7 +1168,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">16-week program for 2+ year career break. Paid internship with full-time offer at end.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www2.deloitte.com/us/en/pages/careers/articles/join-deloitte-encore-program.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Deloitte Encore returnship women India')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="SAP">
@@ -1173,7 +1177,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">3-month paid internship for women with 2+ year break. Full-time offer possible at end of programme.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('SAP Career Restart returnship women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Goldman Sachs">
@@ -1182,7 +1186,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">For 2+ year career break professionals. Based in Bengaluru &amp; Hyderabad. Finance + Tech roles.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Goldman Sachs returnship India women')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Microsoft">
@@ -1191,7 +1195,7 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">Jumpstart Your Return — structured mentorship and project-based work for women returning to tech.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://careers.microsoft.com/v2/global/en/returntomicrosoft','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Microsoft JUMP returnship women India')">Find Jobs</button>
+          
         </div>
       </div>
       <div class="prog-card" data-co="Dell">
@@ -1200,9 +1204,21 @@ img{max-width:100%;display:block;}
         <div class="prog-desc">Re-entry programme for professionals with career gaps. Technology and business roles across India.</div>
         <div class="prog-btns">
           <button class="prog-btn apply" onclick="window.open('https://jobs.dell.com','_blank')">Apply Now ↗</button>
-          <button class="prog-btn jobs" onclick="findProgJobs('Dell Reconnect returnship women India')">Find Jobs</button>
+          
         </div>
       </div>
+    </div>
+
+    <!-- Job Results from dropdown selection -->
+    <div id="womenDropdownResults" style="margin-bottom:16px;display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+        <div id="womenDropdownTitle" style="font-size:14px;font-weight:700;"></div>
+        <div style="display:flex;gap:6px;">
+          <a id="wdrLJobs" href="#" target="_blank" class="prog-btn apply">💼 LinkedIn Jobs ↗</a>
+          <a id="wdrLPosts" href="#" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>
+        </div>
+      </div>
+      <div id="womenGJobs"></div>
     </div>
 
     <!-- Job search -->
@@ -1228,6 +1244,10 @@ img{max-width:100%;display:block;}
       <button class="btn-search" onclick="runWomenSearch()">👩 Find Women-Friendly Jobs →</button>
     </div>
     <div id="womenResults"></div>
+      <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <a id="wr-lj" href="#" target="_blank" class="prog-btn apply">💼 LinkedIn Jobs ↗</a>
+        <a id="wr-lp" href="#" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>
+      </div>
   </div>
 
 
@@ -1278,6 +1298,13 @@ img{max-width:100%;display:block;}
 </div><!-- end dash-wrap -->
 
 <script>
+// IFRAME SAFETY: disable history API when inside Claude preview or iframe
+var IN_IFRAME=false;
+try{IN_IFRAME=(window.self!==window.top);}catch(_if){IN_IFRAME=true;}
+try{if(window.location.href==='about:srcdoc'||window.location.protocol==='about:')IN_IFRAME=true;}catch(_if2){IN_IFRAME=true;}
+function safePS(state,u){if(!IN_IFRAME)try{history.pushState(state,'',u);}catch(_e){}}
+function safeHash(){try{return IN_IFRAME?'':window.location.hash.replace('#','');}catch(_e){return '';}}
+
 
 // ── CONFIG ────────────────────────────────────────────────────────
 const FB_DB='https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
@@ -1306,7 +1333,7 @@ function showView(id){
     // Always reset ATS when coming from landing
     atsResumeText='';atsFileData=null;atsLastResult=null;
     try{localStorage.removeItem('js_ats_last');}catch(e){}
-    var res=document.getElementById('atsResult');if(res){res.style.display='none';res.innerHTML='';}
+    var res=document.getElementById('atsResult');if(res){res.style.display='none';}
     var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
     var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
     var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
@@ -1334,15 +1361,15 @@ function showView(id){
 function goTo(id){
   if(id==='atsTabDirect'){
     if(currentUser){switchTab('ats');return;}
-    history.pushState({view:'atsPublic'},'','#ats');
+    safePS({view:'atsPublic'},'#ats');
     showView('atsPublic');return;
   }
   var hashId=id==='dashView'?'dashboard':id;
-  try{history.pushState({view:id},'','#'+hashId);}catch(_e){}
+  safePS({view:id},'#'+hashId);
   showView(id);
 }
 window.addEventListener('popstate',function(e){
-  var hash=window.location.hash.replace('#','');
+  var hash=safeHash();
   if(!hash){showView('landingView');return;}
   if(hash==='dashboard'||hash.startsWith('dashboard-')){
     if(currentUser){
@@ -1363,7 +1390,7 @@ window.addEventListener('popstate',function(e){
 // ── TAB SWITCHER ──────────────────────────────────────────────────
 function switchTab(tab,skipHistory){
   if(!skipHistory){
-    try{history.pushState({view:'dashView',tab:tab},'','#dashboard-'+tab);}catch(_e){}
+    safePS({view:'dashView',tab:tab},'#dashboard-'+tab);
   }
   var dashEl=document.getElementById('dashView');
   if(dashEl)dashEl.classList.add('active');
@@ -1379,7 +1406,7 @@ function switchTab(tab,skipHistory){
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
-function isSuperUser(){return currentUser&&currentUser.phone&&currentUser.phone.slice(-10)===SUPER;}
+function isSuperUser(){var ph=(currentUser&&currentUser.phone)?(''+currentUser.phone).replace(/[^0-9]/g,'').slice(-10):'';return ph===SUPER;}
 function isPaidUser(){return isPaid||isSuperUser();}
 
 async function doLogin(){
@@ -1528,7 +1555,7 @@ function doLogout(){
     keys.forEach(function(k){localStorage.removeItem(k);});
   }catch(e){}
   // Reset ATS UI
-  var res=document.getElementById('atsResult');if(res){res.style.display='none';res.innerHTML='';}
+  var res=document.getElementById('atsResult');if(res){res.style.display='none';}
   var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
   var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
   var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
@@ -1545,7 +1572,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // Restore session
   try{
     var raw=localStorage.getItem(S_USER);
-    var hash='';try{hash=window.location.hash.replace('#','');}catch(_he){}
+    var hash=safeHash();
     if(!raw){
       if(hash==='ats'){showView('atsPublic');return;}
       if(hash&&hash!=='landingView'&&hash!=='dashboard'){
@@ -1589,10 +1616,18 @@ function startPayment(){
     description:'30-Day Full Access',
     handler:async function(resp){
       var expiry=new Date(Date.now()+30*24*60*60*1000).toISOString();
-      var plan={phone:currentUser.phone,expiry:expiry,txnId:resp.razorpay_payment_id,amount:99};
-      try{await fetch(FB_DB+'/plans/'+currentUser.phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(plan)});}catch(e){}
+      var ph=(currentUser.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+      var plan={phone:ph,expiry:expiry,txnId:resp.razorpay_payment_id,amount:99,paidAt:new Date().toISOString()};
       localStorage.setItem(S_PLAN,JSON.stringify(plan));
       isPaid=true;buildDash(currentUser,true);closeUpgradeModal();
+      showToast('Full access unlocked for 30 days!','green');
+      for(var _t=0;_t<3;_t++){
+        try{
+          var fr=await fetch(FB_DB+'/plans/'+ph+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(plan)});
+          if(fr.ok)break;
+        }catch(_e){}
+        await new Promise(function(r){setTimeout(r,1200);});
+      }
       showToast('🎉 Full access unlocked for 30 days!','green');
       switchTab('home');
     },
@@ -2117,14 +2152,12 @@ function runWalkIn(){
   fetchGoogleJobs(q,city,exp,el,'walkin');
   // LinkedIn links
   var lq=encodeURIComponent('"'+skill+'" "walk-in" OR "walkin" '+city+(area?' '+area:''));
-  // Remove old LinkedIn buttons before adding new ones
-  var oldBtns=el.nextElementSibling;
-  if(oldBtns&&oldBtns.classList.contains('li-btn-row'))oldBtns.remove();
-  var btnDiv=document.createElement('div');
-  btnDiv.className='li-btn-row';btnDiv.style.cssText='display:flex;gap:8px;margin-top:10px;flex-wrap:wrap';
-  btnDiv.innerHTML='<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city)+'" target="_blank" class="prog-btn jobs">💼 LinkedIn Jobs ↗</a>'
-    +'<a href="https://www.linkedin.com/search/results/content/?keywords='+lq+'&datePosted=%22past-week%22" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>';
-  el.insertAdjacentElement('afterend',btnDiv);
+  // Update static LinkedIn links with actual search terms
+  var wiLJ=document.getElementById('wi-lj');var wiLP=document.getElementById('wi-lp');
+  if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city);
+  if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin '+city)+'&datePosted=%22past-week%22';
+  var wiLinks=document.getElementById('wiLinkedInLinks');
+  if(wiLinks)wiLinks.style.display='flex';
 }
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
@@ -2353,13 +2386,12 @@ function runWomenSearch(){
   if(!skill){showToast('Enter a skill or role','amber');return;}
   var el=document.getElementById('womenResults');if(!el)return;
   fetchGoogleJobs(skill+' returnship women',city,exp,el,'women');
-  // LinkedIn links — remove old before adding new
-  var _oldWr=document.getElementById('wrLiLinks');if(_oldWr)_oldWr.remove();
-  var _wDiv=document.createElement('div');_wDiv.id='wrLiLinks';
-  _wDiv.style.cssText='display:flex;gap:8px;margin-top:10px;flex-wrap:wrap';
-  _wDiv.innerHTML='<a href="https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women')+'" target="_blank" class="prog-btn apply">💼 LinkedIn Jobs ↗</a>'
-    +'<a href="https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22" target="_blank" class="prog-btn jobs">📝 LinkedIn Posts ↗</a>';
-  el.insertAdjacentElement('afterend',_wDiv);
+  // Update static LinkedIn links
+  var wrLJ=document.getElementById('wr-lj');var wrLP=document.getElementById('wr-lp');
+  if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women');
+  if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22';
+  var wrLinks=document.getElementById('wrLinkedInLinks');
+  if(wrLinks)wrLinks.style.display='flex';
 }
 
 
@@ -2604,15 +2636,22 @@ function filterProgs(co){
 }
 function onProgSelect(co){
   filterProgs(co);
-  if(co!=='all'){
-    // Auto find jobs for selected company
-    if(!isPaidUser()){showUpgradeModal();return;}
-    var q=co+' returnship women India jobs';
-    var el=document.getElementById('womenResults');
-    if(el){
-      el.scrollIntoView({behavior:'smooth',block:'start'});
-      fetchGoogleJobs(q,'India','',el,'women');
-    }
+  var sec=document.getElementById('womenDropdownResults');
+  if(co==='all'){if(sec)sec.style.display='none';return;}
+  if(!isPaidUser()){showUpgradeModal();return;}
+  if(sec)sec.style.display='block';
+  var titleEl=document.getElementById('womenDropdownTitle');
+  if(titleEl)titleEl.textContent=co+' — Women Returnship Jobs';
+  // Update LinkedIn links for this company
+  var lj=document.getElementById('wdrLJobs');
+  var lp=document.getElementById('wdrLPosts');
+  if(lj)lj.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(co+' returnship women jobs India');
+  if(lp)lp.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(co+' returnship women hiring India')+'&datePosted=%22past-month%22';
+  var el=document.getElementById('womenGJobs');
+  if(el){
+    el.innerHTML='';
+    fetchGoogleJobs(co+' returnship women',co==='Goldman Sachs'||co==='Dell'||co==='SAP'?'India':'India','',el,'women');
+    sec.scrollIntoView({behavior:'smooth',block:'start'});
   }
 }
 </script>
