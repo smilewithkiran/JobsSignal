@@ -37,6 +37,11 @@ img{max-width:100%;display:block;}
 /* ═══ VIEW SYSTEM ══════════════════════════════════════════════════ */
 .view{display:none;}
 .view.active{display:block;}
+#loginView.active,#signupView.active{display:grid;}
+@media(max-width:768px){
+  #loginView,#signupView{grid-template-columns:1fr !important;}
+  #loginView>div:first-child,#signupView>div:first-child{display:none;}
+}
 
 /* ═══ TOP NAV (landing) ════════════════════════════════════════════ */
 .top-nav{
@@ -61,6 +66,32 @@ img{max-width:100%;display:block;}
 .portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
 .portal-btn{display:flex;align-items:center;gap:6px;padding:10px 12px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--ink);transition:all .18s;}
 .portal-btn:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-1px);}
+/* Merged job feed cards */
+.merged-job-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;transition:.18s;cursor:pointer;text-decoration:none;color:inherit;display:block;}
+.merged-job-card:hover{border-color:var(--amber);box-shadow:var(--shadow);}
+.mjc-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.mjc-logo{width:38px;height:38px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Fraunces',serif;overflow:hidden;}
+.mjc-logo img{width:100%;height:100%;object-fit:contain;padding:3px;background:#fff;}
+.mjc-info{flex:1;min-width:0;}
+.mjc-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mjc-company{font-size:12px;color:var(--soft);}
+.mjc-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.mjc-salary{font-size:12px;font-weight:700;color:var(--teal);white-space:nowrap;}
+.source-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
+.sc-google{background:#fef3e2;color:var(--amber);border:1px solid #fdd9a8;}
+.sc-naukri{background:#fff1ee;color:#ff7555;border:1px solid #ffd4c8;}
+.sc-adzuna{background:#e8f4f0;color:var(--teal);border:1px solid #b8ddd6;}
+.sc-indeed{background:#e8ecf8;color:#003a9b;border:1px solid #b8c4e8;}
+.sc-linkedin{background:#e8f0f8;color:#0077b5;border:1px solid #b8d0e8;}
+.sc-glassdoor{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
+.sc-other{background:#f3f4f6;color:var(--soft);border:1px solid var(--border);}
+.mjc-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:6px;}
+.mjc-tag{font-size:10px;font-weight:600;background:#f3f4f6;color:var(--soft);padding:2px 7px;border-radius:5px;}
+.mjc-tag.exp{background:#fef3e2;color:var(--amber);}
+.mjc-tag.loc{background:#e8f4f0;color:var(--teal);}
+.mjc-desc{font-size:11px;color:#9ca3af;line-height:1.5;border-top:1px solid #f3f4f6;padding-top:7px;}
+.portal-filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--soft);transition:.15s;}
+.portal-filter-pill.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .portal-btn span{font-size:16px;flex-shrink:0;}
 @media(max-width:600px){.portal-grid{grid-template-columns:repeat(2,1fr);}}
 .nav-btn.outline{background:transparent;border:1.5px solid var(--border);color:var(--ink);}
@@ -146,6 +177,19 @@ img{max-width:100%;display:block;}
 
 /* Footer */
 .footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:24px;font-size:12px;}
+.home-widget{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .18s;}
+#homeWidgetGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
+@media(max-width:600px){
+  #homeWidgetGrid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .home-widget{padding:12px;}
+  .home-widget .widget-icon{font-size:16px;}
+}
+@media(max-width:380px){
+  #homeWidgetGrid{grid-template-columns:1fr 1fr;gap:6px;}
+}
+.home-widget:hover{border-color:var(--amber);box-shadow:var(--shadow);}
+.highlight-widget{border-color:rgba(26,107,107,.2);background:linear-gradient(135deg,#f0f9f6,var(--white));}
+#homePlanBadge{display:flex;}
 @keyframes atsBlink{0%,100%{opacity:1;}50%{opacity:.3;}}
 .ats-demo-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:all .25s;box-shadow:var(--shadow);}
 .ats-demo-card:hover{border-color:var(--amber);box-shadow:var(--shadow-lg);transform:translateY(-2px);}
@@ -455,7 +499,7 @@ img{max-width:100%;display:block;}
 <div id="toast"></div>
 
 <!-- ═══ LANDING VIEW ════════════════════════════════════════════ -->
-<div class="view active" id="landingView">
+<div class="view active" id="landingView" style="display:block">
 
   <!-- Nav -->
   <nav class="top-nav">
@@ -632,119 +676,6 @@ img{max-width:100%;display:block;}
   </div>
 </div>
 
-<!-- ═══ LOGIN VIEW ═══════════════════════════════════════════════ -->
-<div class="view" id="loginView" style="position:relative;">
-  <div class="auth-wrap">
-    <div style="position:absolute;top:16px;left:16px;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
-    <div class="auth-card">
-      <div class="auth-logo" style="display:flex;flex-direction:column;align-items:center;gap:6px;"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.5"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg><div style="font-family:'Fraunces',serif;font-weight:800;font-size:18px;color:var(--ink);">Jobs<span style="color:var(--amber);">Signal</span></div></div>
-      <div class="auth-sub">India's smartest job finder</div>
-      <div class="auth-title">Welcome back</div>
-      <p style="font-size:13px;color:var(--soft);text-align:center;margin:4px 0 24px">Enter your registered mobile number</p>
-      <div class="auth-err" id="liErr"></div>
-      <div class="field">
-        <label>Mobile Number</label>
-        <input type="tel" id="li_phone" maxlength="10" placeholder="10-digit mobile number" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-      </div>
-      <button class="btn-auth" onclick="doLogin()">Log In →</button>
-      <div class="auth-switch">Don't have an account? <a onclick="goTo('signupView')">Sign up free</a></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SIGNUP VIEW ══════════════════════════════════════════════ -->
-<div class="view" id="signupView" style="position:relative;">
-  <div style="position:absolute;top:16px;left:16px;z-index:10;"><button onclick="goTo('landingView')" style="background:none;border:none;color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">← Home</button></div>
-  <div class="auth-wrap">
-    <div class="auth-card">
-      <div class="auth-logo" style="display:flex;flex-direction:column;align-items:center;gap:6px;"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.5"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg><div style="font-family:'Fraunces',serif;font-weight:800;font-size:18px;color:var(--ink);">Jobs<span style="color:var(--amber);">Signal</span></div></div>
-      <div class="auth-sub">Create your free account</div>
-      <div class="step-dots">
-        <div class="step-dot active" id="sdot0"></div>
-        <div class="step-dot" id="sdot1"></div>
-        <div class="step-dot" id="sdot2"></div>
-      </div>
-      <div class="auth-err" id="suErr"></div>
-
-      <div class="signup-step active" id="sstep0">
-        <div class="auth-title" style="margin-bottom:20px">Tell us about you</div>
-        <div class="field"><label>Full Name *</label>
-          <input type="text" id="su_name" placeholder="Your full name"></div>
-        <div class="field"><label>Mobile Number *</label>
-          <input type="tel" id="su_phone" maxlength="10" placeholder="10-digit mobile" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
-        <div class="field"><label>Skill / Job Title *</label>
-          <input type="text" id="su_skill" placeholder="e.g. React Developer, HR Manager"></div>
-        <div class="field"><label>Email Address</label>
-          <input type="email" id="su_email" placeholder="yourname@gmail.com"></div>
-        <button class="btn-auth" onclick="suNext(1)">Continue →</button>
-        <div class="auth-switch">Have an account? <a onclick="goTo('loginView')">Log in</a></div>
-      </div>
-
-      <div class="signup-step" id="sstep1">
-        <div class="auth-title" style="margin-bottom:20px">Your preference</div>
-        <div class="field"><label>City *</label>
-          <select id="su_city"><option value="">Select city</option>
-          <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-          <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-          <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-          <option>Ahmedabad</option><option>Jaipur</option><option>Chandigarh</option>
-          <option>Kochi</option><option>Vijayawada</option><option>Visakhapatnam</option><option>Warangal</option><option>Tirupati</option><option>Coimbatore</option><option>Madurai</option><option>Trichy</option><option>Mysuru</option><option>Mangaluru</option><option>Surat</option><option>Vadodara</option><option>Rajkot</option><option>Indore</option><option>Bhopal</option><option>Nagpur</option><option>Lucknow</option><option>Kanpur</option><option>Patna</option><option>Bhubaneswar</option><option>India</option>
-          </select></div>
-        <div class="field"><label>Experience</label>
-          <select id="su_exp">
-            <option value="">Select experience</option>
-            <option value="0-1">Fresher / 0-1 yr</option>
-            <option value="1-3">1-3 years</option>
-            <option value="3-5">3-5 years</option>
-            <option value="5-7">5-7 years</option>
-            <option value="7-10">7-10 years</option>
-            <option value="10-12">10-12 years</option>
-            <option value="13-15">13-15 years</option>
-            <option value="15+">15+ years</option>
-          </select></div>
-        <div style="display:flex;gap:10px;">
-          <button class="btn-auth" style="background:var(--cream);color:var(--ink);border:2px solid var(--border);flex:1" onclick="suNext(-1)">← Back</button>
-          <button class="btn-auth" style="flex:2" onclick="suNext(1)">Continue →</button>
-        </div>
-      </div>
-
-      <div class="signup-step" id="sstep2">
-        <div style="text-align:center;padding:16px 0;">
-          <div style="font-size:48px;margin-bottom:16px">🎉</div>
-          <div class="auth-title" style="margin-bottom:8px">You're all set!</div>
-          <p style="font-size:13px;color:var(--soft);margin-bottom:28px;line-height:1.6">Your free account is ready. Start with your ATS score or explore all tools.</p>
-          <button class="btn-auth" onclick="doSignup()">📡 Start Using JobsSignal →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══ UPGRADE MODAL ═══════════════════════════════════════════ -->
-<div class="modal-overlay" id="upgradeModal">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeUpgradeModal()">✕</button>
-    <div style="font-size:32px;margin-bottom:12px">🚀</div>
-    <h2>Unlock Full Access</h2>
-    <p>Get all 5 career tools — walk-in finder, moonlighting checker, salary tools, and job matches from your ATS score.</p>
-    <div class="modal-price">₹99<span>/month</span></div>
-    <p style="font-size:12px;color:var(--soft);margin-bottom:16px">One-time payment · 30 days access · No auto-renewal</p>
-    <ul class="modal-features">
-      <li>✅ Google Jobs + LinkedIn Jobs from ATS</li>
-      <li>✅ Walk-in Finder — all cities</li>
-      <li>✅ Moonlighting contract checker</li>
-      <li>✅ Salary range + offer letter analyser</li>
-      <li>✅ Women returnship job search</li>
-    </ul>
-    <button class="btn-pay" onclick="startPayment()">Pay ₹99 → Get Access</button>
-  </div>
-</div>
-
-<!-- Floating upgrade button -->
-<button class="fab-upgrade" id="fabUpgrade" onclick="showUpgradeModal()">⚡ Upgrade ₹99</button>
-
-<!-- ═══ DASHBOARD ════════════════════════════════════════════════ -->
 <div class="dash-wrap" id="dashView">
 
   <!-- Top bar -->
@@ -775,95 +706,72 @@ img{max-width:100%;display:block;}
 
   <!-- ── HOME TAB ────────────────────────────────────── -->
   <div class="tab-panel active" id="tab-home" style="padding-top:8px;padding-bottom:8px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <h2 id="homeGreet" style="font-size:16px;font-weight:800;">Hi there 👋</h2>
-      <span style="font-size:11px;color:var(--soft);">What are you looking for?</span>
+    <!-- Greeting row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <h2 id="homeGreet" style="font-size:18px;font-weight:800;">Hi there 👋</h2>
+        <p id="homeDate" style="font-size:11px;color:var(--soft);margin-top:2px;"></p>
+      </div>
+      <div id="homePlanBadge" style="display:none;align-items:center;gap:6px;background:var(--teal-pale);border:1px solid rgba(26,107,107,.2);color:var(--teal);font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;"></div>
     </div>
 
     <!-- Upgrade banner (free users) -->
-    <div id="upgradeBanner" style="display:none;background:linear-gradient(135deg,var(--teal) 0%,#0d4040 100%);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:10px;display:none;align-items:center;justify-content:space-between;gap:8px;">
-      <div style="font-size:12px;color:#fff;font-weight:700;">🔒 Unlock all tools</div>
-      <button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;">Upgrade ₹99</button>
+    <div id="upgradeBanner" style="display:none;background:linear-gradient(135deg,var(--teal),#0d4040);border-radius:10px;padding:12px 16px;margin-bottom:14px;align-items:center;justify-content:space-between;gap:8px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#fff;">🔒 Unlock all 7 tools</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px;">Walk-ins · Salary · Portals · Moonlighting</div>
+      </div>
+      <button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;">₹99/month</button>
     </div>
 
-    <!-- Tool grid -->
-    <div class="tool-grid" id="homeToolGrid">
-      <div class="tool-tile" onclick="switchTab('ats')">
-        <div class="tt-icon">📊</div>
-        <div class="tt-name">ATS Checker</div>
-        <div class="tt-desc">Score your resume</div>
-        <span class="tt-free">Free</span>
+    <!-- Dashboard widgets -->
+    <div id="homeWidgetGrid">
+      <div class="home-widget highlight-widget" onclick="switchTab('ats')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">📊</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Last ATS Score</div>
+        <div id="hw-ats-score" style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--teal);line-height:1;">—</div>
+        <div id="hw-ats-sub" style="font-size:10px;color:var(--soft);margin-top:2px;">Check your resume</div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:8px;">Re-check →</div>
       </div>
-      <div class="tool-tile" id="tt-walkin" onclick="tileClick('walkin')">
-        <div class="tt-lock" id="tl-walkin">🔒</div>
-        <div class="tt-icon">🚶</div>
-        <div class="tt-name">Walk-in Finder</div>
-        <div class="tt-desc">Live drives today</div>
+      <div class="home-widget" id="hw-walkin" onclick="tileClick('walkin')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">🚶</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Walk-ins Today</div>
+        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--amber);line-height:1;">Live</div>
+        <div style="font-size:10px;color:var(--soft);margin-top:2px;">Drives near you</div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:8px;">Find drives →</div>
       </div>
-      <div class="tool-tile" id="tt-salary" onclick="tileClick('salary')">
-        <div class="tt-lock" id="tl-salary">🔒</div>
-        <div class="tt-icon">💰</div>
-        <div class="tt-name">Salary Tools</div>
-        <div class="tt-desc">Range + Offer check</div>
+      <div class="home-widget" id="hw-salary" onclick="tileClick('salary')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">💰</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Salary Tools</div>
+        <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);line-height:1;">CTC · Hike</div>
+        <div style="font-size:10px;color:var(--soft);margin-top:2px;">City compare · Offer</div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:8px;">Check salary →</div>
       </div>
-      <div class="tool-tile" id="tt-moonlight" onclick="tileClick('moonlight')">
-        <div class="tt-lock" id="tl-moonlight">🔒</div>
-        <div class="tt-icon">🌙</div>
-        <div class="tt-name">Moonlighting</div>
-        <div class="tt-desc">Contract check + Gigs</div>
+      <div class="home-widget" id="hw-portals" onclick="tileClick('portals')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">🌐</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Job Portals</div>
+        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);line-height:1;">12+</div>
+        <div style="font-size:10px;color:var(--soft);margin-top:2px;">Naukri · Foundit · more</div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:8px;">Search all →</div>
       </div>
-      <div class="tool-tile" onclick="switchTab('women')">
-        <div class="tt-icon">👩</div>
-        <div class="tt-name">Women Returnship</div>
-        <div class="tt-desc">6 programmes + Job Search</div>
-        <span class="tt-free">Partial Free</span>
+      <div class="home-widget" id="hw-women" onclick="switchTab('women')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">👩</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Women Returns</div>
+        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);line-height:1;">12</div>
+        <div style="font-size:10px;color:var(--soft);margin-top:2px;">Active programmes</div>
+        <div style="font-size:11px;font-weight:700;color:var(--teal);margin-top:8px;font-size:9px;">Partial free →</div>
       </div>
-      <div class="tool-tile" id="tt-fresher" onclick="tileClick('fresher')">
-        <div class="tt-lock" id="tl-fresher">🔒</div>
-        <div class="tt-icon">🎓</div>
-        <div class="tt-name">Freshers</div>
-        <div class="tt-desc">Campus drives · Internships</div>
-      </div>
-      <div class="tool-tile" id="tt-portals" onclick="tileClick('portals')">
-        <div class="tt-lock" id="tl-portals">🔒</div>
-        <div class="tt-icon">🌐</div>
-        <div class="tt-name">Job Portals</div>
-        <div class="tt-desc">Naukri · Foundit · 10 more</div>
+      <div class="home-widget" id="hw-freshers" onclick="tileClick('fresher')" style="cursor:pointer;">
+        <div style="font-size:18px;margin-bottom:6px;">🎓</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);margin-bottom:3px;">Freshers</div>
+        <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:var(--ink);line-height:1;">Campus</div>
+        <div style="font-size:10px;color:var(--soft);margin-top:2px;">Internships · Entry jobs</div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-top:8px;">Find jobs →</div>
       </div>
     </div>
 
-    <!-- Pricing section -->
-    <div id="homePricing" style="margin-top:28px">
-      <h3 style="font-size:16px;font-weight:800;margin-bottom:16px">Plans</h3>
-      <div class="pricing-grid" style="max-width:100%">
-        <div class="price-card">
-          <div class="price-name">Free</div>
-          <div class="price-amount">₹0</div>
-          <ul class="price-features" style="margin-bottom:16px">
-            <li><span class="chk">✓</span> ATS Scorecard</li>
-            <li><span class="chk">✓</span> AI Enhancement</li>
-            <li><span class="chk">✓</span> Women Programmes</li>
-            <li><span class="lck">✕</span> Jobs + Walk-ins</li>
-          </ul>
-          <button class="btn-price free" disabled style="opacity:.5">Current Plan</button>
-        </div>
-        <div class="price-card featured">
-          <div class="price-featured-badge">Unlock All Tools</div>
-          <div class="price-name">Full Access</div>
-          <div class="price-amount">₹99<span>/month</span></div>
-          <ul class="price-features" style="margin-bottom:16px">
-            <li><span class="chk">✓</span> Everything + All Jobs</li>
-            <li><span class="chk">✓</span> Walk-ins + Moonlighting</li>
-            <li><span class="chk">✓</span> Salary + Offer Check</li>
-            <li><span class="chk">✓</span> 🌐 Job Portals (12 sites)</li>
-          </ul>
-          <button class="btn-price paid" onclick="showUpgradeModal()">Get Full Access →</button>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- ── ATS TAB ─────────────────────────────────────── -->
   <div class="tab-panel" id="tab-ats">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">📊 ATS Checker</h2>
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Score your resume — free for everyone</p>
@@ -950,7 +858,6 @@ img{max-width:100%;display:block;}
         <a class="ext-job-btn naukri" id="jt-naukri" href="#" onclick="openATSNaukri();return false;" style="font-size:11px;">Naukri ↗</a>
         <a class="ext-job-btn ljobs" id="jt-linkedin" onclick="openLinkedInJobs();return false;" href="#" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
         <a class="ext-job-btn lposts" id="jt-posts" onclick="openLinkedInPosts();return false;" href="#" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
-        <a class="ext-job-btn naukri" id="jt-naukri" onclick="openATSNaukri();return false;" href="#" style="font-size:11px;">Naukri ↗</a>
       </div>
       <div id="atsGoogleJobs"></div>
       <div class="jobs-locked" id="atsJobsLocked" style="display:none">
@@ -1430,20 +1337,20 @@ img{max-width:100%;display:block;}
   <!-- ── JOB PORTALS TAB ──────────────────────────── -->
   <div class="tab-panel" id="tab-portals">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🌐 Job Portals</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Search once — live jobs via Adzuna + direct links to 12 portals</p>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">One search · Jobs from 10+ portals · Google Jobs + Adzuna combined</p>
 
     <div id="portalsLocked" style="display:none">
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
         <h3>Job Portals is a Paid Feature</h3>
-        <p>Upgrade to ₹99/month to search across Naukri, Foundit, Indeed, LinkedIn, Shine, ApnaJobs and 7 more portals — all from one search.</p>
-        <button class="btn-primary" onclick="showUpgradeModal()">Upgrade ₹99 → Search All Portals</button>
+        <p>Upgrade to ₹99/month to search Naukri, Foundit, Indeed, LinkedIn, Shine and 8 more portals — all in one feed.</p>
+        <button class="btn-primary" onclick="showUpgradeModal()">Upgrade ₹99 →</button>
       </div>
     </div>
 
     <div id="portalsContent" style="display:none">
       <!-- Search form -->
-      <div class="search-form">
+      <div class="search-form" style="margin-bottom:16px;">
         <div class="form-row">
           <div class="form-group">
             <label>Skill / Role *</label>
@@ -1464,28 +1371,38 @@ img{max-width:100%;display:block;}
             <label>Experience</label>
             <select id="po_exp">
               <option value="">Any</option>
-              <option value="0-1">Fresher/0-1</option>
-              <option value="1-3">1-3 yrs</option>
-              <option value="3-5">3-5 yrs</option>
-              <option value="5-7">5-7 yrs</option>
-              <option value="7-10">7-10 yrs</option>
-              <option value="10-12">10-12 yrs</option>
-              <option value="13-15">13-15 yrs</option>
-              <option value="15+">15+ yrs</option>
+              <option value="0-1">Fresher/0-1</option><option value="1-3">1-3 yrs</option>
+              <option value="3-5">3-5 yrs</option><option value="5-7">5-7 yrs</option>
+              <option value="7-10">7-10 yrs</option><option value="10+">10+ yrs</option>
             </select>
           </div>
         </div>
         <button class="btn-search" onclick="runPortalSearch()">🌐 Search All Portals →</button>
       </div>
 
-      <!-- Adzuna live results -->
-      <div id="adzunaResults" style="margin-bottom:20px;"></div>
-
-      <!-- 12 Portal direct links (shown after search) -->
-      <div id="portalLinks" style="display:none;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--soft);">Also search directly on these portals ↓</div>
-        <div class="portal-grid" id="portalBtnGrid"></div>
+      <!-- Stats bar -->
+      <div id="portalStatsBar" style="display:none;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
+        <div id="portalStatsText" style="font-size:12px;color:var(--soft);"></div>
+        <div style="font-size:11px;color:var(--soft);" id="portalUpdateTime"></div>
       </div>
+
+      <!-- Filter pills -->
+      <div id="portalFilterPills" style="display:none;gap:6px;flex-wrap:wrap;margin-bottom:12px;"></div>
+
+      <!-- Source legend -->
+      <div id="portalLegend" style="display:none;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding:10px 12px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;">
+        <div style="font-size:10px;font-weight:700;color:var(--soft);margin-right:4px;">Sources:</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--soft);"><span style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;"></span>Google Jobs</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--soft);"><span style="width:7px;height:7px;border-radius:50%;background:#ff7555;display:inline-block;"></span>Naukri</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--soft);"><span style="width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;"></span>Adzuna</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--soft);"><span style="width:7px;height:7px;border-radius:50%;background:#003a9b;display:inline-block;"></span>Indeed</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--soft);"><span style="width:7px;height:7px;border-radius:50%;background:#0077b5;display:inline-block;"></span>LinkedIn</div>
+      </div>
+
+      <!-- Combined job feed -->
+      <div id="portalJobFeed" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+
     </div>
   </div>
 
@@ -1511,7 +1428,7 @@ const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
 // Anthropic API key — add your key from console.anthropic.com
 // Leave empty to use Claude preview auto-auth (works in Claude.ai only)
-const ANTHROPIC_KEY='';
+const ANTHROPIC_KEY='__ANTHROPIC_KEY__';
 function anthropicHeaders(){
   var h={'Content-Type':'application/json'};
   if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
@@ -1532,54 +1449,48 @@ function showToast(msg,type){
 
 // ── VIEW NAV ──────────────────────────────────────────────────────
 function showView(id){
-  // Handle special ATS from landing (no login needed)
+  // Bulletproof: directly set display on every view via inline style
+  var viewIds=['landingView','loginView','signupView'];
+  viewIds.forEach(function(vid){
+    var el=document.getElementById(vid);
+    if(el)el.style.display='none';
+  });
+  var dw=document.getElementById('dashView');
+  if(dw)dw.style.display='none';
+
   if(id==='atsPublic'){
     atsPublicMode=true;
-    // Always reset ATS when coming from landing
     atsResumeText='';atsFileData=null;atsLastResult=null;
-    // Hide dashboard chrome — user is NOT logged in
     var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
     var dab=document.getElementById('dashAdminBadge');if(dab)dab.style.display='none';
     var bk=document.getElementById('atsPublicBack');if(bk)bk.style.display='block';
     var dub=document.getElementById('topUpgradeBtn');if(dub){dub.textContent='Sign Up →';dub.style.display='inline-block';dub.style.background='var(--amber)';dub.onclick=function(){goTo('signupView');};}
-    var dun=document.getElementById('dashUserName');if(dun)dun.textContent='';
+    var dun2=document.getElementById('dashUserName');if(dun2)dun2.textContent='';
     var fab=document.getElementById('fabUpgrade');if(fab)fab.style.display='none';
     try{localStorage.removeItem('js_ats_last');}catch(e){}
-    var res=document.getElementById('atsResult');if(res){res.style.display='none';}
+    var res=document.getElementById('atsResult');if(res)res.style.display='none';
     var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
     var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
     var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
     var js2=document.getElementById('atsJobsSection');if(js2)js2.style.display='none';
     var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
-    var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
-    document.querySelectorAll('.view,.dash-wrap').forEach(function(v){v.classList.remove('active');});
-    var dashEl=document.getElementById('dashView');
-    if(dashEl)dashEl.classList.add('active');
+    if(dw)dw.style.display='block';
     switchTab('ats',true);
-    var topUp=document.getElementById('topUpgradeBtn');if(topUp)topUp.style.display='inline-block';
-    var lu=document.getElementById('dashUserName');if(lu)lu.textContent='';
     return;
   }
-  document.querySelectorAll('.view,.dash-wrap').forEach(function(v){v.classList.remove('active');});
+
   if(id==='dashView'){
-    var dashEl2=document.getElementById('dashView');
-    if(dashEl2)dashEl2.classList.add('active');
-  }else{
+    if(dw)dw.style.display='block';
+  }else if(id==='loginView'||id==='signupView'){
     var el=document.getElementById(id);
-    if(el)el.classList.add('active');
+    if(el)el.style.display='grid';
+  }else{
+    var el2=document.getElementById(id);
+    if(el2)el2.style.display='block';
   }
   window.scrollTo(0,0);
 }
-function goTo(id){
-  if(id==='atsTabDirect'){
-    if(currentUser){switchTab('ats');return;}
-    safePS({view:'atsPublic'},'#ats');
-    showView('atsPublic');return;
-  }
-  var hashId=id==='dashView'?'dashboard':id;
-  safePS({view:id},'#'+hashId);
-  showView(id);
-}
+
 window.addEventListener('popstate',function(e){
   var hash=safeHash();
   if(!hash){showView('landingView');return;}
@@ -1598,6 +1509,31 @@ window.addEventListener('popstate',function(e){
     else showView('landingView');
   }
 });
+function goTo(id){
+  if(id==='atsTabDirect'){
+    if(currentUser){switchTab('ats');return;}
+    safePS({view:'atsPublic'},'#ats');
+    showView('atsPublic');return;
+  }
+  var hashId=id==='dashView'?'dashboard':id;
+  safePS({view:id},'#'+hashId);
+  showView(id);
+}
+if(!IN_IFRAME)try{window.addEventListener('popstate',function(e){
+  var hash=safeHash();
+  if(!hash){showView('landingView');return;}
+  if(hash==='dashboard'||hash.startsWith('dashboard-')){
+    if(currentUser){showView('dashView');var tab=hash.replace('dashboard-','');if(tab&&tab!=='dashboard')switchTab(tab,true);}
+    else{showView('landingView');}
+  }else if(hash==='ats'){showView('atsPublic');
+  }else{var viewId=hash.endsWith('View')?hash:hash+'View';
+    if(document.getElementById(viewId))showView(viewId);
+    else if(document.getElementById(hash))showView(hash);
+    else showView('landingView');
+  }
+});}catch(_pe){}
+
+
 
 // ── TAB SWITCHER ──────────────────────────────────────────────────
 function switchTab(tab,skipHistory){
@@ -1616,7 +1552,12 @@ function switchTab(tab,skipHistory){
   if(tab==='fresher')initFresherTab();
   if(tab==='women')showAllProgCards();
   if(tab==='portals')initPortalsTab();
+  if(tab==='moonlight'){var ct=document.getElementById('contractText');if(ct)ct.value='';var cr=document.getElementById('contractResult');if(cr)cr.innerHTML='';}
+  if(tab==='home')initHomeDash();
   window.scrollTo(0,0);
+  // Always sync landingView visibility
+  var lv=document.getElementById('landingView');
+  if(lv)lv.style.display=(id==='landingView'?'':'none');
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
@@ -1707,6 +1648,9 @@ async function suNext(dir){
     if(dot){dot.classList.toggle('active',i===nxt);}
   });
   window.scrollTo(0,0);
+  // Always sync landingView visibility
+  var lv=document.getElementById('landingView');
+  if(lv)lv.style.display=(id==='landingView'?'':'none');
 }
 
 async function doSignup(){
@@ -1738,6 +1682,7 @@ function enterDash(user,paid){
   buildDash(user,paid);
   goTo('dashView');
   switchTab('home');
+  setTimeout(initHomeDash,100);
 }
 
 function buildDash(user,paid){
@@ -2592,6 +2537,8 @@ function runContractAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('contractText')||{value:''}).value.trim();
   if(txt.length<30){showToast('Paste your employment contract text first','amber');return;}
+  // Clear textarea immediately for privacy
+  var ctEl=document.getElementById('contractText');if(ctEl)ctEl.value='';
   var t=txt.toLowerCase();
   var verdict='can-do';var title='Can Do ✅';var color='var(--green)';var icon='✅';
   var flags=[];
@@ -2943,6 +2890,44 @@ function onProgSelect(co){
 }
 
 
+// ── HOME DASHBOARD ───────────────────────────────────
+function initHomeDash(){
+  // Greeting
+  var greet=document.getElementById('homeGreet');
+  var dateEl=document.getElementById('homePlanBadge');
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var now=new Date();
+  var dateStr=days[now.getDay()]+', '+now.getDate()+' '+months[now.getMonth()];
+  var dateDiv=document.getElementById('homeDate');if(dateDiv)dateDiv.textContent=dateStr+' · Hyderabad';
+  if(greet){
+    var name=currentUser&&currentUser.name?currentUser.name.split(' ')[0]:'there';
+    var hr=now.getHours();
+    var gm=hr<12?'Good morning':(hr<17?'Good afternoon':'Good evening');
+    greet.textContent=gm+', '+name+' 👋';
+  }
+  // Plan badge
+  var pb=document.getElementById('homePlanBadge');
+  var ub=document.getElementById('upgradeBanner');
+  if(isPaidUser()){
+    var plan=null;try{plan=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+    var daysLeft=plan&&plan.expiry?Math.ceil((new Date(plan.expiry)-now)/86400000):30;
+    if(pb){pb.textContent='✅ Paid Plan · '+daysLeft+' days left';pb.style.display='flex';}
+    if(ub)ub.style.display='none';
+  }else{
+    if(pb)pb.style.display='none';
+    if(ub)ub.style.display='flex';
+  }
+  // Last ATS score
+  var lastATS=null;try{lastATS=JSON.parse(localStorage.getItem('js_ats_last'));}catch(e){}
+  var scoreEl=document.getElementById('hw-ats-score');
+  var subEl=document.getElementById('hw-ats-sub');
+  if(lastATS&&lastATS.score&&scoreEl){
+    scoreEl.textContent=lastATS.score+'/100';
+    if(subEl)subEl.textContent=(lastATS.role||'Resume')+'  ·  check again';
+  }
+}
+
 // ── WOMEN RETURNSHIP OFFICIAL URLs ──────────────────
 var PROG_URLS={
   'TCS':'https://www.tcs.com/careers/india/rebegin',
@@ -2979,13 +2964,131 @@ function runPortalSearch(){
   var exp=(document.getElementById('po_exp')||{value:''}).value;
   if(!skill||!city){showToast('Enter skill and city','amber');return;}
   lastSearchedSkill=skill;lastSearchedCity=city;
-  // Fetch from Adzuna
-  var el=document.getElementById('adzunaResults');
-  if(el){fetchAdzunaJobs(skill,city,exp,el);}
-  // Build and show portal links
-  buildPortalLinks(skill,city,exp);
-  var pl=document.getElementById('portalLinks');
-  if(pl)pl.style.display='block';
+  // Show stats bar + legend
+  var sb=document.getElementById('portalStatsBar');if(sb)sb.style.display='flex';
+  var lg=document.getElementById('portalLegend');if(lg)lg.style.display='flex';
+  var st=document.getElementById('portalStatsText');if(st)st.textContent='Searching across all portals...';
+  var ut=document.getElementById('portalUpdateTime');if(ut)ut.textContent='Fetching live data...';
+  // Clear feed
+  var feed=document.getElementById('portalJobFeed');
+  if(feed)feed.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching jobs from Google Jobs + Adzuna...</div>';
+  // Run parallel searches
+  var allJobs=[];var pending=2;
+  function onJobsBatch(jobs,source){
+    allJobs=allJobs.concat(jobs);
+    pending--;
+    if(pending<=0)renderMergedFeed(allJobs,skill,city,exp);
+  }
+  // Fetch Google Jobs (JSearch)
+  var gq=buildJobQuery(skill,exp);
+  var jKey='32ffb64838msh01ab1c5b58a7876p160a74jsnc45172f67535';
+  var jUrl='https://jsearch.p.rapidapi.com/search?query='+encodeURIComponent(gq+' '+city+' India')+'&num_pages=1&date_posted=month';
+  fetch(jUrl,{headers:{'X-RapidAPI-Key':jKey,'X-RapidAPI-Host':'jsearch.p.rapidapi.com'}})
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(d){
+      var jobs=(d.data||[]).slice(0,15).map(function(j){return {
+        title:j.job_title,company:j.employer_name,location:j.job_city||city,
+        url:j.job_apply_link,salary:j.job_salary_currency?'Check site':'',
+        source:j.job_publisher||'Google Jobs',desc:(j.job_description||'').slice(0,120),
+        posted:j.job_posted_at_datetime_utc,logo:j.employer_logo
+      };});
+      onJobsBatch(jobs,'google');
+    }).catch(function(){onJobsBatch([],'google');});
+  // Fetch Adzuna
+  var azQ=buildJobQuery(skill,exp);
+  var azCity=city.replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
+  var azUrl='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&results_per_page=15&what='+encodeURIComponent(azQ)+'&where='+encodeURIComponent(azCity)+'&sort_by=relevance&content-type=application/json';
+  fetch(azUrl)
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(d){
+      var skillLower=skill.toLowerCase();
+      var sWords=skillLower.split(/\s+/).filter(function(w){return w.length>2;});
+      var jobs=(d.results||[]).filter(function(j){
+        var t=(j.title||'').toLowerCase();
+        var desc=(j.description||'').toLowerCase().slice(0,300);
+        // Allow if ANY word matches title OR description (less strict)
+        return sWords.length===0||sWords.some(function(w){return t.includes(w)||desc.includes(w);});
+      }).slice(0,15).map(function(j){return {
+        title:j.title,company:(j.company&&j.company.display_name)||'Company',
+        location:(j.location&&j.location.display_name)||city,
+        url:j.redirect_url,
+        salary:j.salary_min&&j.salary_max?'₹'+Math.round(j.salary_min/100000)+'L–₹'+Math.round(j.salary_max/100000)+'L':'',
+        source:'Adzuna',desc:(j.description||'').replace(/<[^>]+>/g,'').slice(0,120),
+        posted:j.created,logo:null
+      };});
+      onJobsBatch(jobs,'adzuna');
+    }).catch(function(){onJobsBatch([],'adzuna');});
+
+}
+
+function renderMergedFeed(jobs,skill,city,exp){
+  var feed=document.getElementById('portalJobFeed');
+  if(!feed)return;
+  // Deduplicate by title+company
+  var seen={};
+  jobs=jobs.filter(function(j){
+    var key=(j.title+j.company).toLowerCase().replace(/\s+/g,'');
+    if(seen[key])return false;seen[key]=true;return true;
+  });
+  // Sort by source variety (mix google + adzuna)
+  jobs.sort(function(a,b){return a.source===b.source?0:1;});
+  // Update stats
+  var st=document.getElementById('portalStatsText');
+  if(st)st.innerHTML='Showing <strong>'+jobs.length+' jobs</strong> for '+skill+' · '+city+(exp?' · '+exp:'');
+  var ut=document.getElementById('portalUpdateTime');if(ut)ut.textContent='Updated just now';
+  // Build filter pills
+  var sourceCounts={};
+  jobs.forEach(function(j){sourceCounts[j.source]=(sourceCounts[j.source]||0)+1;});
+  var fp=document.getElementById('portalFilterPills');
+  if(fp){
+    fp.style.display='flex';
+    var pillsHTML='<div class="portal-filter-pill active" data-src="all">All ('+jobs.length+')</div>';
+    Object.keys(sourceCounts).forEach(function(src){
+      pillsHTML+='<div class="portal-filter-pill" data-src="'+src+'">'+src+' ('+sourceCounts[src]+')</div>';
+    });
+    fp.innerHTML=pillsHTML;
+    fp.querySelectorAll('.portal-filter-pill').forEach(function(p){
+      p.addEventListener('click',function(){filterPortalFeed(this,this.getAttribute('data-src'));});
+    });
+  }
+  renderJobCards(jobs,feed);
+}
+
+function filterPortalFeed(pill,source){
+  document.querySelectorAll('.portal-filter-pill').forEach(function(p){p.classList.remove('active');});
+  pill.classList.add('active');
+  var allJobs=window._portalAllJobs||[];
+  var filtered=source==='all'?allJobs:allJobs.filter(function(j){return j.source===source;});
+  var feed=document.getElementById('portalJobFeed');
+  if(feed)renderJobCards(filtered,feed);
+}
+
+function renderJobCards(jobs,feed){
+  if(!jobs.length){
+    feed.innerHTML='<div class="az-empty" style="text-align:center;padding:28px">'
+      +'<div style="font-size:28px;margin-bottom:8px">🔍</div>'
+      +'<strong>No live jobs found right now</strong><br>'
+      +'<small style="color:var(--soft)">API quota may be reached. Try searching directly on portals below ↓</small>'
+      +'</div>';
+    return;
+  }
+  var sourceClass={'Google Jobs':'sc-google','Naukri':'sc-naukri','Glassdoor':'sc-glassdoor','Indeed':'sc-indeed','LinkedIn':'sc-linkedin','Adzuna':'sc-adzuna'};
+  feed.innerHTML=jobs.map(function(j){
+    var en=(j.company||'?').charAt(0).toUpperCase();
+    var sc=sourceClass[j.source]||'sc-other';
+    var dom=(j.company||'').toLowerCase().replace(/pvt\.?\s*ltd\.?|inc\.?|llc|corp\.?/gi,'').replace(/\s+/g,'').replace(/[^a-z0-9]/g,'')+'.com';
+    var logoHtml=j.logo?'<img src="'+j.logo+'" onerror="this.outerHTML=\'<span>'+en+'</span>\'">':'<img src="https://logo.clearbit.com/'+dom+'" onerror="this.outerHTML=\'<span>'+en+'</span>\'">';
+    var posted=j.posted?timeSince(j.posted):'';
+    return '<a class="merged-job-card" href="'+(j.url||'#')+'" target="_blank" rel="noopener">'
+      +'<div class="mjc-top"><div class="mjc-logo">'+logoHtml+'</div>'
+      +'<div class="mjc-info"><div class="mjc-title">'+(j.title||'Job Opening')+'</div>'
+      +'<div class="mjc-company">'+(j.company||'')+(j.location?' · '+j.location:'')+'</div></div>'
+      +'<div class="mjc-right">'+(j.salary?'<div class="mjc-salary">'+j.salary+'</div>':'')
+      +'<span class="source-chip '+sc+'">'+j.source+'</span></div></div>'
+      +'<div class="mjc-tags">'+(posted?'<span class="mjc-tag">'+posted+'</span>':'')+'</div>'
+      +(j.desc?'<div class="mjc-desc">'+j.desc+'...</div>':'')
+      +'</a>';
+  }).join('');
 }
 
 function buildJobQuery(skill,exp){
@@ -3152,5 +3255,127 @@ async function generateSignalLetter(){
 
 <!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
-</body>
-</html>
+
+
+<div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
+  <!-- Left: Teal bold -->
+  <div style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+    <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
+    <div style="position:relative;z-index:1;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers</div>
+      <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Get your next<br><span style="color:#f5b96e;">Signal.</span></h1>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:36px;">
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>ATS Scorecard — instant AI analysis</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Walk-in Finder — live drives near you</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Women Returnship — 12 programmes</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>🌐 12 Job Portals — one search</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Salary Tools — CTC + offer check</div>
+      </div>
+      <div style="display:flex;gap:24px;">
+        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">14K+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Resumes</div></div>
+        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">40+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Cities</div></div>
+        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Full Access</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Right: Login form -->
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
+    <div style="width:100%;max-width:360px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
+      </div>
+      <div style="font-size:22px;font-weight:800;margin-bottom:6px;">Welcome back 👋</div>
+      <div style="font-size:13px;color:var(--soft);margin-bottom:28px;">Log in to access your job tools</div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Mobile Number</label>
+        <input id="li_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter your 10-digit number" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);transition:.2s;" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div id="liErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
+      <button onclick="doLogin()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(232,148,58,.25);">Log In →</button>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Don't have an account? <a onclick="goTo('signupView')" style="color:var(--teal);font-weight:700;cursor:pointer;">Sign up free →</a></div>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--soft);">📊 ATS Checker is always free — <a onclick="goTo('atsTabDirect')" style="color:var(--amber);font-weight:700;cursor:pointer;">no login needed</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
+  <!-- Left: same teal block -->
+  <div style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+    <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
+    <div style="position:relative;z-index:1;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Free to start · ₹99 full access</div>
+      <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Start your<br><span style="color:#f5b96e;">Signal.</span></h1>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;margin-bottom:24px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">Free for everyone</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>ATS Scorecard + AI Enhancement</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Signal Letter (cover letter)</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Women Returnship official pages</div>
+        </div>
+      </div>
+      <div style="background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.3);border-radius:14px;padding:18px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(232,148,58,.9);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">₹99/month — full access</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Google Jobs + 12 Portals</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Walk-in · Freshers · Moonlighting</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Salary Tools + Offer Analyser</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Right: Signup form -->
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
+    <div style="width:100%;max-width:360px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
+      </div>
+      <div style="font-size:22px;font-weight:800;margin-bottom:6px;">Create free account</div>
+      <div style="font-size:13px;color:var(--soft);margin-bottom:28px;">Takes 30 seconds · No credit card needed</div>
+      <!-- Signup steps -->
+      <div id="sstep0" class="signup-step active">
+        <div style="margin-bottom:16px;">
+          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Mobile Number</label>
+          <input id="su_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
+        </div>
+        <button class="btn-auth" onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
+        <div id="suErr" style="display:none;color:var(--red);font-size:12px;margin-top:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
+      </div>
+      <div id="sstep1" class="signup-step" style="display:none;">
+        <div style="margin-bottom:16px;">
+          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your Name</label>
+          <input id="su_name" type="text" placeholder="Full name" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
+          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your City</label>
+          <select id="su_city" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
+            <option value="">Select city</option>
+            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
+            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
+            <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
+            <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
+            <option>India</option>
+          </select>
+        </div>
+        <button onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
+        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
+      </div>
+      <div id="sstep2" class="signup-step" style="display:none;">
+        <div style="margin-bottom:16px;">
+          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Primary Skill / Role</label>
+          <input id="su_skill" type="text" placeholder="e.g. React Developer, HR Manager" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
+          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Experience</label>
+          <select id="su_exp" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
+            <option value="">Select experience</option>
+            <option>Fresher/0-1</option><option>1-3 yrs</option><option>3-5 yrs</option>
+            <option>5-7 yrs</option><option>7-10 yrs</option><option>10-15 yrs</option><option>15+ yrs</option>
+          </select>
+        </div>
+        <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0d4040);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
+        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Already have an account? <a onclick="goTo('loginView')" style="color:var(--teal);font-weight:700;cursor:pointer;">Log in →</a></div>
+    </div>
+  </div>
+</div>
+
+</body></html>
