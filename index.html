@@ -39,10 +39,36 @@ img{max-width:100%;display:block;}
 .view.active{display:block;}
 #loginView.active,#signupView.active{display:grid;}
 @media(max-width:768px){
-  #loginView,#signupView{grid-template-columns:1fr !important;}
-  #loginView>div:first-child,#signupView>div:first-child{display:none;}
+  #loginView,#signupView{
+    display:block !important;
+    min-height:100vh;
+  }
+  #loginView>div:first-child,
+  #signupView>div:first-child{
+    display:none !important;
+  }
+  #loginView>div:last-child,
+  #signupView>div:last-child{
+    display:flex !important;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:40px 24px !important;
+    background:var(--cream);
+  }
+  #loginView>div:last-child>div,
+  #signupView>div:last-child>div{
+    width:100%;
+    max-width:420px;
+  }
 }
 
+
+/* Auth panels mobile */
+@media(max-width:768px){
+  .auth-left-panel{display:none !important;}
+}
 /* ═══ TOP NAV (landing) ════════════════════════════════════════════ */
 .top-nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
@@ -3259,7 +3285,7 @@ async function generateSignalLetter(){
 
 <div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
   <!-- Left: Teal bold -->
-  <div style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
       <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers</div>
@@ -3301,7 +3327,7 @@ async function generateSignalLetter(){
 
 <div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
   <!-- Left: same teal block -->
-  <div style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
       <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Free to start · ₹99 full access</div>
@@ -3325,7 +3351,7 @@ async function generateSignalLetter(){
     </div>
   </div>
   <!-- Right: Signup form -->
-  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
     <div style="width:100%;max-width:360px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
