@@ -39,36 +39,50 @@ img{max-width:100%;display:block;}
 .view.active{display:block;}
 #loginView.active,#signupView.active{display:grid;}
 @media(max-width:768px){
+  /* Stack: teal strip top, form bottom */
   #loginView,#signupView{
-    display:block !important;
+    display:flex !important;
+    flex-direction:column;
     min-height:100vh;
   }
-  #loginView>div:first-child,
-  #signupView>div:first-child{
-    display:none !important;
+  /* Teal panel — visible but compact */
+  .auth-left-panel{
+    display:flex !important;
+    padding:24px !important;
+    min-height:auto !important;
+    flex-shrink:0;
   }
+  .auth-left-panel>div{
+    position:relative;z-index:1;width:100%;
+  }
+  /* Hide watermark + feature list + free/paid boxes on mobile */
+  .auth-left-panel>div[style*="position:absolute"]{display:none !important;}
+  .auth-left-panel .feat-list,
+  .auth-left-panel>div>div:nth-child(3),
+  .auth-left-panel>div>div:nth-child(4){display:none !important;}
+  /* Compact heading */
+  .auth-left-panel h1{font-size:30px !important;margin-bottom:10px !important;}
+  /* Stats row compact */
+  .auth-left-panel>div>div:last-child{gap:16px !important;}
+  /* Form panel — flex-start so button is always reachable */
   #loginView>div:last-child,
   #signupView>div:last-child{
     display:flex !important;
     flex-direction:column;
-    justify-content:center;
+    justify-content:flex-start !important;
     align-items:center;
-    min-height:100vh;
-    padding:40px 24px !important;
+    padding:28px 20px 48px !important;
+    flex:1;
+    overflow-y:auto;
     background:var(--cream);
   }
   #loginView>div:last-child>div,
   #signupView>div:last-child>div{
-    width:100%;
-    max-width:420px;
+    width:100%;max-width:420px;
   }
 }
 
-
 /* Auth panels mobile */
-@media(max-width:768px){
-  .auth-left-panel{display:none !important;}
-}
 /* ═══ TOP NAV (landing) ════════════════════════════════════════════ */
 .top-nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
@@ -498,8 +512,9 @@ img{max-width:100%;display:block;}
   .upgrade-banner{flex-direction:column;gap:10px;}
 }
 @media(max-width:480px){
-  .nav-btn{padding:5px 10px !important;font-size:11px !important;white-space:nowrap;}
-  .top-nav{padding:0 12px !important;}
+  .nav-btn{padding:10px 14px !important;font-size:12px !important;white-space:nowrap;min-height:44px;min-width:44px;}
+  .nav-btn.solid{padding:10px 16px !important;}
+  .top-nav{padding:0 14px !important;}
   .hero h1{font-size:24px !important;}
   .hero-grid>div:last-child{grid-template-columns:repeat(2,1fr) !important;}
   .tool-grid{grid-template-columns:repeat(2,1fr) !important;}
@@ -531,8 +546,10 @@ img{max-width:100%;display:block;}
   <nav class="top-nav">
     <div onclick="goTo('landingView')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.3)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.6)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#0f1117">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
     <div class="nav-links">
-      <button class="nav-btn outline" onclick="goTo('loginView')">Log In</button>
-      <button class="nav-btn solid" onclick="goTo('signupView')">Sign Up Free</button>
+      <div class="top-nav-btns">
+        <button class="nav-btn outline" onclick="goTo('loginView')" style="min-height:44px;">Log In</button>
+        <button class="nav-btn solid" onclick="goTo('signupView')" style="min-height:44px;">Sign Up Free</button>
+      </div>
     </div>
   </nav>
 
@@ -1474,7 +1491,7 @@ function showToast(msg,type){
 }
 
 // ── VIEW NAV ──────────────────────────────────────────────────────
-function showView(id){
+function showView(viewId){
   // Bulletproof: directly set display on every view via inline style
   var viewIds=['landingView','loginView','signupView'];
   viewIds.forEach(function(vid){
@@ -1484,7 +1501,7 @@ function showView(id){
   var dw=document.getElementById('dashView');
   if(dw)dw.style.display='none';
 
-  if(id==='atsPublic'){
+  if(viewId==='atsPublic'){
     atsPublicMode=true;
     atsResumeText='';atsFileData=null;atsLastResult=null;
     var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
@@ -1505,14 +1522,14 @@ function showView(id){
     return;
   }
 
-  if(id==='dashView'){
+  if(viewId==='dashView'){
     if(dw)dw.style.display='block';
-  }else if(id==='loginView'||id==='signupView'){
-    var el=document.getElementById(id);
-    if(el)el.style.display='grid';
+  }else if(viewId==='loginView'||viewId==='signupView'){
+    var viewEl=document.getElementById(viewId);
+    if(viewEl)viewEl.style.display='grid';
   }else{
-    var el2=document.getElementById(id);
-    if(el2)el2.style.display='block';
+    var viewEl2=document.getElementById(viewId);
+    if(viewEl2)viewEl2.style.display='block';
   }
   window.scrollTo(0,0);
 }
@@ -1535,15 +1552,15 @@ window.addEventListener('popstate',function(e){
     else showView('landingView');
   }
 });
-function goTo(id){
-  if(id==='atsTabDirect'){
+function goTo(viewId){
+  if(viewId==='atsTabDirect'){
     if(currentUser){switchTab('ats');return;}
     safePS({view:'atsPublic'},'#ats');
     showView('atsPublic');return;
   }
-  var hashId=id==='dashView'?'dashboard':id;
-  safePS({view:id},'#'+hashId);
-  showView(id);
+  var hashId=viewId==='dashView'?'dashboard':viewId;
+  safePS({view:viewId},'#'+hashId);
+  showView(viewId);
 }
 if(!IN_IFRAME)try{window.addEventListener('popstate',function(e){
   var hash=safeHash();
@@ -3319,7 +3336,7 @@ async function generateSignalLetter(){
       </div>
       <div id="liErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
       <button onclick="doLogin()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(232,148,58,.25);">Log In →</button>
-      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Don't have an account? <a onclick="goTo('signupView')" style="color:var(--teal);font-weight:700;cursor:pointer;">Sign up free →</a></div>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Don't have an account? <button onclick="goTo('signupView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:8px 4px;min-height:44px;text-decoration:underline;">Sign up free →</button></div>
       <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--soft);">📊 ATS Checker is always free — <a onclick="goTo('atsTabDirect')" style="color:var(--amber);font-weight:700;cursor:pointer;">no login needed</a></div>
     </div>
   </div>
@@ -3399,7 +3416,7 @@ async function generateSignalLetter(){
         <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0d4040);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
         <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
       </div>
-      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Already have an account? <a onclick="goTo('loginView')" style="color:var(--teal);font-weight:700;cursor:pointer;">Log in →</a></div>
+      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Already have an account? <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:8px 4px;min-height:44px;text-decoration:underline;">Log in →</button></div>
     </div>
   </div>
 </div>
