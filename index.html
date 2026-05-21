@@ -35,9 +35,12 @@ input,select,textarea{font-family:'DM Sans',sans-serif;}
 img{max-width:100%;display:block;}
 
 /* ═══ VIEW SYSTEM ══════════════════════════════════════════════════ */
-.view{display:none;}
+/* All views are full-screen overlays — cannot stack or be scrolled between */
+.view{display:none;position:fixed;inset:0;overflow-y:auto;z-index:10;background:var(--cream);}
 .view.active{display:block;}
 #loginView.active,#signupView.active{display:grid;}
+.dash-wrap{display:none;position:fixed;inset:0;overflow-y:auto;z-index:10;background:var(--cream);}
+.dash-wrap.active{display:block;}
 @media(max-width:768px){
   /* Stack: teal strip top, form bottom */
   #loginView,#signupView{
@@ -542,7 +545,7 @@ img{max-width:100%;display:block;}
 <div id="toast"></div>
 
 <!-- ═══ LANDING VIEW ════════════════════════════════════════════ -->
-<div class="view active" id="landingView" style="display:block">
+<div class="view active" id="landingView">
 
   <!-- Nav -->
   <nav class="top-nav">
@@ -1445,6 +1448,13 @@ img{max-width:100%;display:block;}
       </div>
 
       <!-- Combined job feed -->
+      <!-- Google Jobs section (uses JSearch with cache) -->
+      <div id="portalGoogleSection" style="display:none;margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">🔍 Google Jobs</div>
+        <div id="portalGoogleJobs"></div>
+      </div>
+      <!-- Adzuna jobs feed -->
+      <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;" id="adzunaFeedLabel" style="display:none;">🔹 Adzuna Live Jobs</div>
       <div id="portalJobFeed" style="display:flex;flex-direction:column;gap:8px;"></div>
 
 
@@ -1473,7 +1483,7 @@ const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
 // Anthropic API key — add your key from console.anthropic.com
 // Leave empty to use Claude preview auto-auth (works in Claude.ai only)
-const ANTHROPIC_KEY='__ANTHROPIC_KEY__';
+const ANTHROPIC_KEY='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';
 function anthropicHeaders(){
   var h={'Content-Type':'application/json'};
   if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
@@ -1493,17 +1503,17 @@ function showToast(msg,type){
 }
 
 // ── VIEW NAV ──────────────────────────────────────────────────────
-function showView(viewId){
-  // Bulletproof: directly set display on every view via inline style
-  var viewIds=['landingView','loginView','signupView'];
-  viewIds.forEach(function(vid){
-    var el=document.getElementById(vid);
-    if(el){el.style.display='none';el.style.height='0';el.style.overflow='hidden';}
+function showView(id){
+  // Simple: hide all, show one
+  // Hide ALL views — remove active class + set display:none
+  ['landingView','loginView','signupView'].forEach(function(vid){
+    var v=document.getElementById(vid);
+    if(v){v.style.display='none';v.classList.remove('active');}
   });
   var dw=document.getElementById('dashView');
-  if(dw)dw.style.display='none';
+  if(dw){dw.style.display='none';dw.classList.remove('active');}
 
-  if(viewId==='atsPublic'){
+  if(id==='atsPublic'){
     atsPublicMode=true;
     atsResumeText='';atsFileData=null;atsLastResult=null;
     var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
@@ -1517,21 +1527,34 @@ function showView(viewId){
     var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
     var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
     var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
-    var js2=document.getElementById('atsJobsSection');if(js2)js2.style.display='none';
+    var jss=document.getElementById('atsJobsSection');if(jss)jss.style.display='none';
     var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
-    if(dw)dw.style.display='block';
+    if(dw){dw.style.display='block';dw.classList.add('active');}
     switchTab('ats',true);
+    window.scrollTo(0,0);
     return;
   }
 
-  if(viewId==='dashView'){
-    if(dw)dw.style.display='block';
-  }else if(viewId==='loginView'||viewId==='signupView'){
-    var viewEl=document.getElementById(viewId);
-    if(viewEl)viewEl.style.display='grid';
-  }else{
-    var viewEl2=document.getElementById(viewId);
-    if(viewEl2)viewEl2.style.display='block';
+  if(id==='dashView'){
+    if(dw){dw.style.display='block';dw.classList.add('active');}
+  } else if(id==='loginView'){
+    var lv=document.getElementById('loginView');
+    if(lv){lv.style.display='grid';lv.classList.add('active');}
+  } else if(id==='signupView'){
+    var sv=document.getElementById('signupView');
+    if(sv){sv.style.display='grid';sv.classList.add('active');}
+    // Reset signup to step 0 each time
+    ['sstep0','sstep1','sstep2'].forEach(function(s,i){
+      var el=document.getElementById(s);
+      if(!el)return;
+      if(i===0){el.style.display='block';el.classList.add('active');}
+      else{el.style.display='none';el.classList.remove('active');}
+    });
+    var se=document.getElementById('suErr');if(se)se.style.display='none';
+    var sp2=document.getElementById('su_phone');if(sp2)sp2.value='';
+  } else {
+    var el=document.getElementById(id);
+    if(el){el.style.display='block';el.classList.add('active');}
   }
   window.scrollTo(0,0);
 }
@@ -3312,7 +3335,7 @@ async function generateSignalLetter(){
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 
-<div class="view" id="loginView" style="display:none;height:0;overflow:hidden;grid-template-columns:1.1fr .9fr;min-height:100vh;">
+<div class="view" id="loginView" style="grid-template-columns:1.1fr .9fr;">
   <!-- Left: Teal bold -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
@@ -3354,7 +3377,7 @@ async function generateSignalLetter(){
   </div>
 </div>
 
-<div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
+<div class="view" id="signupView" style="grid-template-columns:1.1fr .9fr;">
   <!-- Left: same teal block -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
