@@ -1829,17 +1829,15 @@ function doLogout(){
 // ── SESSION RESTORE ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
   // Track visitor
-  try{fetch(FB_DB+'/stats/visitors.json',{method:'POST',headers:anthropicHeaders(),body:JSON.stringify({ts:Date.now()})});}catch(e){}
+  try{fetch(FB_DB+'/stats/visitors.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now(),count:Date.now()})});}catch(e){}
   // Restore session
   try{
     var raw=localStorage.getItem(S_USER);
     var hash=safeHash();
     if(!raw){
+      // Never restore login/signup from hash — always show landing to unauthenticated users
       if(hash==='ats'){showView('atsPublic');return;}
-      if(hash&&hash!=='landingView'&&hash!=='dashboard'){
-        var vId=hash.endsWith('View')?hash:hash+'View';
-        if(document.getElementById(vId)){showView(vId);return;}
-      }
+      // All other hashes: stay on landing page (don't restore auth views)
       return;
     }
     var user=JSON.parse(raw);if(!user||!user.phone)return;
@@ -3314,8 +3312,12 @@ async function generateSignalLetter(){
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
     });
     var data=await resp.json();
+    if(!resp.ok){
+      var apiErr=(data.error&&data.error.message)||('HTTP '+resp.status);
+      throw new Error(apiErr);
+    }
     var letter=((data.content&&data.content[0]&&data.content[0].text)||'').trim();
-    if(!letter){resEl.innerHTML='<div class="az-empty">Could not generate letter. Try again.</div>';return;}
+    if(!letter)throw new Error('Empty response from AI');
     resEl.innerHTML='<div style="background:var(--cream);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;">'
       +'<div style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">YOUR SIGNAL LETTER · '+(jobTitle||role||'General Application').toUpperCase()+'</div>'
       +'<div style="font-size:13px;line-height:1.75;color:var(--ink);white-space:pre-wrap;">'+letter+'</div>'
