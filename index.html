@@ -1483,8 +1483,8 @@ const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
 // Anthropic API key — add your key from console.anthropic.com
 // Leave empty to use Claude preview auto-auth (works in Claude.ai only)
-const ANTHROPIC_KEY='__ANTHROPIC_KEY__';
-  function anthropicHeaders(){
+const ANTHROPIC_KEY='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';
+function anthropicHeaders(){
   var h={'Content-Type':'application/json'};
   if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
   return h;
