@@ -1483,9 +1483,13 @@ const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
 // Anthropic API key — add your key from console.anthropic.com
 // Leave empty to use Claude preview auto-auth (works in Claude.ai only)
-const ANTHROPIC_KEY='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';
+const ANTHROPIC_KEY='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';
 function anthropicHeaders(){
-  var h={'Content-Type':'application/json'};
+  var h={
+    'Content-Type':'application/json',
+    'anthropic-version':'2023-06-01',
+    'anthropic-dangerous-direct-browser-access':'true'
+  };
   if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
   return h;
 }
@@ -2015,8 +2019,8 @@ async function autoEnhanceATS(txt){
       showToast('AI analysis complete','green');
     }
   }catch(e){
-    if(verdEl)verdEl.textContent=origVerdict; // restore if AI fails
-    // Silently fail — local score still shows
+    if(verdEl)verdEl.textContent=origVerdict;
+    console.error('ATS AI error:',e.message,'Key present:',(ANTHROPIC_KEY&&ANTHROPIC_KEY.length>10));
   }
 }
 
@@ -3325,8 +3329,14 @@ async function generateSignalLetter(){
     resEl.appendChild(hidden);
     showToast('Signal Letter ready — copy and customise!','green');
   }catch(e){
-    var keyMsg=ANTHROPIC_KEY?'':'<br><small>To enable AI on your deployed site, add your API key from <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></small>';
-    resEl.innerHTML='<div class="az-empty" style="text-align:center;padding:20px"><div style="font-size:24px;margin-bottom:8px">⚠️</div><strong>AI temporarily unavailable</strong><br><small style="color:var(--soft)">Try again in a moment</small>'+keyMsg+'</div>';
+    var errMsg=e&&e.message?e.message:'Unknown error';
+    var keyPresent=ANTHROPIC_KEY&&ANTHROPIC_KEY.length>10;
+    var keyMsg=keyPresent?'':'<br><small style="color:red">⚠️ API key not set in code</small>';
+    resEl.innerHTML='<div class="az-empty" style="text-align:center;padding:20px">'
+      +'<div style="font-size:24px;margin-bottom:8px">⚠️</div>'
+      +'<strong>AI Error: '+errMsg+'</strong>'
+      +'<br><small style="color:var(--soft)">Key present: '+keyPresent+'</small>'
+      +keyMsg+'</div>';
   }
 }
 </script>
