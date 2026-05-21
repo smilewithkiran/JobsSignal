@@ -512,13 +512,15 @@ img{max-width:100%;display:block;}
   .upgrade-banner{flex-direction:column;gap:10px;}
 }
 @media(max-width:480px){
-  .nav-btn{padding:10px 14px !important;font-size:12px !important;white-space:nowrap;min-height:44px;min-width:44px;}
-  .nav-btn.solid{padding:10px 16px !important;}
-  .top-nav{padding:0 14px !important;}
+  .nav-btn{padding:0 10px !important;font-size:11px !important;white-space:nowrap;height:44px;line-height:44px !important;}
+  .top-nav{padding:0 10px !important;}
+  .top-nav svg[width="180"]{width:110px !important;height:22px !important;}
   .hero h1{font-size:24px !important;}
   .hero-grid>div:last-child{grid-template-columns:repeat(2,1fr) !important;}
   .tool-grid{grid-template-columns:repeat(2,1fr) !important;}
   .tt-name{font-size:10px !important;}
+  #nav-signup-btn{font-size:0 !important;}
+  #nav-signup-btn::after{content:"Sign Up";font-size:11px;}
   .tab-btn{padding:8px 6px;font-size:9px;}
   .tools-grid{grid-template-columns:1fr;}
   .btn-primary,.btn-secondary{font-size:13px;padding:11px 18px;}
@@ -548,7 +550,7 @@ img{max-width:100%;display:block;}
     <div class="nav-links">
       <div class="top-nav-btns">
         <button class="nav-btn outline" onclick="goTo('loginView')" style="min-height:44px;">Log In</button>
-        <button class="nav-btn solid" onclick="goTo('signupView')" style="min-height:44px;">Sign Up Free</button>
+        <button class="nav-btn solid" id="nav-signup-btn" onclick="goTo('signupView')" style="min-height:44px;">Sign Up Free</button>
       </div>
     </div>
   </nav>
@@ -1496,7 +1498,7 @@ function showView(viewId){
   var viewIds=['landingView','loginView','signupView'];
   viewIds.forEach(function(vid){
     var el=document.getElementById(vid);
-    if(el)el.style.display='none';
+    if(el){el.style.display='none';el.style.height='0';el.style.overflow='hidden';}
   });
   var dw=document.getElementById('dashView');
   if(dw)dw.style.display='none';
@@ -1636,65 +1638,75 @@ async function doLogin(){
 }
 
 async function suNext(dir){
-  var errEl=document.getElementById('suErr');if(errEl)errEl.style.display='none';
+  var errEl=document.getElementById('suErr');
+  if(errEl)errEl.style.display='none';
   var steps=['sstep0','sstep1','sstep2'];
-  var cur=steps.findIndex(function(s){var el=document.getElementById(s);return el&&el.classList.contains('active');});
-  if(dir>0&&cur===0){
-    var n=(document.getElementById('su_name')||{value:''}).value.trim();
-    var p=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'');
-    var s=(document.getElementById('su_skill')||{value:''}).value.trim();
-    if(!n){showToast('Enter your name','amber');return;}
-    if(p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-    if(!s){showToast('Enter your skill / job title','amber');return;}
-    // Block superuser number + check already registered
-    var phone10=p.slice(-10);
-    var errEl=document.getElementById('suErr');
-    if(phone10===SUPER){
-      if(errEl){errEl.textContent='This number cannot be used for registration. Please use a different number.';errEl.style.display='block';}
-      showToast('Use a different number','amber');return;
-    }
-    // Show loading state
-    var contBtn=document.querySelector('#sstep0 .btn-auth');
-    if(contBtn){contBtn.textContent='Checking...';contBtn.disabled=true;}
-    var alreadyReg=false;
-    try{
-      // Check phones registry first
-      var chk=await fetch(FB_DB+'/phones/'+phone10+'.json');
-      var chkd=await chk.json();
-      if(chkd&&(chkd.phone||chkd.name))alreadyReg=true;
-    }catch(_ce){}
-    if(!alreadyReg){
+  var cur=steps.findIndex(function(s){
+    var el=document.getElementById(s);
+    return el&&(el.classList.contains('active')||el.style.display==='block');
+  });
+  if(cur<0)cur=0;
+
+  // Validate current step before advancing
+  if(dir>0){
+    if(cur===0){
+      // Step 0: phone only
+      var p=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
+      if(p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
+      if(p===SUPER){
+        if(errEl){errEl.textContent='This number cannot be used for registration.';errEl.style.display='block';}
+        return;
+      }
+      // Check already registered
+      var btn=document.querySelector('#sstep0 button');
+      if(btn){btn.textContent='Checking...';btn.disabled=true;}
+      var alreadyReg=false;
       try{
-        // Fallback: check users node
-        var chk2=await fetch(FB_DB+'/users/'+phone10+'.json');
-        var chkd2=await chk2.json();
-        if(chkd2&&chkd2.phone)alreadyReg=true;
-      }catch(_ce2){}
+        var r1=await fetch(FB_DB+'/phones/'+p+'.json');
+        var d1=await r1.json();
+        if(d1&&(d1.phone||d1.name))alreadyReg=true;
+      }catch(e1){}
+      if(!alreadyReg){
+        try{
+          var r2=await fetch(FB_DB+'/users/'+p+'.json');
+          var d2=await r2.json();
+          if(d2&&d2.phone)alreadyReg=true;
+        }catch(e2){}
+      }
+      if(btn){btn.textContent='Continue →';btn.disabled=false;}
+      if(alreadyReg){
+        if(errEl){errEl.textContent='This number is already registered. Please log in instead.';errEl.style.display='block';}
+        showToast('Already registered — please log in','amber');
+        return;
+      }
     }
-    if(contBtn){contBtn.textContent='Continue →';contBtn.disabled=false;}
-    if(alreadyReg){
-      if(errEl){errEl.textContent='This number is already registered. Please log in instead.';errEl.style.display='block';}
-      showToast('Already registered — please log in','amber');
-      return;
+    if(cur===1){
+      // Step 1: name + city
+      var nm=(document.getElementById('su_name')||{value:''}).value.trim();
+      var ct=(document.getElementById('su_city')||{value:''}).value;
+      if(!nm){showToast('Enter your name','amber');return;}
+      if(!ct){showToast('Select your city','amber');return;}
     }
   }
-  if(dir>0&&cur===1){
-    var city=(document.getElementById('su_city')||{value:''}).value;
-    if(!city){showToast('Select your city','amber');return;}
-  }
+
   var nxt=cur+dir;
   if(nxt<0||nxt>=steps.length)return;
+
+  // Show/hide steps
   steps.forEach(function(s,i){
     var el=document.getElementById(s);
-    if(el){el.classList.toggle('active',i===nxt);}
-    var dot=document.getElementById('sdot'+i);
-    if(dot){dot.classList.toggle('active',i===nxt);}
+    if(!el)return;
+    if(i===nxt){
+      el.style.display='block';
+      el.classList.add('active');
+    }else{
+      el.style.display='none';
+      el.classList.remove('active');
+    }
   });
   window.scrollTo(0,0);
-  // Always sync landingView visibility
-  var lv=document.getElementById('landingView');
-  if(lv)lv.style.display=(id==='landingView'?'':'none');
 }
+
 
 async function doSignup(){
   var name=(document.getElementById('su_name')||{value:''}).value.trim();
@@ -3300,7 +3312,7 @@ async function generateSignalLetter(){
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 
-<div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;min-height:100vh;">
+<div class="view" id="loginView" style="display:none;height:0;overflow:hidden;grid-template-columns:1.1fr .9fr;min-height:100vh;">
   <!-- Left: Teal bold -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
@@ -3374,10 +3386,10 @@ async function generateSignalLetter(){
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
       </div>
-      <div style="font-size:22px;font-weight:800;margin-bottom:6px;">Create free account</div>
+      <div style="font-size:22px;font-weight:800;margin-bottom:6px;color:var(--teal);">Create free account ✨</div>
       <div style="font-size:13px;color:var(--soft);margin-bottom:28px;">Takes 30 seconds · No credit card needed</div>
       <!-- Signup steps -->
-      <div id="sstep0" class="signup-step active">
+      <div id="sstep0" class="signup-step active" style="display:block">
         <div style="margin-bottom:16px;">
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Mobile Number</label>
           <input id="su_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
@@ -3385,7 +3397,7 @@ async function generateSignalLetter(){
         <button class="btn-auth" onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
         <div id="suErr" style="display:none;color:var(--red);font-size:12px;margin-top:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
       </div>
-      <div id="sstep1" class="signup-step" style="display:none;">
+      <div id="sstep1" class="signup-step" style="display:none">
         <div style="margin-bottom:16px;">
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your Name</label>
           <input id="su_name" type="text" placeholder="Full name" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
@@ -3402,7 +3414,7 @@ async function generateSignalLetter(){
         <button onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
         <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
       </div>
-      <div id="sstep2" class="signup-step" style="display:none;">
+      <div id="sstep2" class="signup-step" style="display:none">
         <div style="margin-bottom:16px;">
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Primary Skill / Role</label>
           <input id="su_skill" type="text" placeholder="e.g. React Developer, HR Manager" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
