@@ -872,25 +872,25 @@ img{max-width:100%;display:block;}
 
       <div class="ats-sections" id="atsSections"></div>
 
-      <!-- Signal Letter Section -->
-      <div id="signalLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
-        <div style="font-size:13px;font-weight:800;margin-bottom:4px;">📡 Signal Letter</div>
+      <!-- Cover Letter Section -->
+      <div id="coverLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
+        <div style="font-size:13px;font-weight:800;margin-bottom:4px;">📡 Cover Letter</div>
         <p style="font-size:12px;color:var(--soft);margin-bottom:12px;">Generate a tailored cover letter from your resume in 10 seconds</p>
         <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
           <div style="flex:1;min-width:160px;">
             <label style="font-size:10px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px;">Job Title / Company (optional)</label>
-            <input type="text" id="slJobTitle" placeholder="e.g. React Developer at Infosys" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;outline:none;">
+            <input type="text" id="clJobTitle" placeholder="e.g. React Developer at Infosys" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;outline:none;">
           </div>
           <div style="flex:0 0 auto;align-self:flex-end;">
-            <select id="slTone" style="padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);outline:none;">
+            <select id="clTone" style="padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);outline:none;">
               <option value="professional">Professional</option>
               <option value="confident">Confident</option>
               <option value="warm">Warm</option>
             </select>
           </div>
         </div>
-        <button onclick="generateSignalLetter()" style="width:100%;padding:11px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px;">📡 Generate Signal Letter →</button>
-        <div id="signalLetterResult"></div>
+        <button onclick="generateCoverLetter()" style="width:100%;padding:11px;background:var(--teal);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px;">📡 Generate Cover Letter →</button>
+        <div id="coverLetterResult"></div>
       </div>
 
       <div class="ats-actions">
@@ -930,70 +930,7 @@ img{max-width:100%;display:block;}
         </div>
         <div class="form-group">
           <label>City *</label>
-          <select id="wi_city">
-            <option value="">Select city</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-            <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-            <option>Ahmedabad</option><option>Jaipur</option><option>Vijayawada</option>
-            <option>Visakhapatnam</option>
-            <option>Warangal</option>
-            <option>Tirupati</option>
-            <option>Coimbatore</option>
-            <option>Madurai</option>
-            <option>Trichy</option>
-            <option>Mysuru</option>
-            <option>Mangaluru</option>
-            <option>Surat</option>
-            <option>Vadodara</option>
-            <option>Rajkot</option>
-            <option>Indore</option>
-            <option>Bhopal</option>
-            <option>Nagpur</option>
-            <option>Lucknow</option>
-            <option>Kanpur</option>
-            <option>Patna</option>
-            <option>Bhubaneswar</option>
-                          <option>Agra</option>
-              <option>Varanasi</option>
-              <option>Meerut</option>
-              <option>Allahabad</option>
-              <option>Amritsar</option>
-              <option>Jalandhar</option>
-              <option>Ludhiana</option>
-              <option>Chandigarh</option>
-              <option>Dehradun</option>
-              <option>Jodhpur</option>
-              <option>Udaipur</option>
-              <option>Kota</option>
-              <option>Raipur</option>
-              <option>Guwahati</option>
-              <option>Ranchi</option>
-              <option>Bhubaneswar</option>
-              <option>Visakhapatnam</option>
-              <option>Vijayawada</option>
-              <option>Warangal</option>
-              <option>Tirupati</option>
-              <option>Mysuru</option>
-              <option>Mangaluru</option>
-              <option>Coimbatore</option>
-              <option>Madurai</option>
-              <option>Trichy</option>
-              <option>Thiruvananthapuram</option>
-              <option>Kochi</option>
-              <option>Surat</option>
-              <option>Vadodara</option>
-              <option>Rajkot</option>
-              <option>Nashik</option>
-              <option>Nagpur</option>
-              <option>Aurangabad</option>
-              <option>Indore</option>
-              <option>Bhopal</option>
-              <option>Jabalpur</option>
-              <option>Lucknow</option>
-              <option>Kanpur</option>
-              <option>Patna</option>
-            </select>
+          <select id="wi_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
         </div>
       </div>
       <div class="form-row">
@@ -1095,11 +1032,7 @@ img{max-width:100%;display:block;}
         <div class="form-group"><label>Skill / Role *</label>
           <input type="text" id="sal_skill" placeholder="e.g. React Developer"></div>
         <div class="form-group"><label>City</label>
-          <select id="sal_city">
-            <option value="">Any city</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-          </select></div>
+          <select id="sal_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select></div>
         <div class="form-group"><label>Experience</label>
           <select id="sal_exp">
             <option value="">Any</option>
@@ -1312,12 +1245,7 @@ img{max-width:100%;display:block;}
         <div class="form-group"><label>Skill / Role *</label>
           <input type="text" id="wr_skill" placeholder="e.g. Java, HR Manager"></div>
         <div class="form-group"><label>City</label>
-          <select id="wr_city">
-            <option value="">Any city</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-            <option>Noida</option><option>Gurgaon</option><option>India</option>
-          </select></div>
+          <select id="wr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select></div>
         <div class="form-group"><label>Experience</label>
           <select id="wr_exp">
             <option value="">Any</option>
@@ -1358,14 +1286,7 @@ img{max-width:100%;display:block;}
           </div>
           <div class="form-group">
             <label>City *</label>
-            <select id="fr_city">
-              <option value="">Select city</option>
-              <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-              <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-              <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-              <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
-              <option>India</option>
-            </select>
+            <select id="fr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
           </div>
         </div>
         <button class="btn-search" onclick="runFresherSearch()">🎓 Find Fresher Jobs →</button>
@@ -1407,14 +1328,7 @@ img{max-width:100%;display:block;}
           </div>
           <div class="form-group">
             <label>City *</label>
-            <select id="po_city">
-              <option value="">Select city</option>
-              <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-              <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-              <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-              <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
-              <option>India</option>
-            </select>
+            <select id="po_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
           </div>
           <div class="form-group">
             <label>Experience</label>
@@ -1790,7 +1704,7 @@ function doLogout(){
   var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
   var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
   var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
-  var js=document.getElementById('atsJobsSection');if(js)js.style.display='none';
+  var _atsJ=document.getElementById('atsJobsSection');if(_atsJ)_atsJ.style.display='none';
   var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
   var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
   goTo('landingView');
@@ -2241,9 +2155,9 @@ function renderATSResult(r){
   if(jobSec)jobSec.style.display='block';
   if(jobLocked)jobLocked.style.display=isPaidUser()?'none':'block';
   if(isPaidUser()){showJobsTab('google');}
-  // Show Signal Letter section after scoring
-  var slSec=document.getElementById('signalLetterSection');
-  if(slSec)slSec.style.display='block';
+  // Show Cover Letter section after scoring
+  var slSec=document.getElementById('coverLetterSection');
+  if(slSec)slSec.style.setProperty('display','block','important');
   res.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -2252,7 +2166,7 @@ function resetATS(){
   var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
   var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
   var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
-  var js=document.getElementById('atsJobsSection');if(js)js.style.display='none';
+  var _atsJ=document.getElementById('atsJobsSection');if(_atsJ)_atsJ.style.display='none';
   var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
   atsResumeText='';atsFileData=null;atsLastResult=null;
 }
@@ -2439,8 +2353,8 @@ function runWalkIn(){
   var sl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   var cl=city.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace('delhi-ncr','delhi');
   if(wiNK)wiNK.href='https://www.naukri.com/'+sl+'-walk-in-jobs-in-'+cl+'?jobAge=1';
-  if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city);
-  if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin '+city)+'&datePosted=%22past-week%22';
+  if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent('"'+skill+'" walk-in')+'&location='+encodeURIComponent(city);
+  if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin -recruiter -"talent acquisition"')+'&datePosted=%22past-week%22';
   var wiLinks=document.getElementById('wiLinkedInLinks');
   if(wiLinks)wiLinks.style.display='flex';
   var wiNk=document.getElementById('wi-nk');if(wiNk)wiNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/\s+/g,'-'));
@@ -2458,7 +2372,8 @@ function runSalaryRange(){
   var q=buildJobQuery(skill,exp);
   var cityAz=(city||'India').replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
   var url='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&results_per_page=20&what='+encodeURIComponent(q)+'&where='+encodeURIComponent(cityAz)+'&sort_by=salary&content-type=application/json';
-  fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+  setTimeout(function(){if(el&&el.innerHTML.indexOf('Fetching')>=0){var _xe=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;var _xb=_xe<1?4:_xe<3?7:_xe<6?12:_xe<10?18:28;el.innerHTML='<div class=\'salary-result\'><div class=\'sal-range\'>&#8377;'+_xb+'L&#8211;&#8377;'+Math.round(_xb*1.7)+'L</div><div class=\'sal-label\'>India avg</div><div style=\'font-size:11px;color:var(--soft);margin-top:4px\'><a href=\'https://www.ambitionbox.com/salaries\' target=\'_blank\' style=\'color:var(--teal)\'>AmbitionBox</a> &middot; <a href=\'https://www.naukri.com/salary-insights\' target=\'_blank\' style=\'color:var(--teal)\'>Naukri</a></div></div>';}},8000);
+    fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(data){
     var jobs=(data.results||[]).filter(function(j){return j.salary_min&&j.salary_max&&j.salary_min>0;});
     var minSal,maxSal,medSal,count;
@@ -3295,17 +3210,17 @@ function openFresherNaukri(){
   window.open('https://www.naukri.com/fresher-'+encodeURIComponent(s.toLowerCase().replace(/\s+/g,'-'))+'-jobs','_blank');
 }
 
-async function generateSignalLetter(){
+async function generateCoverLetter(){
   var ta=document.getElementById('atsPasteText');
   var resumeTxt=(ta?ta.value.trim():'')||atsResumeText||'';
   if(resumeTxt.length<50){showToast('Please check your ATS score first','amber');return;}
-  var jobTitle=(document.getElementById('slJobTitle')||{value:''}).value.trim();
-  var tone=(document.getElementById('slTone')||{value:'professional'}).value;
+  var jobTitle=(document.getElementById('clJobTitle')||{value:''}).value.trim();
+  var tone=(document.getElementById('clTone')||{value:'professional'}).value;
   var result=atsLastResult;
   var role=result?result.role:'';var skills=result?(result.skills||[]).slice(0,4).join(', '):'';
-  var resEl=document.getElementById('signalLetterResult');
+  var resEl=document.getElementById('coverLetterResult');
   if(!resEl)return;
-  resEl.innerHTML='<div class="az-loading"><div class="az-spinner" style="border-top-color:var(--teal)"></div>Generating your Signal Letter...</div>';
+  resEl.innerHTML='<div class="az-loading"><div class="az-spinner" style="border-top-color:var(--teal)"></div>Generating your Cover Letter...</div>';
   var prompt='Write a '+tone+' cover letter. '+(jobTitle?'Applying for: '+jobTitle+'. ':'')+' Role: '+role+'. Key skills: '+skills+'. Three concise paragraphs, max 180 words. Start with Dear Hiring Manager, end with Yours sincerely. Resume data below. Resume: '+resumeTxt.slice(0,2500);
   try{
     var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
@@ -3324,13 +3239,13 @@ async function generateSignalLetter(){
       +'<div style="font-size:13px;line-height:1.75;color:var(--ink);white-space:pre-wrap;">'+letter+'</div>'
       +'</div>'
       +'<div style="display:flex;gap:8px;">'
-      +'<button onclick="navigator.clipboard.writeText(document.getElementById(\'slLetterText\').textContent)" style="flex:1;padding:9px;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">📋 Copy</button>'
-      +'<button onclick="generateSignalLetter()" style="flex:1;padding:9px;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">↻ Regenerate</button>'
+      +'<button onclick="navigator.clipboard.writeText(document.getElementById(\'clLetterText\').textContent)" style="flex:1;padding:9px;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">📋 Copy</button>'
+      +'<button onclick="generateCoverLetter()" style="flex:1;padding:9px;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">↻ Regenerate</button>'
       +'</div>';
     // Store text for copy
-    var hidden=document.createElement('div');hidden.id='slLetterText';hidden.style.display='none';hidden.textContent=letter;
+    var hidden=document.createElement('div');hidden.id='clLetterText';hidden.style.display='none';hidden.textContent=letter;
     resEl.appendChild(hidden);
-    showToast('Signal Letter ready — copy and customise!','green');
+    showToast('Cover Letter ready — copy and customise!','green');
   }catch(e){
     var errMsg=e&&e.message?e.message:'Unknown error';
     var keyPresent=true; // Key in Cloudflare Worker
@@ -3403,7 +3318,7 @@ async function generateSignalLetter(){
         <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">Free for everyone</div>
         <div style="display:flex;flex-direction:column;gap:7px;">
           <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>ATS Scorecard + AI Enhancement</div>
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Signal Letter (cover letter)</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Cover Letter (cover letter)</div>
           <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Women Returnship official pages</div>
         </div>
       </div>
@@ -3441,14 +3356,7 @@ async function generateSignalLetter(){
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your Name</label>
           <input id="su_name" type="text" placeholder="Full name" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your City</label>
-          <select id="su_city" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
-            <option value="">Select city</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Delhi NCR</option><option>Chennai</option><option>Pune</option>
-            <option>Noida</option><option>Gurgaon</option><option>Kolkata</option>
-            <option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option>
-            <option>India</option>
-          </select>
+          <select id="su_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
         </div>
         <button onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
         <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
