@@ -1509,14 +1509,12 @@ function showToast(msg,type){
 
 // ── VIEW NAV ──────────────────────────────────────────────────────
 function showView(id){
-  // Simple: hide all, show one
-  // Hide ALL views — remove active class + set display:none
-  ['landingView','loginView','signupView'].forEach(function(vid){
-    var v=document.getElementById(vid);
-    if(v){v.style.display='none';v.classList.remove('active');}
+  // setProperty with 'important' = cannot be overridden by ANY CSS
+  var ALL=['landingView','loginView','signupView','dashView'];
+  ALL.forEach(function(vid){
+    var el=document.getElementById(vid);
+    if(el)el.style.setProperty('display','none','important');
   });
-  var dw=document.getElementById('dashView');
-  if(dw){dw.style.display='none';dw.classList.remove('active');}
 
   if(id==='atsPublic'){
     atsPublicMode=true;
@@ -1524,7 +1522,8 @@ function showView(id){
     var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
     var dab=document.getElementById('dashAdminBadge');if(dab)dab.style.display='none';
     var bk=document.getElementById('atsPublicBack');if(bk)bk.style.display='block';
-    var dub=document.getElementById('topUpgradeBtn');if(dub){dub.textContent='Sign Up →';dub.style.display='inline-block';dub.style.background='var(--amber)';dub.onclick=function(){goTo('signupView');};}
+    var dub=document.getElementById('topUpgradeBtn');
+    if(dub){dub.textContent='Sign Up →';dub.style.setProperty('display','inline-block','important');dub.style.background='var(--amber)';dub.onclick=function(){goTo('signupView');};}
     var dun2=document.getElementById('dashUserName');if(dun2)dun2.textContent='';
     var fab=document.getElementById('fabUpgrade');if(fab)fab.style.display='none';
     try{localStorage.removeItem('js_ats_last');}catch(e){}
@@ -1534,57 +1533,32 @@ function showView(id){
     var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
     var jss=document.getElementById('atsJobsSection');if(jss)jss.style.display='none';
     var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
-    if(dw){dw.style.removeProperty('display');dw.classList.add('active');}
+    document.getElementById('dashView').style.setProperty('display','block','important');
     switchTab('ats',true);
     window.scrollTo(0,0);
     return;
   }
 
-  if(id==='dashView'){
-    if(dw){dw.style.removeProperty('display');dw.classList.add('active');}
-  } else if(id==='loginView'){
-    var lv=document.getElementById('loginView');
-    if(lv){lv.style.removeProperty('display');lv.classList.add('active');}
-  } else if(id==='signupView'){
-    var sv=document.getElementById('signupView');
-    if(sv){sv.style.display='grid';sv.classList.add('active');}
-    // Reset signup to step 0 each time
-    ['sstep0','sstep1','sstep2'].forEach(function(s,i){
-      var el=document.getElementById(s);
-      if(!el)return;
-      if(i===0){el.style.display='block';el.classList.add('active');}
-      else{el.style.display='none';el.classList.remove('active');}
-    });
-    var se=document.getElementById('suErr');if(se)se.style.display='none';
-    var sp2=document.getElementById('su_phone');if(sp2)sp2.value='';
-  } else {
-    var el=document.getElementById(id);
-    if(el){el.style.removeProperty('display');el.classList.add('active');}
+  var disp='block';
+  if(id==='loginView'||id==='signupView')disp='grid';
+
+  var target=document.getElementById(id);
+  if(target){
+    target.style.setProperty('display',disp,'important');
+    if(id==='signupView'){
+      // Reset to step 0
+      ['sstep0','sstep1','sstep2'].forEach(function(s,i){
+        var el=document.getElementById(s);
+        if(!el)return;
+        if(i===0){el.style.display='block';el.classList.add('active');}
+        else{el.style.display='none';el.classList.remove('active');}
+      });
+      var se=document.getElementById('suErr');if(se)se.style.display='none';
+    }
   }
   window.scrollTo(0,0);
-  // Scroll to top of the shown view
-  var shownEl=document.getElementById(id==='atsPublic'?'dashView':id);
-  if(shownEl)shownEl.scrollTop=0;
 }
 
-window.addEventListener('popstate',function(e){
-  var hash=safeHash();
-  if(!hash){showView('landingView');return;}
-  if(hash==='dashboard'||hash.startsWith('dashboard-')){
-    if(currentUser){
-      showView('dashView');
-      var tab=hash.replace('dashboard-','');
-      if(tab&&tab!=='dashboard')switchTab(tab,true);
-    }else{showView('landingView');}
-  }else if(hash==='ats'){
-    showView('atsPublic');
-  }else{
-    var viewId=hash.endsWith('View')?hash:hash+'View';
-    if(document.getElementById(viewId))showView(viewId);
-    else if(document.getElementById(hash))showView(hash);
-    else showView('landingView');
-  }
-});
 function goTo(viewId){
   if(viewId==='atsTabDirect'){
     if(currentUser){switchTab('ats');return;}
@@ -1631,9 +1605,6 @@ function switchTab(tab,skipHistory){
   if(tab==='moonlight'){var ct=document.getElementById('contractText');if(ct)ct.value='';var cr=document.getElementById('contractResult');if(cr)cr.innerHTML='';}
   if(tab==='home')initHomeDash();
   window.scrollTo(0,0);
-  // Always sync landingView visibility
-  var lv=document.getElementById('landingView');
-  if(lv)lv.style.display=(id==='landingView'?'':'none');
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
@@ -1762,7 +1733,7 @@ function enterDash(user,paid){
   atsPublicMode=false; // reset — user is now logged in
   localStorage.setItem(S_USER,JSON.stringify(user));
   // Restore logout button visibility
-  var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='';
+  var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.removeProperty('display');
   var dab=document.getElementById('dashAdminBadge');
   if(dab)dab.style.display=isSuperUser()?'inline-block':'none';
   buildDash(user,paid);
@@ -1833,13 +1804,13 @@ function doLogout(){
 // ── SESSION RESTORE ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
   // Step 1: Force hide everything first
+  // Use setProperty('important') — cannot be overridden
   ['loginView','signupView','dashView'].forEach(function(id){
     var el=document.getElementById(id);
-    if(el)el.style.display='none';
+    if(el)el.style.setProperty('display','none','important');
   });
-  // Step 2: Force show landing page
   var lv=document.getElementById('landingView');
-  if(lv)lv.style.display='block';
+  if(lv)lv.style.setProperty('display','block','important');
 
   // Step 3: Check for valid stored session
   try{
@@ -3391,6 +3362,7 @@ async function generateSignalLetter(){
   <!-- Right: Login form -->
   <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
     <div style="width:100%;max-width:360px;">
+      <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
@@ -3435,8 +3407,9 @@ async function generateSignalLetter(){
     </div>
   </div>
   <!-- Right: Signup form -->
-  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;">
     <div style="width:100%;max-width:360px;">
+      <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
