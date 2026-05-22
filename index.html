@@ -35,12 +35,13 @@ input,select,textarea{font-family:'DM Sans',sans-serif;}
 img{max-width:100%;display:block;}
 
 /* ═══ VIEW SYSTEM ══════════════════════════════════════════════════ */
-/* All views are full-screen overlays — cannot stack or be scrolled between */
-.view{display:none;position:fixed;inset:0;overflow-y:auto;z-index:10;background:var(--cream);}
-.view.active{display:block;}
-#loginView.active,#signupView.active{display:grid;}
-.dash-wrap{display:none;position:fixed;inset:0;overflow-y:auto;z-index:10;background:var(--cream);}
-.dash-wrap.active{display:block;}
+/* Simple view system — inline styles control visibility */
+.view{display:none !important;}
+.view.active{display:block !important;}
+#loginView.active{display:grid !important;}
+#signupView.active{display:grid !important;}
+.dash-wrap{display:none !important;}
+.dash-wrap.active{display:block !important;}
 @media(max-width:768px){
   /* Stack: teal strip top, form bottom */
   #loginView,#signupView{
@@ -545,7 +546,7 @@ img{max-width:100%;display:block;}
 <div id="toast"></div>
 
 <!-- ═══ LANDING VIEW ════════════════════════════════════════════ -->
-<div class="view active" id="landingView">
+<div class="view active" id="landingView" style="display:block">
 
   <!-- Nav -->
   <nav class="top-nav">
@@ -724,7 +725,7 @@ img{max-width:100%;display:block;}
   </div>
 </div>
 
-<div class="dash-wrap" id="dashView">
+<div class="dash-wrap" id="dashView" style="display:none;">
 
   <!-- Top bar -->
   <div class="dash-top">
@@ -1533,17 +1534,17 @@ function showView(id){
     var st=document.getElementById('atsFileStatus');if(st){st.textContent='';st.style.display='none';}
     var jss=document.getElementById('atsJobsSection');if(jss)jss.style.display='none';
     var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
-    if(dw){dw.style.display='block';dw.classList.add('active');}
+    if(dw){dw.style.removeProperty('display');dw.classList.add('active');}
     switchTab('ats',true);
     window.scrollTo(0,0);
     return;
   }
 
   if(id==='dashView'){
-    if(dw){dw.style.display='block';dw.classList.add('active');}
+    if(dw){dw.style.removeProperty('display');dw.classList.add('active');}
   } else if(id==='loginView'){
     var lv=document.getElementById('loginView');
-    if(lv){lv.style.display='grid';lv.classList.add('active');}
+    if(lv){lv.style.removeProperty('display');lv.classList.add('active');}
   } else if(id==='signupView'){
     var sv=document.getElementById('signupView');
     if(sv){sv.style.display='grid';sv.classList.add('active');}
@@ -1558,9 +1559,12 @@ function showView(id){
     var sp2=document.getElementById('su_phone');if(sp2)sp2.value='';
   } else {
     var el=document.getElementById(id);
-    if(el){el.style.display='block';el.classList.add('active');}
+    if(el){el.style.removeProperty('display');el.classList.add('active');}
   }
   window.scrollTo(0,0);
+  // Scroll to top of the shown view
+  var shownEl=document.getElementById(id==='atsPublic'?'dashView':id);
+  if(shownEl)shownEl.scrollTop=0;
 }
 
 window.addEventListener('popstate',function(e){
@@ -1828,35 +1832,51 @@ function doLogout(){
 
 // ── SESSION RESTORE ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',function(){
-  // Track visitor
-  try{fetch(FB_DB+'/stats/visitors.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now(),count:Date.now()})});}catch(e){}
-  // Restore session
+  // Step 1: Force hide everything first
+  ['loginView','signupView','dashView'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.style.display='none';
+  });
+  // Step 2: Force show landing page
+  var lv=document.getElementById('landingView');
+  if(lv)lv.style.display='block';
+
+  // Step 3: Check for valid stored session
   try{
     var raw=localStorage.getItem(S_USER);
-    var hash=safeHash();
     if(!raw){
-      // Never restore login/signup from hash — always show landing to unauthenticated users
-      if(hash==='ats'){showView('atsPublic');return;}
-      // All other hashes: stay on landing page (don't restore auth views)
+      // No session — track visitor and stay on landing
+      try{fetch(FB_DB+'/stats/visitors.json',{method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ts:Date.now()})});}catch(e){}
+      // Only go to ATS if hash says so
+      var hash=safeHash();
+      if(hash==='ats'){showView('atsPublic');}
       return;
     }
-    var user=JSON.parse(raw);if(!user||!user.phone)return;
+    var user=JSON.parse(raw);
+    if(!user||!user.phone){localStorage.removeItem(S_USER);return;}
     currentUser=user;
     var plRaw=localStorage.getItem(S_PLAN);var paid=false;
-    if(plRaw){var pl=JSON.parse(plRaw);if(pl&&pl.expiry)paid=new Date(pl.expiry)>new Date();}
-    if(user.phone.slice(-10)===SUPER)paid=true;
-    isPaid=paid;buildDash(user,paid);
-    // Restore hash position
+    if(plRaw){try{var pl=JSON.parse(plRaw);if(pl&&pl.expiry)paid=new Date(pl.expiry)>new Date();}catch(e){}}
+    if(user.phone&&user.phone.replace(/[^0-9]/g,'').slice(-10)===SUPER)paid=true;
+    isPaid=paid;
+    buildDash(user,paid);
+    var hash=safeHash();
     if(hash.startsWith('dashboard-')){
       showView('dashView');
-      var tabName=hash.replace('dashboard-','');
-      if(tabName)switchTab(tabName,true);
-    }else if(hash==='ats'){
-      showView('atsPublic');
+      switchTab(hash.replace('dashboard-',''),true);
     }else{
-      showView('dashView');switchTab('home',true);
+      showView('dashView');
+      switchTab('home',true);
     }
-  }catch(e){showView('landingView');}
+    setTimeout(initHomeDash,100);
+  }catch(e){
+    // Any error → show landing page
+    localStorage.removeItem(S_USER);
+    var lv2=document.getElementById('landingView');
+    if(lv2)lv2.style.display='block';
+  }
 });
 
 // ── PAYMENT ───────────────────────────────────────────────────────
@@ -3347,7 +3367,7 @@ async function generateSignalLetter(){
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 
-<div class="view" id="loginView" style="grid-template-columns:1.1fr .9fr;">
+<div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;">
   <!-- Left: Teal bold -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
@@ -3389,7 +3409,7 @@ async function generateSignalLetter(){
   </div>
 </div>
 
-<div class="view" id="signupView" style="grid-template-columns:1.1fr .9fr;">
+<div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;">
   <!-- Left: same teal block -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
