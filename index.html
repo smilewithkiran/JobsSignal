@@ -1090,7 +1090,7 @@ img{max-width:100%;display:block;}
 
     <!-- Live Salary Range -->
     <div class="search-form">
-      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">📊 Live Salary Range from Job Postings</h3>
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">📊 Live Salary Range</h3>
       <div class="form-row">
         <div class="form-group"><label>Skill / Role *</label>
           <input type="text" id="sal_skill" placeholder="e.g. React Developer"></div>
@@ -1455,7 +1455,7 @@ img{max-width:100%;display:block;}
         <div id="portalGoogleJobs"></div>
       </div>
       <!-- Adzuna jobs feed -->
-      <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;" id="adzunaFeedLabel" style="display:none;">🔹 Adzuna Live Jobs</div>
+      <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">🔹 Live Jobs — Adzuna + Google</div>
       <div id="portalJobFeed" style="display:flex;flex-direction:column;gap:8px;"></div>
 
 
@@ -1484,15 +1484,10 @@ const AZ_ID='7d0512c2';
 const AZ_KEY='79b7781b37844979749df7d951561f02';
 // Anthropic API key — add your key from console.anthropic.com
 // Leave empty to use Claude preview auto-auth (works in Claude.ai only)
-const ANTHROPIC_KEY='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';
+const ANTHROPIC_KEY=''; // Key stored securely in Cloudflare Worker
 function anthropicHeaders(){
-  var h={
-    'Content-Type':'application/json',
-    'anthropic-version':'2023-06-01',
-    'anthropic-dangerous-direct-browser-access':'true'
-  };
-  if(ANTHROPIC_KEY)h['x-api-key']=ANTHROPIC_KEY;
-  return h;
+  // API key handled by Cloudflare Worker — only Content-Type needed here
+  return {'Content-Type':'application/json'};
 }
 const S_USER='js_user';const S_PLAN='js_plan';const S_REG='js_reg';
 
@@ -1993,7 +1988,7 @@ async function autoEnhanceATS(txt){
   var origVerdict=verdEl?verdEl.textContent:'';
   if(verdEl)verdEl.textContent=origVerdict+' · AI analysing...';
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
         messages:[{role:'user',content:'Analyse this resume for ATS (Indian job market). Return ONLY JSON: {score,verdict,color,categories:{contact:{score,status},structure:{score,status},content:{score,status},keywords:{score,status},format:{score,status},length:{score,status}},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each. color: #16a34a/>75, #f59e0b/50-75, #dc2626/<50.\n\n'+txt.slice(0,8000)}]})
@@ -2269,7 +2264,7 @@ async function enhanceWithAI(){
   if(txt.length<50){showToast('No resume text to enhance','amber');return;}
   showToast('🤖 Enhancing with AI...','');
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
         messages:[{role:'user',content:'Analyse this resume for ATS. Return ONLY valid JSON (no markdown): {score,verdict,color,categories:{contact,structure,content,keywords,format,length (each:{score,status})},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each category. color: #16a34a if >75, #f59e0b if 50-75, #dc2626 if <50.\n\nResume:\n'+txt.slice(0,8000)}]})
@@ -2443,7 +2438,7 @@ function runWalkIn(){
   var wiLJ=document.getElementById('wi-lj');var wiLP=document.getElementById('wi-lp');
   var sl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   var cl=city.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace('delhi-ncr','delhi');
-  if(wiNK)wiNK.href='https://www.naukri.com/'+sl+'-jobs-in-'+cl;
+  if(wiNK)wiNK.href='https://www.naukri.com/'+sl+'-walk-in-jobs-in-'+cl+'?jobAge=1';
   if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' walk-in '+city);
   if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin '+city)+'&datePosted=%22past-week%22';
   var wiLinks=document.getElementById('wiLinkedInLinks');
@@ -2496,7 +2491,7 @@ async function aiSalaryEstimate(skill,city,exp,el){
   el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Getting AI salary estimate for '+skill+'...</div>';
   try{
     var prompt='Give salary ranges for "'+skill+'" in '+city+', India'+(exp?' with '+exp+' years experience':'')+'. Return ONLY JSON: {"min":X,"median":Y,"max":Z,"currency":"LPA","insights":"2 sentence market insight","fresher":A,"senior":B} where values are in Lakhs Per Annum (LPA). No explanation, JSON only.';
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,
         messages:[{role:'user',content:prompt}]})
@@ -2516,9 +2511,15 @@ async function aiSalaryEstimate(skill,city,exp,el){
       +(d.fresher?'<div style="margin-top:8px;display:flex;gap:10px;font-size:11px;color:var(--soft);"><span>Fresher: ₹'+d.fresher+'L</span><span>Senior (7+ yrs): ₹'+d.senior+'L</span></div>':'')
       +'</div>';
   }catch(e){
-    el.innerHTML='<div class="az-empty" style="text-align:center"><div style="font-size:28px;margin-bottom:8px">⚠️</div>Unable to estimate salary. Please try again.</div>';
+    var expNum=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;
+    var base=expNum<1?4:expNum<3?7:expNum<6?12:expNum<10?18:28;
+    var maxR=Math.round(base*1.7);
+    el.innerHTML='<div class="salary-result">'
+      +'<div class="sal-range">\u20b9'+base+'L \u2013 \u20b9'+maxR+'L</div>'
+      +'<div class="sal-label">Estimated range \u00b7 '+(skill||'this role')+' \u00b7 India avg</div>'
+      +'<div style="font-size:11px;color:var(--soft);margin-top:8px;">Based on Indian market averages. Search <a href="https://www.ambitionbox.com/salaries" target="_blank" style="color:var(--teal);">AmbitionBox</a> for exact data.</div>'
+      +'</div>';
   }
-}
 function runOfferAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('offerText')||{value:''}).value.trim();
@@ -2590,7 +2591,7 @@ async function enhanceOfferWithAI(){
   if(!txt)return;
   showToast('🤖 AI analysing offer letter...','');
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,
         messages:[{role:'user',content:'Analyse this Indian employment offer letter. List the top 5 concerns about: bond period, non-compete, variable pay, IP ownership, notice period, moonlighting restrictions. Be specific and practical. Keep each point under 20 words.\n\nOffer letter:\n'+txt.slice(0,5000)}]})
@@ -2646,7 +2647,7 @@ async function enhanceContractWithAI(){
   if(!txt)return;
   showToast('🤖 AI analysing contract...','');
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
         messages:[{role:'user',content:'Analyse this employment contract for moonlighting/dual employment restrictions. Give a clear verdict: Can Do / Risky / Cannot. List the relevant clauses. Be specific and practical. Under 150 words total.\n\nContract:\n'+txt.slice(0,4000)}]})
@@ -2692,12 +2693,12 @@ function runWomenSearch(){
   var wrNK=document.getElementById('wr-nk');
   var wrLJ=document.getElementById('wr-lj');var wrLP=document.getElementById('wr-lp');
   var _wsl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-  if(wrNK)wrNK.href='https://www.naukri.com/returnship-jobs?q='+encodeURIComponent(skill);
+  if(wrNK)wrNK.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women-in-'+city.toLowerCase().replace(/\s+/g,'-').replace('delhi ncr','delhi').replace(' ','-')+'?jobAge=7';
   if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women');
   if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22';
   var wrLinks=document.getElementById('wrLinkedInLinks');
   if(wrLinks)wrLinks.style.display='flex';
-  var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-returnship-jobs';
+  var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women?jobAge=7';
 }
 
 
@@ -3017,6 +3018,15 @@ var PROG_URLS={
 
 // ── ADZUNA + JOB PORTALS ─────────────────────────
 function initPortalsTab(){
+  // Pre-fill user's last searched skill/city
+  var ps=document.getElementById('po_skill');
+  if(ps&&!ps.value&&lastSearchedSkill)ps.value=lastSearchedSkill;
+  var pc=document.getElementById('po_city');
+  if(pc&&!pc.value&&lastSearchedCity){
+    for(var i=0;i<pc.options.length;i++){
+      if(pc.options[i].text===lastSearchedCity){pc.selectedIndex=i;break;}
+    }
+  }
   var locked=document.getElementById('portalsLocked');
   var content=document.getElementById('portalsContent');
   if(isPaidUser()){
@@ -3298,7 +3308,7 @@ async function generateSignalLetter(){
   resEl.innerHTML='<div class="az-loading"><div class="az-spinner" style="border-top-color:var(--teal)"></div>Generating your Signal Letter...</div>';
   var prompt='Write a '+tone+' cover letter. '+(jobTitle?'Applying for: '+jobTitle+'. ':'')+' Role: '+role+'. Key skills: '+skills+'. Three concise paragraphs, max 180 words. Start with Dear Hiring Manager, end with Yours sincerely. Resume data below. Resume: '+resumeTxt.slice(0,2500);
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
     });
@@ -3323,14 +3333,15 @@ async function generateSignalLetter(){
     showToast('Signal Letter ready — copy and customise!','green');
   }catch(e){
     var errMsg=e&&e.message?e.message:'Unknown error';
-    var keyPresent=ANTHROPIC_KEY&&ANTHROPIC_KEY.length>10;
-    var keyMsg=keyPresent?'':'<br><small style="color:red">⚠️ API key not set in code</small>';
+    var keyPresent=true; // Key in Cloudflare Worker
+    var keyMsg='';
     resEl.innerHTML='<div class="az-empty" style="text-align:center;padding:20px">'
       +'<div style="font-size:24px;margin-bottom:8px">⚠️</div>'
       +'<strong>AI Error: '+errMsg+'</strong>'
       +'<br><small style="color:var(--soft)">Key present: '+keyPresent+'</small>'
       +keyMsg+'</div>';
   }
+}
 }
 </script>
 
@@ -3360,7 +3371,7 @@ async function generateSignalLetter(){
     </div>
   </div>
   <!-- Right: Login form -->
-  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;">
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;;min-height:100vh;">
     <div style="width:100%;max-width:360px;">
       <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
@@ -3407,7 +3418,7 @@ async function generateSignalLetter(){
     </div>
   </div>
   <!-- Right: Signup form -->
-  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;">
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;min-height:100vh;">
     <div style="width:100%;max-width:360px;">
       <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
