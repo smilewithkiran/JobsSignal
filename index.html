@@ -1103,164 +1103,43 @@ img{max-width:100%;display:block;}
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Select company below → opens official page</p>
 
     
-    <!-- Women Job Search -->
-    <div id="womenJobSearch" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--dark)">🔍 Find Women-Friendly Jobs</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Skill / Role *</label>
-          <input type="text" id="wr_skill" placeholder="e.g. Java Developer, HR Manager, Data Analyst">
-        </div>
-        <div class="form-group">
-          <label>City</label>
-          <select id="wr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
-        </div>
-        <div class="form-group">
-          <label>Experience</label>
-          <select id="wr_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="8">8+ yrs</option></select>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="if(window.runWomenSearch)window.runWomenSearch();else runWomenSearch();" style="margin-top:8px">Find Jobs →</button>
-    </div>
-    <div id="womenResults" style="margin-top:8px"></div>
-
+    
     <!-- Programme cards -->
-        <!-- Company filter dropdown -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
-      <label style="font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Filter by Company Programme</label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <select id="progFilter" onchange="onProgSelect(this.value)" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
-          <option value="all">Select company → opens official returnship page</option>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <span style="font-size:13px;font-weight:700">Select Programme:</span>
+        <select id="progFilter" onchange="if(this.value&&this.value!=='all'){var u={'TCS':'https://www.tcs.com/careers/india/rebegin','Infosys':'https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','Accenture':'https://www.accenture.com/in-en/careers/explore-careers/women-returnship','Wipro':'https://careers.wipro.com/careers-home/returners','IBM':'https://www.ibm.com/in-en/employment','Goldman Sachs':'https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','Amazon':'https://www.amazon.jobs/en/landing_pages/returnship','HCLTech':'https://www.hcltech.com/careers','Deloitte':'https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html','SAP':'https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','Microsoft':'https://careers.microsoft.com/v2/global/en/returntomicrosoft','Dell':'https://jobs.dell.com/returntodell'};if(u[this.value])window.open(u[this.value],'_blank');this.value='all';}" style="flex:1;min-width:180px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
+          <option value="all">-- Select to open programme --</option>
           <option value="TCS">TCS — Rebegin</option>
-          <option value="Infosys">Infosys — Restart</option>
-          <option value="Accenture">Accenture — Recharge</option>
-          <option value="Wipro">Wipro — ReachOut</option>
-          <option value="IBM">IBM — Career Restart</option>
+          <option value="Infosys">Infosys — Restart Careers</option>
+          <option value="Accenture">Accenture — Returnship</option>
+          <option value="Wipro">Wipro — Returners</option>
+          <option value="IBM">IBM — Return to Work</option>
           <option value="Goldman Sachs">Goldman Sachs — Returnship</option>
-          <option value="Amazon">Amazon — Re-Kindle</option>
-          <option value="HCLTech">HCLTech — Returnship</option>
-          <option value="Deloitte">Deloitte — Encore</option>
-          <option value="SAP">SAP — Career Restart</option>
-          <option value="Microsoft">Microsoft — JUMP</option>
-          <option value="Dell">Dell — Reconnect</option>
+          <option value="Amazon">Amazon — Returnship</option>
+          <option value="HCLTech">HCLTech — Careers</option>
+          <option value="Deloitte">Deloitte — Come Back to Work</option>
+          <option value="SAP">SAP — Returnship</option>
+          <option value="Microsoft">Microsoft — Return to Work</option>
+          <option value="Dell">Dell — Return to Dell</option>
         </select>
-        <div style="font-size:11px;color:var(--soft);padding:0 4px;">🔗 Opens official company page · Free for all users</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px">
+        <div class="prog-card" onclick="window.open('https://www.tcs.com/careers/india/rebegin','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🏢</div><div style="font-size:11px;font-weight:700">TCS Rebegin</div></div>
+        <div class="prog-card" onclick="window.open('https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🔷</div><div style="font-size:11px;font-weight:700">Infosys Restart</div></div>
+        <div class="prog-card" onclick="window.open('https://www.accenture.com/in-en/careers/explore-careers/women-returnship','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">💜</div><div style="font-size:11px;font-weight:700">Accenture Return</div></div>
+        <div class="prog-card" onclick="window.open('https://careers.wipro.com/careers-home/returners','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🟡</div><div style="font-size:11px;font-weight:700">Wipro Returners</div></div>
+        <div class="prog-card" onclick="window.open('https://www.ibm.com/in-en/employment','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🔵</div><div style="font-size:11px;font-weight:700">IBM Return</div></div>
+        <div class="prog-card" onclick="window.open('https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">💰</div><div style="font-size:11px;font-weight:700">Goldman Sachs</div></div>
+        <div class="prog-card" onclick="window.open('https://www.amazon.jobs/en/landing_pages/returnship','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🛒</div><div style="font-size:11px;font-weight:700">Amazon Return</div></div>
+        <div class="prog-card" onclick="window.open('https://www.hcltech.com/careers','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🌐</div><div style="font-size:11px;font-weight:700">HCLTech</div></div>
+        <div class="prog-card" onclick="window.open('https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🏛</div><div style="font-size:11px;font-weight:700">Deloitte Return</div></div>
+        <div class="prog-card" onclick="window.open('https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">⚙️</div><div style="font-size:11px;font-weight:700">SAP Returnship</div></div>
+        <div class="prog-card" onclick="window.open('https://careers.microsoft.com/v2/global/en/returntomicrosoft','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">🪟</div><div style="font-size:11px;font-weight:700">Microsoft Return</div></div>
+        <div class="prog-card" onclick="window.open('https://jobs.dell.com/returntodell','_blank')" style="cursor:pointer;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;text-align:center;background:var(--bg)"><div style="font-size:20px;margin-bottom:4px">💻</div><div style="font-size:11px;font-weight:700">Dell Return</div></div>
       </div>
     </div>
-
-    <!-- Programme cards grid -->
-    <div class="prog-grid" id="progGrid" style="display:none;">
-      <div class="prog-card" data-co="TCS">
-        <div class="prog-company">TCS</div>
-        <div class="prog-name">Rebegin Programme</div>
-        <div class="prog-desc">2-8 years experience, career break of 1+ year. 120+ openings. Customised onboarding + mentoring.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.tcs.com/careers/india/rebegin','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Infosys">
-        <div class="prog-company">Infosys</div>
-        <div class="prog-name">Restart with Infosys</div>
-        <div class="prog-desc">For experienced women professionals on a break. Re-enter business world with reskilling + mentorship support.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Accenture">
-        <div class="prog-company">Accenture</div>
-        <div class="prog-name">Recharge Programme</div>
-        <div class="prog-desc">Return to work with reskilling support. Flexible roles for women who have taken a career break.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.accenture.com/in-en/careers/explore-careers/women-returnship','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Amazon">
-        <div class="prog-company">Amazon</div>
-        <div class="prog-name">Re-Kindle Programme</div>
-        <div class="prog-desc">16-week paid internship with full-time offer possibility. Mentorship + flexible working for women returnees.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.amazon.jobs/en/landing_pages/returnship','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="HCLTech">
-        <div class="prog-company">HCLTech</div>
-        <div class="prog-name">Returnship Programme</div>
-        <div class="prog-desc">Supports women pursuing both personal and professional goals. Career break re-entry with training.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.hcltech.com/careers','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Wipro">
-        <div class="prog-company">Wipro</div>
-        <div class="prog-name">ReachOut Programme</div>
-        <div class="prog-desc">Career break of 1+ year. Structured return with project exposure and leadership mentoring.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://careers.wipro.com','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="IBM">
-        <div class="prog-company">IBM</div>
-        <div class="prog-name">Career Restart</div>
-        <div class="prog-desc">For professionals with 2+ year career break. Technology roles with reskilling support in India.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.ibm.com/in-en/employment','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Deloitte">
-        <div class="prog-company">Deloitte</div>
-        <div class="prog-name">Encore Programme</div>
-        <div class="prog-desc">16-week program for 2+ year career break. Paid internship with full-time offer at end.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www2.deloitte.com/us/en/pages/careers/articles/join-deloitte-encore-program.html','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="SAP">
-        <div class="prog-company">SAP</div>
-        <div class="prog-name">Career Restart</div>
-        <div class="prog-desc">3-month paid internship for women with 2+ year break. Full-time offer possible at end of programme.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Goldman Sachs">
-        <div class="prog-company">Goldman Sachs</div>
-        <div class="prog-name">Returnship Programme</div>
-        <div class="prog-desc">For 2+ year career break professionals. Based in Bengaluru &amp; Hyderabad. Finance + Tech roles.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Microsoft">
-        <div class="prog-company">Microsoft</div>
-        <div class="prog-name">JUMP Programme</div>
-        <div class="prog-desc">Jumpstart Your Return — structured mentorship and project-based work for women returning to tech.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://careers.microsoft.com/v2/global/en/returntomicrosoft','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-      <div class="prog-card" data-co="Dell">
-        <div class="prog-company">Dell Technologies</div>
-        <div class="prog-name">Reconnect Programme</div>
-        <div class="prog-desc">Re-entry programme for professionals with career gaps. Technology and business roles across India.</div>
-        <div class="prog-btns">
-          <button class="prog-btn apply" onclick="window.open('https://jobs.dell.com','_blank')">Apply Now ↗</button>
-          
-        </div>
-      </div>
-    </div>
-
-    <!-- Job search -->
+<!-- Job search -->
     <div class="search-form">
       <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">🔍 Search Women-Friendly Jobs</h3>
       <div class="form-row">
@@ -1944,13 +1823,9 @@ function runATSCheck(){
   var txt=(ta?ta.value.trim():'')||atsResumeText||'';
   if(!txt||txt.length<50){showToast('Upload resume or paste text first','amber');return;}
   if(txt.indexOf('Loading:')===0||txt.indexOf('Extracting')===0){showToast('Please wait for extraction','amber');return;}
-  // Step 1: Local scoring (instant)
-  var result=scoreResume(txt);
-  atsLastResult=result;
-  try{localStorage.setItem('js_ats_last',JSON.stringify({result:result,ts:Date.now()}));}catch(e){}
-  renderATSResult(result);
   document.getElementById('atsUploadZone').style.display='none';
-  // Step 2: Auto AI enhancement (no button needed)
+  var resEl=document.getElementById('atsResult');
+  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:40px"><div class="az-spinner" style="margin:0 auto 16px"></div><p style="color:var(--soft)">Analysing your resume with AI...</p></div>';}
   autoEnhanceATS(txt);
 }
 async function autoEnhanceATS(txt){
@@ -2236,6 +2111,17 @@ function resetATS(){
   var _atsJ=document.getElementById('atsJobsSection');if(_atsJ)_atsJ.style.display='none';
   var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
   atsResumeText='';atsFileData=null;atsLastResult=null;
+  // Clear cover letter
+  var _cl=document.getElementById('coverLetterSection');
+  if(_cl)_cl.style.setProperty('display','none','important');
+  var _clr=document.getElementById('coverLetterResult');
+  if(_clr)_clr.innerHTML='';
+  var _jt=document.getElementById('clJobTitle');
+  if(_jt)_jt.value='';
+  var _cb=document.getElementById('checkAnotherBtn');
+  if(_cb)_cb.style.setProperty('display','none','important');
+  var _res=document.getElementById('atsResult');
+  if(_res)_res.innerHTML='';
 }
 
 // ── ATS: AI ENHANCE ───────────────────────────────────────────────
@@ -2258,7 +2144,10 @@ async function enhanceWithAI(){
     renderATSResult(result);
     showToast('✅ AI analysis complete','green');
   }catch(e){
-    showToast('AI enhancement not available — using local analysis','amber');
+    var ta3=document.getElementById('atsPasteText');
+    var txt3=(ta3?ta3.value.trim():'')||atsResumeText||'';
+    if(txt3.length>=50){renderATSResult(scoreResume(txt3));showToast('Showing local analysis','amber');}
+    else{showToast('AI analysis unavailable','amber');}
   }
 }
 
@@ -2367,7 +2256,8 @@ function fetchGoogleJobs(skill,city,exp,el,mode){
     var jobs=data.data||[];
     try{localStorage.setItem(cacheKey,JSON.stringify({data:jobs,ts:Date.now()}));}catch(_e){}
     if(!jobs.length){
-      el.innerHTML='<div class="az-empty">No jobs found for <strong>'+skill+'</strong> in <strong>'+city+'</strong>.<br><small>Try a shorter skill name or different city.</small></div>';
+      var _m=mode==='walkin'?'No walk-in drives found in <b>'+city+'</b> for <b>'+skill+'</b>. Check LinkedIn Posts above for alerts.':mode==='fresher'?'No fresher jobs for <b>'+skill+'</b> in <b>'+city+'</b>. Try broader skill.':'No jobs for <b>'+skill+'</b> in <b>'+city+'</b>. Try a shorter skill.';
+      el.innerHTML='<div class="az-empty">'+_m+'</div>';
       return;
     }
     // Filter for fresher mode: remove senior/experienced roles
@@ -2530,6 +2420,7 @@ async function aiSalaryEstimate(skill,city,exp,el){
       +'<div style="font-size:11px;color:var(--soft);margin-top:8px;">Based on Indian market averages. Search <a href="https://www.ambitionbox.com/salaries" target="_blank" style="color:var(--teal);">AmbitionBox</a> for exact data.</div>'
       +'</div>';
   }
+}
 function runOfferAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('offerText')||{value:''}).value.trim();
@@ -3061,6 +2952,8 @@ function runPortalSearch(){
   // Clear feed
   var feed=document.getElementById('portalJobFeed');
   if(feed)feed.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching jobs from Google Jobs + Adzuna...</div>';
+  var plEl=document.getElementById('portalLinksSection');
+  if(plEl){plEl.style.display='block';plEl.innerHTML=buildPortalLinks(skill,city,exp||'');}
   // Run parallel searches
   var allJobs=[];var pending=2;
   function onJobsBatch(jobs,source){
@@ -3349,7 +3242,6 @@ async function generateCoverLetter(){
       +'<br><small style="color:var(--soft)">Key present: '+keyPresent+'</small>'
       +keyMsg+'</div>';
   }
-}
 }
 
 
