@@ -1102,6 +1102,28 @@ img{max-width:100%;display:block;}
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">👩 Women Returnship</h2>
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Select company below → opens official page</p>
 
+    
+    <!-- Women Job Search -->
+    <div id="womenJobSearch" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--dark)">🔍 Find Women-Friendly Jobs</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Skill / Role *</label>
+          <input type="text" id="wr_skill" placeholder="e.g. Java Developer, HR Manager, Data Analyst">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <select id="wr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
+        </div>
+        <div class="form-group">
+          <label>Experience</label>
+          <select id="wr_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="8">8+ yrs</option></select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="if(window.runWomenSearch)window.runWomenSearch();else runWomenSearch();" style="margin-top:8px">Find Jobs →</button>
+    </div>
+    <div id="womenResults" style="margin-top:8px"></div>
+
     <!-- Programme cards -->
         <!-- Company filter dropdown -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
@@ -1508,11 +1530,33 @@ function switchTab(tab,skipHistory){
   document.querySelectorAll('.tab-panel').forEach(function(p){
     p.classList.toggle('active',p.id==='tab-'+tab);
   });
-  if(tab==='fresher'&&window.initFresherTab)window.initFresherTab();
+  if(tab==='fresher'){
+    var _fl=document.getElementById('fresherLocked');
+    var _fc=document.getElementById('fresherContent');
+    var _fa=isPaidUser();
+    if(_fl)_fl.style.display=_fa?'none':'block';
+    if(_fc)_fc.style.display=_fa?'block':'none';
+  }
   if(tab==='women'&&window.showAllProgCards)window.showAllProgCards();
-  if(tab==='portals'&&window.initPortalsTab)window.initPortalsTab();
+  if(tab==='portals'){
+    var _pl=document.getElementById('portalsLocked');
+    var _pc=document.getElementById('portalsContent');
+    var _pa=isPaidUser();
+    if(_pl)_pl.style.display=_pa?'none':'block';
+    if(_pc)_pc.style.display=_pa?'block':'none';
+  }
   if(tab==='moonlight'){var ct=document.getElementById('contractText');if(ct)ct.value='';var cr=document.getElementById('contractResult');if(cr)cr.innerHTML='';}
-  if(tab==='home'&&window.initHomeDash)window.initHomeDash();
+  if(tab==='home'){
+    var _hg=document.getElementById('dashGreeting');
+    var _hh=new Date().getHours();
+    var _ht='Good morning';
+    if(_hh>=12&&_hh<17)_ht='Good afternoon';
+    else if(_hh>=17)_ht='Good evening';
+    var _hu=currentUser&&currentUser.name?currentUser.name.split(' ')[0]:'there';
+    if(_hg)_hg.textContent=_ht+', '+_hu+'!';
+    var _hb=document.getElementById('homePlanBadge');
+    if(_hb)_hb.textContent=isPaidUser()?'Pro Plan ✓':'Free Plan';
+  }
   window.scrollTo(0,0);
 }
 
@@ -2176,6 +2220,12 @@ function renderATSResult(r){
   var slSec=document.getElementById('coverLetterSection');
   if(slSec)slSec.style.setProperty('display','block','important');
   res.scrollIntoView({behavior:'smooth',block:'start'});
+  // Show Cover Letter button after every ATS result
+  var _clSec=document.getElementById('coverLetterSection');
+  if(_clSec)_clSec.style.setProperty('display','block','important');
+  var _caBtn=document.getElementById('checkAnotherBtn');
+  if(_caBtn)_caBtn.style.setProperty('display','inline-block','important');
+
 }
 
 function resetATS(){
@@ -2371,7 +2421,7 @@ function runWalkIn(){
   var cl=city.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace('delhi-ncr','delhi');
   if(wiNK)wiNK.href='https://www.naukri.com/'+sl+'-walk-in-jobs-in-'+cl+'?jobAge=1';
   if(wiLJ)wiLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent('"'+skill+'" walk-in')+'&location='+encodeURIComponent(city);
-  if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" walkin -recruiter -"talent acquisition"')+'&datePosted=%22past-week%22';
+  if(wiLP)wiLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(isHRRole(skill)?skill+' walkin':('"'+skill+'" walkin -recruiter -"talent acquisition"'))+'&datePosted=%22past-week%22';
   var wiLinks=document.getElementById('wiLinkedInLinks');
   if(wiLinks)wiLinks.style.display='flex';
   var wiNk=document.getElementById('wi-nk');if(wiNk)wiNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/\s+/g,'-'));
@@ -2389,8 +2439,21 @@ function runSalaryRange(){
   var q=buildJobQuery(skill,exp);
   var cityAz=(city||'India').replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
   var url='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&results_per_page=20&what='+encodeURIComponent(q)+'&where='+encodeURIComponent(cityAz)+'&sort_by=salary&content-type=application/json';
-          setTimeout(function(){if(el&&el.innerHTML.indexOf('Fetching')>=0){var _e=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;var _b=_e<1?4:_e<3?7:_e<6?12:_e<10?18:28;el.innerHTML='<div class=\'salary-result\'><div class=\'sal-range\'>&#8377;'+_b+'L&#8211;&#8377;'+Math.round(_b*1.7)+'L</div><div class=\'sal-label\'>India avg &middot; '+(skill||'role')+'</div><div style=\'font-size:11px;margin-top:4px\'><a href=\'https://www.ambitionbox.com/salaries\' target=\'_blank\' style=\'color:var(--teal)\'>AmbitionBox</a></div></div>';}},8000);
-  fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+          var _salDone=false;
+  var _salTO=setTimeout(function(){
+    if(!_salDone){
+      var _xe=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;
+      var _xb=_xe<1?4:_xe<3?7:_xe<6?12:_xe<10?18:28;
+      el.innerHTML='<div class="salary-result">'
+        +'<div class="sal-range">&#8377;'+_xb+'L&#8211;&#8377;'+Math.round(_xb*1.7)+'L/yr</div>'
+        +'<div class="sal-label">India avg &middot; '+(skill||'this role')+'</div>'
+        +'<div style="margin-top:8px;font-size:12px;color:var(--soft)">'
+        +'<a href="https://www.ambitionbox.com/salaries" target="_blank" style="color:var(--teal)">AmbitionBox</a>'
+        +' &middot; <a href="https://www.naukri.com/salary-insights" target="_blank" style="color:var(--teal)">Naukri Salary</a>'
+        +'</div></div>';
+    }
+  },8000);
+  fetch(url).then(function(r){clearTimeout(_salTO);_salDone=true;return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(data){
     var jobs=(data.results||[]).filter(function(j){return j.salary_min&&j.salary_max&&j.salary_min>0;});
     var minSal,maxSal,medSal,count;
@@ -2415,7 +2478,7 @@ function runSalaryRange(){
       +'<div class="salary-label"><strong style="color:var(--teal)">'+'₹'+medSal+'L</strong><span>Average</span></div>'
       +'<div class="salary-label"><strong style="color:var(--amber)">'+'₹'+maxSal+'L</strong><span>Maximum</span></div>'
       +'</div></div>';
-  }).catch(function(){
+  }).catch(function(){clearTimeout(_salTO);_salDone=true;
     // Adzuna failed — try AI estimate, if that also fails show market avg
     aiSalaryEstimate(skill,city||'India',exp,el);
   });
@@ -2641,8 +2704,8 @@ function runWomenSearch(){
   var wrLJ=document.getElementById('wr-lj');var wrLP=document.getElementById('wr-lp');
   var _wsl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   if(wrNK)wrNK.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women-in-'+city.toLowerCase().replace(/\s+/g,'-').replace('delhi ncr','delhi').replace(' ','-')+'?jobAge=7';
-  if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill+' returnship women');
-  if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' returnship women hiring')+'&datePosted=%22past-month%22';
+  if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent((isHRRole(skill)?skill+' hiring':'\''+skill+'\' returnship women -recruiter'))+'&location='+encodeURIComponent(city);
+  if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent((isHRRole(skill)?skill+' HR hiring women':'\''+skill+'\' returnship women -recruiter'))+'&datePosted=%22past-month%22';
   var wrLinks=document.getElementById('wrLinkedInLinks');
   if(wrLinks)wrLinks.style.display='flex';
   var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women?jobAge=7';
@@ -3289,6 +3352,11 @@ async function generateCoverLetter(){
 }
 }
 
+
+function isHRRole(skill){
+  var s=(skill||'').toLowerCase();
+  return /talent acquisition|recruiter|recruitment|\bhr\b|human resource|hrbp|staffing|sourcing/.test(s);
+}
 // ── Expose nested functions globally ──
 window.renderATSResult=renderATSResult;
 window.showJobsTab=showJobsTab;
