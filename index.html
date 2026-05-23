@@ -1508,17 +1508,20 @@ function switchTab(tab,skipHistory){
   document.querySelectorAll('.tab-panel').forEach(function(p){
     p.classList.toggle('active',p.id==='tab-'+tab);
   });
-  if(tab==='fresher')initFresherTab();
-  if(tab==='women')showAllProgCards();
-  if(tab==='portals')initPortalsTab();
+  if(tab==='fresher'&&window.initFresherTab)window.initFresherTab();
+  if(tab==='women'&&window.showAllProgCards)window.showAllProgCards();
+  if(tab==='portals'&&window.initPortalsTab)window.initPortalsTab();
   if(tab==='moonlight'){var ct=document.getElementById('contractText');if(ct)ct.value='';var cr=document.getElementById('contractResult');if(cr)cr.innerHTML='';}
-  if(tab==='home')initHomeDash();
+  if(tab==='home'&&window.initHomeDash)window.initHomeDash();
   window.scrollTo(0,0);
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
 function isSuperUser(){var ph=(currentUser&&currentUser.phone)?(''+currentUser.phone).replace(/[^0-9]/g,'').slice(-10):'';return ph===SUPER;}
-function isPaidUser(){return isPaid||isSuperUser();}
+function isPaidUser(){
+  if(isSuperUser())return true;  // Super user always has full access
+  return isPaid;
+}
 
 async function doLogin(){
   var phone=(document.getElementById('li_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
@@ -1526,7 +1529,12 @@ async function doLogin(){
   if(errEl){errEl.style.display='none';}
   if(phone.length<10){showToast('Enter a valid 10-digit number','amber');return;}
   // Super user bypass
-  if(phone===SUPER){enterDash({phone:phone,name:'Super User',skill:'Admin',city:'Hyderabad'},true);return;}
+  if(phone===SUPER){
+    isPaid=true;  // Ensure paid flag set immediately
+    atsPublicMode=false;  // Clear any public mode
+    enterDash({phone:phone,name:'Admin',skill:'Full Stack Developer',city:'Hyderabad'},true);
+    return;
+  }
   // Block check
   try{
     var br=await fetch(FB_DB+'/blocked/'+phone+'.json');
@@ -1638,7 +1646,7 @@ async function doSignup(){
 }
 
 function enterDash(user,paid){
-  currentUser=user;isPaid=paid||false;
+  currentUser=user;isPaid=isSuperUser()?true:(paid||false);
   atsPublicMode=false; // reset — user is now logged in
   localStorage.setItem(S_USER,JSON.stringify(user));
   // Restore logout button visibility
@@ -1660,7 +1668,11 @@ function buildDash(user,paid){
   if(ab)ab.style.display=isSuperUser()?'inline-block':'none';
   // Upgrade button (free users)
   var ub=document.getElementById('topUpgradeBtn');
+  // Super user never sees upgrade banner
   if(ub)ub.style.display=isPaidUser()?'none':'inline-block';
+  // Super user admin badge
+  var dab=document.getElementById('dashAdminBadge');
+  if(dab)dab.style.display=isSuperUser()?'inline-block':'none';
   // Fab
   var fab=document.getElementById('fabUpgrade');
   if(fab)fab.style.display=isPaidUser()?'none':'flex';
@@ -2153,8 +2165,13 @@ function renderATSResult(r){
   var jobSec=document.getElementById('atsJobsSection');
   var jobLocked=document.getElementById('atsJobsLocked');
   if(jobSec)jobSec.style.display='block';
-  if(jobLocked)jobLocked.style.display=isPaidUser()?'none':'block';
-  if(isPaidUser()){showJobsTab('google');}
+  // Super user and paid users always see jobs
+  var canSeeJobs=isPaidUser();
+  if(jobLocked)jobLocked.style.display=canSeeJobs?'none':'block';
+  if(canSeeJobs){
+    if(atsPublicMode&&isSuperUser()){atsPublicMode=false;} // Reset for super user
+    showJobsTab('google');
+  }
   // Show Cover Letter section after scoring
   var slSec=document.getElementById('coverLetterSection');
   if(slSec)slSec.style.setProperty('display','block','important');
@@ -2201,7 +2218,7 @@ function showJobsTab(tab){
   document.getElementById('jt-google').classList.toggle('active',tab==='google');
   document.getElementById('atsGoogleJobs').style.display=tab==='google'?'block':'none';
   var locked=document.getElementById('atsJobsLocked');
-  if(atsPublicMode||!isPaidUser()){
+  if((atsPublicMode&&!isSuperUser())||!isPaidUser()){
     if(locked)locked.style.display='block';
     document.getElementById('atsGoogleJobs').style.display='none';
     return;
@@ -2372,8 +2389,8 @@ function runSalaryRange(){
   var q=buildJobQuery(skill,exp);
   var cityAz=(city||'India').replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
   var url='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id='+AZ_ID+'&app_key='+AZ_KEY+'&results_per_page=20&what='+encodeURIComponent(q)+'&where='+encodeURIComponent(cityAz)+'&sort_by=salary&content-type=application/json';
-  setTimeout(function(){if(el&&el.innerHTML.indexOf('Fetching')>=0){var _xe=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;var _xb=_xe<1?4:_xe<3?7:_xe<6?12:_xe<10?18:28;el.innerHTML='<div class=\'salary-result\'><div class=\'sal-range\'>&#8377;'+_xb+'L&#8211;&#8377;'+Math.round(_xb*1.7)+'L</div><div class=\'sal-label\'>India avg</div><div style=\'font-size:11px;color:var(--soft);margin-top:4px\'><a href=\'https://www.ambitionbox.com/salaries\' target=\'_blank\' style=\'color:var(--teal)\'>AmbitionBox</a> &middot; <a href=\'https://www.naukri.com/salary-insights\' target=\'_blank\' style=\'color:var(--teal)\'>Naukri</a></div></div>';}},8000);
-    fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
+          setTimeout(function(){if(el&&el.innerHTML.indexOf('Fetching')>=0){var _e=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;var _b=_e<1?4:_e<3?7:_e<6?12:_e<10?18:28;el.innerHTML='<div class=\'salary-result\'><div class=\'sal-range\'>&#8377;'+_b+'L&#8211;&#8377;'+Math.round(_b*1.7)+'L</div><div class=\'sal-label\'>India avg &middot; '+(skill||'role')+'</div><div style=\'font-size:11px;margin-top:4px\'><a href=\'https://www.ambitionbox.com/salaries\' target=\'_blank\' style=\'color:var(--teal)\'>AmbitionBox</a></div></div>';}},8000);
+  fetch(url).then(function(r){return r.ok?r.json():Promise.reject('HTTP '+r.status);})
   .then(function(data){
     var jobs=(data.results||[]).filter(function(j){return j.salary_min&&j.salary_max&&j.salary_min>0;});
     var minSal,maxSal,medSal,count;
@@ -2399,8 +2416,23 @@ function runSalaryRange(){
       +'<div class="salary-label"><strong style="color:var(--amber)">'+'₹'+maxSal+'L</strong><span>Maximum</span></div>'
       +'</div></div>';
   }).catch(function(){
+    // Adzuna failed — try AI estimate, if that also fails show market avg
     aiSalaryEstimate(skill,city||'India',exp,el);
   });
+  // Show fallback if still loading after 8 seconds
+  setTimeout(function(){
+    var r2=document.getElementById('salaryRangeResult');
+    if(r2&&r2.innerHTML.indexOf('Fetching')>=0){
+      var _e4=parseInt((exp||'0').replace(/[^0-9]/g,''))||0;
+      var _b4=_e4<1?4:_e4<3?7:_e4<6?12:_e4<10?18:28;
+      r2.innerHTML='<div class="salary-result">'
+        +'<div class="sal-range">&#8377;'+_b4+'L &#8211; &#8377;'+Math.round(_b4*1.7)+'L</div>'
+        +'<div class="sal-label">India avg &middot; '+(skill||'this role')+'</div>'
+        +'<div style="font-size:11px;color:var(--soft);margin-top:4px">'
+        +'Check exact data: <a href="https://www.ambitionbox.com/salaries" target="_blank" style="color:var(--teal)">AmbitionBox</a>'
+        +'</div></div>';
+    }
+  },8000);
 }
 async function aiSalaryEstimate(skill,city,exp,el){
   el.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Getting AI salary estimate for '+skill+'...</div>';
@@ -2713,14 +2745,12 @@ function calcCityCompare(){
 function initFresherTab(){
   var locked=document.getElementById('fresherLocked');
   var content=document.getElementById('fresherContent');
-  if(isPaidUser()){
-    if(locked)locked.style.display='none';
-    if(content)content.style.display='block';
-  }else{
-    if(locked)locked.style.display='block';
-    if(content)content.style.display='none';
-  }
+  // Super user and paid users see content
+  var hasAccess=isPaidUser();
+  if(locked)locked.style.display=hasAccess?'none':'block';
+  if(content)content.style.display=hasAccess?'block':'none';
 }
+window.initFresherTab=initFresherTab;
 function runFresherSearch(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('fr_skill')||{value:''}).value.trim();
@@ -2861,6 +2891,7 @@ function showAllProgCards(){
   // Cards intentionally hidden — dropdown is the interface
   // Uncomment below to show cards: document.querySelectorAll('.prog-card').forEach(function(card){card.style.display='block';});
 }
+window.showAllProgCards=showAllProgCards;
 function onProgSelect(co){
   if(co==='all')return;
   // ALL users (free + paid) can open official returnship pages — no paywall
@@ -2914,6 +2945,7 @@ function initHomeDash(){
     if(subEl)subEl.textContent=(lastATS.role||'Resume')+'  ·  check again';
   }
 }
+window.initHomeDash=initHomeDash;
 
 // ── WOMEN RETURNSHIP OFFICIAL URLs ──────────────────
 var PROG_URLS={
@@ -2931,6 +2963,7 @@ var PROG_URLS={
   'Dell':'https://jobs.dell.com/returntodell'
 };
 
+window.initPortalsTab=function(){var ps=document.getElementById("po_skill");if(ps&&!ps.value&&lastSearchedSkill)ps.value=lastSearchedSkill;var locked=document.getElementById("portalsLocked");var content=document.getElementById("portalsContent");var hasAccess=isPaidUser();if(locked)locked.style.display=hasAccess?"none":"block";if(content)content.style.display=hasAccess?"block":"none";};
 // ── ADZUNA + JOB PORTALS ─────────────────────────
 function initPortalsTab(){
   // Pre-fill user's last searched skill/city
@@ -2944,13 +2977,10 @@ function initPortalsTab(){
   }
   var locked=document.getElementById('portalsLocked');
   var content=document.getElementById('portalsContent');
-  if(isPaidUser()){
-    if(locked)locked.style.display='none';
-    if(content)content.style.display='block';
-  }else{
-    if(locked)locked.style.display='block';
-    if(content)content.style.display='none';
-  }
+  // Super user and paid users see content
+  var hasAccess=isPaidUser();
+  if(locked)locked.style.display=hasAccess?'none':'block';
+  if(content)content.style.display=hasAccess?'block':'none';
 }
 
 function runPortalSearch(){
@@ -3258,6 +3288,47 @@ async function generateCoverLetter(){
   }
 }
 }
+
+// ── Expose nested functions globally ──
+window.renderATSResult=renderATSResult;
+window.showJobsTab=showJobsTab;
+window.enhanceWithAI=enhanceWithAI;
+window.resetATS=resetATS;
+window.mkList=mkList;
+window.openATSNaukri=openATSNaukri;
+window.openLinkedInJobs=openLinkedInJobs;
+window.openLinkedInPosts=openLinkedInPosts;
+window.timeSince=timeSince;
+window.catTags=catTags;
+window.fetchGoogleJobs=fetchGoogleJobs;
+window.runWalkIn=runWalkIn;
+window.runSalaryRange=runSalaryRange;
+window.aiSalaryEstimate=aiSalaryEstimate;
+window.runOfferAnalysis=runOfferAnalysis;
+window.enhanceOfferWithAI=enhanceOfferWithAI;
+window.runContractAnalysis=runContractAnalysis;
+window.enhanceContractWithAI=enhanceContractWithAI;
+window.runMoonJobs=runMoonJobs;
+window.findProgJobs=findProgJobs;
+window.runWomenSearch=runWomenSearch;
+window.calcCTC=calcCTC;
+window.calcHike=calcHike;
+window.calcCityCompare=calcCityCompare;
+window.runFresherSearch=runFresherSearch;
+window.showFresherTab=showFresherTab;
+window.openFresherLinkedIn=openFresherLinkedIn;
+window.openFresherPosts=openFresherPosts;
+window.clearJobCache=clearJobCache;
+window.clearAllJobCache=clearAllJobCache;
+window.renderJobCards=renderJobCards;
+window.getSearchSkill=getSearchSkill;
+window.getSearchCity=getSearchCity;
+window.filterProgs=filterProgs;
+window.onProgSelect=onProgSelect;
+window.initPortalsTab=initPortalsTab;
+window.generateCoverLetter=generateCoverLetter;
+window.runATSCheck=runATSCheck;
+window.autoEnhanceATS=autoEnhanceATS;
 </script>
 
 <!-- Razorpay -->
