@@ -538,7 +538,8 @@ img{max-width:100%;display:block;}
   .tool-tile{padding:10px !important;}
   .tt-desc{display:none !important;}
 }
-</style>
+
+@media(max-width:768px){.mob-home-link{display:flex!important;}}</style>
 </head>
 <body>
 
@@ -873,7 +874,10 @@ img{max-width:100%;display:block;}
       <div class="ats-sections" id="atsSections"></div>
 
       <!-- Cover Letter Section -->
-      <div id="coverLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
+      <div       <div style="margin:16px 0 0;text-align:left;">
+        <button id="checkAnotherBtn" onclick="resetATS()" style="display:none;background:var(--bg);border:1.5px solid var(--border);color:var(--dark);padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;" onmouseover="this.style.background='var(--teal-pale)'" onmouseout="this.style.background='var(--bg)'">↩ Check Another Profile</button>
+      </div>
+      id="coverLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
         <div style="font-size:13px;font-weight:800;margin-bottom:4px;">📡 Cover Letter</div>
         <p style="font-size:12px;color:var(--soft);margin-bottom:12px;">Generate a tailored cover letter from your resume in 10 seconds</p>
         <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
@@ -1100,16 +1104,14 @@ img{max-width:100%;display:block;}
   <!-- ── WOMEN RETURNSHIP TAB ────────────────────────── -->
   <div class="tab-panel" id="tab-women">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">👩 Women Returnship</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Select company below → opens official page</p>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Search women-friendly jobs</p>
 
-    
-    
-    <!-- Programme cards -->
+    <!-- Programme dropdown -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
-        <span style="font-size:13px;font-weight:700">Select Programme:</span>
-        <select id="progFilter" onchange="if(this.value&&this.value!=='all'){var u={'TCS':'https://www.tcs.com/careers/india/rebegin','Infosys':'https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','Accenture':'https://www.accenture.com/in-en/careers/explore-careers/women-returnship','Wipro':'https://careers.wipro.com/careers-home/returners','IBM':'https://www.ibm.com/in-en/employment','Goldman Sachs':'https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','Amazon':'https://www.amazon.jobs/en/landing_pages/returnship','HCLTech':'https://www.hcltech.com/careers','Deloitte':'https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html','SAP':'https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','Microsoft':'https://careers.microsoft.com/v2/global/en/returntomicrosoft','Dell':'https://jobs.dell.com/returntodell'};if(u[this.value])window.open(u[this.value],'_blank');this.value='all';}" style="flex:1;min-width:180px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
-          <option value="all">-- Select to open programme --</option>
+      <label style="font-size:13px;font-weight:700;display:block;margin-bottom:8px">Open Company Returnship Programme:</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <select id="progFilter" onchange="if(this.value&&this.value!=='all'){var _pu={'TCS':'https://www.tcs.com/careers/india/rebegin','Infosys':'https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','Accenture':'https://www.accenture.com/in-en/careers/explore-careers/women-returnship','Wipro':'https://careers.wipro.com/careers-home/returners','IBM':'https://www.ibm.com/in-en/employment','Goldman Sachs':'https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','Amazon':'https://www.amazon.jobs/en/landing_pages/returnship','HCLTech':'https://www.hcltech.com/careers','Deloitte':'https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html','SAP':'https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','Microsoft':'https://careers.microsoft.com/v2/global/en/returntomicrosoft','Dell':'https://jobs.dell.com/returntodell'};if(_pu[this.value])window.open(_pu[this.value],'_blank');this.value='all';}" style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
+          <option value="all">-- Select company to open programme --</option>
           <option value="TCS">TCS — Rebegin</option>
           <option value="Infosys">Infosys — Restart Careers</option>
           <option value="Accenture">Accenture — Returnship</option>
@@ -1124,48 +1126,43 @@ img{max-width:100%;display:block;}
           <option value="Dell">Dell — Return to Dell</option>
         </select>
       </div>
-      <div style="font-size:11px;font-weight:700">TCS Rebegin</div></div>
-        <div style="font-size:11px;font-weight:700">Infosys Restart</div></div>
-        <div style="font-size:11px;font-weight:700">Accenture Return</div></div>
-        <div style="font-size:11px;font-weight:700">Wipro Returners</div></div>
-        <div style="font-size:11px;font-weight:700">IBM Return</div></div>
-        <div style="font-size:11px;font-weight:700">Goldman Sachs</div></div>
-        <div style="font-size:11px;font-weight:700">Amazon Return</div></div>
-        <div style="font-size:11px;font-weight:700">HCLTech</div></div>
-        <div style="font-size:11px;font-weight:700">Deloitte Return</div></div>
-        <div style="font-size:11px;font-weight:700">SAP Returnship</div></div>
-        <div style="font-size:11px;font-weight:700">Microsoft Return</div></div>
-        <div style="font-size:11px;font-weight:700">Dell Return</div></div>
-      </div>
     </div>
-<!-- Job search -->
-    <div class="search-form">
+
+    <!-- Job search -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
       <h3 style="font-size:14px;font-weight:800;margin-bottom:12px">🔍 Search Women-Friendly Jobs</h3>
       <div class="form-row">
-        <div class="form-group"><label>Skill / Role *</label>
-          <input type="text" id="wr_skill" placeholder="e.g. Java, HR Manager"></div>
-        <div class="form-group"><label>City</label>
-          <select id="wr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select></div>
-        <div class="form-group"><label>Experience</label>
+        <div class="form-group">
+          <label>Skill / Role *</label>
+          <input type="text" id="wr_skill" placeholder="e.g. Java Developer, HR Manager">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <select id="wr_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
+        </div>
+        <div class="form-group">
+          <label>Experience</label>
           <select id="wr_exp">
             <option value="">Any</option>
-            <option value="1-3">1-3 yrs</option><option value="3-5">3-5 yrs</option>
-            <option value="5-8">5-8 yrs</option><option value="8+">8+ yrs</option>
-          </select></div>
+            <option value="1-3">1–3 yrs</option>
+            <option value="3-5">3–5 yrs</option>
+            <option value="5-8">5–8 yrs</option>
+            <option value="8+">8+ yrs</option>
+          </select>
+        </div>
       </div>
-      <button class="btn-search" onclick="runWomenSearch()">👩 Find Women-Friendly Jobs →</button>
+      <button class="btn-search" onclick="runWomenSearch()" style="margin-top:8px">👩 Find Women-Friendly Jobs →</button>
     </div>
+
     <div id="womenResults"></div>
-      <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
-        <span style="font-size:11px;font-weight:700;color:var(--soft);">Also search:</span>
-        <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
-        <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
-        <a id="wr-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px;">Naukri ↗</a>
-      </div>
+    <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
+      <span style="font-size:11px;font-weight:700;color:var(--soft)">Also search:</span>
+      <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px">💼 LinkedIn Jobs ↗</a>
+      <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px">📝 LinkedIn Posts ↗</a>
+      <a id="wr-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px">Naukri ↗</a>
+    </div>
   </div>
 
-
-  <!-- ── FRESHERS TAB ─────────────────────────────── -->
   <div class="tab-panel" id="tab-fresher">
     <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🎓 Freshers &amp; Interns</h2>
     <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Campus drives · Internships · Entry-level openings</p>
@@ -1824,8 +1821,11 @@ function runATSCheck(){
   if(!txt||txt.length<50){showToast('Upload resume or paste text first','amber');return;}
   if(txt.indexOf('Loading:')===0||txt.indexOf('Extracting')===0){showToast('Please wait for extraction','amber');return;}
   document.getElementById('atsUploadZone').style.display='none';
-  var resEl=document.getElementById('atsResult');
-  if(resEl){resEl.style.display='block';resEl.innerHTML='<div style="text-align:center;padding:40px"><div class="az-spinner" style="margin:0 auto 16px"></div><p style="color:var(--soft)">Analysing your resume with AI...</p></div>';}
+  // Show local score immediately so user sees result fast
+  var localScore=scoreResume(txt);
+  atsLastResult=localScore;
+  renderATSResult(localScore);
+  // Then silently improve with AI
   autoEnhanceATS(txt);
 }
 async function autoEnhanceATS(txt){
@@ -1845,7 +1845,7 @@ async function autoEnhanceATS(txt){
       atsLastResult=aiResult;
       try{localStorage.setItem('js_ats_last',JSON.stringify({result:aiResult,ts:Date.now()}));}catch(e){}
       renderATSResult(aiResult);
-      showToast('AI analysis complete','green');
+      showToast('✅ AI enhanced analysis ready','green');
     }
   }catch(e){
     console.error('AI:',e.message);
@@ -2067,8 +2067,9 @@ function renderATSResult(r){
   }
   // Sections
   var secs=document.getElementById('atsSections');
+  var mkList;
   if(secs){
-    function mkList(arr,icon){
+    mkList = function(arr,icon){
       if(!arr||!arr.length)return '<div style="font-size:12px;color:var(--soft);padding:6px 0">None ✅</div>';
       return arr.map(function(x){
         return '<div class="ats-sec-item"><span class="flag-icon">'+icon+'</span><span>'+x+'</span></div>';
@@ -3232,7 +3233,6 @@ window.renderATSResult=renderATSResult;
 window.showJobsTab=showJobsTab;
 window.enhanceWithAI=enhanceWithAI;
 window.resetATS=resetATS;
-window.mkList=mkList;
 window.openATSNaukri=openATSNaukri;
 window.openLinkedInJobs=openLinkedInJobs;
 window.openLinkedInPosts=openLinkedInPosts;
@@ -3278,7 +3278,8 @@ window.autoEnhanceATS=autoEnhanceATS;
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
-      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers</div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:24px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a></div>
       <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Get your next<br><span style="color:#f5b96e;">Signal.</span></h1>
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:36px;">
         <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>ATS Scorecard — instant AI analysis</div>
@@ -3292,12 +3293,13 @@ window.autoEnhanceATS=autoEnhanceATS;
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">40+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Cities</div></div>
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Full Access</div></div>
       </div>
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:28px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a>
     </div>
   </div>
   <!-- Right: Login form -->
   <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;;min-height:100vh;">
-    <div style="width:100%;max-width:360px;">
-      <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
+    <div style="width:100%;max-width:360px;position:relative;">
+      
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
@@ -3339,12 +3341,14 @@ window.autoEnhanceATS=autoEnhanceATS;
           <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Salary Tools + Offer Analyser</div>
         </div>
       </div>
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:28px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a>
     </div>
   </div>
   <!-- Right: Signup form -->
   <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;min-height:100vh;">
-    <div style="width:100%;max-width:360px;">
-      <button onclick="goTo('landingView')" style="position:absolute;top:16px;right:16px;background:none;border:1.5px solid var(--border);color:var(--soft);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;z-index:2;">← Home</button>
+    <div style="width:100%;max-width:360px;position:relative;"><a href="#" onclick="goTo('landingView');return false;" class="mob-home-link" style="color:var(--teal);font-size:13px;font-weight:700;text-decoration:none;display:none;align-items:center;gap:4px;margin-bottom:20px;">← Home</a>
+      
+      
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
