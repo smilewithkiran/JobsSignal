@@ -40,8 +40,6 @@ img{max-width:100%;display:block;}
 .view.active{display:block !important;}
 #loginView.active{display:grid !important;}
 #signupView.active{display:grid !important;}
-.dash-wrap{display:none !important;}
-.dash-wrap.active{display:block !important;}
 @media(max-width:768px){
   /* Stack: teal strip top, form bottom */
   #loginView,#signupView{
@@ -273,8 +271,6 @@ img{max-width:100%;display:block;}
 .signup-step.active{display:block;}
 
 /* ═══ DASHBOARD SHELL ══════════════════════════════════════════════ */
-.dash-wrap{min-height:100vh;background:var(--cream);display:none;}
-.dash-wrap.active{display:block;}
 .dash-top{
   position:sticky;top:0;z-index:100;background:var(--ink);
   display:flex;align-items:center;justify-content:space-between;
@@ -292,12 +288,12 @@ img{max-width:100%;display:block;}
 /* Tab bar */
 .tab-bar{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 20px;scrollbar-width:none;position:sticky;top:56px;z-index:99;}
 .tab-bar::-webkit-scrollbar{display:none;}
-.tab-btn{flex-shrink:0;padding:14px 18px;font-size:13px;font-weight:700;color:var(--soft);border:none;background:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.tab-btn{flex-shrink:0;padding:9px 14px;font-size:12px;font-weight:700;color:var(--soft);border:none;background:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .18s;white-space:nowrap;}
 .tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);}
 .tab-btn:hover:not(.active){color:var(--ink);}
 
 /* Tab panels */
-.tab-panel{display:none;padding:20px;max-width:900px;margin:0 auto;}
+.tab-panel{display:none;padding:0 16px 16px;max-width:900px;margin:0 auto;}
 .tab-panel.active{display:block;}
 
 /* ═══ HOME TAB ══════════════════════════════════════════════════════ */
@@ -483,7 +479,6 @@ img{max-width:100%;display:block;}
   /* Dashboard */
   .tab-bar{padding:0 8px;}
   .tab-btn{padding:10px 8px;font-size:11px;}
-  .tab-panel{padding:14px;}
   .dash-top{padding:0 12px;}
   .dash-user{display:none;}
   /* Home tool grid — 3 cols compact */
@@ -539,7 +534,27 @@ img{max-width:100%;display:block;}
   .tt-desc{display:none !important;}
 }
 
-@media(max-width:768px){.mob-home-link{display:flex!important;}}</style>
+@media(max-width:768px){.mob-home-link{display:flex!important;}}
+/* Portal box links */
+.portal-box-link{display:flex;flex-direction:column;align-items:center;padding:12px 8px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);text-decoration:none;cursor:pointer;transition:box-shadow 0.15s,border-color 0.15s;}
+.portal-box-link:hover{box-shadow:0 4px 12px rgba(0,0,0,.1);border-color:var(--teal);}
+.portal-box-ic{font-size:22px;margin-bottom:5px;line-height:1;}
+.portal-box-nm{font-size:11px;font-weight:700;color:var(--dark);text-align:center;}
+/* Job cards (Adzuna) */
+.job-card{display:block;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--white);text-decoration:none;margin-bottom:8px;transition:box-shadow 0.15s;}
+.job-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.08);}
+.job-card-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:3px;}
+.job-card-co{font-size:12px;color:var(--soft);}
+.job-card-meta{font-size:11px;color:var(--soft);margin-top:4px;}
+
+.search-form{margin-top:0;}
+.tab-panel .search-form:first-child{margin-top:0;}
+
+/* DashView visibility */
+.dash-wrap{display:none;min-height:100vh;background:var(--cream);}
+.dash-wrap.active{display:block !important;}
+#dashView:not(.active) .tab-panel{display:none !important;}
+#dashView:not(.active) .tab-panel.active{display:none !important;}</style>
 </head>
 <body>
 
@@ -730,7 +745,7 @@ img{max-width:100%;display:block;}
 
   <!-- Top bar -->
   <div class="dash-top">
-    <div <div onclick="atsPublicMode?((atsPublicMode=false)||goTo('landingView')):switchTab('home')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#ffffff">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
+    <div onclick="atsPublicMode?((atsPublicMode=false)||goTo('landingView')):switchTab('home')" style="cursor:pointer;display:flex;align-items:center;"><svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.2"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.2"/><circle cx="18" cy="18" r="4" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.4" stroke-linecap="round"/><text x="40" y="25" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#ffffff">Jobs</text><text x="83" y="25" font-family="system-ui,sans-serif" font-size="20" font-weight="300" fill="#e8943a">Signal</text></svg></div>
     <div id="atsPublicBack" style="display:none;">
       <button onclick="atsPublicMode=false;goTo('landingView');" style="background:rgba(255,255,255,0.12);color:#fff;border:none;padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">← Home</button>
     </div>
@@ -823,8 +838,8 @@ img{max-width:100%;display:block;}
   </div>
 
   <div class="tab-panel" id="tab-ats">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">📊 ATS Checker</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Score your resume — free for everyone</p>
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:2px">📊 ATS Checker</h2>
+    <p style="font-size:13px;color:var(--soft);margin-bottom:6px">Score your resume — free for everyone</p>
 
     <div id="atsUploadZone">
       <div class="ats-upload" id="atsDropZone"
@@ -845,7 +860,8 @@ img{max-width:100%;display:block;}
     </div>
 
     <!-- ATS Result (hidden initially) -->
-    <div class="ats-result" id="atsResult">
+    <div id="atsLoadingMsg" style="display:none"></div>
+      <div class="ats-result" id="atsResult">
       <div class="ats-score-card">
         <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;opacity:.4;margin-bottom:16px">AI RESUME ANALYSIS</div>
         <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap">
@@ -877,7 +893,7 @@ img{max-width:100%;display:block;}
       <div       <div style="margin:16px 0 0;text-align:left;">
         <button id="checkAnotherBtn" onclick="resetATS()" style="display:none;background:var(--bg);border:1.5px solid var(--border);color:var(--dark);padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;" onmouseover="this.style.background='var(--teal-pale)'" onmouseout="this.style.background='var(--bg)'">↩ Check Another Profile</button>
       </div>
-      id="coverLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
+      <div id="coverLetterSection" style="display:none;background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 20px;">
         <div style="font-size:13px;font-weight:800;margin-bottom:4px;">📡 Cover Letter</div>
         <p style="font-size:12px;color:var(--soft);margin-bottom:12px;">Generate a tailored cover letter from your resume in 10 seconds</p>
         <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
@@ -924,8 +940,6 @@ img{max-width:100%;display:block;}
 
   <!-- ── WALK-IN TAB ─────────────────────────────────── -->
   <div class="tab-panel" id="tab-walkin">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">🚶 Walk-in Finder</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Find live walk-in drives in your city today</p>
     <div class="search-form">
       <div class="form-row">
         <div class="form-group">
@@ -940,17 +954,7 @@ img{max-width:100%;display:block;}
       <div class="form-row">
         <div class="form-group">
           <label>Experience</label>
-          <select id="wi_exp">
-            <option value="">Any</option>
-            <option value="0-1">Fresher/0-1</option>
-            <option value="1-3">1-3 yrs</option>
-            <option value="3-5">3-5 yrs</option>
-            <option value="5-7">5-7 yrs</option>
-            <option value="7-10">7-10 yrs</option>
-            <option value="10-12">10-12 yrs</option>
-            <option value="13-15">13-15 yrs</option>
-            <option value="15+">15+ yrs</option>
-          </select>
+          <select id="wi_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
         </div>
         <div class="form-group">
           <label>Locality / Area</label>
@@ -959,7 +963,9 @@ img{max-width:100%;display:block;}
       </div>
       <button class="btn-search" onclick="runWalkIn()">🚶 Find Walk-in Drives →</button>
     </div>
-    <div id="wiResults"></div>
+    <div id="wiInfoMsg" style="display:none"></div>
+      <div id="wiResults"></div>
+    </div>
       <div id="wiLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
         <span style="font-size:11px;font-weight:700;color:var(--soft);">Also search:</span>
         <a id="wi-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
@@ -970,9 +976,7 @@ img{max-width:100%;display:block;}
 
   <!-- ── SALARY TAB ──────────────────────────────────── -->
   <div class="tab-panel" id="tab-salary">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">💰 Salary Tools</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Live salary data · CTC calculator · Hike negotiation · Offer analyser</p>
-    <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Upgrade to ₹99/month to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
+    <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Upgrade to ₹99/month to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
 
     <!-- CTC Calculator -->
     <div class="search-form" style="margin-bottom:16px">
@@ -1038,17 +1042,7 @@ img{max-width:100%;display:block;}
         <div class="form-group"><label>City</label>
           <select id="sal_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select></div>
         <div class="form-group"><label>Experience</label>
-          <select id="sal_exp">
-            <option value="">Any</option>
-            <option value="0-1">Fresher/0-1</option>
-            <option value="1-3">1-3 yrs</option>
-            <option value="3-5">3-5 yrs</option>
-            <option value="5-7">5-7 yrs</option>
-            <option value="7-10">7-10 yrs</option>
-            <option value="10-12">10-12 yrs</option>
-            <option value="13-15">13-15 yrs</option>
-            <option value="15+">15+ yrs</option>
-          </select></div>
+          <select id="sal_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select></div>
       </div>
       <button class="btn-search" onclick="runSalaryRange()">🔍 Get Salary Range →</button>
     </div>
@@ -1068,12 +1062,7 @@ img{max-width:100%;display:block;}
 
   <!-- ── MOONLIGHTING TAB ────────────────────────────── -->
   <div class="tab-panel" id="tab-moonlight">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">🌙 Moonlighting Checker</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Check if your contract allows moonlighting, then find gig opportunities</p>
-
     <div class="search-form">
-      <h3 style="font-size:14px;font-weight:800;margin-bottom:4px">📄 Contract Analyser</h3>
-      <p style="font-size:12px;color:var(--soft);margin-bottom:14px">Paste your employment contract or relevant clauses</p>
       <textarea class="ats-paste" id="contractText" placeholder="Paste your employment contract text...&#10;&#10;Look for sections about: outside work, dual employment, moonlighting, freelance, side projects..." style="min-height:120px"></textarea>
       <button class="btn-search" onclick="runContractAnalysis()">🌙 Analyse Contract →</button>
     </div>
@@ -1087,11 +1076,7 @@ img{max-width:100%;display:block;}
           <div class="form-group"><label>Skill *</label>
             <input type="text" id="moon_skill" placeholder="e.g. React, Python"></div>
           <div class="form-group"><label>Experience</label>
-            <select id="moon_exp">
-              <option value="">Any</option>
-              <option value="1-3">1-3 yrs</option><option value="3-5">3-5 yrs</option>
-              <option value="5-8">5-8 yrs</option><option value="8+">8+ yrs</option>
-            </select></div>
+            <select id="moon_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select></div>
           <div class="form-group"><label>Preferred Location</label>
             <input type="text" id="moon_loc" placeholder="e.g. Remote, Hyderabad"></div>
         </div>
@@ -1103,9 +1088,6 @@ img{max-width:100%;display:block;}
 
   <!-- ── WOMEN RETURNSHIP TAB ────────────────────────── -->
   <div class="tab-panel" id="tab-women">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">👩 Women Returnship</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">12 active returnship programmes · Search women-friendly jobs</p>
-
     <!-- Programme dropdown -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
       <label style="font-size:13px;font-weight:700;display:block;margin-bottom:8px">Open Company Returnship Programme:</label>
@@ -1142,30 +1124,24 @@ img{max-width:100%;display:block;}
         </div>
         <div class="form-group">
           <label>Experience</label>
-          <select id="wr_exp">
-            <option value="">Any</option>
-            <option value="1-3">1–3 yrs</option>
-            <option value="3-5">3–5 yrs</option>
-            <option value="5-8">5–8 yrs</option>
-            <option value="8+">8+ yrs</option>
-          </select>
+          <select id="wr_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
         </div>
       </div>
       <button class="btn-search" onclick="runWomenSearch()" style="margin-top:8px">👩 Find Women-Friendly Jobs →</button>
     </div>
 
+    <div id="womenInfoMsg" style="display:none"></div>
     <div id="womenResults"></div>
+    </div>
     <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
       <span style="font-size:11px;font-weight:700;color:var(--soft)">Also search:</span>
       <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px">💼 LinkedIn Jobs ↗</a>
       <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px">📝 LinkedIn Posts ↗</a>
       <a id="wr-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px">Naukri ↗</a>
     </div>
-  </div>
+  
 
   <div class="tab-panel" id="tab-fresher">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🎓 Freshers &amp; Interns</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">Campus drives · Internships · Entry-level openings</p>
     <div id="fresherLocked" style="display:none">
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
@@ -1203,9 +1179,6 @@ img{max-width:100%;display:block;}
 
   <!-- ── JOB PORTALS TAB ──────────────────────────── -->
   <div class="tab-panel" id="tab-portals">
-    <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🌐 Job Portals</h2>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:20px">One search · Jobs from 10+ portals · Google Jobs + Adzuna combined</p>
-
     <div id="portalsLocked" style="display:none">
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
@@ -1229,12 +1202,7 @@ img{max-width:100%;display:block;}
           </div>
           <div class="form-group">
             <label>Experience</label>
-            <select id="po_exp">
-              <option value="">Any</option>
-              <option value="0-1">Fresher/0-1</option><option value="1-3">1-3 yrs</option>
-              <option value="3-5">3-5 yrs</option><option value="5-7">5-7 yrs</option>
-              <option value="7-10">7-10 yrs</option><option value="10+">10+ yrs</option>
-            </select>
+            <select id="po_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
           </div>
         </div>
         <button class="btn-search" onclick="runPortalSearch()">🌐 Search All Portals →</button>
@@ -1267,11 +1235,13 @@ img{max-width:100%;display:block;}
       </div>
       <!-- Adzuna jobs feed -->
       <div style="font-size:12px;font-weight:700;color:var(--soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">🔹 Live Jobs — Adzuna + Google</div>
+      <div id="portalBoxes" style="display:none;margin-bottom:16px"><p style="font-size:12px;color:var(--soft);margin-bottom:8px">Click any portal to open with your search:</p><div id="portalLinksGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px"></div></div>
       <div id="portalJobFeed" style="display:flex;flex-direction:column;gap:8px;"></div>
 
 
     </div>
   </div>
+</div><!-- /dashView -->
 
 </div><!-- end dash-wrap -->
 
@@ -1325,6 +1295,8 @@ function showView(id){
   if(id==='atsPublic'){
     atsPublicMode=true;
     atsResumeText='';atsFileData=null;atsLastResult=null;
+  var _ldg3=document.getElementById('atsLoadingMsg');
+  if(_ldg3)_ldg3.style.display='none';
     var dlo=document.querySelector('.btn-logout');if(dlo)dlo.style.display='none';
     var dab=document.getElementById('dashAdminBadge');if(dab)dab.style.display='none';
     var bk=document.getElementById('atsPublicBack');if(bk)bk.style.display='block';
@@ -1433,7 +1405,11 @@ function switchTab(tab,skipHistory){
     if(_hb)_hb.textContent=isPaidUser()?'Pro Plan ✓':'Free Plan';
   }
   if(tab!=='ats'){var _ar=document.getElementById('atsResult');if(_ar&&_ar.innerHTML.indexOf('Analysing')>=0){_ar.innerHTML='';_ar.style.display='none';var _uz3=document.getElementById('atsUploadZone');if(_uz3)_uz3.style.display='block';}}
-  window.scrollTo(0,0);
+  // Scroll active tab button into view horizontally (no vertical jump)
+  var _aBtn=document.querySelector('.tab-btn.active');
+  if(_aBtn)_aBtn.scrollIntoView({block:'nearest',inline:'nearest'});
+  // Delay scroll-to-top so browser focus-scroll runs first
+  setTimeout(function(){window.scrollTo({top:0,behavior:'instant'});},30);
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
@@ -1639,6 +1615,15 @@ function doLogout(){
   var _atsJ=document.getElementById('atsJobsSection');if(_atsJ)_atsJ.style.display='none';
   var fi=document.getElementById('atsFileInput');if(fi)fi.value='';
   var btn=document.querySelector('.auz-btn');if(btn)btn.textContent='Choose File →';
+  // Remove active from all tab panels
+  document.querySelectorAll('.tab-panel').forEach(function(p){
+    p.classList.remove('active');
+    p.style.display='none';
+  });
+  ['portalsContent','fresherContent','portalBoxes'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  // Remove active from dashView so CSS hides it
+  var _dv=document.getElementById('dashView');
+  if(_dv){_dv.classList.remove('active');_dv.style.removeProperty('display');}
   goTo('landingView');
 }
 
@@ -1684,10 +1669,10 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     setTimeout(initHomeDash,100);
   }catch(e){
-    // Any error → show landing page
-    localStorage.removeItem(S_USER);
+    // Non-critical error — try to restore session anyway
+    console.warn('Session restore error:',e.message);
     var lv2=document.getElementById('landingView');
-    if(lv2)lv2.style.display='block';
+    if(lv2)lv2.style.setProperty('display','block','important');
   }
 });
 
@@ -1821,21 +1806,26 @@ function runATSCheck(){
   if(!txt||txt.length<50){showToast('Upload resume or paste text first','amber');return;}
   if(txt.indexOf('Loading:')===0||txt.indexOf('Extracting')===0){showToast('Please wait for extraction','amber');return;}
   document.getElementById('atsUploadZone').style.display='none';
-  // Show local score immediately so user sees result fast
-  var localScore=scoreResume(txt);
-  atsLastResult=localScore;
-  renderATSResult(localScore);
-  // Then silently improve with AI
+  // Show loading in separate div — preserve scorecard structure
+  var _ldg=document.getElementById('atsLoadingMsg');
+  if(_ldg){
+    _ldg.style.display='block';
+    _ldg.innerHTML='<div style="text-align:center;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:16px">'+'<div class="az-spinner" style="margin:0 auto 10px"></div>'+'<p style="font-size:13px;font-weight:700;color:var(--dark)">Analysing your resume with AI...</p>'+'<p style="font-size:11px;color:var(--soft)">Checking skills, experience &amp; fit. ~5-10 seconds.</p></div>';
+  }
+  var _resEl2=document.getElementById('atsResult');
+  if(_resEl2){_resEl2.style.display='none';}
   autoEnhanceATS(txt);
 }
-async function autoEnhanceATS(txt){
-  var verdEl=document.getElementById('atsVerdict');
-  var origVerdict=verdEl?verdEl.textContent:'';
-  if(verdEl)verdEl.textContent=origVerdict+' · AI analysing...';
+async function autoEnhanceATS(txt){  var _atsTO=setTimeout(function(){
+    if(!atsLastResult&&txt&&txt.length>=50){
+      renderATSResult(scoreResume(txt));
+      showToast('Showing local analysis (AI timed out)','amber');
+    }
+  },10000);
   try{
     var resp=await fetch('https://jobssignal-ai.hr-kiranm.workers.dev',{
       method:'POST',headers:anthropicHeaders(),
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,temperature:0.0,
         messages:[{role:'user',content:'Analyse this resume for ATS (Indian job market). Return ONLY JSON: {score,verdict,color,categories:{contact:{score,status},structure:{score,status},content:{score,status},keywords:{score,status},format:{score,status},length:{score,status}},critical:[],improvements:[],good:[],skills:[],role,location}. Score 0-100 each. color: #16a34a/>75, #f59e0b/50-75, #dc2626/<50.\n\n'+txt.slice(0,8000)}]})
     });
     var data=await resp.json();
@@ -1844,13 +1834,14 @@ async function autoEnhanceATS(txt){
       var aiResult=JSON.parse(raw);
       atsLastResult=aiResult;
       try{localStorage.setItem('js_ats_last',JSON.stringify({result:aiResult,ts:Date.now()}));}catch(e){}
+      clearTimeout(_atsTO);
       renderATSResult(aiResult);
       showToast('✅ AI enhanced analysis ready','green');
     }
   }catch(e){
+    clearTimeout(_atsTO);
     console.error('AI:',e.message);
-    var _t5=(document.getElementById('atsPasteText')||{value:''}).value.trim()||atsResumeText||'';
-    if(_t5.length>=50){renderATSResult(scoreResume(_t5));showToast('Local analysis (AI offline)','amber');}
+    if(txt&&txt.length>=50){renderATSResult(scoreResume(txt));showToast('Local analysis (AI offline)','amber');}
     else showToast('AI failed. Try again.','amber');
   }
 }
@@ -2005,6 +1996,8 @@ function scoreResume(text){
 function renderATSResult(r){
   var res=document.getElementById('atsResult');if(!res)return;
   res.style.display='block';
+  var _ldg2=document.getElementById('atsLoadingMsg');
+  if(_ldg2)_ldg2.style.display='none';
   // Animated gauge
   var score=r.score||0;
   var color=r.color||(score>75?'#16a34a':score>=50?'#f59e0b':'#dc2626');
@@ -2123,8 +2116,10 @@ function resetATS(){
   if(_jt)_jt.value='';
   var _cb=document.getElementById('checkAnotherBtn');
   if(_cb)_cb.style.setProperty('display','none','important');
+  var _ldg9=document.getElementById('atsLoadingMsg');
+  if(_ldg9)_ldg9.style.display='none';
   var _res=document.getElementById('atsResult');
-  if(_res)_res.innerHTML='';
+  if(_res)_res.style.display='none';
 }
 
 // ── ATS: AI ENHANCE ───────────────────────────────────────────────
@@ -2318,6 +2313,12 @@ function runWalkIn(){
   var wiLinks=document.getElementById('wiLinkedInLinks');
   if(wiLinks)wiLinks.style.display='flex';
   var wiNk=document.getElementById('wi-nk');if(wiNk)wiNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-in-'+encodeURIComponent(city.toLowerCase().replace(/\s+/g,'-'));
+  // Show info message
+  var _wiMsg=document.getElementById('wiInfoMsg');
+  if(_wiMsg){
+    _wiMsg.style.display='block';
+    _wiMsg.innerHTML='<div style="background:var(--teal-pale);border-left:3px solid var(--teal);padding:10px 14px;border-radius:4px;font-size:12px;color:var(--dark);margin-top:8px">'+'<b>ℹ️ Note:</b> If no walk-in drives found, relevant jobs for your skill will be shown. Check LinkedIn Posts for latest walk-in alerts.</div>';
+  }
 }
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
@@ -2603,6 +2604,11 @@ function runWomenSearch(){
   var wrLinks=document.getElementById('wrLinkedInLinks');
   if(wrLinks)wrLinks.style.display='flex';
   var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women?jobAge=7';
+  var _wmMsg=document.getElementById('womenInfoMsg');
+  if(_wmMsg){
+    _wmMsg.style.display='block';
+    _wmMsg.innerHTML='<div style="background:var(--teal-pale);border-left:3px solid var(--teal);padding:10px 14px;border-radius:4px;font-size:12px;color:var(--dark);margin-top:8px">'+'<b>ℹ️ Note:</b> If no returnship jobs found, relevant women-friendly jobs for your skill will be shown. Check LinkedIn Posts for latest returnship openings.</div>';
+  }
 }
 
 
@@ -2962,7 +2968,7 @@ function runPortalSearch(){
     {n:'Hirist',ic:'\ud83d\udcbb',url:'https://www.hirist.tech/search/'+sl+'-jobs-in-'+cl},
     {n:'Instahyre',ic:'\u26a1',url:'https://www.instahyre.com/search/?designation='+s+'&location='+cu},
     {n:'iimjobs',ic:'\ud83c\udf93',url:'https://www.iimjobs.com/j/search?keywords='+s+'&location='+cu},
-    {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords='+s+'&txtLocation='+cu},
+    {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=personalizedSearch&txtKeywords='+s+'&txtLocation='+cu},
     {n:'Google Jobs',ic:'\ud83d\udd0e',url:'https://www.google.com/search?q='+s+'+jobs+in+'+cu+'&ibp=htl;jobs'}
   ];
   var grid=document.getElementById('portalLinksGrid');
@@ -2979,7 +2985,32 @@ function runPortalSearch(){
     }
     grid.innerHTML=html;
   }
-  showToast('Portals ready for: '+skill+' in '+city,'green');
+  showToast('Portals ready for: '+skill+' in '+city+'. Loading jobs...','green');
+  // Fetch Adzuna jobs
+  var feed=document.getElementById('portalJobFeed');
+  if(feed){
+    feed.innerHTML='<div class="az-loading"><div class="az-spinner"></div>Fetching live jobs...</div>';
+    var azQ=encodeURIComponent(skill);
+    var azCity=(city||'India').replace(/ /g,'+').replace('Delhi NCR','New+Delhi');
+    var azUrl='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=7d0512c2&app_key=79b7781b37844979749df7d951561f02'
+      +'&results_per_page=10&what='+azQ+'&where='+encodeURIComponent(azCity)
+      +'&distance=40&sort_by=date'+(exp?'&experience='+exp:'');
+    fetch(azUrl)
+      .then(function(r){return r.ok?r.json():Promise.reject();})
+      .then(function(data){
+        var jobs=(data.results||[]);
+        if(!jobs.length){feed.innerHTML='<p class="az-empty">No Adzuna jobs found. Try different skill/city.</p>';return;}
+        feed.innerHTML=jobs.map(function(j){
+          return '<a href="'+j.redirect_url+'" target="_blank" class="job-card" style="text-decoration:none;">'
+            +(j.employer_logo?'<img src="'+j.employer_logo+'" style="width:32px;height:32px;object-fit:contain;border-radius:4px;margin-bottom:6px;display:block;" onerror="this.style.display=\'none\'" alt="">':'')
+            +'<div class="job-card-title">'+j.title+'</div>'
+            +'<div class="job-card-co">'+j.company.display_name+' · '+j.location.display_name+'</div>'
+            +'<div class="job-card-meta">'+new Date(j.created).toLocaleDateString('en-IN')+'</div>'
+            +'</a>';
+        }).join('');
+      })
+      .catch(function(){feed.innerHTML='<p class="az-empty">Could not load jobs. Try again.</p>';});
+  }
 }
 
 function renderMergedFeed(jobs,skill,city,exp){
@@ -3139,7 +3170,7 @@ function buildPortalLinks(skill,city,exp){
     {n:'Glassdoor',ic:'🏢',url:'https://www.glassdoor.co.in/Job/india-'+encodeURIComponent(skill.toLowerCase().replace(/ /g,'-'))+'-jobs-SRCH_IL.0,5_IN115_KO6,'+(6+skill.length)+'.htm'},
     {n:'Instahyre',ic:'⚡',url:'https://www.instahyre.com/candidate/jobs/?title='+s+'&location='+cu},
     {n:'Hirist',ic:'💻',url:'https://www.hirist.tech/search?query='+s+'&location='+cu},
-    {n:'TimesJobs',ic:'⏰',url:'https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords='+s+'&txtLocation='+cu},
+    {n:'TimesJobs',ic:'⏰',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=personalizedSearch&txtKeywords='+s+'&txtLocation='+cu},
     {n:'SimplyHired',ic:'🎯',url:'https://www.simplyhired.co.in/search?q='+s+'&l='+cu},
     {n:'JobRapido',ic:'🚀',url:'https://in.jobrapido.com/?q='+s+'&l='+cu}
   ];
@@ -3279,7 +3310,7 @@ window.autoEnhanceATS=autoEnhanceATS;
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
       <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers
-      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:24px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a></div>
+      </div>
       <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Get your next<br><span style="color:#f5b96e;">Signal.</span></h1>
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:36px;">
         <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>ATS Scorecard — instant AI analysis</div>
@@ -3293,7 +3324,7 @@ window.autoEnhanceATS=autoEnhanceATS;
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">40+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Cities</div></div>
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Full Access</div></div>
       </div>
-      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:28px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a>
+      
     </div>
   </div>
   <!-- Right: Login form -->
@@ -3346,9 +3377,8 @@ window.autoEnhanceATS=autoEnhanceATS;
   </div>
   <!-- Right: Signup form -->
   <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;min-height:100vh;">
-    <div style="width:100%;max-width:360px;position:relative;"><a href="#" onclick="goTo('landingView');return false;" class="mob-home-link" style="color:var(--teal);font-size:13px;font-weight:700;text-decoration:none;display:none;align-items:center;gap:4px;margin-bottom:20px;">← Home</a>
-      
-      
+    <div style="width:100%;max-width:360px;position:relative;"><a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;font-size:12px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:20px;margin-bottom:20px;">← Home</a>
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:12px;font-weight:600;text-decoration:none;margin-bottom:18px;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--white);">← Home</a>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
@@ -3379,11 +3409,7 @@ window.autoEnhanceATS=autoEnhanceATS;
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Primary Skill / Role</label>
           <input id="su_skill" type="text" placeholder="e.g. React Developer, HR Manager" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Experience</label>
-          <select id="su_exp" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
-            <option value="">Select experience</option>
-            <option>Fresher/0-1</option><option>1-3 yrs</option><option>3-5 yrs</option>
-            <option>5-7 yrs</option><option>7-10 yrs</option><option>10-15 yrs</option><option>15+ yrs</option>
-          </select>
+          <select id="su_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
         </div>
         <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0d4040);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
         <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
