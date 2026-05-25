@@ -38,14 +38,12 @@ img{max-width:100%;display:block;}
 /* Simple view system — inline styles control visibility */
 .view{display:none !important;}
 .view.active{display:block !important;}
-#loginView.active{display:grid !important;}
-#signupView.active{display:grid !important;}
 @media(max-width:768px){
   /* Stack: teal strip top, form bottom */
   #loginView,#signupView{
     display:flex !important;
     flex-direction:column;
-    
+    min-height:100dvh;
   }
   /* Teal panel — visible but compact */
   .auth-left-panel{
@@ -247,8 +245,8 @@ img{max-width:100%;display:block;}
 .footer a:hover{color:rgba(255,255,255,.8);}
 
 /* ═══ AUTH VIEWS ═══════════════════════════════════════════════════ */
-.auth-wrap{display:flex;align-items:center;justify-content:center;padding:24px;background:var(--cream);}
-.auth-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;width:100%;max-width:440px;box-shadow:var(--shadow-lg);}
+.auth-wrap{display:flex;align-items:stretch;background:var(--cream);min-height:100dvh;overflow:hidden;}
+.auth-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 28px;width:100%;max-width:440px;box-shadow:var(--shadow-lg);}
 .auth-logo{font-family:'Fraunces',serif;font-weight:800;font-size:22px;margin-bottom:6px;text-align:center;}
 .auth-logo span{color:var(--amber);}
 .auth-sub{font-size:13px;color:var(--soft);text-align:center;margin-bottom:32px;}
@@ -551,6 +549,14 @@ img{max-width:100%;display:block;}
 .search-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;}
 .search-form h3{font-size:13px;font-weight:700;margin-bottom:6px;}
 .form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+
+/* Signup form consistency */
+#signupView input,#signupView select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;height:44px;appearance:none;-webkit-appearance:none;}
+#signupView input{height:auto;padding:12px 14px;}
+
+/* Auth viewport fill */
+#loginView,#signupView{display:none !important;}
+#loginView.active,#signupView.active{display:grid !important;grid-template-columns:1.1fr .9fr;height:100dvh;overflow:hidden;}
 </style>
 </head>
 <body>
@@ -748,7 +754,7 @@ img{max-width:100%;display:block;}
     </div>
     <div class="dash-top-right">
       <span class="dash-user" id="dashUserName"></span>
-      <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('/admin/','_blank')">🔑 Admin</span>
+      <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('/admin/','_blank')" title="Admin Panel">🔑</span>
       <button class="btn-upgrade-top" id="topUpgradeBtn" onclick="showUpgradeModal()" style="display:none">Upgrade ₹99</button>
       <button class="btn-logout" onclick="doLogout()">Logout</button>
     </div>
@@ -1285,7 +1291,7 @@ function showView(id){
   var ALL=['landingView','loginView','signupView','dashView'];
   ALL.forEach(function(vid){
     var el=document.getElementById(vid);
-    if(el){el.style.setProperty('display','none','important');if(vid==='dashView')el.classList.remove('active');}
+    if(el){el.style.setProperty('display','none','important');el.classList.remove('active');}
   });
 
   if(id==='atsPublic'){
@@ -1316,7 +1322,11 @@ function showView(id){
   var _dv=document.getElementById('dashView');
   if(_dv){if(id==='dashView')_dv.classList.add('active');else _dv.classList.remove('active');}
   var disp='block';
-  if(id==='loginView'||id==='signupView')disp='grid';
+  if(id==='loginView'||id==='signupView'){
+    disp='grid';
+    var _av=document.getElementById(id);
+    if(_av)_av.classList.add('active');
+  }
 
   var target=document.getElementById(id);
   if(target){
@@ -1365,13 +1375,6 @@ if(!IN_IFRAME)try{window.addEventListener('popstate',function(e){
 
 // ── TAB SWITCHER ──────────────────────────────────────────────────
 function switchTab(tab,skipHistory){
-  // Show dashView directly
-  var _dw=document.getElementById('dashView');
-  if(_dw){_dw.style.setProperty('display','block','important');_dw.classList.add('active');}
-  // Hide other views
-  ['landingView','loginView','signupView'].forEach(function(v){
-    var _ve=document.getElementById(v);if(_ve)_ve.style.setProperty('display','none','important');
-  });
   if(!skipHistory){
     safePS({view:'dashView',tab:tab},'#dashboard-'+tab);
   }
@@ -3316,7 +3319,7 @@ window.autoEnhanceATS=autoEnhanceATS;
 
 <div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;">
   <!-- Left: Teal bold -->
-  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:28px 36px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
       <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers
@@ -3334,11 +3337,12 @@ window.autoEnhanceATS=autoEnhanceATS;
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">40+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Cities</div></div>
         <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Full Access</div></div>
       </div>
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);font-size:13px;font-weight:600;text-decoration:none;margin-top:20px;padding:7px 0;border-top:1px solid rgba(255,255,255,.2);">← Home</a>
       
     </div>
   </div>
   <!-- Right: Login form -->
-  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;;">
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;">
     <div style="width:100%;max-width:360px;position:relative;">
       
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
@@ -3361,7 +3365,7 @@ window.autoEnhanceATS=autoEnhanceATS;
 
 <div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;">
   <!-- Left: same teal block -->
-  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:60px 52px;position:relative;overflow:hidden;">
+  <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:28px 36px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
       <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Free to start · ₹99 full access</div>
@@ -3386,10 +3390,8 @@ window.autoEnhanceATS=autoEnhanceATS;
     </div>
   </div>
   <!-- Right: Signup form -->
-  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;">
-    <div style="width:100%;max-width:360px;position:relative;"><a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;font-size:12px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:20px;margin-bottom:20px;">← Home</a>
-      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:12px;font-weight:600;text-decoration:none;margin-bottom:18px;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--white);">← Home</a>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;position:relative;">
+    <div style="width:100%;max-width:360px;position:relative;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
         <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
       </div>
