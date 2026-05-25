@@ -967,18 +967,19 @@ img{max-width:100%;display:block;}
       </div>
       <button class="btn-search" onclick="runWalkIn()">🚶 Find Walk-in Drives →</button>
     </div>
+
     <div id="wiInfoMsg" style="display:none"></div>
-      <div id="wiResults"></div>
+    <div id="wiResults"></div>
+
+    <!-- Also search — shows only after clicking search -->
+    <div id="wiLinkedInLinks" style="display:none;flex-wrap:wrap;gap:8px;margin-top:14px;padding:12px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);">
+      <span style="font-size:12px;font-weight:700;color:var(--soft);width:100%;margin-bottom:6px;">🔗 Also search in:</span>
+      <a id="wi-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
+      <a id="wi-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
+      <a id="wi-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px;">Naukri ↗</a>
     </div>
-      <div id="wiLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
-        <span style="font-size:11px;font-weight:700;color:var(--soft);">Also search:</span>
-        <a id="wi-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
-        <a id="wi-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
-        <a id="wi-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px;">Naukri ↗</a>
-      </div>
   </div>
 
-  <!-- ── SALARY TAB ──────────────────────────────────── -->
   <div class="tab-panel" id="tab-salary">
     <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Upgrade to ₹99/month to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
 
@@ -1135,16 +1136,15 @@ img{max-width:100%;display:block;}
 
     <div id="womenInfoMsg" style="display:none"></div>
     <div id="womenResults"></div>
-    </div>
-    <div id="wrLinkedInLinks" style="display:none;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
-      <span style="font-size:11px;font-weight:700;color:var(--soft)">Also search:</span>
+    <!-- Also search — shows only after clicking search -->
+    <div id="wrLinkedInLinks" style="display:none;flex-wrap:wrap;gap:8px;margin-top:14px;padding:12px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);">
+      <span style="font-size:12px;font-weight:700;color:var(--soft);width:100%;margin-bottom:6px;">🔗 Also search in:</span>
       <a id="wr-lj" href="#" target="_blank" class="ext-job-btn ljobs" style="font-size:11px">💼 LinkedIn Jobs ↗</a>
       <a id="wr-lp" href="#" target="_blank" class="ext-job-btn lposts" style="font-size:11px">📝 LinkedIn Posts ↗</a>
       <a id="wr-nk" href="#" target="_blank" class="ext-job-btn naukri" style="font-size:11px">Naukri ↗</a>
     </div>
-  
-
-  <div class="tab-panel" id="tab-fresher">
+    </div>
+    <div class="tab-panel" id="tab-fresher">
     <div id="fresherLocked" style="display:none">
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
@@ -1353,14 +1353,13 @@ function goTo(viewId){
       switchTab('ats',true);
       return;
     }
-    // Not logged in: public ATS mode
-    atsPublicMode=true;
-    atsResumeText='';
-    atsLastResult=null;
-    safePS({view:'atsPublic'},'#ats');
-    showView('dashView');
-    switchTab('ats',true);
-    return;
+    atsPublicMode=true;atsResumeText='';atsLastResult=null;
+    var _pun=document.getElementById('dashUserName');if(_pun)_pun.textContent='';
+    var _pab=document.getElementById('dashAdminBadge');if(_pab)_pab.style.display='none';
+    var _pub=document.getElementById('topUpgradeBtn');if(_pub)_pub.style.display='none';
+    var _pb=document.getElementById('atsPublicBack');if(_pb)_pb.style.display='block';
+    var _ptb=document.querySelector('.tab-bar');if(_ptb)_ptb.style.display='none';
+    safePS({view:'atsPublic'},'#ats');showView('dashView');switchTab('ats',true);return;
   }
   var hashId=viewId==='dashView'?'dashboard':viewId;
   safePS({view:viewId},'#'+hashId);
@@ -1397,6 +1396,10 @@ function switchTab(tab,skipHistory){
     p.classList.toggle('active',p.id==='tab-'+tab);
     if(p.id==='tab-'+tab)p.style.removeProperty('display');
   });
+  var _wiL=document.getElementById('wiLinkedInLinks');
+  var _wrL=document.getElementById('wrLinkedInLinks');
+  if(_wiL&&tab!=='walkin')_wiL.style.display='none';
+  if(_wrL&&tab!=='women')_wrL.style.display='none';
   if(tab==='fresher'){
     var _fl=document.getElementById('fresherLocked');
     var _fc=document.getElementById('fresherContent');
@@ -1646,6 +1649,10 @@ function doLogout(){
   // Remove active from dashView so CSS hides it
   var _dv=document.getElementById('dashView');
   if(_dv){_dv.classList.remove('active');_dv.style.removeProperty('display');}
+  var _un=document.getElementById('dashUserName');if(_un)_un.textContent='';
+  var _dab=document.getElementById('dashAdminBadge');if(_dab)_dab.style.display='none';
+  var _upb=document.getElementById('topUpgradeBtn');if(_upb)_upb.style.display='none';
+  var _tb=document.querySelector('.tab-bar');if(_tb)_tb.style.removeProperty('display');
   goTo('landingView');
 }
 
@@ -2983,14 +2990,14 @@ function runPortalSearch(){
     {n:'Naukri',ic:'\ud83d\udcbc',url:'https://www.naukri.com/'+sl+'-jobs-in-'+cl+(exp?'?experience='+exp:'')},
     {n:'LinkedIn',ic:'\ud83d\udd17',url:'https://www.linkedin.com/jobs/search/?keywords='+s+'&location='+cu},
     {n:'Indeed',ic:'\ud83d\udd0d',url:'https://in.indeed.com/jobs?q='+s+'&l='+cu},
-    {n:'Foundit',ic:'\ud83c\udf1f',url:'https://www.foundit.in/srp/results?query='+s+'&location='+cu},
+    {n:'Monster',ic:'\ud83d\udc7e',url:'https://www.foundit.in/srp/results?query='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city)},
     {n:'Shine',ic:'\u2728',url:'https://www.shine.com/job-search/'+sl+'-jobs-in-'+cl},
-    {n:'Monster',ic:'\ud83d\udc7e',url:'https://www.monsterindia.com/srp/results?query='+s+'&locations='+cu},
-    {n:'Apna',ic:'\ud83d\udcf1',url:'https://apna.co/jobs?query='+s+'&city='+cu},
+    {n:'Glassdoor',ic:'\ud83d\udca1',url:'https://www.glassdoor.co.in/Jobs/'+s.replace(/%20/g,'+')+'-jobs-in-'+cu.replace(/%20/g,'+')+'.htm'},
+    {n:'Cutshort',ic:'\ud83c\udfaf',url:'https://cutshort.io/jobs?title='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city)},
     {n:'Hirist',ic:'\ud83d\udcbb',url:'https://www.hirist.tech/search/'+sl+'-jobs-in-'+cl},
-    {n:'Instahyre',ic:'\u26a1',url:'https://www.instahyre.com/search/?designation='+s+'&location='+cu},
-    {n:'iimjobs',ic:'\ud83c\udf93',url:'https://www.iimjobs.com/j/search?keywords='+s+'&location='+cu},
-    {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=personalizedSearch&txtKeywords='+s+'&txtLocation='+cu},
+    {n:'iimjobs',ic:'\ud83c\udf93',url:'https://www.iimjobs.com/search/?term='+encodeURIComponent(skill)+'&city='+cl.replace(/\s+/g,'+')},
+    {n:'Instahyre',ic:'\u26a1',url:'https://www.instahyre.com/search/?keyword='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city.toLowerCase())},
+    {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=jobsearch&txtKeywords='+encodeURIComponent(skill)+'&txtLocation='+encodeURIComponent(city)},
     {n:'Google Jobs',ic:'\ud83d\udd0e',url:'https://www.google.com/search?q='+s+'+jobs+in+'+cu+'&ibp=htl;jobs'}
   ];
   var grid=document.getElementById('portalLinksGrid');
