@@ -27,7 +27,7 @@
   --shadow-lg:0 8px 40px rgba(15,17,23,.14);
 }
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;}
 h1,h2,h3,.serif{font-family:'Fraunces',serif;font-weight:800;}
 a{color:inherit;text-decoration:none;}
 button{font-family:'DM Sans',sans-serif;cursor:pointer;}
@@ -45,7 +45,7 @@ img{max-width:100%;display:block;}
   #loginView,#signupView{
     display:flex !important;
     flex-direction:column;
-    min-height:100vh;
+    
   }
   /* Teal panel — visible but compact */
   .auth-left-panel{
@@ -247,7 +247,7 @@ img{max-width:100%;display:block;}
 .footer a:hover{color:rgba(255,255,255,.8);}
 
 /* ═══ AUTH VIEWS ═══════════════════════════════════════════════════ */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--cream);}
+.auth-wrap{display:flex;align-items:center;justify-content:center;padding:24px;background:var(--cream);}
 .auth-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;width:100%;max-width:440px;box-shadow:var(--shadow-lg);}
 .auth-logo{font-family:'Fraunces',serif;font-weight:800;font-size:22px;margin-bottom:6px;text-align:center;}
 .auth-logo span{color:var(--amber);}
@@ -271,14 +271,8 @@ img{max-width:100%;display:block;}
 .signup-step.active{display:block;}
 
 /* ═══ DASHBOARD SHELL ══════════════════════════════════════════════ */
-.dash-top{
-  position:sticky;top:0;z-index:100;background:var(--ink);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;height:56px;
-}
 .dash-logo{font-family:'Fraunces',serif;font-weight:800;font-size:18px;color:#fff;cursor:pointer;}
 .dash-logo span{color:var(--amber);}
-.dash-top-right{display:flex;align-items:center;gap:8px;}
 .dash-user{font-size:12px;color:rgba(255,255,255,.6);font-weight:600;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .dash-admin-badge{font-size:10px;font-weight:700;background:rgba(232,148,58,.2);color:var(--amber);padding:3px 8px;border-radius:8px;}
 .btn-upgrade-top{background:var(--amber);color:#fff;border:none;padding:7px 16px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;}
@@ -286,15 +280,11 @@ img{max-width:100%;display:block;}
 .btn-logout:hover{background:rgba(255,255,255,.14);}
 
 /* Tab bar */
-.tab-bar{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 20px;scrollbar-width:none;position:sticky;top:56px;z-index:99;}
-.tab-bar::-webkit-scrollbar{display:none;}
 .tab-btn{flex-shrink:0;padding:9px 14px;font-size:12px;font-weight:700;color:var(--soft);border:none;background:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .18s;white-space:nowrap;}
 .tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);}
 .tab-btn:hover:not(.active){color:var(--ink);}
 
 /* Tab panels */
-.tab-panel{display:none;padding:0 16px 16px;max-width:900px;margin:0 auto;}
-.tab-panel.active{display:block;}
 
 /* ═══ HOME TAB ══════════════════════════════════════════════════════ */
 .home-welcome{margin-bottom:24px;}
@@ -315,7 +305,7 @@ img{max-width:100%;display:block;}
 .btn-upgrade-banner{background:var(--amber);color:#fff;border:none;padding:10px 22px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;flex-shrink:0;}
 
 /* Floating upgrade button */
-.fab-upgrade{position:fixed;bottom:24px;right:24px;background:var(--amber);color:#fff;border:none;padding:14px 20px;border-radius:24px;font-size:13px;font-weight:700;box-shadow:0 4px 20px rgba(232,148,58,.4);z-index:500;display:none;transition:all .2s;}
+.fab-upgrade{bottom:24px;right:24px;background:var(--amber);color:#fff;border:none;padding:14px 20px;border-radius:24px;font-size:13px;font-weight:700;box-shadow:0 4px 20px rgba(232,148,58,.4);z-index:500;display:none;transition:all .2s;}
 .fab-upgrade:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(232,148,58,.5);}
 
 /* ═══ ATS TAB ═══════════════════════════════════════════════════════ */
@@ -373,9 +363,6 @@ img{max-width:100%;display:block;}
 .jobs-tab-btn.active{border-color:var(--amber);background:var(--amber-pale);color:var(--amber);}
 
 /* ═══ WALK-IN + SEARCH FORMS ═══════════════════════════════════════ */
-.search-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:20px;}
-.search-form h3{font-size:16px;font-weight:800;margin-bottom:16px;}
-.form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
 .form-group{flex:1;min-width:140px;}
 .form-group label{display:block;font-size:11px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
 .form-group input,.form-group select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--ink);outline:none;transition:border .18s;}
@@ -446,7 +433,7 @@ img{max-width:100%;display:block;}
 .salary-label span{font-size:10px;color:var(--soft);font-weight:600;}
 
 /* ═══ UPGRADE MODAL ════════════════════════════════════════════════ */
-.modal-overlay{position:fixed;inset:0;background:rgba(15,17,23,.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay{inset:0;background:rgba(15,17,23,.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal-card{background:var(--white);border-radius:var(--radius-lg);padding:36px 32px;max-width:420px;width:100%;position:relative;animation:fadeIn .25s ease;}
 .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;color:var(--soft);cursor:pointer;line-height:1;}
@@ -460,7 +447,7 @@ img{max-width:100%;display:block;}
 .btn-pay{width:100%;padding:14px;background:var(--amber);color:#fff;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:700;}
 
 /* ═══ TOAST ════════════════════════════════════════════════════════ */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:600;z-index:2000;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;}
+#toast{bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:600;z-index:2000;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;}
 #toast.show{transform:translateX(-50%) translateY(0);}
 #toast.amber{background:var(--amber);}
 #toast.green{background:var(--green);}
@@ -477,9 +464,7 @@ img{max-width:100%;display:block;}
   .hero-stats{gap:12px;justify-content:center;flex-wrap:wrap;}
   .hero-stat strong{font-size:18px;}
   /* Dashboard */
-  .tab-bar{padding:0 8px;}
   .tab-btn{padding:10px 8px;font-size:11px;}
-  .dash-top{padding:0 12px;}
   .dash-user{display:none;}
   /* Home tool grid — 3 cols compact */
   .tool-grid{grid-template-columns:repeat(3,1fr) !important;gap:8px;}
@@ -490,8 +475,6 @@ img{max-width:100%;display:block;}
   .tt-free{font-size:8px !important;}
   .tt-lock{font-size:12px !important;}
   /* Forms */
-  .form-row{flex-direction:column;gap:8px;}
-  .search-form{padding:16px;}
   /* Pricing */
   .pricing-grid{grid-template-columns:1fr;}
   /* Programme cards */
@@ -523,7 +506,6 @@ img{max-width:100%;display:block;}
   .tab-btn{padding:8px 6px;font-size:9px;}
   .tools-grid{grid-template-columns:1fr;}
   .btn-primary,.btn-secondary{font-size:13px;padding:11px 18px;}
-  .dash-top{height:48px;}
   .dash-logo{font-size:15px;}
   .hero-badge{font-size:10px;}
   .hero-stats{gap:8px;}
@@ -547,14 +529,29 @@ img{max-width:100%;display:block;}
 .job-card-co{font-size:12px;color:var(--soft);}
 .job-card-meta{font-size:11px;color:var(--soft);margin-top:4px;}
 
-.search-form{margin-top:0;}
-.tab-panel .search-form:first-child{margin-top:0;}
 
-/* DashView visibility */
-.dash-wrap{display:none;min-height:100vh;background:var(--cream);}
+
+/* ─ Dashboard show/hide ─ */
+.dash-wrap{display:none;}
 .dash-wrap.active{display:block !important;}
-#dashView:not(.active) .tab-panel{display:none !important;}
-#dashView:not(.active) .tab-panel.active{display:none !important;}</style>
+
+/* ─ Navbar ─ */
+.dash-top{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 12px;}
+.dash-top-right{display:flex;align-items:center;gap:8px;}
+
+/* ─ Tab bar ─ */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 12px;scrollbar-width:none;position:sticky;top:48px;z-index:99;}
+.tab-bar::-webkit-scrollbar{display:none;}
+
+/* ─ Tab panels ─ */
+.tab-panel{display:none;padding:12px 14px 16px;max-width:900px;margin:0 auto;}
+.tab-panel.active{display:block;}
+
+/* ─ Search forms ─ */
+.search-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;}
+.search-form h3{font-size:13px;font-weight:700;margin-bottom:6px;}
+.form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+</style>
 </head>
 <body>
 
@@ -1089,8 +1086,7 @@ img{max-width:100%;display:block;}
   <!-- ── WOMEN RETURNSHIP TAB ────────────────────────── -->
   <div class="tab-panel" id="tab-women">
     <!-- Programme dropdown -->
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
-      <label style="font-size:13px;font-weight:700;display:block;margin-bottom:8px">Open Company Returnship Programme:</label>
+    <div style="margin-bottom:10px;">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
         <select id="progFilter" onchange="if(this.value&&this.value!=='all'){var _pu={'TCS':'https://www.tcs.com/careers/india/rebegin','Infosys':'https://www.infosys.com/careers/exclusive-programs/restart-careers-infosys.html','Accenture':'https://www.accenture.com/in-en/careers/explore-careers/women-returnship','Wipro':'https://careers.wipro.com/careers-home/returners','IBM':'https://www.ibm.com/in-en/employment','Goldman Sachs':'https://www.goldmansachs.com/worldwide/india/careers/india-returnship.html','Amazon':'https://www.amazon.jobs/en/landing_pages/returnship','HCLTech':'https://www.hcltech.com/careers','Deloitte':'https://www2.deloitte.com/in/en/pages/careers/articles/come-back-to-work.html','SAP':'https://jobs.sap.com/go/SAP-Returnship-Program/5365101/','Microsoft':'https://careers.microsoft.com/v2/global/en/returntomicrosoft','Dell':'https://jobs.dell.com/returntodell'};if(_pu[this.value])window.open(_pu[this.value],'_blank');this.value='all';}" style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--white);">
           <option value="all">-- Select company to open programme --</option>
@@ -1289,7 +1285,7 @@ function showView(id){
   var ALL=['landingView','loginView','signupView','dashView'];
   ALL.forEach(function(vid){
     var el=document.getElementById(vid);
-    if(el)el.style.setProperty('display','none','important');
+    if(el){el.style.setProperty('display','none','important');if(vid==='dashView')el.classList.remove('active');}
   });
 
   if(id==='atsPublic'){
@@ -1317,6 +1313,8 @@ function showView(id){
     return;
   }
 
+  var _dv=document.getElementById('dashView');
+  if(_dv){if(id==='dashView')_dv.classList.add('active');else _dv.classList.remove('active');}
   var disp='block';
   if(id==='loginView'||id==='signupView')disp='grid';
 
@@ -1340,8 +1338,10 @@ function showView(id){
 function goTo(viewId){
   if(viewId==='atsTabDirect'){
     if(currentUser){switchTab('ats');return;}
+    // Not logged in: show ATS in public mode
+    atsPublicMode=true;
     safePS({view:'atsPublic'},'#ats');
-    showView('atsPublic');return;
+    switchTab('ats');return;
   }
   var hashId=viewId==='dashView'?'dashboard':viewId;
   safePS({view:viewId},'#'+hashId);
@@ -1365,6 +1365,13 @@ if(!IN_IFRAME)try{window.addEventListener('popstate',function(e){
 
 // ── TAB SWITCHER ──────────────────────────────────────────────────
 function switchTab(tab,skipHistory){
+  // Show dashView directly
+  var _dw=document.getElementById('dashView');
+  if(_dw){_dw.style.setProperty('display','block','important');_dw.classList.add('active');}
+  // Hide other views
+  ['landingView','loginView','signupView'].forEach(function(v){
+    var _ve=document.getElementById(v);if(_ve)_ve.style.setProperty('display','none','important');
+  });
   if(!skipHistory){
     safePS({view:'dashView',tab:tab},'#dashboard-'+tab);
   }
@@ -1376,6 +1383,7 @@ function switchTab(tab,skipHistory){
   });
   document.querySelectorAll('.tab-panel').forEach(function(p){
     p.classList.toggle('active',p.id==='tab-'+tab);
+    if(p.id==='tab-'+tab)p.style.removeProperty('display');
   });
   if(tab==='fresher'){
     var _fl=document.getElementById('fresherLocked');
@@ -1405,11 +1413,13 @@ function switchTab(tab,skipHistory){
     if(_hb)_hb.textContent=isPaidUser()?'Pro Plan ✓':'Free Plan';
   }
   if(tab!=='ats'){var _ar=document.getElementById('atsResult');if(_ar&&_ar.innerHTML.indexOf('Analysing')>=0){_ar.innerHTML='';_ar.style.display='none';var _uz3=document.getElementById('atsUploadZone');if(_uz3)_uz3.style.display='block';}}
-  // Scroll active tab button into view horizontally (no vertical jump)
+  // Scroll active tab button into view (horizontal only)
   var _aBtn=document.querySelector('.tab-btn.active');
-  if(_aBtn)_aBtn.scrollIntoView({block:'nearest',inline:'nearest'});
-  // Delay scroll-to-top so browser focus-scroll runs first
-  setTimeout(function(){window.scrollTo({top:0,behavior:'instant'});},30);
+  if(_aBtn&&_aBtn.parentElement){var _tb=_aBtn.parentElement;_tb.scrollLeft=Math.max(0,_aBtn.offsetLeft-_tb.offsetWidth/4);}
+  // Reset scroll position of the active tab panel
+  var _activePan=document.getElementById('tab-'+tab);
+  if(_activePan)_activePan.scrollTop=0;
+  window.scrollTo(0,0);
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────
@@ -1618,7 +1628,7 @@ function doLogout(){
   // Remove active from all tab panels
   document.querySelectorAll('.tab-panel').forEach(function(p){
     p.classList.remove('active');
-    p.style.display='none';
+    p.style.removeProperty('display');
   });
   ['portalsContent','fresherContent','portalBoxes'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   // Remove active from dashView so CSS hides it
@@ -3328,7 +3338,7 @@ window.autoEnhanceATS=autoEnhanceATS;
     </div>
   </div>
   <!-- Right: Login form -->
-  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;;min-height:100vh;">
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;;">
     <div style="width:100%;max-width:360px;position:relative;">
       
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
@@ -3376,7 +3386,7 @@ window.autoEnhanceATS=autoEnhanceATS;
     </div>
   </div>
   <!-- Right: Signup form -->
-  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;min-height:100vh;">
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 48px;position:relative;">
     <div style="width:100%;max-width:360px;position:relative;"><a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;font-size:12px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:20px;margin-bottom:20px;">← Home</a>
       <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:12px;font-weight:600;text-decoration:none;margin-bottom:18px;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--white);">← Home</a>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
