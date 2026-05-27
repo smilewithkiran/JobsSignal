@@ -18,9 +18,9 @@
 /* ═══ RESET + TOKENS ═══════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --cream:#faf7f2;--ink:#0f1117;--amber:#e8943a;--teal:#1a6b6b;
-  --amber-pale:rgba(232,148,58,.1);--teal-pale:rgba(26,107,107,.08);
-  --soft:#6b7280;--border:#e5e1d8;--white:#fff;
+  --cream:#f0f9ff;--ink:#0a0f1e;--amber:#e8943a;--teal:#0284c7;
+  --amber-pale:rgba(232,148,58,.1);--teal-pale:rgba(2,132,199,.1);
+  --soft:#6b7280;--border:#bae6fd;--white:#fff;
   --green:#16a34a;--red:#dc2626;--orange:#f59e0b;--purple:#7c3aed;
   --radius:12px;--radius-sm:8px;--radius-lg:20px;
   --shadow:0 2px 16px rgba(15,17,23,.08);
@@ -121,7 +121,7 @@ img{max-width:100%;display:block;}
 .source-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
 .sc-google{background:#fef3e2;color:var(--amber);border:1px solid #fdd9a8;}
 .sc-naukri{background:#fff1ee;color:#ff7555;border:1px solid #ffd4c8;}
-.sc-adzuna{background:#e8f4f0;color:var(--teal);border:1px solid #b8ddd6;}
+.sc-adzuna{background:#e0f2fe;color:var(--teal);border:1px solid #b8ddd6;}
 .sc-indeed{background:#e8ecf8;color:#003a9b;border:1px solid #b8c4e8;}
 .sc-linkedin{background:#e8f0f8;color:#0077b5;border:1px solid #b8d0e8;}
 .sc-glassdoor{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
@@ -129,7 +129,7 @@ img{max-width:100%;display:block;}
 .mjc-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:6px;}
 .mjc-tag{font-size:10px;font-weight:600;background:#f3f4f6;color:var(--soft);padding:2px 7px;border-radius:5px;}
 .mjc-tag.exp{background:#fef3e2;color:var(--amber);}
-.mjc-tag.loc{background:#e8f4f0;color:var(--teal);}
+.mjc-tag.loc{background:#e0f2fe;color:var(--teal);}
 .mjc-desc{font-size:11px;color:#9ca3af;line-height:1.5;border-top:1px solid #f3f4f6;padding-top:7px;}
 .portal-filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--soft);transition:.15s;}
 .portal-filter-pill.active{background:var(--ink);color:#fff;border-color:var(--ink);}
@@ -172,7 +172,7 @@ img{max-width:100%;display:block;}
 .tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px;}
 .tool-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:28px;transition:all .2s;position:relative;overflow:hidden;}
 .tool-card:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
-.tool-card.full{grid-column:1/-1;background:linear-gradient(135deg,var(--teal) 0%,#0d4040 100%);color:#fff;border:none;}
+.tool-card.full{grid-column:1/-1;background:linear-gradient(135deg,var(--teal) 0%,#0c2340 100%);color:#fff;border:none;}
 .tool-card.full .tool-desc{color:rgba(255,255,255,.75);}
 .tool-icon{font-size:32px;margin-bottom:14px;}
 .tool-name{font-size:18px;font-weight:800;margin-bottom:6px;}
@@ -279,9 +279,9 @@ img{max-width:100%;display:block;}
 .btn-logout:hover{background:rgba(255,255,255,.14);}
 
 /* Tab bar */
-.tab-btn{flex-shrink:0;padding:9px 14px;font-size:12px;font-weight:700;color:var(--soft);border:none;background:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .18s;white-space:nowrap;}
-.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);}
-.tab-btn:hover:not(.active){color:var(--ink);}
+.tab-btn{flex-shrink:0;padding:11px 18px;font-size:13px;font-weight:700;color:rgba(255,255,255,.45);border:none;background:none;border-radius:8px 8px 0 0;transparent;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.tab-btn.active{background:#fff;color:var(--ink);border-radius:8px 8px 0 0;}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,.85);}
 
 /* Tab panels */
 
@@ -298,7 +298,7 @@ img{max-width:100%;display:block;}
 .tool-tile .tt-desc{font-size:10px;color:var(--soft);line-height:1.3;}
 .tool-tile .tt-free{font-size:10px;font-weight:700;color:var(--green);background:rgba(22,163,74,.1);padding:2px 7px;border-radius:6px;display:inline-block;margin-top:8px;}
 .tool-tile .tt-lock{position:absolute;top:12px;right:12px;font-size:16px;}
-.upgrade-banner{background:linear-gradient(135deg,var(--teal) 0%,#0d4040 100%);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.upgrade-banner{background:linear-gradient(135deg,var(--teal) 0%,#0c2340 100%);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
 .upgrade-banner h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;}
 .upgrade-banner p{font-size:12px;color:rgba(255,255,255,.65);}
 .btn-upgrade-banner{background:var(--amber);color:#fff;border:none;padding:10px 22px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;flex-shrink:0;}
@@ -463,7 +463,7 @@ img{max-width:100%;display:block;}
   .hero-stats{gap:12px;justify-content:center;flex-wrap:wrap;}
   .hero-stat strong{font-size:18px;}
   /* Dashboard */
-  .tab-btn{padding:10px 8px;font-size:11px;}
+  .tab-btn{padding:10px 12px;font-size:12px;}
   .dash-user{display:none;}
   /* Home tool grid — 3 cols compact */
   .tool-grid{grid-template-columns:repeat(3,1fr) !important;gap:8px;}
@@ -502,7 +502,7 @@ img{max-width:100%;display:block;}
   .tt-name{font-size:10px !important;}
   #nav-signup-btn{font-size:0 !important;}
   #nav-signup-btn::after{content:"Sign Up";font-size:11px;}
-  .tab-btn{padding:8px 6px;font-size:9px;}
+  .tab-btn{padding:8px 8px;font-size:10px;}
   .tools-grid{grid-template-columns:1fr;}
   .btn-primary,.btn-secondary{font-size:13px;padding:11px 18px;}
   .dash-logo{font-size:15px;}
@@ -535,11 +535,11 @@ img{max-width:100%;display:block;}
 .dash-wrap.active{display:block !important;}
 
 /* ─ Navbar ─ */
-.dash-top{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 12px;}
+.dash-top{position:sticky;top:0;z-index:100;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 12px;}
 .dash-top-right{display:flex;align-items:center;gap:8px;}
 
 /* ─ Tab bar ─ */
-.tab-bar{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 12px;scrollbar-width:none;position:sticky;top:48px;z-index:99;}
+.tab-bar{background:var(--ink);border-bottom:none;display:flex;overflow-x:auto;padding:0 12px;scrollbar-width:none;position:sticky;top:48px;z-index:99;}
 .tab-bar::-webkit-scrollbar{display:none;}
 
 /* ─ Tab panels ─ */
@@ -619,7 +619,7 @@ h2,h3{margin-top:0;}
             <div class="hero-stat"><strong>14,000+</strong><span>Resumes Analysed</span></div>
             <div class="hero-stat"><strong>40+</strong><span>Cities</span></div>
             <div class="hero-stat"><strong>6</strong><span>Return Programmes</span></div>
-            <div class="hero-stat"><strong>₹99</strong><span>Full Access</span></div>
+            <div class="hero-stat"><strong>₹9</strong><span>Trial</span></div>
           </div>
         </div>
 
@@ -732,6 +732,20 @@ h2,h3{margin-top:0;}
             <li><span class="lck">✕</span> Freshers Job Search</li>
           </ul>
           <button class="btn-price free" onclick="goTo('signupView')">Sign Up Free</button>
+        </div>
+        <div class="price-card" style="border:2px solid #0284c7;position:relative;">
+          <div class="price-featured-badge" style="background:#0284c7;">⚡ Try First</div>
+          <div class="price-name">7-Day Trial</div>
+          <div class="price-amount">₹9<span>/7 days</span></div>
+          <div class="price-period">Full access · One-time ·  ₹1.28/day</div>
+          <ul class="price-features">
+            <li><span class="chk">✓</span> Everything in Full Access</li>
+            <li><span class="chk">✓</span> All 17 Job Portals</li>
+            <li><span class="chk">✓</span> ATS Score + AI Enhancement</li>
+            <li><span class="chk">✓</span> Cover Letter Generator</li>
+            <li><span class="chk">✓</span> No commitment · Try risk-free</li>
+          </ul>
+          <button class="btn-price paid" style="background:#0284c7;" onclick="goTo('signupView');startPaymentTrial()">Start ₹9 Trial →</button>
         </div>
         <div class="price-card featured">
           <div class="price-featured-badge">Most Popular</div>
@@ -1746,6 +1760,34 @@ function showUpgradeModal(){
 function closeUpgradeModal(){
   var m=document.getElementById('upgradeModal');
   if(m)m.classList.remove('open');
+}
+function startPaymentTrial(){
+  if(!currentUser){showToast('Please log in first','amber');goTo('loginView');return;}
+  var opts={
+    key:RZP_KEY,amount:900,currency:'INR',name:'JobsSignal',
+    description:'7-Day Full Access',
+    handler:async function(resp){
+      var expiry=new Date(Date.now()+7*24*60*60*1000).toISOString();
+      var ph=(currentUser.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+      var plan={phone:ph,expiry:expiry,txnId:resp.razorpay_payment_id,amount:9,paidAt:new Date().toISOString(),days:7};
+      localStorage.setItem(S_PLAN,JSON.stringify(plan));
+      isPaid=true;buildDash(currentUser,true);closeUpgradeModal();
+      showToast('Full access unlocked for 7 days!','green');
+      for(var _t=0;_t<3;_t++){
+        try{
+          var fr=await fetch(FB_DB+'/plans/'+ph+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(plan)});
+          if(fr.ok)break;
+        }catch(_e){}
+        await new Promise(function(r){setTimeout(r,1200);});
+      }
+      showToast('🎉 Full access unlocked for 7 days!','green');
+      switchTab('home');
+    },
+    prefill:{name:currentUser.name||'',contact:currentUser.phone||''},
+    theme:{color:'#0284c7'}
+  };
+  try{var rzp=new Razorpay(opts);rzp.open();}
+  catch(e){showToast('Payment failed to load. Check internet.','amber');}
 }
 function startPayment(){
   if(!currentUser){showToast('Please log in first','amber');goTo('loginView');return;}
@@ -3035,8 +3077,9 @@ function runPortalSearch(){
     {n:'Rozgar',ic:'🔍',url:'https://rozgar.com/jobs/search?keyword='+encodeURIComponent(skill)+'&location='+encodeURIComponent(city)},
     {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=jobsearch&txtKeywords=%22'+encodeURIComponent(skill)+'%22&txtLocation='+encodeURIComponent(city)+'&sequence=1&startPage=1'},
     {n:'Google Jobs',ic:'\ud83d\udd0e',url:'https://www.google.com/search?q='+s+'+jobs+in+'+cu+'&ibp=htl;jobs'},
+    {n:'Jooble',ic:'📋',url:'https://in.jooble.org/SearchResult?ukw='+encodeURIComponent(skill)+'&r='+encodeURIComponent(city)},
     {n:'Freshersworld',ic:'🌱',url:'https://www.freshersworld.com/jobs/jobsearch/skills/'+sl+'/location/'+cl},
-    {n:'AmbitionBox',ic:'🏆',url:'https://www.ambitionbox.com/jobs?designation='+encodeURIComponent(skill)+'&city='+encodeURIComponent(city)},
+    {n:'Glassdoor',ic:'🔍',url:'https://www.glassdoor.co.in/Jobs/'+cl+'-'+sl+'-jobs-SRCH_IL.0,'+cl.length.toString()+'_IN115_KO'+(cl.length+1).toString()+','+(cl.length+sl.length+2).toString()+'.htm'},
     {n:'NaukriGulf',ic:'🌍',url:'https://www.naukrigulf.com/'+sl+'-jobs?q='+encodeURIComponent(skill)+'&l=India'},
     {n:'Adzuna',ic:'🔵',url:'https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'&where='+encodeURIComponent(city)}
   ];
@@ -3476,4 +3519,47 @@ window.autoEnhanceATS=autoEnhanceATS;
   </div>
 </div>
 
+
+<!-- ═══ UPGRADE MODAL ════════════════════════════════════ -->
+<div class="modal-overlay" id="upgradeModal" onclick="if(event.target===this)closeUpgradeModal()">
+  <div class="modal-card" style="max-width:480px;width:100%;padding:0;overflow:hidden;">
+    <div style="background:var(--ink);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#fff;">Unlock Full Access</div>
+      <button onclick="closeUpgradeModal()" style="background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>
+    </div>
+    <div style="padding:20px 24px;">
+      <!-- ₹9 Trial -->
+      <div style="border:2px solid #0284c7;border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;" onclick="startPaymentTrial()">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-size:11px;font-weight:700;background:#e0f2fe;color:#0284c7;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:6px;">TRY IT FIRST</div>
+            <div style="font-size:18px;font-weight:800;color:var(--ink);">7-Day Trial</div>
+            <div style="font-size:12px;color:var(--soft);margin-top:2px;">All features · 7 days</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:#0284c7;">₹9</div>
+            <div style="font-size:10px;color:var(--soft);">one-time</div>
+          </div>
+        </div>
+        <button style="width:100%;margin-top:12px;padding:11px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Start 7-Day Trial →</button>
+      </div>
+      <!-- ₹99 Monthly -->
+      <div style="border:2px solid var(--amber);border-radius:12px;padding:16px;cursor:pointer;position:relative;" onclick="startPayment()">
+        <div style="position:absolute;top:-10px;left:16px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;">MOST POPULAR</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-size:18px;font-weight:800;color:var(--ink);margin-top:4px;">30-Day Full Access</div>
+            <div style="font-size:12px;color:var(--soft);margin-top:2px;">All features · 30 days</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--amber);">₹99</div>
+            <div style="font-size:10px;color:var(--soft);">one-time</div>
+          </div>
+        </div>
+        <button style="width:100%;margin-top:12px;padding:11px;background:var(--amber);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Get 30-Day Access →</button>
+      </div>
+      <div style="text-align:center;font-size:11px;color:var(--soft);margin-top:14px;">Pay via UPI · Razorpay · 100% secure</div>
+    </div>
+  </div>
+</div>
 </body></html>
