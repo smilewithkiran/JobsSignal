@@ -747,7 +747,8 @@ h2,h3{margin-top:0;}
             <li><span class="chk">✓</span> Offer Letter Analyser</li>
             <li><span class="chk">✓</span> Freshers Jobs (Google + LinkedIn)</li>
             <li><span class="chk">✓</span> Women Returnship Job Search</li>
-            <li><span class="chk">✓</span> 🌐 Job Portals — Naukri, Foundit, Indeed + 9 more</li>
+            <li><span class="chk">✓</span> 🌐 16+ Job Portals</li>
+            <li><span class="chk">✓</span> 📝 AI Cover Letter Generator</li>
           </ul>
           <button class="btn-price paid" onclick="goTo('signupView');showUpgradeModal()">Get Full Access →</button>
         </div>
@@ -2654,14 +2655,14 @@ function runWomenSearch(){
   if(!skill){showToast('Enter a skill or role','amber');return;}
   var el=document.getElementById('womenResults');if(!el)return;
   var _wrGJ=document.getElementById('wr-gj');
-  if(_wrGJ)_wrGJ.href='https://www.google.com/search?q='+encodeURIComponent(skill+' women friendly jobs in '+city)+'&ibp=htl;jobs';
+  if(_wrGJ)_wrGJ.href='https://www.google.com/search?q='+encodeURIComponent(skill+' (returnship OR "return to work" OR "diversity hiring" OR "women in tech" OR "maternity break") jobs in '+city)+'&ibp=htl;jobs';
   // Update static LinkedIn links
   var wrNK=document.getElementById('wr-nk');
   var wrLJ=document.getElementById('wr-lj');var wrLP=document.getElementById('wr-lp');
   var _wsl=skill.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   if(wrNK)wrNK.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women-in-'+city.toLowerCase().replace(/\s+/g,'-').replace('delhi ncr','delhi').replace(' ','-')+'?jobAge=7';
   if(wrLJ)wrLJ.href='https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(isHRRole(skill)?skill+' women hiring':skill+' returnship')+'&location=India&geoId=102713980';
-  if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(isHRRole(skill)?skill+' women hiring':skill+' returnship job')+'&datePosted=%22past-month%22';
+  if(wrLP)wrLP.href='https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent(skill+' (returnship OR "diversity hiring" OR "women hiring" OR "return to work") -"looking for" -"open to work" -"actively looking"')+'&datePosted=%22past-month%22';
   var wrLinks=document.getElementById('wrLinkedInLinks');
   if(wrLinks)wrLinks.style.display='flex';
   var wrNk=document.getElementById('wr-nk');if(wrNk)wrNk.href='https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs-for-women?jobAge=7';
@@ -3035,7 +3036,7 @@ function runPortalSearch(){
     {n:'TimesJobs',ic:'\u23f0',url:'https://www.timesjobs.com/candidate/job-search.html?from=submit&searchType=jobsearch&txtKeywords=%22'+encodeURIComponent(skill)+'%22&txtLocation='+encodeURIComponent(city)+'&sequence=1&startPage=1'},
     {n:'Google Jobs',ic:'\ud83d\udd0e',url:'https://www.google.com/search?q='+s+'+jobs+in+'+cu+'&ibp=htl;jobs'},
     {n:'Freshersworld',ic:'🌱',url:'https://www.freshersworld.com/jobs/jobsearch/skills/'+sl+'/location/'+cl},
-    {n:'AmbitionBox',ic:'🏆',url:'https://www.ambitionbox.com/jobs/'+sl+'-jobs-in-'+cl},
+    {n:'AmbitionBox',ic:'🏆',url:'https://www.ambitionbox.com/jobs?designation='+encodeURIComponent(skill)+'&city='+encodeURIComponent(city)},
     {n:'NaukriGulf',ic:'🌍',url:'https://www.naukrigulf.com/'+sl+'-jobs?q='+encodeURIComponent(skill)+'&l=India'},
     {n:'Adzuna',ic:'🔵',url:'https://www.adzuna.in/search?q='+encodeURIComponent(skill)+'&where='+encodeURIComponent(city)}
   ];
