@@ -109,6 +109,10 @@ tr:hover td{background:rgba(255,255,255,.03);}
   .restore-row{flex-direction:column;}
   .restore-row input,.restore-row select,.restore-row .btn{width:100%;}
 }
+
+.stat-box{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;}
+.stat-val{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--ink);line-height:1;}
+.stat-lbl{font-size:11px;font-weight:600;color:var(--soft);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
 </style>
 </head>
 <body>
@@ -153,6 +157,17 @@ tr:hover td{background:rgba(255,255,255,.03);}
     <div class="stat-card"><div class="label">Paid Users</div><div class="value" id="statPaid" style="color:#86efac;">—</div><div class="sub">Active plans</div></div>
     <div class="stat-card"><div class="label">Expired Plans</div><div class="value" id="statExp" style="color:#fca5a5;">—</div><div class="sub">Need renewal</div></div>
     <div class="stat-card"><div class="label">Revenue</div><div class="value" id="statRev" style="color:#e8943a;">—</div><div class="sub">₹99 × paid</div></div>
+  </div>
+
+  <!-- VISITORS -->
+  <div class="section">
+    <div class="section-head">
+      <h3>&#128202; Website Visitors</h3>
+      <button class="btn btn-ghost btn-sm" onclick="loadVisitors()">&#8635; Refresh</button>
+    </div>
+    <div class="section-body" id="visitorsPane">
+      <div class="loading"><div class="spinner"></div>Loading&#8230;</div>
+    </div>
   </div>
 
   <!-- RESTORE PLAN -->
@@ -205,7 +220,63 @@ tr:hover td{background:rgba(255,255,255,.03);}
 
 <div id="toast"></div>
 
-<script>
+<script>async function loadVisitors(){
+  var el=document.getElementById('visitorsPane');
+  if(!el)return;
+  el.innerHTML='<div class="loading"><div class="spinner"></div>Loading…</div>';
+  try{
+    var res=await fetch(FB_DB+'/stats/visits.json');
+    var data=res.ok?await res.json():{};
+    if(!data){el.innerHTML='<div style="padding:16px;color:var(--soft);">No visitor data yet.</div>';return;}
+    var visits=Object.values(data);
+    var today=new Date().toISOString().slice(0,10);
+    var yesterday=new Date(Date.now()-864e5).toISOString().slice(0,10);
+    var weekAgo=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
+    var totalV=visits.length;
+    var todayV=visits.filter(function(v){return v.date===today;}).length;
+    var yestV=visits.filter(function(v){return v.date===yesterday;}).length;
+    var weekV=visits.filter(function(v){return v.date>=weekAgo;}).length;
+    var days=[];
+    for(var d=6;d>=0;d--){
+      var dd=new Date(Date.now()-d*864e5).toISOString().slice(0,10);
+      var cnt=visits.filter(function(v){return v.date===dd;}).length;
+      days.push({date:dd,count:cnt,label:dd.slice(5)});
+    }
+    var maxDay=Math.max.apply(null,days.map(function(d){return d.count||0;}));
+    if(maxDay===0)maxDay=1;
+    var barsHtml=days.map(function(d){
+      var pct=Math.round((d.count/maxDay)*100);
+      if(pct<4)pct=4;
+      var isToday=(d.date===today);
+      var barCol=isToday?'var(--teal)':'rgba(2,132,199,.25)';
+      var cntLbl=d.count>0?String(d.count):'';
+      return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">'
+        +'<div style="font-size:10px;font-weight:700;color:var(--teal);">'+cntLbl+'</div>'
+        +'<div style="width:100%;background:var(--border);border-radius:4px;height:60px;display:flex;align-items:flex-end;">'
+        +'<div style="width:100%;height:'+String(pct)+'%;background:'+barCol+';border-radius:4px;"></div></div>'
+        +'<div style="font-size:9px;color:'+(isToday?'var(--ink)':'var(--soft)')+';font-weight:'+(isToday?'800':'600')+';">'+d.label+'</div>'
+        +'</div>';
+    }).join('');
+    var hrs=[];
+    for(var h=0;h<24;h++)hrs.push(0);
+    visits.forEach(function(v){if(v.hr!=null&&v.hr>=0&&v.hr<24)hrs[v.hr]++;});
+    var peakHr=hrs.indexOf(Math.max.apply(null,hrs));
+    var peakLabel=peakHr<12?(peakHr===0?'12 AM':peakHr+' AM'):(peakHr===12?'12 PM':(peakHr-12)+' PM');
+    el.innerHTML=
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">'
+      +'<div class="stat-box"><div class="stat-val">'+totalV+'</div><div class="stat-lbl">Total Visits</div></div>'
+      +'<div class="stat-box" style="border-color:var(--teal);"><div class="stat-val" style="color:var(--teal);">'+todayV+'</div><div class="stat-lbl">Today</div></div>'
+      +'<div class="stat-box"><div class="stat-val">'+yestV+'</div><div class="stat-lbl">Yesterday</div></div>'
+      +'<div class="stat-box"><div class="stat-val">'+weekV+'</div><div class="stat-lbl">This Week</div></div>'
+      +'</div>'
+      +'<div style="font-size:11px;font-weight:700;color:var(--soft);margin-bottom:8px;letter-spacing:.5px;">LAST 7 DAYS</div>'
+      +'<div style="display:flex;gap:6px;align-items:flex-end;height:90px;margin-bottom:10px;">'+barsHtml+'</div>'
+      +'<div style="font-size:11px;color:var(--soft);">&#9201; Peak hour today: <strong>'+peakLabel+'</strong></div>';
+  }catch(err){
+    el.innerHTML='<div style="color:var(--red);padding:12px;">Error: '+err.message+'</div>';
+  }
+}
+
 const FB_DB  = 'https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
 const SUPER  = '9160075557';
 const ADMINS = [SUPER]; // add more admin phones here if needed
@@ -282,6 +353,7 @@ async function loadAll(){
       return (o[a.status]||2)-(o[b.status]||2) || a.name.localeCompare(b.name);
     });
     updateStats();
+    loadVisitors();
     renderUsers();
     showToast('Loaded '+_allUsers.length+' users');
   }catch(e){
