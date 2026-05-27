@@ -170,6 +170,24 @@ tr:hover td{background:rgba(255,255,255,.03);}
     </div>
   </div>
 
+  <!-- REGISTER USER -->
+  <div class="section">
+    <div class="section-head">
+      <h3>📝 Register User Manually</h3>
+      <span style="font-size:11px;color:var(--soft);">For users whose signup failed</span>
+    </div>
+    <div class="section-body">
+      <div class="restore-row" style="flex-wrap:wrap;gap:8px;">
+        <input id="regPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="Phone (10 digits)*" style="width:150px;">
+        <input id="regName" type="text" placeholder="Full Name*" style="width:150px;">
+        <input id="regSkill" type="text" placeholder="Skill (e.g. React Developer)" style="width:180px;">
+        <input id="regCity" type="text" placeholder="City" style="width:120px;">
+        <button class="btn btn-teal" onclick="doRegisterUser()">Register</button>
+      </div>
+      <div id="regMsg" style="margin-top:8px;font-size:12px;font-weight:600;"></div>
+    </div>
+  </div>
+
   <!-- RESTORE PLAN -->
   <div class="section">
     <div class="section-head">
@@ -220,7 +238,33 @@ tr:hover td{background:rgba(255,255,255,.03);}
 
 <div id="toast"></div>
 
-<script>async function loadVisitors(){
+<script>async function doRegisterUser(){
+  var phone=(document.getElementById('regPhone').value||'').replace(/[^0-9]/g,'').slice(-10);
+  var name=(document.getElementById('regName').value||'').trim();
+  var skill=(document.getElementById('regSkill').value||'').trim();
+  var city=(document.getElementById('regCity').value||'').trim();
+  var msg=document.getElementById('regMsg');
+  if(!phone||phone.length<10){msg.textContent='Enter a valid 10-digit number';msg.style.color='var(--red)';return;}
+  if(!name){msg.textContent='Enter name';msg.style.color='var(--red)';return;}
+  msg.textContent='Saving…';msg.style.color='var(--soft)';
+  var user={phone:phone,name:name,skill:skill||'Not specified',city:city||'India',createdAt:new Date().toISOString(),registeredByAdmin:true};
+  try{
+    var wr=await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
+    await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
+    if(wr.ok){
+      msg.textContent='✅ User '+phone+' registered successfully!';
+      msg.style.color='var(--green)';
+      document.getElementById('regPhone').value='';
+      document.getElementById('regName').value='';
+      document.getElementById('regSkill').value='';
+      document.getElementById('regCity').value='';
+      setTimeout(function(){loadAll();},800);
+    }else{
+      msg.textContent='❌ Firebase error: '+wr.status;msg.style.color='var(--red)';
+    }
+  }catch(e){msg.textContent='❌ Error: '+e.message;msg.style.color='var(--red)';}
+}
+async function loadVisitors(){
   var el=document.getElementById('visitorsPane');
   if(!el)return;
   el.innerHTML='<div class="loading"><div class="spinner"></div>Loading…</div>';
