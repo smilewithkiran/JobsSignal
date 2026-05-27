@@ -1719,9 +1719,9 @@ document.addEventListener('DOMContentLoaded',function(){
     var raw=localStorage.getItem(S_USER);
     if(!raw){
       // No session — track visitor and stay on landing
-      try{fetch(FB_DB+'/stats/visitors.json',{method:'PUT',
+      try{var _vd=new Date();fetch(FB_DB+'/stats/visits.json',{method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ts:Date.now()})});}catch(e){}
+        body:JSON.stringify({ts:Date.now(),date:_vd.toISOString().slice(0,10),hr:_vd.getHours()})});}catch(e){}
       // Only go to ATS if hash says so
       var hash=safeHash();
       if(hash==='ats'){showView('atsPublic');}
