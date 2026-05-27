@@ -432,7 +432,7 @@ img{max-width:100%;display:block;}
 .salary-label span{font-size:10px;color:var(--soft);font-weight:600;}
 
 /* ═══ UPGRADE MODAL ════════════════════════════════════════════════ */
-.modal-overlay{inset:0;background:rgba(15,17,23,.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(15,17,23,.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal-card{background:var(--white);border-radius:var(--radius-lg);padding:36px 32px;max-width:420px;width:100%;position:relative;animation:fadeIn .25s ease;}
 .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;color:var(--soft);cursor:pointer;line-height:1;}
@@ -745,7 +745,7 @@ h2,h3{margin-top:0;}
             <li><span class="chk">✓</span> Cover Letter Generator</li>
             <li><span class="chk">✓</span> No commitment · Try risk-free</li>
           </ul>
-          <button class="btn-price paid" style="background:#0284c7;" onclick="goTo('signupView');startPaymentTrial()">Start ₹9 Trial →</button>
+          <button class="btn-price paid" style="background:#0284c7;" onclick="showUpgradeModal()">Start ₹9 Trial →</button>
         </div>
         <div class="price-card featured">
           <div class="price-featured-badge">Most Popular</div>
@@ -788,7 +788,7 @@ h2,h3{margin-top:0;}
     <div class="dash-top-right">
       <span class="dash-user" id="dashUserName"></span>
       <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('https://www.jobssignal.in/Admin/','_blank')" title="Admin Panel">🔑</span>
-      <button class="btn-upgrade-top" id="topUpgradeBtn" onclick="showUpgradeModal()" style="display:none">Upgrade ₹99</button>
+      <button class="btn-upgrade-top" id="topUpgradeBtn" onclick="showUpgradeModal()" style="display:none">Try ₹9 Trial</button>
       <button class="btn-logout" onclick="doLogout()">Logout</button>
     </div>
   </div>
@@ -817,12 +817,12 @@ h2,h3{margin-top:0;}
     </div>
 
     <!-- Upgrade banner (free users) -->
-    <div id="upgradeBanner" style="display:none;background:linear-gradient(135deg,var(--teal),#0d4040);border-radius:10px;padding:12px 16px;margin-bottom:14px;align-items:center;justify-content:space-between;gap:8px;">
+    <div id="upgradeBanner" style="display:none;background:linear-gradient(135deg,#0284c7,#0a0f1e);border-radius:10px;padding:12px 16px;margin-bottom:14px;align-items:center;justify-content:space-between;gap:8px;">
       <div>
         <div style="font-size:12px;font-weight:700;color:#fff;">🔒 Unlock all 7 tools</div>
         <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px;">Walk-ins · Salary · Portals · Moonlighting</div>
       </div>
-      <button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;">₹99/month</button>
+      <button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;">Try ₹9 →</button>
     </div>
 
     <!-- Dashboard widgets -->
@@ -960,7 +960,7 @@ h2,h3{margin-top:0;}
         <a class="ext-job-btn ljobs" id="jt-linkedin" href="#" onclick="openLinkedInJobs();return false;" style="font-size:11px;">💼 LinkedIn Jobs ↗</a>
         <a class="ext-job-btn lposts" id="jt-posts" href="#" onclick="openLinkedInPosts();return false;" style="font-size:11px;">📝 LinkedIn Posts ↗</a>
       </div>
-      <div id="atsJobsLocked" style="display:none;margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;color:#92400e;font-weight:600;text-align:center;">🔒 Job search is a paid feature — <a onclick="showUpgradeModal();return false;" href="#" style="color:#e8943a;font-weight:700;">Upgrade ₹99 →</a></div>
+      <div id="atsJobsLocked" style="display:none;margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;color:#92400e;font-weight:600;text-align:center;">🔒 Job search is a paid feature — <a onclick="showUpgradeModal();return false;" href="#" style="color:#e8943a;font-weight:700;">Try ₹9 Trial →</a></div>
     </div>
   
     <div id="atsJobSearch" style="display:none;margin-top:10px;padding:12px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);"><div style="font-size:13px;font-weight:700;margin-bottom:10px;">🔍 Search Jobs Based on Your Resume</div><div class="form-row"><input id="ats_job_role" type="text" placeholder="Job role (auto-filled from resume)" style="flex:1;min-width:130px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;"><select id="ats_job_city" style="flex:1;min-width:130px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:#fff;"><option value="">Preferred Location / City</option><option>Ahmedabad</option><option>Bengaluru</option><option>Chennai</option><option>Delhi NCR</option><option>Hyderabad</option><option>Jaipur</option><option>Kolkata</option><option>Mumbai</option><option>Noida</option><option>Pune</option><option>Remote / WFH</option></select><button onclick="openATSGoogleJobs()" style="padding:10px 16px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">🔍 Google Jobs</button></div></div>
@@ -1008,7 +1008,7 @@ h2,h3{margin-top:0;}
     </div>
 
   <div class="tab-panel" id="tab-salary">
-    <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Upgrade to ₹99/month to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
+    <div id="salaryLockBanner" style="display:none;background:rgba(232,148,58,.06);border:1px solid rgba(232,148,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:12px;"><div><div style="font-size:13px;font-weight:700;margin-bottom:2px;">🔒 Salary Tools — Paid Feature</div><div style="font-size:12px;color:var(--soft);">Start ₹9 Trial to access CTC calculator, hike negotiation, salary range and offer analyser.</div></div><button onclick="showUpgradeModal()" style="background:var(--amber);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">Upgrade →</button></div>
 
     <!-- CTC Calculator -->
     <div class="search-form" style="margin-bottom:16px">
@@ -1180,8 +1180,8 @@ h2,h3{margin-top:0;}
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
         <h3>Freshers Jobs is a Paid Feature</h3>
-        <p>Upgrade to ₹99/month to search internships, campus drives and entry-level jobs across Google Jobs and LinkedIn.</p>
-        <button class="btn-primary" onclick="showUpgradeModal()">Upgrade ₹99 → Find Fresher Jobs</button>
+        <p>Start ₹9 Trial to search internships, campus drives and entry-level jobs across Google Jobs and LinkedIn.</p>
+        <button class="btn-primary" onclick="showUpgradeModal()">Try ₹9 → Find Fresher Jobs</button>
       </div>
     </div>
     <div id="fresherContent" style="display:none">
@@ -1221,8 +1221,8 @@ h2,h3{margin-top:0;}
       <div class="jobs-locked">
         <div class="jobs-locked-icon">🔒</div>
         <h3>Job Portals is a Paid Feature</h3>
-        <p>Upgrade to ₹99/month to search Naukri, Foundit, Indeed, LinkedIn, Shine and 8 more portals — all in one feed.</p>
-        <button class="btn-primary" onclick="showUpgradeModal()">Upgrade ₹99 →</button>
+        <p>Start ₹9 Trial to search Naukri, Foundit, Indeed, LinkedIn, Shine and 17 portals — all in one feed.</p>
+        <button class="btn-primary" onclick="showUpgradeModal()">Try ₹9 →</button>
       </div>
     </div>
 
@@ -1602,15 +1602,34 @@ async function doSignup(){
   var city=(document.getElementById('su_city')||{value:''}).value;
   var exp=(document.getElementById('su_exp')||{value:''}).value;
   if(!phone||phone.length<10){showToast('Invalid phone','amber');return;}
+  var errEl=document.getElementById('suErr');
+  if(errEl)errEl.style.display='none';
+  var suBtn=document.getElementById('suBtn');
+  if(suBtn){suBtn.disabled=true;suBtn.textContent='Saving…';}
   var user={phone:phone,name:name,skill:skill,email:email,city:city,exp:exp,createdAt:new Date().toISOString()};
-  try{
-    await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
-    await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
-  }catch(e){}
+  var saved=false;
+  for(var _t=0;_t<3;_t++){
+    try{
+      var wr=await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
+      if(wr.ok){
+        await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
+        saved=true;break;
+      }
+    }catch(e){}
+    await new Promise(function(r){setTimeout(r,1000);});
+  }
+  if(suBtn){suBtn.disabled=false;suBtn.textContent='Sign Up Free';}
+  if(!saved){
+    if(errEl){errEl.textContent='Registration failed. Check your internet and try again.';errEl.style.display='block';}
+    showToast('Registration failed — please retry','amber');
+    return;
+  }
   localStorage.setItem(S_USER,JSON.stringify(user));
   atsPublicMode=false;
+  showToast('Welcome '+((name||'there').split(' ')[0])+' 🎉','green');
   enterDash(user,false);
 }
+
 
 function enterDash(user,paid){
   currentUser=user;isPaid=isSuperUser()?true:(paid||false);
@@ -3511,7 +3530,7 @@ window.autoEnhanceATS=autoEnhanceATS;
           <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Experience</label>
           <select id="su_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
         </div>
-        <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0d4040);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
+        <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,#0284c7,#0a0f1e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
         <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
       </div>
       <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Already have an account? <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:8px 4px;min-height:44px;text-decoration:underline;">Log in →</button></div>
