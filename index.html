@@ -3017,7 +3017,10 @@ function initHomeDash(){
   var ub=document.getElementById('upgradeBanner');
   if(isPaidUser()){
     var plan=null;try{plan=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
-    var daysLeft=plan&&plan.expiry?Math.ceil((new Date(plan.expiry)-now)/86400000):30;
+    var _totalDays=plan&&plan.days?plan.days:30;
+    var _paidAt=plan&&plan.paidAt?new Date(plan.paidAt):new Date(now-(7*86400000));
+    var _elapsed=Math.floor((now-_paidAt)/86400000);
+    var daysLeft=Math.max(0,_totalDays-_elapsed);
     if(pb){pb.textContent='✅ Paid Plan · '+daysLeft+' days left';pb.style.display='flex';}
     if(ub)ub.style.display='none';
   }else{
