@@ -188,6 +188,19 @@ tr:hover td{background:rgba(255,255,255,.03);}
     </div>
   </div>
 
+  <!-- AI MOCK INTERVIEW -->
+  <div class="section">
+    <div class="section-head">
+      <h3>🎯 AI Mock Interviews</h3>
+      <div style="display:flex;gap:8px;"><button class="btn btn-ghost btn-sm" onclick="loadIvData()">↻ Refresh</button><button class="btn btn-ghost btn-sm" onclick="exportIvCSV()">⤓ CSV</button></div>
+    </div>
+    <div class="section-body">
+      <div id="ivStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;"><div class="stat-box"><div class="stat-val" id="ivTotalSessions">—</div><div class="stat-lbl">Total Tests</div></div><div class="stat-box" style="border-color:var(--teal);"><div class="stat-val" style="color:var(--teal);" id="ivUniqueCandidates">—</div><div class="stat-lbl">Candidates</div></div><div class="stat-box"><div class="stat-val" id="ivAvgScore">—</div><div class="stat-lbl">Avg Score</div></div><div class="stat-box"><div class="stat-val" id="ivTopIndustry">—</div><div class="stat-lbl">Top Industry</div></div></div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;"><input id="ivSearch" type="text" placeholder="Search name / phone..." class="form-input" style="flex:1;min-width:180px;padding:8px 12px;font-size:12px;" oninput="filterIvTable()"><select id="ivFilterIndustry" class="form-input" style="width:160px;padding:8px 12px;font-size:12px;" onchange="filterIvTable()"><option value="">All Industries</option></select></div>
+      <div id="ivTableWrap" style="overflow-x:auto;"><div style="padding:20px;text-align:center;color:var(--soft);">Loading…</div></div>
+    </div>
+  </div>
+
   <!-- RESTORE PLAN -->
   <div class="section">
     <div class="section-head">
@@ -360,6 +373,76 @@ function showAdminApp(ph){
 }
 
 // ── DATA LOAD ─────────────────────────────────────
+
+async function loadIvData(){
+  var wrap=document.getElementById('ivTableWrap');
+  if(wrap)wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--soft);">Loading...</div>';
+  try{
+    var r=await fetch(FB_DB+'/interviews.json');
+    if(!r.ok){if(wrap)wrap.innerHTML='Firebase error';return;}
+    var data=await r.json();
+    if(!data){if(wrap)wrap.innerHTML='<div style="padding:20px;color:var(--soft);">No interview data yet.</div>';return;}
+    var sessions=[];
+    Object.values(data).forEach(function(ps){if(typeof ps==='object')Object.values(ps).forEach(function(s){if(s&&s.sessionId)sessions.push(s);});});
+    sessions.sort(function(a,b){return(b.timestamp||'').localeCompare(a.timestamp||'');});
+    window._ivAll=sessions;
+    var total=sessions.length;
+    var phones=sessions.map(function(s){return s.phone;}).filter(function(p,i,a){return a.indexOf(p)===i;});
+    var avg=total?Math.round(sessions.reduce(function(a,s){return a+(s.score||0);},0)/total):0;
+    var ic={};sessions.forEach(function(s){ic[s.industry]=(ic[s.industry]||0)+1;});
+    var top=Object.entries(ic).sort(function(a,b){return b[1]-a[1];});
+    document.getElementById('ivTotalSessions').textContent=total;
+    document.getElementById('ivUniqueCandidates').textContent=phones.length;
+    document.getElementById('ivAvgScore').textContent=avg+'%';
+    document.getElementById('ivTopIndustry').textContent=top.length?top[0][0].split(' ')[0]:'--';
+    var sel=document.getElementById('ivFilterIndustry');
+    if(sel){var inds=sessions.map(function(s){return s.industry;}).filter(function(x,i,a){return x&&a.indexOf(x)===i;}).sort();sel.innerHTML='<option value="">All Industries</option>'+inds.map(function(i){return'<option>'+i+'</option>';}).join('');}
+    renderIvTable(sessions);
+  }catch(e){if(wrap)wrap.innerHTML='Error: '+e.message;}
+}
+function renderIvTable(sessions){
+  var wrap=document.getElementById('ivTableWrap');
+  if(!wrap)return;
+  if(!sessions.length){wrap.innerHTML='<div style="padding:20px;color:var(--soft);">No results.</div>';return;}
+  var html='<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:var(--bg);border-bottom:2px solid var(--border);"><th style="padding:10px 8px;text-align:left;">Name</th><th style="padding:10px 8px;">Phone</th><th style="padding:10px 8px;">Industry/Role</th><th style="padding:10px 8px;">Level</th><th style="padding:10px 8px;">Skills</th><th style="padding:10px 8px;">Company</th><th style="padding:10px 8px;">Location</th><th style="padding:10px 8px;text-align:center;">Score</th><th style="padding:10px 8px;">Resume</th><th style="padding:10px 8px;">Date</th></tr></thead><tbody>';
+  sessions.forEach(function(s,idx){
+    var sc=s.score>=75?'var(--green)':s.score>=50?'var(--amber)':'var(--red)';
+    var res=s.resumeFile?'<span style="color:var(--teal);font-size:10px;">'+escH(s.resumeFile)+'</span>':'--';
+    var bd=s.timedOut?'<span style="font-size:9px;background:#fef2f2;color:#dc2626;padding:1px 4px;border-radius:4px;margin-left:3px;">T</span>':'';
+    html+='<tr style="border-bottom:1px solid var(--border);">'
+      +'<td style="padding:8px;">'+escH(s.name||'')+'</td>'
+      +'<td style="padding:8px;font-size:11px;">'+escH(s.phone||'')+'</td>'
+      +'<td style="padding:8px;"><b>'+escH(s.industry||'')+'</b><br><small>'+escH(s.role||'')+'</small></td>'
+      +'<td style="padding:8px;font-size:11px;">'+escH((s.level||'').split('(')[0].trim())+'</td>'
+      +'<td style="padding:8px;font-size:11px;max-width:100px;">'+escH(s.skills||'')+'</td>'
+      +'<td style="padding:8px;font-size:11px;">'+escH(s.company||'')+'</td>'
+      +'<td style="padding:8px;font-size:11px;">'+escH(s.location||s.loc||'')+'</td>'
+      +'<td style="padding:8px;text-align:center;"><span style="font-weight:900;font-size:15px;color:'+sc+';">'+s.score+'</span>'+bd+'</td>'
+      +'<td style="padding:8px;font-size:10px;">'+res+'</td>'
+      +'<td style="padding:8px;font-size:11px;">'+(s.date||s.timestamp||'').slice(0,10)+'</td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';wrap.innerHTML=html;
+}
+function filterIvTable(){
+  var q=(document.getElementById('ivSearch').value||'').toLowerCase();
+  var ind=(document.getElementById('ivFilterIndustry').value||'').toLowerCase();
+  var all=window._ivAll||[];
+  renderIvTable(all.filter(function(s){
+    var mq=!q||[s.name,s.phone,s.industry,s.role,s.skills,s.company].some(function(f){return(f||'').toLowerCase().indexOf(q)>=0;});
+    var mi=!ind||(s.industry||'').toLowerCase()===ind;
+    return mq&&mi;
+  }));
+}
+function exportIvCSV(){
+  var ss=window._ivAll||[];if(!ss.length)return;
+  var rows=[['Name','Phone','Industry','Role','Level','Skills','Company','Location','Score','Resume','Date']];
+  ss.forEach(function(s){rows.push([s.name,s.phone,s.industry,s.role,s.level,s.skills,s.company,s.location||s.loc,s.score,s.resumeFile||'',s.date||s.timestamp]);});
+  var csv=rows.map(function(r){return r.map(function(v){return'"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='iv_sessions.csv';a.click();
+}
+function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
 async function loadAll(){
   document.getElementById('usersPane').innerHTML='<div class="loading"><div class="spinner"></div>Loading users…</div>';
   try{
@@ -400,6 +483,7 @@ async function loadAll(){
     updateStats();
     loadVisitors();
     renderUsers();
+    loadIvData();
     showToast('Loaded '+_allUsers.length+' users');
   }catch(e){
     document.getElementById('usersPane').innerHTML='<div class="loading" style="color:#fca5a5;">⚠️ Failed: '+e.message+'</div>';
