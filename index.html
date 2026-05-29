@@ -787,6 +787,7 @@ h2,h3{margin-top:0;}
     </div>
     <div class="dash-top-right">
       <span class="dash-user" id="dashUserName"></span>
+      <span id="planBadge" style="display:none;align-items:center;font-size:11px;font-weight:700;background:var(--teal-pale);color:var(--teal);padding:4px 12px;border-radius:16px;"></span>
       <span class="dash-admin-badge" id="dashAdminBadge" style="display:none" onclick="window.open('https://www.jobssignal.in/Admin/','_blank')" title="Admin Panel">🔑</span>
       <button class="btn-upgrade-top" id="topUpgradeBtn" onclick="showUpgradeModal()" style="display:none">Try ₹9 Trial</button>
       <button class="btn-logout" onclick="doLogout()">Logout</button>
@@ -1644,8 +1645,56 @@ function enterDash(user,paid){
   goTo('dashView');
   switchTab('home');
   setTimeout(initHomeDash,100);
+  setTimeout(checkShowWelcomeOffer,800);
 }
 
+function startPaymentWO(){
+  if(!currentUser){showToast('Please log in first','amber');return;}
+  var opts={key:RZP_KEY,amount:900,currency:'INR',name:'JobsSignal',
+    description:'30-Day Welcome Offer',
+    handler:async function(resp){
+      var ph=(currentUser.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+      var plan={phone:ph,
+        expiry:new Date(Date.now()+30*24*60*60*1000).toISOString(),
+        txnId:resp.razorpay_payment_id,amount:9,
+        paidAt:new Date().toISOString(),days:30,planType:'WO'};
+      localStorage.setItem(S_PLAN,JSON.stringify(plan));
+      isPaid=true;
+      dismissWelcomeOffer();
+      buildDash(currentUser,true);
+      showToast('Welcome Plan unlocked! 30 days full access!','green');
+      for(var _t=0;_t<3;_t++){
+        try{
+          var fr=await fetch(FB_DB+'/plans/'+ph+'.json',{method:'PUT',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(plan)});
+          if(fr.ok)break;
+        }catch(_e){}
+        await new Promise(function(r){setTimeout(r,1200);});
+      }
+      switchTab('home');
+    },
+    prefill:{name:currentUser.name||'',contact:currentUser.phone||''},
+    theme:{color:'#0284c7'}};
+  try{new Razorpay(opts).open();}catch(e){showToast('Payment failed to load','amber');}
+}
+function checkShowWelcomeOffer(){
+  if(!currentUser||isPaidUser())return;
+  var ph=(currentUser.phone||'').toString().slice(-10);
+  if(localStorage.getItem('js_wo_'+ph))return;
+  var el=document.getElementById('woOverlay');if(el)el.style.display='flex';
+}
+function dismissWelcomeOffer(){
+  var el=document.getElementById('woOverlay');if(el)el.style.display='none';
+  if(!currentUser)return;
+  var ph=(currentUser.phone||'').toString().slice(-10);
+  localStorage.setItem('js_wo_'+ph,'1');
+  try{fetch(FB_DB+'/wo_seen/'+ph+'.json',{method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({seen:true,at:new Date().toISOString()})});}catch(e){}
+}
+function woChooseWO(){dismissWelcomeOffer();setTimeout(startPaymentWO,200);}
+function woChooseTrial(){dismissWelcomeOffer();setTimeout(startPaymentTrial,200);}
 function buildDash(user,paid){
   // Top bar
   var nameEl=document.getElementById('dashUserName');
@@ -1681,6 +1730,20 @@ function buildDash(user,paid){
   // Home pricing: hide if paid
   var hp=document.getElementById('homePricing');
   if(hp)hp.style.display=isPaidUser()?'none':'block';
+
+  var _pb=document.getElementById('planBadge');
+  var _plan2=null;try{_plan2=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+  if(_pb&&isPaidUser()&&_plan2){
+    var _td2=_plan2.days||30,_now2=Date.now();
+    var _pa2=_plan2.paidAt?new Date(_plan2.paidAt):new Date(_now2-(_td2*86400000));
+    var _dl2=Math.max(0,_td2-Math.floor((_now2-_pa2)/86400000));
+    var _pt=_plan2.planType||'paid';
+    _pb.textContent=_pt==='WO'?'Gift Welcome Plan / '+_dl2+' days left'
+      :_pt==='trial'?'Trial / '+_dl2+' days left'
+      :'Paid Plan / '+_dl2+' days left';
+    _pb.style.display='flex';
+    var _ub2=document.getElementById('topUpgradeBtn');if(_ub2)_ub2.style.display='none';
+  }else if(_pb){_pb.style.display='none';}
 }
 
 function tileClick(tool){
@@ -3582,6 +3645,35 @@ window.autoEnhanceATS=autoEnhanceATS;
       </div>
       <div style="text-align:center;font-size:11px;color:var(--soft);margin-top:14px;">Pay via UPI · Razorpay · 100% secure</div>
     </div>
+  </div>
+</div>
+
+<div id="woOverlay" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:380px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.4);">
+    <div style="text-align:center;font-size:28px;margin-bottom:4px;">&#127881;</div>
+    <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Welcome to JobsSignal!</div>
+    <div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:16px;">One-time offer &middot; Only for new members</div>
+    <div style="background:#e0f2fe;border-radius:10px;padding:10px 14px;text-align:center;font-size:13px;font-weight:700;color:#0284c7;margin-bottom:20px;">&#9749; Less than a chai for your career</div>
+    <div style="display:flex;gap:8px;margin-bottom:18px;">
+      <div onclick="woChooseWO()" style="flex:1;border:2px solid #0284c7;background:#f0f9ff;border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;position:relative;">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0284c7;color:#fff;font-size:8px;font-weight:800;padding:3px 8px;border-radius:8px;white-space:nowrap;">&#128293; BEST DEAL</div>
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:#0284c7;">&#8377;9</div>
+        <div style="font-size:11px;font-weight:700;color:#0a0f1e;margin-top:2px;">30 Days</div>
+        <div style="font-size:10px;color:#6b7280;margin-top:2px;">Full access</div>
+      </div>
+      <div onclick="woChooseTrial()" style="flex:1;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;">
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:#0a0f1e;">&#8377;9</div>
+        <div style="font-size:11px;font-weight:700;color:#0a0f1e;margin-top:2px;">7 Days</div>
+        <div style="font-size:10px;color:#6b7280;margin-top:2px;">Try first</div>
+      </div>
+      <div onclick="dismissWelcomeOffer()" style="flex:1;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;">
+        <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:#9ca3af;">Free</div>
+        <div style="font-size:11px;font-weight:700;color:#9ca3af;margin-top:2px;">Limited</div>
+        <div style="font-size:10px;color:#d1d5db;margin-top:2px;">Basic only</div>
+      </div>
+    </div>
+    <button onclick="woChooseWO()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Unlock 30 Days for &#8377;9 &#8594;</button>
+    <button onclick="dismissWelcomeOffer()" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Skip &mdash; continue with free plan</button>
   </div>
 </div>
 </body></html>
