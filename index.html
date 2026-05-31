@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#0f1117">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+
 <style>
 /* ═══ RESET + TOKENS ═══════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -582,7 +582,6 @@ h2,h3{margin-top:0;}
 
 <!-- ═══ TOAST ═══════════════════════════════════════════════════ -->
 <div id="toast"></div>
-    </div>
 
 <!-- ═══ LANDING VIEW ════════════════════════════════════════════ -->
 <div class="view active" id="landingView" style="display:block">
@@ -601,7 +600,49 @@ h2,h3{margin-top:0;}
   <div class="landing">
 
     <!-- SECTION 1: HERO ────────────────────────── -->
-    <section class="hero" style="padding:60px 24px 56px;min-height:90vh;display:flex;align-items:center;">
+    <section style="padding:80px 24px;background:var(--cream);">
+  <div style="max-width:1080px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center;" class="hero-grid">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--teal-pale);color:var(--teal);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:18px;letter-spacing:.3px;">&#127919; NEW — AI Mock Interview</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:clamp(26px,3vw,40px);font-weight:900;color:var(--ink);line-height:1.15;letter-spacing:-.5px;margin-bottom:16px;">Practice before<br>the real thing.</h2>
+        <p style="font-size:15px;color:var(--soft);line-height:1.7;margin-bottom:28px;">AI generates questions for your exact role and industry. You answer. AI scores every response. Full report in 25 minutes.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0;"></div><span style="font-size:14px;color:var(--ink);font-weight:600;">11 industries — IT, Banking, HR, Healthcare + 7 more</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0;"></div><span style="font-size:14px;color:var(--ink);font-weight:600;">Resume or LinkedIn URL — AI asks from your experience</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0;"></div><span style="font-size:14px;color:var(--ink);font-weight:600;">Timed test — tab switching detected (like real interview)</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0;"></div><span style="font-size:14px;color:var(--ink);font-weight:600;">Score + detailed feedback per answer — instant report</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 2px 12px rgba(10,15,30,.06);">
+          <div style="font-size:22px;">&#127881;</div>
+          <div><div style="font-size:13px;font-weight:800;color:var(--ink);">1 Free Test — No Card Needed</div><div style="font-size:12px;color:var(--soft);margin-top:2px;">Additional tests: 3 for &#8377;99 (&#8377;33/test)</div></div>
+        </div>
+      </div>
+      <!-- Score card preview -->
+      <div style="background:var(--ink);border-radius:24px;padding:28px;box-shadow:0 20px 60px rgba(10,15,30,.18);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;">Interview Result</div><div style="font-size:12px;color:rgba(255,255,255,.5);">IT &amp; Software · Senior</div></div>
+          <div style="background:rgba(22,163,74,.15);color:#4ade80;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;">Completed</div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:24px;">
+          <div style="font-family:'Fraunces',serif;font-size:72px;font-weight:900;color:var(--teal);line-height:.9;">78</div>
+          <div style="padding-bottom:8px;"><div style="font-size:14px;font-weight:700;color:#fff;">Good Performance</div><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;">/ 100</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:rgba(255,255,255,.4);width:104px;flex-shrink:0;">Communication</span><div style="flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;"><div style="width:85%;height:4px;background:#0d9488;border-radius:2px;"></div></div><span style="font-size:11px;color:rgba(255,255,255,.4);">85%</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:rgba(255,255,255,.4);width:104px;flex-shrink:0;">Technical</span><div style="flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;"><div style="width:72%;height:4px;background:var(--teal);border-radius:2px;"></div></div><span style="font-size:11px;color:rgba(255,255,255,.4);">72%</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:rgba(255,255,255,.4);width:104px;flex-shrink:0;">Problem Solving</span><div style="flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;"><div style="width:80%;height:4px;background:#8b5cf6;border-radius:2px;"></div></div><span style="font-size:11px;color:rgba(255,255,255,.4);">80%</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:rgba(255,255,255,.4);width:104px;flex-shrink:0;">Confidence</span><div style="flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;"><div style="width:75%;height:4px;background:#f59e0b;border-radius:2px;"></div></div><span style="font-size:11px;color:rgba(255,255,255,.4);">75%</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">AI Feedback</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.65);margin-bottom:5px;">&#10003; Clear problem-solving with real examples</div>
+          <div style="font-size:12px;color:#fbbf24;">&#9651; Add measurable metrics — % or &#8377; impact</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><section class="hero" style="padding:60px 24px 56px;min-height:90vh;display:flex;align-items:center;">
       <div style="max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;" class="hero-grid">
 
         <!-- Left: copy -->
@@ -680,36 +721,7 @@ h2,h3{margin-top:0;}
     </section>
 
     <!-- SECTION 2: HOW IT WORKS ─────────────────── -->
-    <div class="how-section">
-      <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
-        <div style="text-align:center;margin-bottom:40px;">
-          <div class="section-label" style="color:var(--amber)">How It Works</div>
-          <h2 class="section-title serif" style="color:#fff">4 Steps to Your Next Job</h2>
-        </div>
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-title">Upload Resume</div>
-            <div class="step-desc">Drop your PDF or paste resume text — LinkedIn exports work great</div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-title">Get ATS Score</div>
-            <div class="step-desc">6-category AI analysis with actionable fixes</div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-title">See Matching Jobs</div>
-            <div class="step-desc">Google Jobs + LinkedIn tailored to your profile &amp; city</div>
-          </div>
-          <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-title">Apply &amp; Track</div>
-            <div class="step-desc">Walk-ins, returnship programmes &amp; freelance gigs</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <section style="background:var(--ink);padding:72px 24px 80px;"><div style="max-width:1080px;margin:0 auto;"><div style="text-align:center;margin-bottom:56px;"><h2 style="font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,42px);font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:12px;">One App. Everything You Need.</h2><p style="color:rgba(255,255,255,.45);font-size:15px;max-width:480px;margin:0 auto;">Built for Indian job seekers. Fast, private, no ads.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:20px;overflow:hidden;"><div style="background:var(--ink);padding:32px 28px;"><div style="font-size:32px;margin-bottom:14px;">&#128202;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">ATS Resume Score</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">Free 0&#8211;100 ATS score with AI-suggested fixes.</div></div><div style="background:var(--ink);padding:32px 28px;border-left:1px solid rgba(255,255,255,.07);border-right:1px solid rgba(255,255,255,.07);"><div style="font-size:32px;margin-bottom:14px;">&#127919;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">AI Mock Interview</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">Practice for your exact role. Scored live by AI. 11 industries.</div><div style="margin-top:10px;font-size:10px;font-weight:700;background:rgba(2,132,199,.25);color:#7dd3fc;padding:3px 10px;border-radius:20px;display:inline-block;">1 free test</div></div><div style="background:var(--ink);padding:32px 28px;"><div style="font-size:32px;margin-bottom:14px;">&#127760;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">17 Job Portals</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">Naukri, LinkedIn, Glassdoor, Wellfound + 13 more in one click.</div></div><div style="background:var(--ink);padding:32px 28px;border-top:1px solid rgba(255,255,255,.07);"><div style="font-size:32px;margin-bottom:14px;">&#127891;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Freshers &amp; Campus</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">Campus drives, internships, entry-level across Google, LinkedIn, Internshala.</div></div><div style="background:var(--ink);padding:32px 28px;border-top:1px solid rgba(255,255,255,.07);border-left:1px solid rgba(255,255,255,.07);border-right:1px solid rgba(255,255,255,.07);"><div style="font-size:32px;margin-bottom:14px;">&#127961;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Walk-in Drives</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">Today's walk-ins near you, filtered by skill and city.</div></div><div style="background:var(--ink);padding:32px 28px;border-top:1px solid rgba(255,255,255,.07);"><div style="font-size:32px;margin-bottom:14px;">&#128200;</div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Salary Tools</div><div style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;">CTC decoder, hike calculator, city comparison, offer letter analyser.</div></div></div></div></section>
 
     <!-- SECTION 3: PRICING ──────────────────────── -->
     <div class="section" style="text-align:center;">
@@ -719,7 +731,7 @@ h2,h3{margin-top:0;}
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-name">Free</div>
-          <div class="price-amount">₹0</div>
+        <div class="price-amount">₹0</div>
           <div class="price-period">Always free</div>
           <ul class="price-features">
             <li><span class="chk">✓</span> ATS Scorecard (6 categories)</li>
@@ -763,6 +775,8 @@ h2,h3{margin-top:0;}
             <li><span class="chk">✓</span> Women Returnship Job Search</li>
             <li><span class="chk">✓</span> 🌐 16+ Job Portals</li>
             <li><span class="chk">✓</span> 📝 AI Cover Letter Generator</li>
+            <li><span class="chk">✓</span> 🎯 AI Mock Interview — 1 free test</li>
+            <li style="padding-left:22px;font-size:11px;color:var(--soft);">Additional 3 tests for ₹99 (₹33/test)</li>
           </ul>
           <button class="btn-price paid" onclick="goTo('signupView');showUpgradeModal()">Get Full Access →</button>
         </div>
@@ -804,6 +818,7 @@ h2,h3{margin-top:0;}
     <button class="tab-btn" data-tab="women" onclick="switchTab('women')">👩 Women</button>
     <button class="tab-btn" data-tab="fresher" onclick="switchTab('fresher')">🎓 Freshers</button>
     <button class="tab-btn" data-tab="portals" onclick="switchTab('portals')">🌐 Job Portals</button>
+    <button class="tab-btn" onclick="checkMockInterviewAccess()">🎯 Mock Interview</button>
   </div>
 
   <!-- ── HOME TAB ────────────────────────────────────── -->
@@ -1283,6 +1298,12 @@ h2,h3{margin-top:0;}
 
 </div><!-- end dash-wrap -->
 
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script>
 function openATSGoogleJobs(){
   if(!isPaidUser()){showUpgradeModal();return;}
@@ -1486,7 +1507,7 @@ function switchTab(tab,skipHistory){
 
 // ── AUTH ──────────────────────────────────────────────────────────
 function isSuperUser(){var ph=(currentUser&&currentUser.phone)?(''+currentUser.phone).replace(/[^0-9]/g,'').slice(-10):'';return ph===SUPER;}
-function isPaidUser(){
+async function isPaidUser(){
   if(isSuperUser())return true;  // Super user always has full access
   return isPaid;
 }
@@ -1500,7 +1521,7 @@ async function doLogin(){
   if(phone===SUPER){
     isPaid=true;  // Ensure paid flag set immediately
     atsPublicMode=false;  // Clear any public mode
-    enterDash({phone:phone,name:'Admin',skill:'Full Stack Developer',city:'Hyderabad'},true);
+    enterDash({phone:phone,name:'Admin',skill:'Full Stack Developer',city:'Hyderabad',isAdmin:true},true);
     return;
   }
   // Block check
@@ -1648,7 +1669,7 @@ function enterDash(user,paid){
   setTimeout(checkShowWelcomeOffer,800);
 }
 
-function startPaymentWO(){
+async function startPaymentWO(){
   if(!currentUser){showToast('Please log in first','amber');return;}
   var opts={key:RZP_KEY,amount:900,currency:'INR',name:'JobsSignal',
     description:'30-Day Welcome Offer',
@@ -1677,6 +1698,23 @@ function startPaymentWO(){
     prefill:{name:currentUser.name||'',contact:currentUser.phone||''},
     theme:{color:'#0284c7'}};
   try{new Razorpay(opts).open();}catch(e){showToast('Payment failed to load','amber');}
+}
+function checkMockInterviewAccess(){
+  if(!currentUser){showUpgradeModal();return;}
+  if(!isPaidUser()){showUpgradeModal();return;}
+  var plan=null;try{plan=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+  var pt=(plan&&plan.planType)||'paid';
+  if(pt==='paid'){window.location.href='interview.html';return;}
+  var td=(plan&&plan.days)||(pt==='trial'?7:30);
+  var pa=plan&&plan.paidAt?new Date(plan.paidAt):new Date(Date.now()-td*86400000);
+  var dl=Math.max(0,td-Math.floor((Date.now()-pa)/86400000));
+  var sub=document.getElementById('mockUpgradeSubText');
+  var di=document.getElementById('mockUpgradeDaysInfo');
+  var pn=pt==='trial'?'₹9 Trial':'Welcome Offer';
+  if(sub)sub.innerHTML='You are on the <strong>₹9 '+pn+'</strong> plan with <strong>'+dl+' days left</strong>. AI Mock Interview requires the ₹99 plan.';
+  if(di)di.textContent='Your '+dl+' days + 30 new days = '+(dl+30)+' days total after upgrade';
+  var modal=document.getElementById('mockUpgradeModal');
+  if(modal)modal.style.display='flex';
 }
 function checkShowWelcomeOffer(){
   if(!currentUser||isPaidUser())return;
@@ -1843,7 +1881,7 @@ function closeUpgradeModal(){
   var m=document.getElementById('upgradeModal');
   if(m)m.classList.remove('open');
 }
-function startPaymentTrial(){
+async function startPaymentTrial(){
   if(!currentUser){showToast('Please log in first','amber');goTo('loginView');return;}
   var opts={
     key:RZP_KEY,amount:900,currency:'INR',name:'JobsSignal',
@@ -1871,7 +1909,7 @@ function startPaymentTrial(){
   try{var rzp=new Razorpay(opts);rzp.open();}
   catch(e){showToast('Payment failed to load. Check internet.','amber');}
 }
-function startPayment(){
+async function startPayment(){
   if(!currentUser){showToast('Please log in first','amber');goTo('loginView');return;}
   var opts={
     key:RZP_KEY,amount:9900,currency:'INR',name:'JobsSignal',
@@ -1986,7 +2024,7 @@ function handleATSFile(input){
 }
 
 // ── ATS: SCORING ─────────────────────────────────────────────────
-function runATSCheck(){
+async function runATSCheck(){
   var ta=document.getElementById('atsPasteText');
   var txt=(ta?ta.value.trim():'')||atsResumeText||'';
   if(!txt||txt.length<50){showToast('Upload resume or paste text first','amber');return;}
@@ -2292,7 +2330,7 @@ function renderATSResult(r){
 
 
 
-function resetATS(){
+async function resetATS(){
   var res=document.getElementById('atsResult');if(res){res.style.display='none';}
   var uz=document.getElementById('atsUploadZone');if(uz)uz.style.display='block';
   var ta=document.getElementById('atsPasteText');if(ta)ta.value='';
@@ -2499,7 +2537,7 @@ function runWalkIn(){
 }
 
 // ── SALARY TOOLS ─────────────────────────────────────────────────
-function runSalaryRange(){
+async function runSalaryRange(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var skill=(document.getElementById('sal_skill')||{value:''}).value.trim();
   var city=(document.getElementById('sal_city')||{value:''}).value;
@@ -2602,7 +2640,7 @@ async function aiSalaryEstimate(skill,city,exp,el){
       +'</div>';
   }
 }
-function runOfferAnalysis(){
+async function runOfferAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('offerText')||{value:''}).value.trim();
   if(txt.length<50){showToast('Paste your offer letter text first','amber');return;}
@@ -2687,7 +2725,7 @@ async function enhanceOfferWithAI(){
 }
 
 // ── MOONLIGHTING ──────────────────────────────────────────────────
-function runContractAnalysis(){
+async function runContractAnalysis(){
   if(!isPaidUser()){showUpgradeModal();return;}
   var txt=(document.getElementById('contractText')||{value:''}).value.trim();
   if(txt.length<30){showToast('Paste your employment contract text first','amber');return;}
@@ -3227,33 +3265,7 @@ function filterPortalFeed(pill,source){
   if(feed)renderJobCards(filtered,feed);
 }
 
-function renderJobCards(jobs,feed){
-  if(!jobs.length){
-    feed.innerHTML='<div class="az-empty" style="text-align:center;padding:28px">'
-      +'<div style="font-size:28px;margin-bottom:8px">🔍</div>'
-      +'<strong>No live jobs found right now</strong><br>'
-      +'<small style="color:var(--soft)">API quota may be reached. Try searching directly on portals below ↓</small>'
-      +'</div>';
-    return;
-  }
-  var sourceClass={'Google Jobs':'sc-google','Naukri':'sc-naukri','Glassdoor':'sc-glassdoor','Indeed':'sc-indeed','LinkedIn':'sc-linkedin','Adzuna':'sc-adzuna'};
-  feed.innerHTML=jobs.map(function(j){
-    var en=(j.company||'?').charAt(0).toUpperCase();
-    var sc=sourceClass[j.source]||'sc-other';
-    var dom=(j.company||'').toLowerCase().replace(/pvt\.?\s*ltd\.?|inc\.?|llc|corp\.?/gi,'').replace(/\s+/g,'').replace(/[^a-z0-9]/g,'')+'.com';
-    var logoHtml=j.logo?'<img src="'+j.logo+'" onerror="this.outerHTML=\'<span>'+en+'</span>\'">':'<img src="https://logo.clearbit.com/'+dom+'" onerror="this.outerHTML=\'<span>'+en+'</span>\'">';
-    var posted=j.posted?timeSince(j.posted):'';
-    return '<a class="merged-job-card" href="'+(j.url||'#')+'" target="_blank" rel="noopener">'
-      +'<div class="mjc-top"><div class="mjc-logo">'+logoHtml+'</div>'
-      +'<div class="mjc-info"><div class="mjc-title">'+(j.title||'Job Opening')+'</div>'
-      +'<div class="mjc-company">'+(j.company||'')+(j.location?' · '+j.location:'')+'</div></div>'
-      +'<div class="mjc-right">'+(j.salary?'<div class="mjc-salary">'+j.salary+'</div>':'')
-      +'<span class="source-chip '+sc+'">'+j.source+'</span></div></div>'
-      +'<div class="mjc-tags">'+(posted?'<span class="mjc-tag">'+posted+'</span>':'')+'</div>'
-      +(j.desc?'<div class="mjc-desc">'+j.desc+'...</div>':'')
-      +'</a>';
-  }).join('');
-}
+
 
 function buildJobQuery(skill,exp){
   var expMap={
@@ -3366,14 +3378,8 @@ function getATSJobQuery(){
   return {skill:query.trim(),city:r.location||lastSearchedCity||(currentUser&&currentUser.city)||'India'};
 }
 
-function openATSNaukri(){
-  if(!isPaidUser()){showUpgradeModal();return;}
-  var aq=getATSJobQuery();
-  var skill=aq?aq.skill:(lastSearchedSkill||'');
-  if(!skill){showToast('Check your ATS score first','amber');return;}
-  window.open('https://www.naukri.com/'+encodeURIComponent(skill.toLowerCase().replace(/\s+/g,'-'))+'-jobs','_blank');
-}
-function openFresherNaukri(){
+
+async function openFresherNaukri(){
   var s=window._fresherSkill||'fresher';
   window.open('https://www.naukri.com/fresher-'+encodeURIComponent(s.toLowerCase().replace(/\s+/g,'-'))+'-jobs','_blank');
 }
@@ -3487,6 +3493,8 @@ window.autoEnhanceATS=autoEnhanceATS;
 </script>
 
 <!-- Razorpay -->
+
+
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 
 
@@ -3676,4 +3684,6 @@ window.autoEnhanceATS=autoEnhanceATS;
     <button onclick="dismissWelcomeOffer()" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Skip &mdash; continue with free plan</button>
   </div>
 </div>
-</body></html>
+<div id="mockUpgradeModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:400px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="mockUpgradeSubText" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:16px;line-height:1.6;"></div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:14px;font-weight:800;">Upgrade to &#8377;99</div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#0284c7;">&#8377;99</div></div><div id="mockUpgradeDaysInfo" style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:8px;"></div><div style="font-size:11px;color:#374151;line-height:1.8;">&#10003; All current plan features<br>&#10003; &#127919; AI Mock Interview &#8212; 1 free test<br>&#10003; 3 more tests for &#8377;99 (&#8377;33/test)</div></div><button onclick="startPayment();document.getElementById('mockUpgradeModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockUpgradeModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
+</body>
+</html>

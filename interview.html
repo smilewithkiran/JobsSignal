@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI Mock Interview — JobsSignal</title>
+<meta name="description" content="AI-powered mock interviews for every industry. IT, Banking, Insurance, Healthcare, FMCG and more. Personalised to your role and level.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf7f2; --cream2:#f3ede4; --cream3:#ede5d8;
+  --ink:#0f1117; --ink2:#1e2330; --ink3:#2d3348;
+  --amber:#e8943a; --amber-l:#f5a84e; --amber-d:#c4762a; --amber-pale:rgba(232,148,58,.1);
+  --teal:#1a6b6b; --teal-l:#218f8f; --teal-pale:#e8f4f4; --teal-deep:#0f4040;
+  --soft:#6b7280; --muted:#9ca3af; --faint:#d1d5db;
+  --border:rgba(15,17,23,.1); --border2:rgba(15,17,23,.18);
+  --shadow:0 2px 8px rgba(15,17,23,.08);
+  --shadow-md:0 4px 16px rgba(15,17,23,.1);
+  --shadow-lg:0 8px 32px rgba(15,17,23,.14);
+  --r:10px; --r2:14px; --r3:18px;
+  --green:#16a34a; --green-pale:rgba(22,163,74,.08);
+  --red:#dc2626; --red-pale:rgba(220,38,38,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;min-height:100vh;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+button,input,textarea,select{font-family:inherit;}
+img{max-width:100%;display:block;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 clamp(14px,4vw,40px);height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.nav-logo{display:flex;align-items:center;display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex-shrink:0;}
+.nav-logo svg{width:34px;height:34px;flex-shrink:0;}
+.logo-name{font-family:'Fraunces',serif;font-weight:800;font-size:16px;color:var(--ink);line-height:1;}
+.logo-name span{color:var(--amber);}
+.logo-tag{font-size:10px;color:var(--muted);margin-top:1px;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-badge{background:var(--teal-pale);color:var(--teal);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(26,107,107,.2);white-space:nowrap;}
+.nav-btn{font-size:13px;font-weight:600;color:var(--soft);background:none;border:none;cursor:pointer;padding:7px 12px;border-radius:var(--r);transition:all .15s;white-space:nowrap;}
+.nav-btn:hover{background:var(--cream2);color:var(--ink);}
+.nav-btn.admin-btn{color:var(--amber-d);border:1px solid rgba(232,148,58,.3);}
+
+/* VIEWS */
+.view{display:none;animation:fadeUp .32s ease;}
+.view.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* LAYOUT */
+.wrap{max-width:680px;margin:0 auto;padding:32px clamp(14px,4vw,24px) 80px;}
+.wrap-wide{max-width:1000px;margin:0 auto;padding:28px clamp(14px,4vw,24px) 80px;}
+
+/* CARDS */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--shadow);}
+.card-pad{padding:22px;}
+.card-sm{padding:16px;}
+
+/* TYPOGRAPHY */
+.section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(24px,5vw,38px);font-weight:800;line-height:1.15;color:var(--ink);margin-bottom:10px;}
+.hero-title em{font-style:italic;color:var(--teal);}
+.hero-sub{font-size:14px;color:var(--soft);line-height:1.75;margin-bottom:24px;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 20px;border-radius:var(--r);border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s ease;}
+.btn:hover{transform:translateY(-1px);}
+.btn:active{transform:none;}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important;}
+.btn-primary{background:var(--amber);color:#fff;box-shadow:0 3px 12px rgba(232,148,58,.3);}
+.btn-primary:hover{background:var(--amber-d);}
+.btn-teal{background:var(--teal);color:#fff;box-shadow:0 3px 12px rgba(26,107,107,.25);}
+.btn-teal:hover{background:var(--teal-l);}
+.btn-outline{background:transparent;color:var(--teal);border:1.5px solid var(--teal);}
+.btn-outline:hover{background:var(--teal-pale);}
+.btn-ghost{background:var(--cream2);color:var(--ink);border:1px solid var(--border2);}
+.btn-ghost:hover{background:var(--cream3);}
+.btn-full{width:100%;}
+.btn-lg{padding:14px 26px;font-size:14px;}
+
+/* FORMS */
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px;}
+.form-input,.form-textarea,.form-select{width:100%;padding:11px 14px;background:var(--cream);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--ink);font-size:14px;transition:border-color .15s,box-shadow .15s;}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,107,107,.1);}
+.form-textarea{resize:vertical;line-height:1.7;min-height:80px;}
+.form-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.form-group{margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.form-row{grid-template-columns:1fr;}}
+.char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px;}
+.form-hint{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5;}
+
+/* PILLS */
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em;}
+.pill-amber{background:var(--amber-pale);color:var(--amber-d);border:1px solid rgba(232,148,58,.25);}
+.pill-teal{background:var(--teal-pale);color:var(--teal);border:1px solid rgba(26,107,107,.2);}
+.pill-soft{background:var(--cream2);color:var(--soft);border:1px solid var(--border);}
+.pill-red{background:var(--red-pale);color:var(--red);border:1px solid rgba(220,38,38,.2);}
+.pill-green{background:var(--green-pale);color:var(--green);border:1px solid rgba(22,163,74,.2);}
+
+/* LEVEL SELECTOR GRID */
+.level-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:20px;}
+@media(max-width:600px){.level-grid{grid-template-columns:repeat(2,1fr);}}
+.level-btn{padding:9px 6px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--cream);font-size:12px;font-weight:600;color:var(--soft);cursor:pointer;text-align:center;transition:all .15s;line-height:1.3;}
+.level-btn small{display:block;font-size:10px;font-weight:400;margin-top:2px;color:var(--muted);}
+.level-btn:hover{border-color:var(--teal);color:var(--teal);}
+.level-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+.level-btn.active small{color:rgba(255,255,255,.75);}
+
+/* INDUSTRY GRID */
+.industry-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:20px;}
+@media(max-width:600px){.industry-grid{grid-template-columns:repeat(2,1fr);}}
+.industry-btn{padding:10px 7px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--cream);font-size:12px;font-weight:600;color:var(--soft);cursor:pointer;text-align:center;transition:all .15s;line-height:1.4;}
+.industry-btn .ind-icon{font-size:20px;display:block;margin-bottom:4px;}
+.industry-btn:hover{border-color:var(--amber);color:var(--ink);}
+.industry-btn.active{background:var(--amber-pale);border-color:var(--amber);color:var(--amber-d);}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:24px;}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.progress-meta span{font-size:13px;color:var(--soft);}
+.progress-meta strong{font-size:13px;color:var(--teal);font-weight:700;}
+.progress-track{height:4px;background:var(--cream2);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:4px;transition:width .5s ease;}
+
+/* QUESTION CARD */
+.q-card{padding:22px;margin-bottom:14px;}
+.q-meta{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap;}
+.q-num{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--cream2);line-height:1;margin-right:2px;user-select:none;flex-shrink:0;}
+.q-text{font-size:16px;font-weight:500;line-height:1.75;color:var(--ink2);}
+.q-hint{background:var(--teal-pale);border-left:3px solid var(--teal);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:13px;color:var(--teal);line-height:1.6;margin-top:12px;}
+.hint-btn{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:5px 0;margin-top:8px;text-decoration:underline;text-underline-offset:2px;}
+.hint-btn:hover{color:var(--teal);}
+
+/* ANSWER */
+.answer-wrap{padding:20px;margin-bottom:14px;}
+.answer-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;}
+
+/* FEEDBACK */
+.fb-block{padding:18px 20px;border-radius:var(--r2);background:linear-gradient(135deg,rgba(26,107,107,.05),rgba(232,148,58,.03));border:1px solid rgba(26,107,107,.14);margin-bottom:14px;}
+.fb-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.fb-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+.fb-lbl{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;}
+.fb-score{margin-left:auto;font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--amber);}
+.fb-text{font-size:14px;color:var(--ink2);line-height:1.75;}
+
+/* GENERATING */
+.gen-wrap{text-align:center;padding:56px 20px;}
+.gen-spinner{width:50px;height:50px;border-radius:50%;border:3px solid var(--cream2);border-top-color:var(--teal);animation:spin 1s linear infinite;margin:0 auto 28px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-title{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:28px;}
+.gen-step{display:flex;align-items:center;gap:12px;padding:9px 0;opacity:.25;transition:opacity .4s ease;max-width:300px;margin:0 auto;}
+.gen-step.done{opacity:1;}
+.gen-icon{width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:background .4s;}
+.gen-step.done .gen-icon{background:var(--teal);color:#fff;}
+.gen-step-text{font-size:14px;color:var(--soft);text-align:left;}
+
+/* REPORT */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:560px){.report-grid{grid-template-columns:1fr;}}
+.score-ring-wrap{text-align:center;padding:24px 16px;}
+.score-num{font-family:'Fraunces',serif;font-size:40px;font-weight:900;color:var(--ink);display:block;line-height:1;}
+.score-lbl{font-size:12px;color:var(--muted);margin-top:3px;display:block;}
+.verdict{font-size:13px;color:var(--soft);line-height:1.7;margin-top:12px;}
+.bk-row{margin-bottom:13px;}
+.bk-meta{display:flex;justify-content:space-between;margin-bottom:5px;}
+.bk-name{font-size:13px;font-weight:600;color:var(--ink2);}
+.bk-score{font-family:'Fraunces',serif;font-size:13px;font-weight:800;}
+.bk-track{height:5px;background:var(--cream2);border-radius:4px;overflow:hidden;}
+.bk-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+.si-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:520px){.si-grid{grid-template-columns:1fr;}}
+.si-card{padding:16px;border-radius:var(--r2);}
+.si-lbl{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;}
+.si-item{font-size:12px;color:var(--soft);line-height:1.6;padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;}
+.si-item:last-child{border:none;}
+.qa-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.qa-item:last-child{border:none;margin-bottom:0;}
+.qa-qrow{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px;}
+.qa-qnum{font-family:'Fraunces',serif;font-weight:900;font-size:16px;color:var(--cream3);flex-shrink:0;line-height:1.4;}
+.qa-q{font-size:14px;font-weight:600;color:var(--ink2);flex:1;line-height:1.5;}
+.qa-score{font-family:'Fraunces',serif;font-weight:900;font-size:16px;flex-shrink:0;}
+.qa-ans{font-size:13px;color:var(--soft);margin-bottom:8px;line-height:1.65;font-style:italic;}
+.qa-fb{background:var(--teal-pale);border-left:3px solid var(--teal);padding:8px 12px;border-radius:0 var(--r) var(--r) 0;font-size:13px;color:var(--teal);line-height:1.6;}
+
+/* ADMIN */
+.admin-login{max-width:380px;margin:60px auto;padding:0 20px;}
+.admin-header{background:var(--teal-deep);color:#fff;border-radius:var(--r2) var(--r2) 0 0;padding:20px 22px;}
+.admin-header h2{font-family:'Fraunces',serif;font-weight:800;font-size:20px;margin-bottom:2px;}
+.admin-header p{font-size:13px;opacity:.7;}
+.admin-body{background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2);padding:22px;}
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+@media(max-width:700px){.stat-cards{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:30px;font-weight:900;color:var(--teal);}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:3px;}
+.admin-table-wrap{overflow-x:auto;}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px;}
+.admin-table th{background:var(--cream2);padding:10px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--border2);white-space:nowrap;}
+.admin-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.admin-table tr:hover td{background:var(--cream);}
+.admin-table tr:last-child td{border:none;}
+.ind-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;background:var(--cream2);color:var(--soft);}
+.score-badge{font-family:'Fraunces',serif;font-size:14px;font-weight:900;}
+.score-hi{color:var(--green);}
+.score-mid{color:var(--amber-d);}
+.score-lo{color:var(--red);}
+.expand-btn{background:none;border:none;color:var(--teal);font-size:12px;cursor:pointer;font-weight:600;}
+.expand-row{display:none;background:var(--cream);}
+.expand-row.open{display:table-row;}
+.expand-cell{padding:14px;font-size:13px;color:var(--soft);}
+.admin-filters{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.filter-select{padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--cream);font-size:13px;color:var(--ink);cursor:pointer;appearance:none;}
+.admin-tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid var(--border);}
+.admin-tab{padding:10px 18px;font-size:13px;font-weight:600;color:var(--soft);background:none;border:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.admin-tab.active{color:var(--teal);border-bottom-color:var(--teal);}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--ink);color:#fff;padding:12px 18px;border-radius:var(--r2);font-size:13px;font-weight:500;box-shadow:var(--shadow-lg);display:none;align-items:center;gap:9px;border-left:4px solid var(--amber);max-width:300px;}
+.toast.show{display:flex;animation:toastIn .3s ease;}
+@keyframes toastIn{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* DOT LOADER */
+.dots{display:inline-flex;gap:4px;align-items:center;}
+.dots span{width:5px;height:5px;border-radius:50%;background:currentColor;animation:dp 1.2s ease infinite;}
+.dots span:nth-child(2){animation-delay:.2s;}
+.dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dp{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--cream2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;">
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;color:#0a0f1e;line-height:1;">Jobs<span style="color:#e8943a;font-weight:300;">Signal</span></span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-badge" id="navBadge" style="display:none"></span>
+    <button class="nav-btn" onclick="window.location.href='index.html'">&#8592; Dashboard</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 1: PROFILE SETUP
+══════════════════════════════════════════════ -->
+<div class="view active" id="viewSetup">
+<div class="wrap">
+  <div class="section-label">AI Mock Interview — Across All Industries</div>
+  <h1 class="hero-title">Tell us about yourself.<br><em>We'll do the rest.</em></h1>
+  <p class="hero-sub">One-time profile setup. AI generates role-specific, industry-specific interview questions and scores every answer.</p>
+
+  <!-- Section A: Personal -->
+  <div class="card card-pad" style="margin-bottom:14px;">
+    <div class="section-label" style="margin-bottom:14px;">Personal Details</div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Full Name <span style="color:var(--amber)">*</span></label>
+        <input class="form-input" type="text" id="fName" placeholder="e.g. Arjun Sharma" maxlength="60">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Mobile Number <span style="color:var(--amber)">*</span></label>
+        <input class="form-input" type="tel" id="fPhone" placeholder="10-digit mobile" maxlength="10" pattern="[0-9]{10}">
+      </div>
+    </div>
+    <div style="margin-top:14px" class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="fEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Current Location <span style="color:var(--amber)">*</span></label>
+        <input class="form-input" type="text" id="fLocation" placeholder="e.g. Hyderabad">
+      </div>
+    </div>
+  </div>
+
+    <div class="card card-pad" style="margin-bottom:14px;"><div class="section-label" style="margin-bottom:10px;">LinkedIn Profile URL or Upload Resume<span style="font-size:10px;color:var(--muted);font-weight:500;text-transform:none;margin-left:4px;">(Helps AI ask questions from your experience)</span></div><div style="display:flex;flex-direction:column;gap:10px;"><input type="url" class="form-input" id="fLinkedIn" style="width:100%;" placeholder="https://linkedin.com/in/your-profile"><label for="fResume" style="cursor:pointer;display:block;"><div id="resumeDropZone" style="border:1.5px dashed var(--border2);border-radius:var(--r);padding:12px 16px;text-align:center;background:var(--cream);font-size:12px;color:var(--muted);">&#128196; Click to upload PDF / DOC / DOCX / TXT (max 5MB)<div id="resumeFileName" style="display:none;margin-top:4px;font-size:11px;font-weight:700;color:var(--teal);"></div></div></label><input type="file" id="fResume" accept=".pdf,.doc,.docx,.txt" style="display:none;" onchange="handleResumeUpload(this)"></div></div>
+<!-- Section B: Industry -->
+  <div class="card card-pad" style="margin-bottom:14px;">
+    <div class="section-label" style="margin-bottom:14px;">Industry <span style="color:var(--amber)">*</span></div>
+    <div class="form-group" style="margin-bottom:0">
+      <select class="form-select" id="fIndustry" onchange="S.profile.industry=this.value">
+        <option value="">&#8212; Select Industry &#8212;</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Section C: Level -->
+  <div class="card card-pad" style="margin-bottom:14px;">
+    <div class="section-label" style="margin-bottom:14px;">Experience Level <span style="color:var(--amber)">*</span></div>
+    <div class="form-group">
+      <select class="form-select" id="fLevel" onchange="S.profile.level=this.value">
+        <option value="">&#8212; Select Experience &#8212;</option>
+        <option value="0-2 Years (Entry Level)">0&#8211;2 Years &#8212; Entry Level</option>
+        <option value="2-5 Years">2&#8211;5 Years</option>
+        <option value="5-8 Years">5&#8211;8 Years</option>
+        <option value="8-12 Years">8&#8211;12 Years</option>
+        <option value="12-18 Years">12&#8211;18 Years</option>
+        <option value="18+ Years (Senior Leadership)">18+ Years &#8212; Senior Leadership</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Current Company</label>
+        <input class="form-input" type="text" id="fCompany" placeholder="e.g. TCS, HDFC Bank">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Current Role / Designation</label>
+        <input class="form-input" type="text" id="fCurrentRole" placeholder="e.g. Senior Software Engineer">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section D: Skills -->
+  <div class="card card-pad" style="margin-bottom:14px;">
+    <div class="section-label" style="margin-bottom:14px;">Skills & Focus</div>
+    <div class="form-group">
+      <label class="form-label">Key Skills <span style="color:var(--amber)">*</span></label>
+      <input class="form-input" type="text" id="fSkills" placeholder="e.g. React, Node.js, AWS — or — Credit Analysis, NBFC, Risk Management">
+      <div class="form-hint">Separate with commas. Be specific — the more detail, the better questions.</div>
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label class="form-label">Interview Focus</label>
+      <select class="form-select" id="fFocus">
+        <option value="algo">&#128187; Coding / Algorithm + DS (IT roles)</option>
+        <option value="">Mixed — Technical + Behavioural + HR</option>
+        <option value="technical">Mostly Technical (tools, domain knowledge, problem solving)</option>
+        <option value="behavioural">Mostly Behavioural (STAR — leadership, conflict, teamwork)</option>
+        <option value="hr">HR & Salary (notice period, CTC, relocation, career goals)</option>
+        <option value="situational">Situational (what would you do if...)</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px">
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--soft);">
+      <input type="checkbox" id="fSaveProfile" checked style="width:16px;height:16px;accent-color:var(--teal);">
+      Save my profile for future practice sessions
+    </label>
+  </div>
+
+  <button class="btn btn-primary btn-full btn-lg" onclick="startInterview()" id="startBtn">
+    Generate My Interview →
+  </button>
+  <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px;">
+    AI-Powered · Questions unique to your role &amp; industry · 5 questions per session
+  </p>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 2: GENERATING
+══════════════════════════════════════════════ -->
+<div class="view" id="viewGenerating">
+<div class="wrap">
+  <div class="gen-wrap">
+    <div class="gen-spinner"></div>
+    <div class="gen-title" id="genTitle">Crafting your interview...</div>
+    <div id="genSteps">
+      <div class="gen-step" id="gs0"><div class="gen-icon">1</div><div class="gen-step-text">Reading your industry & role</div></div>
+      <div class="gen-step" id="gs1"><div class="gen-icon">2</div><div class="gen-step-text">Analysing your experience level</div></div>
+      <div class="gen-step" id="gs2"><div class="gen-icon">3</div><div class="gen-step-text">Mapping skills to role requirements</div></div>
+      <div class="gen-step" id="gs3"><div class="gen-icon">4</div><div class="gen-step-text">Writing 5 targeted questions</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 3: INTERVIEW
+══════════════════════════════════════════════ -->
+<div class="view" id="viewInterview">
+<div class="wrap">
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progressLabel">Question 1 of 5</span>
+      <strong id="progressPct">0%</strong>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Session info bar -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;" id="sessionBar">
+    <span class="pill pill-soft" id="sessionIndustry"></span>
+    <span class="pill pill-amber" id="sessionRole"></span>
+    <span class="pill pill-teal" id="sessionLevel"></span>
+  </div>
+
+  <div class="card q-card" id="questionCard">
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <div class="q-num" id="qNum">01</div>
+      <div style="flex:1">
+        <div class="q-meta" id="qMeta"></div>
+        <div class="q-text" id="qText"></div>
+        <button class="hint-btn" id="hintBtn" onclick="toggleHint()">💡 Show hint</button>
+        <div class="q-hint" id="qHint" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card answer-wrap" id="answerWrap">
+    <label class="form-label">YOUR ANSWER</label>
+    <textarea class="form-textarea" id="ansInput" rows="6"
+      placeholder="Type your answer here... Use specific examples from your experience. Aim for 3–5 sentences." style="min-height:110px"></textarea>
+    <div class="answer-footer">
+      <span style="font-size:12px;color:var(--muted)"><span id="wordCount">0</span> words</span>
+      <button class="btn btn-teal" id="submitBtn" onclick="submitAnswer()">Score My Answer →</button>
+    </div>
+  </div>
+
+  <div class="fb-block" id="fbBlock" style="display:none">
+    <div class="fb-header">
+      <div class="fb-dot"></div>
+      <div class="fb-lbl">AI Feedback</div>
+      <div class="fb-score" id="fbScore"></div>
+    </div>
+    <div class="fb-text" id="fbText"></div>
+    <div style="margin-top:14px;">
+      <button class="btn btn-teal" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 4: REPORT
+══════════════════════════════════════════════ -->
+<div class="view" id="viewReport">
+<div class="wrap-wide">
+  <div style="margin-bottom:22px;">
+    <div class="section-label" id="reportStatusLabel">Interview Complete</div>
+    <h1 class="hero-title" style="font-size:clamp(22px,4vw,32px);">Your Performance Report</h1>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;" id="reportMeta"></div>
+  </div>
+
+  <div class="report-grid">
+    <div class="card score-ring-wrap">
+      <svg width="130" height="130" viewBox="0 0 130 130" id="scoreSvg">
+        <circle cx="65" cy="65" r="55" fill="none" stroke="#f3ede4" stroke-width="10"/>
+        <circle cx="65" cy="65" r="55" fill="none" stroke="url(#sg)" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="345.4" stroke-dashoffset="345.4"
+          id="scoreArc" transform="rotate(-90 65 65)"/>
+        <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1a6b6b"/>
+          <stop offset="100%" stop-color="#e8943a"/>
+        </linearGradient></defs>
+      </svg>
+      <span class="score-num" id="rScore">—</span>
+      <span class="score-lbl">Overall Score</span>
+      <p class="verdict" id="rVerdict"></p>
+    </div>
+    <div class="card card-pad">
+      <div class="section-label" style="margin-bottom:14px;">Skill Breakdown</div>
+      <div id="breakdownRows"></div>
+    </div>
+  </div>
+
+  <div class="si-grid" id="siGrid"></div>
+
+  <div class="card card-pad" style="margin-bottom:16px;">
+    <div class="section-label" style="margin-bottom:16px;">Question-by-Question Review</div>
+    <div id="qaReview"></div>
+  </div>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;">
+    <button class="btn btn-primary btn-lg" style="flex:1;min-width:160px" onclick="practiceAgain()">Practice Again →</button>
+    <button class="btn btn-ghost btn-lg" style="flex:1;min-width:160px" onclick="editProfile()">Edit Profile</button>
+    <button class="btn btn-ghost btn-lg" style="flex:1;min-width:160px" onclick="window.location.href='index.html'">← JobsSignal</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 5: ADMIN LOGIN
+══════════════════════════════════════════════ -->
+<div class="view" id="viewAdminLogin">
+<div class="admin-login">
+  <div class="admin-header">
+    <h2>Admin Panel</h2>
+    <p>JobsSignal · AI Interviews</p>
+  </div>
+  <div class="admin-body">
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input class="form-input" type="text" id="adminUser" placeholder="admin" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="adminPass" placeholder="••••••••"
+        onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn btn-teal btn-full" onclick="adminLogin()">Enter Admin →</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:8px" onclick="goView('viewSetup')">← Back to Interview</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VIEW 6: ADMIN DASHBOARD
+══════════════════════════════════════════════ -->
+<div class="view" id="viewAdmin">
+<div class="wrap-wide">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <div class="section-label">Admin Dashboard</div>
+      <h1 class="hero-title" style="font-size:26px;margin-bottom:0;">AI Interviews</h1>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-ghost" onclick="loadAdminData()">↺ Refresh</button>
+      <button class="btn btn-ghost" onclick="exportCSV()">↓ Export CSV</button>
+      <button class="btn btn-ghost" onclick="adminLogout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-cards" id="adminStats">
+    <div class="stat-card"><div class="stat-num" id="sTotalInt">—</div><div class="stat-lbl">Total Interviews</div></div>
+    <div class="stat-card"><div class="stat-num" id="sTotalCand">—</div><div class="stat-lbl">Unique Candidates</div></div>
+    <div class="stat-card"><div class="stat-num" id="sAvgScore">—</div><div class="stat-lbl">Avg Score</div></div>
+    <div class="stat-card"><div class="stat-num" id="sTopInd">—</div><div class="stat-lbl">Top Industry</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="adminTab('candidates',this)">Candidates</button>
+    <button class="admin-tab" onclick="adminTab('sessions',this)">All Sessions</button>
+    <button class="admin-tab" onclick="adminTab('industry',this)">By Industry</button>
+  </div>
+
+  <!-- Filters -->
+  <div class="admin-filters" id="adminFilters">
+    <select class="filter-select" id="filterIndustry" onchange="filterTable()">
+      <option value="">All Industries</option>
+    </select>
+    <select class="filter-select" id="filterLevel" onchange="filterTable()">
+      <option value="">All Levels</option>
+    </select>
+    <select class="filter-select" id="filterScore" onchange="filterTable()">
+      <option value="">All Scores</option>
+      <option value="high">High (≥70)</option>
+      <option value="mid">Mid (50–69)</option>
+      <option value="low">Low (<50)</option>
+    </select>
+    <input class="form-input" style="width:200px;padding:8px 12px;font-size:13px;" 
+      id="filterSearch" placeholder="Search name / phone..." oninput="filterTable()">
+  </div>
+
+  <!-- Table -->
+  <div class="card" style="overflow:hidden;margin-bottom:20px;">
+    <div class="admin-table-wrap">
+      <table class="admin-table" id="adminTable">
+        <thead>
+          <tr>
+            <th>Candidate</th>
+            <th>Industry</th>
+            <th>Target Role</th>
+            <th>Level</th>
+            <th>Score</th>
+            <th>Sessions</th>
+            <th>Last Active</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:40px;">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+// ════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════
+const FB_URL  = 'https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
+const FB_KEY  = 'AIzaSyBJ2WhZ70oElaa88N3bG1u_Z9skmbBhMxg';
+const MODEL   = 'claude-sonnet-4-20250514';
+const S_USER  = 'js_user';
+const S_PROF  = 'js_interview_profile';
+const ADMIN_U = 'admin';
+const ADMIN_P = 'admin@123';
+const SUPER   = '9160075557';
+
+// ════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════
+const INDUSTRIES = {
+  "HR & Recruitment":{"icon":"🤝","roles":["HR Executive","Talent Acquisition Specialist","Technical Recruiter","Sourcing Specialist","HR Business Partner","L&D Specialist","Compensation & Benefits Manager","HR Manager","TA Lead","Recruitment Manager","HR Director","Head of Talent Acquisition","VP Human Resources","CHRO"]},
+  "IT & Software":{"icon":"💻","roles":["Software Engineer","Frontend Developer","Backend Developer","Full Stack Developer","Mobile Developer","DevOps / SRE Engineer","QA / Test Engineer","Data Engineer","ML / AI Engineer","Product Manager","Scrum Master","Engineering Manager","Staff Engineer","Principal Engineer","Tech Architect","VP Engineering","CTO"]},
+  "Banking & BFSI":{"icon":"🏦","roles":["Relationship Manager","Credit Analyst","Branch Manager","Loan Officer","Risk Analyst","Compliance Officer","Treasury Manager","Investment Analyst","Wealth Manager","VP – Retail Banking","Zonal Head","Chief Risk Officer","CFO"]},
+  "Insurance":{"icon":"🛡️","roles":["Insurance Advisor","Agency Manager","Underwriter","Claims Manager","Product Manager – Insurance","Actuarial Analyst","Zonal Sales Manager","Regional Head","Chief Underwriting Officer","COO – Insurance"]},
+  "Healthcare & Pharma":{"icon":"🏥","roles":["Medical Representative","Hospital Administrator","Clinical Research Associate","Pharmacovigilance Analyst","QA Manager","Medical Affairs Manager","Regional Business Manager","Nursing Head","VP – Medical Affairs","CMO"]},
+  "Hospitality & Travel":{"icon":"🏨","roles":["Front Office Executive","F&B Manager","Revenue Manager","Housekeeping Manager","Guest Relations Manager","Travel Consultant","Operations Manager","Regional Director","Hotel GM","VP – Operations"]},
+  "Real Estate":{"icon":"🏗️","roles":["Property Consultant","Sales Manager","Project Manager","Leasing Manager","Valuation Analyst","Business Development Manager","Zonal Sales Head","VP – Sales","CEO"]},
+  "Logistics & Supply Chain":{"icon":"🚚","roles":["Operations Executive","Warehouse Manager","Supply Chain Analyst","Logistics Manager","Procurement Manager","Category Manager","VP – Supply Chain","Director – Operations","COO"]},
+  "Education & EdTech":{"icon":"🎓","roles":["Teacher / Faculty","Academic Coordinator","Admissions Counselor","Curriculum Designer","Academic Head","Principal","VP – Academics","Business Development – EdTech","Product Manager – EdTech","CEO – EdTech"]},
+  "Retail & FMCG":{"icon":"🛒","roles":["Sales Executive","Area Sales Manager","Category Manager","Brand Manager","Trade Marketing Manager","Regional Sales Manager","VP – Sales","National Sales Head","CCO"]},
+  "Manufacturing & Engineering":{"icon":"⚙️","roles":["Production Engineer","Quality Engineer","Plant Manager","Maintenance Manager","HSE Manager","Operations Manager","General Manager – Manufacturing","VP – Operations","COO"]}
+};
+
+const LEVELS = [
+  {label:"Fresher",sub:"0–1 yr",val:"Fresher (0–1 yr)"},
+  {label:"Junior",sub:"1–3 yrs",val:"Junior (1–3 yrs)"},
+  {label:"Mid-Level",sub:"3–6 yrs",val:"Mid-Level (3–6 yrs)"},
+  {label:"Senior",sub:"6–9 yrs",val:"Senior (6–9 yrs)"},
+  {label:"Staff Eng",sub:"8–12 yrs",val:"Staff Engineer (8–12 yrs)"},
+  {label:"Principal",sub:"12–15 yrs",val:"Principal Engineer (12–15 yrs)"},
+  {label:"Tech Arch",sub:"10–15 yrs",val:"Tech Architect (10–15 yrs)"},
+  {label:"Eng Manager",sub:"8–15 yrs",val:"Engineering Manager (8–15 yrs)"},
+  {label:"Director",sub:"15+ yrs",val:"Director (15+ yrs)"},
+  {label:"VP / CTO",sub:"15+ yrs",val:"VP / CTO (15+ yrs)"}
+];
+
+const TYPE_PILL = {TECHNICAL:'pill-teal',BEHAVIOURAL:'pill-amber',HR:'pill-soft',SITUATIONAL:'pill-soft',DOMAIN:'pill-teal'};
+const DIFF_PILL = {Easy:'pill-green',Medium:'pill-amber',Hard:'pill-red'};
+const BK_COLOR  = {TECHNICAL:'#1a6b6b',BEHAVIOURAL:'#e8943a',HR:'#6b7280',SITUATIONAL:'#9333ea',DOMAIN:'#0e7490'};
+
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+let S = {
+  profile: {},
+  questions: [],
+  answers: [],
+  qIndex: 0,
+  hintVisible: false,
+  sessionId: '',
+  adminData: { candidates:[], sessions:[] },
+  currentAdminTab: 'candidates',
+  allRows: []
+};
+
+// ════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════
+// ─── DROPDOWN + RESUME + TIMER + TAB DETECTION ───
+function onIndustryChange(v){S.profile.industry=v;}
+function populateIndustrySelect(){
+  var sel=document.getElementById('fIndustry');if(!sel)return;
+  Object.keys(INDUSTRIES).forEach(function(n){
+    var o=document.createElement('option');o.value=n;
+    o.textContent=(INDUSTRIES[n].icon||'')+' '+n;sel.appendChild(o);
+  });
+}
+var resumeBase64='',resumeFileName='';
+function handleResumeUpload(input){
+  var file=input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){alert('File too large (max 5MB)');return;}
+  resumeFileName=file.name;
+  var nl=document.getElementById('resumeFileName');
+  if(nl){nl.textContent='✅ '+file.name;nl.style.display='block';}
+  var r=new FileReader();
+  r.onload=function(e){resumeBase64=(e.target.result.split(',')[1])||'';};
+  r.readAsDataURL(file);
+}
+// Timer
+var _timerInt=null,_timeLeft=0,_timerExpired=false,_tabViols=0,_ivActive=false;
+var LEVEL_MINS={'0-2 Years (Entry Level)':15,'2-5 Years':18,'5-8 Years':20,'8-12 Years':25,'12-18 Years':28,'18+ Years (Senior Leadership)':30};
+function getTimerMins(lvl){return LEVEL_MINS[lvl]||25;}
+function startTimer(mins){
+  _timeLeft=mins*60;_timerExpired=false;clearInterval(_timerInt);
+  updateTimerDisplay();
+  _timerInt=setInterval(function(){
+    _timeLeft--;updateTimerDisplay();
+    if(_timeLeft<=0){clearInterval(_timerInt);_timerExpired=true;autoSubmitTimer();}
+  },1000);
+}
+function stopTimer(){clearInterval(_timerInt);_ivActive=false;}
+function updateTimerDisplay(){
+  var el=document.getElementById('timerText');if(!el)return;
+  var m=Math.floor(_timeLeft/60),s=_timeLeft%60;
+  el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  var d=document.getElementById('timerDisplay');if(!d)return;
+  if(_timeLeft<=120){d.style.background='#fef2f2';el.style.color='#dc2626';}
+  else if(_timeLeft<=300){d.style.background='#fff7ed';el.style.color='#ea580c';}
+  else{d.style.background='';el.style.color='';}
+}
+function autoSubmitTimer(){
+  _ivActive=false;
+  showToast('Time\'s up! Submitting…','err');
+  setTimeout(function(){buildReport(true,false);saveSessionToFirebase();goView('viewReport');},1400);
+}
+// Tab detection
+document.addEventListener('visibilitychange',function(){
+  if(!_ivActive)return;
+  if(document.hidden){
+    _tabViols++;
+    if(_tabViols>=2){
+      _ivActive=false;stopTimer();
+      showToast('Test auto-submitted: tab switched twice','err');
+      setTimeout(function(){buildReport(false,true);saveSessionToFirebase();goView('viewReport');},1400);
+    }else{
+      var b=document.getElementById('tabWarningBanner');
+      if(b){b.style.display='block';}
+      showToast('⚠️ Warning! Tab switch detected. One more = auto-submit.','err');
+    }
+  }
+});
+function checkNameMismatch(name){
+  try{
+    var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
+    var ln=(lu.name||'').toLowerCase().trim().split(' ')[0];
+    var fn=name.toLowerCase().trim().split(' ')[0];
+    return ln.length>2&&fn.length>2&&ln!==fn;
+  }catch(e){return false;}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildIndustryGrid();
+  buildLevelGrid();
+  loadSavedProfile();
+  initNavBadge();
+});
+
+function initNavBadge(){
+  try{
+    var u=JSON.parse(localStorage.getItem(S_USER)||'{}');
+    var b=document.getElementById('navBadge');
+    if(!b)return;
+    // Hide for admin/superuser — check isAdmin flag OR phone match
+    var ph=(u.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+    if(u.isAdmin===true||ph==='9160075557'){b.style.display='none';return;}
+    // Show first name for regular users
+    var nm=(u.name||'').trim().split(' ')[0];
+    if(!nm&&u.phone)nm=u.phone;
+    if(nm){
+      b.textContent='👋 Hi, '+nm;
+      b.style.display='inline-flex';
+      b.style.alignItems='center';
+      b.style.fontSize='12px';
+    }
+  }catch(e){}
+}
+
+// ════════════════════════════════════════════════
+// BUILD GRIDS
+// ════════════════════════════════════════════════
+function buildIndustryGrid() { populateIndustrySelect(); return;
+  const g = document.getElementById('industryGrid');
+  g.innerHTML = Object.keys(INDUSTRIES).map(ind =>
+    `<button class="industry-btn" data-ind="${ind}" onclick="selectIndustry(this,'${ind.replace(/'/g,"\\'")}')">
+      <span class="ind-icon">${INDUSTRIES[ind].icon}</span>${ind}
+    </button>`
+  ).join('');
+}
+
+function buildLevelGrid() { return; //
+  const g = document.getElementById('levelGrid');
+  g.innerHTML = LEVELS.map(l =>
+    `<button class="level-btn" data-val="${l.val}" onclick="selectLevel(this,'${l.val.replace(/'/g,"\\'")}')">
+      ${l.label}<small>${l.sub}</small>
+    </button>`
+  ).join('');
+}
+
+function selectIndustry(btn, ind) {
+  document.querySelectorAll('.industry-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  S.profile.industry = ind;
+  const sel = document.getElementById('fRole');
+  sel.innerHTML = INDUSTRIES[ind].roles.map(r=>`<option value="${r}">${r}</option>`).join('');
+}
+
+function selectLevel(btn, val) {
+  document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  S.profile.level = val;
+}
+
+// ════════════════════════════════════════════════
+// LOAD SAVED PROFILE
+// ════════════════════════════════════════════════
+function loadSavedProfile() {
+  try {
+    const p = JSON.parse(localStorage.getItem(S_PROF)||'{}');
+    const u = JSON.parse(localStorage.getItem(S_USER)||'{}');
+    if (p.name || u.name) {
+      const prof = { ...p };
+      if (u.name && !prof.name) prof.name = u.name;
+      if (u.phone && !prof.phone) prof.phone = u.phone;
+      if (prof.name) document.getElementById('fName').value = prof.name;
+      if (prof.phone) document.getElementById('fPhone').value = prof.phone;
+      if (prof.email) document.getElementById('fEmail').value = prof.email;
+      if (prof.location) document.getElementById('fLocation').value = prof.location;
+      if (prof.company) document.getElementById('fCompany').value = prof.company;
+      if (prof.currentRole) document.getElementById('fCurrentRole').value = prof.currentRole;
+      if (prof.skills) document.getElementById('fSkills').value = prof.skills;
+      if (prof.industry) {
+        const btn = document.querySelector(`.industry-btn[data-ind="${prof.industry}"]`);
+        if (btn) { selectIndustry(btn, prof.industry);
+          setTimeout(()=>{ if (prof.role) document.getElementById('fRole').value = prof.role; },50);
+        }
+      }
+      if (prof.level) {
+        const btn = document.querySelector(`.level-btn[data-val="${prof.level}"]`);
+        if (btn) selectLevel(btn, prof.level);
+      }
+    }
+  } catch(e){}
+}
+
+// ════════════════════════════════════════════════
+// FIREBASE HELPERS
+// ════════════════════════════════════════════════
+async function fbSet(path, data) {
+  const r = await fetch(`${FB_URL}/${path}.json?auth=${FB_KEY}`, {
+    method:'PUT', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  });
+  return r.ok;
+}
+
+async function fbPush(path, data) {
+  const r = await fetch(`${FB_URL}/${path}.json?auth=${FB_KEY}`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  });
+  const j = await r.json();
+  return j.name;
+}
+
+async function fbGet(path) {
+  const r = await fetch(`${FB_URL}/${path}.json?auth=${FB_KEY}`);
+  return r.ok ? r.json() : null;
+}
+
+// ════════════════════════════════════════════════
+// START INTERVIEW
+// ════════════════════════════════════════════════
+async function startInterview() {
+  const name  = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const loc   = document.getElementById('fLocation').value.trim();
+  const industry = S.profile.industry || '';
+  const level    = S.profile.level || '';
+  const role  = document.getElementById('fRole').value;
+  const skills= document.getElementById('fSkills').value.trim();
+
+  if (!name)     { showToast('Please enter your name','err'); return; }
+  if (!phone || phone.length !== 10) { showToast('Enter valid 10-digit mobile','err'); return; }
+  if (!industry) { showToast('Please select an industry','err'); return; }
+  if (!role)     { showToast('Please select a target role','err'); return; }
+  if (!level)    { showToast('Please select experience level','err'); return; }
+  if (!skills)   { showToast('Please add your key skills','err'); return; }
+
+  S.profile = {
+    name, phone, loc,
+    email:  document.getElementById('fEmail').value.trim(),
+    company:document.getElementById('fCompany').value.trim(),
+    currentRole: document.getElementById('fCurrentRole').value.trim(),
+    industry, role, level, skills,
+    focus: document.getElementById('fFocus').value
+  };
+
+  if (document.getElementById('fSaveProfile').checked) {
+    localStorage.setItem(S_PROF, JSON.stringify(S.profile));
+  }
+
+  S.questions = [];
+  S.answers   = [];
+  S.qIndex    = 0;
+  S.sessionId = Date.now().toString(36);
+
+  goView('viewGenerating');
+  document.getElementById('genTitle').textContent = `Crafting your ${S.profile.industry} interview...`;
+
+  // Animate steps
+  [400,900,1500,2200].forEach((d,i)=>setTimeout(()=>{
+    const s=document.getElementById('gs'+i);
+    s.classList.add('done');
+    s.querySelector('.gen-icon').textContent='✓';
+  },d));
+
+  try {
+    S.questions = await generateQuestions();
+    setTimeout(()=>{ renderQuestion(0); _tabViols=0;_timerExpired=false;_ivActive=true;var _tm=getTimerMins(S.profile.level);startTimer(_tm);
+  goView('viewInterview'); }, 2900);
+  } catch(err) {
+    console.error(err);
+    showToast('API error generating questions. Try again.','err');
+    setTimeout(()=>{ goView('viewSetup'); resetGenSteps(); }, 600);
+  }
+}
+
+// ════════════════════════════════════════════════
+// GENERATE QUESTIONS via Claude API
+// ════════════════════════════════════════════════
+async function generateQuestions() {
+  const p = S.profile;
+
+  const focusMap = {
+    technical: 'Focus 3 questions on technical/domain knowledge, 1 behavioural, 1 situational.',
+    behavioural: 'Focus 3 questions on behavioural scenarios (STAR format), 1 technical, 1 HR.',
+    hr: 'Focus 3 questions on HR topics (CTC, notice, goals, relocation), 1 technical, 1 behavioural.',
+    situational: 'Focus 3 questions on situational "what would you do if" scenarios, 1 technical, 1 behavioural.',
+    '': 'Mix: 2 technical/domain, 2 behavioural, 1 HR.'
+  };
+
+  const prompt = `You are an expert Indian interviewer specialising in ${p.industry} industry interviews.
+
+CANDIDATE PROFILE:
+- Name: ${p.name}
+- Target Role: ${p.role}
+- Experience Level: ${p.level}
+- Current Role: ${p.currentRole || 'Not specified'}
+- Current Company: ${p.company || 'Not specified'}
+- Key Skills: ${p.skills}
+- Location: ${p.loc || 'India'}
+- Industry: ${p.industry}
+
+INSTRUCTIONS:
+Generate exactly 5 interview questions for this specific candidate for the ${p.role} role in ${p.industry}.
+${focusMap[p.focus] || focusMap['']}
+
+CRITICAL RULES:
+- Questions must be highly specific to ${p.industry} — NOT generic IT or software questions (unless industry is IT)
+- Reference real Indian industry context: Indian regulations, Indian companies, Indian market conditions
+- Match the difficulty and depth to ${p.level}
+- For senior levels (Staff/Principal/Director/VP), include strategic and leadership questions
+- For junior/fresher levels, focus on fundamentals and potential
+- Use Indian terminology where applicable (e.g. CTC, LPA, notice period, IRDAI, RBI, FMCG distributor terms)
+- If ${p.company} is mentioned, reference their known business context if relevant
+
+QUESTION TYPES TO USE: TECHNICAL, BEHAVIOURAL, HR, SITUATIONAL, DOMAIN
+
+Respond ONLY with a valid JSON array. No markdown, no explanation, nothing else:
+[
+  {
+    "type": "TECHNICAL|BEHAVIOURAL|HR|SITUATIONAL|DOMAIN",
+    "difficulty": "Easy|Medium|Hard",
+    "question": "The full question text",
+    "hint": "One-line coaching tip — what a good answer should include"
+  }
+]`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:MODEL, max_tokens:1000, messages:[{role:'user',content:prompt}]})
+  });
+  if (!res.ok) throw new Error('API '+res.status);
+  const data = await res.json();
+  const raw = data.content.find(c=>c.type==='text')?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+// ════════════════════════════════════════════════
+// RENDER QUESTION
+// ════════════════════════════════════════════════
+function renderQuestion(idx) {
+  const q = S.questions[idx];
+  if (!q) return;
+
+  S.hintVisible = false;
+  document.getElementById('hintBtn').textContent = '💡 Show hint';
+  document.getElementById('qHint').style.display = 'none';
+  document.getElementById('qHint').textContent = q.hint||'';
+  document.getElementById('ansInput').value = '';
+  document.getElementById('fbBlock').style.display = 'none';
+  document.getElementById('answerWrap').style.display = 'block';
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').textContent = 'Score My Answer →';
+  document.getElementById('wordCount').textContent = '0';
+
+  document.getElementById('qNum').textContent = String(idx+1).padStart(2,'0');
+  document.getElementById('qMeta').innerHTML =
+    `<span class="pill ${TYPE_PILL[q.type]||'pill-soft'}">${q.type}</span>
+     <span class="pill ${DIFF_PILL[q.difficulty]||'pill-soft'}">${q.difficulty}</span>`;
+
+  // Typewriter
+  const el = document.getElementById('qText');
+  el.textContent = '';
+  let i=0;
+  const t = setInterval(()=>{ if(i<q.question.length){el.textContent+=q.question[i++];}else clearInterval(t); },13);
+
+  // Progress
+  const pct = Math.round((idx/S.questions.length)*100);
+  document.getElementById('progressLabel').textContent = `Question ${idx+1} of ${S.questions.length}`;
+  document.getElementById('progressPct').textContent = pct+'%';
+  document.getElementById('progressFill').style.width = pct+'%';
+
+  // Session bar
+  document.getElementById('sessionIndustry').textContent = S.profile.industry;
+  document.getElementById('sessionRole').textContent = S.profile.role;
+  document.getElementById('sessionLevel').textContent = S.profile.level;
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleHint() {
+  S.hintVisible = !S.hintVisible;
+  document.getElementById('qHint').style.display = S.hintVisible?'block':'none';
+  document.getElementById('hintBtn').textContent = S.hintVisible?'🙈 Hide hint':'💡 Show hint';
+}
+
+// ════════════════════════════════════════════════
+// SUBMIT + SCORE ANSWER
+// ════════════════════════════════════════════════
+async function submitAnswer() {
+  const answer = document.getElementById('ansInput').value.trim();
+  if (!answer || answer.split(/\s+/).filter(Boolean).length < 3) {
+    showToast('Write at least a few words','err'); return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="dots"><span></span><span></span><span></span></span> Scoring...';
+
+  try {
+    const q = S.questions[S.qIndex];
+    const result = await scoreAnswer(q, answer);
+    S.answers.push({q, answer, feedback:result.feedback, score:result.score});
+
+    document.getElementById('fbScore').textContent = result.score+'/10';
+    document.getElementById('fbText').textContent = result.feedback;
+    document.getElementById('fbBlock').style.display = 'block';
+    document.getElementById('answerWrap').style.display = 'none';
+
+    document.getElementById('nextBtn').textContent =
+      S.qIndex < S.questions.length-1 ? 'Next Question →' : 'See Full Report →';
+
+    const pct2 = Math.round(((S.qIndex+1)/S.questions.length)*100);
+    document.getElementById('progressPct').textContent = pct2+'%';
+    document.getElementById('progressFill').style.width = pct2+'%';
+  } catch(err) {
+    console.error(err);
+    btn.disabled=false; btn.textContent='Score My Answer →';
+    showToast('Scoring error. Try again.','err');
+  }
+}
+
+async function scoreAnswer(q, answer) {
+  const p = S.profile;
+  const prompt = `You are scoring a mock interview answer for an Indian ${p.industry} professional.
+
+QUESTION: ${q.question}
+TYPE: ${q.type} | DIFFICULTY: ${q.difficulty}
+CANDIDATE LEVEL: ${p.level} | INDUSTRY: ${p.industry} | ROLE: ${p.role}
+
+CANDIDATE ANSWER: ${answer}
+
+Score 1–10 and give specific, actionable feedback in 2–3 sentences.
+For ${p.industry} roles: check for industry-specific knowledge, Indian context, correct terminology.
+For behavioural: check STAR structure.
+For technical/domain: check accuracy and depth appropriate for ${p.level}.
+Be encouraging but honest. Mention one specific thing done well and one specific improvement.
+
+Respond ONLY with valid JSON, nothing else:
+{"score":7,"feedback":"Your feedback here."}`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:MODEL, max_tokens:300, messages:[{role:'user',content:prompt}]})
+  });
+  if (!res.ok) throw new Error('API '+res.status);
+  const data = await res.json();
+  const raw = data.content.find(c=>c.type==='text')?.text||'';
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+// ════════════════════════════════════════════════
+// NEXT QUESTION / FINISH
+// ════════════════════════════════════════════════
+function nextQuestion() {
+  if (S.qIndex < S.questions.length-1) {
+    S.qIndex++;
+    renderQuestion(S.qIndex);
+  } else {
+    saveSessionToFirebase();
+    buildReport(false,false);
+    goView('viewReport');
+  }
+}
+
+// ════════════════════════════════════════════════
+// SAVE TO FIREBASE
+// ════════════════════════════════════════════════
+async function saveSessionToFirebase() {
+  const p = S.profile;
+  const scores = S.answers.map(a=>a.score);
+  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length*10) : 0;
+  const cleanPhone = p.phone.replace(/\D/g,'');
+
+  const session = {
+    sessionId: S.sessionId,
+    name: p.name,
+    phone: cleanPhone,
+    email: p.email||'',
+    location: p.loc||'',
+    industry: p.industry,
+    role: p.role,
+    level: p.level,
+    company: p.company||'',
+    currentRole: p.currentRole||'',
+    skills: p.skills,
+    score: avg,
+    totalQuestions: S.questions.length,
+    timestamp: new Date().toISOString(),
+    date: new Date().toLocaleDateString('en-IN'),
+    answers: S.answers.map(a=>({
+      type: a.q.type,
+      difficulty: a.q.difficulty,
+      question: a.q.question,
+      answer: a.answer,
+      feedback: a.feedback,
+      score: a.score
+    }))
+  };
+
+  try {
+    // Save session
+    await fbPush(`interviews/${cleanPhone}`, session);
+    // Update candidate profile
+    const existing = await fbGet(`candidates/${cleanPhone}`) || {};
+    const sessions = (existing.totalSessions||0) + 1;
+    const bestScore = Math.max(existing.bestScore||0, avg);
+    await fbSet(`candidates/${cleanPhone}`, {
+      name:p.name, phone:cleanPhone, email:p.email||'',
+      location:p.loc||'', industry:p.industry, role:p.role,
+      level:p.level, company:p.company||'', skills:p.skills,
+      totalSessions:sessions, bestScore, lastScore:avg,
+      lastActive:new Date().toISOString()
+    });
+  } catch(e) { console.warn('Firebase save failed (non-critical):', e); }
+}
+
+// ════════════════════════════════════════════════
+// BUILD REPORT
+// ════════════════════════════════════════════════
+function buildReport(timedOut, tabViol) { stopTimer(); var sl=document.getElementById('reportStatusLabel'); var th=document.getElementById('reportTitle'); if(timedOut&&sl){sl.textContent='⏰ Time\'s Up!';sl.style.color='#dc2626';} else if(tabViol&&sl){sl.textContent='⚠️ Auto-Submitted';sl.style.color='#ea580c';} //
+  const scores = S.answers.map(a=>a.score);
+  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length*10) : 0;
+
+  document.getElementById('rScore').textContent = avg;
+
+  // Ring animation
+  const circ = 2*Math.PI*55;
+  setTimeout(()=>{
+    const arc=document.getElementById('scoreArc');
+    arc.style.strokeDashoffset = circ*(1-avg/100);
+    arc.style.transition='stroke-dashoffset 1.2s ease';
+  },200);
+
+  document.getElementById('rVerdict').textContent =
+    avg>=80 ? 'Strong performance. Very likely to clear the interview round. Review the improvement areas before the actual interview.' :
+    avg>=60 ? 'Good foundation. A few areas need sharpening. One more practice session recommended before your interview.' :
+    'Keep practising. Study the feedback carefully — especially the lower-scored questions. Focus on structure and domain depth.';
+
+  // Report meta pills
+  const p = S.profile;
+  document.getElementById('reportMeta').innerHTML =
+    `<span class="pill pill-soft">${p.industry}</span>
+     <span class="pill pill-amber">${p.role}</span>
+     <span class="pill pill-teal">${p.level}</span>`;
+
+  // Breakdown by type
+  const byType={};
+  S.answers.forEach(a=>{ if(!byType[a.q.type]) byType[a.q.type]=[]; byType[a.q.type].push(a.score); });
+  document.getElementById('breakdownRows').innerHTML = Object.entries(byType).map(([type,scrs])=>{
+    const a2=Math.round(scrs.reduce((a,b)=>a+b,0)/scrs.length*10);
+    const c=BK_COLOR[type]||'#6b7280';
+    return `<div class="bk-row">
+      <div class="bk-meta"><span class="bk-name">${type}</span><span class="bk-score" style="color:${c}">${a2}%</span></div>
+      <div class="bk-track"><div class="bk-fill" style="width:${a2}%;background:${c}"></div></div>
+    </div>`;
+  }).join('');
+
+  // Strong / improve
+  const strong = S.answers.filter(a=>a.score>=7);
+  const improve = S.answers.filter(a=>a.score<7);
+  document.getElementById('siGrid').innerHTML = `
+    <div class="card si-card" style="border-color:rgba(26,107,107,.2);background:rgba(26,107,107,.04)">
+      <div class="si-lbl" style="color:var(--teal)">✓ Strong Points</div>
+      ${strong.length ? strong.map(a=>`<div class="si-item"><span>✓</span>Q${S.answers.indexOf(a)+1}: ${a.q.type} — Score ${a.score}/10</div>`).join('') : '<div class="si-item"><span>—</span>Keep practising</div>'}
+    </div>
+    <div class="card si-card" style="border-color:rgba(232,148,58,.2);background:rgba(232,148,58,.04)">
+      <div class="si-lbl" style="color:var(--amber-d)">↑ Areas to Improve</div>
+      ${improve.length ? improve.map(a=>`<div class="si-item"><span>↑</span>Q${S.answers.indexOf(a)+1}: ${a.q.type} — needs more depth</div>`).join('') : '<div class="si-item"><span>✓</span>All questions scored well!</div>'}
+    </div>`;
+
+  // Q&A review
+  document.getElementById('qaReview').innerHTML = S.answers.map((a,i)=>`
+    <div class="qa-item">
+      <div class="qa-qrow">
+        <span class="qa-qnum">Q${i+1}</span>
+        <span class="qa-q">${a.q.question}</span>
+        <span class="qa-score" style="color:${a.score>=7?'var(--green)':a.score>=5?'var(--amber-d)':'var(--red)'}">${a.score}/10</span>
+      </div>
+      <p class="qa-ans">"${a.answer.slice(0,180)}${a.answer.length>180?'...':''}"</p>
+      <div class="qa-fb">${a.feedback}</div>
+    </div>`).join('');
+
+  window.scrollTo({top:0});
+}
+
+function practiceAgain() {
+  S.questions=[]; S.answers=[]; S.qIndex=0;
+  resetGenSteps();
+  goView('viewSetup');
+}
+
+function editProfile() {
+  S.questions=[]; S.answers=[]; S.qIndex=0;
+  resetGenSteps();
+  goView('viewSetup');
+  window.scrollTo({top:0});
+}
+
+function resetGenSteps() {
+  for(let i=0;i<4;i++){
+    const s=document.getElementById('gs'+i);
+    s.classList.remove('done');
+    s.querySelector('.gen-icon').textContent=i+1;
+  }
+}
+
+// ════════════════════════════════════════════════
+// ADMIN
+// ════════════════════════════════════════════════
+function showAdminLogin() { goView('viewAdminLogin'); }
+
+function adminLogin() {
+  const u=document.getElementById('adminUser').value.trim();
+  const p=document.getElementById('adminPass').value;
+  if(u===ADMIN_U && p===ADMIN_P) {
+    goView('viewAdmin');
+    loadAdminData();
+  } else {
+    showToast('Invalid credentials','err');
+  }
+}
+
+function adminLogout() { goView('viewSetup'); }
+
+async function loadAdminData() {
+  document.getElementById('adminTableBody').innerHTML =
+    `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:30px;">Loading...</td></tr>`;
+
+  try {
+    const [candidates, interviews] = await Promise.all([
+      fbGet('candidates'),
+      fbGet('interviews')
+    ]);
+
+    const candArr = candidates ? Object.entries(candidates).map(([k,v])=>({...v,_key:k})) : [];
+    const sessArr = [];
+    if (interviews) {
+      Object.entries(interviews).forEach(([phone, sessions])=>{
+        if(sessions) Object.entries(sessions).forEach(([sid,s])=>sessArr.push({...s,_key:sid}));
+      });
+    }
+
+    S.adminData = {candidates:candArr, sessions:sessArr};
+
+    // Stats
+    const avgAll = sessArr.length ? Math.round(sessArr.reduce((a,b)=>a+(b.score||0),0)/sessArr.length) : 0;
+    const indCount={};
+    sessArr.forEach(s=>{ indCount[s.industry]=(indCount[s.industry]||0)+1; });
+    const topInd = Object.entries(indCount).sort((a,b)=>b[1]-a[1])[0];
+
+    document.getElementById('sTotalInt').textContent = sessArr.length;
+    document.getElementById('sTotalCand').textContent = candArr.length;
+    document.getElementById('sAvgScore').textContent = avgAll+'%';
+    document.getElementById('sTopInd').textContent = topInd ? topInd[0].split(' ')[0] : '—';
+
+    // Populate filters
+    const inds=[...new Set(candArr.map(c=>c.industry).filter(Boolean))];
+    const lvls=[...new Set(candArr.map(c=>c.level).filter(Boolean))];
+    document.getElementById('filterIndustry').innerHTML =
+      `<option value="">All Industries</option>`+inds.map(i=>`<option>${i}</option>`).join('');
+    document.getElementById('filterLevel').innerHTML =
+      `<option value="">All Levels</option>`+lvls.map(l=>`<option>${l}</option>`).join('');
+
+    renderAdminTable(candArr, sessArr);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('adminTableBody').innerHTML =
+      `<tr><td colspan="8" style="text-align:center;color:var(--red);padding:30px;">Error loading data. Check Firebase connection.</td></tr>`;
+  }
+}
+
+function renderAdminTable(candidates, sessions) {
+  S.allRows = candidates;
+  const tbody = document.getElementById('adminTableBody');
+  if(!candidates.length){
+    tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:40px;">No candidates yet. Interviews will appear here.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = candidates.map((c,i)=>{
+    const sc = c.lastScore||0;
+    const scClass = sc>=70?'score-hi':sc>=50?'score-mid':'score-lo';
+    const candSess = sessions.filter(s=>s.phone===c.phone);
+    const lastDate = c.lastActive ? new Date(c.lastActive).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'}) : '—';
+    return `
+    <tr>
+      <td><div style="font-weight:600;font-size:13px">${c.name||'—'}</div><div style="font-size:11px;color:var(--muted)">${c.phone}</div></td>
+      <td><span class="ind-tag">${(c.industry||'').split(' ')[0]}</span></td>
+      <td style="font-size:13px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.role||'—'}</td>
+      <td style="font-size:12px;color:var(--soft)">${(c.level||'').split(' (')[0]}</td>
+      <td><span class="score-badge ${scClass}">${sc}%</span></td>
+      <td style="text-align:center;font-size:13px">${c.totalSessions||0}</td>
+      <td style="font-size:12px;color:var(--muted)">${lastDate}</td>
+      <td><button class="expand-btn" onclick="toggleExpand(${i},this)">▸ View</button></td>
+    </tr>
+    <tr class="expand-row" id="exp-${i}">
+      <td colspan="8" class="expand-cell">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:10px">
+          <div><strong>Email:</strong> ${c.email||'—'}</div>
+          <div><strong>Location:</strong> ${c.location||'—'}</div>
+          <div><strong>Company:</strong> ${c.company||'—'}</div>
+          <div><strong>Best Score:</strong> ${c.bestScore||0}%</div>
+          <div><strong>Skills:</strong> ${c.skills||'—'}</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted)">
+          ${candSess.map(s=>`<span class="pill pill-soft" style="margin:2px">${s.date||''} — ${s.score}%</span>`).join('')}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function toggleExpand(i, btn) {
+  const row = document.getElementById('exp-'+i);
+  const open = row.classList.toggle('open');
+  btn.textContent = open ? '▾ Hide' : '▸ View';
+}
+
+function adminTab(tab, btn) {
+  S.currentAdminTab = tab;
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const {candidates, sessions} = S.adminData;
+  if(tab==='candidates') renderAdminTable(candidates, sessions);
+  else if(tab==='sessions') renderSessionsTable(sessions);
+  else if(tab==='industry') renderIndustryTable(sessions);
+}
+
+function renderSessionsTable(sessions) {
+  const sorted = [...sessions].sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+  const tbody = document.getElementById('adminTableBody');
+  document.querySelector('.admin-table thead tr').innerHTML =
+    '<th>Candidate</th><th>Industry</th><th>Role</th><th>Level</th><th>Score</th><th>Date</th><th></th>';
+  tbody.innerHTML = sorted.map((s,i)=>{
+    const sc=s.score||0;
+    const scClass=sc>=70?'score-hi':sc>=50?'score-mid':'score-lo';
+    return `<tr>
+      <td><div style="font-weight:600;font-size:13px">${s.name||'—'}</div><div style="font-size:11px;color:var(--muted)">${s.phone}</div></td>
+      <td><span class="ind-tag">${(s.industry||'').split(' ')[0]}</span></td>
+      <td style="font-size:13px">${s.role||'—'}</td>
+      <td style="font-size:12px;color:var(--soft)">${(s.level||'').split(' (')[0]}</td>
+      <td><span class="score-badge ${scClass}">${sc}%</span></td>
+      <td style="font-size:12px;color:var(--muted)">${s.date||'—'}</td>
+      <td><button class="expand-btn" onclick="toggleExpand(${i},this)">▸ Q&A</button></td>
+    </tr>
+    <tr class="expand-row" id="exp-${i}">
+      <td colspan="7" class="expand-cell">
+        ${(s.answers||[]).map((a,j)=>`<div style="margin-bottom:10px"><strong>Q${j+1} [${a.type}] ${a.score}/10:</strong> ${a.question}<br><em style="color:var(--soft)">${a.feedback}</em></div>`).join('')}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderIndustryTable(sessions) {
+  const byInd={};
+  sessions.forEach(s=>{ if(!byInd[s.industry]) byInd[s.industry]={count:0,totalScore:0,roles:{}}; byInd[s.industry].count++; byInd[s.industry].totalScore+=s.score||0; byInd[s.industry].roles[s.role]=(byInd[s.industry].roles[s.role]||0)+1; });
+  document.querySelector('.admin-table thead tr').innerHTML =
+    '<th>Industry</th><th>Sessions</th><th>Avg Score</th><th>Top Role</th>';
+  document.getElementById('adminTableBody').innerHTML = Object.entries(byInd)
+    .sort((a,b)=>b[1].count-a[1].count)
+    .map(([ind,d])=>{
+      const avg=Math.round(d.totalScore/d.count);
+      const topRole=Object.entries(d.roles).sort((a,b)=>b[1]-a[1])[0];
+      const icon = INDUSTRIES[ind]?.icon||'';
+      return `<tr>
+        <td><strong>${icon} ${ind}</strong></td>
+        <td>${d.count}</td>
+        <td><span class="score-badge ${avg>=70?'score-hi':avg>=50?'score-mid':'score-lo'}">${avg}%</span></td>
+        <td style="font-size:13px;color:var(--soft)">${topRole?topRole[0]:'—'}</td>
+      </tr>`;
+    }).join('');
+}
+
+function filterTable() {
+  const ind = document.getElementById('filterIndustry').value;
+  const lvl = document.getElementById('filterLevel').value;
+  const sc  = document.getElementById('filterScore').value;
+  const q   = document.getElementById('filterSearch').value.toLowerCase();
+  let rows = S.allRows;
+  if(ind) rows=rows.filter(r=>r.industry===ind);
+  if(lvl) rows=rows.filter(r=>r.level===lvl);
+  if(sc==='high') rows=rows.filter(r=>(r.lastScore||0)>=70);
+  else if(sc==='mid') rows=rows.filter(r=>(r.lastScore||0)>=50&&(r.lastScore||0)<70);
+  else if(sc==='low') rows=rows.filter(r=>(r.lastScore||0)<50);
+  if(q) rows=rows.filter(r=>(r.name||'').toLowerCase().includes(q)||(r.phone||'').includes(q));
+  renderAdminTable(rows, S.adminData.sessions);
+}
+
+function exportCSV() {
+  const {candidates} = S.adminData;
+  if(!candidates.length){ showToast('No data to export'); return; }
+  const header = ['Name','Phone','Email','Location','Industry','Role','Level','Company','Skills','Best Score','Sessions','Last Active'];
+  const rows = candidates.map(c=>[c.name,c.phone,c.email,c.location,c.industry,c.role,c.level,c.company,c.skills,c.bestScore,c.totalSessions,c.lastActive].map(v=>`"${v||''}"`));
+  const csv = [header, ...rows].map(r=>r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download = `jobssignal_interviews_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast('CSV downloaded!');
+}
+
+// ════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════
+function goView(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showToast(msg, type='') {
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.borderLeftColor = type==='err'?'var(--red)':'var(--amber)';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// Word count for answer textarea
+document.addEventListener('DOMContentLoaded',()=>{
+  const a=document.getElementById('ansInput');
+  if(a) a.addEventListener('input',()=>{
+    document.getElementById('wordCount').textContent=a.value.trim().split(/\s+/).filter(Boolean).length;
+  });
+});
+</script>
+<div id="ivPayModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Your 1 free test has been used</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:12px;font-weight:700;color:#0a0f1e;margin-top:2px;">3 Tests &bull; &#8377;33/test</div></div><button onclick="startIvPayment()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Buy 3 Tests for &#8377;99 &#8594;</button><button onclick="document.getElementById('ivPayModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
+</body>
+</html>
