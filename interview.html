@@ -315,6 +315,12 @@ img{max-width:100%;display:block;}
         <label class="form-label">Current Role / Designation</label>
         <input class="form-input" type="text" id="fCurrentRole" placeholder="e.g. Senior Software Engineer">
       </div>
+      <div class="form-group">
+        <label class="form-label">Target Job Title <span style="color:var(--amber)">*</span></label>
+        <input class="form-input" id="fRole" type="text"
+               placeholder="e.g. HR Manager, Software Engineer, Branch Manager, TA Lead"
+               oninput="S.profile.role=this.value.trim()">
+      </div>
     </div>
   </div>
 
@@ -843,7 +849,8 @@ async function startInterview() {
   const loc   = document.getElementById('fLocation').value.trim();
   const industry = S.profile.industry || '';
   const level    = S.profile.level || '';
-  const role  = document.getElementById('fRole').value;
+  var roleEl=document.getElementById('fRole');
+  const role=(roleEl?roleEl.value.trim():S.profile.role||'');
   const skills= document.getElementById('fSkills').value.trim();
 
   if (!name)     { showToast('Please enter your name','err'); return; }
@@ -903,6 +910,7 @@ async function generateQuestions() {
     behavioural: 'Focus 3 questions on behavioural scenarios (STAR format), 1 technical, 1 HR.',
     hr: 'Focus 3 questions on HR topics (CTC, notice, goals, relocation), 1 technical, 1 behavioural.',
     situational: 'Focus 3 questions on situational "what would you do if" scenarios, 1 technical, 1 behavioural.',
+    algo: 'Include 2 coding/algorithm/data-structure problems, 2 technical, 1 behavioural.',
     '': 'Mix: 2 technical/domain, 2 behavioural, 1 HR.'
   };
 
