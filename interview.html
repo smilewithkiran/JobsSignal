@@ -326,23 +326,14 @@ img{max-width:100%;display:block;}
 
   <!-- Section D: Skills -->
   <div class="card card-pad" style="margin-bottom:14px;">
-    <div class="section-label" style="margin-bottom:14px;">Skills & Focus</div>
-    <div class="form-group">
-      <label class="form-label">Key Skills <span style="color:var(--amber)">*</span></label>
-      <input class="form-input" type="text" id="fSkills" placeholder="e.g. React, Node.js, AWS — or — Credit Analysis, NBFC, Risk Management">
-      <div class="form-hint">Separate with commas. Be specific — the more detail, the better questions.</div>
-    </div>
-    <div class="form-group" style="margin-bottom:0">
-      <label class="form-label">Interview Focus</label>
-      <select class="form-select" id="fFocus">
-        <option value="algo">&#128187; Coding / Algorithm + DS (IT roles)</option>
-        <option value="">Mixed — Technical + Behavioural + HR</option>
-        <option value="technical">Mostly Technical (tools, domain knowledge, problem solving)</option>
-        <option value="behavioural">Mostly Behavioural (STAR — leadership, conflict, teamwork)</option>
-        <option value="hr">HR & Salary (notice period, CTC, relocation, career goals)</option>
-        <option value="situational">Situational (what would you do if...)</option>
-      </select>
-    </div>
+    <div class="section-label" style="margin-bottom:12px;">Optional</div>
+    <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;">
+      <input type="checkbox" id="fAlgo" style="width:17px;height:17px;margin-top:2px;accent-color:var(--teal);flex-shrink:0;">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--ink);">&#128187; Include Coding / Algorithm Questions</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;">For software / IT roles — adds DSA and coding problems to your test</div>
+      </div>
+    </label>
   </div>
 
   <div style="margin-bottom:10px">
@@ -591,6 +582,8 @@ img{max-width:100%;display:block;}
 const FB_URL  = 'https://jobssignal-b1c5c-default-rtdb.asia-southeast1.firebasedatabase.app';
 const FB_KEY  = 'AIzaSyBJ2WhZ70oElaa88N3bG1u_Z9skmbBhMxg';
 const MODEL   = 'claude-sonnet-4-20250514';
+const CF_WORKER='https://jobssignal-ai.hr-kiranm.workers.dev';
+function anthropicHeaders(){return{'Content-Type':'application/json'};}
 const S_USER  = 'js_user';
 const S_PROF  = 'js_interview_profile';
 const ADMIN_U = 'admin';
@@ -672,6 +665,16 @@ function handleResumeUpload(input){
 // Timer
 var _timerInt=null,_timeLeft=0,_timerExpired=false,_tabViols=0,_ivActive=false;
 var LEVEL_MINS={'0-2 Years (Entry Level)':15,'2-5 Years':18,'5-8 Years':20,'8-12 Years':25,'12-18 Years':28,'18+ Years (Senior Leadership)':30};
+var LEVEL_CONFIG={
+  '0-2 Years (Entry Level)':{mins:15,qs:5},
+  '2-5 Years':{mins:18,qs:5},
+  '5-8 Years':{mins:22,qs:6},
+  '8-12 Years':{mins:28,qs:7},
+  '12-18 Years':{mins:32,qs:7},
+  '18+ Years (Senior Leadership)':{mins:38,qs:8}
+};
+function getLevelConfig(lvl){return LEVEL_CONFIG[lvl]||{mins:25,qs:5};}
+function getLevelQs(lvl){return getLevelConfig(lvl).qs;}
 function getTimerMins(lvl){return LEVEL_MINS[lvl]||25;}
 function startTimer(mins){
   _timeLeft=mins*60;_timerExpired=false;clearInterval(_timerInt);
@@ -786,34 +789,45 @@ function selectLevel(btn, val) {
 // ════════════════════════════════════════════════
 // LOAD SAVED PROFILE
 // ════════════════════════════════════════════════
-function loadSavedProfile() {
-  try {
-    const p = JSON.parse(localStorage.getItem(S_PROF)||'{}');
-    const u = JSON.parse(localStorage.getItem(S_USER)||'{}');
-    if (p.name || u.name) {
-      const prof = { ...p };
-      if (u.name && !prof.name) prof.name = u.name;
-      if (u.phone && !prof.phone) prof.phone = u.phone;
-      if (prof.name) document.getElementById('fName').value = prof.name;
-      if (prof.phone) document.getElementById('fPhone').value = prof.phone;
-      if (prof.email) document.getElementById('fEmail').value = prof.email;
-      if (prof.location) document.getElementById('fLocation').value = prof.location;
-      if (prof.company) document.getElementById('fCompany').value = prof.company;
-      if (prof.currentRole) document.getElementById('fCurrentRole').value = prof.currentRole;
-      if (prof.skills) document.getElementById('fSkills').value = prof.skills;
-      if (prof.industry) {
-        const btn = document.querySelector(`.industry-btn[data-ind="${prof.industry}"]`);
-        if (btn) { selectIndustry(btn, prof.industry);
-          setTimeout(()=>{ if (prof.role) document.getElementById('fRole').value = prof.role; },50);
-        }
-      }
-      if (prof.level) {
-        const btn = document.querySelector(`.level-btn[data-val="${prof.level}"]`);
-        if (btn) selectLevel(btn, prof.level);
+function loadSavedProfile(){
+  try{
+    var p=JSON.parse(localStorage.getItem(S_PROF)||'{}');
+    var u=JSON.parse(localStorage.getItem(S_USER)||'{}');
+    // Skip admin/superuser — don't pre-fill their credentials
+    var uPhone=(u.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+    var isAdmin=u.isAdmin===true||uPhone==='9160075557';
+    // Merge: saved profile takes priority; fall back to login user only for non-admin
+    if(!p.name&&!isAdmin) p.name=u.name||'';
+    if(!p.phone&&!isAdmin) p.phone=u.phone||'';
+    // Fill text fields
+    var f=function(id,val){var el=document.getElementById(id);if(el&&val)el.value=val;};
+    f('fName',  p.name);
+    f('fPhone', p.phone);
+    f('fEmail', p.email);
+    f('fLocation', p.location||p.loc);
+    f('fCompany', p.company);
+    f('fCurrentRole', p.currentRole);
+    f('fSkills', p.skills);
+    f('fRole',  p.role);
+    // Industry dropdown
+    if(p.industry){
+      var indSel=document.getElementById('fIndustry');
+      if(indSel){
+        indSel.value=p.industry;
+        S.profile.industry=p.industry;
       }
     }
-  } catch(e){}
+    // Level dropdown
+    if(p.level){
+      var lvlSel=document.getElementById('fLevel');
+      if(lvlSel){
+        lvlSel.value=p.level;
+        S.profile.level=p.level;
+      }
+    }
+  }catch(e){}
 }
+
 
 // ════════════════════════════════════════════════
 // FIREBASE HELPERS
@@ -843,6 +857,75 @@ async function fbGet(path) {
 // ════════════════════════════════════════════════
 // START INTERVIEW
 // ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// MOCK INTERVIEW CREDIT SYSTEM
+// Superuser: unlimited. Others: 1 free + paid
+// ═══════════════════════════════════════════
+const S_IV_CRED='js_iv_credits';
+const RZP_KEY_IV='rzp_live_STQSX6OgVKJ1cm';
+
+async function checkInterviewCredits(){
+  try{
+    var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
+    var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+    if(lp==='9160075557'||lu.isAdmin===true) return true;
+    if(!lp) return false;
+    var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
+    if(!r.ok) return true;
+    var d=await r.json();
+    if(!d) return true;
+    localStorage.setItem(S_IV_CRED,JSON.stringify(d));
+    if(!d.free_used) return true;
+    return (parseInt(d.credits)||0)>0;
+  }catch(e){return true;}
+}
+
+async function markCreditUsed(){
+  try{
+    var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
+    var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+    if(lp==='9160075557'||lu.isAdmin===true) return;
+    if(!lp) return;
+    var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
+    var d=r.ok?(await r.json()||{}):{free_used:false,credits:0};
+    if(!d.free_used){d.free_used=true;}
+    else if((parseInt(d.credits)||0)>0){d.credits=(parseInt(d.credits)||0)-1;}
+    await fetch(FB_DB+'/interview_credits/'+lp+'.json',{method:'PUT',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+    localStorage.setItem(S_IV_CRED,JSON.stringify(d));
+  }catch(e){}
+}
+
+function startIvPayment(){
+  var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
+  var opts={
+    key:RZP_KEY_IV,amount:9900,currency:'INR',
+    name:'JobsSignal',description:'AI Mock Interview — 3 Tests',
+    handler:async function(resp){
+      var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+      if(lp){
+        var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
+        var d=r.ok?(await r.json()||{}):{free_used:true,credits:0};
+        d.free_used=true;
+        d.credits=(parseInt(d.credits)||0)+3;
+        d.last_paid=new Date().toISOString();
+        d.txn=resp.razorpay_payment_id;
+        await fetch(FB_DB+'/interview_credits/'+lp+'.json',{method:'PUT',
+          headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+        localStorage.setItem(S_IV_CRED,JSON.stringify(d));
+      }
+      var m=document.getElementById('ivPayModal');
+      if(m)m.style.display='none';
+      showToast('3 test credits added! Starting now…','green');
+      setTimeout(doStartInterview,600);
+    },
+    prefill:{name:lu.name||'',contact:lu.phone||''},
+    theme:{color:'#0284c7'}
+  };
+  try{new Razorpay(opts).open();}catch(e){showToast('Payment failed to load','err');}
+}
+
+async function doStartInterview(){return startInterview();}
 async function startInterview() {
   const name  = document.getElementById('fName').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
@@ -878,6 +961,13 @@ async function startInterview() {
   S.qIndex    = 0;
   S.sessionId = Date.now().toString(36);
 
+  // Credit gate: superuser unlimited, others need free/paid credit
+  var _hasCredit=await checkInterviewCredits();
+  if(!_hasCredit){
+    var m=document.getElementById('ivPayModal');if(m)m.style.display='flex';
+    return;
+  }
+  await markCreditUsed();
   goView('viewGenerating');
   document.getElementById('genTitle').textContent = `Crafting your ${S.profile.industry} interview...`;
 
@@ -890,77 +980,68 @@ async function startInterview() {
 
   try {
     S.questions = await generateQuestions();
-    setTimeout(()=>{ renderQuestion(0); _tabViols=0;_timerExpired=false;_ivActive=true;var _tm=getTimerMins(S.profile.level);startTimer(_tm);
+    setTimeout(()=>{ renderQuestion(0); var _cfg=getLevelConfig(S.profile.level);_tabViols=0;_timerExpired=false;_ivActive=true;startTimer(_cfg.mins);
   goView('viewInterview'); }, 2900);
-  } catch(err) {
-    console.error(err);
-    showToast('API error generating questions. Try again.','err');
-    setTimeout(()=>{ goView('viewSetup'); resetGenSteps(); }, 600);
+  } catch(err){
+    console.error('generateQuestions error:',err);
+    var msg=err&&err.message?err.message:'';
+    var isNetwork=msg.indexOf('Failed to fetch')>=0||msg.indexOf('NetworkError')>=0||msg.indexOf('Load failed')>=0;
+    var errText=isNetwork
+      ?'Network error. Make sure the site is deployed on GitHub Pages and you have internet.'
+      :'Error generating questions ('+msg+'). Please try again.';
+    clearTimeout(_genTimeout);showToast(errText,'err');
+    setTimeout(function(){ goView('viewSetup'); resetGenSteps(); },800);
   }
 }
 
 // ════════════════════════════════════════════════
 // GENERATE QUESTIONS via Claude API
 // ════════════════════════════════════════════════
-async function generateQuestions() {
-  const p = S.profile;
-
-  const focusMap = {
-    technical: 'Focus 3 questions on technical/domain knowledge, 1 behavioural, 1 situational.',
-    behavioural: 'Focus 3 questions on behavioural scenarios (STAR format), 1 technical, 1 HR.',
-    hr: 'Focus 3 questions on HR topics (CTC, notice, goals, relocation), 1 technical, 1 behavioural.',
-    situational: 'Focus 3 questions on situational "what would you do if" scenarios, 1 technical, 1 behavioural.',
-    algo: 'Include 2 coding/algorithm/data-structure problems, 2 technical, 1 behavioural.',
-    '': 'Mix: 2 technical/domain, 2 behavioural, 1 HR.'
-  };
-
-  const prompt = `You are an expert Indian interviewer specialising in ${p.industry} industry interviews.
-
-CANDIDATE PROFILE:
-- Name: ${p.name}
-- Target Role: ${p.role}
-- Experience Level: ${p.level}
-- Current Role: ${p.currentRole || 'Not specified'}
-- Current Company: ${p.company || 'Not specified'}
-- Key Skills: ${p.skills}
-- Location: ${p.loc || 'India'}
-- Industry: ${p.industry}
-
-INSTRUCTIONS:
-Generate exactly 5 interview questions for this specific candidate for the ${p.role} role in ${p.industry}.
-${focusMap[p.focus] || focusMap['']}
-
-CRITICAL RULES:
-- Questions must be highly specific to ${p.industry} — NOT generic IT or software questions (unless industry is IT)
-- Reference real Indian industry context: Indian regulations, Indian companies, Indian market conditions
-- Match the difficulty and depth to ${p.level}
-- For senior levels (Staff/Principal/Director/VP), include strategic and leadership questions
-- For junior/fresher levels, focus on fundamentals and potential
-- Use Indian terminology where applicable (e.g. CTC, LPA, notice period, IRDAI, RBI, FMCG distributor terms)
-- If ${p.company} is mentioned, reference their known business context if relevant
-
-QUESTION TYPES TO USE: TECHNICAL, BEHAVIOURAL, HR, SITUATIONAL, DOMAIN
-
-Respond ONLY with a valid JSON array. No markdown, no explanation, nothing else:
-[
-  {
-    "type": "TECHNICAL|BEHAVIOURAL|HR|SITUATIONAL|DOMAIN",
-    "difficulty": "Easy|Medium|Hard",
-    "question": "The full question text",
-    "hint": "One-line coaching tip — what a good answer should include"
-  }
-]`;
-
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:MODEL, max_tokens:1000, messages:[{role:'user',content:prompt}]})
+async function generateQuestions(){
+  var p=S.profile;
+  var numQ=getLevelQs(p.level);
+  var inclAlgo=!!(document.getElementById('fAlgo')&&document.getElementById('fAlgo').checked);
+  var algoNote=inclAlgo?'Include at least 2 coding/algorithm/data-structure problems.':'';
+  var prompt='You are a senior Indian interviewer expert in '+p.industry+' industry hiring.\n\n'
+    +'CANDIDATE:\n- Name: '+p.name+'\n'
+    +'- Current Role: '+(p.currentRole||'Not specified')+'\n'
+    +'- Target Role: '+(p.role||'Not specified')+'\n'
+    +'- Experience: '+p.level+'\n'
+    +'- Industry: '+p.industry+'\n'
+    +'- Skills: '+p.skills+'\n'
+    +'- Company: '+(p.company||'Not specified')+'\n'
+    +(resumeBase64?'Resume attached.\n':'')+(p.linkedIn?'LinkedIn: '+p.linkedIn+'\n':'')
+    +'\nGenerate exactly '+numQ+' interview questions. YOU decide the right mix automatically.\n'
+    +'Industry question-mix rules:\n'
+    +'HR/Recruitment: behavioural, stakeholder management, situational, competency\n'
+    +'Banking/Finance: domain knowledge, compliance, situational, client handling\n'
+    +'IT/Software: technical, system design, behavioural\n'
+    +'Healthcare: clinical/admin knowledge, situational, patient/stakeholder handling\n'
+    +'Hospitality: customer service, situational, operations\n'
+    +'Senior 8+yrs: strategic thinking, leadership, P&L, stakeholder management\n'
+    +'Junior 0-5yrs: fundamentals, learning ability, situational basics\n'
+    +'Always include 1 Indian-context question (Indian regulations, companies, market).\n'
+    +algoNote+'\n'
+    +'RESPOND ONLY with valid JSON array — no markdown:\n'
+    +'[{"type":"TECHNICAL|BEHAVIOURAL|HR|SITUATIONAL|DOMAIN|LEADERSHIP|CODING",'
+    +'"difficulty":"Easy|Medium|Hard","question":"Full question text",'
+    +'"hint":"What a strong answer should cover"}]';
+  var msgContent=resumeBase64
+    ?[{type:'document',source:{type:'base64',media_type:'application/pdf',data:resumeBase64}},{type:'text',text:prompt}]
+    :[{type:'text',text:prompt}];
+  var res=await fetch(CF_WORKER,{
+    method:'POST',headers:anthropicHeaders(),
+    body:JSON.stringify({model:MODEL,max_tokens:200+(numQ*350),
+      messages:[{role:'user',content:msgContent}]})
   });
-  if (!res.ok) throw new Error('API '+res.status);
-  const data = await res.json();
-  const raw = data.content.find(c=>c.type==='text')?.text||'';
-  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+  if(!res.ok)throw new Error('API '+res.status);
+  var data=await res.json();
+  var raw='';if(data.content){var tb=data.content.find(function(x){return x.type==='text';});raw=tb?tb.text:'';}
+  var parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+  S.totalQuestions=parsed.length;
+  return parsed;
 }
+
 
 // ════════════════════════════════════════════════
 // RENDER QUESTION
@@ -1046,35 +1127,25 @@ async function submitAnswer() {
   }
 }
 
-async function scoreAnswer(q, answer) {
-  const p = S.profile;
-  const prompt = `You are scoring a mock interview answer for an Indian ${p.industry} professional.
-
-QUESTION: ${q.question}
-TYPE: ${q.type} | DIFFICULTY: ${q.difficulty}
-CANDIDATE LEVEL: ${p.level} | INDUSTRY: ${p.industry} | ROLE: ${p.role}
-
-CANDIDATE ANSWER: ${answer}
-
-Score 1–10 and give specific, actionable feedback in 2–3 sentences.
-For ${p.industry} roles: check for industry-specific knowledge, Indian context, correct terminology.
-For behavioural: check STAR structure.
-For technical/domain: check accuracy and depth appropriate for ${p.level}.
-Be encouraging but honest. Mention one specific thing done well and one specific improvement.
-
-Respond ONLY with valid JSON, nothing else:
-{"score":7,"feedback":"Your feedback here."}`;
-
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:MODEL, max_tokens:300, messages:[{role:'user',content:prompt}]})
-  });
-  if (!res.ok) throw new Error('API '+res.status);
-  const data = await res.json();
-  const raw = data.content.find(c=>c.type==='text')?.text||'';
-  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+async function scoreAnswer(q,answer){
+  var p=S.profile;
+  var prompt='Score this mock interview answer for an Indian '+p.industry+' professional ('+p.level+').\n\n'
+    +'QUESTION: '+q.question+'\nTYPE: '+q.type+'\nCANDIDATE ANSWER: '+answer+'\n\n'
+    +'Score as a percentage 0-100. Check: industry knowledge, STAR structure for behavioural, Indian context.\n'
+    +'Respond ONLY with valid JSON:\n'
+    +'{"score":75,"feedback":"2-3 sentence feedback","strong":"What was good","improve":"What to add"}';
+  try{
+    var res=await fetch(CF_WORKER,{method:'POST',headers:anthropicHeaders(),
+      body:JSON.stringify({model:MODEL,max_tokens:300,messages:[{role:'user',content:prompt}]})});
+    if(!res.ok)throw new Error('score API '+res.status);
+    var data=await res.json();
+    var raw='';if(data.content){var tb=data.content.find(function(x){return x.type==='text';});raw=tb?tb.text:'';}
+    var sc=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    return{score:Math.min(100,Math.max(0,parseInt(sc.score)||0)),
+      feedback:sc.feedback||'',strong:sc.strong||'',improve:sc.improve||''};
+  }catch(e){return{score:0,feedback:'Could not score. Check internet.',strong:'',improve:''};}
 }
+
 
 // ════════════════════════════════════════════════
 // NEXT QUESTION / FINISH
