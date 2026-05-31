@@ -868,17 +868,18 @@ async function checkInterviewCredits(){
   try{
     var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
     var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
-    if(lp==='9160075557'||lu.isAdmin===true) return true;
-    if(!lp) return false;
+    // Superuser: unlimited
+    if(lp==='9160075557'||lu.isAdmin===true) return {ok:true,reason:'superuser'};
+    if(!lp) return {ok:false,reason:'not_logged_in'};
     var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
-    if(!r.ok) return true;
-    var d=await r.json();
-    if(!d) return true;
-    localStorage.setItem(S_IV_CRED,JSON.stringify(d));
-    if(!d.free_used) return true;
-    return (parseInt(d.credits)||0)>0;
-  }catch(e){return true;}
+    var d=r.ok?await r.json():null;
+    if(!d||!d.free_used) return {ok:true,reason:'free_test',credits:0};
+    var cr=parseInt(d.credits)||0;
+    if(cr>0) return {ok:true,reason:'paid_credits',credits:cr};
+    return {ok:false,reason:'all_used',credits:0};
+  }catch(e){return {ok:true,reason:'error'};}
 }
+
 
 async function markCreditUsed(){
   try{
@@ -962,8 +963,18 @@ async function startInterview() {
   S.sessionId = Date.now().toString(36);
 
   // Credit gate: superuser unlimited, others need free/paid credit
-  var _hasCredit=await checkInterviewCredits();
-  if(!_hasCredit){
+  var _credit=await checkInterviewCredits();
+  if(!_credit.ok){
+    // Show correct message based on reason
+    var _ttl=document.getElementById('ivPayTitle');
+    var _sub=document.getElementById('ivPaySub');
+    if(_credit.reason==='all_used'){
+      if(_ttl)_ttl.textContent='All Tests Completed!';
+      if(_sub)_sub.textContent='You have used all your test credits. Buy 3 more to continue practising.';
+    }else{
+      if(_ttl)_ttl.textContent='Buy AI Mock Interview Tests';
+      if(_sub)_sub.textContent='Your 1 free test has been used.';
+    }
     var m=document.getElementById('ivPayModal');if(m)m.style.display='flex';
     return;
   }
@@ -1031,7 +1042,7 @@ async function generateQuestions(){
     :[{type:'text',text:prompt}];
   var res=await fetch(CF_WORKER,{
     method:'POST',headers:anthropicHeaders(),
-    body:JSON.stringify({model:MODEL,max_tokens:200+(numQ*350),
+    body:JSON.stringify({model:MODEL,max_tokens:200+(numQ*350),temperature:0.0,
       messages:[{role:'user',content:msgContent}]})
   });
   if(!res.ok)throw new Error('API '+res.status);
@@ -1522,6 +1533,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
-<div id="ivPayModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Your 1 free test has been used</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:12px;font-weight:700;color:#0a0f1e;margin-top:2px;">3 Tests &bull; &#8377;33/test</div></div><button onclick="startIvPayment()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Buy 3 Tests for &#8377;99 &#8594;</button><button onclick="document.getElementById('ivPayModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
+<div id="ivPayModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="ivPaySub" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Your 1 free test has been used</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:12px;font-weight:700;color:#0a0f1e;margin-top:2px;">3 Tests &bull; &#8377;33/test</div></div><button onclick="startIvPayment()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Buy 3 Tests for &#8377;99 &#8594;</button><button onclick="document.getElementById('ivPayModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
 </body>
 </html>
