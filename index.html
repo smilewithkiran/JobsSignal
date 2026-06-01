@@ -1509,9 +1509,15 @@ function switchTab(tab,skipHistory){
 // ── AUTH ──────────────────────────────────────────────────────────
 function isSuperUser(){var ph=(currentUser&&currentUser.phone)?(''+currentUser.phone).replace(/[^0-9]/g,'').slice(-10):'';return ph===SUPER;}
 async function isPaidUser(){
-  if(isSuperUser())return true;  // Super user always has full access
-  return isPaid;
+  if(isSuperUser())return true;
+  var plan=null;
+  try{plan=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+  if(!plan)return false;
+  if(!plan.planType||plan.planType==='free')return false;
+  if(!plan.expiry)return false;
+  return new Date(plan.expiry)>new Date();
 }
+
 
 async function doLogin(){
   var phone=(document.getElementById('li_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
@@ -1541,8 +1547,27 @@ async function doLogin(){
     var paid=false;
     if(pld&&pld.expiry){paid=new Date(pld.expiry)>new Date();}
     localStorage.setItem(S_USER,JSON.stringify(d));
-    if(pld)localStorage.setItem(S_PLAN,JSON.stringify(pld));
-    enterDash(d,paid);
+    if(pld)localStorage.setItem(S_PLAN,JSON.stringify(pld))      // First login without plan: show plan selection
+      var _existPlan=null;
+      try{
+        var _pr=await fetch(FB_DB+'/plans/'+phone+'.json');
+        var _pd=await _pr.json();
+        if(_pd&&_pd.planType){
+          _existPlan=_pd;
+          localStorage.setItem(S_PLAN,JSON.stringify(_pd));
+        }
+      }catch(e){}
+      if(!_existPlan){
+        localStorage.setItem(S_USER,JSON.stringify(d));
+        currentUser=d;
+        showPlanSelectModal(d);
+        return;
+      }
+      // Recalculate paid from freshly-written localStorage plan
+      var _fp2=null;try{_fp2=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+      var _freshPaid=!!(  _fp2&&_fp2.planType&&_fp2.planType!=='free'
+                        &&_fp2.expiry&&new Date(_fp2.expiry)>new Date());
+      enterDash(d,_freshPaid);
   }catch(e){showToast('Login failed. Check internet.','amber');}
 }
 
@@ -1551,111 +1576,173 @@ async function suNext(dir){
   if(errEl)errEl.style.display='none';
   var steps=['sstep0','sstep1','sstep2'];
   var cur=steps.findIndex(function(s){
-    var el=document.getElementById(s);
-    return el&&(el.classList.contains('active')||el.style.display==='block');
+    var el=document.getElementById(s);return el&&el.style.display==='block';
   });
   if(cur<0)cur=0;
-
-  // Validate current step before advancing
   if(dir>0){
     if(cur===0){
-      // Step 0: phone only
-      var p=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
-      if(p.length<10){showToast('Enter valid 10-digit mobile','amber');return;}
-      if(p===SUPER){
-        if(errEl){errEl.textContent='This number cannot be used for registration.';errEl.style.display='block';}
-        return;
-      }
-      // Check already registered
+      var nm=(document.getElementById('su_name')||{value:''}).value.trim();
+      var ph=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
+      var ct=(document.getElementById('su_city')||{value:''}).value;
+      var sk=(document.getElementById('su_skill')||{value:''}).value.trim();
+      var ex=(document.getElementById('su_exp')||{value:''}).value;
+      if(!nm){showToast('Enter your full name','amber');return;}
+      if(ph.length<10){showToast('Enter valid 10-digit mobile number','amber');return;}
+      if(ph===SUPER){if(errEl){errEl.textContent='This number cannot be registered.';errEl.style.display='block';}return;}
+      if(!ct){showToast('Select your city','amber');return;}
+      if(!sk){showToast('Enter at least one key skill','amber');return;}
+      if(!ex){showToast('Select your experience level','amber');return;}
       var btn=document.querySelector('#sstep0 button');
       if(btn){btn.textContent='Checking...';btn.disabled=true;}
-      var alreadyReg=false;
+      var taken=false;
       try{
-        var r1=await fetch(FB_DB+'/phones/'+p+'.json');
+        var r1=await fetch(FB_DB+'/users/'+ph+'.json');
         var d1=await r1.json();
-        if(d1&&(d1.phone||d1.name))alreadyReg=true;
-      }catch(e1){}
-      if(!alreadyReg){
-        try{
-          var r2=await fetch(FB_DB+'/users/'+p+'.json');
-          var d2=await r2.json();
-          if(d2&&d2.phone)alreadyReg=true;
-        }catch(e2){}
-      }
+        if(d1&&d1.phone)taken=true;
+      }catch(e){}
       if(btn){btn.textContent='Continue →';btn.disabled=false;}
-      if(alreadyReg){
-        if(errEl){errEl.textContent='This number is already registered. Please log in instead.';errEl.style.display='block';}
-        showToast('Already registered — please log in','amber');
-        return;
-      }
+      if(taken){if(errEl){errEl.textContent='Number already registered. Please log in.';errEl.style.display='block';}return;}
     }
-    if(cur===1){
-      // Step 1: name + city
-      var nm=(document.getElementById('su_name')||{value:''}).value.trim();
-      var ct=(document.getElementById('su_city')||{value:''}).value;
-      if(!nm){showToast('Enter your name','amber');return;}
-      if(!ct){showToast('Select your city','amber');return;}
-    }
+    if(cur===1){suUpdateTotal();}
   }
-
   var nxt=cur+dir;
   if(nxt<0||nxt>=steps.length)return;
-
-  // Show/hide steps
-  steps.forEach(function(s,i){
-    var el=document.getElementById(s);
-    if(!el)return;
-    if(i===nxt){
-      el.style.display='block';
-      el.classList.add('active');
-    }else{
-      el.style.display='none';
-      el.classList.remove('active');
-    }
-  });
+  steps.forEach(function(s,i){var el=document.getElementById(s);if(el)el.style.display=i===nxt?'block':'none';});
+  var dots=document.querySelectorAll('.su-dot');
+  dots.forEach(function(d,i){d.style.background=i<=nxt?'var(--teal)':'var(--border)';});
+  var lbl=document.getElementById('su_step_lbl');
+  if(lbl)lbl.textContent='Step '+(nxt+1)+' of 3';
+  suUpdateTotal();
   window.scrollTo(0,0);
 }
+function suSelectPlan(val){
+  var el=document.getElementById('su_plan_'+val);
+  if(el){el.checked=true;}
+  suHighlightPlan();
+  suUpdateTotal();
+}
+function suHighlightPlan(){
+  var PLANS=['free','trial','wo','paid'];
+  PLANS.forEach(function(p){
+    var card=document.getElementById('pc_'+p);
+    var chk=document.getElementById('pc_chk_'+p);
+    var radio=document.getElementById('su_plan_'+p);
+    if(!card||!chk||!radio)return;
+    var sel=radio.checked;
+    card.style.borderColor=sel?'#0284c7':'#e5e7eb';
+    card.style.background=sel?'#f0f9ff':'#fff';
+    chk.style.borderColor=sel?'#0284c7':'#d1d5db';
+    chk.style.background=sel?'#0284c7':'#fff';
+    chk.querySelector('span').style.color=sel?'#fff':'transparent';
+  });
+}
+function suSelectMock(val){
+  var el=document.getElementById('su_mock_'+val);
+  if(el){el.checked=true;}
+  suHighlightMock();
+  suUpdateTotal();
+}
+function suHighlightMock(){
+  var OPTS=['yes','no'];
+  OPTS.forEach(function(v){
+    var card=document.getElementById('mc_'+v);
+    var chk=document.getElementById('mc_chk_'+v);
+    var radio=document.getElementById('su_mock_'+v);
+    if(!card||!chk||!radio)return;
+    var sel=radio.checked;
+    card.style.borderColor=sel?'#0284c7':'#e5e7eb';
+    card.style.background=sel?'#f0f9ff':'#fff';
+    chk.style.borderColor=sel?'#0284c7':'#d1d5db';
+    chk.style.background=sel?'#0284c7':'#fff';
+    chk.querySelector('span').style.color=sel?'#fff':'transparent';
+  });
+}
+function suUpdateTotal(){
+  var pv=(document.querySelector('input[name="su_plan"]:checked')||{value:'free'}).value;
+  var mv=(document.querySelector('input[name="su_mock"]:checked')||{value:'no'}).value;
+  var planAmt={'free':0,'trial':9,'wo':9,'paid':99}[pv]||0;
+  var t=planAmt+(mv==='yes'?199:0);
+  var el=document.getElementById('su_total_amt');
+  if(el)el.textContent=t===0?'Free':'₹'+t;
+  var sum=document.getElementById('su_plan_summary');
+  if(sum){
+    var planLabels={'free':'Free plan','trial':'7-Day Trial','wo':'Welcome Offer 30d','paid':'Full Access 30d'};
+    sum.textContent=(planLabels[pv]||'')+(mv==='yes'?' + AI Mock (₹199)':'');
+  }
+  var btn=document.getElementById('suPayBtn');
+  if(btn)btn.textContent=t===0?'Create Free Account →':'Pay ₹'+t+' & Create Account →';
+}
+
+
 
 
 async function doSignup(){
   var name=(document.getElementById('su_name')||{value:''}).value.trim();
   var phone=(document.getElementById('su_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
-  var skill=(document.getElementById('su_skill')||{value:''}).value.trim();
-  var email=(document.getElementById('su_email')||{value:''}).value.trim();
   var city=(document.getElementById('su_city')||{value:''}).value;
+  var skill=(document.getElementById('su_skill')||{value:''}).value.trim();
   var exp=(document.getElementById('su_exp')||{value:''}).value;
   if(!phone||phone.length<10){showToast('Invalid phone','amber');return;}
-  var errEl=document.getElementById('suErr');
-  if(errEl)errEl.style.display='none';
-  var suBtn=document.getElementById('suBtn');
-  if(suBtn){suBtn.disabled=true;suBtn.textContent='Saving…';}
-  var user={phone:phone,name:name,skill:skill,email:email,city:city,exp:exp,createdAt:new Date().toISOString()};
-  var saved=false;
-  for(var _t=0;_t<3;_t++){
-    try{
-      var wr=await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
-      if(wr.ok){
-        await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
-        saved=true;break;
-      }
-    }catch(e){}
-    await new Promise(function(r){setTimeout(r,1000);});
+  var pv=(document.querySelector('input[name="su_plan"]:checked')||{value:'free'}).value;
+  var mv=(document.querySelector('input[name="su_mock"]:checked')||{value:'no'}).value;
+  var addMock=mv==='yes';
+  var planAmt={'free':0,'trial':9,'wo':9,'paid':99}[pv]||0;
+  var total=planAmt+(addMock?199:0);
+  var user={phone:phone,name:name,skill:skill,city:city,exp:exp,createdAt:new Date().toISOString()};
+  async function _save(txn){
+    for(var _t=0;_t<3;_t++){
+      try{
+        var wr=await fetch(FB_DB+'/users/'+phone+'.json',{method:'PUT',
+          headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
+        if(wr.ok){
+          await fetch(FB_DB+'/phones/'+phone+'.json',{method:'PUT',
+            headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone,name:name})});
+          break;
+        }
+      }catch(e){}
+      await new Promise(function(r){setTimeout(r,800);});
+    }
+    var now=Date.now();
+    var days={'free':0,'trial':7,'wo':30,'paid':30}[pv]||0;
+    var pt={'free':'free','trial':'trial','wo':'WO','paid':'paid'}[pv]||'free';
+    // Free plan: expiry in the past so isPaidUser() always returns false
+    var _expMs=pt==='free'?(now-86400000):(now+days*86400000);
+    var planObj={planType:pt,days:days,paidAt:new Date(now).toISOString(),
+      expiry:new Date(_expMs).toISOString(),txn:txn||''};
+    await fetch(FB_DB+'/plans/'+phone+'.json',{method:'PUT',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(planObj)});
+    localStorage.setItem(S_PLAN,JSON.stringify(planObj));
+    if(addMock){
+      var cr={free_used:false,credits:3,paid_at:new Date(now).toISOString(),txn:txn||''};
+      await fetch(FB_DB+'/interview_credits/'+phone+'.json',{method:'PUT',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(cr)});
+      localStorage.setItem(S_IV_CRED,JSON.stringify(cr));
+    }
+    localStorage.setItem(S_USER,JSON.stringify(user));
+    atsPublicMode=false;
+    showToast('Welcome '+(name.split(' ')[0]||'')+'!','green');
+    enterDash(user,pt!=='free');
   }
-  if(suBtn){suBtn.disabled=false;suBtn.textContent='Sign Up Free';}
-  if(!saved){
-    if(errEl){errEl.textContent='Registration failed. Check your internet and try again.';errEl.style.display='block';}
-    showToast('Registration failed — please retry','amber');
-    return;
-  }
-  localStorage.setItem(S_USER,JSON.stringify(user));
-  atsPublicMode=false;
-  showToast('Welcome '+((name||'there').split(' ')[0])+' 🎉','green');
-  enterDash(user,false);
+  if(total===0){await _save('');return;}
+  var btn=document.getElementById('suPayBtn');
+  if(btn){btn.disabled=true;btn.textContent='Opening payment...';}
+  var opts={
+    key:RZP_KEY,amount:total*100,currency:'INR',
+    name:'JobsSignal',description:'JobsSignal Plan',
+    handler:async function(resp){if(btn)btn.disabled=false;await _save(resp.razorpay_payment_id);},
+    modal:{ondismiss:function(){if(btn){btn.disabled=false;suUpdateTotal();}}},
+    prefill:{name:name,contact:phone},theme:{color:'#0284c7'}
+  };
+  try{new Razorpay(opts).open();}catch(e){if(btn)btn.disabled=false;showToast('Payment failed','err');}
 }
 
 
+
 function enterDash(user,paid){
-  currentUser=user;isPaid=isSuperUser()?true:(paid||false);
+  currentUser=user;
+  // Always derive isPaid from localStorage plan - never trust passed param
+  var _ep=null;try{_ep=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
+  isPaid=isSuperUser()?true:(!(!_ep||!_ep.planType||_ep.planType==='free'||!_ep.expiry||new Date(_ep.expiry)<=new Date()));
   atsPublicMode=false;
   var _etb=document.querySelector('.tab-bar');if(_etb)_etb.style.removeProperty('display'); // reset — user is now logged in
   localStorage.setItem(S_USER,JSON.stringify(user));
@@ -1760,14 +1847,14 @@ function buildDash(user,paid){
 
   var _pb=document.getElementById('planBadge');
   var _plan2=null;try{_plan2=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
-  if(_pb&&isPaidUser()&&_plan2){
-    var _td2=_plan2.days||30,_now2=Date.now();
+  if(_pb&&isPaidUser()&&_plan2&&_plan2.planType&&_plan2.planType!=='free'){
+    var _td2=_plan2.days||0,_now2=Date.now();
     var _pa2=_plan2.paidAt?new Date(_plan2.paidAt):new Date(_now2-(_td2*86400000));
     var _dl2=Math.max(0,_td2-Math.floor((_now2-_pa2)/86400000));
     var _pt=_plan2.planType||'paid';
-    _pb.textContent=_pt==='WO'?'Gift Welcome Plan / '+_dl2+' days left'
-      :_pt==='trial'?'Trial / '+_dl2+' days left'
-      :'Paid Plan / '+_dl2+' days left';
+    _pb.textContent=_pt==='WO'?'🎁 Welcome Plan · '+_dl2+' days left'
+      :_pt==='trial'?'⚡ Trial · '+_dl2+' days left'
+      :'✅ Paid Plan · '+_dl2+' days left';
     _pb.style.display='flex';
     var _ub2=document.getElementById('topUpgradeBtn');if(_ub2)_ub2.style.display='none';
   }else if(_pb){_pb.style.display='none';}
@@ -1821,6 +1908,62 @@ function doLogout(){
 }
 
 // ── SESSION RESTORE ───────────────────────────────────────────────
+// ─── POST-LOGIN PLAN MODAL ──────────────────────
+function showPlanSelectModal(user){
+  var m=document.getElementById('planSelectModal');
+  if(m){m.style.display='flex';psUpdateTotal();}
+}
+function psUpdateTotal(){
+  var pv=(document.querySelector('input[name="ps_plan"]:checked')||{value:'free'}).value;
+  var mv=(document.querySelector('input[name="ps_mock"]:checked')||{value:'no'}).value;
+  var t=({'free':0,'trial':9,'wo':9,'paid':99}[pv]||0)+(mv==='yes'?199:0);
+  var el=document.getElementById('ps_total');
+  if(el)el.textContent=t===0?'Free':'₹'+t;
+  var btn=document.getElementById('psPayBtn');
+  if(btn)btn.textContent=t===0?'Continue Free':'Confirm & Pay ₹'+t;
+}
+async function applyPlanSelection(){
+  var pv=(document.querySelector('input[name="ps_plan"]:checked')||{value:'free'}).value;
+  var mv=(document.querySelector('input[name="ps_mock"]:checked')||{value:'no'}).value;
+  var addMock=mv==='yes';
+  var planAmt={'free':0,'trial':9,'wo':9,'paid':99}[pv]||0;
+  var total=planAmt+(addMock?199:0);
+  var user=currentUser;
+  if(!user)return;
+  var phone=(user.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+  async function _applyAndGo(txn){
+    var now=Date.now();
+    var days={'free':0,'trial':7,'wo':30,'paid':30}[pv]||0;
+    var pt={'free':'free','trial':'trial','wo':'WO','paid':'paid'}[pv]||'free';
+    var planObj={planType:pt,days:days,paidAt:new Date(now).toISOString(),
+      expiry:new Date(now+days*86400000).toISOString(),txn:txn||''};
+    await fetch(FB_DB+'/plans/'+phone+'.json',{method:'PUT',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(planObj)});
+    localStorage.setItem(S_PLAN,JSON.stringify(planObj));
+    if(addMock){
+      var cr={free_used:false,credits:3,paid_at:new Date(now).toISOString(),txn:txn||''};
+      await fetch(FB_DB+'/interview_credits/'+phone+'.json',{method:'PUT',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(cr)});
+      localStorage.setItem(S_IV_CRED,JSON.stringify(cr));
+    }
+    var m=document.getElementById('planSelectModal');if(m)m.style.display='none';
+    showToast('Plan activated! Enjoy JobsSignal','green');
+    enterDash(user,pt!=='free');
+  }
+  if(total===0){await _applyAndGo('');return;}
+  var btn=document.getElementById('psPayBtn');
+  if(btn){btn.disabled=true;btn.textContent='Opening payment...';
+  }
+  var opts={
+    key:RZP_KEY,amount:total*100,currency:'INR',
+    name:'JobsSignal',description:'Plan Activation',
+    handler:async function(resp){if(btn)btn.disabled=false;await _applyAndGo(resp.razorpay_payment_id);},
+    modal:{ondismiss:function(){if(btn){btn.disabled=false;psUpdateTotal();}}},
+    prefill:{name:user.name||'',contact:phone},theme:{color:'#0284c7'}
+  };
+  try{new Razorpay(opts).open();}catch(e){if(btn)btn.disabled=false;showToast('Payment failed','err');}
+}
+
 document.addEventListener('DOMContentLoaded',function(){
   // Step 1: Force hide everything first
   // Use setProperty('important') — cannot be overridden
@@ -3542,72 +3685,142 @@ window.autoEnhanceATS=autoEnhanceATS;
 </div>
 
 <div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;">
-  <!-- Left: same teal block -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:28px 36px;position:relative;overflow:hidden;">
     <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
     <div style="position:relative;z-index:1;">
-      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Free to start · ₹99 full access</div>
-      <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Start your<br><span style="color:#f5b96e;">Signal.</span></h1>
-      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;margin-bottom:24px;">
-        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">Free for everyone</div>
-        <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>ATS Scorecard + AI Enhancement</div>
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Cover Letter (cover letter)</div>
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">✓</span>Women Returnship official pages</div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">&#127470;&#127475; Free to start &middot; &#8377;99 full access</div>
+      <h1 style="font-family:'Fraunces',serif;font-size:clamp(30px,3.5vw,48px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Start your<br><span style="color:#f5b96e;">Signal.</span></h1>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Free for everyone</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">&#10003;</span>ATS Scorecard + AI Resume Enhancement</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.8);font-size:12px;"><span style="color:#4ade80;font-weight:700;">&#10003;</span>Women Returnship Programmes</div>
         </div>
       </div>
-      <div style="background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.3);border-radius:14px;padding:18px;">
-        <div style="font-size:11px;font-weight:700;color:rgba(232,148,58,.9);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">₹99/month — full access</div>
-        <div style="display:flex;flex-direction:column;gap:7px;">
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Google Jobs + 12 Portals</div>
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Walk-in · Freshers · Moonlighting</div>
-          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Salary Tools + Offer Analyser</div>
+      <div style="background:rgba(232,148,58,.15);border:1px solid rgba(232,148,58,.3);border-radius:14px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(232,148,58,.9);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">&#8377;99/month &mdash; full access</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Google Jobs + 17 Portals</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Walk-in &middot; Freshers &middot; Moonlighting</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>Salary Tools + Offer Letter Analyser</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#f5b96e;font-weight:700;">+</span>AI Cover Letter Generator</div>
         </div>
       </div>
-      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;margin-top:28px;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">← Home</a>
+      <div style="background:rgba(2,132,199,.2);border:1px solid rgba(2,132,199,.4);border-radius:14px;padding:16px;margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:700;color:#7dd3fc;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">&#127919; AI Mock Interview &mdash; add-on &#8377;199</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#7dd3fc;font-weight:700;">&#10003;</span>1 free test + 3 tests = 4 total</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#7dd3fc;font-weight:700;">&#10003;</span>11 industries &middot; Personalised by AI</div>
+          <div style="display:flex;gap:8px;color:rgba(255,255,255,.7);font-size:12px;"><span style="color:#7dd3fc;font-weight:700;">&#10003;</span>Available for any plan</div>
+        </div>
+      </div>
+      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;text-decoration:none;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);">&larr; Home</a>
     </div>
   </div>
-  <!-- Right: Signup form -->
-  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;position:relative;">
-    <div style="width:100%;max-width:360px;position:relative;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
-        <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <div class="auth-right-panel" style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;position:relative;overflow-y:auto;">
+    <div style="width:100%;max-width:360px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+        <svg width="30" height="30" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
       </div>
-      <div style="font-size:22px;font-weight:800;margin-bottom:6px;color:var(--teal);">Create free account ✨</div>
-      <div style="font-size:13px;color:var(--soft);margin-bottom:28px;">Takes 30 seconds · No credit card needed</div>
-      <!-- Signup steps -->
-      <div id="sstep0" class="signup-step active" style="display:block">
-        <div style="margin-bottom:16px;">
-          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Mobile Number</label>
-          <input id="su_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);">
-        </div>
-        <button class="btn-auth" onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
-        <div id="suErr" style="display:none;color:var(--red);font-size:12px;margin-top:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
+      <div id="su_step_ind" style="display:flex;gap:6px;margin-bottom:20px;align-items:center;">
+        <div class="su-dot active" style="width:24px;height:4px;border-radius:2px;background:var(--teal);"></div>
+        <div class="su-dot" style="width:24px;height:4px;border-radius:2px;background:var(--border);"></div>
+        <div class="su-dot" style="width:24px;height:4px;border-radius:2px;background:var(--border);"></div>
+        <div id="su_step_lbl" style="font-size:11px;color:var(--soft);margin-left:4px;">Step 1 of 3</div>
       </div>
-      <div id="sstep1" class="signup-step" style="display:none">
-        <div style="margin-bottom:16px;">
-          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your Name</label>
-          <input id="su_name" type="text" placeholder="Full name" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
-          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Your City</label>
-          <select id="su_city"><option value="">Select city</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Kanpur</option><option>Nagpur</option><option>Visakhapatnam</option><option>Indore</option><option>Bhopal</option><option>Patna</option><option>Vadodara</option><option>Ludhiana</option><option>Agra</option><option>Nashik</option><option>Meerut</option><option>Rajkot</option><option>Varanasi</option><option>Aurangabad</option><option>Amritsar</option><option>Prayagraj</option><option>Ranchi</option><option>Coimbatore</option><option>Vijayawada</option><option>Jodhpur</option><option>Madurai</option><option>Raipur</option><option>Kota</option><option>Guwahati</option><option>Bhubaneswar</option><option>Thiruvananthapuram</option><option>Kochi</option><option>Dehradun</option><option>Jammu</option><option>Mysuru</option><option>Mangaluru</option><option>Siliguri</option><option>Jamshedpur</option><option>Udaipur</option><option>Tiruppur</option><option>Salem</option><option>Tiruchirappalli</option><option>Tirunelveli</option><option>Warangal</option><option>Guntur</option><option>Nellore</option><option>Vellore</option><option>Ajmer</option><option>Bikaner</option><option>Aligarh</option><option>Bareilly</option><option>Gorakhpur</option><option>Kolhapur</option><option>Solapur</option><option>Amravati</option><option>Jabalpur</option><option>Ujjain</option><option>Jalandhar</option><option>Patiala</option><option>Haridwar</option><option>Bhilai</option><option>Durgapur</option><option>Jhansi</option><option>Erode</option><option>Tirupati</option><option>Rourkela</option><option>India</option></select>
+      <div id="suErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:12px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
+      <div id="sstep0" style="display:block;">
+        <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:4px;">Your Profile</div>
+        <div style="font-size:12px;color:var(--soft);margin-bottom:18px;">Tell us about yourself</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="su_name" type="text" placeholder="Full Name *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+          <input id="su_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+          <select id="su_city" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;"><option value="">Select City *</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Visakhapatnam</option><option>Indore</option><option>Coimbatore</option><option>Bhubaneswar</option><option>Kochi</option><option>India (Other)</option></select>
+          <input id="su_skill" type="text" placeholder="Key Skills (e.g. HR, Recruitment, Java) *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+          <select id="su_exp" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;"><option value="">Experience *</option><option value="0-2 Years">0-2 Years (Fresher / Entry Level)</option><option value="2-5 Years">2-5 Years</option><option value="5-8 Years">5-8 Years</option><option value="8-12 Years">8-12 Years</option><option value="12-18 Years">12-18 Years</option><option value="18-20 Years">18-20 Years</option><option value="20+ Years">20+ Years</option></select>
         </div>
-        <button onclick="suNext(1)" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Continue →</button>
-        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
+        <button onclick="suNext(1)" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-top:8px;">Continue &rarr;</button>
       </div>
-      <div id="sstep2" class="signup-step" style="display:none">
-        <div style="margin-bottom:16px;">
-          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Primary Skill / Role</label>
-          <input id="su_skill" type="text" placeholder="e.g. React Developer, HR Manager" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);margin-bottom:12px;">
-          <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Experience</label>
-          <select id="su_exp"><option value="">Any exp</option><option value="0">Fresher</option><option value="1">1 yr</option><option value="2">2 yrs</option><option value="3">3 yrs</option><option value="5">5 yrs</option><option value="7">7 yrs</option><option value="10">10 yrs</option><option value="12">12 yrs</option><option value="15">15 yrs</option><option value="18">18 yrs</option><option value="20">20+ yrs</option></select>
+      <div id="sstep1" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:3px;">Choose Your Plan</div>
+        <div style="font-size:12px;color:var(--soft);margin-bottom:16px;">Select a plan to get started</div>
+        <input type="radio" name="su_plan" id="su_plan_free"  value="free"  checked style="display:none" onchange="suUpdateTotal();suHighlightPlan()">
+        <input type="radio" name="su_plan" id="su_plan_trial" value="trial"        style="display:none" onchange="suUpdateTotal();suHighlightPlan()">
+        <input type="radio" name="su_plan" id="su_plan_wo"    value="wo"           style="display:none" onchange="suUpdateTotal();suHighlightPlan()">
+        <input type="radio" name="su_plan" id="su_plan_paid"  value="paid"         style="display:none" onchange="suUpdateTotal();suHighlightPlan()">
+        <div id="pc_free" onclick="suSelectPlan('free')" class="plan-card-sel" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:2px solid #0284c7;border-radius:12px;cursor:pointer;margin-bottom:8px;background:#f0f9ff;box-sizing:border-box;">
+          <div id="pc_chk_free" style="width:20px;height:20px;border-radius:50%;border:2px solid #0284c7;background:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#fff;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">Free Access</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">ATS &middot; Resume AI &middot; Women Returnship</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#0284c7;flex-shrink:0;">&#8377;0</div>
         </div>
-        <button onclick="doSignup()" style="width:100%;padding:14px;background:linear-gradient(135deg,#0284c7,#0a0f1e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;">Create Account →</button>
-        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:6px;">← Back</button>
+        <div id="pc_trial" onclick="suSelectPlan('trial')" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;margin-bottom:8px;background:#fff;box-sizing:border-box;">
+          <div id="pc_chk_trial" style="width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:transparent;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">7-Day Trial <span style="font-size:10px;background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:20px;font-weight:700;">&#9889; Try First</span></div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">Full access &middot; 7 days &middot; &#8377;1.28/day</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#0a0f1e;flex-shrink:0;">&#8377;9</div>
+        </div>
+        <div id="pc_wo" onclick="suSelectPlan('wo')" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;margin-bottom:8px;background:#fff;box-sizing:border-box;">
+          <div id="pc_chk_wo" style="width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:transparent;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">Welcome Offer &mdash; 30 Days <span style="font-size:10px;background:#fef9c3;color:#92400e;padding:2px 6px;border-radius:20px;font-weight:700;">&#127381; Limited</span></div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">Full access &middot; 30 days &middot; &#8377;0.30/day</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#0a0f1e;flex-shrink:0;">&#8377;9</div>
+        </div>
+        <div id="pc_paid" onclick="suSelectPlan('paid')" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;margin-bottom:8px;background:#fff;box-sizing:border-box;">
+          <div id="pc_chk_paid" style="width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:transparent;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">Full Access &mdash; 30 Days <span style="font-size:10px;background:#e8943a;color:#fff;padding:2px 6px;border-radius:20px;font-weight:700;">&#11088; Popular</span></div>
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">All features &middot; 30 days &middot; &#8377;3.30/day</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#0a0f1e;flex-shrink:0;">&#8377;99</div>
+        </div>
+        <button onclick="suNext(1)" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-top:8px;">Continue &rarr;</button>
+        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;margin-top:4px;">&larr; Back</button>
       </div>
-      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Already have an account? <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:8px 4px;min-height:44px;text-decoration:underline;">Log in →</button></div>
+      <div id="sstep2" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:3px;">AI Mock Interview</div>
+        <div style="font-size:12px;color:var(--soft);margin-bottom:16px;">Optional &mdash; works with any plan</div>
+        <input type="radio" name="su_mock" id="su_mock_yes" value="yes" checked style="display:none" onchange="suUpdateTotal();suHighlightMock()">
+        <input type="radio" name="su_mock" id="su_mock_no"  value="no"        style="display:none" onchange="suUpdateTotal();suHighlightMock()">
+        <div id="mc_yes" onclick="suSelectMock('yes')" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border:2px solid #0284c7;border-radius:12px;cursor:pointer;margin-bottom:8px;background:#f0f9ff;box-sizing:border-box;">
+          <div id="mc_chk_yes" style="width:20px;height:20px;border-radius:50%;border:2px solid #0284c7;background:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;"><span style="color:#fff;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">&#127919; Add AI Mock Interview</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:3px;">1 free test + 3 tests = 4 total &middot; 11 industries &middot; AI-scored</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#0284c7;flex-shrink:0;">+&#8377;199</div>
+        </div>
+        <div id="mc_no" onclick="suSelectMock('no')" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border:2px solid #e5e7eb;border-radius:12px;cursor:pointer;margin-bottom:12px;background:#fff;box-sizing:border-box;">
+          <div id="mc_chk_no" style="width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;"><span style="color:transparent;font-size:12px;font-weight:900;">&#10003;</span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:800;color:#0a0f1e;">Skip for now</div>
+            <div style="font-size:11px;color:#6b7280;margin-top:3px;">You can add from your dashboard anytime</div>
+          </div>
+          <div style="font-size:18px;font-weight:900;color:#9ca3af;flex-shrink:0;">&#8377;0</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#0a0f1e;border-radius:10px;margin-bottom:12px;">
+          <div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">Total Today</div>
+            <div id="su_plan_summary" style="font-size:11px;color:rgba(255,255,255,.6);">Free plan</div>
+          </div>
+          <div id="su_total_amt" style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:#fff;">&#8377;199</div>
+        </div>
+        <button id="suPayBtn" onclick="doSignup()" style="width:100%;padding:13px;background:#0284c7;border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-bottom:4px;">Pay &#8377;199 &amp; Create Account &rarr;</button>
+        <button onclick="suNext(-1)" style="width:100%;padding:10px;background:none;border:none;color:var(--soft);font-size:13px;cursor:pointer;">&larr; Back</button>
+      </div>
+
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--soft);">Already have an account? <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:4px;text-decoration:underline;">Log in &rarr;</button></div>
     </div>
   </div>
 </div>
+
 
 
 <!-- ═══ UPGRADE MODAL ════════════════════════════════════ -->
