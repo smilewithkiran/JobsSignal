@@ -512,43 +512,56 @@ function filterUsers(){
 }
 
 function renderUsers(){
-  var q    = (document.getElementById('userSearch').value||'').toLowerCase().trim();
-  var pane = document.getElementById('usersPane');
-  var list = _allUsers.filter(function(u){
-    if(_curTab!=='all' && u.status!==_curTab) return false;
-    if(q) return u.phone.includes(q) || u.name.toLowerCase().includes(q) || u.skill.toLowerCase().includes(q);
+  var q=(document.getElementById('userSearch').value||'').toLowerCase().trim();
+  var pane=document.getElementById('usersPane');
+  var list=_allUsers.filter(function(u){
+    if(_curTab!=='all'&&u.status!==_curTab)return false;
+    if(q)return u.phone.includes(q)||u.name.toLowerCase().includes(q)||(u.skill||'').toLowerCase().includes(q);
     return true;
   });
-  if(!list.length){
-    pane.innerHTML='<div class="empty">No users found</div>';
-    return;
-  }
+  if(!list.length){pane.innerHTML='<div class="empty">No users found</div>';return;}
   var html='<div class="tbl-wrap"><table><thead><tr>'
-    +'<th>Phone</th><th>Name / Skill / City</th><th>Status</th>'
-    +'<th>Expiry</th><th>Paid On</th><th>Actions</th>'
+    +'<th>Phone</th><th>Name / Skill</th><th>Plan Status</th>'
+    +'<th>Expiry</th><th>Mock Credits</th><th>Actions</th>'
     +'</tr></thead><tbody>';
   list.forEach(function(u){
-    var badge = u.status==='paid'
-      ? '<span class="badge-paid">✅ Paid · '+u.daysLeft+'d left</span>'
-      : u.status==='expired'
-      ? '<span class="badge-exp">⏰ Expired</span>'
-      : '<span class="badge-free">Free</span>';
-    html += '<tr>'
+    var badge=u.status==='paid'
+      ?'<span class="badge-paid">Paid &middot; '+u.planType+' &middot; '+u.daysLeft+'d left</span>'
+      :u.status==='expired'
+      ?'<span class="badge-exp">Expired</span>'
+      :'<span class="badge-free">Free</span>';
+    var mockBadge=u.mockCredits>0
+      ?'<span style="color:#0284c7;font-size:11px;">'+u.mockCredits+' tests left</span>'
+      :u.mockFreeUsed
+      ?'<span style="color:#f59e0b;font-size:11px;">Free used</span>'
+      :'<span style="color:#9ca3af;font-size:11px;">None</span>';
+    html+='<tr>'
       +'<td style="font-family:monospace;font-weight:600;font-size:13px;">'+u.phone+'</td>'
       +'<td><span style="font-weight:600;color:#e2e8f0;">'+u.name+'</span>'
-          +'<br><span style="color:var(--soft);font-size:11px;">'+u.skill+' · '+u.city+'</span></td>'
+          +'<br><span style="color:var(--soft);font-size:11px;">'+u.skill+' &middot; '+u.city+'</span></td>'
       +'<td>'+badge+'</td>'
       +'<td style="font-size:12px;color:var(--soft);">'+u.expiry+'</td>'
-      +'<td style="font-size:12px;color:var(--soft);">'+u.paidAt+'</td>'
-      +'<td style="white-space:nowrap;">'
-        +'<button class="btn btn-teal btn-sm" data-ph="'+u.phone+'" onclick="quickRestore(this.dataset.ph)">Restore</button> '
-        +'<button class="btn btn-ghost btn-sm" data-ph="'+u.phone+'" onclick="quickRevoke(this.dataset.ph)">Revoke</button>'
+      +'<td>'+mockBadge+'</td>'
+      +'<td style="white-space:nowrap;display:flex;flex-direction:column;gap:4px;padding:6px 4px;">'
+        +'<select onchange="if(this.value)adminSetPlan(\"'+u.phone+'\",this.value,this);" '
+        +'style="font-size:11px;padding:4px 6px;border-radius:6px;border:1px solid #374151;background:#1e293b;color:#e2e8f0;cursor:pointer;">'
+        +'<option value="">Set Plan...</option>'
+        +'<option value="free">Free (deactivate)</option>'
+        +'<option value="trial">Trial ₹9 / 7d</option>'
+        +'<option value="wo">Welcome Offer ₹9 / 30d</option>'
+        +'<option value="paid">₹99 / 30d Full</option>'
+        +'</select>'
+        +'<button class="btn btn-sm" data-ph="'+u.phone+'" '
+        +'onclick="adminBlockUser(this.dataset.ph)" '
+        +'style="background:#7f1d1d;color:#fca5a5;border:none;border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;">'
+        +'Block Login</button>'
       +'</td>'
     +'</tr>';
   });
-  html += '</tbody></table></div>';
-  pane.innerHTML = html;
+  html+='</tbody></table></div>';
+  pane.innerHTML=html;
 }
+
 
 // ── RESTORE / REVOKE ──────────────────────────────
 async function doRestorePlan(){
@@ -638,7 +651,44 @@ function showToast(msg){
     var ph = sessionStorage.getItem('js_admin_ph')||SUPER;
     showAdminApp(ph);
   }
-})();
+})();async function adminSetPlan(phone,planType,selectEl){
+  if(!phone)return;
+  var now=Date.now();
+  var days={'free':0,'trial':7,'wo':30,'paid':30}[planType]||0;
+  var pt={'free':'free','trial':'trial','wo':'WO','paid':'paid'}[planType]||'free';
+  var planObj={planType:pt,days:days,
+    paidAt:new Date(now).toISOString(),
+    expiry:new Date(now+days*86400000).toISOString(),
+    setByAdmin:true};
+  try{
+    var r=await fetch(FB+'/plans/'+phone+'.json',{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(planObj)
+    });
+    if(r.ok){
+      showToast(planType==='free'?'Plan deactivated':'Plan set to '+pt,'green');
+      if(selectEl)selectEl.value='';
+      setTimeout(loadUsers,800);
+    }else{showToast('Failed to update plan','err');}
+  }catch(e){showToast('Error: '+e.message,'err');}
+}
+
+async function adminBlockUser(phone){
+  if(!phone)return;
+  if(!confirm('Block login for '+phone+'? They will not be able to log in.'))return;
+  try{
+    var r=await fetch(FB+'/blocked/'+phone+'.json',{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({blocked:true,blockedAt:new Date().toISOString()})
+    });
+    if(r.ok){showToast(phone+' blocked','green');setTimeout(loadUsers,800);}
+    else{showToast('Failed to block user','err');}
+  }catch(e){showToast('Error','err');}
+}
+
+
 </script>
 </body>
 </html>
