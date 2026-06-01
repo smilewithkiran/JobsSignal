@@ -1964,7 +1964,19 @@ async function applyPlanSelection(){
   try{new Razorpay(opts).open();}catch(e){if(btn)btn.disabled=false;showToast('Payment failed','err');}
 }
 
+async function trackPageVisit(){
+  try{
+    await fetch(FB_DB+'/stats/visits.json',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({date:new Date().toISOString().slice(0,10),
+        hr:new Date().getHours(),ts:new Date().toISOString(),
+        ref:document.referrer?document.referrer.replace(/https?:\/\//,'').split('/')[0]:'direct'})});
+  }catch(e){}
+}
+
 document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(trackPageVisit,2000);
+
   // Step 1: Force hide everything first
   // Use setProperty('important') — cannot be overridden
   ['loginView','signupView','dashView'].forEach(function(id){

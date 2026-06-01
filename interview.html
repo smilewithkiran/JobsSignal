@@ -865,6 +865,12 @@ async function fbGet(path) {
 const S_IV_CRED='js_iv_credits';
 const RZP_KEY_IV='rzp_live_STQSX6OgVKJ1cm';
 
+function isSuperUser(){
+  var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
+  var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
+  return lp==='9160075557'||lu.isAdmin===true;
+}
+
 async function checkInterviewCredits(){
   try{
     var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
@@ -1222,54 +1228,46 @@ function nextQuestion() {
 // ════════════════════════════════════════════════
 // SAVE TO FIREBASE
 // ════════════════════════════════════════════════
-async function saveSessionToFirebase() {
-  const p = S.profile;
-  const scores = S.answers.map(a=>a.score);
-  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length*10) : 0;
-  const cleanPhone = p.phone.replace(/\D/g,'');
-
-  const session = {
-    sessionId: S.sessionId,
-    name: p.name,
-    phone: cleanPhone,
-    email: p.email||'',
-    location: p.loc||'',
-    industry: p.industry,
-    role: p.role,
-    level: p.level,
-    company: p.company||'',
-    currentRole: p.currentRole||'',
-    skills: p.skills,
-    score: avg,
-    totalQuestions: S.questions.length,
-    timestamp: new Date().toISOString(),
-    date: new Date().toLocaleDateString('en-IN'),
-    answers: S.answers.map(a=>({
-      type: a.q.type,
-      difficulty: a.q.difficulty,
-      question: a.q.question,
-      answer: a.answer,
-      feedback: a.feedback,
-      score: a.score
-    }))
-  };
-
-  try {
-    // Save session
-    await fbPush(`interviews/${cleanPhone}`, session);
-    // Update candidate profile
-    const existing = await fbGet(`candidates/${cleanPhone}`) || {};
-    const sessions = (existing.totalSessions||0) + 1;
-    const bestScore = Math.max(existing.bestScore||0, avg);
-    await fbSet(`candidates/${cleanPhone}`, {
-      name:p.name, phone:cleanPhone, email:p.email||'',
-      location:p.loc||'', industry:p.industry, role:p.role,
-      level:p.level, company:p.company||'', skills:p.skills,
-      totalSessions:sessions, bestScore, lastScore:avg,
-      lastActive:new Date().toISOString()
-    });
-  } catch(e) { console.warn('Firebase save failed (non-critical):', e); }
+async function saveSessionToFirebase(){
+  try{
+    var p=S.profile;
+    var scores=(S.answers||[]).map(function(a){return a.score||0;});
+    var avg=scores.length?Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length):0;
+    var phone=(p.phone||'').replace(/\D/g,'');
+    if(!phone)return;
+    var now=new Date();
+    var sess={
+      name:p.name||'',phone:phone,email:p.email||'',
+      location:p.loc||p.location||'',industry:p.industry||'',
+      role:p.role||'',level:p.level||'',company:p.company||'',
+      currentRole:p.currentRole||'',skills:p.skills||'',
+      linkedIn:p.linkedIn||'',score:avg,
+      totalQuestions:S.questions?S.questions.length:0,
+      timedOut:!!_timerExpired,tabViolation:_tabViols>=2,
+      resumeFile:window.resumeFileName||'',
+      timestamp:now.toISOString(),date:now.toLocaleDateString('en-IN'),
+      answers:(S.answers||[]).map(function(a){
+        return{type:(a.q||{}).type||'',difficulty:(a.q||{}).difficulty||'',
+          question:(a.q||{}).question||'',answer:a.answer||'',
+          feedback:a.feedback||'',score:a.score||0};
+      })
+    };
+    await fetch(FB_DB+'/interviews/'+phone+'.json',{method:'POST',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(sess)});
+    var cRes=await fetch(FB_DB+'/candidates/'+phone+'.json');
+    var ex=cRes.ok?(await cRes.json()||{}):({})
+    await fetch(FB_DB+'/candidates/'+phone+'.json',{method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name:p.name||'',phone:phone,industry:p.industry||'',
+        role:p.role||'',level:p.level||'',skills:p.skills||'',
+        totalSessions:(ex.totalSessions||0)+1,
+        bestScore:Math.max(ex.bestScore||0,avg),lastScore:avg,
+        lastActive:now.toISOString()
+      })});
+  }catch(e){console.warn('Firebase save:',e);}
 }
+
 
 // ════════════════════════════════════════════════
 // BUILD REPORT
