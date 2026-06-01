@@ -869,17 +869,37 @@ async function checkInterviewCredits(){
   try{
     var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
     var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
-    // Superuser: unlimited
     if(lp==='9160075557'||lu.isAdmin===true) return {ok:true,reason:'superuser'};
     if(!lp) return {ok:false,reason:'not_logged_in'};
-    var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
-    var d=r.ok?await r.json():null;
-    if(!d||!d.free_used) return {ok:true,reason:'free_test',credits:0};
+
+    // 1. Check localStorage first (fastest, most reliable)
+    var cached=null;
+    try{cached=JSON.parse(localStorage.getItem(S_IV_CRED)||'null');}catch(e){}
+
+    // 2. Try to get fresh data from Firebase
+    var d=cached;
+    try{
+      var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
+      if(r.ok){
+        var fb=await r.json();
+        if(fb){
+          d=fb;
+          // Keep local cache in sync
+          localStorage.setItem(S_IV_CRED,JSON.stringify(d));
+        }
+      }
+    }catch(e){
+      // Firebase failed — fall back to localStorage cache
+      console.warn('Credits Firebase read failed, using cache');
+    }
+
+    if(!d||!d.free_used) return {ok:true,reason:'free_test'};
     var cr=parseInt(d.credits)||0;
     if(cr>0) return {ok:true,reason:'paid_credits',credits:cr};
     return {ok:false,reason:'all_used',credits:0};
   }catch(e){return {ok:true,reason:'error'};}
 }
+
 
 
 async function markCreditUsed(){
@@ -888,20 +908,45 @@ async function markCreditUsed(){
     var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
     if(lp==='9160075557'||lu.isAdmin===true) return;
     if(!lp) return;
-    var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
-    var d=r.ok?(await r.json()||{}):{free_used:false,credits:0};
-    if(!d.free_used){d.free_used=true;}
-    else if((parseInt(d.credits)||0)>0){d.credits=(parseInt(d.credits)||0)-1;}
-    await fetch(FB_DB+'/interview_credits/'+lp+'.json',{method:'PUT',
-      headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+
+    // Read current state (localStorage first, then Firebase)
+    var d={free_used:false,credits:0};
+    try{
+      var cached=JSON.parse(localStorage.getItem(S_IV_CRED)||'null');
+      if(cached) d=cached;
+    }catch(e){}
+    try{
+      var r=await fetch(FB_DB+'/interview_credits/'+lp+'.json');
+      if(r.ok){
+        var fb=await r.json();
+        if(fb) d=fb;
+      }
+    }catch(e){}
+
+    // Update credit state
+    if(!d.free_used){
+      d.free_used=true;
+    }else if((parseInt(d.credits)||0)>0){
+      d.credits=(parseInt(d.credits)||0)-1;
+    }
+
+    // IMMEDIATELY write to localStorage (synchronous — always works)
     localStorage.setItem(S_IV_CRED,JSON.stringify(d));
-  }catch(e){}
+
+    // Write to Firebase (async — best effort)
+    fetch(FB_DB+'/interview_credits/'+lp+'.json',{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(d)
+    }).catch(function(e){console.warn('Credits Firebase write failed:',e);});
+  }catch(e){console.error('markCreditUsed error:',e);}
 }
+
 
 function startIvPayment(){
   var lu=JSON.parse(localStorage.getItem(S_USER)||'{}');
   var opts={
-    key:RZP_KEY_IV,amount:9900,currency:'INR',
+    key:RZP_KEY_IV,amount:19900,currency:'INR',
     name:'JobsSignal',description:'AI Mock Interview — 3 Tests',
     handler:async function(resp){
       var lp=(lu.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
@@ -979,7 +1024,6 @@ async function startInterview() {
     var m=document.getElementById('ivPayModal');if(m)m.style.display='flex';
     return;
   }
-  await markCreditUsed();
   var _genTimeout=null;
   goView('viewGenerating');
   document.getElementById('genTitle').textContent = `Crafting your ${S.profile.industry} interview...`;
@@ -993,6 +1037,7 @@ async function startInterview() {
 
   try {
     S.questions = await generateQuestions();
+    await markCreditUsed(); // Only consume credit after successful generation
     setTimeout(()=>{ renderQuestion(0); var _cfg=getLevelConfig(S.profile.level);_tabViols=0;_timerExpired=false;_ivActive=true;startTimer(_cfg.mins);
   goView('viewInterview'); }, 2900);
   } catch(err){
@@ -1535,6 +1580,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
-<div id="ivPayModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="ivPaySub" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Your 1 free test has been used</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:12px;font-weight:700;color:#0a0f1e;margin-top:2px;">3 Tests &bull; &#8377;33/test</div></div><button onclick="startIvPayment()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Buy 3 Tests for &#8377;99 &#8594;</button><button onclick="document.getElementById('ivPayModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
+<div id="ivPayModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="ivPaySub" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Your 1 free test has been used</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;199</div><div style="font-size:12px;font-weight:700;color:#0a0f1e;margin-top:2px;">4 Tests (1 free+3)</div></div><button onclick="startIvPayment()" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Buy 4 Tests for &#8377;199 &#8594;</button><button onclick="document.getElementById('ivPayModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
 </body>
 </html>

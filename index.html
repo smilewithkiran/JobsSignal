@@ -615,7 +615,7 @@ h2,h3{margin-top:0;}
         </div>
         <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 2px 12px rgba(10,15,30,.06);">
           <div style="font-size:22px;">&#127881;</div>
-          <div><div style="font-size:13px;font-weight:800;color:var(--ink);">1 Free Test — No Card Needed</div><div style="font-size:12px;color:var(--soft);margin-top:2px;">Additional tests: 3 for &#8377;99 (&#8377;33/test)</div></div>
+          <div><div style="font-size:13px;font-weight:800;color:var(--ink);">1 Free Test — No Card Needed</div><div style="font-size:12px;color:var(--soft);margin-top:2px;">Additional tests: 3 &#127919; AI Mock add-on &#8212; &#8377;199 (4 tests)</div></div>
         </div>
       </div>
       <!-- Score card preview -->
@@ -743,6 +743,7 @@ h2,h3{margin-top:0;}
             <li><span class="lck">✕</span> Salary Tools + CTC Calc</li>
             <li><span class="lck">✕</span> Freshers Job Search</li>
           </ul>
+          <div style="padding:6px 8px;margin-bottom:8px;background:var(--teal-pale);border-radius:6px;font-size:11px;color:var(--teal);">&#127919; AI Mock Interview add-on &#8212; &#8377;199 (4 tests: 1 free+3)</div>
           <button class="btn-price free" onclick="goTo('signupView')">Sign Up Free</button>
         </div>
         <div class="price-card" style="border:2px solid #0284c7;position:relative;">
@@ -756,6 +757,7 @@ h2,h3{margin-top:0;}
             <li><span class="chk">✓</span> ATS Score + AI Enhancement</li>
             <li><span class="chk">✓</span> Cover Letter Generator</li>
             <li><span class="chk">✓</span> No commitment · Try risk-free</li>
+            <li style="margin-top:6px;padding:5px 8px;background:var(--teal-pale);border-radius:6px;font-size:11px;color:var(--teal);">&#127919; AI Mock Interview add-on &#8212; &#8377;199 (4 tests: 1 free+3)</li>
           </ul>
           <button class="btn-price paid" style="background:#0284c7;" onclick="showUpgradeModal()">Start ₹9 Trial →</button>
         </div>
@@ -769,14 +771,13 @@ h2,h3{margin-top:0;}
             <li><span class="chk">✓</span> Google Jobs + LinkedIn Jobs &amp; Posts</li>
             <li><span class="chk">✓</span> Walk-in Finder (all cities + locality)</li>
             <li><span class="chk">✓</span> Moonlighting contract checker</li>
-            <li><span class="chk">✓</span> CTC Calc · Hike · City Compare</li>
+            <li><span class="chk">✓</span> CTC Calc &middot; Hike &middot; City Compare</li>
             <li><span class="chk">✓</span> Offer Letter Analyser</li>
             <li><span class="chk">✓</span> Freshers Jobs (Google + LinkedIn)</li>
             <li><span class="chk">✓</span> Women Returnship Job Search</li>
-            <li><span class="chk">✓</span> 🌐 16+ Job Portals</li>
-            <li><span class="chk">✓</span> 📝 AI Cover Letter Generator</li>
-            <li><span class="chk">✓</span> 🎯 AI Mock Interview — 1 free test</li>
-            <li style="padding-left:22px;font-size:11px;color:var(--soft);">Additional 3 tests for ₹99 (₹33/test)</li>
+            <li><span class="chk">✓</span> &#127760; 16+ Job Portals</li>
+            <li><span class="chk">✓</span> &#128221; AI Cover Letter Generator</li>
+            <li><li style="margin-top:6px;padding:5px 8px;background:var(--teal-pale);border-radius:6px;font-size:11px;color:var(--teal);">&#127919; AI Mock Interview add-on &#8212; &#8377;199 (4 tests: 1 free+3)</li></li>
           </ul>
           <button class="btn-price paid" onclick="goTo('signupView');showUpgradeModal()">Get Full Access →</button>
         </div>
@@ -1699,30 +1700,9 @@ async function startPaymentWO(){
     theme:{color:'#0284c7'}};
   try{new Razorpay(opts).open();}catch(e){showToast('Payment failed to load','amber');}
 }
-function checkMockInterviewAccess(){
-  if(!currentUser){
-    showToast('Please log in to access AI Mock Interview','amber');
-    goTo('loginView');
-    return;
-  }
-  var ph=(currentUser.phone||'').toString().replace(/[^0-9]/g,'').slice(-10);
-  // Superuser always gets full access
-  if(ph==='9160075557'||currentUser.isAdmin===true){
-    window.location.href='interview.html';
-    return;
-  }
-  // Check if user has any paid plan (₹9 trial, ₹9 WO, or ₹99)
-  var plan=null;try{plan=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
-  var hasPlan=isPaidUser()&&plan&&plan.expiry&&new Date(plan.expiry)>new Date();
-  if(!hasPlan){
-    // Free user — show mock interview purchase popup
-    var m=document.getElementById('mockIvBuyModal');
-    if(m)m.style.display='flex';
-    return;
-  }
-  // Paid plan user — go to interview.html (credit system handles the rest)
-  window.location.href='interview.html';
-}
+function checkMockInterviewAccess(){if(!currentUser){showToast('Log in first','amber');goTo('loginView');return;}window.location.href='interview.html';}
+
+
 
 
 function checkShowWelcomeOffer(){
@@ -1791,6 +1771,14 @@ function buildDash(user,paid){
     _pb.style.display='flex';
     var _ub2=document.getElementById('topUpgradeBtn');if(_ub2)_ub2.style.display='none';
   }else if(_pb){_pb.style.display='none';}
+
+  var _fr=!isSuperUser()&&!isPaidUser();
+  document.querySelectorAll('[data-plan="paid"]').forEach(function(b){b.style.display=_fr?'none':'';});
+  var _fls=document.getElementById('freeLockedSection');
+  if(_fls)_fls.style.display=_fr?'block':'none';
+  ['walkin','salary','moonlight','fresher','portals'].forEach(function(k){
+    var t=document.getElementById('tt-'+k);if(t)t.style.display=_fr?'none':'';
+  });
 }
 
 function tileClick(tool){
@@ -3693,7 +3681,7 @@ window.autoEnhanceATS=autoEnhanceATS;
     <button onclick="dismissWelcomeOffer()" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Skip &mdash; continue with free plan</button>
   </div>
 </div>
-<div id="mockUpgradeModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:400px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="mockUpgradeSubText" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:16px;line-height:1.6;"></div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:14px;font-weight:800;">Upgrade to &#8377;99</div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#0284c7;">&#8377;99</div></div><div id="mockUpgradeDaysInfo" style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:8px;"></div><div style="font-size:11px;color:#374151;line-height:1.8;">&#10003; All current plan features<br>&#10003; &#127919; AI Mock Interview &#8212; 1 free test<br>&#10003; 3 more tests for &#8377;99 (&#8377;33/test)</div></div><button onclick="startPayment();document.getElementById('mockUpgradeModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockUpgradeModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
+<div id="mockUpgradeModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:400px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="mockUpgradeSubText" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:16px;line-height:1.6;"></div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:14px;font-weight:800;">Upgrade to &#8377;99</div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#0284c7;">&#8377;99</div></div><div id="mockUpgradeDaysInfo" style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:8px;"></div><div style="font-size:11px;color:#374151;line-height:1.8;">&#10003; All current plan features<br>&#10003; &#127919; AI Mock Interview &#8212; 1 free test<br>&#10003; 3 more tests &#127919; AI Mock add-on &#8212; &#8377;199 (4 tests)</div></div><button onclick="startPayment();document.getElementById('mockUpgradeModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockUpgradeModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
 
-<div id="mockIvBuyModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:380px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.4);"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">AI Mock Interview</div><div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Upgrade your plan to unlock AI Mock Interview</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:13px;font-weight:700;color:#0a0f1e;margin-top:4px;">3 Tests + 1st Test Free</div><div style="font-size:11px;color:#6b7280;margin-top:2px;">30-day full access &bull; AI Mock Interview included</div></div><div style="font-size:12px;color:#374151;line-height:2;margin-bottom:16px;">&#10003; 1 free mock test immediately<br>&#10003; 3 more tests for &#8377;99 (&#8377;33/test)<br>&#10003; 30-day access to all 17 portals + tools</div><button onclick="startPayment();document.getElementById('mockIvBuyModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockIvBuyModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div></body>
+<div id="mockIvBuyModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:380px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.4);"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">AI Mock Interview</div><div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Upgrade your plan to unlock AI Mock Interview</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:13px;font-weight:700;color:#0a0f1e;margin-top:4px;">3 Tests + 1st Test Free</div><div style="font-size:11px;color:#6b7280;margin-top:2px;">30-day full access &bull; AI Mock Interview included</div></div><div style="font-size:12px;color:#374151;line-height:2;margin-bottom:16px;">&#10003; 1 free mock test immediately<br>&#10003; 3 more tests &#127919; AI Mock add-on &#8212; &#8377;199 (4 tests)<br>&#10003; 30-day access to all 17 portals + tools</div><button onclick="startPayment();document.getElementById('mockIvBuyModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockIvBuyModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div></body>
 </html>
