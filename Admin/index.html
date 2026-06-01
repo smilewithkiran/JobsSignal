@@ -152,7 +152,8 @@ tr:hover td{background:rgba(255,255,255,.03);}
 <div id="adminApp">
 
   <!-- STATS -->
-  <div class="stats-grid">
+  <button onclick="wipeAllData()" style="background:#7f1d1d;color:#fca5a5;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;">&#128465; Wipe All Data</button>
+<div class="stats-grid">
     <div class="stat-card"><div class="label">Total Users</div><div class="value" id="statTotal">—</div><div class="sub">Registered</div></div>
     <div class="stat-card"><div class="label">Paid Users</div><div class="value" id="statPaid" style="color:#86efac;">—</div><div class="sub">Active plans</div></div>
     <div class="stat-card"><div class="label">Expired Plans</div><div class="value" id="statExp" style="color:#fca5a5;">—</div><div class="sub">Need renewal</div></div>
@@ -468,7 +469,9 @@ async function loadAll(){
           city    : u.city   || '—',
           joinedAt: u.createdAt || u.joinedAt || '—',
           status,
-          daysLeft,
+          daysLeft: daysLeft||0,
+          planType: pl ? (pl.planType||'free') : 'free',
+          mockCredits: 0, mockFreeUsed: false,
           expiry  : exp ? exp.toLocaleDateString('en-IN') : '—',
           txnId   : pl && pl.txnId  ? pl.txnId  : '—',
           paidAt  : pl && pl.paidAt ? new Date(pl.paidAt).toLocaleDateString('en-IN') : '—',
@@ -482,6 +485,9 @@ async function loadAll(){
     });
     updateStats();
     loadVisitors();
+    var mcR=await fetch(FB_DB+'/interview_credits.json').catch(function(){return{ok:false};});
+    var mcD=mcR.ok?(await mcR.json()||{}):({})
+    _allUsers.forEach(function(u){var mc=mcD[u.phone];if(mc){u.mockCredits=parseInt(mc.credits)||0;u.mockFreeUsed=!!mc.free_used;}});
     renderUsers();
     loadIvData();
     showToast('Loaded '+_allUsers.length+' users');
@@ -525,11 +531,12 @@ function renderUsers(){
     +'<th>Expiry</th><th>Mock Credits</th><th>Actions</th>'
     +'</tr></thead><tbody>';
   list.forEach(function(u){
+    var ptLabel={'free':'₹0 Free','trial':'₹9 Trial 7d','WO':'₹9 Welcome 30d','paid':'₹99 Full 30d'}[u.planType]||u.planType||'Free';
     var badge=u.status==='paid'
-      ?'<span class="badge-paid">Paid &middot; '+u.planType+' &middot; '+u.daysLeft+'d left</span>'
+      ?'<span class="badge-paid">'+ptLabel+' · '+u.daysLeft+'d</span>'
       :u.status==='expired'
       ?'<span class="badge-exp">Expired</span>'
-      :'<span class="badge-free">Free</span>';
+      :'<span class="badge-free">'+ptLabel+'</span>';
     var mockBadge=u.mockCredits>0
       ?'<span style="color:#0284c7;font-size:11px;">'+u.mockCredits+' tests left</span>'
       :u.mockFreeUsed
@@ -686,6 +693,20 @@ async function adminBlockUser(phone){
     if(r.ok){showToast(phone+' blocked','green');setTimeout(loadUsers,800);}
     else{showToast('Failed to block user','err');}
   }catch(e){showToast('Error','err');}
+}
+
+
+async function wipeAllData(){
+  if(!confirm('DELETE ALL users, plans, and data?\nThis cannot be undone.'))return;
+  var r=prompt('Type DELETE to confirm wiping all data:');
+  if(r!=='DELETE'){showToast('Cancelled','amber');return;}
+  showToast('Wiping...','amber');
+  var paths=['/users','/phones','/plans','/interview_credits','/interviews','/wo_seen','/blocked'];
+  var res=await Promise.all(paths.map(function(p){
+    return fetch(FB_DB+p+'.json',{method:'DELETE'}).then(function(r){return r.ok;}).catch(function(){return false;});
+  }));
+  showToast('Done. Reloading...','green');
+  setTimeout(loadAll,1200);
 }
 
 
