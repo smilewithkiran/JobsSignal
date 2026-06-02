@@ -1,119 +1,39 @@
-// ============================================================
-// JobsSignal Service Worker — PWA
-// Version: 1.0
-// ============================================================
+// JobsSignal Service Worker — Network First Strategy
+// v3 — always fetches fresh on network, cache is fallback only
+const CACHE_NAME = 'jobssignal-v3';
 
-const CACHE_NAME     = 'jobssignal-v1';
-const OFFLINE_URL    = '/';
-
-// Files to cache for offline/fast loading
-const CACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
-];
-
-// ── INSTALL: Cache core assets ────────────────────────────
+// On install: activate immediately, cache only the root
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[SW] Caching app shell');
-        return cache.addAll(CACHE_ASSETS).catch(err => {
-          // Partial cache failure is OK — just log it
-          console.warn('[SW] Some assets failed to cache:', err);
-        });
-      })
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(cache => cache.add('/'))
   );
 });
 
-// ── ACTIVATE: Clean old caches ────────────────────────────
+// On activate: delete all old caches so deploys always show fresh content
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames
-          .filter(name => name !== CACHE_NAME)
-          .map(name => {
-            console.log('[SW] Deleting old cache:', name);
-            return caches.delete(name);
-          })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
-// ── FETCH: Network first, cache fallback ─────────────────
+// Fetch: network first, cache fallback (offline support)
 self.addEventListener('fetch', event => {
-  // Skip non-GET, cross-origin, and API requests
-  if (
-    event.request.method !== 'GET' ||
-    !event.request.url.startsWith(self.location.origin) ||
-    event.request.url.includes('countapi') ||
-    event.request.url.includes('razorpay') ||
-    event.request.url.includes('fonts.googleapis') ||
-    event.request.url.includes('fonts.gstatic')
-  ) {
-    return; // Let browser handle it normally
-  }
+  if (event.request.method !== 'GET') return;
+  if (!event.request.url.startsWith('http')) return;
 
   event.respondWith(
-    // Try network first (always get fresh content)
     fetch(event.request)
-      .then(networkResponse => {
-        // Cache successful responses
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
+      .then(response => {
+        // Only cache successful responses from same origin
+        if (response.ok && response.type === 'basic') {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
-        return networkResponse;
+        return response;
       })
-      .catch(() => {
-        // Network failed — serve from cache
-        return caches.match(event.request).then(cachedResponse => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          // If nothing in cache — serve the main app (index.html)
-          return caches.match('/index.html');
-        });
-      })
+      .catch(() => caches.match(event.request))
   );
 });
-
-// ── PUSH NOTIFICATIONS (Android) ──────────────────────────
-self.addEventListener('push', event => {
-  const data = event.data ? event.data.json() : {};
-  const title   = data.title   || '📡 JobsSignal';
-  const options = {
-    body:    data.body    || 'New recruiter signals available in your city!',
-    icon:    '/icon-192.png',
-    badge:   '/icon-192.png',
-    vibrate: [200, 100, 200],
-    data:    { url: data.url || '/' },
-    actions: [
-      { action: 'search', title: '📡 Search Now' },
-      { action: 'dismiss', title: 'Later' }
-    ]
-  };
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
-});
-
-// ── NOTIFICATION CLICK ────────────────────────────────────
-self.addEventListener('notificationclick', event => {
-  event.notification.close();
-  if (event.action === 'search' || !event.action) {
-    event.waitUntil(
-      clients.openWindow(event.notification.data.url || '/')
-    );
-  }
-});
-
-console.log('[SW] JobsSignal service worker loaded ✅');
