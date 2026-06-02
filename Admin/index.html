@@ -497,13 +497,21 @@ async function loadAll(){
 }
 
 function updateStats(){
-  var paid = _allUsers.filter(function(u){return u.status==='paid';}).length;
-  var exp  = _allUsers.filter(function(u){return u.status==='expired';}).length;
-  document.getElementById('statTotal').textContent = _allUsers.length;
-  document.getElementById('statPaid').textContent  = paid;
-  document.getElementById('statExp').textContent   = exp;
-  document.getElementById('statRev').textContent   = '₹'+(paid*99).toLocaleString('en-IN');
+  var paid=_allUsers.filter(function(u){return u.status==='paid';}).length;
+  var exp =_allUsers.filter(function(u){return u.status==='expired';}).length;
+  // Revenue: calculate from actual plan type (WO/trial=9, paid=99, mock=199)
+  var rev=_allUsers.reduce(function(sum,u){
+    if(u.status!=='paid'&&u.status!=='expired')return sum;
+    var planAmt={'free':0,'trial':9,'WO':9,'paid':99}[u.planType]||0;
+    var mockAmt=(u.mockCredits>0||u.mockFreeUsed)?199:0;
+    return sum+planAmt+mockAmt;
+  },0);
+  document.getElementById('statTotal').textContent=_allUsers.length;
+  document.getElementById('statPaid').textContent=paid;
+  document.getElementById('statExp').textContent=exp;
+  document.getElementById('statRev').textContent='\u20b9'+rev.toLocaleString('en-IN');
 }
+
 
 function setTab(tab){
   _curTab = tab;
