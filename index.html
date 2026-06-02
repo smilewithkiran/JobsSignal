@@ -1306,8 +1306,26 @@ h2,h3{margin-top:0;}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script>
+// ─── PAID FEATURE GATE ──────────────────────────────────
+// Not logged in → signup page
+// Logged in + free → plan select modal
+// Paid / superuser → returns true
+function requirePaid(){
+  if(isSuperUser())return true;
+  if(!currentUser){
+    showToast('Sign up to unlock this feature','amber');
+    goTo('signupView');
+    return false;
+  }
+  if(!isPaidUser()){
+    showPlanSelectModal(currentUser);
+    return false;
+  }
+  return true;
+}
+
 function openATSGoogleJobs(){
-  if(!isPaidUser()){showUpgradeModal();return;}
+  if(!requirePaid())return;
   var role=(document.getElementById('ats_job_role')||{value:''}).value.trim();
   var city=(document.getElementById('ats_job_city')||{value:''}).value;
   if(!role){showToast('Enter a job role first','amber');return;}
@@ -2543,7 +2561,7 @@ function showJobsTab(tab){
 }
 
 function openATSNaukri(){
-  if(!isPaidUser()){showUpgradeModal();return;}
+  if(!requirePaid())return;
   var aq=getATSJobQuery();
   var skill=aq?aq.skill:(lastSearchedSkill||'');
   var city=aq?aq.city:(lastSearchedCity||(currentUser&&currentUser.city)||'India');
@@ -2553,7 +2571,7 @@ function openATSNaukri(){
   window.open('https://www.naukri.com/'+sl+'-jobs-in-'+cl,'_blank');
 }
 function openLinkedInJobs(){
-  if(!isPaidUser()){showUpgradeModal();return;}
+  if(!requirePaid())return;
   var aq=getATSJobQuery();
   var skill=aq?aq.skill:(lastSearchedSkill||'');
   var city=aq?aq.city:(lastSearchedCity||(currentUser&&currentUser.city)||'Hyderabad');
@@ -2561,7 +2579,7 @@ function openLinkedInJobs(){
   window.open('https://www.linkedin.com/jobs/search/?keywords='+encodeURIComponent(skill)+'&location=India&geoId=102713980','_blank');
 }
 function openLinkedInPosts(){
-  if(!isPaidUser()){showUpgradeModal();return;}
+  if(!requirePaid())return;
   var r=atsLastResult;
   var skill=(r&&r.role)||((currentUser&&currentUser.skill)||'Software Engineer');
   window.open('https://www.linkedin.com/search/results/content/?keywords='+encodeURIComponent('"'+skill+'" hiring')+'&datePosted=%22past-week%22','_blank');
@@ -3537,6 +3555,7 @@ async function openFresherNaukri(){
 }
 
 async function generateCoverLetter(){
+  if(!requirePaid())return;
   var ta=document.getElementById('atsPasteText');
   var resumeTxt=(ta?ta.value.trim():'')||atsResumeText||'';
   if(resumeTxt.length<50){showToast('Please check your ATS score first','amber');return;}
