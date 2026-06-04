@@ -157,7 +157,7 @@ tr:hover td{background:rgba(255,255,255,.03);}
     <div class="stat-card"><div class="label">Total Users</div><div class="value" id="statTotal">—</div><div class="sub">Registered</div></div>
     <div class="stat-card"><div class="label">Paid Users</div><div class="value" id="statPaid" style="color:#86efac;">—</div><div class="sub">Active plans</div></div>
     <div class="stat-card"><div class="label">Expired Plans</div><div class="value" id="statExp" style="color:#fca5a5;">—</div><div class="sub">Need renewal</div></div>
-    <div class="stat-card"><div class="label">Revenue</div><div class="value" id="statRev" style="color:#e8943a;">—</div><div class="sub">₹99 × paid</div></div>
+    <div class="stat-card"><div class="label">Revenue</div><div class="value" id="statRev" style="color:#e8943a;">—</div><div class="sub">Trial/WO ₹9 · Full ₹99 · Mock ₹199</div></div>
   </div>
 
   <!-- VISITORS -->
@@ -380,11 +380,15 @@ async function loadIvData(){
   if(wrap)wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--soft);">Loading...</div>';
   try{
     var r=await fetch(FB_DB+'/interviews.json');
-    if(!r.ok){if(wrap)wrap.innerHTML='Firebase error';return;}
+    if(!r.ok){
+    var errTxt='Firebase error (HTTP '+r.status+'). Check Firebase rules allow /interviews read.';
+    if(wrap)wrap.innerHTML='<div style="padding:16px;color:#dc2626;font-size:12px;">'+errTxt+'<br><br>If no interviews yet: <a onclick="loadIvData()" style="cursor:pointer;color:var(--teal);">Retry</a></div>';
+    return;
+  }
     var data=await r.json();
     if(!data){if(wrap)wrap.innerHTML='<div style="padding:20px;color:var(--soft);">No interview data yet.</div>';return;}
     var sessions=[];
-    Object.values(data).forEach(function(ps){if(typeof ps==='object')Object.values(ps).forEach(function(s){if(s&&s.sessionId)sessions.push(s);});});
+    Object.values(data).forEach(function(ps){if(typeof ps==='object')Object.values(ps).forEach(function(s){if(s&&(s.phone||s.name))sessions.push(s);});});
     sessions.sort(function(a,b){return(b.timestamp||'').localeCompare(a.timestamp||'');});
     window._ivAll=sessions;
     var total=sessions.length;
