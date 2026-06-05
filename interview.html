@@ -702,21 +702,33 @@ function autoSubmitTimer(){
   showToast('Time\'s up! Submitting…','err');
   setTimeout(function(){buildReport(true,false);saveSessionToFirebase();goView('viewReport');},1400);
 }
-// Tab detection
-document.addEventListener('visibilitychange',function(){
+// ─── Focus / Tab / App switch detection ─────────────────────
+// Fires on: tab switch, Alt+Tab, app switch, window minimize, desktop click
+function _onFocusLost(){
   if(!_ivActive)return;
-  if(document.hidden){
-    _tabViols++;
-    if(_tabViols>=2){
-      _ivActive=false;stopTimer();
-      markCreditUsed();
-      setTimeout(function(){showCancelledPopup();},400);
-    }else{
-      var b=document.getElementById('tabWarningBanner');
-      if(b){b.style.display='block';}
-      showToast('⚠️ Warning! Tab switch detected. One more = auto-submit.','err');
-    }
+  _tabViols++;
+  if(_tabViols>=2){
+    _ivActive=false;stopTimer();
+    markCreditUsed();
+    setTimeout(function(){showCancelledPopup();},400);
+  }else{
+    var b=document.getElementById('tabWarningBanner');
+    if(b){b.style.display='block';b.textContent='⚠️ Warning: You left the test window! One more = test cancelled.';}
+    showToast('⚠️ Warning! Window/tab left. One more = cancelled.','err');
   }
+}
+
+// Tab visibility (browser tab switch)
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden)_onFocusLost();
+});
+
+// Window blur (Alt+Tab, app switch, desktop click, minimize)
+window.addEventListener('blur',function(){
+  // Small delay to avoid false positives from internal focus changes
+  setTimeout(function(){
+    if(!document.hasFocus())_onFocusLost();
+  },200);
 });
 function checkNameMismatch(name){
   try{
@@ -1247,7 +1259,9 @@ async function saveSessionToFirebase(){
     var phone=(p.phone||'').replace(/\D/g,'');
     if(!phone)return;
     var now=new Date();
+    var sessId='sess_'+phone+'_'+now.getTime();
     var sess={
+      sessionId:sessId,
       name:p.name||'',phone:phone,email:p.email||'',
       location:p.loc||p.location||'',industry:p.industry||'',
       role:p.role||'',level:p.level||'',company:p.company||'',

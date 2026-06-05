@@ -2053,90 +2053,127 @@ async function fetchVisitorCount(){
   }catch(e){}
 }
 
-// ─── GOOGLE SIGN-IN ─────────────────────────────────────────
+// ─── GOOGLE SIGN-IN (OAuth2 popup — reliable on all browsers) ────
 var GOOGLE_CLIENT_ID='139714755798-7m4r6glhvn4vapeqkg3uc2j1tveh4t12.apps.googleusercontent.com';
-var _googleEmail='';
-var _googleEncodedEmail='';
+var _googlePending=null;
+var _gTokenClient=null;
 
-function encodeEmail(e){
-  return e.replace(/\./g,'_dot_').replace(/@/g,'_at_');
-}
-function decodeJWT(token){
-  try{
-    var b=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-    while(b.length%4)b+='=';
-    return JSON.parse(atob(b));
-  }catch(e){return null;}
-}
 function initGoogleSignIn(){
-  if(typeof google==='undefined')return;
-  google.accounts.id.initialize({
-    client_id:GOOGLE_CLIENT_ID,
-    callback:handleGoogleCredential,
-    auto_select:false,
-    cancel_on_tap_outside:true
-  });
-}
-function triggerGoogleSignIn(){
   if(typeof google==='undefined'){
-    showToast('Google Sign-In loading... try again in a moment','amber');
+    // Retry once GSI script loads
+    window.addEventListener('load',function(){
+      setTimeout(initGoogleSignIn,500);
+    });
     return;
   }
-  google.accounts.id.prompt(function(n){
-    if(n.isSkippedMoment()||n.isDismissedMoment()){
-      // fallback: use popup flow
-      google.accounts.id.renderButton(
-        document.getElementById('googleBtnContainer'),
-        {theme:'outline',size:'large',width:360,text:'continue_with',shape:'pill'}
-      );
-    }
-  });
+  try{
+    // Initialize credential flow (for JWT decode)
+    google.accounts.id.initialize({
+      client_id:GOOGLE_CLIENT_ID,
+      callback:handleGoogleCredential,
+      auto_select:false
+    });
+    // Initialize OAuth2 token client (opens real popup)
+    _gTokenClient=google.accounts.oauth2.initTokenClient({
+      client_id:GOOGLE_CLIENT_ID,
+      scope:'email profile openid',
+      callback:handleGoogleOAuth
+    });
+  }catch(e){console.warn('Google Sign-In init failed:',e);}
 }
-async function handleGoogleCredential(response){
-  var payload=decodeJWT(response.credential);
-  if(!payload){showToast('Google sign-in failed','err');return;}
-  var email=(payload.email||'').toLowerCase().trim();
-  var name=payload.name||'';
-  var enc=encodeEmail(email);
-  // Determine context: login or signup
-  var lv=document.getElementById('loginView');
-  var onLogin=lv&&lv.style.display!=='none'&&lv.style.display!=='';
-  if(onLogin){
-    // GOOGLE LOGIN: find phone via email index
-    showToast('Signing in with Google...','green');
-    try{
-      var r=await fetch(FB_DB+'/emails/'+enc+'.json');
-      var d=r.ok?await r.json():null;
-      if(!d||!d.phone){
-        showToast('No account found. Sign up first.','amber');
-        goTo('signupView');
-        return;
-      }
-      var phone=d.phone;
-      var br=await fetch(FB_DB+'/blocked/'+phone+'.json');
-      var bd=br.ok?await br.json():null;
-      if(bd&&bd.blocked){showToast('Account is blocked. Contact support.','err');return;}
-      var ur=await fetch(FB_DB+'/users/'+phone+'.json');
-      var user=ur.ok?await ur.json():null;
-      if(!user||!user.phone){showToast('Account not found','err');return;}
-      var pr=await fetch(FB_DB+'/plans/'+phone+'.json');
-      var plan=pr.ok?await pr.json():null;
-      if(plan&&plan.planType)localStorage.setItem(S_PLAN,JSON.stringify(plan));
-      localStorage.setItem(S_USER,JSON.stringify(user));
-      currentUser=user;
-      if(!plan||!plan.planType){showPlanSelectModal(user);return;}
-      enterDash(user,false);
-    }catch(e){showToast('Login failed. Try again.','err');}
-  }else{
-    // GOOGLE SIGNUP: pre-fill name, still need phone
-    _googleEmail=email;
-    _googleEncodedEmail=enc;
-    var nf=document.getElementById('su_name');
-    if(nf){nf.value=name;nf.style.background='#f0fdf4';nf.title='Filled from Google';}
-    showToast('Google connected ✔ Enter your phone to continue','green');
-    setTimeout(function(){var p=document.getElementById('su_phone');if(p)p.focus();},200);
+
+function googleSignIn(){
+  if(typeof google==='undefined'||!_gTokenClient){
+    showToast('Google Sign-In is loading, try again in a moment','amber');
+    setTimeout(initGoogleSignIn,300);
+    return;
+  }
+  try{
+    _gTokenClient.requestAccessToken({prompt:''});
+  }catch(e){
+    showToast('Google Sign-In failed. Try again.','err');
   }
 }
+
+async function handleGoogleOAuth(tokenResponse){
+  if(tokenResponse.error){
+    showToast('Google sign-in cancelled','amber');
+    return;
+  }
+  try{
+    showToast('Signing in...','');
+    var res=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{
+      headers:{'Authorization':'Bearer '+tokenResponse.access_token}
+    });
+    var info=await res.json();
+    await handleGoogleUser(info.sub,info.name||'',info.email||'',info.picture||'');
+  }catch(e){
+    showToast('Could not get Google profile. Try again.','err');
+  }
+}
+
+function decodeGoogleJWT(token){
+  try{
+    var base64=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+    return JSON.parse(atob(base64));
+  }catch(e){return null;}
+}
+
+async function handleGoogleCredential(response){
+  var payload=decodeGoogleJWT(response.credential);
+  if(!payload){showToast('Google sign-in failed','err');return;}
+  await handleGoogleUser(payload.sub,payload.name||'',payload.email||'',payload.picture||'');
+}
+
+async function handleGoogleUser(gsub,gname,gemail,gpicture){
+  showToast('Signing in with Google...','');
+  try{
+    var lr=await fetch(FB_DB+'/google_users/'+gsub+'.json');
+    var ld=await lr.json();
+    if(ld&&ld.phone){
+      var phone=ld.phone;
+      var blr=await fetch(FB_DB+'/blocked/'+phone+'.json');
+      var bld=await blr.json();
+      if(bld&&bld.blocked){showToast('Account blocked. Contact support.','err');return;}
+      var ur=await fetch(FB_DB+'/users/'+phone+'.json');
+      var ud=await ur.json();
+      if(!ud){showToast('Account not found. Please sign up.','amber');return;}
+      var pr=await fetch(FB_DB+'/plans/'+phone+'.json');
+      var pd=await pr.json();
+      if(pd&&pd.planType)localStorage.setItem(S_PLAN,JSON.stringify(pd));
+      localStorage.setItem(S_USER,JSON.stringify(ud));
+      currentUser=ud;
+      var firstName=(ud.name||gname||'').split(' ')[0];
+      showToast('Welcome back '+firstName+'!','green');
+      if(!pd||!pd.planType){showPlanSelectModal(ud);return;}
+      enterDash(ud,isPaidUser());
+      return;
+    }
+  }catch(e){}
+  // New Google user
+  _googlePending={sub:gsub,name:gname,email:gemail,picture:gpicture};
+  var nameEl=document.getElementById('su_name');
+  if(nameEl)nameEl.value=gname;
+  var gbadge=document.getElementById('gsu_badge');
+  if(gbadge){gbadge.style.display='flex';}
+  var gel=document.getElementById('gsu_badge_email');
+  if(gel)gel.textContent=gemail;
+  goTo('signupView');
+  showToast('Google connected. Complete your profile.','green');
+}
+
+async function linkGoogleAccount(phone){
+  if(!_googlePending||!_googlePending.sub)return;
+  try{
+    await fetch(FB_DB+'/google_users/'+_googlePending.sub+'.json',{
+      method:'PUT',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phone:phone,email:_googlePending.email,
+        name:_googlePending.name,linkedAt:new Date().toISOString()})
+    });
+    _googlePending=null;
+  }catch(e){}
+}
+
 
 // ─── GOOGLE SIGN-IN ──────────────────────────────────────
 var GOOGLE_CLIENT_ID='139714755798-7m4r6glhvn4vapeqkg3uc2j1tveh4t12.apps.googleusercontent.com';
