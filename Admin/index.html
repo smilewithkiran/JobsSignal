@@ -464,7 +464,7 @@ async function loadAll(){
         var u   = ud[ph] || {};
         var pl  = pd && pd[ph] ? pd[ph] : null;
         var exp = pl && pl.expiry ? new Date(pl.expiry) : null;
-        var status = !pl ? 'free' : exp > now ? 'paid' : 'expired';
+        var status = (!pl||pl.planType==='free') ? 'free' : exp>now ? 'paid' : 'expired';
         var daysLeft = exp ? Math.ceil((exp - now) / 86400000) : null;
         _allUsers.push({
           phone   : ph,
@@ -543,7 +543,7 @@ function renderUsers(){
     +'<th>Expiry</th><th>Mock Credits</th><th>Actions</th>'
     +'</tr></thead><tbody>';
   list.forEach(function(u){
-    var ptLabel={'free':'₹0 Free','trial':'₹9 Trial 7d','WO':'₹9 Welcome 30d','paid':'₹99 Full 30d'}[u.planType]||u.planType||'Free';
+    var ptLabel={'free':'₹0 Free','WO':'₹9 Welcome 30d','paid':'₹99 Full 30d'}[u.planType]||u.planType||'Free';
     var badge=u.status==='paid'
       ?'<span class="badge-paid">'+ptLabel+' · '+u.daysLeft+'d</span>'
       :u.status==='expired'
@@ -566,8 +566,7 @@ function renderUsers(){
         +'style="font-size:11px;padding:4px 6px;border-radius:6px;border:1px solid #374151;background:#1e293b;color:#e2e8f0;cursor:pointer;">'
         +'<option value="">Set Plan...</option>'
         +'<option value="free">Free (deactivate)</option>'
-        +'<option value="trial">Trial ₹9 / 7d</option>'
-        +'<option value="wo">Welcome Offer ₹9 / 30d</option>'
+        +        +'<option value="wo">Welcome Offer ₹9 / 30d</option>'
         +'<option value="paid">₹99 / 30d Full</option>'
         +'</select>'
         +'<button class="btn btn-sm" data-ph="'+u.phone+'" '
