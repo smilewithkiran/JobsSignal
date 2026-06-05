@@ -1530,54 +1530,55 @@ async function isPaidUser(){
 async function doLogin(){
   var phone=(document.getElementById('li_phone')||{value:''}).value.replace(/[^0-9]/g,'').slice(-10);
   var errEl=document.getElementById('liErr');
-  if(errEl){errEl.style.display='none';}
+  if(errEl)errEl.style.display='none';
   if(phone.length<10){showToast('Enter a valid 10-digit number','amber');return;}
-  // Super user bypass
+  // Superuser
   if(phone===SUPER){
-    isPaid=true;  // Ensure paid flag set immediately
-    atsPublicMode=false;  // Clear any public mode
+    isPaid=true;atsPublicMode=false;
     enterDash({phone:phone,name:'Admin',skill:'Full Stack Developer',city:'Hyderabad',isAdmin:true},true);
     return;
   }
   // Block check
   try{
     var br=await fetch(FB_DB+'/blocked/'+phone+'.json');
-    var bd=await br.json();
-    if(bd&&bd.phone){if(errEl){errEl.textContent='This number is blocked.';errEl.style.display='block';}return;}
+    var brd=await br.json();
+    if(brd&&brd.blocked){if(errEl){errEl.textContent='This number is blocked. Contact support.';errEl.style.display='block';}return;}
   }catch(e){}
-  // Firebase lookup
+  // Look up user
   try{
     var r=await fetch(FB_DB+'/users/'+phone+'.json');
     var d=await r.json();
-    if(!d||!d.phone){if(errEl){errEl.textContent='Number not registered. Sign up first.';errEl.style.display='block';}return;}
-    var plr=await fetch(FB_DB+'/plans/'+phone+'.json');
-    var pld=await plr.json();
-    var paid=false;
-    if(pld&&pld.expiry){paid=new Date(pld.expiry)>new Date();}
+    if(!d||!d.phone){
+      if(errEl){errEl.textContent='Number not registered. Please sign up first.';errEl.style.display='block';}
+      return;
+    }
+    // Fetch plan fresh from Firebase
+    var pld=null;
+    try{
+      var plr=await fetch(FB_DB+'/plans/'+phone+'.json');
+      var plraw=await plr.json();
+      if(plraw&&plraw.planType)pld=plraw;
+    }catch(e){}
+    // Store user and plan
     localStorage.setItem(S_USER,JSON.stringify(d));
-    if(pld)localStorage.setItem(S_PLAN,JSON.stringify(pld))      // First login without plan: show plan selection
-      var _existPlan=null;
-      try{
-        var _pr=await fetch(FB_DB+'/plans/'+phone+'.json');
-        var _pd=await _pr.json();
-        if(_pd&&_pd.planType){
-          _existPlan=_pd;
-          localStorage.setItem(S_PLAN,JSON.stringify(_pd));
-        }
-      }catch(e){}
-      if(!_existPlan){
-        localStorage.setItem(S_USER,JSON.stringify(d));
-        currentUser=d;
-        showPlanSelectModal(d);
-        return;
-      }
-      // Recalculate paid from freshly-written localStorage plan
-      var _fp2=null;try{_fp2=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
-      var _freshPaid=!!(  _fp2&&_fp2.planType&&_fp2.planType!=='free'
-                        &&_fp2.expiry&&new Date(_fp2.expiry)>new Date());
-      enterDash(d,_freshPaid);
-  }catch(e){showToast('Login failed. Check internet.','amber');}
+    if(pld)localStorage.setItem(S_PLAN,JSON.stringify(pld));
+    currentUser=d;
+    // First time — no plan yet: show plan select
+    if(!pld){
+      showPlanSelectModal(d);
+      return;
+    }
+    // Calculate fresh paid status from plan
+    var isFree=pld.planType==='free';
+    var notExpired=pld.expiry&&new Date(pld.expiry)>new Date();
+    var _freshPaid=!isFree&&notExpired;
+    showToast('Welcome back '+((d.name||'').split(' ')[0]||'')+'!','green');
+    enterDash(d,_freshPaid);
+  }catch(e){
+    showToast('Login failed. Check your connection.','amber');
+  }
 }
+
 
 async function suNext(dir){
   var errEl=document.getElementById('suErr');
@@ -1865,9 +1866,9 @@ function buildDash(user,paid){
   var _pb=document.getElementById('planBadge');
   var _plan2=null;try{_plan2=JSON.parse(localStorage.getItem(S_PLAN));}catch(e){}
   if(_pb&&isPaidUser()&&_plan2&&_plan2.planType&&_plan2.planType!=='free'){
-    var _td2=_plan2.days||0,_now2=Date.now();
-    var _pa2=_plan2.paidAt?new Date(_plan2.paidAt):new Date(_now2-(_td2*86400000));
-    var _dl2=Math.max(0,_td2-Math.floor((_now2-_pa2)/86400000));
+    var _now2=Date.now();
+    // Calculate days left from expiry date directly — not from stored days field
+    var _dl2=_plan2.expiry?Math.max(0,Math.ceil((new Date(_plan2.expiry)-_now2)/86400000)):0;
     var _pt=_plan2.planType||'paid';
     _pb.textContent=_pt==='WO'?'🎁 Welcome Plan · '+_dl2+' days left'
       :_pt==='trial'?'⚡ Trial · '+_dl2+' days left'
