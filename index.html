@@ -1595,8 +1595,13 @@ async function suNext(dir){
       var ct=(document.getElementById('su_city')||{value:''}).value;
       var sk=(document.getElementById('su_skill')||{value:''}).value.trim();
       var ex=(document.getElementById('su_exp')||{value:''}).value;
-      if(!nm){showToast('Enter your full name','amber');return;}
-      if(ph.length<10){showToast('Enter valid 10-digit mobile number','amber');return;}
+      var manualVisible=document.getElementById('su_manual_form')&&document.getElementById('su_manual_form').style.display!=='none';
+      if(manualVisible&&!nm){showToast('Enter your full name','amber');return;}
+      if(manualVisible&&ph.length<10){showToast('Enter valid 10-digit mobile number','amber');return;}
+      if(!manualVisible&&!_googlePending){showToast('Sign up with Google or fill manually','amber');return;}
+      // For Google users, use Google name
+      if(!nm&&_googlePending)nm=_googlePending.name||'';
+      if(!ph&&_googlePending)ph='g_'+(_googlePending.sub||'').slice(-10);
       if(ph===SUPER){if(errEl){errEl.textContent='This number cannot be registered.';errEl.style.display='block';}return;}
       if(!ct){showToast('Select your city','amber');return;}
       if(!sk){showToast('Enter at least one key skill','amber');return;}
@@ -1610,7 +1615,32 @@ async function suNext(dir){
         if(d1&&d1.phone)taken=true;
       }catch(e){}
       if(btn){btn.textContent='Continue →';btn.disabled=false;}
-      if(taken){if(errEl){errEl.textContent='Number already registered. Please log in.';errEl.style.display='block';}return;}
+      if(taken){
+        if(_googlePending&&_googlePending.sub){
+          // Auto-link Google to existing account and login
+          showToast('Linking Google to your existing account...','');
+          var exUR=await fetch(FB_DB+'/users/'+ph+'.json');
+          var exUD=await exUR.json();
+          if(exUD&&exUD.phone){
+            await fetch(FB_DB+'/google_users/'+_googlePending.sub+'.json',{
+              method:'PUT',headers:{'Content-Type':'application/json'},
+              body:JSON.stringify({phone:ph,email:_googlePending.email,name:_googlePending.name,linkedAt:new Date().toISOString()})
+            });
+            _googlePending=null;
+            var exPR=await fetch(FB_DB+'/plans/'+ph+'.json');
+            var exPD=await exPR.json();
+            if(exPD&&exPD.planType)localStorage.setItem(S_PLAN,JSON.stringify(exPD));
+            localStorage.setItem(S_USER,JSON.stringify(exUD));
+            currentUser=exUD;
+            showToast('Google linked! Welcome back '+((exUD.name||'').split(' ')[0])+'!','green');
+            if(!exPD||!exPD.planType){showPlanSelectModal(exUD);return;}
+            enterDash(exUD,isPaidUser());
+            return;
+          }
+        }
+        if(errEl){errEl.textContent='Number already registered. Please log in.';errEl.style.display='block';}
+        return;
+      }
     }
     if(cur===1){suUpdateTotal();}
   }
@@ -2127,11 +2157,12 @@ async function handleGoogleCredential(response){
 }
 
 async function handleGoogleUser(gsub,gname,gemail,gpicture){
-  showToast('Signing in with Google...','');
   try{
+    // Check if this Google account already registered
     var lr=await fetch(FB_DB+'/google_users/'+gsub+'.json');
     var ld=await lr.json();
     if(ld&&ld.phone){
+      // Existing user — login directly
       var phone=ld.phone;
       var blr=await fetch(FB_DB+'/blocked/'+phone+'.json');
       var bld=await blr.json();
@@ -2151,17 +2182,23 @@ async function handleGoogleUser(gsub,gname,gemail,gpicture){
       return;
     }
   }catch(e){}
-  // New Google user
+  // New Google user — pre-fill signup form
   _googlePending={sub:gsub,name:gname,email:gemail,picture:gpicture};
   var nameEl=document.getElementById('su_name');
   if(nameEl)nameEl.value=gname;
+  // Show Google badge, hide manual form toggle
   var gbadge=document.getElementById('gsu_badge');
   if(gbadge){gbadge.style.display='flex';}
   var gel=document.getElementById('gsu_badge_email');
   if(gel)gel.textContent=gemail;
+  // Keep manual form hidden
+  var manualForm=document.getElementById('su_manual_form');
+  if(manualForm)manualForm.style.display='none';
   goTo('signupView');
-  showToast('Google connected. Complete your profile.','green');
+  setTimeout(showGoogleProfileFields,200);
+  showToast('Google connected. Fill your details to complete registration.','green');
 }
+
 
 async function linkGoogleAccount(phone){
   if(!_googlePending||!_googlePending.sub)return;
@@ -2263,6 +2300,34 @@ async function linkGoogleAccount(phone){
     });
     _googlePending=null;
   }catch(e){}
+}
+
+function toggleManualForm(){
+  var mf=document.getElementById('su_manual_form');
+  var pf=document.getElementById('su_profile_fields');
+  var btn=document.getElementById('su_s0_cont');
+  var tgl=document.getElementById('su_manual_toggle');
+  if(!mf)return;
+  var showing=mf.style.display!=='none';
+  if(showing){
+    mf.style.display='none';
+    pf.style.display='none';
+    btn.style.display='none';
+    if(tgl)tgl.textContent='Fill manually instead ↓';
+  }else{
+    mf.style.display='block';
+    pf.style.display='block';
+    btn.style.display='block';
+    if(tgl)tgl.textContent='Hide manual form ↑';
+  }
+}
+
+function showGoogleProfileFields(){
+  // Called after Google sign-in — show city/skills/exp but NOT name/phone
+  var pf=document.getElementById('su_profile_fields');
+  var btn=document.getElementById('su_s0_cont');
+  if(pf)pf.style.display='block';
+  if(btn)btn.style.display='block';
 }
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -3951,53 +4016,42 @@ window.autoEnhanceATS=autoEnhanceATS;
 
 
 <div class="view" id="loginView" style="display:none;grid-template-columns:1.1fr .9fr;">
-  <!-- Left: Teal bold -->
   <div class="auth-left-panel" style="background:var(--teal);display:flex;flex-direction:column;justify-content:center;padding:28px 36px;position:relative;overflow:hidden;">
-    <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none;">Signal</div>
+    <div style="position:absolute;bottom:-60px;left:-20px;font-family:'Fraunces',serif;font-size:200px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;">Signal</div>
     <div style="position:relative;z-index:1;">
-      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;margin-bottom:24px;">🇮🇳 Made for Indian Job Seekers
+      <h1 style="font-family:'Fraunces',serif;font-size:clamp(32px,3.5vw,50px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:16px;">Welcome<br>back.</h1>
+      <p style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:28px;">Your job search command centre.<br>Picks up right where you left off.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:10px;color:rgba(255,255,255,.8);font-size:13px;"><span style="color:#4ade80;font-weight:700;">&#10003;</span>ATS scores &amp; resume tools</div>
+        <div style="display:flex;gap:10px;color:rgba(255,255,255,.8);font-size:13px;"><span style="color:#4ade80;font-weight:700;">&#10003;</span>17 job portals in one place</div>
+        <div style="display:flex;gap:10px;color:rgba(255,255,255,.8);font-size:13px;"><span style="color:#4ade80;font-weight:700;">&#10003;</span>AI Mock Interview</div>
       </div>
-      <h1 style="font-family:'Fraunces',serif;font-size:clamp(36px,4vw,56px);font-weight:900;color:#fff;line-height:1.06;letter-spacing:-1.5px;margin-bottom:20px;">Get your next<br><span style="color:#f5b96e;">Signal.</span></h1>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:36px;">
-        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>ATS Scorecard — instant AI analysis</div>
-        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Walk-in Finder — live drives near you</div>
-        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Women Returnship — 12 programmes</div>
-        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>🌐 12 Job Portals — one search</div>
-        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75);font-size:13px;font-weight:600;"><span style="width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;">✓</span>Salary Tools — CTC + offer check</div>
-      </div>
-      <div style="display:flex;gap:24px;">
-        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">14K+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Resumes</div></div>
-        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">40+</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Cities</div></div>
-        <div style="text-align:left;"><div style="font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:#fff;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;">Full Access</div></div>
-      </div>
-      <a href="#" onclick="goTo('landingView');return false;" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);font-size:13px;font-weight:600;text-decoration:none;margin-top:20px;padding:7px 0;border-top:1px solid rgba(255,255,255,.2);">← Home</a>
-      
     </div>
   </div>
-  <!-- Right: Login form -->
-  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;">
-    <div style="width:100%;max-width:360px;position:relative;">
-      
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
-        <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <div style="background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 32px;overflow-y:auto;">
+    <div style="width:100%;max-width:360px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+        <svg width="30" height="30" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(232,148,58,.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="9" fill="none" stroke="rgba(232,148,58,.7)" stroke-width="1.5"/><circle cx="18" cy="18" r="3.5" fill="#e8943a"/><line x1="18" y1="18" x2="27" y2="9" stroke="#e8943a" stroke-width="1.6" stroke-linecap="round"/></svg>
         <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:800;">Jobs<span style="color:var(--amber);">Signal</span></div>
       </div>
-      <div style="font-size:22px;font-weight:800;margin-bottom:6px;">Welcome back 👋</div>
-      <div style="font-size:13px;color:var(--soft);margin-bottom:28px;">Log in to access your job tools</div>
-      <div style="margin-bottom:16px;">
-        <label style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Mobile Number</label>
-        <input id="li_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter your 10-digit number" style="width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink);transition:.2s;" onkeydown="if(event.key==='Enter')doLogin()">
+      <div style="font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px;">Log in</div>
+      <div style="font-size:13px;color:var(--soft);margin-bottom:24px;">to your JobsSignal account</div>
+      <div id="liErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:12px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
+      <button onclick="googleSignIn()" style="width:100%;padding:13px 14px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#374151;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+        <span style="font-size:11px;color:var(--soft);font-weight:600;">or login with phone</span>
+        <div style="flex:1;height:1px;background:var(--border);"></div>
       </div>
-      <div id="liErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
-      <button onclick="doLogin()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(232,148,58,.25);">Log In →</button>
-        <div style="display:flex;align-items:center;gap:10px;margin:14px 0 4px;"><div style="flex:1;height:1px;background:var(--border);"></div><div style="font-size:11px;color:var(--soft);font-weight:600;">OR</div><div style="flex:1;height:1px;background:var(--border);"></div></div>
-        <button onclick="googleSignIn()" style="width:100%;padding:12px 14px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;color:#374151;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
-
-      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--soft);">Don't have an account? <button onclick="goTo('signupView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;padding:8px 4px;min-height:44px;text-decoration:underline;">Sign up free →</button></div>
-      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--soft);">📊 ATS Checker is always free — <a onclick="goTo('atsTabDirect')" style="color:var(--amber);font-weight:700;cursor:pointer;">no login needed</a></div>
+      <input id="li_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key==='Enter')doLogin()">
+      <button onclick="doLogin()" style="width:100%;padding:13px;background:var(--teal);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-bottom:16px;">Log In &rarr;</button>
+      <div style="text-align:center;font-size:13px;color:var(--soft);">Don't have an account? <button onclick="goTo('signupView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;text-decoration:underline;">Sign up free &rarr;</button></div>
     </div>
   </div>
 </div>
+
 
 <div class="view" id="signupView" style="display:none;grid-template-columns:1.1fr .9fr;">
 
@@ -4053,56 +4107,32 @@ window.autoEnhanceATS=autoEnhanceATS;
       <div id="suErr" style="display:none;color:var(--red);font-size:12px;margin-bottom:12px;padding:8px 12px;background:#fef2f2;border-radius:6px;"></div>
 
       <!-- STEP 1: Profile -->
-      <div id="sstep0" style="display:block;">
-        <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:3px;">Your Profile</div>
-        <div style="font-size:12px;color:var(--soft);margin-bottom:14px;">Tell us about yourself</div>
-
-        <button onclick="googleSignIn()" style="width:100%;padding:12px 14px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;color:#374151;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
-
-        <div id="gsu_badge" style="display:none;align-items:center;gap:8px;padding:8px 12px;background:#f0f9ff;border:1.5px solid #0284c7;border-radius:10px;margin-bottom:8px;font-size:11px;color:#0284c7;font-weight:600;">
-          &#10003; Google connected: <span id="gsu_badge_email" style="font-weight:800;"></span>
+      <div       <div id="sstep0" style="display:block;">
+        <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:3px;">Create your account</div>
+        <div style="font-size:12px;color:var(--soft);margin-bottom:18px;">Start with Google — fastest way to sign up</div>
+        <button onclick="googleSignIn()" style="width:100%;padding:13px 14px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:#374151;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
+        <div id="gsu_badge" style="display:none;align-items:center;gap:8px;padding:9px 12px;background:#f0f9ff;border:1.5px solid #0284c7;border-radius:10px;margin-bottom:12px;font-size:12px;color:#0284c7;font-weight:600;">&#10003; Google connected: <span id="gsu_badge_email" style="font-weight:800;"></span></div>
+        <div style="text-align:center;margin-bottom:14px;">
+          <button onclick="toggleManualForm()" id="su_manual_toggle" style="background:none;border:none;color:var(--soft);font-size:12px;cursor:pointer;font-family:inherit;text-decoration:underline;">Fill manually instead &darr;</button>
         </div>
-
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="flex:1;height:1px;background:var(--border);"></div>
-          <span style="font-size:11px;color:var(--soft);font-weight:600;">or fill manually</span>
-          <div style="flex:1;height:1px;background:var(--border);"></div>
+        <div id="su_manual_form" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <input id="su_name"  type="text" placeholder="Full Name *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+            <input id="su_phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+            <div style="font-size:11px;color:#9ca3af;">&#128274; Your data is safe &mdash; we never share or sell your information</div>
+          </div>
         </div>
-
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <input id="su_name"  type="text" placeholder="Full Name *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
-          <input id="su_phone" type="tel"  inputmode="numeric" maxlength="10" placeholder="10-digit Mobile Number *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
-          <div style="font-size:11px;color:#9ca3af;">&#128274; Your data is safe &mdash; we never share or sell your information</div>
-          <select id="su_city" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
-            <option value="">Select City *</option>
-            <option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option>
-            <option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option>
-            <option>Pune</option><option>Ahmedabad</option><option>Noida</option>
-            <option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option>
-            <option>Surat</option><option>Lucknow</option><option>Visakhapatnam</option>
-            <option>Kochi</option><option>India (Other)</option>
-          </select>
-          <input id="su_skill" type="text" placeholder="Key Skills (e.g. HR, Java, Sales) *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
-          <select id="su_exp" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
-            <option value="">Experience *</option>
-            <option value="0-2 Years">0-2 Years (Fresher)</option>
-            <option value="2-5 Years">2-5 Years</option>
-            <option value="5-8 Years">5-8 Years</option>
-            <option value="8-12 Years">8-12 Years</option>
-            <option value="12-18 Years">12-18 Years</option>
-            <option value="18-20 Years">18-20 Years</option>
-            <option value="20+ Years">20+ Years</option>
-          </select>
+        <div id="su_profile_fields" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+            <select id="su_city" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;"><option value="">Select City *</option><option>Hyderabad</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi NCR</option><option>Chennai</option><option>Kolkata</option><option>Pune</option><option>Ahmedabad</option><option>Noida</option><option>Gurgaon</option><option>Chandigarh</option><option>Jaipur</option><option>Surat</option><option>Lucknow</option><option>Visakhapatnam</option><option>Kochi</option><option>India (Other)</option></select>
+            <input id="su_skill" type="text" placeholder="Key Skills (e.g. HR, Java, Sales) *" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;">
+            <select id="su_exp" style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink);box-sizing:border-box;"><option value="">Experience *</option><option value="0-2 Years">0-2 Years (Fresher)</option><option value="2-5 Years">2-5 Years</option><option value="5-8 Years">5-8 Years</option><option value="8-12 Years">8-12 Years</option><option value="12-18 Years">12-18 Years</option><option value="18-20 Years">18-20 Years</option><option value="20+ Years">20+ Years</option></select>
+          </div>
         </div>
-        <button id="su_s0_cont" onclick="suNext(1)" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-top:6px;">Continue &rarr;</button>
-        <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--soft);">
-          Already have an account?
-          <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:12px;text-decoration:underline;">Log in &rarr;</button>
-        </div>
-      </div>
-
-      <!-- STEP 2: Plan -->
-      <div id="sstep1" style="display:none;">
+        <button id="su_s0_cont" onclick="suNext(1)" style="display:none;width:100%;padding:13px;background:linear-gradient(135deg,var(--amber),#d4832e);border:none;color:#fff;font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;margin-top:10px;">Continue &rarr;</button>
+        <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--soft);">Already have an account? <button onclick="goTo('loginView')" style="background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;font-family:inherit;font-size:12px;text-decoration:underline;">Log in &rarr;</button></div>
+      
+<div id="sstep1" style="display:none;">
         <div style="font-size:18px;font-weight:800;color:var(--teal);margin-bottom:3px;">Choose Your Plan</div>
         <div style="font-size:12px;color:var(--soft);margin-bottom:14px;">You can upgrade anytime</div>
         <input type="radio" name="su_plan" id="su_plan_free" value="free" checked style="display:none" onchange="suUpdateTotal();suHighlightPlan()">
@@ -4238,7 +4268,6 @@ window.autoEnhanceATS=autoEnhanceATS;
 <div id="mockUpgradeModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:400px;width:100%;"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">Unlock AI Mock Interview</div><div id="mockUpgradeSubText" style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:16px;line-height:1.6;"></div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-size:14px;font-weight:800;">Upgrade to &#8377;99</div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#0284c7;">&#8377;99</div></div><div id="mockUpgradeDaysInfo" style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:8px;"></div><div style="font-size:11px;color:#374151;line-height:1.8;">&#10003; All current plan features<br>&#10003; &#127919; AI Mock Interview &#8212; 1 free test<br>&#10003; 3 more tests &#127919; AI Mock add-on &#8212; &#8377;199 (4 tests)</div></div><button onclick="startPayment();document.getElementById('mockUpgradeModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockUpgradeModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div>
 
 <div id="mockIvBuyModal" style="display:none;position:fixed;inset:0;z-index:2100;background:rgba(10,15,30,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;"><div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:380px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.4);"><div style="text-align:center;font-size:28px;margin-bottom:8px;">&#127919;</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:#0a0f1e;text-align:center;margin-bottom:6px;">AI Mock Interview</div><div style="font-size:12px;color:#6b7280;text-align:center;margin-bottom:18px;">Upgrade your plan to unlock AI Mock Interview</div><div style="background:#f0f9ff;border:2px solid #0284c7;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px;"><div style="font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:#0284c7;">&#8377;99</div><div style="font-size:13px;font-weight:700;color:#0a0f1e;margin-top:4px;">3 Tests + 1st Test Free</div><div style="font-size:11px;color:#6b7280;margin-top:2px;">30-day full access &bull; AI Mock Interview included</div></div><div style="font-size:12px;color:#374151;line-height:2;margin-bottom:16px;">&#10003; 1 free mock test immediately<br>&#10003; 3 more tests &#127919; AI Mock add-on &#8212; &#8377;199 (4 tests)<br>&#10003; 30-day access to all 17 portals + tools</div><button onclick="startPayment();document.getElementById('mockIvBuyModal').style.display='none';" style="width:100%;background:#0284c7;color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">Upgrade to &#8377;99 &#8594;</button><button onclick="document.getElementById('mockIvBuyModal').style.display='none'" style="width:100%;background:none;border:none;color:#9ca3af;font-size:11px;cursor:pointer;font-family:inherit;">Cancel</button></div></div></body>
-</html
   <!-- PWA Install Banner (shown only when install prompt available) -->
   <div id="pwaInstallBanner" style="display:none;align-items:center;gap:12px;margin:0 0 14px;padding:12px 14px;background:linear-gradient(135deg,#0f172a,#1e293b);border:1px solid rgba(2,132,199,.3);border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.2);">
     <div style="width:40px;height:40px;border-radius:10px;background:#080c14;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -4253,4 +4282,4 @@ window.autoEnhanceATS=autoEnhanceATS;
     <button onclick="installPWA()" style="background:#0284c7;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">Install &#8595;</button>
     <button onclick="document.getElementById('pwaInstallBanner').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,.35);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">&times;</button>
   </div>
->
+</html>
